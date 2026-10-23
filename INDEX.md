@@ -50,3 +50,11 @@ All 732 master PDFs are categorized into intuitive standard folders (using zero-
 ## 3. Master Raw PDFs (`original_pdfs/`)
 
 All 732 master PDF documents remain preserved in [`original_pdfs/`](original_pdfs/).
+
+---
+
+## 4. Credit, Trademark & Legal Disclaimer
+
+- **Non-Affiliation**: This repository is an independent, non-commercial open preservation archive created exclusively for historical documentation, educational research, and developer reference. It is not affiliated with, endorsed by, sponsored by, or associated in any manner with Apple Inc.
+- **Trademarks**: Apple, macOS, Mac, OS X, iPhone, iPad, iPod, Apple Watch, Apple TV, Vision Pro, Xcode, Swift, Objective-C, Cocoa, QuickTime, AppleCare, and all related brand marks, logos, and product names are registered trademarks of Apple Inc. in the United States and other jurisdictions.
+- **Intellectual Property & Fair Use**: All product manuals, environmental specifications, whitepapers, technical documentation, and legacy sample codes remain the copyrighted intellectual property of Apple Inc. and their respective original authors. All materials are archived strictly under the Fair Use doctrine for non-profit educational and preservation purposes.
