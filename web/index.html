@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apple Document & Developer Archive</title>
+  <meta name="description" content="Browse, search, and download 5,900+ official Apple product manuals, environmental reports, and legacy developer archives.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: rgba(22, 27, 46, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --pill-bg: rgba(255, 255, 255, 0.05);
+      --pill-hover: rgba(56, 189, 248, 0.15);
+      --btn-bg: #1e293b;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(11, 15, 25, 0.85);
+      border-bottom: 1px solid var(--card-border);
+      padding: 1rem 1.5rem;
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--text-main);
+    }
+
+    .brand h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand span {
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: var(--accent-glow);
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid var(--card-border);
+    }
+
+    .btn-github {
+      background: #1e293b;
+      color: #fff;
+    }
+    .btn-github:hover {
+      background: #334155;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-drive {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+    .btn-drive:hover {
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 2rem 1.5rem;
+    }
+
+    /* Search & Stats Section */
+    .hero-search {
+      margin-bottom: 2rem;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 1rem 1.25rem 1rem 3rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      color: var(--text-main);
+      font-size: 1.05rem;
+      outline: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      fill: var(--text-muted);
+    }
+
+    /* Category Filter Pills */
+    .filters-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-pill {
+      background: var(--pill-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .filter-pill:hover {
+      background: var(--pill-hover);
+      color: var(--text-main);
+    }
+
+    .filter-pill.active {
+      background: var(--accent);
+      color: #0b0f19;
+      font-weight: 600;
+      border-color: var(--accent);
+    }
+
+    /* Results Header */
+    .results-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Document Grid */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
+    }
+
+    .doc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .doc-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-top {
+      margin-bottom: 1rem;
+    }
+
+    .badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-pdf { background: #ef4444; color: #fff; }
+    .badge-zip { background: #3b82f6; color: #fff; }
+    .badge-html { background: #10b981; color: #fff; }
+    .badge-sub { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
+
+    .doc-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .doc-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .action-btn {
+      flex: 1;
+      text-align: center;
+      padding: 0.5rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .page-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 0.5rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .page-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .page-info {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: rgba(11, 15, 25, 0.9);
+      margin-top: 3rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <svg viewBox="0 0 170 170">
+          <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.07-7.73-7.94-12.09-14.61-6.75-10.4-12-21.78-15.76-34.13-3.75-12.35-5.63-23.77-5.63-34.25 0-14.86 3.6-27.18 10.81-36.96 7.21-9.78 16.48-14.79 27.81-15.03 4.89 0 10.15 1.25 15.77 3.75 5.62 2.5 9.4 3.8 11.34 3.9 1.63 0 5.49-1.25 11.59-3.75 6.1-2.5 11.34-3.65 15.72-3.45 11.31.54 20.35 4.89 27.12 13.06-9.89 6-14.73 14.3-14.51 24.9.22 8.37 3.42 15.38 9.61 21.03 6.19 5.65 13.59 8.86 22.21 9.63-2.18 6.85-4.89 13.8-8.13 20.85zm-24.96-107.5c0 5.87-2.12 11.52-6.35 16.96-4.24 5.43-9.46 9.13-15.66 11.1-1.3-4.67-1.14-9.77.49-15.31 1.63-5.54 4.79-10.38 9.48-14.51 4.24-3.7 8.7-6.09 13.38-7.17 1.09 2.93 1.66 5.91 1.7 8.93z"/>
+        </svg>
+        <h1>Apple Archive Explorer</h1>
+        <span>5,951 Items</span>
+      </div>
+
+      <div class="nav-actions">
+        <a href="https://github.com/shiliaiwei/apple-docs-archive" target="_blank" class="nav-btn btn-github">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub Repository
+        </a>
+        <a href="https://drive.google.com/drive/folders/1tr0Emo4S2xsmU4dGNGdGRumQBo38uveP" target="_blank" class="nav-btn btn-drive">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+          Google Drive Master
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero-search">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search 5,951 Apple documents, sample codes, guides, or specifications..." autofocus>
+      </div>
+
+      <div class="filters-wrap" id="filterContainer">
+        <div class="filter-pill active" data-filter="all">All Documents (5,951)</div>
+        <div class="filter-pill" data-filter="pdf">Master PDFs (732)</div>
+        <div class="filter-pill" data-filter="sample">Sample Code ZIPs (1,952)</div>
+        <div class="filter-pill" data-filter="qa">Technical Q&As (1,519)</div>
+        <div class="filter-pill" data-filter="notes">Technical Notes (810)</div>
+        <div class="filter-pill" data-filter="guides">Guides & Books (689)</div>
+        <div class="filter-pill" data-filter="releases">Release Notes (222)</div>
+      </div>
+    </div>
+
+    <div class="results-bar">
+      <span id="resultsCount">Loading documents database...</span>
+      <span id="pageIndicator"></span>
+    </div>
+
+    <div class="docs-grid" id="docsGrid"></div>
+
+    <div class="pagination" id="pagination">
+      <button class="page-btn" id="prevBtn" disabled>&larr; Previous</button>
+      <span class="page-info" id="pageNumber">Page 1</span>
+      <button class="page-btn" id="nextBtn">Next &rarr;</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>Apple Document & Developer Archive &bull; Mirroring to <a href="https://github.com/shiliaiwei/apple-docs-archive" target="_blank">GitHub</a> & <a href="https://drive.google.com/drive/folders/1tr0Emo4S2xsmU4dGNGdGRumQBo38uveP" target="_blank">Google Drive</a> &bull; Deployed on Cloudflare Pages</p>
+  </footer>
+
+  <script>
+    let allDocs = [];
+    let filteredDocs = [];
+    let currentPage = 1;
+    const PAGE_SIZE = 48;
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    const grid = document.getElementById('docsGrid');
+    const searchInput = document.getElementById('searchInput');
+    const resultsCount = document.getElementById('resultsCount');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pageNumber = document.getElementById('pageNumber');
+    const filterContainer = document.getElementById('filterContainer');
+
+    // Fetch documents database
+    fetch('data.json')
+      .then(res => res.json())
+      .then(data => {
+        allDocs = data;
+        applyFilters();
+      })
+      .catch(err => {
+        resultsCount.innerText = 'Error loading documents database.';
+        console.error(err);
+      });
+
+    // Filter pill buttons
+    filterContainer.addEventListener('click', (e) => {
+      const pill = e.target.closest('.filter-pill');
+      if (!pill) return;
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      currentFilter = pill.dataset.filter;
+      currentPage = 1;
+      applyFilters();
+    });
+
+    // Search input debounce
+    let debounceTimer;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        searchQuery = e.target.value.trim().toLowerCase();
+        currentPage = 1;
+        applyFilters();
+      }, 200);
+    });
+
+    function applyFilters() {
+      filteredDocs = allDocs.filter(doc => {
+        // Filter pill
+        if (currentFilter === 'pdf' && doc.format !== 'PDF') return false;
+        if (currentFilter === 'sample' && doc.format !== 'ZIP') return false;
+        if (currentFilter === 'qa' && doc.type !== 'Technical Q&As') return false;
+        if (currentFilter === 'notes' && doc.type !== 'Technical Notes') return false;
+        if (currentFilter === 'guides' && doc.type !== 'Guides') return false;
+        if (currentFilter === 'releases' && doc.type !== 'Release Notes') return false;
+
+        // Search text
+        if (searchQuery) {
+          const title = (doc.title || '').toLowerCase();
+          const cat = (doc.category || '').toLowerCase();
+          const sub = (doc.subcategory || '').toLowerCase();
+          const fmt = (doc.format || '').toLowerCase();
+          if (!title.includes(searchQuery) && !cat.includes(searchQuery) && !sub.includes(searchQuery) && !fmt.includes(searchQuery)) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      renderResults();
+    }
+
+    function renderResults() {
+      resultsCount.innerText = `Showing ${filteredDocs.length.toLocaleString()} matching documents`;
+      const totalPages = Math.ceil(filteredDocs.length / PAGE_SIZE) || 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const end = start + PAGE_SIZE;
+      const pageDocs = filteredDocs.slice(start, end);
+
+      if (pageDocs.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #94a3b8;">No matching documents found. Try adjusting your search query.</div>';
+      } else {
+        grid.innerHTML = pageDocs.map(doc => {
+          let badgeClass = 'badge-html';
+          if (doc.format === 'PDF') badgeClass = 'badge-pdf';
+          if (doc.format === 'ZIP') badgeClass = 'badge-zip';
+
+          const sizeLabel = doc.size_kb > 0 ? `${(doc.size_kb / 1024).toFixed(1)} MB` : (doc.date || 'Legacy');
+          const isPdf = (doc.format === 'PDF');
+
+          return `
+            <div class="doc-card">
+              <div class="card-top">
+                <div class="badges-row">
+                  <span class="badge ${badgeClass}">${doc.format}</span>
+                  <span class="badge badge-sub">${escapeHtml(doc.subcategory || doc.category)}</span>
+                </div>
+                <div class="doc-title" title="${escapeHtml(doc.title)}">${escapeHtml(doc.title)}</div>
+                <div class="doc-meta">
+                  <span>${escapeHtml(doc.platform || doc.source)}</span>
+                  <span>&bull;</span>
+                  <span>${sizeLabel}</span>
+                </div>
+              </div>
+
+              <div class="card-actions">
+                ${isPdf 
+                  ? `<a href="${doc.gdrive_url}" target="_blank" class="action-btn btn-primary">Download PDF</a>`
+                  : `<a href="${doc.url}" target="_blank" class="action-btn btn-primary">${doc.format === 'ZIP' ? 'Download .ZIP' : 'View Guide'}</a>`
+                }
+                <a href="${doc.gdrive_url}" target="_blank" class="action-btn btn-secondary" title="View on Google Drive">Drive Mirror</a>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Pagination controls
+      pageNumber.innerText = `Page ${currentPage} of ${totalPages}`;
+      prevBtn.disabled = (currentPage <= 1);
+      nextBtn.disabled = (currentPage >= totalPages);
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderResults();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const totalPages = Math.ceil(filteredDocs.length / PAGE_SIZE);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderResults();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>
