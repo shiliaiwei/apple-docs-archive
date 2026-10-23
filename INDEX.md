@@ -3,7 +3,6 @@
 - **Master Corporate & Product PDFs**: 732 files
 - **Standard Categorized Library**: 732 files across 15 subcategories
 - **Legacy Developer Archive (1985–2018)**: 5,198 files across 8 resource categories
-- **Remote Google Drive**: [Apple_Developer_Accessories_and_Swift_PDFs](https://drive.google.com/drive/folders/1tr0Emo4S2xsmU4dGNGdGRumQBo38uveP)
 
 ---
 

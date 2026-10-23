@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Apple Document & Developer Archive</title>
-  <meta name="description" content="Browse, search, and download 5,900+ official Apple product manuals, environmental reports, and legacy developer archives.">
+  <meta name="description" content="Browse, search, and download 5,900+ official Apple product manuals, specifications, and legacy developer archives.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -115,15 +115,6 @@
     .btn-github:hover {
       background: #334155;
       border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-drive {
-      background: rgba(56, 189, 248, 0.1);
-      color: var(--accent);
-      border-color: rgba(56, 189, 248, 0.3);
-    }
-    .btn-drive:hover {
-      background: rgba(56, 189, 248, 0.2);
     }
 
     /* Main Container */
@@ -312,15 +303,6 @@
       background: #1d4ed8;
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-main);
-      border: 1px solid var(--card-border);
-    }
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
     /* Pagination */
     .pagination {
       display: flex;
@@ -391,10 +373,6 @@
           <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
           GitHub Repository
         </a>
-        <a href="https://drive.google.com/drive/folders/1tr0Emo4S2xsmU4dGNGdGRumQBo38uveP" target="_blank" class="nav-btn btn-drive">
-          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-          Google Drive Master
-        </a>
       </div>
     </div>
   </header>
@@ -432,7 +410,7 @@
   </main>
 
   <footer>
-    <p>Apple Document & Developer Archive &bull; Mirroring to <a href="https://github.com/shiliaiwei/apple-docs-archive" target="_blank">GitHub</a> & <a href="https://drive.google.com/drive/folders/1tr0Emo4S2xsmU4dGNGdGRumQBo38uveP" target="_blank">Google Drive</a> &bull; Deployed on Cloudflare Pages</p>
+    <p>Apple Document & Developer Archive &bull; Hosted on <a href="https://github.com/shiliaiwei/apple-docs-archive" target="_blank">GitHub</a> &bull; Deployed on Cloudflare Pages</p>
   </footer>
 
   <script>
@@ -451,7 +429,6 @@
     const pageNumber = document.getElementById('pageNumber');
     const filterContainer = document.getElementById('filterContainer');
 
-    // Fetch documents database
     fetch('data.json')
       .then(res => res.json())
       .then(data => {
@@ -463,7 +440,6 @@
         console.error(err);
       });
 
-    // Filter pill buttons
     filterContainer.addEventListener('click', (e) => {
       const pill = e.target.closest('.filter-pill');
       if (!pill) return;
@@ -474,7 +450,6 @@
       applyFilters();
     });
 
-    // Search input debounce
     let debounceTimer;
     searchInput.addEventListener('input', (e) => {
       clearTimeout(debounceTimer);
@@ -487,7 +462,6 @@
 
     function applyFilters() {
       filteredDocs = allDocs.filter(doc => {
-        // Filter pill
         if (currentFilter === 'pdf' && doc.format !== 'PDF') return false;
         if (currentFilter === 'sample' && doc.format !== 'ZIP') return false;
         if (currentFilter === 'qa' && doc.type !== 'Technical Q&As') return false;
@@ -495,7 +469,6 @@
         if (currentFilter === 'guides' && doc.type !== 'Guides') return false;
         if (currentFilter === 'releases' && doc.type !== 'Release Notes') return false;
 
-        // Search text
         if (searchQuery) {
           const title = (doc.title || '').toLowerCase();
           const cat = (doc.category || '').toLowerCase();
@@ -529,7 +502,7 @@
           if (doc.format === 'ZIP') badgeClass = 'badge-zip';
 
           const sizeLabel = doc.size_kb > 0 ? `${(doc.size_kb / 1024).toFixed(1)} MB` : (doc.date || 'Legacy');
-          const isPdf = (doc.format === 'PDF');
+          const btnLabel = doc.format === 'PDF' ? 'Download PDF' : (doc.format === 'ZIP' ? 'Download .ZIP' : 'View Guide');
 
           return `
             <div class="doc-card">
@@ -547,18 +520,13 @@
               </div>
 
               <div class="card-actions">
-                ${isPdf 
-                  ? `<a href="${doc.gdrive_url}" target="_blank" class="action-btn btn-primary">Download PDF</a>`
-                  : `<a href="${doc.url}" target="_blank" class="action-btn btn-primary">${doc.format === 'ZIP' ? 'Download .ZIP' : 'View Guide'}</a>`
-                }
-                <a href="${doc.gdrive_url}" target="_blank" class="action-btn btn-secondary" title="View on Google Drive">Drive Mirror</a>
+                <a href="${doc.url}" target="_blank" class="action-btn btn-primary">${btnLabel}</a>
               </div>
             </div>
           `;
         }).join('');
       }
 
-      // Pagination controls
       pageNumber.innerText = `Page ${currentPage} of ${totalPages}`;
       prevBtn.disabled = (currentPage <= 1);
       nextBtn.disabled = (currentPage >= totalPages);

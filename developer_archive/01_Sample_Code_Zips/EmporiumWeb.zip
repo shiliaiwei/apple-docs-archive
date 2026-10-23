@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="canonical" href="https://applepaydemo.apple.com/"/>
+    <meta name="Description" content="Learn how to enable Apple Pay on the web using Apple Pay JS."/>
+    <meta property="article:author" content="Apple Inc."/>
+    <meta name="author" content="Apple Inc."/>
+    <meta property="og:site_name" content="Apple Pay on the Web Demo"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Apple Pay on the Web Demo"/>
+    <meta property="og:description" content="Learn how to enable Apple Pay on the web using Apple Pay JS."/>
+    <meta property="og:locale" content="en_US"/>
+    <meta name="twitter:title" content="Apple Pay on the Web Demo"/>
+    <meta name="twitter:description" content="Learn how to enable Apple Pay on the web using Apple Pay JS."/>
+    <meta property="og:url" content="https://applepaydemo.apple.com/"/>
+    <meta property="og:image" content="https://applepaydemo.apple.com/static/img/og_image.8a9146626fb139b4d6bff3f091d47ca8.png"/>
+    <meta name="twitter:site" content="@Apple"/>
+    <meta name="twitter:image" content="https://applepaydemo.apple.com/static/img/og_image.8a9146626fb139b4d6bff3f091d47ca8.png"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <title>Apple Pay on the Web Demo</title>
+
+
+
+    <link rel="icon" type="image/x-icon" sizes="any" href="https://applepaydemo.apple.com/static/img/favicon.891e510219786f543ca998282ed99f45.ico" />
+    <link
+        rel="icon"
+        type="image/x-icon"
+        sizes="32x32"
+        href="https://applepaydemo.apple.com/static/img/favicon.891e510219786f543ca998282ed99f45.ico"
+    />
+    <link rel="mask-icon" type="image/x-icon" href="https://applepaydemo.apple.com/static/img/favicon.891e510219786f543ca998282ed99f45.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://applepaydemo.apple.com/static/img/apple-touch-icon.5f69d1cb82cd38f4a5bd89a03a285624.png" />
+
+
+
+
+
+    <link rel="stylesheet" href="https://applepaydemo.apple.com/static/css/application.42189cc7f70e697f15688ef439cbe11b.css">
+    <link rel="stylesheet" href="static/lib/css/prettify.css">
+    <link href="https://www.apple.com/wss/fonts?families=SF+Pro,v3|SF+Mono,v2|SF+Pro+Icons,v3" media="all"
+          rel="stylesheet" type="text/css">
+    <script src="/static/lib/js/prettify.js"></script>
+    <script src="/static/lib/js/lang-css.js"></script>
+    <script src="/static/lib/js/jquery.js"></script>
+    <script src="https://applepaydemo.apple.com/static/js/docLog.09dce04c0bf8d7e3bde5fd9869649899.js"></script>
+    
+    
+        <script crossorigin
+            src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"
+        ></script>
+    
+    <link rel="stylesheet" href="/static/lib/js/jsoneditor/jsoneditor.min.css">
+    <script src="/static/lib/js/jsoneditor/jsoneditor.min.js"></script>
+    <script src="/static/lib/js/purify.min.js"></script>
+    <script src="/static/lib/js/jquery.pjax.js"></script>
+    <script src="/static/lib/js/pjax-demo-tabs.js"></script>
+    <script src="https://applepaydemo.apple.com/static/js/fixed-demo.a0d993e4230c006be001b8eec4a4ebe8.js"></script>
+    <script src="https://applepaydemo.apple.com/static/js/demo-source.c2ab157cadabaa0291580d5e7e4a7068.js"></script>
+    <script src="https://applepaydemo.apple.com/static/js/display-apple-pay-button.d1572973e3e7ee90d67a90fd60ab7ba2.js"></script>
+    <script src="https://applepaydemo.apple.com/static/js/editors.a8060b0c37729838a44d9b2302c5a8ce.js"></script>
+    <script src="https://applepaydemo.apple.com/static/js/base-editor-schemas.053ac9e29c01c0cdc26372c6c18b7c19.js"></script>
+    
+        <script src="https://applepaydemo.apple.com/static/js/payment-request-api.24f78daa4a517b83d45796a25e67b4a6.js"></script>
+    
+
+    <script type="application/javascript">
+        if (!("ontouchstart" in document.documentElement)) {
+            document.documentElement.className += " no-touch";
+        }
+        window.addEventListener('load', (e) => {
+          PR.prettyPrint();
+        });
+    </script>
+</head>
+
+<body>
+<div data-reactroot>
+    <div id="app">
+        
+
+    <input type="checkbox" id="ac-gn-menustate" class="ac-gn-menustate">
+<nav id="ac-globalnav" class="no-js" role="navigation" aria-label="Global Navigation" data-hires="false"
+     data-analytics-region="global nav" lang="en-US">
+    <div class="ac-gn-content">
+        <ul class="ac-gn-header">
+            <li class="ac-gn-item ac-gn-menuicon"><label class="ac-gn-menuicon-label" for="ac-gn-menustate"
+                                                         aria-hidden="true">
+                <span class="ac-gn-menuicon-bread ac-gn-menuicon-bread-top">
+                    <span class="ac-gn-menuicon-bread-crust ac-gn-menuicon-bread-crust-top"></span>
+                </span>
+                <span class="ac-gn-menuicon-bread ac-gn-menuicon-bread-bottom">
+                    <span class="ac-gn-menuicon-bread-crust ac-gn-menuicon-bread-crust-bottom"></span>
+                </span>
+            </label>
+                <a href="#ac-gn-menustate" class="ac-gn-menuanchor ac-gn-menuanchor-open" id="ac-gn-menuanchor-open">
+                    <span class="ac-gn-menuanchor-label">Open Menu</span> </a>
+                <a href="#" class="ac-gn-menuanchor ac-gn-menuanchor-close" id="ac-gn-menuanchor-close"> <span
+                        class="ac-gn-menuanchor-label">Close Menu</span> </a>
+            </li>
+            <li class="ac-gn-item ac-gn-apple">
+                <a class="ac-gn-link ac-gn-link-apple" href="https://developer.apple.com/" id="ac-gn-firstfocus-small">
+                    <span class="ac-gn-link-text">Apple Developer</span> </a>
+            </li>
+            <li class="ac-gn-item ac-gn-bag ac-gn-bag-small" id="ac-gn-bag-small">
+                <a class="ac-gn-link ac-gn-link-bag" href="https://developer.apple.com/account/"> <span
+                        class="ac-gn-link-text">Account</span> <span class="ac-gn-bag-badge"></span> </a> <span
+                    class="ac-gn-bagview-caret ac-gn-bagview-caret-large"></span></li>
+        </ul>
+        <ul class="ac-gn-list">
+            <li class="ac-gn-item ac-gn-apple">
+                <a class="ac-gn-link ac-gn-link-apple" href="https://developer.apple.com/" id="ac-gn-firstfocus"> <span
+                        class="ac-gn-link-text">Apple Developer</span> </a>
+            </li>
+            <li class="ac-gn-item ac-gn-item-menu ac-gn-news">
+                <a class="ac-gn-link" href="https://developer.apple.com/news/"> <span>News</span> </a>
+            </li>
+            <li class="ac-gn-item ac-gn-item-menu ac-gn-platforms">
+                <a class="ac-gn-link" href="https://developer.apple.com/discover/"> <span>Discover</span> </a>
+            </li>
+            <li class="ac-gn-item ac-gn-item-menu ac-gn-design">
+                <a class="ac-gn-link" href="https://developer.apple.com/design/"> <span>Design</span> </a>
+            </li>
+            <li class="ac-gn-item ac-gn-item-menu ac-gn-develop">
+                <a class="ac-gn-link" href="https://developer.apple.com/develop/"> <span>Develop</span> </a>
+            </li>
+            <li class="ac-gn-item ac-gn-item-menu ac-gn-distribute">
+                <a class="ac-gn-link" href="https://developer.apple.com/distribute/"> <span>Distribute</span> </a>
+            </li>
+            <li class="ac-gn-item ac-gn-item-menu ac-gn-support">
+                <a class="ac-gn-link" href="https://developer.apple.com/support/"> <span>Support</span> </a>
+            </li>
+            <li class="ac-gn-item ac-gn-item-menu ac-gn-account">
+                <a class="ac-gn-link" href="https://developer.apple.com/account/"> <span>Account</span> </a>
+            </li>
+            <li class="ac-gn-item ac-gn-item-menu ac-gn-search" role="search">
+                <a id="ac-gn-search-button" class="ac-gn-link ac-gn-link-search"
+                   href="https://developer.apple.com/search/" aria-label="Search developer.apple.com"> <span
+                        class="ac-gn-search-placeholder" aria-hidden="true">Search</span> </a>
+            </li>
+        </ul>
+        <aside id="ac-gn-searchview" class="ac-gn-searchview" role="search" data-analytics-region="search">
+            <div class="ac-gn-searchview-content">
+                <form id="ac-gn-searchform" class="ac-gn-searchform" action="https://developer.apple.com/search/"
+                      method="get">
+                    <div class="ac-gn-searchform-wrapper"><input id="ac-gn-searchform-input"
+                                                                 class="ac-gn-searchform-input" type="text" name="q"
+                                                                 placeholder="Search"
+                                                                 data-placeholder-long="Search for documentation, videos, and more"
+                                                                 autocorrect="off" autocapitalize="off"
+                                                                 autocomplete="off" spellcheck="false"/>
+                        <button id="ac-gn-searchform-submit" class="ac-gn-searchform-submit" type="submit" disabled
+                                aria-label="Submit"></button>
+                        <button id="ac-gn-searchform-reset" class="ac-gn-searchform-reset" type="reset" disabled
+                                aria-label="Clear Search"></button>
+                    </div>
+                </form>
+                <aside id="ac-gn-searchresults" class="ac-gn-searchresults" data-string-quicklinks="Quick Links"
+                       data-string-suggestions="Suggested Searches" data-string-noresults="Hit enter to search.">
+
+                </aside>
+            </div>
+            <button id="ac-gn-searchview-close" class="ac-gn-searchview-close" aria-label="Close Search">
+                <span class="ac-gn-searchview-close-wrapper">
+                    <span class="ac-gn-searchview-close-left"></span>
+                    <span class="ac-gn-searchview-close-right"></span>
+                </span>
+            </button>
+        </aside>
+    </div>
+</nav>
+<div id="ac-gn-curtain" class="ac-gn-curtain"></div>
+<div id="ac-gn-placeholder" class="ac-nav-placeholder"></div>
+<script src="https://developer.apple.com/assets/scripts/ac-globalnav.built.js"></script>
+
+<link rel="stylesheet" property="stylesheet" href="https://developer.apple.com/assets/styles/localnav.css"
+      type="text/css"/>
+<input type="checkbox" id="localnav-menustate" class="localnav-menustate"/>
+<nav id="localnav" class="localnav localnav-scrim" data-sticky role="navigation">
+    <div class="localnav-wrapper">
+        <div class="localnav-background"></div>
+        <div class="localnav-content">
+            <h2 class="localnav-title">
+                <a href="https://applepaydemo.apple.com/">Apple Pay Demo</a>
+            </h2>
+
+            <div class="localnav-menu">
+                <a href="#localnav-menustate" class="localnav-menucta-anchor localnav-menucta-anchor-open"
+                   id="localnav-menustate-open">
+                    <span class="localnav-menucta-anchor-label">Open Menu</span>
+                </a>
+                <a href="#" class="localnav-menucta-anchor localnav-menucta-anchor-close" id="localnav-menustate-close">
+                    <span class="localnav-menucta-anchor-label">Close Menu</span>
+                </a>
+                <div class="localnav-menu-tray">
+                    <ul class="localnav-menu-items" style="margin-top: 5px">
+                        <li class="localnav-menu-item">
+                            <a href="/"
+                               class="localnav-menu-link link-resources">Payment APIs</a>
+                        </li>
+                        <li class="localnav-menu-item">
+                            <a href="/ar-quick-look"
+                               class="localnav-menu-link link-resources">AR Quick Look</a>
+                        </li>
+                        <li class="localnav-menu-item">
+                            <a href="/order-tracking"
+                               class="localnav-menu-link link-resources">Order Tracking</a>
+                        </li>
+                        <li class="localnav-menu-item">
+                            <a href="/track-in-wallet"
+                               class="localnav-menu-link link-resources">Track in Wallet Button</a>
+                        </li>
+                        <li class="localnav-menu-item">
+                            <a href="/in-app-provisioning"
+                               class="localnav-menu-link link-resources">In-App Provisioning &amp; Verification</a>
+                        </li>
+                        <li class="localnav-menu-item">
+                            <a href="/in-app-provisioning-extensions"
+                               class="localnav-menu-link link-resources">In-App Provisioning Extension</a>
+                        </li>
+                        <li class="localnav-menu-item">
+                            <a href="/merchandising"
+                               class="localnav-menu-link link-resources">Upper Funnel Merchandising</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="localnav-actions localnav-actions-center">
+                    <div class="localnav-action localnav-action-menucta" aria-hidden="true">
+                        <label for="localnav-menustate" class="localnav-menucta">
+                            <span class="localnav-menucta-chevron"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<label id="localnav-curtain" for="localnav-menustate"></label>
+<script src="https://developer.apple.com/assets/scripts/ac-localnav.built.js"></script>
+
+    <main role="main" id="main" class="main" tabindex="0">
+        <div class="masthead">
+            <div class="topic-title">
+                <h1 class="topic-heading">Apple&nbsp;Pay on the Web<br>Interactive Demo</h1>
+                <p class="topic-abstract">
+                    
+                        Try an Apple&nbsp;Pay test transaction using the button below.
+                    
+                    <br>
+                    <strong>Transactions you make on this site don&rsquo;t charge your card.</strong>
+                </p>
+            </div>
+        </div>
+
+        <div class="topic-container section-content row">
+            <div class="topic-summary column large-3 medium-3 small-12">
+                <div class="topic-summary-section sdks" role="complementary">
+                    <p class="topic-summary-section-label subsection-label">On this page</p>
+                    <ul class="topic-summary-section-list">
+                        <li class="topic-summary-section-item sdk"><a href="#overview">Overview</a></li>
+                        <li class="topic-summary-section-item sdk"><a href="#requirements">Requirements</a></li>
+                        <li class="topic-summary-section-item sdk"><a href="#display-button">Display an Apple&nbsp;Pay
+                            Button</a>
+                        </li>
+                        <li class="topic-summary-section-item sdk">
+                            
+                                <a href="#createAPayment">Create a Payment Request</a>
+                            
+                        </li>
+                        <li class="topic-summary-section-item sdk"><a href="#merchantValidation">Complete Merchant
+                            Validation</a></li>
+                        <li class="topic-summary-section-item sdk"><a href="#paymentSheetInteractions">Respond to
+                            Payment
+                            Sheet Interactions</a></li>
+                        
+                            <li class="topic-summary-section-item sdk"><a href="#shippingAddressSelection">
+                                Request a Shipping Address
+                            </a></li>
+                        
+                        <li class="topic-summary-section-item sdk">
+                            
+                                <a href="#authorizingThePayment">Authorize the Payment</a>
+                            
+                        </li>
+                        <li class="topic-summary-section-item sdk"><a href="#resources">Additional Resources</a></li>
+                        <li class="topic-summary-section-item sdk"><a href="#feedback">Questions or Feedback</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="topic-summary-section-label subsection-label">Developer Portal References</p>
+                    <ul class="topic-summary-section-list">
+                        <li class="topic-summary-section-item sdk">
+                            <a href="https://developer.apple.com/apple-pay/">Apple Pay Overview</a></li>
+                        <li class="topic-summary-section-item sdk">
+                            <a href="https://developer.apple.com/apple-pay/whats-new/">What&rsquo;s new</a></li>
+                        <li class="topic-summary-section-item sdk">
+                            <a href="https://developer.apple.com/apple-pay/planning/">Planning</a>
+                        </li>
+                        <li class="topic-summary-section-item sdk">
+                            <a href="https://developer.apple.com/apple-pay/implementation/">Implementation</a>
+                        </li>
+                        <li class="topic-summary-section-item sdk">
+                            <a href="https://developer.apple.com/apple-pay/marketing/">Marketing</a>
+                        </li>
+                        <li class="topic-summary-section-item sdk">
+                            <a href="https://developer.apple.com/apple-pay/resources/">Resources</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="topic-content column large-9 medium-9 small-12" id="topic-content">
+                <section id="overview" class="section">
+                    <h2>Overview</h2>
+                    <p>
+                        Use this page to learn how to enable Apple&nbsp;Pay on the Web using the
+                        <a href="https://developer.apple.com/documentation/applepayontheweb/payment-request-api"
+                           target="_blank">
+                            Payment Request API</a>,
+                        <a href="https://developer.apple.com/documentation/applepayontheweb/apple-pay-js-api"
+                           target="_blank">
+                            Apple&nbsp;Pay JS API</a>,
+                        or the <a href="/disbursement-request-api/#summary">Disbursement Request API</a>.
+                        This demo preconfigures the Apple Pay button below with default values. Explore further by
+                        modifying values in the code blocks throughout the page to customize payment sheet experiences.
+                        This demo displays a transcript of server responses after each transaction for context. Click or
+                        tap the Show Transcript tab to view the transaction transcript.
+                    </p>
+                    <p>
+                        In addition to letting you try out the Apple&nbsp;Pay JavaScript APIs, this demo can also serve as a
+                        tutorial for your own implementation. It assumes you&rsquo;ve already <a
+                            href="https://developer.apple.com/documentation/applepayontheweb/configuring-your-environment"
+                            target="_blank">set up your environment</a> to process Apple&nbsp;Pay transactions, and
+                        are
+                        familiar with Apple&nbsp;Pay best practices. Before starting your integration, we recommend
+                        reviewing <a href="https://developer.apple.com/apple-pay/planning/" target="_blank">Planning
+                        for Apple&nbsp;Pay</a> and the Apple&nbsp;Pay <a
+                            href="https://developer.apple.com/apple-pay/web-human-interface-guidelines/"
+                            target="_blank">Human Interface Guidelines</a>.
+                        For more information about supporting Apple Pay on your website, see
+                        <a href="https://developer.apple.com/documentation/applepayontheweb" target="_blank">
+                            Apple Pay on the Web</a>.
+                    </p>
+                    <p>
+                        This demo generates source code that you can copy into your own project. Click or tap the
+                        Show Source tab to view the source code. The demo updates the source code as you change
+                        values in the code blocks throughout the page. When you&rsquo;re satisfied with the configuration, click or
+                        tap the Copy button inside the Show Source tab to copy the source code to your clipboard.
+                    </p>
+                </section>
+                <div class="tabbed-navigation-instructions">
+                    Select the API you want to explore.
+                </div>
+                <nav class="tabbed-navigation" data-pjax>
+                    <a class="tabbed-navigation--item tabbed-navigation--selected"
+                       href="/payment-request-api">Payment Request API</a>
+                    <a class="tabbed-navigation--item"
+                       href="/apple-pay-js-api">Apple&nbsp;Pay JS API</a>
+                    <a class="tabbed-navigation--item"
+                           href="/disbursement-request-api">Disbursement Request API</a>
+                </nav>
+                <div id="pjax-container">
+                    
+                        
+                            
+
+<section class="section">
+    <h3 id="requirements">Requirements</h3>
+    <p>This demo uses the Payment Request API, and to run this demo you need to use:</p>
+    <ul>
+        <li>iOS devices running iOS 11.3 or later
+        <li>Safari 11.1 with macOS 10.13 or later
+    </ul>
+</section>
+<section class="section">
+    <h2 id="display-button">Display an Apple&nbsp;Pay button</h2>
+    <p>
+        To display an Apple&nbsp;Pay button, use the following code to load the button script into your web page from the
+        content delivery network:
+    </p>
+    <br>
+    <pre class="prettyprint">
+&lt;script crossorigin
+        src="https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js"
+        &gt;&lt;/script&gt;
+</pre>
+    <br>
+    <p>
+        The JavaScript Apple Pay button provides a variety of Apple Pay button types that you can use on your website to
+        initiate a transaction. You can specify the Apple Pay button style, type, and localization using attributes. Use
+        CSS to set other properties, such as the size and corner radius. Using the official Apple Pay button element
+        ensures your site displays the latest style, renders correctly across devices, and follows Apple guidelines.
+        For design guidance, see <a
+            href="https://developer.apple.com/design/human-interface-guidelines/apple-pay/overview/buttons-and-marks/"
+            target="_blank">Human Interface Guidelines > Apple Pay > Buttons and Marks</a>.
+    </p>
+    <h4>Try it: Display settings</h4>
+    <p>
+        Use the following tools to try the different display settings on the button below:
+    </p>
+    <br>
+    <div class="row">
+        <div class="column column-padded-r large-4 medium-4 small-12">
+            <span class="custom-dropdown">
+                <p class="dropdown-label">Button Style</p>
+                <select class="applePayButtonConfig apd-dropdown"
+                        id="buttonstyle" onchange="configChanged()">
+                    <option value="black" selected="">Black (Default)</option>
+                    <option value="white-outline">White with outline</option>
+                    <option value="white">White</option>
+                </select>
+            </span>
+        </div>
+        <div class="column column-padded-r large-4 medium-4 small-12">
+            <span class="custom-dropdown">
+                <p class="dropdown-label">Button Type</p>
+                <select class="applePayButtonConfig apd-dropdown"
+                        id="type" onchange="configChanged()">
+                    <option value="plain" selected>Plain</option>
+                    <option value="continue">Continue</option>
+                    
+                        <option value="add-money">Add Money</option>
+                        <option value="book">Book</option>
+                        <option value="buy">Buy (Default)</option>
+                        <option value="check-out">Check Out</option>
+                        <option value="contribute">Contribute</option>
+                        <option value="donate">Donate</option>
+                        <option value="order">Order</option>
+                        <option value="pay">Pay</option>
+                        <option value="reload">Reload</option>
+                        <option value="rent">Rent</option>
+                        <option value="set-up">Set Up</option>
+                        <option value="subscribe">Subscribe</option>
+                        <option value="support">Support</option>
+                        <option value="tip">Tip</option>
+                    
+                    <option value="top-up">Top Up</option>
+                </select>
+            </span>
+        </div>
+        <div class="column column-padded-r large-4 medium-4 small-12">
+            <span class="custom-dropdown">
+                <p class="dropdown-label">Button Language</p> 
+                <select class="applePayLangConfig apd-dropdown"
+                        id="locale" onchange="configChanged()">
+                    <option value="en-US" selected="">English (US)</option>
+                    <option value="ar-AB">Arabic</option>
+                    <option value="ca-ES">Catalan</option>
+                    <option value="zh-CN">Chinese (China)</option>
+                    <option value="zh-HK">Chinese (Hong Kong)</option>
+                    <option value="zh-TW">Chinese (Taiwan)</option>
+                    <option value="hr-HR">Croatian</option>
+                    <option value="cs-CZ">Czech</option>
+                    <option value="da-DK">Danish</option>
+                    <option value="de-DE">German</option>
+                    <option value="nl-NL">Dutch</option>
+                    <option value="en-AU">English (Australia)</option>
+                    <option value="en-GB">English (UK)</option>
+                    <option value="fi-FI">Finnish</option>
+                    <option value="fr-CA">French (Canada)</option>
+                    <option value="fr-FR">French (France)</option>
+                    <option value="de-DE">German</option>
+                    <option value="el-GR">Greek</option>
+                    <option value="he-IL">Hebrew</option>
+                    <option value="hi-IN">Hindi</option>
+                    <option value="hu-HU">Hungarian</option>
+                    <option value="id-ID">Indonesian</option>
+                    <option value="it-IT">Italian</option>
+                    <option value="ja-JP">Japanese</option>
+                    <option value="ko-KR">Korean</option>
+                    <option value="ms-MY">Malay</option>
+                    <option value="nb-NO">Norwegian</option>
+                    <option value="pl-PL">Polish</option>
+                    <option value="pt-BR">Portuguese (Brazil)</option>
+                    <option value="pt-PT">Portuguese (Portugal)</option>
+                    <option value="ro-RO">Romanian</option>
+                    <option value="ru-RU">Russian</option>
+                    <option value="sk-SK">Slovak</option>
+                    <option value="es-MX">Spanish (Mexico)</option>
+                    <option value="es-ES">Spanish (Spain)</option>
+                    <option value="sv-SE">Swedish</option>
+                    <option value="th-TH">Thai</option>
+                    <option value="tr-TR">Turkish</option>
+                    <option value="uk-UA">Ukrainian</option>
+                    <option value="vi-VN">Vietnamese</option>
+                </select>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column column-padded-r large-4 medium-4 small-12">
+            <div class="custom-slider">
+                <p class="dropdown-label">Button Width</p>
+                <input id="widthSlider" type="range" class="ap-slider" min="100" max="300" value="150" step="1"
+                       oninput="widthChanged()"/>
+                <label id="widthLabel" for="widthSlider">Width: 150px</label><br>
+            </div>
+        </div>
+        <div class="column column-padded-r large-4 medium-4 small-12">
+            <div class="custom-slider">
+                <p class="dropdown-label">Button Height</p>
+                <input id="heightSlider" type="range" class="ap-slider" min="30" max="64" value="30" step="1"
+                       oninput="heightChanged()"/>
+                <label id="heightLabel" for="heightSlider">Height: 30px</label><br>
+            </div>
+        </div>
+        <div class="column column-padded-r large-4 medium-4 small-12">
+            <div class="custom-slider">
+                <p class="dropdown-label">Button Corner Radius</p>
+                <input id="radiusSlider" type="range" class="ap-slider" min="0" max="100" value="3" step="1"
+                       oninput="radiusChanged()"/>
+                <label id="radiusLabel" for="radiusSlider">Corner Radius: 3px</label><br>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column column-padded-r large-4 medium-4 small-12">
+            <div class="custom-slider">
+                <p class="dropdown-label">Button Padding Y</p>
+                <input id="paddingYSlider" type="range" class="ap-slider" min="0" max="32" value="0" step="1"
+                       oninput="paddingChanged()"/>
+                <label id="paddingYLabel" for="paddingYSlider">Button Padding Y: 0px</label><br>
+            </div>
+        </div>
+        <div class="column column-padded-r large-4 medium-4 small-12">
+            <div class="custom-slider">
+                <p class="dropdown-label">Button Padding X</p>
+                <input id="paddingXSlider" type="range" class="ap-slider" min="0" max="32" value="0" step="1"
+                       oninput="paddingChanged()"/>
+                <label id="paddingXLabel" for="paddingXSlider">Button Padding X: 0px</label><br>
+            </div>
+        </div>
+        <div class="column column-padded-r large-4 medium-4 small-12">
+            <span class="custom-dropdown">
+                <p class="dropdown-label">Button Box Sizing</p>
+                <select class="applePayButtonConfig apd-dropdown"
+                        id="boxSizing" onchange="boxSizingChanged()">
+                    <option value="border-box" selected="">Border Box</option>
+                    <option value="content-box">Content Box</option>
+                </select>
+            </span>
+        </div>
+    </div>
+    <br>
+    <pre class="prettyprint">
+&lt;style&gt;
+apple-pay-button {
+  --apple-pay-button-width: <span id="widthChange">150</span>px;
+  --apple-pay-button-height: <span id="heightChange">30</span>px;
+  --apple-pay-button-border-radius: <span id="radiusChange">3</span>px;
+  --apple-pay-button-padding: <span id="paddingYChange">0</span>px <span id="paddingXChange">0</span>px;
+  --apple-pay-button-box-sizing: <span id="boxSizingChange">border-box</span>;
+}
+&lt;/style&gt;
+&lt;apple-pay-button buttonstyle="<span
+            id="buttonstyleChange">black</span>" type="<span
+            id="typeChange">plain</span>" locale="<span
+            id="localeChange">en-US</span>"&gt;&lt;/apple-pay-button&gt;
+</pre>
+</section>
+<section class="section">
+    <h2 id="createAPayment">Create a Payment Request</h2>
+    <p>When your customer clicks or taps the Apple&nbsp;Pay button, you construct a <a
+            href="https://www.w3.org/TR/payment-request/#paymentrequest-interface"
+            target="_blank"><code class="inline-code">PaymentRequest</code></a>.</p>
+    <br>
+    <pre class="prettyprint">
+var request = null;
+if (window.PaymentRequest)
+    request = new PaymentRequest(methods, details, options);
+else
+    // Consider using Apple Pay JS instead.
+</pre>
+    <br>
+    <p>
+        The <a href="https://www.w3.org/TR/payment-request/#paymentrequest-interface" target="_blank"><code
+            class="inline-code">PaymentRequest</code></a> constructor takes three arguments:
+    </p>
+    <ul>
+        <li>The payment methods you support</li>
+        <li>The details to show to your customer (like shipping options and total amount)</li>
+        <li>The options you require</li>
+    </ul>
+    <h3>Payment methods</h3>
+    <p>
+        Payment methods represent the means by which you can accept payments from your customer using the
+        Payment Request API. You specify the payment methods you accept as a sequence of <a
+            href="https://www.w3.org/TR/payment-request/#paymentmethoddata-dictionary" target="_blank"><code
+            class="inline-code">PaymentMethodData</code></a> dictionaries, each of which contains an identifier (<a
+            href="https://www.w3.org/TR/payment-request/#dom-paymentmethoddata-supportedmethods" target="_blank"><code
+            class="inline-code">supportedMethods</code></a>) and associated information (<a
+            href="https://www.w3.org/TR/payment-request/#dom-paymentmethoddata-data" target="_blank"><code
+            class="inline-code">data</code></a>).
+    </p>
+    <p>
+        To accept payments using Apple Pay through the Payment Request API, include it as a payment method. Apple Pay&rsquo;s
+        <a href="https://www.w3.org/TR/payment-method-id/#url-based-payment-method-identifiers"
+           target="_blank">URL-based</a> payment method identifier is <code class="inline-code">"https://apple.com/apple-pay"</code>,
+        and its associated <a href="https://www.w3.org/TR/payment-request/#dom-paymentmethoddata-data"
+                              target="_blank"><code class="inline-code">data</code></a> is an <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepayrequest"
+            target="_blank"><code class="inline-code">ApplePayRequest</code></a> dictionary.
+    </p>
+    <p>
+        Safari supports only the Apple Pay payment method. Other browsers may support additional methods. The system
+        determines which payment methods to present based on the capabilities of the device and on user
+        preferences when specifying more than one method.
+    </p>
+    <h4>Try it: Apple Pay method</h4>
+    <p>
+        You may configure the values in the <a
+            href="https://www.w3.org/TR/payment-request/#paymentmethoddata-dictionary"
+            target="_blank"><code class="inline-code">PaymentMethodData</code></a> structure below.
+    </p>
+    <p>
+        Select &ldquo;Basic request&rdquo; to see a payment sheet with only the required fields.
+        Select &ldquo;Detailed request&rdquo; to include optional fields.
+    </p>
+    <p>
+        Click or tap the Apple Pay button below to see how the payment sheet displays information.
+    </p>
+    <div class="form-table">
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="A" type="radio" name="PaymentMethodData" id="PaymentMethodDataA"
+                   checked="checked"
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentMethodDataA">
+                <span class="form-choice-indicator"></span> Basic payment request (required fields only)
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="B" type="radio" name="PaymentMethodData" id="PaymentMethodDataB"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentMethodDataB">
+                <span class="form-choice-indicator"></span> Detailed payment request
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="CouponCodeEmpty" type="radio" name="PaymentMethodData" id="PaymentMethodDataCouponCodeEmpty"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentMethodDataCouponCodeEmpty">
+                <span class="form-choice-indicator"></span> Empty coupon code payment request
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="CouponCodePercentOff" type="radio" name="PaymentMethodData" id="PaymentMethodDataCouponCodePercentOff"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentMethodDataCouponCodePercentOff">
+                <span class="form-choice-indicator"></span> 20% off coupon code payment request
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="CouponCodeFreeShipping" type="radio" name="PaymentMethodData" id="PaymentMethodDataCouponCodeFreeShipping"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentMethodDataCouponCodeFreeShipping">
+                <span class="form-choice-indicator"></span> Free shipping coupon code payment request
+            </label>
+            
+        </div>
+    </div>
+</div>
+    </div>
+    <br>
+    <div class="jsoneditor" id="PaymentMethodData"></div>
+    <br>
+    <h3>Payment details</h3>
+    <p>Supply the payment details in the <a
+            href="https://www.w3.org/TR/payment-request/#paymentdetailsinit-dictionary" target="_blank"><code
+            class="inline-code">PaymentDetailsInit</code></a> dictionary. It contains your transaction&rsquo;s total amount,
+        display items, shipping options, and payment method-specific modifiers.
+    </p>
+    <p>Select a default shipping option by setting the <a
+            href="https://www.w3.org/TR/payment-request/#dom-paymentshippingoption-selected" target="_blank"><code
+            class="inline-code">selected</code></a> attribute to <code class="inline-code">true</code> as this demo
+        shows in <a href="#tryItPaymentDetails">Try it: Payment details</a> for <code class="inline-code">"Ground
+        Shipping"</code> when selecting &ldquo;More details&ldquo;. The total amount needs to be $0.00 or greater,
+        and when using Apple&nbsp;Pay, all payment amounts in your request need to use the same <a
+                href="https://www.iso.org/iso-4217-currency-codes.html" target="_blank">ISO 4217 currency code</a>.
+        It&rsquo;s your responsibility to ensure the correctness of your payment details; Safari doesn&rsquo;t perform any
+        currency calculations on your behalf.
+    </p>
+    <h4 id="paymentModifiers">Payment modifiers</h4>
+    <p>
+        Apple Pay can update your transaction&rsquo;s display items and total when you include optional <a
+            href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsbase-modifiers" target="_blank"><code
+            class="inline-code">modifiers</code></a> in your payment details. For example, you can adjust the price
+        based on the type of payment card.
+    </p>
+    <p>Modifiers provide some of the functionality present in the
+        <a href="https://developer.apple.com/documentation/applepayontheweb/applepaysession/onpaymentmethodselected"
+           target="_blank"><code class="inline-code">paymentmethodselected</code></a> event. For more information, see
+        <a href="https://developer.apple.com/documentation/applepayontheweb/applepaymodifier" target="_blank"><code
+                class="inline-code">ApplePayModifier</code></a>.
+    </p>
+    <p>
+        You can set up recurring payments, such as subscriptions, that feature different payment intervals (such as
+        annually or monthly) and billing cycles (such as regular or trial) by passing <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaymodifier/recurringpaymentrequest" target="_blank"><code class="inline-code">recurringPaymentRequest</code></a> to the <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaymodifier" target="_blank"><code
+            class="inline-code">ApplePayModifier</code></a> with the <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaylineitem" target="_blank"><code
+            class="inline-code">ApplePayLineItem</code></a> that has a <code class="inline-code">recurring</code> <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaylineitem/paymenttiming" target="_blank"><code class="inline-code">paymentTiming</code></a>.
+    </p>
+    <p>
+        You can set up deferred payments, where a user pays at a later date, by passing <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaylineitem" target="_blank"><code
+            class="inline-code">ApplePayLineItem</code></a> that has a <code class="inline-code">recurring</code> <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaylineitem/paymenttiming" target="_blank"><code class="inline-code">paymentTiming</code></a> and a valid date in the <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaylineitem/deferredpaymentdate" target="_blank"><code class="inline-code">deferredPaymentDate</code></a> property in the <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaymodifier" target="_blank"><code
+            class="inline-code">ApplePayModifier</code></a> <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaymodifier/additionallineitems"
+            target="_blank"><code
+            class="inline-code">additionalLineItems</code></a>.
+    </p>
+    <p>
+        You can set up automatic reload payments, such as store card top-ups, by passing <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepayautomaticreloadpaymentrequest" target="_blank"><code class="inline-code">automaticReloadPaymentRequest</code></a> to the <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaymodifier" target="_blank"><code
+            class="inline-code">ApplePayModifier</code></a> with the <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaylineitem" target="_blank"><code
+            class="inline-code">ApplePayLineItem</code></a> that has an <code class="inline-code">automaticReload</code> <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaylineitem/paymenttiming" target="_blank"><code class="inline-code">paymentTiming</code></a>,
+            the <a href="https://developer.apple.com/documentation/applepayontheweb/applepaylineitem/amount" target="_blank"><code class="inline-code">amount</code></a>
+            to describe the reload amount, and the
+            <a href="https://developer.apple.com/documentation/applepayontheweb/applepaylineitem/automaticreloadpaymentthresholda" target="_blank"><code class="inline-code">automaticReloadPaymentThresholdAmount</code></a>
+            to describe the threshold amount balance to reach before automatically applying the reload amount.
+    </p>
+    <aside aria-label="note" class="aside aside-important">
+    <p class="aside-name">Note</p>
+    
+    <p>
+        You must also include <a href="https://developer.apple.com/documentation/applepayontheweb/applepayautomaticreloadpaymentrequest/managementurl" target="_blank"><code class="inline-code">managementURL</code></a>,
+        the URL where the user can update or delete the payment method for the automatic payment, and
+        <a href="https://developer.apple.com/documentation/applepayontheweb/applepayautomaticreloadpaymentrequest/tokennotificationurl" target="_blank"><code class="inline-code">tokenNotificationURL</code></a>,
+        an API endpoint on your web service that receives life-cycle notifications from Apple Pay servers about the
+        Apple&nbsp;Pay merchant token for the recurring payment. See
+        <a href="https://developer.apple.com/documentation/merchanttokennotificationservices" target="_blank">Apple Pay Merchant Token Management API</a>
+        for more details about implementing and interacting with merchant tokens APIs.
+    </p>
+    
+</aside>
+    <p>
+        You can set up multitoken transactions to process and display payments with multiple merchants on one payment
+        sheet, such as a booking site where a user pays for a hotel, a flight, and a car rental from different
+        merchants in a single Apple&nbsp;Pay transaction. You can do this by passing <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaypaymenttokencontext" target="_blank"><code class="inline-code">ApplePayPaymentTokenContext</code></a> in the <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaymodifier/multitokencontexts" target="_blank"><code class="inline-code">multiTokenContexts</code></a> property to the <a
+            href="https://developer.apple.com/documentation/applepayontheweb/applepaymodifier target="_blank"><code
+            class="inline-code">ApplePayModifier</code></a>.
+    </p>
+    <h4 id="tryItPaymentDetails">Try it: Payment details</h4>
+    <p>
+        Modify the values in the <a
+            href="https://www.w3.org/TR/payment-request/#paymentdetailsinit-dictionary"
+            target="_blank"><code class="inline-code">PaymentDetailsInit</code></a> structure below
+        and click or tap the Apple Pay button to view the payment sheet.
+    </p>
+    <div class="form-table">
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="A" type="radio" name="PaymentDetails" id="PaymentDetailsA"
+                   checked="checked"
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsA">
+                <span class="form-choice-indicator"></span> Basic details
+            </label>
+            
+            (required fields only)
+        
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="B" type="radio" name="PaymentDetails" id="PaymentDetailsB"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsB">
+                <span class="form-choice-indicator"></span> More details
+            </label>
+            
+            (includes optional fields)
+        
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="C" type="radio" name="PaymentDetails" id="PaymentDetailsC"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsC">
+                <span class="form-choice-indicator"></span> More details with modifiers
+            </label>
+            
+            (includes a payment modifier that adds a $1.00 discount for using a debit card)
+        
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="CouponCodeEmpty" type="radio" name="PaymentDetails" id="PaymentDetailsCouponCodeEmpty"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsCouponCodeEmpty">
+                <span class="form-choice-indicator"></span> Empty coupon code payment
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="CouponCodePercentOff" type="radio" name="PaymentDetails" id="PaymentDetailsCouponCodePercentOff"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsCouponCodePercentOff">
+                <span class="form-choice-indicator"></span> 20% off coupon code payment request
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="CouponCodeFreeShipping" type="radio" name="PaymentDetails" id="PaymentDetailsCouponCodeFreeShipping"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsCouponCodeFreeShipping">
+                <span class="form-choice-indicator"></span> Free shipping coupon code payment request
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="D" type="radio" name="PaymentDetails" id="PaymentDetailsD"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsD">
+                <span class="form-choice-indicator"></span> Recurring payment request
+            </label>
+            
+            (includes a payment modifier that creates a recurring subscription payment request)
+        
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="F" type="radio" name="PaymentDetails" id="PaymentDetailsF"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsF">
+                <span class="form-choice-indicator"></span> Deferred payment
+            </label>
+            
+            (includes a payment modifier that creates a deferred, future date payment)
+        
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="G" type="radio" name="PaymentDetails" id="PaymentDetailsG"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsG">
+                <span class="form-choice-indicator"></span> Automatic reload payment
+            </label>
+            
+            (includes a payment modifier that creates an automatic reload payment request)
+        
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="E" type="radio" name="PaymentDetails" id="PaymentDetailsE"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsE">
+                <span class="form-choice-indicator"></span> Multimerchant payment
+            </label>
+            
+            (creates a combined airline and hotel payment transaction using a modifier with multiple payment tokens
+            by passing one context for each token)
+            <aside aria-label="note" class="aside aside-important">
+    <p class="aside-name">Note</p>
+    
+            <p>
+            Only select credit and debit cards support multimerchant payments at this time.<br/>
+            If your card doesn&rsquo;t support multimerchant payments, the payment sheet indicates that this
+            website doesn&rsquo;t accept the selected payment card.
+            </p>
+            
+</aside>
+        
+        </div>
+    </div>
+</div>
+    </div>
+    <br>
+    <div class="jsoneditor" id="PaymentDetails"></div>
+    <br>
+    <h3>Payment options</h3>
+    <p>
+        Use <a href="https://www.w3.org/TR/payment-request/#paymentoptions-dictionary" target="_blank"><code
+            class="inline-code">PaymentOptions</code></a> to specify the information to request from your customer.
+        You can request your customer&rsquo;s name, email address, or phone number, or request a certain type of shipping.
+    </p>
+    <h4>Try it: Payment Options</h4>
+    <p>
+        You may configure the values in the <a href="https://www.w3.org/TR/payment-request/#paymentoptions-dictionary"
+                                               target="_blank"><code class="inline-code">PaymentOptions</code></a>
+        structure below.
+    </p>
+    <p>
+        Select &rdquo;Request no additional information&rdquo; to see a payment sheet with no customer data requests.
+        Select &rdquo;Request shipping information&rdquo; to see a payment sheet with only a shipping request.
+        Select &rdquo;Request all information&rdquo; to see a payment sheet with all customer data requests.
+    </p>
+    <p>
+        Click or tap the Apple Pay button to see how the payment sheet displays information.
+    </p>
+    <div class="form-table">
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="A" type="radio" name="PaymentOptions" id="PaymentOptionsA"
+                   checked="checked"
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentOptionsA">
+                <span class="form-choice-indicator"></span> Request no additional information
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="B" type="radio" name="PaymentOptions" id="PaymentOptionsB"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentOptionsB">
+                <span class="form-choice-indicator"></span> Request shipping information
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="C" type="radio" name="PaymentOptions" id="PaymentOptionsC"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentOptionsC">
+                <span class="form-choice-indicator"></span> Request all information
+            </label>
+            
+        </div>
+    </div>
+</div>
+    </div>
+    <br>
+    <div class="jsoneditor" id="PaymentOptions"></div>
+</section>
+<section class="section">
+    <h2 id="merchantValidation">Complete merchant validation</h2>
+    <p>
+        Before you are able to display the payment sheet to the customer, you need to generate a valid payment session by
+        interacting with Apple Pay servers. For security reasons, your server needs to do this interaction, not your browser client
+        code, unlike everything else in this demo. To start the merchant validation process, call the <a
+            href="https://www.w3.org/TR/payment-request/#show-method" target="_blank"><code
+            class="inline-code">show</code></a> method on the <a
+            href="https://www.w3.org/TR/payment-request/#paymentrequest-interface" target="_blank"><code
+            class="inline-code">PaymentRequest</code></a> you created above.
+    </p>
+    <p>
+        After calling the <a
+            href="https://www.w3.org/TR/payment-request/#show-method" target="_blank"><code
+            class="inline-code">show</code></a> method, the browser invokes your <a
+            href="https://www.w3.org/TR/merchant-validation/" target="_blank"><code
+            class="inline-code">onmerchantvalidation</code></a> handler, which needs to fetch a merchant session from your
+        server.
+    </p>
+    <p>
+        Refer to the instructions in <a
+            href="https://developer.apple.com/documentation/applepayontheweb/requesting-an-apple-pay-payment-session"
+            target="_blank">Requesting an Apple&nbsp;Pay Payment Session</a> to implement your server endpoint
+        responsible for fetching the merchant session object from Apple Pay servers. If the fetch is successful, Apple Pay servers
+        return a merchant session object, which your server needs to then pass back as the response to the browser.
+    </p>
+    <p>
+        You need to complete your <a
+            href="https://www.w3.org/TR/merchant-validation/#onmerchantvalidation-attribute" target="_blank"><code
+            class="inline-code">onmerchantvalidation</code></a> handler by passing the promise, containing the merchant
+        session response, to the <a href="https://www.w3.org/TR/merchant-validation/#complete-method"
+                                   target="_blank"><code class="inline-code">complete</code></a> method on the event.
+        The browser then displays the payment sheet.
+    </p>
+    <p>
+        The following code shows an example of how to validate a merchant to generate a payment session:
+    </p>
+    <br>
+    <pre class="prettyprint">
+request.onmerchantvalidation = event => {
+    // Call your own server to request a new merchant session.
+    const merchantSessionPromise = fetch("/authorizeMerchant")
+        .then(res => res.json()) // Parse the response as JSON.
+        .catch(err => {
+            console.error("Error fetching merchant session", err);
+        });
+
+    event.complete(merchantSessionPromise);
+};
+</pre>
+</section>
+<section class="section">
+    <h2 id="paymentSheetInteractions">Respond to payment sheet interactions</h2>
+    <p>
+        After merchant validation is complete, Apple Pay provides the information about your customer&rsquo;s payment sheet
+        selections so that you can calculate the final transaction cost. The final details of a transaction may depend
+        on the user&rsquo;s payment method, shipping address and method, or any coupons the user enters.
+        To handle these adjustments, implement the optional handlers <a
+            href="https://www.w3.org/TR/payment-request/#onpaymentmethodchange-attribute" target="_blank"><code
+            class="inline-code">onpaymentmethodchange</code></a>, <a
+            href="https://www.w3.org/TR/payment-request/#onshippingoptionchange-attribute" target="_blank"><code
+            class="inline-code">onshippingoptionchange</code></a>, and <a
+            href="https://www.w3.org/TR/payment-request/#onshippingaddresschange-attribute" target="_blank"><code
+            class="inline-code">onshippingaddresschange</code></a>.
+        In the event handlers, you can determine the user&rsquo;s selection using the <a
+            href="https://www.w3.org/TR/payment-request/#paymentrequest-interface" target="_blank"><code
+            class="inline-code">PaymentRequest</code></a> <a
+            href="https://www.w3.org/TR/payment-request/#shippingoption-attribute" target="_blank"><code
+            class="inline-code">shippingOption</code></a> and <a
+            href="https://www.w3.org/TR/payment-request/#shippingaddress-attribute" target="_blank"><code
+            class="inline-code">shippingAddress</code></a> attributes.
+    </p>
+    <p>
+        When the browser calls one of these handlers, you need to call the event object&rsquo;s <a
+            href="https://www.w3.org/TR/payment-request/#updatewith-method" target="_blank"><code class="inline-code">updateWith</code></a>
+        callback function with a promise that resolves within 30 seconds to a <a
+            href="https://www.w3.org/TR/payment-request/#paymentdetailsupdate-dictionary" target="_blank"><code
+            class="inline-code">PaymentDetailsUpdate</code></a>; otherwise, the transaction times out.
+    </p>
+    <aside aria-label="note" class="aside aside-important">
+    <p class="aside-name">Note</p>
+    
+    <p>
+        To ensure that the <a
+            href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsbase-displayitems" target="_blank"><code
+            class="inline-code">displayItems</code></a> and the <a
+            href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsbase-modifiers" target="_blank"><code
+            class="inline-code">modifiers</code></a> don&rsquo;t reset, you need to pass them to the <a
+            href="https://www.w3.org/TR/payment-request/#paymentdetailsupdate-dictionary" target="_blank"><code
+            class="inline-code">PaymentDetailsUpdate</code></a>.
+    </p>
+    
+</aside>
+    <h3 id="shippingAddressSelection">Request a shipping address</h3>
+    <p>
+        If you set <a href="https://www.w3.org/TR/payment-request/#dom-paymentoptions-requestshipping"
+                      target="_blank"><code class="inline-code">requestShipping</code></a> to <code
+            class="inline-code">true</code> in the <a
+            href="https://www.w3.org/TR/payment-request/#paymentoptions-dictionary" target="_blank"><code
+            class="inline-code">PaymentOptions</code></a> dictionary, Apple Pay provides redacted address information
+        before the user authenticates the transaction. After the user authenticates, Apple Pay provides the full contact
+        information in the <a href="https://www.w3.org/TR/payment-request/#paymentresponse-interface"
+                              target="_blank"><code class="inline-code">PaymentResponse</code></a> that the <a
+            href="https://www.w3.org/TR/payment-request/#show-method" target="_blank"><code
+            class="inline-code">show</code></a> method&rsquo;s returned promise resolves.
+    </p>
+    <p>
+        The redacted payment information includes only the data necessary to complete
+        required transaction tasks, such as calculating taxes or shipping costs, and may
+        differ based on the user&rsquo;s geographic region.
+    </p>
+    <p>
+        The following code shows an example of redacted payment information:
+    </p>
+    <br>
+    <pre class="prettyprint">
+shippingAddress:
+{
+    "administrativeArea": "CA",
+    "country": "United States",
+    "countryCode": "US",
+    "familyName": "",
+    "givenName": "",
+    "locality": "San Francisco",
+    "phoneticFamilyName": "",
+    "phoneticGivenName": "",
+    "postalCode": "94114",
+    "subAdministrativeArea": "",
+    "subLocality": ""
+}
+</pre>
+    <br>
+    <h4>Try it: Updating payment details</h4>
+    <p>
+        You may customize the <a href="https://www.w3.org/TR/payment-request/#paymentdetailsupdate-dictionary"
+                                 target="_blank"><code class="inline-code">PaymentDetailsUpdate</code></a> below.
+    </p>
+    <p>
+        Select one of the Success options below (with or without updating display items and total) to see a successful response.
+        Select Failure to see response with custom errors.
+    </p>
+    <p>
+        Click or tap the Apple Pay button to see how the payment sheet displays updates or address errors.
+    </p>
+    <div class="form-table">
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="A" type="radio" name="PaymentDetailsUpdate" id="PaymentDetailsUpdateA"
+                   checked="checked"
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsUpdateA">
+                <span class="form-choice-indicator"></span> Success (no update)
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="B" type="radio" name="PaymentDetailsUpdate" id="PaymentDetailsUpdateB"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsUpdateB">
+                <span class="form-choice-indicator"></span> Success (update display items and total)
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="C" type="radio" name="PaymentDetailsUpdate" id="PaymentDetailsUpdateC"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsUpdateC">
+                <span class="form-choice-indicator"></span> Success (update modifiers with additional shipping method)
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="D" type="radio" name="PaymentDetailsUpdate" id="PaymentDetailsUpdateD"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsUpdateD">
+                <span class="form-choice-indicator"></span> Failure (shipping address error)
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="E" type="radio" name="PaymentDetailsUpdate" id="PaymentDetailsUpdateE"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentDetailsUpdateE">
+                <span class="form-choice-indicator"></span> Failure (payer error)
+            </label>
+            
+        </div>
+    </div>
+</div>
+    </div>
+    <br>
+    <div class="jsoneditor" id="PaymentDetailsUpdate"></div>
+    <br>
+    <h3 id="authorizingThePayment">Authorize the payment</h3>
+    <p>
+        Finally, you receive a <a href="https://www.w3.org/TR/payment-request/#paymentresponse-interface"
+                                  target="_blank"><code class="inline-code">PaymentResponse</code></a> through the <a
+            href="https://www.w3.org/TR/payment-request/#show-method" target="_blank"><code
+            class="inline-code">show</code></a> method&rsquo;s returned promise to process the
+        transaction. After the user authenticates the transaction using Face ID, Touch ID, or their
+        device passcode, this promise resolves with the encrypted Apple Pay token, as well as any fields you request
+        in the <a href="https://www.w3.org/TR/payment-request/#paymentoptions-dictionary" target="_blank"><code
+            class="inline-code">PaymentOptions</code></a>. To finalize the transaction, you need to pass the encrypted
+        payment token to your payment processor using their API.
+    </p>
+    <p>
+        After you receive the response from your payment processor, call the <a
+            href="https://www.w3.org/TR/payment-request/#complete-method" target="_blank"><code
+            class="inline-code">complete</code></a> method on the response and pass in a status of <a
+            href="https://www.w3.org/TR/payment-request/#dom-paymentcomplete-success" target="_blank"><code
+            class="inline-code">success</code></a> or <a
+            href="https://www.w3.org/TR/payment-request/#dom-paymentcomplete-fail"><code
+            class="inline-code">fail</code></a>.
+    </p>
+    <aside aria-label="note" class="aside aside-important">
+    <p class="aside-name">Note</p>
+    
+        <p>Starting with iOS 16 and macOS 13, you can send an additional
+            <a href="https://developer.apple.com/documentation/applepayontheweb/applepaypaymentcompletedetails" target="_blank"><code class="inline-code">ApplePayPaymentCompleteDetails</code></a>
+            argument to the <a href="https://www.w3.org/TR/payment-request/#complete-method" target="_blank"><code
+            class="inline-code">complete</code></a> handler. This payload includes order
+            information that will be visible on users&rsquo; devices.</p>
+        <p>It&rsquo;s safe to send this additional argument for older OS versions &mdash; it just doesn&rsquo;t
+            process unless the user is using a recent OS.</p>
+        <p>See the <a href="/order-tracking/payment-request-api">Order Tracking</a> demo for details.</p>
+    
+</aside>
+    <p>
+        You may also validate the user&rsquo;s information, and invoke the <a
+            href="https://www.w3.org/TR/payment-request/#complete-method"><code
+            class="inline-code">complete</code></a> method immediately, without calling the payment processor, if you
+        detect a problem with the selected options (for example, if the user selects a shipping address in a
+        location that you don&rsquo;t service).
+    </p>
+    <p>
+        The following code shows an example of passing a status to the <a href="https://www.w3.org/TR/payment-request/#complete-method">
+        <code class="inline-code">complete</code></a> method:
+    </p>
+    <br>
+    <pre class="prettyprint">
+const response = await request.show();
+const status = "success";
+await response.complete(status);
+    </pre>
+    <br>
+    <h4>Try it: Complete the payment</h4>
+    <p>
+        You may customize the <a
+            href="https://www.w3.org/TR/payment-request/#complete-method"
+            target="_blank"><code class="inline-code">complete</code></a> response
+        below.
+    </p>
+    <p>
+        Select Success to default to <a
+            href="https://www.w3.org/TR/payment-request/#dom-paymentcomplete-success" target="_blank"><code
+            class="inline-code">success</code></a>. Select Failure to see a <a
+            href="https://www.w3.org/TR/payment-request/#dom-paymentcomplete-fail"><code
+            class="inline-code">fail</code></a> response.
+    </p>
+    <p>
+        Click or tap the Apple Pay button to see how the payment sheet completes the payment.
+    </p>
+    <div class="form-table">
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="A" type="radio" name="PaymentComplete" id="PaymentCompleteA"
+                   checked="checked"
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentCompleteA">
+                <span class="form-choice-indicator"></span> Success
+            </label>
+            
+        </div>
+    </div>
+</div>
+        <div class="form-row">
+    <div class="form-cell">
+        <div class="form-element">
+            <input value="B" type="radio" name="PaymentComplete" id="PaymentCompleteB"
+                   
+                   class="choosePreset form-choice form-choice-radio" onchange="presetChanged()">
+            <label class="form-label" for="PaymentCompleteB">
+                <span class="form-choice-indicator"></span> Failure
+            </label>
+            
+        </div>
+    </div>
+</div>
+    </div>
+    <br>
+    <div class="jsoneditor" id="PaymentComplete"></div>
+</section>
+<section class="section">
+    <h2>Disbursements</h2>
+    <p>
+        Implement the <a href="/disbursement-request-api#createADisbursement">Disbursement Request API</a> to disburse funds to your customer.
+        With the Disbursement Request API, you can allow your site visitors to transfer funds from your site to an account that is linked
+        to a card in Wallet. The Disbursement Request API is only available as a subset of the Payment Request API.
+    </p>
+</section>
+                        
+                    
+                </div>
+                <section class="section">
+                    <h2 id="resources">Additional resources</h2>
+                    <p>Ready to integrate Apple&nbsp;Pay into your website? Here are a few links you may
+                        find
+                        useful:</p>
+                    <ul>
+                        <li><a href="https://developer.apple.com/documentation/applepayontheweb"
+                               target="_blank">Apple&nbsp;Pay on the Web Developer Documentation</a>
+                        <li><a href="https://developer.apple.com/design/human-interface-guidelines/apple-pay"
+                               target="_blank">Apple Pay on the Web Human Interface Guidelines</a>
+                        <li>
+                            <a href="https://developer.apple.com/apple-pay/acceptable-use-guidelines-for-websites/"
+                               target="_blank">Apple&nbsp;Pay on the Web Acceptable Use Guidelines</a>
+                    </ul>
+                </section>
+                <section class="section">
+                    <h2 id="feedback">Questions or feedback</h2>
+                    <p>
+                        Check out our <a href="https://developer.apple.com/forums/tags/apple-pay" target="_blank">
+                        developer forums</a> or <a href="https://developer.apple.com/contact/apple-pay/"
+                                                   target="_blank"> reach out to us</a>.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div class="fixed-demo-container">
+
+        <div class="demo-container">
+            <div class="unsupportedBrowserMessage">
+                Your browser doesn&rsquo;t support Apple&nbsp;Pay on the web.<br>
+                To try this demo, open this page in Safari.<br>
+                (See <a href="#requirements">Requirements</a>.)
+            </div>
+            <div class="configureWalletMessage">
+                Your device does not have any active cards in Wallet.<br>
+                Please <a href="x-apple.systempreferences://com.apple.WalletSettingsExtension?addPass">open Wallet in Settings</a> and add at least one card.
+            </div>
+            <div class="applePayButtonContainer">
+                <apple-pay-button buttonstyle="black" type="plain" locale="en"
+                                  onclick="onApplePayButtonClicked()"></apple-pay-button>
+            </div>
+        </div>
+
+        <nav class="demo-tabs">
+            <button id="transcriptButton" class="demo-tabs--item" onclick="showTab()">
+                <svg class="demo-tabs--item--icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                    <path d="M7.97278558,46.5450288 L51.6656132,46.5450288 C56.9694063,46.5450288 59.595958,43.918415 59.595958,38.715696 L59.595958,7.87822527 C59.595958,2.67550115 56.9694063,0.0488459726 51.6656132,0.0488459726 L7.97278558,0.0488459726 C2.69428555,0.0488459726 0.042440716,2.65020805 0.042440716,7.87822527 L0.042440716,38.715696 C0.042440716,43.9436719 2.69428555,46.5450288 7.97278558,46.5450288 Z M8.02332007,42.4788288 C5.49768213,42.4788288 4.10863038,41.1402629 4.10863038,38.513646 L4.10863038,8.08025975 C4.10863038,5.4536563 5.49768213,4.11508736 8.02332007,4.11508736 L51.6149236,4.11508736 C54.1152684,4.11508736 55.5299235,5.4536563 55.5299235,8.08025975 L55.5299235,38.513646 C55.5299235,41.1402629 54.1152684,42.4788288 51.6149236,42.4788288 L8.02332007,42.4788288 Z M10.9024925,19.5464667 C8.93252696,20.7587253 10.599389,23.7642081 12.771389,22.3751046 L20.0450959,17.8290184 C21.4846822,16.9451046 21.408958,14.798346 20.0450959,13.9396218 L12.771389,9.39358734 C10.599389,8.00448389 8.90723386,11.0099667 10.9024925,12.2222253 L16.9891304,15.884346 L10.9024925,19.5464667 Z M21.560458,22.3751046 C21.560458,23.2590701 22.2676304,23.9914839 23.1768373,23.9914839 L32.7993373,23.9914839 C33.708596,23.9914839 34.4157167,23.2590701 34.4157167,22.3751046 C34.4157167,21.4406563 33.708596,20.7334839 32.7993373,20.7334839 L23.1768373,20.7334839 C22.2676304,20.7334839 21.560458,21.4406563 21.560458,22.3751046 Z"
+                          transform="translate(2 8.724)"></path>
+                </svg>
+                Show Transcript
+            </button>
+            <button id="sourceButton" class="demo-tabs--item" onclick="showTab()">
+                <svg class="demo-tabs--item--icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                    <path d="M23.3944933,45.9476376 C24.4188569,46.2344627 25.422703,45.6608124 25.7505212,44.5545047 L37.9610667,2.63745548 C38.2681996,1.53110583 37.7764513,0.50674219 36.7522136,0.199441489 C35.7278499,-0.0873836867 34.7239618,0.486266665 34.3961856,1.59257436 L22.1652485,43.5096655 C21.8579058,44.6159732 22.3700877,45.6403369 23.3944933,45.9476376 Z M43.7588287,38.5107422 L59.1654022,24.5998471 C60.1077798,23.7393716 60.0872204,22.3872317 59.1654022,21.5472317 L43.7588287,7.63633659 C42.8982693,6.83732959 41.7511366,6.85780512 41.0340737,7.65681211 C40.3170108,8.45581911 40.4193884,9.60311981 41.2388289,10.3611758 L55.2930945,23.0633016 L41.2388289,35.7859282 C40.4193884,36.543959 40.3170108,37.6912492 41.0340737,38.4902541 C41.7511366,39.2892611 42.8982693,39.2892611 43.7588287,38.5107422 Z M16.3877939,38.5312303 C17.2277939,39.3097492 18.3955702,39.2892611 19.1126331,38.4902541 C19.829696,37.6912492 19.706759,36.5644471 18.8872765,35.8064164 L4.83296875,23.0837772 L18.8872765,10.3611758 C19.706759,9.60311981 19.829696,8.47633659 19.1126331,7.65681211 C18.3955702,6.85780512 17.2277939,6.85780512 16.3877939,7.63633659 L0.960870837,21.5472317 C0.0184512539,22.4077072 0.0389267784,23.7598471 0.960870837,24.5998471 L16.3877939,38.5312303 Z"
+                          transform="translate(2 8.923)"></path>
+                </svg>
+                Show Source
+            </button>
+        </nav>
+
+        <div id="transcript" class="demo-tab hide">
+            <pre aria-label="Transaction Transcript">
+Demo Transaction Transcript is empty.
+
+After you configure the code blocks above and click
+the Apple Pay Button, look here for the results.
+</pre>
+        </div>
+        <div id="source" class="demo-tab hide">
+            <button onclick="copySource(this)" data-tooltip="Copy Source">Copy</button>
+            <pre></pre>
+        </div>
+
+    </div>
+    <section id="globalfooter-wrapper">
+        <footer id="globalfooter" role="contentinfo">
+            <nav class="footer-breadory">
+                <a href="https://developer.apple.com/" class="home breadcrumbs-home"><span
+                        aria-hidden="true"></span><span
+                        class="breadcrumbs-home-label">Developer</span></a>
+                <section class="breadcrumbs">
+                    <ol class="breadcrumbs-list">
+                        <li><a href="https://developer.apple.com/apple-pay/">Apple Pay</a></li>
+                        <li>Apple Pay Web Demo</li>
+                    </ol>
+                </section>
+            </nav>
+            <!-- footer -->
+            <div class="ac-gf-footer-legal">
+                <div class="ac-gf-footer-news"> To receive the latest developer news, visit and subscribe to our <a
+                        href="https://developer.apple.com/news/">News and Updates</a>.
+                </div>
+                <div class="ac-gf-footer-legal-copyright">Copyright © 2026 Apple Inc. All rights reserved.</div>
+                <div class="ac-gf-footer-legal-links">
+                    <a href="https://www.apple.com/legal/internet-services/terms/site.html" class="first">Terms of
+                        Use</a>
+                    <a href="https://www.apple.com/privacy/privacy-policy/">Privacy Policy</a>
+                    <a href="https://developer.apple.com/bug-reporting/">Report Bugs</a>
+                    <a href="https://developer.apple.com/contact/submit/?subject=website-feedback">Feedback</a>
+                </div>
+                <div class="ac-gf-footer-language-links">
+                    <a href="https://developer.apple.com/cn/" lang="zh" class="first">简体中文</a>
+                    <a href="https://developer.apple.com/jp/" lang="ja">日本語</a>
+                    <a href="https://developer.apple.com/kr/" lang="ko">한국어</a>
+                </div>
+            </div>
+
+            <!-- /footer -->
+        </footer>
+    </section>
+
+    </div>
+</div>
+</body>
+</html>
