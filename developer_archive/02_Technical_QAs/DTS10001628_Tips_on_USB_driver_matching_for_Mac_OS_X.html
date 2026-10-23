@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1076: Tips on USB driver matching for Mac OS X</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001628">
+    <meta id="document-version" name="document-version" content="1.2.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10001628-CH1">
+    <meta id="date" name="date" content="2008-08-14">
+    <meta id="description" name="description" content="QA1076: Gives some tips on getting USB driver matching to work.">
+    <meta id="book-title" name="book-title" content="Tips on USB driver matching for Mac OS X">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Kernel & Driver Layer/Kernel}, {Topic/Drivers, Kernel, & Hardware/Kernel Device Drivers}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1076">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Tips on USB driver matching for Mac OS X" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10001628" title="Technical Q&amp;A QA1076"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Tips on USB driver matching for Mac OS X</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10001628-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1076"></a><div class="dtsDocNumber">Technical Q&amp;A QA1076</div><h1 id="pageTitle">Tips on USB driver matching for Mac OS X</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I can't get my kernel driver to match against my USB device. What's wrong?
+</h2><p><span>A: </span>I can't get my kernel driver to match against my USB device. What's wrong?</p><p>There could be many things causing your driver not to match, but the most common mistake is an incorrect combination of property keys in your driver's <code>Info.plist</code> property list. </p><p>USB driver matching is based on the <span class="content_text"><a href="http://www.usb.org/developers/devclass_docs/usbccs10.pdf" class="urlLink" rel="external">USB Common Class Specification</a></span>. The IOUSBFamily in conjunction with I/O Kit will use a probe score to determine the best driver candidate for a particular device. </p><p>The following tables show the probe scores obtained by specifying the corresponding keys in your driver's <code>Info.plist</code>. </p><p>Note that you should never add your own <code>IOProbeScore</code> property to a USB driver's property list. Also, don't add extra keys; only use the key combinations shown in the following tables. </p><a name="//apple_ref/doc/uid/DTS10001628-CH1-TABLE1" title="Table 1Properties for matching a USB device (IOProviderClass is IOUSBDevice)"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Properties for matching a USB device (IOProviderClass is IOUSBDevice)</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Keys
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Comments
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Probe Score
+</p></th></tr><tr><td  scope="row"><p>
+idVendor + idProduct + bcdDevice
+</p></td><td ><p>
+</p></td><td ><p>
+100000
+</p></td></tr><tr><td  scope="row"><p>
+idVendor + idProduct
+</p></td><td ><p>
+</p></td><td ><p>
+90000
+</p></td></tr><tr><td  scope="row"><p>
+idVendor + bDeviceSubClass + bDeviceProtocol
+</p></td><td ><p>
+Only if bDeviceClass is 0xFF (vendor specific).
+</p></td><td ><p>
+80000
+</p></td></tr><tr><td  scope="row"><p>
+idVendor + bDeviceSubClass
+</p></td><td ><p>
+Only if bDeviceClass is 0xFF (vendor specific).
+</p></td><td ><p>
+70000
+</p></td></tr><tr><td  scope="row"><p>
+bDeviceClass + bDeviceSubClass + bDeviceProtocol
+</p></td><td ><p>
+Only if bDeviceClass is not 0xFF.
+</p></td><td ><p>
+60000
+</p></td></tr><tr><td  scope="row"><p>
+bDeviceClass + bDeviceSubClass
+</p></td><td ><p>
+Only if bDeviceClass is not 0xFF.
+</p></td><td ><p>
+50000
+</p></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10001628-CH1-TABLE2" title="Table 2Properties for matching a USB interface (IOProviderClass is IOUSBInterface)"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;Properties for matching a USB interface (IOProviderClass is IOUSBInterface)</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Keys
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Comments
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Probe Score
+</p></th></tr><tr><td  scope="row"><p>
+idVendor + idProduct + bInterfaceNumber + bConfigurationValue + bcdDevice
+</p></td><td ><p>
+</p></td><td ><p>
+100000
+</p></td></tr><tr><td  scope="row"><p>
+idVendor + idProduct + bInterfaceNumber + bConfigurationValue
+</p></td><td ><p>
+</p></td><td ><p>
+90000
+</p></td></tr><tr><td  scope="row"><p>
+idVendor + bInterfaceSubClass + bInterfaceProtocol
+</p></td><td ><p>
+Only if bInterfaceClass is 0xFF (vendor specific).
+</p></td><td ><p>
+80000
+</p></td></tr><tr><td  scope="row"><p>
+idVendor + bInterfaceSubClass
+</p></td><td ><p>
+Only if bInterfaceClass is 0xFF (vendor specific).
+</p></td><td ><p>
+70000
+</p></td></tr><tr><td  scope="row"><p>
+bInterfaceClass + bInterfaceSubClass + bInterfaceProtocol
+</p></td><td ><p>
+Only if bInterfaceClass is not 0xFF.
+</p></td><td ><p>
+60000
+</p></td></tr><tr><td  scope="row"><p>
+bInterfaceClass + bInterfaceSubClass
+</p></td><td ><p>
+Only if bInterfaceClass is not 0xFF.
+</p></td><td ><p>
+50000
+</p></td></tr></table></div><p>If your driver still fails to load, make sure that the value for the <code>CFBundleIdentifier</code> property in the <code>IOKitPersonalities</code> dictionary is the same value as the <code>CFBundleIdentifier</code> property for the driver as shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS10001628-CH1-SOURCECODE1" title="Listing 1CFBundleIdentifier property in personality dictionary."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;CFBundleIdentifier property in personality dictionary.</p><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+    &lt;key&gt;CFBundleDevelopmentRegion&lt;/key&gt;
+    &lt;string&gt;English&lt;/string&gt;
+    &lt;key&gt;CFBundleExecutable&lt;/key&gt;
+    &lt;string&gt;${EXECUTABLE_NAME}&lt;/string&gt;
+    ...
+    &lt;key&gt;CFBundleIdentifier&lt;/key&gt;
+    &lt;string&gt;com.apple.dts.driver.HelloIOKit&lt;/string&gt;
+    ...
+    &lt;key&gt;IOKitPersonalities&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;HelloIOKit&lt;/key&gt;
+        &lt;dict&gt;
+            &lt;key&gt;CFBundleIdentifier&lt;/key&gt;
+            &lt;string&gt;com.apple.dts.driver.HelloIOKit&lt;/string&gt;
+            &lt;key&gt;IOClass&lt;/key&gt;
+            &lt;string&gt;com_apple_dts_driver_HelloIOKit&lt;/string&gt;
+            ...
+        &lt;/dict&gt;
+    &lt;/dict&gt;
+    ...
+&lt;/dict&gt;
+&lt;/plist&gt;<span></span></pre></td></tr></table></div><p>If your driver matches when you hot-plug your device but not when your device is attached at boot time, a boot-time driver might be matching to your device. Even though your driver is a better match, I/O Kit will not terminate a driver which has already been given control over a device.</p><p>In this case, you will need to add a <code>OSBundleRequired</code> property to your driver's property list so your driver is also considered for matching at boot time.</p><p>For more information on loading KEXTs at boot time, please see <em><!--a target="_self" -->Loading Kernel Extensions at Boot Time<!--/a--></em> in the document Kernel Extension Programming Topics.</p><p>Other driver loading problems can be diagnosed using general I/O Kit troubleshooting techniques. One useful tip is to use the diagnostic mode of the <span class="content_text"><a href="x-man-page://8/kextload" class="urlLink" rel="external">kextload</a></span> command to try to load your driver by hand as shown in <span class="content_text"><!--a  -->Listing 2<!--/a--></span></p><a name="//apple_ref/doc/uid/DTS10001628-CH1-SOURCECODE2" title="Listing 2Diagnostic options for the kextload command."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Diagnostic options for the kextload command.</p><div class="codesample clear"><table><tr><td scope="row"><pre>$ kextload -nt HelloIOKit.kext<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS10001628-CH1-SECTION1" title="Wild Card Matching"></a><h2 class="jump">Wild Card Matching</h2><p>As shown in the previous section, the Common Class Specification details the exact nature of how the fields of the USB device and interface descriptor are used to match drivers. In some cases, however, it would be convenient to not have to create multiple I/O Kit personalities to specify different devices that are supported by a particular driver. For example, if you had to support a whole set of devices from a single vendor, you could just specify a personality that matched to all the product IDs for that vendor. If you then needed to trim the supported product IDs, you could use the <code>probe</code> method of the driver to deny matching to product IDs outside the range that the driver can support. That is the idea behind the concept of wild card matching.</p><p>In the tables above, you can substitute the asterisk <code>*</code> wild card character for any of the fields from the device or interface descriptor. The type of the property's value must be changed from <code>&lt;integer&gt;</code> to <code>&lt;string&gt;</code> when the wild card character is used as shown in <span class="content_text"><!--a  -->Listing 3<!--/a--></span>. The probe score will then be reduced by 1000 for each wild card that is specified. For example, a device driver matching on <code>idProduct</code> and <code>idVendor</code> will have a probe score of 90000. If a wild card is specified for the <code>idProduct</code>, the probe score will be reduced by 1000 to 89000. This means that a driver for the same device that does not have a wild card will out-match a wild card-enabled one.</p><a name="//apple_ref/doc/uid/DTS10001628-CH1-SOURCECODE3" title="Listing 3Example wild card matching personality."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Example wild card matching personality.</p><div class="codesample clear"><table><tr><td scope="row"><pre> &lt;key&gt;IOKitPersonalities&lt;/key&gt;
+        &lt;dict&gt;
+                &lt;key&gt;WildCardMatching&lt;/key&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;CFBundleIdentifier&lt;/key&gt;
+                        &lt;string&gt;com.apple.dts.driver.HelloIOKit&lt;/string&gt;
+                        &lt;key&gt;IOClass&lt;/key&gt;
+                        &lt;string&gt;com_apple_dts_driver_HelloIOKit&lt;/string&gt;
+                        &lt;key&gt;IOProviderClass&lt;/key&gt;
+                        &lt;string&gt;IOUSBDevice&lt;/string&gt;
+                        &lt;key&gt;idProduct&lt;/key&gt;
+                        &lt;string&gt;*&lt;/string&gt;
+                        &lt;key&gt;idVendor&lt;/key&gt;
+                        &lt;integer&gt;1452&lt;/integer&gt;
+                &lt;/dict&gt;
+        &lt;/dict&gt;<span></span></pre></td></tr></table></div><p>The <code>idProduct</code> property can also match against a specified range of product IDs without having to implement a <code>probe</code> method to weed out unwanted product IDs. This partial matching is done by specifying a numeric <code>idProductMask</code> property in the driver's matching personality in addition to the <code>idProduct</code> property. This mask will be bitwise ANDed with each candidate device's product ID before comparing it to the <code>idProduct</code> property.</p><p><span class="content_text"><!--a  -->Listing 4<!--/a--></span> shows how to specify a match on product IDs between 4752 (0x1290) and 4755 (0x1293). The value of the <code>idProductMask</code> property is 65532 (0xfffc). Thus, any product ID will be considered a match that, after being ANDed with 0xfffc, equals the <code>idProduct</code> property's value of 4752.</p><a name="//apple_ref/doc/uid/DTS10001628-CH1-SOURCECODE4" title="Listing 4Example of using idProductMask to match a range of product IDs."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Example of using idProductMask to match a range of product IDs.</p><div class="codesample clear"><table><tr><td scope="row"><pre> &lt;key&gt;IOKitPersonalities&lt;/key&gt;
+        &lt;dict&gt;
+                &lt;key&gt;WildCardMatching&lt;/key&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;CFBundleIdentifier&lt;/key&gt;
+                        &lt;string&gt;com.apple.dts.driver.HelloIOKit&lt;/string&gt;
+                        &lt;key&gt;IOClass&lt;/key&gt;
+                        &lt;string&gt;com_apple_dts_driver_HelloIOKit&lt;/string&gt;
+                        &lt;key&gt;IOProviderClass&lt;/key&gt;
+                        &lt;string&gt;IOUSBDevice&lt;/string&gt;
+                        &lt;key&gt;idProduct&lt;/key&gt;
+                        &lt;integer&gt;4752&lt;/integer&gt;
+                        &lt;key&gt;idProductMask&lt;/key&gt;
+                        &lt;integer&gt;65532&lt;/integer&gt;
+                        &lt;key&gt;idVendor&lt;/key&gt;
+                        &lt;integer&gt;1452&lt;/integer&gt;
+                &lt;/dict&gt;
+        &lt;/dict&gt;<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10001628-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Wild card matching and the <code>idProductMask</code> property are only available on Mac OS X 10.4 Tiger and later. They are part of the USB family-specific matching rules.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10001628-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10001628-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2008-08-14</td><td><p>Added documentation about Tiger wild card matching feature. Made other editorial changes.</p></td></tr><tr><td scope="row">2008-08-13</td><td><p>Added documentation about Tiger wild card matching feature. Made other editorial changes.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>Added documentation about Tiger wild card matching feature. Made other editorial changes.</p></td></tr><tr><td scope="row">2008-08-08</td><td><p>Added documentation about Tiger wild card matching feature. Made other editorial changes.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>Added documentation about Tiger wild card matching feature. Made other editorial changes.</p></td></tr><tr><td scope="row">2001-10-02</td><td><p>New document that 
+					gives some tips on getting USB driver matching to work.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2008 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2008-08-14</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

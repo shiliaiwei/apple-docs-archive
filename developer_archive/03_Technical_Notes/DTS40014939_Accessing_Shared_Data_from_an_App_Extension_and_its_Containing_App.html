@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2408: Accessing Shared Data from an App Extension and its Containing App</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014939">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014939-CH1">
+    <meta id="date" name="date" content="2015-05-11">
+    <meta id="description" name="description" content="TN2408: explains file coordination issues when used by an app extension to access a container shared with its containing app.">
+    <meta id="book-title" name="book-title" content="Accessing Shared Data from an App Extension and its Containing App">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Data Management/File Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2408">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Accessing Shared Data from an App Extension and its Containing App" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014939" title="Technical Note TN2408"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Accessing Shared Data from an App Extension and its Containing App</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014939-CH1-DontLinkElementID_2" title="Technical Note TN2408"></a><div class="dtsDocNumber">Technical Note TN2408</div><h1 id="pageTitle">Accessing Shared Data from an App Extension and its Containing App</h1><p>Explains file coordination issues when used by an app extension to access a container shared with its containing app.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014939-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014939-CH1-TNTAG2" data-renderer-version="1">File Coordination and Shared Containers</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014939-CH1-TNTAG3" data-renderer-version="1">Solutions</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014939-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40014939-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Using file coordination in an app extension to access a container shared with its containing app may result in a deadlock in iOS versions 8.1.x and earlier. This is usually the case if a process is suspended mid coordinated I/O. This can be more prevalent on iOS where most apps will be suspended after a short period of time after being moved to the background. Extensions should use alternatives to file coordination. This has since been resolved in iOS 8.2.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40014939-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;When you create a shared container for use by an app extension and its containing app in iOS 8.0 or later, you are obliged to write to that container in a coordinated manner to avoid data corruption. However, you must not use file coordination APIs directly for this in iOS 8.1.x and earlier. If you use file coordination APIs directly to access a shared container from an extension in iOS 8.1.x and earlier, there are certain circumstances under which the file coordination machinery deadlocks.</p><p></p></aside></div><p>Instead, use CFPreferences, atomic safe save operations on flat files, SQLite or Core Data.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014939-CH1-TNTAG2" title="File Coordination and Shared Containers"></a><h2 class="jump">File Coordination and Shared Containers</h2><p>File coordination does not have a mechanism for handling process suspensions. On iOS, processes can be suspended as part of jetsam and process management. On OS X, this only happens in the debugger. The recommended practice on iOS 7, and for applications in general, is to handle the UIApplication notifications that the app has been backgrounded and cancel coordinated actions and remove file presenters. When the app is brought back to the foreground, the file presenters can be re-added. Extensions do not get UIApplication backgrounding notifications and cannot do that. Extensions also cannot take additional background task assertions, so they cannot avoid being suspended like applications.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014939-CH1-TNTAG3" title="Solutions"></a><h2 class="jump">Solutions</h2><p>You can use CFPreferences, atomic safe save operations on flat files, or SQLite or Core Data to share data in a group container between multiple processes even if one is suspended mid transaction. For SQLite/Core Data, processes using databases in DELETE journal mode will be instantly killed instead of suspended. Processes using database in WAL journal mode will only be jetsam'd if they attempt to hold a write transaction open at the time of suspension. Posix file locks also work, and behave similarly to SQLite database in DELETE journal mode, so open(O_EXLOCK) or flock() could also be used.</p><p>Regardless of this issue, the containing app (and all applications) should properly use background task assertions around file operations they require completed in a shared container (with or without extensions). This includes all writes or deletions. Such a process might still be killed by jetsam but at a much lower frequency.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40014939-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014939-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2015-05-11</td><td><p>Updated to indicate workarounds only apply to iOS 8.1 and earlier, issue resolved in iOS 8.2 and later.</p></td></tr><tr><td scope="row">2014-09-10</td><td><p>New document that 
+					explains file coordination issues when used by an app extension to access a container shared with its containing app.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-05-11</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

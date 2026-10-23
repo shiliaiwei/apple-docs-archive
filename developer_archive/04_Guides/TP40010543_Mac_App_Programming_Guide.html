@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>About OS X App Design</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40010543">
+    <meta id="document-version" name="document-version" content="5.3.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40010543-CH1">
+    <meta id="date" name="date" content="2015-03-09">
+    <meta id="description" name="description" content="Introduces the development process for Mac apps.">
+    <meta id="book-title" name="book-title" content="Mac App Programming Guide">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Technologies/Cocoa Layer/AppKit}, {Topic/General}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Mac App Programming Guide: About OS X App Design">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Mac App Programming Guide" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../AppRuntime/AppRuntime.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40010543-CH1" title="About OS X App Design"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Mac App Programming Guide</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../AppRuntime/AppRuntime.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40010543" title="About OS X App Design"></a><a name="//apple_ref/doc/uid/TP40010543-CH1-SW1" title="About OS X App Design"></a><h1 id="pageTitle">About OS X App Design</h1><a name="//apple_ref/doc/uid/TP40010543-CH1-DontLinkElementID_1"></a><p>This document is the starting point for learning how to create Mac apps. It contains fundamental information about the OS X environment and how your apps interact with that environment. It also contains important information about the architecture of Mac apps and tips for designing key parts of your app.</p><p></p><figure class="figure"><img src="../Art/MacAppStoreSplash_2x.png" class="wide-image" alt="../Art/MacAppStoreSplash_2x.png" width="726" height="310"><img src="../Art/MacAppStoreSplash_2x.png" class="ipad-scaled-image" alt="../Art/MacAppStoreSplash_2x.png" width="670" height="286"></figure><a name="//apple_ref/doc/uid/TP40010543-CH1-DontLinkElementID_2" title="At a Glance"></a><h2 class="jump">At a Glance</h2><p>Cocoa is the application environment that unlocks the full power of OS X. Cocoa provides APIs, libraries, and runtimes that help you create fast, exciting apps that automatically inherit the beautiful look and feel of OS X, as well as standard behaviors users expect.</p><section><a name="//apple_ref/doc/uid/TP40010543-CH1-SW2" title="Cocoa Helps You Create Great Apps for OS X"></a><h3>Cocoa Helps You Create Great Apps for OS X</h3><p>You write apps for OS X using Cocoa, which provides a significant amount of infrastructure for your program. Fundamental design patterns are used throughout Cocoa to enable your app to interface seamlessly with subsystem frameworks, and core application objects provide key behaviors to support simplicity and extensibility in app architecture. Key parts of the Cocoa environment are designed particularly to support ease of use, one of the most important aspects of successful Mac apps. Many apps should adopt iCloud to provide a more coherent user experience by eliminating the need to synchronize data explicitly between devices.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40010543-CH1-SW3" title="Relevant Chapters"></a><p><strong>Relevant Chapters:</strong>&nbsp;<span class="content_text"><a href="../AppRuntime/AppRuntime.html#//apple_ref/doc/uid/TP40010543-CH2-SW1" data-renderer-version="1">The Mac Application Environment</a></span>, <span class="content_text"><a href="../CoreAppDesign/CoreAppDesign.html#//apple_ref/doc/uid/TP40010543-CH3-SW1" data-renderer-version="1">The Core App Design</a></span>, and <span class="content_text"><a href="../CoreAppDesign/CoreAppDesign.html#//apple_ref/doc/uid/TP40010543-CH3-SW19" data-renderer-version="1">Integrating iCloud Support Into Your App</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40010543-CH1-SW12" title="Common Behaviors Make Apps Complete"></a><h3>Common Behaviors Make Apps Complete</h3><p>During the design phase of creating your app, you need to think about how to implement certain features that users expect in well-formed Mac apps. Integrating these features into your app architecture can have an impact on the user experience: accessibility, preferences, Spotlight, services, resolution independence, fast user switching, and the Dock. Enabling your app to assume full-screen mode, taking over the entire screen, provides users with a more immersive, cinematic experience and enables them to concentrate fully on their content without distractions.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40010543-CH1-SW13" title="Relevant Chapters"></a><p><strong>Relevant Chapters:</strong>&nbsp;<span class="content_text"><a href="../CommonAppBehaviors/CommonAppBehaviors.html#//apple_ref/doc/uid/TP40010543-CH7-SW1" data-renderer-version="1">Supporting Common App Behaviors</a></span> and <span class="content_text"><a href="../FullScreenApp/FullScreenApp.html#//apple_ref/doc/uid/TP40010543-CH6-SW1" data-renderer-version="1">Implementing the Full-Screen Experience</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40010543-CH1-SW14" title="Get It Right: Meet System and App Store Requirements"></a><h3>Get It Right: Meet System and App Store Requirements</h3><p>Configuring your app properly is an important part of the development process. Mac apps use a structured directory called a <em>bundle</em> to manage their code and resource files. And although most of the files are custom and exist to support your app, some are required by the system or the App Store and must be configured properly. The application bundle also contains the resources you need to provide to internationalize your app to support multiple languages.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40010543-CH1-SW15" title="Relevant Chapter"></a><p><strong>Relevant Chapter:</strong>&nbsp;<span class="content_text"><a href="../BuildTimeConfiguration/BuildTimeConfiguration.html#//apple_ref/doc/uid/TP40010543-CH8-SW1" data-renderer-version="1">Build-Time Configuration Details</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40010543-CH1-SW16" title="Finish Your App with Performance Tuning"></a><h3>Finish Your App with Performance Tuning</h3><p>As you develop your app and your project code stabilizes, you can begin performance tuning. Of course, you want your app to launch and respond to the user’s commands as quickly as possible. A responsive app fits easily into the user’s workflow and gives an impression of being well crafted. You can improve the performance of your app by speeding up launch time and decreasing your app’s code footprint.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40010543-CH1-SW17" title="Relevant Chapter"></a><p><strong>Relevant Chapter:</strong>&nbsp;<span class="content_text"><a href="../Performance/Performance.html#//apple_ref/doc/uid/TP40010543-CH9-SW1" data-renderer-version="1">Tuning for Performance and Responsiveness</a></span></p><p></p></aside></div></section><a name="//apple_ref/doc/uid/TP40010543-CH1-DontLinkElementID_3" title="How to Use This Document"></a><h2 class="jump">How to Use This Document</h2><p>This guide introduces you to the most important technologies that go into writing an app. In this guide you will see the whole landscape of what's needed to write one. That is, this guide shows you all the "pieces" you need and how they fit together. There are important aspects of app design that this guide does not cover, such as user interface design. However, this guide includes many links to other documents that provide details about the technologies it introduces, as well as links to tutorials that provide a hands-on approach.</p><p>In addition, this guide emphasizes certain technologies introduced in OS X v10.7, which provide essential capabilities that set your app apart from older ones and give it remarkable ease of use, bringing some of the best features from iOS to OS X.</p><div id="introSeeAlsoSection"><a name="//apple_ref/doc/uid/TP40010543-CH1-DontLinkElementID_4" title="See Also"></a><h2 class="jump">See Also</h2><p>The following documents provide additional information about designing Mac apps, as well as more details about topics covered in this document:</p><ul class="ul"><li class="li"><p>To work through a tutorial showing you how to create a Cocoa app, see <em><a href="../../../../../referencelibrary/GettingStarted/RoadMapOSX/index.html#//apple_ref/doc/uid/TP40012262" data-renderer-version="1" target="_self">Start Developing Mac Apps Today</a></em>.</p></li><li class="li"><p>For information about user interface design enabling you to create effective apps using OS X, see <em><!--a target="_self" -->OS X Human Interface Guidelines<!--/a--></em>.</p></li><li class="li"><p>To understand how to create an explicit app ID, create provisioning profiles, and enable the correct entitlements for your application, so you can sell your application through the Mac App Store or use iCloud storage, see <em><!--a target="_self" -->App Distribution Guide<!--/a--></em>.</p></li><li class="li"><p>For a general survey of OS X technologies, see <em><a href="../../../../MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067" data-renderer-version="1" target="_self">Mac Technology Overview</a></em>.</p></li><li class="li"><p>To understand how to implement a document-based app, see <em><a href="../../../../DataManagement/Conceptual/DocBasedAppProgrammingGuideForOSX/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011179" data-renderer-version="1" target="_self">Document-Based App Programming Guide for Mac</a></em>.</p></li></ul></div>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../AppRuntime/AppRuntime.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-03-09</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

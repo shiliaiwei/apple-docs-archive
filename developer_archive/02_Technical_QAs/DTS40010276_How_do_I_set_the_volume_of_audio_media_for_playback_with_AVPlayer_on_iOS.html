@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1716: How do I set the volume of audio media for playback with AVPlayer on iOS?</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40010276">
+    <meta id="document-version" name="document-version" content="1.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40010276-CH1">
+    <meta id="date" name="date" content="2014-05-21">
+    <meta id="description" name="description" content="QA1716: Demonstrates how to set the volume of audio media for playback with AVPlayer on iOS">
+    <meta id="book-title" name="book-title" content="How do I set the volume of audio media for playback with AVPlayer on iOS?">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AVFoundation}, {Topic/Audio, Video, & Visual Effects}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1716">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="How do I set the volume of audio media for playback with AVPlayer on iOS?" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40010276" title="Technical Q&amp;A QA1716"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>How do I set the volume of audio media for playback with AVPlayer on iOS?</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40010276-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1716"></a><div class="dtsDocNumber">Technical Q&amp;A QA1716</div><h1 id="pageTitle">How do I set the volume of audio media for playback with AVPlayer on iOS?</h1><h2>Q:&nbsp;
+How do I set the volume of audio media for playback with <code>AVPlayer</code> on iOS?
+</h2><p><span>A: </span><code>AVPlayer</code> uses the system volume (controlled by the hardware volume switch) for media playback.  </p><p>Use the <code>MPVolumeView</code> class to present the user with a slider control in your application for setting the system audio output volume. See the <span class="content_text"><a href="http://developer.apple.com/iphone/library/documentation/MediaPlayer/Reference/MPVolumeView_Class/Reference/Reference.html" class="browserLink" ><codeVoice>MPVolumeView</codeVoice> Class Reference</a></span> for more information.</p><p>On iOS 7, you can mute the playback of audio (local or streamed) with the <code>AVPlayer</code> <code>muted</code> property:</p><a name="//apple_ref/doc/uid/DTS40010276-CH1-SOURCECODE1" title="Listing 1Muting the playback of audio for an AVPlayer object using the muted property."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Muting the playback of audio for an <code>AVPlayer</code> object using the muted property.</p><div class="codesample clear"><table><tr><td scope="row"><pre>#import &lt;AVFoundation/AVFoundation.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AVPlayer *player = &lt;#A properly configured AVPlayer object#&gt;;<span></span></pre></td></tr><tr><td scope="row"><pre>player.muted = YES; // mute the audio<span></span></pre></td></tr></table></div><p>On iOS 6 and earlier, you can mute the playback of audio with <code>AVPlayer</code> by creating an <code>AVAudioMix</code> with a volume ramp to set the volume to 0 as shown in <span class="content_text"><!--a  -->Listing 2<!--/a--></span>:</p><a name="//apple_ref/doc/uid/DTS40010276-CH1-SOURCECODE2" title="Listing 2Muting the playback of audio with AVPlayer by creating an AVAudioMix with zero volume ramp."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Muting the playback of audio with <code>AVPlayer</code> by creating an <code>AVAudioMix</code> with zero volume ramp.</p><div class="codesample clear"><table><tr><td scope="row"><pre>#import &lt;AVFoundation/AVFoundation.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[self myAssetURL] options:nil];<span></span></pre></td></tr><tr><td scope="row"><pre>NSArray *audioTracks = [asset tracksWithMediaType:AVMediaTypeAudio];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// Mute all the audio tracks<span></span></pre></td></tr><tr><td scope="row"><pre>NSMutableArray *allAudioParams = [NSMutableArray array];<span></span></pre></td></tr><tr><td scope="row"><pre>for (AVAssetTrack *track in audioTracks) {<span></span></pre></td></tr><tr><td scope="row"><pre>    AVMutableAudioMixInputParameters *audioInputParams =[AVMutableAudioMixInputParameters audioMixInputParameters];<span></span></pre></td></tr><tr><td scope="row"><pre>    [audioInputParams setVolume:0.0 atTime:kCMTimeZero];<span></span></pre></td></tr><tr><td scope="row"><pre>    [audioInputParams setTrackID:[track trackID]];<span></span></pre></td></tr><tr><td scope="row"><pre>    [allAudioParams addObject:audioInputParams];<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre>AVMutableAudioMix *audioZeroMix = [AVMutableAudioMix audioMix];<span></span></pre></td></tr><tr><td scope="row"><pre>[audioZeroMix setInputParameters:allAudioParams];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// Create a player item<span></span></pre></td></tr><tr><td scope="row"><pre>AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];<span></span></pre></td></tr><tr><td scope="row"><pre>[playerItem setAudioMix:audioZeroMix]; // Mute the player item<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// Create a new Player, and set the player to use the player item<span></span></pre></td></tr><tr><td scope="row"><pre>// with the muted audio mix<span></span></pre></td></tr><tr><td scope="row"><pre>AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// assign player object to an instance variable<span></span></pre></td></tr><tr><td scope="row"><pre>self.mPlayer = player;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// play the muted audio<span></span></pre></td></tr><tr><td scope="row"><pre>[mPlayer play];<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40010276-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;<code>AVAudioMix</code> only supports file-based assets.</p><p></p></aside></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40010276-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40010276-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-05-21</td><td><p>Added information about the AVPlayer muted property for iOS 7</p></td></tr><tr><td scope="row">2010-08-27</td><td><p>New document that 
+					demonstrates how to set the volume of audio media for playback with AVPlayer on iOS</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-05-21</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

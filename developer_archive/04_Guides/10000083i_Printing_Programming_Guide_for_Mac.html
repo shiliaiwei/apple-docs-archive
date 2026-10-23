@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>About Printing on the Mac</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/10000083i">
+    <meta id="document-version" name="document-version" content="4.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="10000083">
+    <meta id="date" name="date" content="2012-12-20">
+    <meta id="description" name="description" content="Explains how to support printing in Cocoa applications.">
+    <meta id="book-title" name="book-title" content="Printing Programming Guide for Mac">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Topic/Graphics & Animation/Printing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Printing Programming Guide for Mac: About Printing on the Mac">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Printing Programming Guide for Mac" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../osxp_flexible/osxp_flexible.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/10000083" title="About Printing on the Mac"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Printing Programming Guide for Mac</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../osxp_flexible/osxp_flexible.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/10000083i" title="About Printing on the Mac"></a><a name="//apple_ref/doc/uid/10000083-SW1" title="About Printing on the Mac"></a><h1 id="pageTitle">About Printing on the Mac</h1><a name="//apple_ref/doc/uid/10000083-DontLinkElementID_1"></a><p>Like many other technologies in OS X, printing technology is layered. The top layer is the custom application code that you write to generate the printed output you want. The AppKit layer provides the printing classes that Cocoa apps use to print. That layer is the focus of this book. The Core Printing layer is a C API that most Cocoa app developers will never use directly because it is ideal for writing command-line tools or performing printing tasks that don’t require a user interface. The Common UNIX Printing System (CUPS) layer provides the low-level services, print queue management, and driver interfaces needed to communicate with printing devices. As an app developer, you don’t need to know anything about CUPS.</p><figure class="figure"><img src="../Art/printing_layers_2x.png" alt="../Art/printing_layers_2x.png" width="372" height="234"></figure><div class="notebox"><aside><a name="//apple_ref/doc/uid/10000083-SW6" title="Note"></a><p><strong>Note:</strong>&nbsp;This document was previously titled <em>Printing Programming Topics for Cocoa</em>.</p><p></p></aside></div><a name="//apple_ref/doc/uid/10000083-DontLinkElementID_2" title="At a Glance"></a><h2 class="jump">At a Glance</h2><p>Most Cocoa apps provide printing support in one form or another. When you create a Cocoa app, the Print command is automatically provided in the File menu. It’s straightforward for apps to implement printing. </p><section><a name="//apple_ref/doc/uid/10000083-SW2" title="Printing is Designed to be Easy-to-Use and Flexible"></a><h3>Printing is Designed to be Easy-to-Use and Flexible</h3><p>The printing system does as much as possible automatically for your app. If your app’s printing needs are simple, you might need to write only a few lines of code. But if your app needs to print precisely formatted pages, you’ll find that OS X printing provides all the flexibility you need.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/10000083-SW7" title="Relevant Chapter"></a><p><strong>Relevant Chapter:</strong>&nbsp;<span class="content_text"><a href="../osxp_flexible/osxp_flexible.html#//apple_ref/doc/uid/10000083i-CH1-SW6" data-renderer-version="1">Printing System Workflow and User Interface</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/10000083-SW3" title="NSView and NSDocument Objects Each Support Printing"></a><h3>NSView and NSDocument Objects Each Support Printing</h3><p>The printing system API works in conjunction with the <code>NSView</code> and <code>NSDocument</code> classes. Each class has API that responds to print messages. Your app will either be view-based or document-based. Printing is easy to use in either type of app. The basic concepts are the same with only minor differences in the API available to each.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/10000083-SW8" title="Relevant Chapter"></a><p><strong>Relevant Chapter:</strong>&nbsp;<span class="content_text"><a href="../osxp_printapps/osxp_printapps.html#//apple_ref/doc/uid/20000861-BAJBFGED" data-renderer-version="1">Printing From Your App</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/10000083-SW4" title="Layout Options Let You Format for Paper"></a><h3>Layout Options Let You Format for Paper</h3><p>Most of the time you’ll want to print content other than what shows on the display, if only to add page numbers or margins. You can add borders, crop marks, and other features to the page as well as set up layout options that work best with paper. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/10000083-SW9" title="Relevant Chapter"></a><p><strong>Relevant Chapter:</strong>&nbsp;<span class="content_text"><a href="../osxp_pagination/osxp_pagination.html#//apple_ref/doc/uid/20001051-BBCHHAHI" data-renderer-version="1">Laying Out Page Content</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/10000083-SW11" title="If it Needs to, Your App Can Manage the Printing Workflow"></a><h3>If it Needs to, Your App Can Manage the Printing Workflow</h3><p>Most apps can let the printing system take care of managing Print and Page Setup panels, querying printers, and managing print information. If your app is not a typical app, you can manage various objects in the printing system. For example, your app can add an accessory view to the Print panel to allow users to set app-specific printing features.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/10000083-SW12" title="Relevant Chapters"></a><p><strong>Relevant Chapters:</strong>&nbsp;<span class="content_text"><a href="../osxp_printpanel/osxp_printpanel.html#//apple_ref/doc/uid/20000862-BAJBFGED" data-renderer-version="1">Managing and Extending the Print Panel</a></span>, <span class="content_text"><a href="../osxp_printinfo/osxp_printinfo.html#//apple_ref/doc/uid/20000864-BAJBFGED" data-renderer-version="1">Managing Print Information Objects</a></span>, and <span class="content_text"><a href="../osxp_printlayoutpanel/osxp_printlayoutpanel.html#//apple_ref/doc/uid/20000863-BAJBFGED" data-renderer-version="1">Managing Page Layout Objects</a></span></p><p></p></aside></div></section>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../osxp_flexible/osxp_flexible.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2002, 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-12-20</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

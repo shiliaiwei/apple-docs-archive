@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1882: AVAudioSession - AVAudioSessionSilenceSecondaryAudioHintNotification Explained</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40015063">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40015063-CH1">
+    <meta id="date" name="date" content="2015-01-08">
+    <meta id="description" name="description" content="QA1882: Discusses the new AVAudioSessionSilenceSecondaryAudioHintNotification notification and secondaryAudioShouldBeSilencedHint property of AVAudioSession.">
+    <meta id="book-title" name="book-title" content="AVAudioSession - AVAudioSessionSilenceSecondaryAudioHintNotification Explained">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AVFoundation}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1882">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="AVAudioSession - AVAudioSessionSilenceSecondaryAudioHintNotification Explained" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40015063" title="Technical Q&amp;A QA1882"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>AVAudioSession - AVAudioSessionSilenceSecondaryAudioHintNotification Explained</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40015063-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1882"></a><div class="dtsDocNumber">Technical Q&amp;A QA1882</div><h1 id="pageTitle">AVAudioSession - AVAudioSessionSilenceSecondaryAudioHintNotification Explained</h1><h2>Q:&nbsp;
+Can you explain the purpose of the AVAudioSessionSilenceSecondaryAudioHintNotification notification.
+</h2><p><span>A: </span>iOS 8 introduced a new property called <code>secondaryAudioShouldBeSilencedHint</code> and a new notification <code>AVAudioSessionSilenceSecondaryAudioHintNotification</code> which are meant to be used together to replace the use of <code>isOtherAudioPlaying</code> when managing <strong>Secondary audio</strong> playback for most applications.</p><a name="//apple_ref/doc/uid/DTS40015063-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>/* Will be true when another application with a non-mixable audio session is playing audio. Applications may use<span></span></pre></td></tr><tr><td scope="row"><pre>this property as a hint to silence audio that is secondary to the functionality of the application. For example, a game app<span></span></pre></td></tr><tr><td scope="row"><pre>using AVAudioSessionCategoryAmbient may use this property to decide to mute its soundtrack while leaving its sound effects unmuted.<span></span></pre></td></tr><tr><td scope="row"><pre>Note: This property is closely related to AVAudioSessionSilenceSecondaryAudioHintNotification.<span></span></pre></td></tr><tr><td scope="row"><pre>*/<span></span></pre></td></tr><tr><td scope="row"><pre>@property(readonly) BOOL secondaryAudioShouldBeSilencedHint  NS_AVAILABLE_IOS(8_0);<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40015063-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>/* Registered listeners that are currently in the foreground and have active audio sessions will be notified<span></span></pre></td></tr><tr><td scope="row"><pre> when primary audio from other applications starts and stops. Check the notification's userInfo dictionary<span></span></pre></td></tr><tr><td scope="row"><pre> for the notification type -- either begin or end.<span></span></pre></td></tr><tr><td scope="row"><pre> Foreground applications may use this notification as a hint to enable or disable audio that is secondary<span></span></pre></td></tr><tr><td scope="row"><pre> to the functionality of the application. For more information, see the related property secondaryAudioShouldBeSilencedHint.<span></span></pre></td></tr><tr><td scope="row"><pre>*/<span></span></pre></td></tr><tr><td scope="row"><pre>AVF_EXPORT NSString *const AVAudioSessionSilenceSecondaryAudioHintNotification NS_AVAILABLE_IOS(8_0);<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS40015063-CH1-PRIMARY_AUDIO_VS__SECONDARY_AUDIO" title="Primary Audio vs. Secondary Audio"></a><h2 class="jump">Primary Audio vs. Secondary Audio</h2><p><strong>Primary audio</strong> - Audio that is absolutely required by an application. This audio should always play regardless of any other audio being played by other applications running on the system.</p><p><strong>Secondary audio</strong> - Audio that can enhance an application but is not absolutely required. This audio may be turned off when other applications are already playing audio on the system.</p><p>For example, a game may classify its primary audio as sound effects; explosions, bleeps &amp; bloops, short bits of dialog and so on. This is the audio that is absolutely required for gameplay and should always play even if music is being played elsewhere on the system by some other application. The user would expect this primary audio to mix in with the other system audio that is already playing.</p><p>This same game would classify secondary audio as its music soundtrack. While the music soundtrack would enhance gameplay, it's not considered mandatory. If the user was previously listening to their own music or podcast the game could choose to mute its own music soundtrack.</p><p>By using the <code>secondaryAudioShouldBeSilencedHint</code> property and the <code>AVAudioSessionSilenceSecondaryAudioHintNotification</code> notification, the game can decide when to mute or un-mute its secondary audio soundtrack.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40015063-CH1-A_VOLUNTARY_INTERRUPTION" title="A Voluntary Interruption"></a><h2 class="jump">A Voluntary Interruption</h2><p>You can think of the <code>AVAudioSessionSilenceSecondaryAudioHintNotification</code> as a voluntary interruption. iOS informs your application that another application is playing audio thereby letting your application decide when to mute or un-mute some or all of its audio in response to another application playing audio. This notification provides a <code>AVAudioSessionSilenceSecondaryAudioHintType</code> dictionary key containing a value indicating the type of notification. A begin event called <code>AVAudioSessionSilenceSecondaryAudioHintTypeBegin</code> or an end event called <code>AVAudioSessionSilenceSecondaryAudioHintTypeEnd</code>.</p><a name="//apple_ref/doc/uid/DTS40015063-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>/* keys for AVAudioSessionSilenceSecondaryAudioHintNotification */<span></span></pre></td></tr><tr><td scope="row"><pre>/* value is an NSNumber representing an AVAudioSessionSilenceSecondaryAudioHintType */<span></span></pre></td></tr><tr><td scope="row"><pre>AVF_EXPORT NSString *const AVAudioSessionSilenceSecondaryAudioHintTypeKey NS_AVAILABLE_IOS(8_0);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>/* Used in AVAudioSessionSilenceSecondaryAudioHintNotification to indicate whether optional secondary audio muting should begin or end */<span></span></pre></td></tr><tr><td scope="row"><pre>typedef NS_ENUM(NSUInteger, AVAudioSessionSilenceSecondaryAudioHintType)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    AVAudioSessionSilenceSecondaryAudioHintTypeBegin = 1,  /* the system is indicating that another application's primary audio has started */<span></span></pre></td></tr><tr><td scope="row"><pre>    AVAudioSessionSilenceSecondaryAudioHintTypeEnd = 0,    /* the system is indicating that another application's primary audio has stopped */<span></span></pre></td></tr><tr><td scope="row"><pre>} NS_AVAILABLE_IOS(8_0);<span></span></pre></td></tr></table></div><p>When your application is notified of the begin event it is a good time mute your secondary audio. When your application receives the end event it is a good time to resume playback of your secondary audio. The application is in control of what it would like to do when using these hints, there are no behaviors forced upon your application by the audio system.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40015063-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;When using the <code>secondaryAudioShouldBeSilencedHint</code>, the recommend approach is for your application to initially check the value of this property in <code>applicationDidBecomeActive</code>.</p><p></p></aside></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40015063-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;The <code>AVAudioSessionSilenceSecondaryAudioHintNotification</code> notification is <strong>only</strong> sent to registered listeners that are currently in the <strong>foreground</strong> and have <strong>active</strong> audio session.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40015063-CH1-REFERENCE" title="Reference"></a><h2 class="jump">Reference</h2><p><span class="content_text"><a href="https://developer.apple.com/videos/wwdc/2014/#501" class="urlLink" rel="external">What's New In Core Audio WWDC 2014</a></span></p><p>See AVAudioSession.h which is part of AVFoundation for complete details.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40015063-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40015063-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2015-01-08</td><td><p>Editorial</p></td></tr><tr><td scope="row">2014-12-03</td><td><p>New document that 
+					discusses the new AVAudioSessionSilenceSecondaryAudioHintNotification notification and secondaryAudioShouldBeSilencedHint property of AVAudioSession.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-01-08</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

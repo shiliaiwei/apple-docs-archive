@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1179: Sending SCSI or ATA commands to storage devices</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001708">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10001708-CH1">
+    <meta id="date" name="date" content="2005-05-10">
+    <meta id="description" name="description" content="QA1179: Explains that Mac OS X does not implement SCSI or ATA pass-through for many mass storage devices.">
+    <meta id="book-title" name="book-title" content="Sending SCSI or ATA commands to storage devices">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Kernel & Driver Layer/IOKit}, {Topic/Drivers, Kernel, & Hardware/User-Space Device Access}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1179">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Sending SCSI or ATA commands to storage devices" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10001708" title="Technical Q&amp;A QA1179"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Sending SCSI or ATA commands to storage devices</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10001708-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1179"></a><div class="dtsDocNumber">Technical Q&amp;A QA1179</div><h1 id="pageTitle">Sending SCSI or ATA commands to storage devices</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I'd like to send a SCSI or ATA command to my hard drive, flash memory reader, or other storage device.
+The SCSITask User Client seems to be the right API for sending SCSI commands, but it doesn't work when I try to use it with these devices.
+Plus, I can't find an API for sending ATA commands similar to the SCSITask User Client API.
+What are my options here?
+</h2><p><span>A: </span>I'd like to send a SCSI or ATA command to my hard drive, flash memory reader, or other storage device.</p><p>The SCSITask User Client seems to be the right API for sending SCSI commands, but it doesn't work when I try to use it with these devices.</p><p>Plus, I can't find an API for sending ATA commands similar to the SCSITask User Client API.</p><p>What are my options here?</p><p>Mac OS X by design does not support sending SCSI or ATA commands from an application to most storage devices unless the developer provides a custom kernel driver for the device.</p><p>The SCSI Architecture Model (SAM) family provides in-kernel logical unit drivers that translate generic I/O requests into device-specific commands for devices that return one of the following four peripheral device types from an INQUIRY command:</p><ul class="ul"><li class="li"><p>$00 for direct access block devices that comply with the SCSI Block Commands (SBC) specification</p></li><li class="li"><p>$05 for CD/DVD devices that comply with the SCSI Multimedia Commands (MMC) specification</p></li><li class="li"><p>$07 for optical memory devices that comply with the SCSI Block Commands specification</p></li><li class="li"><p>$0E for simplified direct-access devices that comply with the SCSI Reduced Block Commands (RBC) specification </p></li></ul><p>The design of the SAM family only allows one logical unit driver at a time to control a device. This architecture has two significant advantages. First, the integrity of the operating system and the user's data is protected because applications cannot directly change the state of a device without the cooperation of an in-kernel logical unit driver provided by the developer. Second, the security of the user's data is enhanced because applications cannot arbitrarily bypass file system permissions by sending I/O commands directly to a storage device.</p><p>The SCSITask User Client implements a device interface that allows an application to become the logical unit driver for supported devices and thus send SCSI commands to those devices. The SCSITask User Client API is supported for devices such as printers, scanners, tape drives, and medium changers which have peripheral device types other than those listed above. This API is also supported for peripheral device type $05 authoring devices that comply with the MMC specification, such as CD and DVD burners.</p><p>The same design applies to the ATA family as well: sending commands directly to ATA and Serial ATA (SATA) devices is unsupported. However, the ATA family does provide a device interface that allows applications to read SMART (Self-Monitoring, Analysis, and Reporting Technology) data from ATA and SATA devices that implement the SMART feature set.</p><p>If you're just interested in the information you'd get from a SCSI INQUIRY or an ATA IDENTIFY DEVICE command, much of that information is already published in the I/O Registry and thus is readable by applications without sending commands to the device in question. You can use the application <code>/Developer/Applications/IORegistryExplorer</code> or the command line tool <code>ioreg</code> to see if the information you need is in the I/O Registry. There are a number of code samples showing how to search and retrieve properties from the I/O Registry such as <span class="content_text"><a href="http://developer.apple.com/samplecode/CDROMSample/CDROMSample.html" class="browserLink" >CDROMSample</a></span> and the samples in <code>/Developer/Examples/IOKit.</code></p><p>To perform block-level I/O operations from an application, you can use the BSD raw disk device in <code>/dev.</code> This is described in <span class="content_text"><a href="http://developer.apple.com/documentation/DeviceDrivers/Conceptual/WorkingWStorage/index.html" class="browserLink" >Working with Device Files for Storage Devices</a></span>. An example of this is <span class="content_text"><a href="http://developer.apple.com/samplecode/AudioCDSample/AudioCDSample.html" class="browserLink" >AudioCDSample</a></span>.</p><p>As was mentioned earlier, you will need to implement your own custom subclass of Apple's logical unit drivers to allow your application to send SCSI or ATA commands to devices not supported by the SCSITask User Client or the SMART device interface. Guidance for writing such a driver can be found in <span class="content_text"><a href="http://developer.apple.com/documentation/DeviceDrivers/Conceptual/MassStorage/index.html" class="browserLink" >Writing Drivers for Mass Storage Devices</a></span>. A simple example is <span class="content_text"><a href="http://developer.apple.com/samplecode/VendorSpecificType00/VendorSpecificType00.html" class="browserLink" >VendorSpecificType00</a></span>.</p><p>Be sure not to send READ or WRITE commands from your custom driver. If you do, you will open a security hole by which malicious code can use your driver to read or destroy data on a device that the user has protected by setting access permissions. Again, if your application needs to perform block-level reads or writes, use the BSD raw disk device instead.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS10001708-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10001708-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2005-05-10</td><td><p>Expanded discussion of Mac OS X storage architecture. Added specific guidance regarding vendor-specific drivers. Updated documentation links. Expanded coverage of ATA commands.</p></td></tr><tr><td scope="row">2002-08-06</td><td><p>New document that 
+					explains that Mac OS X does not implement SCSI or ATA pass-through for many mass storage devices.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2005 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2005-05-10</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

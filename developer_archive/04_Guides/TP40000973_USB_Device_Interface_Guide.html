@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Introduction to USB Device Interface Guide</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40000973">
+    <meta id="document-version" name="document-version" content="5.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40002643">
+    <meta id="date" name="date" content="2012-01-09">
+    <meta id="description" name="description" content="Provides background information and sample code for developing applications to communicate with or control USB devices and interfaces.">
+    <meta id="book-title" name="book-title" content="USB Device Interface Guide">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Technologies/Kernel & Driver Layer/IOKit}, {Topic/Drivers, Kernel, & Hardware/User-Space Device Access}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="USB Device Interface Guide: Introduction to USB Device Interface Guide">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="USB Device Interface Guide" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../USBOverview/USBOverview.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40002643" title="Introduction to USB Device Interface Guide"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>USB Device Interface Guide</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../USBOverview/USBOverview.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40000973" title="Introduction to USB Device Interface Guide"></a><a name="//apple_ref/doc/uid/TP40002643-TPXREF101" title="Introduction to USB Device Interface Guide"></a><h1 id="pageTitle">Introduction to USB Device Interface Guide</h1><a name="//apple_ref/doc/uid/TP40002643-DontLinkElementID_1"></a><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40002643-DontLinkElementID_12" title="Note"></a><p><strong>Note:</strong>&nbsp;This document was previously titled <em>Working With USB Device Interfaces</em>.</p><p></p></aside></div><p>The I/O Kit provides a device interface mechanism that allows applications to communicate with and control hardware from outside the kernel. This document focuses on how to use that mechanism to create an application that detects the attachment of a USB device, communicates with it, and detects its detachment. </p><p>This document does not describe how to develop an in-kernel driver for a USB modem or networking device. If you need to do this, refer to the documentation and sample code listed in <span class="content_text"><a href="#//apple_ref/doc/uid/TP40002643-TPXREF105" data-renderer-version="1">See Also</a></span>.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/TP40002643-DontLinkElementID_13" title="Important"></a><p><strong>Important:</strong>&nbsp;If your application is sandboxed, it must request the <code>com.apple.security.device.usb</code> entitlement in order to access USB devices.</p><p></p></aside></div><a name="//apple_ref/doc/uid/TP40002643-TPXREF104" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2><p>This document contains the following chapters:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="../USBOverview/USBOverview.html#//apple_ref/doc/uid/TP40002644-TPXREF101" data-renderer-version="1">USB Device Overview</a></span> provides an overview of USB device architecture and terminology and describes how USB devices are represented in OS X.</p></li><li class="li"><p><span class="content_text"><a href="../USBDeviceInterfaces/USBDevInterfaces.html#//apple_ref/doc/uid/TP40002645-TPXREF101" data-renderer-version="1">Working With USB Device Interfaces</a></span> describes how to use the device interface mechanism to create a command-line tool that accesses a USB device.</p></li><li class="li"><p><span class="content_text"><a href="../USBRevisionHistory/USBRevHistory.html#//apple_ref/doc/uid/TP40002646-SW1" data-renderer-version="1">Document Revision History</a></span> lists the revisions of this document.</p></li></ul><div id="seeAlsoSection"><a name="//apple_ref/doc/uid/TP40002643-TPXREF105" title="See Also"></a><h2 class="jump">See Also</h2><p>The ADC Reference Library contains several documents on device driver development for OS X and numerous sample drivers and applications.</p><ul class="ul"><li class="li"><p><em><a href="../../AccessingHardware/AH_Intro/AH_Intro.html#//apple_ref/doc/uid/TP30000376" data-renderer-version="1" target="_self">Accessing Hardware From Applications</a></em> describes various ways to access devices from outside the kernel, including the device interface mechanism provided by the I/O Kit. For an overview of the I/O Kit terms and concepts used in this document, read the chapter <span class="content_text"><a href="../../AccessingHardware/AH_Device_Access_IOKit/AH_Device_Access_IOKit.html#//apple_ref/doc/uid/TP30000378" data-renderer-version="1" target="_self">Device Access and the I/O Kit</a></span>.</p></li><li class="li"><p><em><a href="https://developer.apple.com/documentation/iokit" class="urlLink" target="_self">I/O Kit Framework Reference</a></em> contains API reference for I/O Kit methods and functions and for specific device families.</p></li><li class="li"><p><span class="content_text"><a href="../../../../../navigation/redirect.html#//apple_ref/doc/uid/TP30000925-TP40003576-TP30000583" data-renderer-version="1" target="_self">Sample Code > Hardware &amp; Drivers > USB</a></span> includes both application-level and in-kernel code samples. Of particular relevance to this document is the application-level sample <em><a href="../../../../../samplecode/USBPrivateDataSample/Introduction/Intro.html#//apple_ref/doc/uid/DTS10000456" data-renderer-version="1" target="_self">USBPrivateDataSample</a></em>.</p></li><li class="li"><p><span class="content_text"><!--a target="_self" -->OS X Man Pages<!--/a--></span> provides access to existing reference documentation for BSD and POSIX functions and tools in a convenient HTML format.</p></li><li class="li"><p>The <span class="content_text"><a href="http://lists.apple.com/mailman/listinfo/usb" class="urlLink" rel="external">usb</a></span> mailing list provides a forum for discussing technical issues relating to USB devices in OS X.</p></li></ul><p>If you need to develop an in-kernel driver for a USB modem or networking device, refer to the following:</p><ul class="ul"><li class="li"><p><em><a href="../../IOKitFundamentals/Introduction/Introduction.html#//apple_ref/doc/uid/TP0000011" data-renderer-version="1" target="_self">IOKit Fundamentals</a></em> describes the architecture of the I/O Kit, the object-oriented framework for developing OS X device drivers.</p></li><li class="li"><p>ADC members can view the AppleUSBCDCDriver project in the source code for OS X v10.3.7 and later, available at <span class="content_text"><a href="http://www.opensource.apple.com/darwinsource/" class="urlLink" rel="external">Darwin Releases</a></span>. To find the source code, select a version of OS X equal to or greater than v10.3.7 and click Source (choose the source for the PPC version, if there's a choice). This displays a new page, which lists the open source projects available for the version of OS X you've chosen. Scroll down to AppleUSBCDCDriver and click it to view the source. Be prepared to supply your ADC member name and password.</p></li><li class="li"><p>Additional code samples that demonstrate specific in-kernel driver programming techniques are included as part of the OS X Developer Tools installation package in <code>/Developer/Examples/Kernel/IOKit/usb</code>.</p></li></ul><p>If you're ready to create a universal binary version of your USB device-access application to run in an Intel-based Macintosh, see <em><a href="../../../../MacOSX/Conceptual/universal_binary/universal_binary_intro/universal_binary_intro.html#//apple_ref/doc/uid/TP40002217" data-renderer-version="1" target="_self">Universal Binary Programming Guidelines, Second Edition</a></em>. The <em>Universal Binary Programming Guidelines</em> describes the differences between the Intel and PowerPC architectures and provides tips for developing a universal binary.</p><p>If you are working with a device that complies with the USB mass storage specification but declares its device class to be vendor specific, see <em><a href="../../MassStorage/01_Introduction/Introduction.html#//apple_ref/doc/uid/TP40000974" data-renderer-version="1" target="_self">Mass Storage Device Driver Programming Guide</a></em> for information on how to ensure the correct built-in driver loads for the device.</p><p>Apple provides additional USB information (including the OS X USB Debug Kits) at <span class="content_text"><a href="http://developer.apple.com/hardwaredrivers/usb/index.html" class="browserLink" >http://developer.apple.com/hardwaredrivers/usb/index.html</a></span>.</p><p>A detailed description of the USB device specification is beyond the scope of this document—for more information, see <em>Universal Serial Bus Specification Revision 2.0</em> available at <span class="content_text"><a href="http://www.usb.org" class="urlLink" rel="external">http://www.usb.org</a></span>.</p></div>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../USBOverview/USBOverview.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2002, 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-01-09</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

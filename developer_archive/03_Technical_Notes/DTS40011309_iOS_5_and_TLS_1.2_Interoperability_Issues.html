@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2287: iOS 5 and TLS 1.2 Interoperability Issues</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40011309">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40011309-CH1">
+    <meta id="date" name="date" content="2011-10-14">
+    <meta id="description" name="description" content="TN2287: describes a TLS interoperability issue between iOS 5 clients and some servers implementations, and suggests a workaround.">
+    <meta id="book-title" name="book-title" content="iOS 5 and TLS 1.2 Interoperability Issues">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Security}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2287">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="iOS 5 and TLS 1.2 Interoperability Issues" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40011309" title="Technical Note TN2287"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>iOS 5 and TLS 1.2 Interoperability Issues</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40011309-CH1-DontLinkElementID_2" title="Technical Note TN2287"></a><div class="dtsDocNumber">Technical Note TN2287</div><h1 id="pageTitle">iOS 5 and TLS 1.2 Interoperability Issues</h1><p>iOS 5's TLS implementation has been upgraded to support TLS protocol version 1.2. Some non-compliant TLS server implementations do not handle TLS 1.2 and do not downgrade gracefully to a supported protocol version. This Technical Note explains the extent of this interoperability issue and how to work around it.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011309-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011309-CH1-TNTAG2" data-renderer-version="1">Workarounds</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011309-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40011309-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>iOS 5's TLS implementation has been upgraded to support TLS protocol version 1.2. Some non-compliant TLS server implementations do not implement TLS 1.2 and, more importantly, do not downgrade gracefully to a supported protocol version. As a result you may find that some TLS client applications built against the iOS 5 SDK may not connect to some TLS servers, when the same application built against a previous version of the iOS SDK would connect.</p><p>If your application implements a TLS client using the CFStream APIs or the SecureTransport APIs, it will now default to using a TLS 1.2 handshake when connecting to a TLS server. Compliant TLS server implementations that do not support the TLS 1.2 protocol version will signal the client to downgrade to a supported protocol version. By default, the iOS 5 TLS implementation will allow the server to downgrade as far as the SSL 3 protocol version. On the other hand, a non-compliant TLS server implementation may, upon receiving a TLS 1.2 handshake, simply terminate the TLS handshake or connection.</p><p>Affected servers include, but are not limited to, any servers implemented using the SecureTransport or CFStream APIs and running on any currently released Mac OS X system or iOS device prior to iOS 5.0.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011309-CH1-TNTAG2" title="Workarounds"></a><h2 class="jump">Workarounds</h2><p>To workaround non-compliant server implementations, TLS clients should try to reconnect using a lower protocol version until the connection succeeds or all allowable protocol versions have failed.</p><p>This workaround is implemented at the NSURLConnection layer, so that TLS clients implemented on top of NSURLConnection—and things that use NSURLConnection, like UIWebView—should not be affected.</p><p>TLS client apps implemented using the CFStream APIs and linked against iOS SDK prior to iOS 5 SDK will keep using TLS 1.0 as the default protocol version, and should not be affected.</p><p>For TLS clients implemented directly using the SecureTransport APIs (only available starting with iOS 5.0 SDK), developers should use the <code>SSLSetProtocolVersionMax</code> and <code>SSLSetProtocolVersionMin</code> APIs to specify the allowed TLS protocol versions. The handshake will be attempted using the maximum version specified.</p><p>For TLS clients implemented using the CFStream APIs, developers can set the maximum protocol version using the <code>CFReadStreamSetProperty</code> API as shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span></p><a name="//apple_ref/doc/uid/DTS40011309-CH1-SOURCECODE1" title="Listing 1How to set the TLS protocol version on CFStream and CFHTTPStream."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;How to set the TLS protocol version on CFStream and CFHTTPStream.</p><div class="codesample clear"><table><tr><td scope="row"><pre>// Use the following code to configure CFStream (e.g., CFStreamCreatePairWithSocketToHost)<span></span></pre></td></tr><tr><td scope="row"><pre>// or CFHTTPStream (e.g., CFReadStreamCreateForHTTPRequest) based read streams to connect<span></span></pre></td></tr><tr><td scope="row"><pre>//  with specific TLS protocol versions.<span></span></pre></td></tr><tr><td scope="row"><pre>// Insert before calling CFReadStreamOpen().<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>const void* keys[] = { kCFStreamSSLLevel };<span></span></pre></td></tr><tr><td scope="row"><pre>// New CFString values available only on iOS 5:<span></span></pre></td></tr><tr><td scope="row"><pre>// (if these values are used on versions before iOS 5, then will<span></span></pre></td></tr><tr><td scope="row"><pre>//    default to max TLS 1.0, min SSLv3)<span></span></pre></td></tr><tr><td scope="row"><pre>// kCFStreamSocketSecurityLevelTLSv1_0SSLv3 configures max TLS 1.0, min SSLv3<span></span></pre></td></tr><tr><td scope="row"><pre>// (same as default behavior on versions before iOS 5).<span></span></pre></td></tr><tr><td scope="row"><pre>// kCFStreamSocketSecurityLevelTLSv1_0 configures to use only TLS 1.0.<span></span></pre></td></tr><tr><td scope="row"><pre>// kCFStreamSocketSecurityLevelTLSv1_1 configures to use only TLS 1.1.<span></span></pre></td></tr><tr><td scope="row"><pre>// kCFStreamSocketSecurityLevelTLSv1_2 configures to use only TLS 1.2.<span></span></pre></td></tr><tr><td scope="row"><pre>const void* values[] = { CFSTR("kCFStreamSocketSecurityLevelTLSv1_0SSLv3") };<span></span></pre></td></tr><tr><td scope="row"><pre>CFDictionaryRef sslSettingsDict = CFDictionaryCreate(kCFAllocatorDefault, keys, values, 1,<span></span></pre></td></tr><tr><td scope="row"><pre>                                                     &amp;kCFTypeDictionaryKeyCallBacks,<span></span></pre></td></tr><tr><td scope="row"><pre>                                                     &amp;kCFTypeDictionaryValueCallBacks);<span></span></pre></td></tr><tr><td scope="row"><pre>CFReadStreamSetProperty(myStream, kCFStreamPropertySSLSettings, sslSettingsDict);<span></span></pre></td></tr><tr><td scope="row"><pre>CFRelease(sslSettingsDict);<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40011309-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;The socket security level constants shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span> are not yet defined in <code>&lt;CFNetwork/CFSocketStream.h&gt;</code> 
+			(r. <span class="content_text"><a href="rdar://problem/10229865" class="urlLink" rel="external">10229865</a></span>)
+		. For the moment you should use a literal string, as illustrated by the listing.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40011309-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40011309-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2011-10-14</td><td><p>New document that 
+					describes a TLS interoperability issue between iOS 5 clients and some servers implementations, and suggests a workaround.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2011 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2011-10-14</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

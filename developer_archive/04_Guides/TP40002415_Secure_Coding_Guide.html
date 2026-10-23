@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Introduction to Secure Coding Guide</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40002415">
+    <meta id="document-version" name="document-version" content="4.12.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40002477">
+    <meta id="date" name="date" content="2016-09-13">
+    <meta id="description" name="description" content="Describes techniques to use and factors to consider to make your code more secure from attack.">
+    <meta id="book-title" name="book-title" content="Secure Coding Guide">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Topic/Security}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Secure Coding Guide: Introduction to Secure Coding Guide">
+    <meta id="resources-uri" name="resources-uri" content="../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Secure Coding Guide" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="Articles/TypesSecVuln.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40002477" title="Introduction to Secure Coding Guide"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Secure Coding Guide</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Articles/TypesSecVuln.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40002415" title="Introduction to Secure Coding Guide"></a><a name="//apple_ref/doc/uid/TP40002477-SW1" title="Introduction to Secure Coding Guide"></a><h1 id="pageTitle">Introduction to Secure Coding Guide</h1><a name="//apple_ref/doc/uid/TP40002477-DontLinkElementID_1"></a><p>Secure coding is the practice of writing software that’s resistant to attack by malicious or mischievous people or programs. An insecure program can provide access for an attacker to take control of a server or a user’s computer, resulting in anything from denial of service to a single user, to the compromise of secrets, loss of service, or damage to the systems of thousands of users. Secure coding helps protect a user’s data from theft or corruption.</p><p>Secure coding is important for all software, from small scripts your write for yourself to large scale, commercial apps. If you write software of any kind, familiarize yourself with the information in this document.</p><a name="//apple_ref/doc/uid/TP40002477-DontLinkElementID_2" title="At a Glance"></a><h2 class="jump">At a Glance</h2><p>Security is not something that can be added to software as an afterthought. Just as a shed made out of cardboard cannot be made secure by adding a padlock to the door, an insecure tool or application may require extensive redesign to secure it. You must identify the nature of the threats to your software and incorporate secure coding practices throughout the planning and development of your product. This book describes specific types of vulnerabilities and gives guidance on code hardening techniques to fix them.</p><section><a name="//apple_ref/doc/uid/TP40002477-SW2" title="Hackers and Attackers"></a><h3>Hackers and Attackers</h3><p>Contrary to the usage often found in the media, within the computer industry the term <em class="newTerm">hacker</em> refers to an expert programmer—one who enjoys learning about the intricacies of code or an operating system. In general, hackers are not malicious. When most hackers find security vulnerabilities, they inform the company or organization that’s responsible for the code so that they can fix the problem. Unfortunately, however, a small but important minority of hackers devise <em class="newTerm">exploits</em>, code that takes advantage of the vulnerability, and use them to attack, or publish the exploits for others to use.</p><p>Attackers may be motivated by a desire to steal money, identities, and other secrets for personal gain; corporate secrets for their employer’s or their own use; or state secrets for use by hostile governments or terrorist organizations. Some break into apps or operating systems just to show that they can do it. Others seek to do real damage. Because attacks can be automated and replicated, any weakness, no matter how slight, poses a real danger.</p></section><section><a name="//apple_ref/doc/uid/TP40002477-SW3" title="No Platform Is Immune"></a><h3>No Platform Is Immune</h3><p>Both macOS and iOS have strong records when it comes to resisting attack. Originally built on open source software such as BSD, and reinforced over the years with technologies like code signing and App Sandbox, macOS offers many layers of defense. iOS provides even greater security by strictly enforcing sandboxing for all apps. Additionally, Apple actively reviews all of its platforms for vulnerabilities, and issues downloadable security updates regularly.</p><p>That’s the good news. The bad news is that apps and operating systems are constantly under attack. Every day, attackers look for new vulnerabilities, and for ways to exploit them. Further, a large-scale, widespread attack isn’t needed to cause monetary and other damages; a single compromised app is sufficient if it puts valuable information at risk. Although major attacks of viruses or worms get a lot of attention from the media, the destruction or compromise of data on a single computer is what matters to the average user. So it’s important to take every security risk seriously, and work to correct known problems quickly. </p></section><a name="//apple_ref/doc/uid/TP40002477-DontLinkElementID_3" title="How to Use This Document"></a><h2 class="jump">How to Use This Document</h2><a name="//apple_ref/doc/uid/TP40002477-DontLinkElementID_173"></a><a name="//apple_ref/doc/uid/TP40002477-DontLinkElementID_174"></a><p>First, familiarize yourself with the concepts in <em><a href="../Security_Overview/Introduction/Introduction.html#//apple_ref/doc/uid/TP30000976" data-renderer-version="1" target="_self">Security Overview</a></em>.</p><p>This document then starts with a brief introduction to the nature of each of the types of security vulnerability commonly found in software. If you’re not sure what a race condition is, for example, or why it poses a security risk, the <span class="content_text"><a href="Articles/TypesSecVuln.html#//apple_ref/doc/uid/TP40002529-SW2" data-renderer-version="1">Types of Security Vulnerabilities</a></span> chapter is the place to start.</p><p>The remaining chapters detail specific types of security vulnerabilities. These chapters can be read in any order, or as suggested by the software development checklist in <span class="content_text"><a href="SecurityDevelopmentChecklists/SecurityDevelopmentChecklists.html#//apple_ref/doc/uid/TP40002415-CH1-SW1" data-renderer-version="1">Security Development Checklists</a></span>.</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="Articles/BufferOverflows.html#//apple_ref/doc/uid/TP40002577-SW1" data-renderer-version="1">Avoiding Buffer Overflows and Underflows</a></span> describes the various types of buffer overflows and explains how to avoid them. </p></li><li class="li"><p><span class="content_text"><a href="Articles/ValidatingInput.html#//apple_ref/doc/uid/TP40007246-SW3" data-renderer-version="1">Validating Input and Interprocess Communication</a></span> discusses why and how you must validate every type of input your program receives from untrusted sources. </p></li><li class="li"><p><span class="content_text"><a href="Articles/RaceConditions.html#//apple_ref/doc/uid/TP40002585-SW1" data-renderer-version="1">Race Conditions and Secure File Operations</a></span> explains how race conditions occur, discusses ways to avoid them, and describes insecure and secure file operations. </p></li><li class="li"><p><span class="content_text"><a href="Articles/AccessControl.html#//apple_ref/doc/uid/TP40002589-SW1" data-renderer-version="1">Elevating Privileges Safely</a></span> describes how to avoid running code with elevated privileges and what to do if you can’t avoid it entirely. </p></li><li class="li"><p><span class="content_text"><a href="Articles/AppInterfaces.html#//apple_ref/doc/uid/TP40002862-SW1" data-renderer-version="1">Designing Secure User Interfaces</a></span> discusses how the user interface of a program can enhance or compromise security and gives some guidance on how to write a security-enhancing UI. </p></li><li class="li"><p><span class="content_text"><a href="DesigningSecureHelpers/DesigningSecureHelpers.html#//apple_ref/doc/uid/TP40002415-CH2-SW1" data-renderer-version="1">Designing Secure Helpers and Daemons</a></span> describes how to design helper applications in ways that are conducive to privilege separation.</p></li></ul><p>The appendix <span class="content_text"><a href="SecurityDevelopmentChecklists/SecurityDevelopmentChecklists.html#//apple_ref/doc/uid/TP40002415-CH1-SW1" data-renderer-version="1">Security Development Checklists</a></span> provides a convenient list of tasks that you should perform before shipping an application, while the appendix <span class="content_text"><a href="Articles/SecurityGuidelines.html#//apple_ref/doc/uid/TP40009511-SW1" data-renderer-version="1">Third-Party Software Security Guidelines</a></span> provides a list of guidelines for third-party applications bundled with macOS.</p><div id="introSeeAlsoSection"><a name="//apple_ref/doc/uid/TP40002477-DontLinkElementID_4" title="See Also"></a><h2 class="jump">See Also</h2><a name="//apple_ref/doc/uid/TP40002477-DontLinkElementID_175"></a><p>This document concentrates on security vulnerabilities and programming practices of special interest to developers using macOS or iOS. For more general treatments, see the following books and documents:</p><ul class="ul"><li class="li"><p>See Viega and McGraw, <em>Building Secure Software</em>, Addison Wesley, 2002; for a general discussion of secure programming, especially as it relates to C programming and writing scripts.</p></li><li class="li"><p>See Wheeler, <em>Secure Programming HOWTO</em>, available at <span class="content_text"><a href="http://www.dwheeler.com/secure-programs/" class="urlLink" rel="external">http://www.dwheeler.com/secure-programs/</a></span>; for discussions of several types of security vulnerabilities and programming tips for UNIX-based operating systems, most of which apply to macOS.</p></li><li class="li"><p>See Cranor and Garfinkel, <em>Security and Usability: Designing Secure Systems that People Can Use</em>, O’Reilly, 2005; for information on writing user interfaces that enhance security.</p></li></ul><p>For documentation of security-related application programming interfaces (APIs), see the following documents: </p><ul class="ul"><li class="li"><p>For information on secure networking, see <em><a href="https://developer.apple.com/documentation/security/secure_transport" class="urlLink" target="_self">Secure Transport Reference</a></em>.</p></li><li class="li"><p>For information on macOS authorization and authentication APIs, see <em><a href="https://developer.apple.com/documentation/security/authorization_services" class="urlLink" target="_self">Authorization Services C Reference</a></em> and <em><a href="https://developer.apple.com/documentation/securityfoundation" class="urlLink" target="_self">Security Foundation Framework Reference</a></em>.</p></li><li class="li"><p>If you are using digital certificates for authentication, see <em><a href="https://developer.apple.com/documentation/security/certificate_key_and_trust_services" class="urlLink" target="_self">Certificate, Key, and Trust Services Reference</a></em>. </p></li><li class="li"><p>For secure storage of passwords and other secrets, see <em><a href="https://developer.apple.com/documentation/security/keychain_services" class="urlLink" target="_self">Keychain Services Reference</a></em>.</p></li></ul><p>For information about security in web application design, visit <span class="content_text"><a href="http://www.owasp.org/" class="urlLink" rel="external">http://www.owasp.org/</a></span>.</p></div>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Articles/TypesSecVuln.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-09-13</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

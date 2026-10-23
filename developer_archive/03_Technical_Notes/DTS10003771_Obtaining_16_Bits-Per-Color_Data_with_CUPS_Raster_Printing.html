@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Note TN2149: Obtaining 16 Bits-Per-Color Data with CUPS Raster Printing</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003771">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003771-CH1">
+    <meta id="date" name="date" content="2018-06-04">
+    <meta id="description" name="description" content="TN2149: Obtaining 16 Bits-Per-Color Data with CUPS Raster Printing">
+    <meta id="book-title" name="book-title" content="Obtaining 16 Bits-Per-Color Data with CUPS Raster Printing">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Graphics & Animation/Printing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2149">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Obtaining 16 Bits-Per-Color Data with CUPS Raster Printing" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003771" title="Technical Note TN2149"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Obtaining 16 Bits-Per-Color Data with CUPS Raster Printing</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+Retired Document: This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003771-CH1-SW1" title="Technical Note TN2149"></a><div class="dtsDocNumber">Technical Note TN2149</div><h1 id="pageTitle">Obtaining 16 Bits-Per-Color Data with CUPS Raster Printing</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003771-CH1-DontLinkElementID_1" title="Important:"></a><p><strong>Important:</strong>&nbsp;Retired Document: This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>In Mac OS X version 10.2 (Jaguar), Apple deployed the CUPS printing system as the backbone of its printing support on Mac OS X. CUPS offers a straightforward programming model for writing printer drivers to support raster output devices. The implementation of CUPS in Jaguar offered support for a number of CUPS color spaces, including RGB, Gray, Black , and CMYK. In Jaguar and in Mac OS X version 10.3 (Panther), the supported pixel depths available were either 1 bit- or 8 bits-per-color component (<code>cupsBitsPerColor</code> values), depending on the color space requested. <span class="content_text"><a href="http://developer.apple.com/qa/qa2004/qa1368.html" class="browserLink" >Technical Q&amp;A 1368</a></span> contains a table of the color spaces and bit depths supported by the CUPS implementation in each version of Mac OS X.</p><p>Starting with Mac OS X version 10.4 (Tiger), developers writing raster printer drivers for the CUPS printing system can receive bitmap raster data with 16 bits-per-color component. Working with deeper pixel data offers the opportunity for greater color fidelity and precision. The support for 16 bits-per-color is limited to the CUPS color spaces <code>CUPS_CSPACE_K</code>, <code>CUPS_CSPACE_W</code>, <code>CUPS_CSPACE_RGB</code>, and <code>CUPS_CSPACE_CMYK</code>, with the <code>cupsColorOrder</code> value <code>CUPS_ORDER_CHUNKED</code>.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003771-CH1-SECTION1" data-renderer-version="1">Byte Ordering (Endian-ness)</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003771-CH1-SECTION2" data-renderer-version="1">Requesting 16 Bits-Per-Color Data</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003771-CH1-SUBSECTION2" data-renderer-version="1">Mac OS X 10.4 and Later Systems Only</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003771-CH1-SUBSECTION3" data-renderer-version="1">Compatibility with Other Systems</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003771-CH1-SECTION5" data-renderer-version="1">Summary</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003771-RevisionHistory-SW1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003771-CH1-SECTION1" title="Byte Ordering (Endian-ness)"></a><h2 class="jump">Byte Ordering (Endian-ness)</h2><p>For raster data that is 1 bit and 8 bits-per-color component, the byte ordering of the data for a given color component is unambiguous because the color component data for each pixel is one byte or less in size. For 16 bits-per-color data, the color value for a given color component is 2 bytes and the byte ordering is defined to be the native byte ordering. That is, for 16 bits-per-color data when executing on big-endian machines, the byte order of each color component value is big-endian. For 16 bits-per-color data when executing on little-endian machines, the byte order of each color component value is little-endian. This approach offers the best performance and most straightforward treatment of the data passed to a CUPS filter expecting to receive 16 bits-per-color CUPS raster data. However, this means that your CUPS filter that processes 16 bits-per-color data must determine whether the architecture of the producer of the raster data matches your filter's architecture.</p><p>CUPS provides a straightforward way to determine whether the architecture of the producer of the raster data is the same as your filter which will process the raster. The <code>cupsRasterOpen</code> function returns a <code>cups_raster_t</code> structure containing a <code>sync</code> field that you use for this determination. The code for this test looks like that in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS10003771-CH1-SOURCECODE1" title="Listing 1Determining if endian data swapping is needed"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Determining if endian data swapping is needed</p><div class="codesample clear"><table><tr><td scope="row"><pre>bool isRasterEndianSwapNeeded(int in_fd) { 
+   bool swap16BitData = false;
+    cups_raster_t *raster;
+    // in_fd is the input file descriptor for the file
+    // you are reading the raster from, e.g. stdin.
+    raster = cupsRasterOpen(in_fd, CUPS_RASTER_READ);
+    if(raster-&gt;sync == CUPS_RASTER_REVSYNC)
+        swap16BitData = true;
+    return swap16BitData;
+}<span></span></pre></td></tr></table></div><p>When the <code>sync</code> field in the <code>cups_raster_t</code> returned from <code>cupsRasterOpen</code> is equal to <code>CUPS_RASTER_REVSYNC</code>, the architecture of the filter that produced the raster data and the architecture of your filter differ and you need to swap the 16-bit integer data your filter is obtaining.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003771-CH1-SECTION2" title="Requesting 16 Bits-Per-Color Data"></a><h2 class="jump">Requesting 16 Bits-Per-Color Data</h2><p>There are two methods that developers can use to specify that they want 16 bits-per-color data. Which method is best depends on whether the driver receiving the data is intended to run on versions prior to Tiger.</p><section><a name="//apple_ref/doc/uid/DTS10003771-CH1-SUBSECTION2" title="Mac OS X 10.4 and Later Systems Only"></a><h3 class="jump">Mac OS X 10.4 and Later Systems Only</h3><p>If you want to receive 16 bits-per-color raster data and only care about having your driver run on systems that support that format, you can simply specify a <code>cupsBitsPerColor</code> value of 16. The typical way of doing this is in the invocation code for the <code>*ColorModel</code> keyword in the PPD file. For example, if you were already requesting 8 bits-per-color component, your PPD file might have a line such as the one shown in <span class="content_text"><!--a  -->Listing 2<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS10003771-CH1-SOURCECODE2" title="Listing 2Specifying in a PPD file a cupsBitsPerColor value of 8"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Specifying in a PPD file a cupsBitsPerColor value of 8</p><div class="codesample clear"><table><tr><td scope="row"><pre>*ColorModel RGB/RGB Color: "&lt;&lt;/cupsColorSpace 1/cupsColorOrder 0/cupsBitsPerColor 8&gt;&gt;setpagedevice"<span></span></pre></td></tr></table></div><p>This specifies the <code>CUPS_CSPACE_RGB</code> color space, with chunky pixels, with 8 bits-per-color component, that is color data in the format:</p><p><code>RGBRGBRGB...</code></p><p>with each color value in a single byte.</p><p>To specify the same parameters but with 16 bits-per-color, you would change the equivalent line in the PPD file to instead read as shown in <span class="content_text"><!--a  -->Listing 3<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS10003771-CH1-SOURCECODE3" title="Listing 3Specifying in a PPD file a cupsBitsPerColor value of 16"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Specifying in a PPD file a cupsBitsPerColor value of 16</p><div class="codesample clear"><table><tr><td scope="row"><pre>*ColorModel RGB/RGB Color: "&lt;&lt;/cupsColorSpace 1/cupsColorOrder 0/cupsBitsPerColor 16&gt;&gt;setpagedevice"<span></span></pre></td></tr></table></div><p>This specifies the <code>CUPS_CSPACE_RGB</code> color space, with chunky pixels, with 16 bits-per-color component, that is color data in the format:</p><p><code>RGBRGBRGB...</code></p><p>with each color value specified as a 2-byte integer value in host-endian format.</p><p>This approach is straightforward but will fail when executing on any version of Mac OS X prior to Tiger or any other CUPS print server that does not support a <code>cupsBitsPerColor</code> value of 16.</p></section><section><a name="//apple_ref/doc/uid/DTS10003771-CH1-SUBSECTION3" title="Compatibility with Other Systems"></a><h3 class="jump">Compatibility with Other Systems</h3><p>CUPS raster printer drivers that use <code>cupsBitsPerColor</code> with a value of 16 will fail on Mac OS X versions prior to Tiger because those versions do not support that color depth. Similarly, CUPS print servers on most other systems do not support a <code>cupsBitsPerColor</code> value of 16. For this reason, developers that want to be compatible with these other systems will want to use another approach.</p><p>The <code>cupsPreferredBitsPerColor</code> key was introduced to allow a driver to specify that it prefers 16 bits-per-color component data. This key is ignored by CUPS systems that do not support it. A typical use of this key is in the invocation code for the *ColorModel keyword in the PPD file as shown in <span class="content_text"><!--a  -->Listing 4<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS10003771-CH1-SOURCECODE4" title="Listing 4Specifying that 16 bits per color is preferred, while maintaining 8 bits per color compatibility for systems prior to Mac OS X 10.4"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Specifying that 16 bits per color is preferred, while maintaining 8 bits per color compatibility for systems prior to Mac OS X 10.4</p><div class="codesample clear"><table><tr><td scope="row"><pre>*ColorModel RGB/RGB Color: "     &lt;&lt;/cupsColorSpace 1/cupsColorOrder 0/cupsBitsPerColor 8     /cupsPreferredBitsPerColor 16&gt;&gt;setpagedevice" *End<span></span></pre></td></tr></table></div><p>On systems that recognize the <code>cupsPreferredBitsPerColor</code> key, this specifies the <code>CUPS_CSPACE_RGB</code> color space, with chunky pixels, with 16 bits-per-color component, that is color data in the format:</p><p><code>RGBRGBRGB...</code></p><p>with each color value specified as a 2-byte integer value in host-endian format. On systems that do not support the <code>cupsPreferredBitsPerColor</code> key, this specifies 8 bits-per-color component data.</p><p>Versions of CUPS that don't know anything about the <code>cupsPreferredBitsPerColor</code> key will simply ignore it and supply 8 bits-per-color raster data. Versions that recognize this key and that support 16 bits-per-color component data will supply 16 bits-per-color raster data.</p><p>CUPS printer drivers that specify their data request this way MUST use the CUPS raster header structure that precedes each page raster to determine the format of the raster data that is provided to them. If the header has the <code>header.cupsBitsPerColor</code> value set to 8, the raster data is 8 bits-per-color, that is, the system can't supply 16 bits-per-color data. If the header has a <code>header.cupsBitsPerColor</code> value of 16, then the raster data is 16 bits-per-color component.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003771-CH1-SECTION5" title="Summary"></a><h2 class="jump">Summary</h2><p>Mac OS X version 10.4 and later have support for providing 16 bits-per-color component data to CUPS raster printer drivers. Taking advantage of deep color data offers the potential for superior results from a given output device. You can request deep color data in a manner that is compatible with CUPS installations that don't support it, allowing deployment of a single driver across a wide range of platforms and OS versions.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003771-CH1-SW1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003771-RevisionHistory-SW1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2018-06-04</td><td><p>Moved to Retired Documents Library.</p></td></tr><tr><td scope="row">2005-08-24</td><td><p>Obtaining 16 Bits-Per-Color Data with CUPS Raster Printing</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>Obtaining 16 Bits-Per-Color Data with CUPS Raster Printing</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2018 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2018-06-04</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

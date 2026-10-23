@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1931: Using the correct Bluetooth LE Advertising and Connection Parameters for a stable connection</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017509">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017509-CH1">
+    <meta id="date" name="date" content="2017-09-26">
+    <meta id="description" name="description" content="QA1931: explains the importance of correct Bluetooth LE (BLE) connection parameters and demonstrates the formulae used to calculate correct values">
+    <meta id="book-title" name="book-title" content="Using the correct Bluetooth LE Advertising and Connection Parameters for a stable connection">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core OS Layer/CoreBluetooth}, {Topic/Drivers, Kernel, & Hardware/Hardware}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1931">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Using the correct Bluetooth LE Advertising and Connection Parameters for a stable connection" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017509" title="Technical Q&amp;A QA1931"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Using the correct Bluetooth LE Advertising and Connection Parameters for a stable connection</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017509-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1931"></a><div class="dtsDocNumber">Technical Q&amp;A QA1931</div><h1 id="pageTitle">Using the correct Bluetooth LE Advertising and Connection Parameters for a stable connection</h1><h2>Q:&nbsp;
+What advertising and connection parameters should I use in my Bluetooth LE accessory for a successful and stable connection with an Apple product?
+</h2><p><span>A: </span>Using incorrect advertising and connection parameters on a BLE accessory is a common source of issues, causing apps to not be able to discover, connect, or maintain a connection under real life conditions. In order to be able to establish and maintain a successful connection, you must follow not only the specifications prescribed by the Bluetooth SIG, but also the guidelines described in the <span class="content_text"><a href="https://developer.apple.com/hardwaredrivers/BluetoothDesignGuidelines.pdf" class="urlLink" rel="external">Bluetooth Accessory Design Guidelines for Apple Products</a></span> document when designing and configuring your accessory.</p><section><a name="//apple_ref/doc/uid/DTS40017509-CH1-FOR_DISCOVERING_YOUR_ACCESSORY_SUCCESSFULLY" title="For discovering your accessory successfully"></a><h2 class="jump">For discovering your accessory successfully</h2><p>You must follow the general advertising guidelines in the <span class="content_text"><a href="https://developer.apple.com/hardwaredrivers/BluetoothDesignGuidelines.pdf" class="urlLink" rel="external">Bluetooth Accessory Design Guidelines for Apple Products</a></span> when constructing your advertising packets. A common mistake is to use improper advertising intervals, either due to misconfiguration or in order to save battery usage on the peripheral. Improper intervals are the most common reasons for your app to not be able to discover your accessory in the field, even though you may have observed discovery working properly in your tests.</p><p>The advertising interval of your peripheral affects the time to discovery and connect performance. Outside of ideal conditions, for example when your app is no longer active in the foreground, the time to discovery becomes longer. To maximize the probability of being discovered, the accessory must advertise at one of the listed intervals <strong>exactly</strong>.</p><p>The recommended advertising pattern and advertising intervals are:</p><ul class="ul"><li class="li"><p>First, advertise at 20 ms intervals for at least 30 seconds</p></li><li class="li"><p>If not discovered after 30 seconds, you may change to one of the following longer intervals: 152.5 ms, 211.25 ms, 318.75 ms, 417.5 ms, 546.25 ms, 760 ms, 852.5 ms, 1022.5 ms, 1285 ms</p></li></ul><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017509-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;These specific intervals are the ones to be used <strong>exactly</strong>! Even the slightest deviation from these actual intervals may dramatically increase your time to discovery.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017509-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;The above advertising intervals are only for non iBeacon BLE peripherals. For iBeacon advertising, you must follow the iBeacon Specifications, which you can find in the <span class="content_text"><a href="https://developer.apple.com/ibeacon/" class="urlLink" rel="external">iBeacon for Developers</a></span> page.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017509-CH1-FOR_ESTABLISHING_AND_HOLDING_A_CONNECTION_SUCCESSFULLY" title="For establishing and holding a connection successfully"></a><h2 class="jump">For establishing and holding a connection successfully</h2><p>You must follow the general guidelines in the <span class="content_text"><a href="https://developer.apple.com/hardwaredrivers/BluetoothDesignGuidelines.pdf" class="urlLink" rel="external">Bluetooth Accessory Design Guidelines for Apple Products</a></span> when establishing your connection parameters for your accessory. Common mistakes are to leave these values at their default values, or changing one or more of the parameters without considering the relationship between them.</p><p>There are certain rules and formulae that the parameters must follow. If the parameters do not comply with <strong>all</strong> of these rules, the parameter request may be rejected, or the stability and the performance of the connection may be compromised.</p><ul class="ul"><li class="li"><p>Interval Min ≥ 15 ms (multiples of 15 ms)</p></li><li class="li"><p>Interval Min + 15 ms ≤ Interval Max (Interval Max == 15 ms is allowed)</p></li><li class="li"><p>Interval Max * (Slave Latency + 1) ≤ 2 seconds</p></li><li class="li"><p>Interval Max * (Slave Latency + 1) * 3 &lt; connSupervisionTimeout</p></li><li class="li"><p>Slave Latency ≤ 30</p></li><li class="li"><p>2 seconds ≤ connSupervisionTimeout ≤ 6 seconds</p></li></ul><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017509-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;All of the parameters are in a formulaic relationship. Changing any one of them may necessitate recalculating the others.</p><p></p></aside></div><p>Use the <strong>BLE Parameter Validation Spreadsheet</strong> to check that your parameters are correct. Download link is at the end of this page.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017509-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;If an accessory requests Interval Min == Interval Max == 15 ms, some Apple devices will scale the interval to 30 ms to balance power and performance constraints.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017509-CH1-DontLinkElementID_7" title="Note"></a><p><strong>Note:</strong>&nbsp;If Bluetooth Low Energy HID is one of the connected services of an accessory, connection interval down to 11.25 ms may be accepted by the Apple product.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017509-CH1-TNTAG1" title="BLE Parameter Validation Spreadsheet"></a><h2 class="jump">BLE Parameter Validation Spreadsheet</h2><ul class="ul"><li class="li"><p>Download BLE Parameter Validation ("qa1931_BLE Parameter Validation.numbers.zip", 79.0K)
+
+</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017509-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017509-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-09-26</td><td><p>Updated the content and the spreadsheet calculations in accordance with the Bluetooth Accessory Design Guidelines for Apple Products (Release R8)</p></td></tr><tr><td scope="row">2016-08-15</td><td><p>New document that 
+					explains the importance of correct Bluetooth LE (BLE) connection parameters and demonstrates the formulae used to calculate correct values</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-09-26</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

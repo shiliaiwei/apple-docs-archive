@@ -1,0 +1,395 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-August-01 -->
+<!-- Includes revisions to graphics tags -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Mac OS X QuickDraw Performance">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003082">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN2051: Some of the trouble spots in the Mac OS X windowing system and how to avoid them.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="Stylesheet" HREF="../../style.css" TYPE="text/css">
+
+<title>Technical Note TN2051: Mac OS X QuickDraw Performance</title>
+
+<meta name="keywords" content="QuickDraw performance Mac OS X double buffer LockPortBits dirty region flush">
+
+<meta name="Description" content="Technical Note TN2051: This technote will discuss some of
+the trouble spots inthe Mac OS X windowing system and explain
+how to avoid them.">
+
+
+
+<meta name="categories" content="Overview and QuickDraw">
+
+
+<meta name="week-posted" content="Apr 29, 2002 - May 3, 2002">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10003082" title="Mac OS X QuickDraw Performance"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Mac OS X QuickDraw Performance</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalnotes/Carbon/idxGraphicsImaging-date.html">Graphics & Imaging</a> &gt; </p><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN2051</div>
+<div id="pageheadsub">Mac OS X QuickDraw Performance</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                 
+                        <span id="menutitle">
+                            CONTENTS
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+					<!-- begin_toc -->
+					
+					<p id="menutext">
+                  <a href="#Section1">Avoid triple buffering</a><BR>
+                  <BR>
+                  <a href="#Section2">Simplify dirty region updates</a><BR>
+                  <BR>
+                  <a href="#Section4">Don't flush to the screen more often than necessary</a><BR>
+                  <BR>
+                  
+                  <a href="#Summary">Summary</a><BR>
+                  <BR>
+              
+                  <a href="#Downloads">Downloadables</a></P>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+<!-- begin_intro_text -->
+<p id="introtext">The windowing system on Mac OS X is different from that of previous Mac OS versions in several fundamental ways.  The primary difference where QuickDraw is concerned is that drawing in a window port ends up in the window's back buffer and not on the screen.  This shift and the underlying changes in QuickDraw necessary to make it possible have affected the performance characteristics of QuickDraw drawing code in some new and interesting ways.  This technote will discuss some of the trouble spots and explain how to avoid them.</P>
+
+
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3 align=center>[Feb 13 2003]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+
+          <!-- begin_content -->
+
+
+
+<a NAME=Section1></a>
+<H2>Avoid triple buffering</H2>
+         
+<P>Because drawing occurs in the window back buffer and not directly on 
+the screen, most of the motivation for doing your own double buffering 
+is no longer present.  In the past, it was sometimes necessary to composite 
+your drawing into an offscreen <code>GWorld</code> and then copy it onto 
+the screen in one <code>CopyBits</code> operation in order to avoid 
+flickering and tearing.  With Mac OS X, that extra buffer is not only 
+unnecessary, it will actually degrade performance due to the extra copy 
+required to move content from your offscreen to the window back buffer.  
+Don't double buffer on Mac OS X.</P>
+
+<P><a href="#top">Back to top</a></P>
+<BR><BR>
+         
+         
+         
+<a name="Section2"></a>
+<H2>Simplify dirty region updates</h2>         
+         
+<p>In order for QuickDraw to know which parts of the window back buffer to flush to the screen, every call to QuickDraw needs to record the region it dirties.  When a drawing sequence consists of a number of small items contained within a well-known larger area, it is usually best to dirty the whole region at once rather than having every QuickDraw routine incrementally add to the dirty region.  This way, you short-circuit the dirty region updating code inside each QuickDraw routine.
+</p>
+
+<p>Assuming all the small QuickDraw operations are enclosed in a bigger rectangular region (<code>bigRectRegion</code>), calling <code>QDSetDirtyRegion(port, bigRectRegion)</code> before making the first QuickDraw drawing operation dirties the whole rectangle at once, eliminating the need for the smaller QuickDraw calls to update the dirty region.
+</p>
+
+<P>Setting the dirty region to a large rectangular region accomplishes two goals.  First, it makes sure that the dirty region is rectangular, which greatly simplifies any subsequent region operations.  Second, the large region encompasses all of the regions dirtied by the individual QuickDraw drawing calls, thus turning their dirty region updates into trivial intersection checks of the regions' bounding rectangles.</p>
+
+<p>
+This technique is particularly handy for speeding up the drawing of complex vector graphics.
+</p>
+
+<P><a href="#top">Back to top</a></P>
+<BR><BR>
+
+
+         
+<a NAME=Section4></a>
+<H2>Don't flush to the screen more often than necessary</H2>
+         
+<P>For most applications, there is no need to flush more than 30 frames per second to obtain smooth animation.  Flushing more often only results in additional CPU overhead and may end up slowing down the desired animation.</p>
+
+<P>To control when flushing occurs you want to use a time-based strategy aimed at providing 30 fps:</p>
+
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+//  AbsoluteTime and UInt64 are in MacTypes.h
+//  The AbsoluteDeltaToNanoseconds call is in DriverServices.h
+//	The U64xyz APIs are in Math64.h
+//	QDFlushPortBuffer is in QuickDraw.h
+//	All are included in ApplicationServices.h
+#include &lt;ApplicationServices/ApplicationServices.h&gt;
+
+    /* for about 30 frames/sec */
+const UInt32 kMinNanosecsBetweenFlushes = 1E9 / 30;
+
+static AbsoluteTime sLastFlush = { 0, 0 };
+
+
+void framerateLimitedFlush ( CGrafPtr port )
+{
+	AbsoluteTime curTime = UpTime();
+	Nanoseconds  delta = AbsoluteDeltaToNanoseconds( curTime, sLastFlush );
+
+	if ( U64Compare( UnsignedWideToUInt64(delta),
+          U64SetU(kMinNanosecsBetweenFlushes)) &gt; 0)
+	{
+		sLastFlush = curTime;
+		QDFlushPortBuffer(port, NULL);
+	}
+}
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></P>
+
+<BR><BR>
+
+
+<a NAME=Summary></a>
+<H2>Summary</H2>
+         
+<P>Mac OS X introduced some new performance characteristics for QuickDraw drawing, but the information presented here will help developers eliminate their graphics performance bottlenecks.</P>
+         <P><a href="#top">Back to top</a></P>
+         
+<BR><BR>
+         
+         
+<a NAME=Downloads></a>
+<H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (36K)</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/tn2051.pdf">Download</a></P>
+               </TD>
+            </TR>
+           
+         </table>
+         <BR>
+         
+<P><a href="#top">Back to top</a></P>
+
+
+
+</TD></TR></table></CENTER>
+<!-- end_content -->
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

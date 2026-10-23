@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1884: Testing Distribution Builds of Mac Apps</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40015141">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40015141-CH1">
+    <meta id="date" name="date" content="2015-01-26">
+    <meta id="description" name="description" content="QA1884: informs developers that distribution builds of Mac apps can no longer be run.">
+    <meta id="book-title" name="book-title" content="Testing Distribution Builds of Mac Apps">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/Security}, {Topic/Languages & Utilities/Distribution Tools}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1884">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Testing Distribution Builds of Mac Apps" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40015141" title="Technical Q&amp;A QA1884"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Testing Distribution Builds of Mac Apps</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40015141-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1884"></a><div class="dtsDocNumber">Technical Q&amp;A QA1884</div><h1 id="pageTitle">Testing Distribution Builds of Mac Apps</h1><h2>Q:&nbsp;
+When I run my Mac app, it crashes immediately, and the crash log says Exception Type: EXC_CRASH (Code Signature Invalid). What is going on here?
+</h2><p><span>A: </span>The crash log indicates that your app is signed with your Mac App Store distribution identity, with the certificate’s Subject Common Name starting with “3rd Party Mac Developer Application.” Mac apps signed this way can no longer be run directly. Here’s the background on this.</p><p>Over time, more Mac App Store technologies have been added that require entitlements that come from a provisioning profile. This started with push notifications and iCloud. Later, Game Center and Maps were added to the list.</p><p>Distribution builds of apps that use those technologies may be submitted to iTunes Connect for review, but until then, aren’t allowed to run and are killed on launch. This is because distribution provisioning profiles do not contain a list of hardware UUIDs that restrict the app to a specific set of devices. This is similar to iOS where distribution builds have never been allowed to run on a device.</p><p>Recently, the <code>com.apple.developer.team-identifier</code> entitlement was added to all new Mac provisioning profiles. This means that, going forward, distribution builds of Mac apps cannot be run directly; they are for submitting to iTunes Connect for app review only.</p><p>Instead, developers should adopt the Archive Build Workflow in <span class="content_text"><a href="https://developer.apple.com/library/mac/qa/qa1778/_index.html" class="urlLink" rel="external">QA1778: How to reproduce bugs reported against Mac App Store submissions</a></span> for testing the builds that they plan to submit for the Mac App Store. On Xcode 6, select <code>Export as a Mac Application</code>. You won't see any chance to select your development signing identity, but Xcode will export the app from the archive as it was signed at build time. So the result will be the same.</p><p>You can create an installer package containing your development-signed app by hand with the <code>productbuild</code> <span class="content_text"><a href="x-man-page://1/productbuild" class="urlLink" rel="external">tool</a></span>, like this:</p><a name="//apple_ref/doc/uid/DTS40015141-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>$ productbuild --component Sample.app /Applications --sign “3rd Party Mac Developer Installer:" Sample.pkg<span></span></pre></td></tr></table></div><p>Then install the package as documented in <span class="content_text"><a href="https://developer.apple.com/library/mac/documentation/IDEs/Conceptual/AppDistributionGuide/SubmittingYourApp/SubmittingYourApp.html#//apple_ref/doc/uid/TP40012582-CH9-SW40" class="urlLink" rel="external">Testing the Mac Installer Package</a></span>:</p><a name="//apple_ref/doc/uid/DTS40015141-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>$ sudo installer -store -pkg Sample.pkg -target /<span></span></pre></td></tr></table></div><p>This workflow means that you will need to add your beta testers’  test systems to your Mac Developer Program account so they will be able to run your app.</p><p>Another possibility is to use <code>Xcode Organizer &gt; Export &gt; Export a Developer ID-signed Application</code>. Developer ID-signed apps can be run by anyone. However, code that uses technologies only available to Mac App Store apps, such as receipt validation, iCloud, and push notifications, will not work if your app is Developer ID-signed. You might need to temporarily disable those parts of your app if you opt for the Developer ID testing approach.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS40015141-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40015141-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2015-01-26</td><td><p>New document that 
+					informs developers that distribution builds of Mac apps can no longer be run.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-01-26</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

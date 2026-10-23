@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2075: Power Management for Macintosh; getting started</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003101">
+    <meta id="document-version" name="document-version" content="1.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003101-CH1">
+    <meta id="date" name="date" content="2003-05-30">
+    <meta id="description" name="description" content="TN2075: Outlines available documentation and its location for power management on Mac OS X and OS 9.">
+    <meta id="book-title" name="book-title" content="Power Management for Macintosh; getting started">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Kernel & Driver Layer/Kernel}, {Topic/Drivers, Kernel, & Hardware/Kernel Device Drivers}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2075">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Power Management for Macintosh; getting started" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003101" title="Technical Note TN2075"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Power Management for Macintosh; getting started</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003101-CH1-DontLinkElementID_2" title="Technical Note TN2075"></a><div class="dtsDocNumber">Technical Note TN2075</div><h1 id="pageTitle">Power Management for Macintosh; getting started</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Power Management is that part of Mac OS X and Mac OS 9 that provides the functionality for the computer to sleep and wake, for applications and drivers to register for power event, and more...</p><p>But where do you find all the related material?</p><p>This Technical Note is intended to help you locate the various Power Management header files, documentation, Darwin sources, code samples, and Development Kits available to developers.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN4" data-renderer-version="1">Locating Power Management Header Files</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN15" data-renderer-version="1">Locating Darwin Power Management Files</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN23" data-renderer-version="1">Locating Power Management Development Kits</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN28" data-renderer-version="1">Locating Power Management Documentation</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN32" data-renderer-version="1">Locating Power Management Tools</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN34" data-renderer-version="1">Power Management and Your Development Environment</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN41" data-renderer-version="1">Basic Power Management Gotchas</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN43" data-renderer-version="1">Carbon and Both Power Managers</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN45" data-renderer-version="1">Policy Maker vs. Power Controller</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN49" data-renderer-version="1">Sleep means sleep; not suspend or shutdown</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN51" data-renderer-version="1">Why won't this machine sleep?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN53" data-renderer-version="1">Keep your desktop cover closed...</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN55" data-renderer-version="1">My PCI device panics during wake</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003101-CH1-TAN57" data-renderer-version="1">Where to go from here</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003101-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN4" title="Locating Power Management Header Files"></a><h2 class="jump">Locating Power Management Header Files</h2><p>If you are developing a Mac OS X application that uses power management, your header files are located at this absolute path.</p><p>/System/Library/Frameworks/IOKit.framework/Versions/A/Headers/pwr_mgt See <span class="content_text"><!--a  -->Figure 1<!--/a--></span> The Power Management DDK for Mac OS X contains various samples that show you how to use header files in this category. Use these header files if you are developing from a UNIX, Cocoa, and Carbon environment.</p><p>However, if you are using Carbon there is also one other Mac OS 9 header file required. This header file is power.h and is located at this absolute path. /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/OSServices.framework/Versions/A/Headers/Power.h</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003101-CH1-FIGURE1" title="Figure 1Power Management User Headers"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Power Management User Headers</figcaption><img src="Art/tn2075_userHeaders.jpg" alt="" width="550" height="106"></figure><p>If you are developing an in-kernel device driver (KEXT) that uses power management, the header files you need are located at these two absolute paths. The APIs are part of IOService.h.</p><p>/System/Library/Frameworks/Kernel.framework/Versions/A/Headers/IOKit/IOService.h See <span class="content_text"><!--a  -->Figure 3<!--/a--></span> /System/Library/Frameworks/Kernel.framework/Versions/A/Headers/IOKit/pwr_mgt See <span class="content_text"><!--a  -->Figure 2<!--/a--></span></p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003101-CH1-FIGURE2" title="Figure 2Power Management Kernel Headers"></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Power Management Kernel Headers</figcaption><img src="Art/tn2075_kernelHeaders.jpg" alt="" width="550" height="127"></figure><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003101-CH1-FIGURE3" title="Figure 3More Power Management Kernel Headers"></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;More Power Management Kernel Headers</figcaption><img src="Art/tn2075_moreheaders.jpg" class="wide-image" alt="" width="738" height="239"><img src="Art/tn2075_moreheaders.jpg" class="ipad-scaled-image" alt="" width="670" height="216"></figure><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN15" title="Locating Darwin Power Management Files"></a><h2 class="jump">Locating Darwin Power Management Files</h2><p>There are three Darwin subprojects dealing with Power Management: IOKitUser, PowerManagement, and xnu.</p><p>IOKitUser/pwr_mgt subproject (<span class="content_text"><a href="http://www.opensource.apple.com/darwinsource/10.2.6/IOKitUser/pwr_mgt.subproj/" class="urlLink" rel="external">http://www.opensource.apple.com/darwinsource/10.2.6/IOKitUser/pwr_mgt.subproj/</a></span> ) contains user-space APIs and sample applications.</p><p>PowerManagement subproject (<span class="content_text"><a href="http://www.opensource.apple.com/darwinsource/10.2.6/PowerManagement/" class="urlLink" rel="external">http://www.opensource.apple.com/darwinsource/10.2.6/PowerManagement/</a></span> ) contains the user-space backend support. There are no APIs in this project, but pmset source code is contained in this subproject.</p><p>xnu subproject (<span class="content_text"><a href="http://www.opensource.apple.com/darwinsource/10.2.6/xnu/iokit/IOKit/pwr_mgt/" class="urlLink" rel="external">http://www.opensource.apple.com/darwinsource/10.2.6/xnu/iokit/IOKit/pwr_mgt/</a></span> ) contains the kernel interface.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN23" title="Locating Power Management Development Kits"></a><h2 class="jump">Locating Power Management Development Kits</h2><p>There are two Power Management Development Kits, one for Mac OS X and one for Mac OS 9 as shown in Figure 3. Use this URL to locate these kits. </p><p>(<span class="content_text"><a href="http://developer.apple.com/sdk/index.html" class="browserLink" >http://developer.apple.com/sdk/index.html</a></span> )</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003101-CH1-FIGURE4" title="Figure 4Power Management Development Kits"></a><figcaption><strong class="caption_number">Figure 4</strong>&nbsp;&nbsp;Power Management Development Kits</figcaption><img src="Art/tn2075_DDK.jpg" alt="" width="439" height="101"></figure><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN28" title="Locating Power Management Documentation"></a><h2 class="jump">Locating Power Management Documentation</h2><p>Power management is described in Chapter 10 of Inside Mac OS X: I/O Kit Fundamentals. You can view this document at <span class="content_text"><a href="http://developer.apple.com/documentation/Darwin/#IOKit" class="browserLink" >http://developer.apple.com/documentation/Darwin/#IOKit</a></span> It is also part of the Developer SDK. When your Developer SDK is installed you can locate it via this path.</p><p>/Developer/Documentation/Darwin/IOKit/IOKitFundamentals</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN32" title="Locating Power Management Tools"></a><h2 class="jump">Locating Power Management Tools</h2><p>There are many OS X tools for reading and writing power management parameters. These tools are part of the Power Management OS X DDK. There are two tools of interest called pmset and SleepCycler that should be mentioned here.</p><p>pmset is a command line tool that circumvents the Energy Saver System Preferences. It is run as root and is intended for testing purposes. See the man pages for details. Here is the synopsis for pmset:</p><p>"pmset changes and reads power management settings such as idle sleep timing, wake on administrative access, automatic restart on power loss, etc."</p><p>SleepCycler is an application that continuously cycles your machine from a state of 'awake' (ie, 'non-sleep') to 'sleep' (or 'doze' for machines that do not support 'deep sleep').</p><p>Primarily, SleepCycler was designed to stress test Power Management system software in Mac OS X. It is also useful since it stress tests device driver Power Management behavior, as well as overall system behavior.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN34" title="Power Management and Your Development Environment"></a><h2 class="jump">Power Management and Your Development Environment</h2><p>Regardless of your development environment (Carbon, Cocoa, Kernel, or UNIX) the Power Management DDK for Mac OS X has some very simple examples to get you started. After you've installed the DDK, you can find the samples in the folder named Register for Sleep (as shown in Figure 4). To make it easy to choose the right code for your needs, the samples are arranged in subfolders that correspond to different development environments. </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003101-CH1-FIGURE5" title="Figure 5Sleep Examples"></a><figcaption><strong class="caption_number">Figure 5</strong>&nbsp;&nbsp;Sleep Examples</figcaption><img src="Art/tn2075_sleep.jpg" alt="" width="550" height="83"></figure><p>All the examples do the same thing. They register for sleep and provide a callback routine. Regardless of your environment these examples provide the necessary frameworks, header files, and other controls to quickly build the examples. Check them out by downloading the DDK.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003101-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Your patience please: currently the RegisterforSleepfromKext example is being added to a version of the HelloIOKit tutorial and will be published very soon. In the meantime check out Chapter 10 from I/O Kit Fundamentals for a code snippet.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN41" title="Basic Power Management Gotchas"></a><h2 class="jump">Basic Power Management Gotchas</h2><p>Based on power management questions submitted to DTS Engineering, here is a list of some common situations developers discover during their development cycle.</p><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN43" title="Carbon and Both Power Managers"></a><h3 class="jump">Carbon and Both Power Managers</h3><p>If you are developing for Carbon you need to be aware that there are not just Mac OS X power manager headers, there are also Mac OS 9 headers. They are not the same. All other development environments only need to use the Mac OS X headers. The Carbon power.h headers are obsolete and are not entirely implemented in Mac OS X, but are needed for Mac OS 9.</p></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN45" title="Policy Maker vs. Power Controller"></a><h3 class="jump">Policy Maker vs. Power Controller</h3><p>Chapter 10 of I/O Kit Fundamentals contains a detailed explanation of what these two terms mean and how they interact. However, a short description will help you get started. Both entities live in the kernel, but a policy maker has a human interface in the Energy Saver System Preferences as shown in Figure 5. </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003101-CH1-FIGURE6" title="Figure 6Energy Saver System Preferences."></a><figcaption><strong class="caption_number">Figure 6</strong>&nbsp;&nbsp;Energy Saver System Preferences.</figcaption><img src="Art/tn2075_EnergySaver.jpg" alt="" width="550" height="404"></figure><p>A user uses the Engery Saver System Preference to communicate with a policy maker and set energy preferences. A power controller resides in a KEXT and takes its orders from the policy maker. These "orders" consist of power events, such as sleep. Although you will probably never implement a policy maker, if you are developing a device driver you will need to implement a power controller. This is because only a device driver knows how to remove power from the device so it can safely sleep. As you read Chapter 10 of I/O Kit Fundamentals, you may want to skim the policy maker information and concentrate instead on the power controller material.</p></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN49" title="Sleep means sleep; not suspend or shutdown"></a><h3 class="jump">Sleep means sleep; not suspend or shutdown</h3><p>DTS Engineering has noticed that developers from a UNIX or Windows background may use different terminology for "sleep" than traditional Macintosh developers do. Here is the sleep definition from SleepCycler Help for your convenience. SleepCycler is located on the Power Management DDK for Mac OS X.</p><p>There are two different types of sleep currently supported in Mac OS X - full sleep (deep sleep), and a lighter doze.</p><p>In general, machines that fully support Power Management will sleep, while those that do not will doze.</p><p>In the state of sleep almost all hardware except the minimum required things like the PMU (Power Management Unit) are suspended/turned off, including the CPU - this means that processes are not scheduled or run.</p><p>Most machines that officially support Mac OS X are capable of sleeping, however a few machines such as the original iMacs (pre slot-loading) and Blue/White and Beige G3s do not fully support sleep, and thus doze.</p><p>In doze mode all the devices that are capable of power-management (as reported by their drivers) are suspended, but those that claim to not be power-manageable are not suspended, and thus prevent the whole machine from sleeping.</p><p>The OS turns off as many of the remaining devices as possible, however, the CPU remains running, and thus programs are still actively scheduled and running.</p></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN51" title="Why won't this machine sleep?"></a><h3 class="jump">Why won't this machine sleep?</h3><p>There are a number of valid reasons why a machine will not sleep (see the OS X Power Manager DDK for details). However all of these reasons fall into one broad category: activity from other events in a multitasking environment. While debugging your applications and hardware try to do so from a benign environment. In other words, turn off all Energy Saver Preferences (if possible) and do not launch any unnecessary applications. Additional applications may "tickle" activity timers, which can prevent your machine from IDLE sleep.</p></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN53" title="Keep your desktop cover closed..."></a><h3 class="jump">Keep your desktop cover closed...</h3><p>while debugging your PCI device. Many of us like to have the enclosure open to see LEDs flicker on our PCI devices. Visual feedback is great while debugging. Did you know however, that "some" computer enclosures have a sense switch, which when open disables power management from functioning? This could mean a sleep event that you expect to happen when you execute a line of "sleep" code will be ignored by Power Managment because the enclosure is open. Having an enclosure open may prevent hardware heat sensors from acting, causing Power Management to ignore sleep events.</p></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN55" title="My PCI device panics during wake"></a><h3 class="jump">My PCI device panics during wake</h3><p>This is usually because your device is not registering for power events. When a sleep event occurs, power is removed from the PCI bus and therefore your device will need to be reinitialized when a wake event occurs. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003101-CH1-TAN57" title="Where to go from here"></a><h2 class="jump">Where to go from here</h2><p>Two places come to mind. In no order, try Chapter 10 of I/O Kit Fundamentals. The Power Manager DDK is also another source of samples, tools, etc.</p><p>Good luck with your development effort. DTS Engineering</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003101-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003101-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2003-05-30</td><td><p>New document that 
+					outlines available documentation and its location for power management on Mac OS X and OS 9.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2003 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2003-05-30</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

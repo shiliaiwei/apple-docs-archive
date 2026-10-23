@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2190: Speeding up your Xcode Builds</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004305">
+    <meta id="document-version" name="document-version" content="1.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004305-CH1">
+    <meta id="date" name="date" content="2007-08-14">
+    <meta id="description" name="description" content="TN2190: Speed up your Xcode builds by leveraging the power of the Xcode build system">
+    <meta id="book-title" name="book-title" content="Speeding up your Xcode Builds">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Xcode/IDEs}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2190">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Speeding up your Xcode Builds" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004305" title="Technical Note TN2190"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Speeding up your Xcode Builds</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004305-CH1-DontLinkElementID_2" title="Technical Note TN2190"></a><div class="dtsDocNumber">Technical Note TN2190</div><h1 id="pageTitle">Speeding up your Xcode Builds</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Speed up your Xcode builds by normalizing your build settings, sharing your precompiled prefix files and specifying separate preprocessor macros for your prefix files and your targets.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004305-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004305-CH1-TNTAG2" data-renderer-version="1">Normalize Your Build Settings</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004305-CH1-TNTAG3" data-renderer-version="1">Share Your Precompiled Prefix Files</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004305-CH1-TNTAG4" data-renderer-version="1">Separate Your Preprocessor Macros</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004305-CH1-ADDITIONAL_READING" data-renderer-version="1">Additional Reading</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004305-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10004305-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Many developers rarely modify the projects they instantiate from Xcode's templates. Tweaking a project's settings is a great way to learn Xcode in depth. Also, it is a great way to apply optimizations to your projects, ensuring they build as fast as possible.</p><p>To that end, here are some simple tips that you can apply to your projects right now to get them building faster.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004305-CH1-TNTAG2" title="Normalize Your Build Settings"></a><h2 class="jump">Normalize Your Build Settings</h2><p>Projects and targets in Xcode have <code>Build Configurations</code> — collections of build settings that influence how a target is built. The <code>Debug</code> configuration, for example, will typically specify the compiler <code>Optimization Level</code> build setting with as low a value as possible. The <code>Release</code> configuration, on the other hand, will typically specify a relatively high value for the <code>Optimization Level</code> build setting. </p><p>When you create a new project from one of Xcode's templates, the principal target in that project will typically have a number of build settings customized in its configurations. The project itself, on the other hand, won't have very many customized build settings. For the one-target-per-project case this doesn't matter much. However, if you create a project with multiple targets, you can wind up with a number of targets that specify the same (or subtly different) information.</p><p>Instead of leaving your project this way, you can normalize your build settings such that build settings you want to specify for every target in the project — for example, that compiler optimization should be off for the Debug configuration — are specified at the project level rather than at the target level. This takes advantage of the fact that build settings are inherited in Xcode - if a build setting is not customized in a target, the value specified in the project is used.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004305-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;A build setting that has had the value cleared by the user is a customized build setting. Although it contains no current value, the act of changing the value alters the setting. This is different than a build setting that has never been customized. This is an important concept, as the Xcode build system treats customized and non-customized build settings differently.</p><p></p></aside></div><p>What does this buy you? It ensures that you have a single, consistent collection of settings that are passed to the compilers, linkers, and other tools that are used to build your software. Therefore,  you will avoid subtle bugs like code built with the <code>Enable C++ Runtime Types</code> setting active calling a plug-in built with the same setting turned off. Normalizing your build settings also allows you to optimize your project's build process. This optimization can have a significant impact on the build speed of large projects with multiple targets.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004305-CH1-TNTAG3" title="Share Your Precompiled Prefix Files"></a><h2 class="jump">Share Your Precompiled Prefix Files</h2><p>Xcode, like many other IDEs, supports prefix files — header files that are included implicitly by every one of your source files when they are built. Normally these files are specified in each of your project's target build settings. The text in the prefix file that is copied out of Xcode's templates even mentions that it is associated with a specific target. However, it is possible to share the prefix files within your project.</p><p>Prefix files get precompiled for performance, so they can simply be loaded by the compiler rather than recomputed for every file you build. Precompiling a prefix file takes quite a bit of time though, especially if you use multiple languages in your project (such as C, Objective-C, and C++) because each language needs a separate precompiled prefix due to differences in how they'll treat "the same" code.</p><p>However, just because precompiled prefix files can't be shared between languages doesn't mean they can't be shared between targets. In fact, for performance, Xcode automates this sharing for you — if you meet it halfway. The critical thing that you need to do is to ensure that your prefix files are:</p><ul class="ul"><li class="li"><p>Named the same</p></li><li class="li"><p>Built using the same compiler-related build settings</p></li></ul><p>These criteria can be easily met by having your build settings normalized for your targets at the project level. You can even promote your prefix file related build settings to your project settings instead of within each targets. This will ensure that they share the same name.</p><p>In fact, if they meet the criteria that Xcode uses to determine whether precompiled prefix files should be shared, even multiple projects will wind up sharing them!</p><p>The pause between builds of a target's dependent targets to generate a new precompiled prefix file is like a pipeline stall: An unwelcome hiccup that holds everything else up until it is over. If Xcode can precompile a single set of prefix files at the start of your build and then re-use them for the rest of the process, it will stream past as quickly as possible with only the occasional pause for linking. For large projects with many dependent targets this can make a big difference in build completion time.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004305-CH1-TNTAG4" title="Separate Your Preprocessor Macros"></a><h2 class="jump">Separate Your Preprocessor Macros</h2><p>Another optimization technique is to specify separate preprocessor macros for your prefix files and targets . This works even when your project has target-specific preprocessor macros - as long as you don't need them in your prefix files, you can set them in the <code>Preprocessor Macros Not Used in Precompiled Headers</code> build setting. These will be passed to the compiler when your sources are compiled, just like the regular preprocessor macros will, but they won't be passed when precompiling a prefix file. </p><p>Of course, there are macros that you do want to set in your precompiled prefix headers, because they change the behavior. Macros like <code>NDEBUG</code> to turn off C <code>assert</code> or <code>NS_BLOCK_ASSERTIONS</code> to turn off Foundation's <code>NSAssert</code> are important to specify for your precompiled prefix files. Fortunately these types of macros typically differ only by configuration, and also remain consistent across targets and projects, allowing you to specify them at the project level rather than the target level.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004305-CH1-ADDITIONAL_READING" title="Additional Reading"></a><h2 class="jump">Additional Reading</h2><p>While this document has tried to shepherd your through the process of accelerating your Xcode project's build performance, there have been concepts introduced that you may wish to explore further. Here are some links to helpful documentation that will explain in detail the <span class="content_text"><a href="http://developer.apple.com/tools/xcode/xcodeprojects.html" class="browserLink" >anatomy of Xcode projects</a></span>, how to work with the <span class="content_text"><a href="http://developer.apple.com/tools/xcode/xcodebuildsettings.html" class="browserLink" >Xcode build settings system</a></span> and <span class="content_text"><a href="http://developer.apple.com/documentation/DeveloperTools/Conceptual/XcodeUserGuide/Contents/Resources/en.lproj/05_09_bs_speed_up_build/chapter_36_section_2.html" class="browserLink" >working with precompiled prefix headers</a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004305-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004305-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2007-08-14</td><td><p>New document that 
+					speed up your Xcode builds by leveraging the power of the Xcode build system</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2007 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2007-08-14</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

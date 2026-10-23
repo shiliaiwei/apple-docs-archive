@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1546: NSNetService and Automatic Reference Counting (ARC)</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40011324">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40011324-CH1">
+    <meta id="date" name="date" content="2011-10-28">
+    <meta id="description" name="description" content="QA1546: describes an issue with NSNetService that can cause connections never to complete.">
+    <meta id="book-title" name="book-title" content="NSNetService and Automatic Reference Counting (ARC)">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/Foundation}, {Topic/Networking, Internet, & Web}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1546">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="NSNetService and Automatic Reference Counting (ARC)" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40011324" title="Technical Q&amp;A QA1546"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>NSNetService and Automatic Reference Counting (ARC)</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40011324-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1546"></a><div class="dtsDocNumber">Technical Q&amp;A QA1546</div><h1 id="pageTitle">NSNetService and Automatic Reference Counting (ARC)</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I create a pair of streams using <code>-[NSNetService getInputStream:outputStream:]</code> and, after converting my project to automatic reference counting (ARC), my streams refuse to open properly. What's causing this?
+</h2><p><span>A: </span><code>-[NSNetService getInputStream:outputStream:]</code> has a number of outstanding bugs 
+			(r. <span class="content_text"><a href="rdar://problem/6868813" class="urlLink" rel="external">6868813</a></span>)
+		 
+			(r. <span class="content_text"><a href="rdar://problem/9821932" class="urlLink" rel="external">9821932</a></span>)
+		 
+			(r. <span class="content_text"><a href="rdar://problem/9856751" class="urlLink" rel="external">9856751</a></span>)
+		, some of which are exacerbated by ARC. The best way to avoid all of these problems is to drop down a level and use <code>CFStreamCreatePairWithSocketToNetService</code> to create your streams. The code in <span class="content_text"><!--a  -->Listing 1<!--/a--></span> shows how you can create a category on NSNetService that provides a functional replacement for <code>-[NSNetService getInputStream:outputStream:]</code>.</p><a name="//apple_ref/doc/uid/DTS40011324-CH1-SOURCECODE1" title="Listing 1A functional replacement for -[NSNetService getInputStream:outputStream:]"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;A functional replacement for -[NSNetService getInputStream:outputStream:]</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface NSNetService (QNetworkAdditions)<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>- (BOOL)qNetworkAdditions_getInputStream:(out NSInputStream **)inputStreamPtr<span></span></pre></td></tr><tr><td scope="row"><pre>    outputStream:(out NSOutputStream **)outputStreamPtr;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>@end<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>@implementation NSNetService (QNetworkAdditions)<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>- (BOOL)qNetworkAdditions_getInputStream:(NSInputStream **)inputStreamPtr<span></span></pre></td></tr><tr><td scope="row"><pre>    outputStream:(NSOutputStream **)outputStreamPtr<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    BOOL                result;<span></span></pre></td></tr><tr><td scope="row"><pre>    CFReadStreamRef     readStream;<span></span></pre></td></tr><tr><td scope="row"><pre>    CFWriteStreamRef    writeStream;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    result = NO;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    readStream = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>    writeStream = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if ( (inputStreamPtr != NULL) || (outputStreamPtr != NULL) ) {<span></span></pre></td></tr><tr><td scope="row"><pre>        CFNetServiceRef     netService;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        netService = CFNetServiceCreate(<span></span></pre></td></tr><tr><td scope="row"><pre>            NULL,<span></span></pre></td></tr><tr><td scope="row"><pre>            (__bridge CFStringRef) [self domain],<span></span></pre></td></tr><tr><td scope="row"><pre>            (__bridge CFStringRef) [self type],<span></span></pre></td></tr><tr><td scope="row"><pre>            (__bridge CFStringRef) [self name],<span></span></pre></td></tr><tr><td scope="row"><pre>            0<span></span></pre></td></tr><tr><td scope="row"><pre>        );<span></span></pre></td></tr><tr><td scope="row"><pre>        if (netService != NULL) {<span></span></pre></td></tr><tr><td scope="row"><pre>            CFStreamCreatePairWithSocketToNetService(<span></span></pre></td></tr><tr><td scope="row"><pre>                NULL,<span></span></pre></td></tr><tr><td scope="row"><pre>                netService,<span></span></pre></td></tr><tr><td scope="row"><pre>                ((inputStreamPtr  != NULL) ? &amp;readStream : NULL),<span></span></pre></td></tr><tr><td scope="row"><pre>                ((outputStreamPtr != NULL) ? &amp;writeStream : NULL)<span></span></pre></td></tr><tr><td scope="row"><pre>            );<span></span></pre></td></tr><tr><td scope="row"><pre>            CFRelease(netService);<span></span></pre></td></tr><tr><td scope="row"><pre>        }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        // We have failed if the client requested an input stream and didn't<span></span></pre></td></tr><tr><td scope="row"><pre>        // get one, or requested an output stream and didn't get one. We also<span></span></pre></td></tr><tr><td scope="row"><pre>        // fail if the client requested neither the input nor the output<span></span></pre></td></tr><tr><td scope="row"><pre>        // stream, but we don't get here in that case.<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        result = ! ((( inputStreamPtr != NULL) &amp;&amp; ( readStream == NULL)) ||<span></span></pre></td></tr><tr><td scope="row"><pre>                    ((outputStreamPtr != NULL) &amp;&amp; (writeStream == NULL)));<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>    if (inputStreamPtr != NULL) {<span></span></pre></td></tr><tr><td scope="row"><pre>        *inputStreamPtr  = CFBridgingRelease(readStream);<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>    if (outputStreamPtr != NULL) {<span></span></pre></td></tr><tr><td scope="row"><pre>        *outputStreamPtr = CFBridgingRelease(writeStream);<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    return result;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>@end<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40011324-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40011324-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2011-10-28</td><td><p>New document that 
+					describes an issue with NSNetService that can cause connections never to complete.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2011 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2011-10-28</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

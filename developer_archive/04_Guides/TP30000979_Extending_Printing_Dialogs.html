@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Introduction to Extending Printing Dialogs</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP30000979">
+    <meta id="document-version" name="document-version" content="2.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP30000979-CH201">
+    <meta id="date" name="date" content="2006-10-03">
+    <meta id="description" name="description" content="A guide to developing printing dialog extensions, including basic concepts and a documented Carbon-based sample project.">
+    <meta id="book-title" name="book-title" content="Extending Printing Dialogs">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Extending Printing Dialogs (Legacy): Introduction to Extending Printing Dialogs">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Extending Printing Dialogs" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../PaneConcepts/PaneConcepts.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP30000979-CH201" title="Introduction to Extending Printing Dialogs"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Extending Printing Dialogs</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../PaneConcepts/PaneConcepts.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/TP30000979" title="Introduction to Extending Printing Dialogs"></a><a name="//apple_ref/doc/uid/TP30000979-CH201-TP9" title="Introduction to Extending Printing Dialogs"></a><h1 id="pageTitle">Introduction to Extending Printing Dialogs</h1><a name="//apple_ref/doc/uid/TP30000979-CH201-DontLinkElementID_1"></a><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/TP30000979-CH201-DontLinkElementID_19" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>As printer vendors and application developers extend the printing capabilities of their hardware and software products, they need a way to extend the Mac OS X printing system to make new printing features available to their customers. To address this need, Mac OS X has introduced the <em class="newTerm">printing plug-in</em>—a component architecture based on Core Foundation Plug-in Services. </p><p>There are four types of printing plug-ins in Mac OS X:</p><ul class="ul"><li class="li"><p><em class="newTerm">I/O modules</em> are used by the printing system to communicate with a printer using a standard transport-layer interface, such as AppleTalk or TCP/IP.</p></li><li class="li"><p><em class="newTerm">Printer browsers</em> provide a way for people to discover available local and network printers.</p></li><li class="li"><p><em class="newTerm">Printer modules</em> are used by the printing system to convert the graphics content in a print job for output to a specific printer or family of printers.</p></li><li class="li"><p><em class="newTerm">Printing dialog extensions</em> provide a way for people to view and change the settings for a set of related printing features. The user interface of a printing dialog extension is a pane in one of the printing dialogs.</p></li></ul><p>This book is a guide to developing printing dialog extensions—including basic concepts, theory of operation, and a documented Carbon-based sample project.</p><a name="//apple_ref/doc/uid/TP30000979-CH201-TPXREF159" title="Why Read This Book"></a><h2 class="jump">Why Read This Book</h2><p>You should read this book if:</p><ul class="ul"><li class="li"><p>You’re developing an application or a printer module, and you want to learn how to present your printing features using the Mac OS X printing dialogs.</p></li><li class="li"><p>Your existing software already extends a printing dialog, and you want to improve the interface or take advantage of advanced features in the Mac OS X printing system.</p></li><li class="li"><p>You want to see what’s involved in writing a printing plug-in.</p></li></ul><a name="//apple_ref/doc/uid/TP30000979-CH201-TPXREF160" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2><p>The first part covers the basic concepts. Both Carbon and Cocoa developers will benefit from reading these chapters:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="../PaneConcepts/PaneConcepts.html#//apple_ref/doc/uid/TP30000979-CH202-TP9" data-renderer-version="1">Printing Features and Printing Dialog Panes</a></span> discusses standard printing features, printing dialog panes, methods of extending a printing dialog, and the advantages of using a printing dialog extension.</p></li><li class="li"><p><span class="content_text"><a href="../PaneGuidelines/PaneGuidelines.html#//apple_ref/doc/uid/TP30000979-CH203-TP9" data-renderer-version="1">Interface Guidelines for Custom Panes</a></span> presents guidelines for designing an interface for a custom pane in a printing dialog.</p></li><li class="li"><p><span class="content_text"><a href="../PDEConcepts/PDEConcepts.html#//apple_ref/doc/uid/TP30000979-CH204-TP9" data-renderer-version="1">Printing Dialog Extension Concepts</a></span> discusses the printing dialog extension—its functional components, runtime behavior, and capabilities.</p></li></ul><p>The second part is a tutorial that shows how to construct and use a printing dialog extension:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="../Project/Project.html#//apple_ref/doc/uid/TP30000979-CH205-TP9" data-renderer-version="1">Creating a Plug-in Project</a></span> shows how Project Builder can help you create a plug-in project to build a printing dialog extension.</p></li><li class="li"><p><span class="content_text"><a href="../Core/Core.html#//apple_ref/doc/uid/TP30000979-CH206-TP9" data-renderer-version="1">Core Tasks</a></span> shows how to implement much of the basic functionality in a printing dialog extension.</p></li><li class="li"><p><span class="content_text"><a href="../Custom/Custom.html#//apple_ref/doc/uid/TP30000979-CH207-TP9" data-renderer-version="1">Custom Tasks</a></span> shows how to implement the additional functionality that’s specific to a custom pane.</p></li><li class="li"><p><span class="content_text"><a href="../Integration/Integration.html#//apple_ref/doc/uid/TP30000979-CH208-TP9" data-renderer-version="1">Integration Tasks</a></span> shows you how applications and printer modules install and communicate with their printing dialog extensions.</p></li></ul><p>The appendixes cover a few remaining topics:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="../Utilities/Utilities.html#//apple_ref/doc/uid/TP30000979-CH209-TP1" data-renderer-version="1">Utility Functions</a></span> shows how to implement several utility functions that all printing dialog extensions can use.</p></li><li class="li"><p><span class="content_text"><a href="../PMPlugIn/PMPlugIn.html#//apple_ref/doc/uid/TP30000979-CH210-TP1" data-renderer-version="1">Printing Plug-in Header Functions</a></span> shows how to implement the three callback functions in the <code>PMPlugInHeader</code> interface.</p></li><li class="li"><p><span class="content_text"><a href="../History/History.html#//apple_ref/doc/uid/TP30000979-CH211-TP1" data-renderer-version="1">Document Revision History</a></span> contains a chronological list of the revisions to this book.</p></li></ul><section><a name="//apple_ref/doc/uid/TP30000979-CH201-TPXREF163" title="Other Options for Application Developers"></a><h2 class="jump">Other Options for Application Developers</h2><p>Carbon applications can also extend the printing dialogs using the <code>AppendDITL</code> function, an older approach. Cocoa applications can extend the printing dialogs by adding an accessory view to an <code>NSPageLayout</code> or <code>NSPrintPanel</code> object.</p><p>In both cases, the printing system displays your custom controls inside a new dialog pane that’s named for your application. Your application can host only a single custom pane in each dialog.</p><p>The section <span class="content_text"><a href="../PaneConcepts/PaneConcepts.html#//apple_ref/doc/uid/TP30000979-CH202-CIHDHAIE" data-renderer-version="1">Extending a Printing Dialog</a></span> discusses the various options in more detail, and makes some recommendations.</p></section><section><a name="//apple_ref/doc/uid/TP30000979-CH201-TPXREF161" title="Before You Start Reading"></a><h2 class="jump">Before You Start Reading</h2><p>To get the most out of reading this book, you should first read <em><!--a target="_self" -->Mac OS X Printing System Overview<!--/a--></em>.</p><p><em><!--a target="_self" -->Printing Plug-in Interfaces Reference<!--/a--></em>—the companion volume to this book—includes the reference documentation for the printing dialog extension API.</p><p>Both of these publications are available online in the ADC Reference Library.</p><p>You should also be familiar with Core Foundation plug-in concepts.</p></section>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../PaneConcepts/PaneConcepts.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2002, 2006 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2006-10-03</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

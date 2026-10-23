@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2435: Embedding Frameworks In An App</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017543">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017543-CH1">
+    <meta id="date" name="date" content="2017-03-14">
+    <meta id="description" name="description" content="TN2435: demonstrates how to embed a framework for different project configurations, and how to troubleshoot common errors">
+    <meta id="book-title" name="book-title" content="Embedding Frameworks In An App">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Xcode}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2435">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Embedding Frameworks In An App" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017543" title="Technical Note TN2435"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Embedding Frameworks In An App</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017543-CH1-DontLinkElementID_2" title="Technical Note TN2435"></a><div class="dtsDocNumber">Technical Note TN2435</div><h1 id="pageTitle">Embedding Frameworks In An App</h1><p>This tech note is for app developers on macOS, iOS, watchOS, and tvOS who are modularizing their code into frameworks. It demonstrates how to embed frameworks built as dependencies of an app for different project configurations. This tech note also provides troubleshooting steps for common issues encountered when embedding frameworks.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017543-CH1-WHAT_IS_A_FRAMEWORK_" data-renderer-version="1">What is a framework?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017543-CH1-ADD_FRAMEWORK_TARGET" data-renderer-version="1">Adding A Framework Target</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG" data-renderer-version="1">Configuring Your Project</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG-APPS_WITH_ONE_XCODE_PROJECT" data-renderer-version="1">Apps with One Xcode Project</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG-APPS_WITH_MULTIPLE_XCODE_PROJECTS" data-renderer-version="1">Apps with Multiple Xcode Projects</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG-APPS_WITH_AN_XCODE_WORKSPACE_AND_MULTIPLE_XCODE_PROJECTS" data-renderer-version="1">Apps with an Xcode Workspace and Multiple Xcode Projects</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG-APPS_WITH_DEPENDENCIES_BETWEEN_FRAMEWORKS" data-renderer-version="1">Apps with Dependencies Between Frameworks</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017543-CH1-EMBED_SECTION" data-renderer-version="1">Embedding a Framework</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017543-CH1-EMBED_SECTION-EMBEDDING_A_FRAMEWORK_IN_AN_IMESSAGE_APP" data-renderer-version="1">Embedding a Framework in an iMessage App</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017543-CH1-EMBED_IN_APP_SECTION" data-renderer-version="1">Embedding a Framework in iOS, macOS, watchOS, and tvOS Apps</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017543-CH1-TROUBLESHOOTING" data-renderer-version="1">Troubleshooting</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017543-CH1-TROUBLESHOOTING-CONFIGURATION_ERRORS" data-renderer-version="1">Configuration Errors</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017543-CH1-TROUBLESHOOTING-BUNDLE_ERRORS" data-renderer-version="1">Bundle Errors</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017543-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40017543-CH1-WHAT_IS_A_FRAMEWORK_" title="What is a framework?"></a><h2 class="jump">What is a framework?</h2><p>A framework is a hierarchical directory that encapsulates a dynamic library, header files, and resources, such as storyboards, image files, and localized strings, into a single package. Apps using frameworks need to embed the framework in the app's bundle.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-ADD_FRAMEWORK_TARGET" title="Adding A Framework Target"></a><h2 class="jump">Adding A Framework Target</h2><p>Apps wishing to utilize frameworks to share code across different parts of their application, such as between an app and an app extension, need to start from the framework template appropriate for the app's target platform. The framework target can be added to the same project as the app target, or it can be added to a separate Xcode project.</p><ol class="ol"><li class="li"><p>Create a new Xcode target and select the framework template appropriate for your app's target platform.</p></li><li class="li"><p>Add all of the framework source files to the new target's Compile Sources build phase.</p></li><li class="li"><p>Set the visibility of header files needed by clients of the framework to Public.</p></li><li class="li"><p>Add the public headers to the umbrella header file. If your framework is named <code>YourFramework</code>, the umbrella header is named <code>YourFramework.h</code>.</p></li><li class="li"><p>Follow the steps in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG" data-renderer-version="1">Configuring Your Project</a></span> to configure the new framework target as a dependency of the app target.</p></li></ol><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG" title="Configuring Your Project"></a><h2 class="jump">Configuring Your Project</h2><p>Before embedding a framework, set up your Xcode project so the app target depends on the framework target. The following sections describe how to set up this dependency for common project scenarios.</p><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG-APPS_WITH_ONE_XCODE_PROJECT" title="Apps with One Xcode Project"></a><h3 class="jump">Apps with One Xcode Project</h3><p>Apps with one Xcode project containing an app target and a framework target can go on to the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-EMBED_SECTION" data-renderer-version="1">Embedding a Framework</a></span> section.</p></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG-APPS_WITH_MULTIPLE_XCODE_PROJECTS" title="Apps with Multiple Xcode Projects"></a><h3 class="jump">Apps with Multiple Xcode Projects</h3><p>Apps not using an Xcode workspace that depend on a framework in a different Xcode project should configure the app project using these instructions:</p><ol class="ol"><li class="li"><p>Open the app’s Xcode project.</p></li><li class="li"><p>In Finder, locate the framework Xcode project. Drag this Xcode project from Finder to the Project Navigator, inside of the app project. This nests a reference to the framework project in the app project, as shown in <span class="content_text"><!--a  -->Figure 1<!--/a--></span>.</p></li><li class="li"><p>Follow the steps in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-EMBED_SECTION" data-renderer-version="1">Embedding a Framework</a></span>.</p></li></ol><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017543-CH1-FIGURE1" title="Figure 1Framework project nested inside the app project"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Framework project nested inside the app project</figcaption><img src="Art/tn2435_nested_project.png" alt="" width="257" height="273"></figure></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG-APPS_WITH_AN_XCODE_WORKSPACE_AND_MULTIPLE_XCODE_PROJECTS" title="Apps with an Xcode Workspace and Multiple Xcode Projects"></a><h3 class="jump">Apps with an Xcode Workspace and Multiple Xcode Projects</h3><p>Apps using an Xcode workspace that depend on a framework in a different Xcode project should configure the app project using these instructions:</p><ol class="ol"><li class="li"><p>Open the Xcode workspace.</p></li><li class="li"><p>Add each Xcode project to the workspace with File &gt; Add Files to "Workspace Name."</p></li><li class="li"><p>Follow the steps in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-EMBED_SECTION" data-renderer-version="1">Embedding a Framework</a></span>.</p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG-APPS_WITH_DEPENDENCIES_BETWEEN_FRAMEWORKS" title="Apps with Dependencies Between Frameworks"></a><h3 class="jump">Apps with Dependencies Between Frameworks</h3><p>An umbrella framework is a framework bundle that contains other frameworks. While it is possible to <span class="content_text"><a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/FrameworkAnatomy.html#//apple_ref/doc/uid/20002253-97623-BAJJHAJC" class="urlLink" rel="external">create umbrella frameworks for macOS apps</a></span>, doing so is unnecessary for most developers and is not recommended. Umbrella frameworks are not supported on iOS, watchOS, or tvOS.</p><p>In nearly all cases, you should include your code in a single, standard framework bundle. If your code is sufficiently modular, you can create multiple frameworks, where the dependencies between frameworks is minimal or nonexistent.</p><p>If your app has dependencies between frameworks, configure the dependency with these instructions:</p><ol class="ol"><li class="li"><p>In the framework target's General settings, add the frameworks it depends on to the Linked Frameworks and Libraries section, as shown in <span class="content_text"><!--a  -->Figure 2<!--/a--></span>.</p></li><li class="li"><p>In the app project, follow the instructions for <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-EMBED_SECTION" data-renderer-version="1">Embedding a Framework</a></span>. The app target is responsible for embedding all of the frameworks, including any frameworks that other frameworks depend on.</p></li></ol><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017543-CH1-FIGURE2" title="Figure 2A framework dependent on a second framework"></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;A framework dependent on a second framework</figcaption><img src="Art/tn2435_dependent_frameworks.png" class="wide-image" alt="" width="1184" height="502"><img src="Art/tn2435_dependent_frameworks.png" class="ipad-scaled-image" alt="" width="670" height="284"></figure></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-EMBED_SECTION" title="Embedding a Framework"></a><h2 class="jump">Embedding a Framework</h2><p>The steps to embed a framework vary, depending on the type of app you are building. The following sections describe how to embed the framework inside the built app for the different types of apps.</p><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-EMBED_SECTION-EMBEDDING_A_FRAMEWORK_IN_AN_IMESSAGE_APP" title="Embedding a Framework in an iMessage App"></a><h3 class="jump">Embedding a Framework in an iMessage App</h3><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017543-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;This section only applies to iMessage apps. For iOS apps providing an iMessage Extension, see <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-EMBED_IN_APP_SECTION" data-renderer-version="1">Embedding a Framework in iOS, macOS, watchOS, and tvOS Apps</a></span>.</p><p></p></aside></div><ol class="ol"><li class="li"><p>Open the iMessage app’s Xcode project or workspace.</p></li><li class="li"><p>Go to the Build Phases for the iMessage extension target.</p></li><li class="li"><p>Add the framework to the Link Binaries With Libraries list. See <span class="content_text"><!--a  -->Figure 3<!--/a--></span>.</p></li><li class="li"><p>Go to the Build Phases for the iMessage app target.</p></li><li class="li"><p>Add a New Copy Files Phase by selecting the Add icon, highlighted in <span class="content_text"><!--a  -->Figure 4<!--/a--></span>. Set the Destination field to Frameworks, and add the framework to the list. Ensure Code Sign on Copy is checked.</p></li></ol><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017543-CH1-FIGURE3" title="Figure 3An iMessage extension linked to a framework"></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;An iMessage extension linked to a framework</figcaption><img src="Art/tn2435_imessage_extension_settings.png" class="wide-image" alt="" width="1151" height="744"><img src="Art/tn2435_imessage_extension_settings.png" class="ipad-scaled-image" alt="" width="670" height="433"></figure><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017543-CH1-FIGURE4" title="Figure 4An iMessage app embedding a framework"></a><figcaption><strong class="caption_number">Figure 4</strong>&nbsp;&nbsp;An iMessage app embedding a framework</figcaption><img src="Art/tn2435_imessage_app_settings.png" class="wide-image" alt="" width="1151" height="744"><img src="Art/tn2435_imessage_app_settings.png" class="ipad-scaled-image" alt="" width="670" height="433"></figure></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-EMBED_IN_APP_SECTION" title="Embedding a Framework in iOS, macOS, watchOS, and tvOS Apps"></a><h3 class="jump">Embedding a Framework in iOS, macOS, watchOS, and tvOS Apps</h3><ol class="ol"><li class="li"><p>Open the app’s Xcode project or workspace.</p></li><li class="li"><p>Go to the app target’s General configuration page.</p></li><li class="li"><p>Add the framework target to the Embedded Binaries section by clicking the Add icon, highlighted in <span class="content_text"><!--a  -->Figure 5<!--/a--></span>. Do not drag in the framework from Finder.</p></li><li class="li"><p>Select your framework from the list of binaries that can be embedded.</p></li></ol><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017543-CH1-FIGURE5" title="Figure 5Click the Add button to embed a framework"></a><figcaption><strong class="caption_number">Figure 5</strong>&nbsp;&nbsp;Click the Add button to embed a framework</figcaption><img src="Art/tn2435_embedded_binary_list.png" class="wide-image" alt="" width="1072" height="502"><img src="Art/tn2435_embedded_binary_list.png" class="ipad-scaled-image" alt="" width="670" height="313"></figure></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-TROUBLESHOOTING" title="Troubleshooting"></a><h2 class="jump">Troubleshooting</h2><p>The following sections describe common errors when embedding frameworks, and steps for resolving each type of error.</p><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-TROUBLESHOOTING-CONFIGURATION_ERRORS" title="Configuration Errors"></a><h3 class="jump">Configuration Errors</h3><p>The following errors are caused by a project configuration that embeds a framework built for a build configuration that is different from the build configuration for the app.</p><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>error: &lt;PathToFile&gt;/&lt;YourFrameworkName&gt;.framework: No such file or directory<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Failed to verify bitcode in &lt;YourFrameworkName&gt;.framework/&lt;YourFrameworkName&gt;:<span></span></pre></td></tr><tr><td scope="row"><pre>error: Bundle only contains bitcode-marker &lt;PathToExportedApp&gt;<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>The path '/var/folders/&lt;OtherPathComponents&gt;/Packages/&lt;YourApp&gt;.ipa' does not contain a file.<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>ERROR ITMS-90086: Missing 64-bit support. Beginning on February 1, 2015 new iOS apps submitted to the App Store must include 64-bit support and be built with the iOS 8 SDK. Beginning June 1, 2015 app updates will also need to follow the same requirements. To enable 64-bit in your project, we recommend using the default Xcode build setting of “Standard architectures” to build a single binary with both 32-bit and 64-bit code.<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre>ERROR ITMS-90203: Invalid architecture: Apps that include an app extension and framework must support arm64.<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Invalid Bundle - This app includes files that were built with bitcode enabled but without doing an Archive or Install build, possibly from a library or framework that was imported but not built as part of the project. Full bitcode content is only generated in an Archive or Install build.<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE7"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Dyld Message: Library not loaded: @rpath/&lt;YourFrameworkName&gt;.framework/&lt;YourFrameworkName&gt; + 0<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE8"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Dyld Error Message:<span></span></pre></td></tr><tr><td scope="row"><pre>  Library not loaded: @rpath/&lt;YourFrameworkName&gt;.framework/&lt;YourFrameworkName&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  Referenced from: &lt;PathToYourApp&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  Reason: no suitable image found. Did find:<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;PathToYourApp&gt;/Frameworks/&lt;YourFrameworkName&gt;.framework/&lt;YourFrameworkName&gt;: mach-o, but wrong architecture<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE9"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Dyld Error Message:<span></span></pre></td></tr><tr><td scope="row"><pre>Dyld Message: Library not loaded: @rpath/&lt;YourFrameworkName&gt;.framework/&lt;YourFrameworkName&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  Referenced from: &lt;PathToYourApp&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  Reason: image not found<span></span></pre></td></tr></table></div><p>To fix any of these errors:</p><ol class="ol"><li class="li"><p>Open the Project Navigator.</p></li><li class="li"><p>Look for items referencing a framework that your app builds as a dependency that is not in the Products section. <span class="content_text"><!--a  -->Figure 6<!--/a--></span> shows an example.</p></li><li class="li"><p>Delete this item from the Project Navigator. Select "Remove Reference" on the confirmation dialog.</p></li><li class="li"><p>Follow the steps in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-PROJ_CONFIG" data-renderer-version="1">Configuring Your Project</a></span>.</p></li></ol><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017543-CH1-FIGURE6" title="Figure 6Framework reference in the Project Navigator that is not in the Products section"></a><figcaption><strong class="caption_number">Figure 6</strong>&nbsp;&nbsp;Framework reference in the Project Navigator that is not in the Products section</figcaption><img src="Art/tn2435_famework_in_navigator.png" class="wide-image" alt="" width="1231" height="564"><img src="Art/tn2435_famework_in_navigator.png" class="ipad-scaled-image" alt="" width="670" height="306"></figure></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-TROUBLESHOOTING-BUNDLE_ERRORS" title="Bundle Errors"></a><h3 class="jump">Bundle Errors</h3><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-TROUBLESHOOTING_BUNDLE_ERRORS-MISSING_FRAMEWORK_BUNDLE" title="Missing Framework Bundle"></a><h4 class="jump">Missing Framework Bundle</h4><p>The following error indicates a framework is missing from the app bundle.</p><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE10"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Invalid Bundle - One or more dynamic libraries that are referenced by your app are not present in the dylib search path.<span></span></pre></td></tr><tr><td scope="row"><pre>Once these issues have been corrected, you can then redeliver the corrected binary.<span></span></pre></td></tr></table></div><p>To fix this error:</p><ol class="ol"><li class="li"><p>Follow the steps in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-USE_OTOOL" data-renderer-version="1">Inspecting A Binary's Linkage</a></span>.</p></li><li class="li"><p>In the results from the previous step, find the lines starting with <code>@rpath</code> that are not listed in the Embedded Binaries section in the app target's General settings.</p></li><li class="li"><p>Remove the frameworks identified in the previous step from the Linked Frameworks and Libraries section in the app target's General settings.</p></li><li class="li"><p>Embed the frameworks by following the steps in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-EMBED_SECTION" data-renderer-version="1">Embedding a Framework</a></span>.</p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-TROUBLESHOOTING_BUNDLE_ERRORS-EMBEDDED__DYLIB_FILES" title="Embedded .dylib Files"></a><h4 class="jump">Embedded .dylib Files</h4><p>The following errors may indicate your app is embedding a dynamic library that is not packaged as a framework. Dynamic libraries outside of a framework bundle, which typically have the file extension <code>.dylib</code>, are not supported on iOS, watchOS, or tvOS, except for the system Swift libraries provided by Xcode.</p><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE11"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Invalid Swift Support - The SwiftSupport folder is missing. Rebuild your app using the current public (GM) version of Xcode and resubmit it.<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE12"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Invalid Swift Support - The files libswiftDarwin.dylib, libswiftDispatch.dylib, libswiftCoreGraphics.dylib, libswiftUIKit.dylib, libswiftCore.dylib, libswiftFoundation.dylib, libswiftQuartzCore.dylib, libswiftObjectiveC.dylib, libswiftCoreImage.dylib aren’t at the expected location /Payload/&lt;YourApp.app&gt;/Frameworks. Move the file to the expected location, rebuild your app using the current public (GM) version of Xcode, and resubmit it.<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE13"></a><div class="codesample clear"><table><tr><td scope="row"><pre>ERROR ITMS-90171: "Invalid Bundle Structure - The binary file '&lt;YourApp&gt;.app/&lt;LibraryName&gt;.dylib' is not permitted. Your app can’t contain standalone executables or libraries, other than the CFBundleExecutable of supported bundles.<span></span></pre></td></tr></table></div><p>To determine if the cause of these errors is due to having a dynamic library outside of framework:</p><ol class="ol"><li class="li"><p>In the Xcode Organizer, right click on the archive producing the error and select "Show In Finder."</p></li><li class="li"><p>Right click on the <code>.xcarchive</code> and select "Show Package Contents."</p></li><li class="li"><p>Navigate to the <code>Products/Applications</code> directory.</p></li><li class="li"><p>Open Terminal, and run the command in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>. You can drag and drop the <code>.app</code> from Finder to Terminal to fill in the path.</p></li><li class="li"><p>Look for any file in the output whose name does not begin with <code>libSwift</code>.</p></li><li class="li"><p>Convert the library identified in the previous step to a framework by following the steps in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-ADD_FRAMEWORK_TARGET" data-renderer-version="1">Adding A Framework Target</a></span>.</p></li></ol><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017543-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;The Invalid Swift Support errors shown here can also indicate a problem with how the app was archived. If you didn't find any dynamic libraries in the Terminal output above, consult the Xcode documentation for <span class="content_text"><a href="https://help.apple.com/xcode/mac/current/index.html?localePath=en.lproj#/dev067853c94" class="urlLink" rel="external">submitting apps to the App Store</a></span> to ensure that you are using the correct archive process for the App Store.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE14" title="Listing 1Terminal command to find .dylib files"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Terminal command to find <code>.dylib</code> files</p><div class="codesample clear"><table><tr><td scope="row"><pre>find &lt;PathToArchive&gt;/Products/Applications/&lt;AppName&gt;.app -name *.dylib -print<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-TROUBLESHOOTING_BUNDLE_ERRORS-EMBEDDED_STATIC_LIBRARIES" title="Embedded Static Libraries"></a><h4 class="jump">Embedded Static Libraries</h4><p>The following error indicates your app embedded a static library.</p><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE15"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Found an unexpected Mach-O header code: 0x72613c21<span></span></pre></td></tr></table></div><p>This is caused by placing a static library in a bundle structure that looks like a framework; this packaging is sometimes referred to by third party framework developers as a static framework. Since the binary in these situations is a static library, apps cannot embed it in the app bundle.</p><p>If you are building your own static library and using shell scripts to package it in a <code>.framework</code> directory, you need to migrate to building a framework with a dynamic library instead, as this is the correct way to build a framework. Static frameworks are not a supported way of sharing static libraries. To migrate to a framework using a dynamic library, consult <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-ADD_FRAMEWORK_TARGET" data-renderer-version="1">Adding A Framework Target</a></span>.</p><p>If you use third party libraries that you do not build yourself, you can solve this error by identifying the static framework and removing it from the Embedded Binaries section.</p><ol class="ol"><li class="li"><p>Follow the steps in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017543-CH1-USE_OTOOL" data-renderer-version="1">Inspecting A Binary's Linkage</a></span>.</p></li><li class="li"><p>In the results from the previous step, compare the entries starting with <code>@rpath</code> in the Terminal output to the libraries listed in the Embedded Binaries section on the app target's General settings. Any library listed in the app target's General settings but not the Terminal output is likely the source of the problem.</p></li><li class="li"><p>Confirm each of the libraries identified in the previous step is a static library by running the command in <span class="content_text"><!--a  -->Listing 2<!--/a--></span> in the Terminal. If the library is a static library, the output of the file command will look like <span class="content_text"><!--a  -->Listing 3<!--/a--></span>.</p></li><li class="li"><p>Once you've confirmed the library is static, go to the Build Phases for the app target in Xcode. Remove this library from any build phase named "Copy Files" or "Embed Frameworks." The library should remain in the "Link Binary with Libraries" section.</p></li></ol><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE16" title="Listing 2Terminal command to determine if a binary is a static library"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Terminal command to determine if a binary is a static library</p><div class="codesample clear"><table><tr><td scope="row"><pre>file &lt;PathToAppFramework&gt;/&lt;FrameworkName&gt;.framework/&lt;FrameworkName&gt;<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE17" title="Listing 3Example output for a static library"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Example output for a static library</p><div class="codesample clear"><table><tr><td scope="row"><pre>Mach-O universal binary with 2 architectures<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;PathToLibrary&gt; (for architecture armv7): current ar archive random library<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;PathToLibrary&gt; (for architecture arm64): current ar archive random library<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40017543-CH1-USE_OTOOL" title="Inspecting A Binary's Linkage"></a><h4 class="jump">Inspecting A Binary's Linkage</h4><p>Some errors require inspecting a binary to see what libraries it is linked against, and comparing this information to the project setup in Xcode. Follow these steps to inspect the binary when directed to by specific troubleshooting sections, and use the results as indicated by that troubleshooting section.</p><ol class="ol"><li class="li"><p>In the Xcode Organizer, right click on the archive producing the error and select "Show In Finder."</p></li><li class="li"><p>Right click on the <code>.xcarchive</code> and select "Show Package Contents."</p></li><li class="li"><p>Navigate to the <code>Products/Applications</code> directory. Right click on the <code>.app</code> and select "Show Package Contents."</p></li><li class="li"><p>Find your app's binary, usually named the same as the app's target in Xcode. Open Terminal, and run the command in <span class="content_text"><!--a  -->Listing 4<!--/a--></span>. You can drag and drop the binary from Finder to the Terminal to fill in the path.</p></li><li class="li"><p>Repeat these steps for any app extensions or frameworks in your <code>.app</code>. Make sure to give the otool command the path to the binary, and not the outer <code>.framework</code> or <code>.appex</code> directory.</p></li></ol><a name="//apple_ref/doc/uid/DTS40017543-CH1-SOURCECODE18" title="Listing 4Terminal command to list all of the libraries dynamically linked to a binary"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Terminal command to list all of the libraries dynamically linked to a binary</p><div class="codesample clear"><table><tr><td scope="row"><pre>otool -L &lt;PathToArchive&gt;/Products/Applications/&lt;AppName&gt;.app/&lt;AppBinary&gt;<span></span></pre></td></tr></table></div><p>The output of this Terminal command lists all of the dynamic libraries a binary is linked against, for each architecture in the binary.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017543-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;The system Swift libraries (libraries whose name starts with <code>libSwift</code>) will be listed in the Terminal output, but not in Embedded Binaries section of the app target's General settings. This is expected.</p><p></p></aside></div></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017543-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017543-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-03-14</td><td><p>Added information for embedding frameworks in iMessage apps and expanded Troubleshooting section</p></td></tr><tr><td scope="row">2016-09-13</td><td><p>New document that 
+					demonstrates how to embed a framework for different project configurations, and how to troubleshoot common errors</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-03-14</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

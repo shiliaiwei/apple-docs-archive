@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Introduction to Key-Value Observing Programming Guide</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/10000177i">
+    <meta id="document-version" name="document-version" content="5.7.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="10000177">
+    <meta id="date" name="date" content="2016-09-13">
+    <meta id="description" name="description" content="Explains the Cocoa key-value observing protocol.">
+    <meta id="book-title" name="book-title" content="Key-Value Observing Programming Guide">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Topic/Data Management/Event Handling}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Key-Value Observing Programming Guide: Introduction to Key-Value Observing Programming Guide">
+    <meta id="resources-uri" name="resources-uri" content="../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Key-Value Observing Programming Guide" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="Articles/KVOBasics.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X,iOS,tvOS,watchOS">
+</head>    
+<body><a name="//apple_ref/doc/uid/10000177" title="Introduction to Key-Value Observing Programming Guide"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Key-Value Observing Programming Guide</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Articles/KVOBasics.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/10000177i" title="Introduction to Key-Value Observing Programming Guide"></a><a name="//apple_ref/doc/uid/10000177-BCICJDHA" title="Introduction to Key-Value Observing Programming Guide"></a><h1 id="pageTitle">Introduction to Key-Value Observing Programming Guide</h1><a name="//apple_ref/doc/uid/10000177-DontLinkElementID_1"></a><p>Key-value observing is a mechanism that allows objects to be notified of changes to specified properties of other objects.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/10000177-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;In order to understand key-value observing, you must first understand <span class="pediaLink" data-header="Key-value coding" data-contents="Key-value coding is a mechanism for indirectly accessing an object’s attributes and relationships using string identifiers. "><a href="../../../General/Conceptual/DevPedia-CocoaCore/KeyValueCoding.html#//apple_ref/doc/uid/TP40008195-CH25" data-renderer-version="1" target="_self">key-value coding</a></span>.</p><p></p></aside></div><a name="//apple_ref/doc/uid/10000177-DontLinkElementID_2" title="At a Glance"></a><h2 class="jump">At a Glance</h2><p>Key-value observing provides a mechanism that allows objects to be notified of changes to specific properties of other objects. It is particularly useful for communication between <span class="pediaLink" data-header="Model-View-Controller" data-contents="The Model-View-Controller (MVC) design pattern assigns objects in an application one of three roles: model, view, or controller. "><a href="../../../General/Conceptual/DevPedia-CocoaCore/MVC.html#//apple_ref/doc/uid/TP40008195-CH32" data-renderer-version="1" target="_self">model and controller layers</a></span> in an application. (In OS X, the <span class="pediaLink" data-header="Controller object" data-contents="A controller object acts as a coordinator or as an intermediary between one or more view objects and one or more model objects. "><a href="../../../General/Conceptual/DevPedia-CocoaCore/ControllerObject.html#//apple_ref/doc/uid/TP40008195-CH11" data-renderer-version="1" target="_self">controller layer</a></span> binding technology relies heavily on key-value observing.) A <span class="pediaLink" data-header="Controller object" data-contents="A controller object acts as a coordinator or as an intermediary between one or more view objects and one or more model objects. "><a href="../../../General/Conceptual/DevPedia-CocoaCore/ControllerObject.html#//apple_ref/doc/uid/TP40008195-CH11" data-renderer-version="1" target="_self">controller object</a></span> typically observes properties of model objects, and a view object observes properties of model objects through a controller. In addition, however, a model object may observe other model objects (usually to determine when a dependent value changes) or even itself (again to determine when a dependent value changes). </p><p>You can observe properties including simple attributes, to-one relationships, and to-many relationships. Observers of to-many relationships are informed of the type of change made—as well as which objects are involved in the change.</p><p>A simple example illustrates how KVO can be useful in your application. Suppose a <code>Person</code> object interacts with an <code>Account</code> object, representing the person’s savings account at a bank. An instance of <code>Person</code> may need to be aware of when certain aspects of the <code>Account</code> instance change, such as the balance, or the interest rate.</p><figure class="figure"><img src="Art/kvo_objects_properties.png" alt="Art/kvo_objects_properties.png" width="512" height="82"></figure><p>If these attributes are public properties of <code>Account</code>, the <code>Person</code> could periodically poll the <code>Account</code> to discover changes, but this is of course inefficient, and often impractical. A better approach is to use KVO, which is akin to <code>Person</code> receiving an interrupt when a change occurs.</p><p>To use KVO, first you must ensure that the observed object, the <code>Account</code> in this case, is KVO compliant. Typically, if your objects inherit from <code>NSObject</code> and you create properties in the usual way, your objects and their properties will automatically be KVO Compliant. It is also possible to implement compliance manually. <span class="content_text"><a href="Articles/KVOCompliance.html#//apple_ref/doc/uid/20002178-BAJEAIEE" data-renderer-version="1">KVO Compliance</a></span> describes the difference between automatic and manual key-value observing, and how to implement both.</p><p>Next, you must register your observer instance, the <code>Person</code>, with the observed instance, the <code>Account</code>. <code>Person</code> sends an <code><a href="https://developer.apple.com/documentation/objectivec/nsobject/1412787-addobserver" class="urlLink" target="_self">addObserver:forKeyPath:options:context:</a></code> message to the <code>Account</code>, once for each observed key path, naming itself as the observer.</p><figure class="figure"><img src="Art/kvo_objects_add.png" alt="Art/kvo_objects_add.png" width="379" height="51"></figure><p>In order to receive change notifications from the <code>Account</code>, <code>Person</code> implements the <code><a href="https://developer.apple.com/documentation/objectivec/nsobject/1416553-observevalueforkeypath" class="urlLink" target="_self">observeValueForKeyPath:ofObject:change:context:</a></code> method, required of all observers. The <code>Account</code> will send this message to the <code>Person</code> any time one of the registered key paths changes. The <code>Person</code> can then take appropriate action based upon the change notification.</p><figure class="figure"><img src="Art/kvo_objects_observe.png" alt="Art/kvo_objects_observe.png" width="378" height="50"></figure><p>Finally, when it no longer wants notifications, and at the very least before it is deallocated, the <code>Person</code> instance must de-register by sending the message <code><a href="https://developer.apple.com/documentation/objectivec/nsobject/1408054-removeobserver" class="urlLink" target="_self">removeObserver:forKeyPath:</a></code> to the <code>Account</code>.</p><figure class="figure"><img src="Art/kvo_objects_remove.png" alt="Art/kvo_objects_remove.png" width="381" height="53"></figure><p><span class="content_text"><a href="Articles/KVOBasics.html#//apple_ref/doc/uid/20002252-BAJEAIEE" data-renderer-version="1">Registering for Key-Value Observing</a></span> describes the full lifecycle of registering for, receiving, and de-registering for key value observation notifications.</p><p>KVO’s primary benefit is that you don’t have to implement your own scheme to send notifications every time a property changes. Its well-defined infrastructure has framework-level support that makes it easy to adopt—typically you do not have to add any code to your project. In addition, the infrastructure is already full-featured, which makes it easy to support multiple observers for a single property, as well as dependent values.</p><p><span class="content_text"><a href="Articles/KVODependentKeys.html#//apple_ref/doc/uid/20002179-BAJEAIEE" data-renderer-version="1">Registering Dependent Keys</a></span> explains how to specify that the value of a key is dependent on the value of another key.</p><p>Unlike notifications that use <code><a href="../../../LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Classes/NSNotificationCenter/Description.html#//apple_ref/occ/cl/NSNotificationCenter" data-renderer-version="1" target="_self">NSNotificationCenter</a></code>, there is no central object that provides change notification for all observers. Instead, notifications are sent directly to the observing objects when changes are made. <code>NSObject</code> provides this base implementation of key-value observing, and you should rarely need to <span class="pediaLink" data-header="Method overriding" data-contents="Method overriding is a language feature in which a class can provide an implementation of a method that is already provided by one of its parent classes. "><a href="../../../General/Conceptual/DevPedia-CocoaCore/MethodOverriding.html#//apple_ref/doc/uid/TP40008195-CH57" data-renderer-version="1" target="_self">override</a></span> these methods.</p><p><span class="content_text"><a href="Articles/KVOImplementation.html#//apple_ref/doc/uid/20002307-BAJEAIEE" data-renderer-version="1">Key-Value Observing Implementation Details </a></span> describes how key-value observing is implemented.</p>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Articles/KVOBasics.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2003, 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-09-13</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

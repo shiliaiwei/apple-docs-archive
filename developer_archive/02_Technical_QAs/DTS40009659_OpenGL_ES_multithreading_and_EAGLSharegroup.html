@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1612: OpenGL ES multithreading and EAGLSharegroup</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009659">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009659-CH1">
+    <meta id="date" name="date" content="2010-03-09">
+    <meta id="description" name="description" content="QA1612: Discusses best practices for developing multithreading OpenGL ES applications with the EAGLSharegroup class.">
+    <meta id="book-title" name="book-title" content="OpenGL ES multithreading and EAGLSharegroup">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/OpenGLES}, {Topic/Graphics & Animation/3D Drawing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1612">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="OpenGL ES multithreading and EAGLSharegroup" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009659" title="Technical Q&amp;A QA1612"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>OpenGL ES multithreading and EAGLSharegroup</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009659-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1612"></a><div class="dtsDocNumber">Technical Q&amp;A QA1612</div><h1 id="pageTitle">OpenGL ES multithreading and EAGLSharegroup</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+In my multithreading OpenGL ES application, I load textures (or vertices) on a secondary thread then draw them onto screen on the main thread. Occasionally I see blank images or application freezes. What could be causing this?
+</h2><p><span>A: </span>In my multithreading OpenGL ES application, I load textures (or vertices) on a secondary thread then draw them onto screen on the main thread. Occasionally I see blank images or application freezes. What could be causing this?</p><p>It is very likely that the main and background threads are accessing the same OpenGL ES context simultaneously.</p><p>OpenGL ES commands for a specific context are not reentrant. You should never have more than one thread accessing a single context at the same time. It is highly recommended that you use only one thread per context.</p><p><strong>Listing 1</strong> demonstrates how to create and make current a context <code>contextB</code> using the <code>sharegroup</code> property (an <code>EAGLSharegroup</code> object) obtained from another already-allocated context <code>contextA</code>. Such contexts that belong to the same sharegroup can share resources, for example, textures, FBOs, etc. So you may use <code>contextB</code> on the secondary thread to create textures, and <code>contextA</code> on the main thread to draw the textures onto screen.</p><a name="//apple_ref/doc/uid/DTS40009659-CH1-SOURCECODE1" title="Listing 1Creating a context belonging to the same sharegroup"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Creating a context belonging to the same sharegroup</p><div class="codesample clear"><table><tr><td scope="row"><pre>contextB = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1 
+                                 sharegroup:contextA.sharegroup];
+if (!contextB || ![EAGLContext setCurrentContext:contextB]) {
+       // Handle errors here
+}<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40009659-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;The only way to get a valid <code>EAGLSharegroup</code> object is to query it from an existing <code>EAGLContext</code> object. Any other method, such as explicitly creating it, will result in crashes or undefined behavior.</p><p></p></aside></div><p>When you want to modify a resource on one context, you must first make sure it is not currently in use on another, even if you are accessing them from different threads. Once you modify it, its state is undefined until flushing and binding the object have been completed. You should never use an undefined object, whether you access it from a different context or not.</p><p>Take a texture as an example. <strong>Listing 2</strong> shows the correct way to deal with multiple contexts. Any other ordering will not ensure consistent and correct behavior. It may result in data corruption, leaks, or crashes otherwise. </p><a name="//apple_ref/doc/uid/DTS40009659-CH1-SOURCECODE2" title="Listing 2Modifying a texture on context B prior to using it on context A"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Modifying a texture on context B prior to using it on context A</p><div class="codesample clear"><table><tr><td scope="row"><pre>// 1. Ensure context A is not bound to the texture
+[EAGLContext setCurrentContext:contextA];
+glBindTexture(GL_TEXTURE_2D, 0);
+
+// 2. Call flush on context A 
+glFlush(); 
+
+// 3. Modify the texture on context B
+[EAGLContext setCurrentContext:contextB];
+glBindTexture(GL_TEXTURE_2D, texId);
+//
+// Modify the texture data here
+//
+
+// 4. Call flush on context B
+glFlush(); 
+
+// 5. Rebind the texture on context A
+[EAGLContext setCurrentContext:contextA];
+glBindTexture(GL_TEXTURE_2D, texId);
+
+// 6. Use the texture as normal on context A<span></span></pre></td></tr></table></div><p>For more information on the <code>EAGLContext/-initWithAPI:sharegroup:</code> API and the <code>sharegroup</code> property, see the <span class="content_text"><a href="http://developer.apple.com/iphone/library/documentation/OpenGLES/Reference/EAGLContext_ClassRef/Reference/EAGLContext.html" class="browserLink" >EAGLContext Class Reference</a></span>.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS40009659-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009659-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-03-09</td><td><p>New document that 
+					discusses best practices for developing multithreading OpenGL ES applications with the EAGLSharegroup class.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-03-09</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

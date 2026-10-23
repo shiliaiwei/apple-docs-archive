@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Introduction to DNS Service Discovery</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP30000964">
+    <meta id="document-version" name="document-version" content="6.0.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40002475">
+    <meta id="date" name="date" content="2013-08-08">
+    <meta id="description" name="description" content="Explains how to use DNS Service Discovery in your app.">
+    <meta id="book-title" name="book-title" content="DNS Service Discovery Programming Guide">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Topic/Networking, Internet, & Web/Services & Discovery}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="DNS Service Discovery Programming Guide: Introduction to DNS Service Discovery">
+    <meta id="resources-uri" name="resources-uri" content="../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="DNS Service Discovery Programming Guide" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="Articles/registering.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X,iOS">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40002475" title="Introduction to DNS Service Discovery"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>DNS Service Discovery Programming Guide</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Articles/registering.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP30000964" title="Introduction to DNS Service Discovery"></a><a name="//apple_ref/doc/uid/TP40002475-SW1" title="Introduction to DNS Service Discovery"></a><h1 id="pageTitle">Introduction to DNS Service Discovery</h1><a name="//apple_ref/doc/uid/TP40002475-DontLinkElementID_1"></a><p>This document describes how to use the DNS Service Discovery API in your program.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/TP40002475-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;Most apps in iOS and OS X should <em>not</em> use this API, but instead should use a higher-level API such as the <code>NSNetService</code> class. See <em><a href="../NSNetServiceProgGuide/Introduction.html#//apple_ref/doc/uid/TP40002736" data-renderer-version="1" target="_self">NSNetServices and CFNetServices Programming Guide</a></em> for more information.</p><p></p></aside></div><p>The DNS Service Discovery API helps you to perform three main tasks:</p><ul class="ul"><li class="li"><p>Registering a service</p></li><li class="li"><p>Browsing for services</p></li><li class="li"><p>Resolving service names to host names</p></li></ul><p>In support of these main tasks, this API can directly assist you in performing two subsidiary tasks:</p><ul class="ul"><li class="li"><p>Enumerating domains (finding recommended service domains)</p></li><li class="li"><p>Updating registrations (changing your DNS registration data dynamically)</p></li></ul><p>The DNS Service Discovery API is part of Bonjour, Apple’s implementation of zero-configuration networking (ZEROCONF). For an overview of how Bonjour works, please read <em><a href="../../../Cocoa/Conceptual/NetServices/Introduction.html#//apple_ref/doc/uid/10000119i" data-renderer-version="1" target="_self">Bonjour Overview</a></em> prior to using DNS Service Discovery.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40002475-SW2" title="Note"></a><p><strong>Note:</strong>&nbsp;This document describes the socket-based DNS Service Discovery API, which is the recommended API that’s available in OS X v10.3 and later and all versions of iOS. The alternative Mach-based API is deprecated (and is unsupported in iOS).</p><p></p></aside></div><a name="//apple_ref/doc/uid/TP40002475-SW3" title="Who Should Read This Document?"></a><h2 class="jump">Who Should Read This Document?</h2><p>This document is meant for developers who want to use Bonjour in their applications. There are a number of reasons to use the DNS Service Discovery API over the Network Services APIs (NSNetServices and CFNetServices):</p><ul class="ul"><li class="li"><p>You are writing BSD-style applications that will not need to link to higher level frameworks.</p></li><li class="li"><p>You are writing cross-platform programs (DNS Service Discovery API is available on iOS, OS X, Windows, and other POSIX compatible operating systems).</p></li><li class="li"><p>You are writing an application that requires special purpose low-level routines, such as registering individual records or being able to use only specific network interfaces.</p></li></ul><p>If none of those features are necessary for your program, it is highly recommended that you take a look at NSNetService and CFNetService first.</p><a name="//apple_ref/doc/uid/TP40002475-DontLinkElementID_2" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2><p>This document contains the following articles:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="Articles/registering.html#//apple_ref/doc/uid/TP40002478-SW1" data-renderer-version="1">Registering and Terminating a Service</a></span> explains how to register and terminate your service with the <code>mDNSResponder</code> daemon.</p></li><li class="li"><p><span class="content_text"><a href="Articles/browse.html#//apple_ref/doc/uid/TP40002486-SW1" data-renderer-version="1">Browsing for Network Services</a></span> describes how to browse for services.</p></li><li class="li"><p><span class="content_text"><a href="Articles/resolving.html#//apple_ref/doc/uid/TP40002487-SW1" data-renderer-version="1">Resolving the Current Address of a Service</a></span> explains how to get information on a service based on its name, registration type, and domain.</p></li><li class="li"><p><span class="content_text"><a href="Articles/enumeratingdomains.html#//apple_ref/doc/uid/TP40002488-SW1" data-renderer-version="1">Enumerating Domains</a></span> helps you understand how to find domains recommended for registration and browsing.</p></li><li class="li"><p><span class="content_text"><a href="Articles/UsingDNSServiceDiscoveryinWindows.html#//apple_ref/doc/uid/TP40002480-SW1" data-renderer-version="1">Using DNS Service Discovery in Windows</a></span> gives an overview for how to implement DNS Service Discovery in a Windows-based application.</p></li></ul><section><a name="//apple_ref/doc/uid/TP30000077-199206" title="Before You Start"></a><a name="//apple_ref/doc/uid/TP40002475-BBCDCHHI" title="Before You Start"></a><h2 class="jump">Before You Start</h2><p>The next few paragraphs describe some things you should know about this API before attempting any of the tasks.</p><p>Most functions in this API do not return all of their data using their function return or parameter block. Instead, they require you to provide a callback function that can handle data sent asynchronously. </p><p>Your callback function may be called multiple times in response to a single function call on your part. For example, you might request a list of available services. Your callback would be called once for each available service that matches your request, then called again whenever a matching service is added or removed.</p><p>Some functions return error codes in the usual way, but many do not. In these cases, any error code and status flags are sent to your callback function as part of the asynchronous reply, along with—or instead of—any returned data.</p><p>Most of the functions in this API use a common set of parameters to describe services. You will need to supply some or all of these parameters, depending on the purpose of your call. In many cases, you will provide some parameters, such as the domain and type of service, and your callback function will receive data corresponding to other parameters, such as the service name of a matching service. </p><p>Here is a list of the common parameters required by the DNS Service Discovery API:</p><ul class="ul"><li class="li"><p>Name—human readable name of the service, such as <code>Sales Laser Printer</code>.</p></li><li class="li"><p>Registration type—the service type followed by the protocol name and separated by a dot (<code>.</code>) ; <code>_printer._tcp</code> is an example.</p></li><li class="li"><p>Domain—the domain for the service, typically <code>NULL</code>.</p></li></ul><ul class="ul"><li class="li"><p>Full domain name—the name that uniquely identifies a service. A full domain name is the concatenation of the name, registration type, and domain. Because the dot (<code>.</code>) character is used as a separator, any dot characters in the name portion of a full domain name must be escaped by a backslash character (<code>\</code>). If the name contains a literal backslash, the backslash must also be escaped by a backslash character. Here is an example of a full domain name: <code>Dr\.Smith’s Home\\Office Server._http._tcp.local</code>.</p></li><li class="li"><p>Port—the port number for the service in network byte order.</p></li><li class="li"><p>Text record—an optional record containing any additional information that may be needed to use the service, such as a print queue name.</p></li></ul></section><section><a name="//apple_ref/doc/uid/TP30000964-CH203-177320" title="Requirements"></a><a name="//apple_ref/doc/uid/TP40002475-TPXREF103" title="Requirements"></a><h2 class="jump">Requirements</h2><p>The DNS Service Discovery API requires the services of the <code>mDNSResponder</code> daemon. OS X (version 10.2 and later) and iOS include an <code>mDNSResponder</code> daemon as part of the operating system. Apple also provides the source code for its <code>mDNSResponder</code> daemon on <span class="content_text"><a href="http://opensource.apple.com/" class="urlLink" rel="external">Apple's Open Source site</a></span>. This API is also available in Bonjour for Windows and (if <code>mDNSResponder</code> is installed) in the Linux, Solaris, and FreeBSD operating systems.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40002475-SW4" title="Note"></a><p><strong>Note:</strong>&nbsp;Apple encourages hardware developers to embed the Darwin <code>mDNSResponder</code> daemon code in their hardware.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP30000964-CH203-177376" title="Limitations"></a><a name="//apple_ref/doc/uid/TP40002475-TPXREF105" title="Limitations"></a><h2 class="jump">Limitations</h2><p>The DNS Service Discovery API does not perform network access setup for services. Similarly, the DNS Service Discovery API does not provide a network connection from an application to a service. It allows applications to browse for services, or to ask for them by name, and provides the IP address, port, and so on. You can use BSD sockets to connect to a service over the network.</p></section><section><a name="//apple_ref/doc/uid/TP30000964-CH203-211423" title="For More Information"></a><a name="//apple_ref/doc/uid/TP40002475-BABHDFDI" title="For More Information"></a><h2 class="jump">For More Information</h2><p>For additional information on Bonjour, including links to standards, specifications, and resources, see <span class="content_text"><a href="http://developer.apple.com/networking/bonjour" class="browserLink" >http://developer.apple.com/networking/bonjour</a></span> and read <em><a href="../../../Cocoa/Conceptual/NetServices/Introduction.html#//apple_ref/doc/uid/10000119i" data-renderer-version="1" target="_self">Bonjour Overview</a></em>.</p><p>Documentation on the Java-based DNS Service Discovery API is available at <em><!--a target="_self" -->DNS Service Discovery Java Reference<!--/a--></em>.</p><p>For information on dynamic update and shared secrets, see <span class="content_text"><a href="http://www.ietf.org/rfc/rfc2136.txt" class="urlLink" rel="external">http://www.ietf.org/rfc/rfc2136.txt</a></span> and <span class="content_text"><a href="http://www.ietf.org/rfc/rfc2845.txt" class="urlLink" rel="external">http://www.ietf.org/rfc/rfc2845.txt</a></span>, respectively.</p><p>For information Network Address Translation (NAT), see <span class="content_text"><a href="http://www.ietf.org/rfc/rfc3022.txt" class="urlLink" rel="external">http://www.ietf.org/rfc/rfc3022.txt</a></span>, and for information on automatic NAT port mapping, see <span class="content_text"><a href="http://files.dns-sd.org/draft-nat-port-mapping.txt" class="urlLink" rel="external">http://files.dns-sd.org/draft-nat-port-mapping.txt</a></span>.</p><p>For sample code, download the <code>mDNSResponder</code> source code at <span class="content_text"><a href="http://opensource.apple.com/" class="urlLink" rel="external">Apple's Open Source site</a></span>.</p></section>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Articles/registering.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-08-08</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

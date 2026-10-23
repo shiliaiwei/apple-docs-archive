@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1786: AUAudioFilePlayer - Using the Audio File Player Audio Unit</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40013349">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40013349-CH1">
+    <meta id="date" name="date" content="2013-05-20">
+    <meta id="description" name="description" content="QA1786: Discusses using the AUAudioFilePlayer audio unit.">
+    <meta id="book-title" name="book-title" content="AUAudioFilePlayer - Using the Audio File Player Audio Unit">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1786">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="AUAudioFilePlayer - Using the Audio File Player Audio Unit" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40013349" title="Technical Q&amp;A QA1786"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>AUAudioFilePlayer - Using the Audio File Player Audio Unit</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40013349-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1786"></a><div class="dtsDocNumber">Technical Q&amp;A QA1786</div><h1 id="pageTitle">AUAudioFilePlayer - Using the Audio File Player Audio Unit</h1><h2>Q:&nbsp;
+How do I set up the Audio File Player audio unit to play back a file?
+</h2><p><span>A: </span>The <code>AUAudioFilePlayer</code> (<code>kAudioUnitSubType_AudioFilePlayer</code>) is a specialization (subclass) of the <code>AUScheduledSoundPlayer</code> that allows you to schedule regions of audio files for future playback with sample-accurate timing.</p><p>As discussed in <code>AudioUnitProperties.h</code>, as a subclass of the scheduled sound player the file player inherits all of its behaviors. In particular, the file player implements the <code>kAudioUnitProperty_ScheduleStartTimeStamp</code> and <code>kAudioUnitProperty_CurrentPlayTime</code> properties but instead of scheduling slices (buffers) of audio to be played (via <code>kAudioUnitProperty_ScheduleAudioSlice</code>), you schedule regions of audio files to be played (via <code>kAudioUnitProperty_ScheduledFileRegion</code>). The audio file player unit converts audio file data into its own internal buffers performing disk I/O on a high-priority thread shared among all instances of this unit within a process. Upon completion of a disk read, the unit internally schedules buffers for playback.</p><p>To get started with the <code>AUAudioFilePlayer</code> provide a file to play:</p><a name="//apple_ref/doc/uid/DTS40013349-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>AudioFileID mAudioFile;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>UInt32 size;<span></span></pre></td></tr><tr><td scope="row"><pre>err = AudioFileOpenURL(mFileURL, kAudioFileReadPermission, 0, &amp;mAudioFile);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>size = sizeof(mFileDataFormat);<span></span></pre></td></tr><tr><td scope="row"><pre>err = AudioFileGetProperty(mAudioFile, kAudioFilePropertyDataFormat, &amp;size, &amp;mFileDataFormat);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// it's simplest to set the file player's output format to be<span></span></pre></td></tr><tr><td scope="row"><pre>// canonical float 32, with the file's sample rate and channel count<span></span></pre></td></tr><tr><td scope="row"><pre>err = [self buildAUGraph];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// give the file(s) to the player<span></span></pre></td></tr><tr><td scope="row"><pre>// kAudioUnitProperty_ScheduledFileIDs value is an array of AudioFileIDs<span></span></pre></td></tr><tr><td scope="row"><pre>// you must set this property on scheduled file player for all files to be<span></span></pre></td></tr><tr><td scope="row"><pre>//     played and must not be set during playback.<span></span></pre></td></tr><tr><td scope="row"><pre>// the audio files must be kept open for the duration of playback<span></span></pre></td></tr><tr><td scope="row"><pre>err = AudioUnitSetProperty(mFilePlayerAU, kAudioUnitProperty_ScheduledFileIDs,<span></span></pre></td></tr><tr><td scope="row"><pre>                           kAudioUnitScope_Global, 0, &amp;mAudioFile, sizeof(mAudioFile));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013349-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;To play audio from multiple files, you must inform the unit of all the file IDs from which you will schedule events.</p><p></p></aside></div><p>To start playback set up your playback region using the <code>ScheduledAudioFileRegion</code> structure:</p><a name="//apple_ref/doc/uid/DTS40013349-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>ScheduledAudioFileRegion playRegion;<span></span></pre></td></tr><tr><td scope="row"><pre>playRegion.mTimeStamp.mFlags = kAudioTimeStampSampleTimeValid;<span></span></pre></td></tr><tr><td scope="row"><pre>playRegion.mTimeStamp.mSampleTime = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>playRegion.mCompletionProc = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>playRegion.mCompletionProcUserData = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>playRegion.mAudioFile = mAudioFile;<span></span></pre></td></tr><tr><td scope="row"><pre>playRegion.mLoopCount = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>playRegion.mStartFrame = mStartSampleFrame;<span></span></pre></td></tr><tr><td scope="row"><pre>playRegion.mFramesToPlay = UInt32(-1);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>err = AudioUnitSetProperty(mFilePlayerAU, kAudioUnitProperty_ScheduledFileRegion,<span></span></pre></td></tr><tr><td scope="row"><pre>                           kAudioUnitScope_Global, 0, &amp;playRegion, sizeof(playRegion));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div><p>Prime after scheduling initial file regions to be played and before starting playback:</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013349-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;When this call is made the audio unit begins reading the audio files and will not return until the number of frames specified by the property value have been read.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40013349-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>UInt32 primeFrames = 0; // use default value (0x10000)<span></span></pre></td></tr><tr><td scope="row"><pre>err = AudioUnitSetProperty(mFilePlayerAU, kAudioUnitProperty_ScheduledFilePrime,<span></span></pre></td></tr><tr><td scope="row"><pre>                          kAudioUnitScope_Global, 0, &amp;primeFrames, sizeof(primeFrames));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013349-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;The <code>mTimeStamp.mSampleTime</code> <strong>MUST</strong> be valid and is interpreted relative to the unit's start time. The start time semantics (using <code>kAudioUnitProperty_ScheduleStartTimeStamp</code>) are identical to those of the scheduled sound player. Unlike how the scheduled sound player uses the <code>ScheduledAudioSlice</code> structure, the audio file player makes copies of the <code>ScheduledAudioFileRegions</code> structure so you may create them on the stack or otherwise reuse/dispose of them immediately after scheduling them.</p><p></p></aside></div><p>Set the start time to start playback at the specified time:</p><a name="//apple_ref/doc/uid/DTS40013349-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// set start time on next render cycle<span></span></pre></td></tr><tr><td scope="row"><pre>AudioTimeStamp startTime;<span></span></pre></td></tr><tr><td scope="row"><pre>startTime.mFlags = kAudioTimeStampSampleTimeValid;<span></span></pre></td></tr><tr><td scope="row"><pre>startTime.mSampleTime = -1;<span></span></pre></td></tr><tr><td scope="row"><pre>err = AudioUnitSetProperty(mFilePlayerAU, kAudioUnitProperty_ScheduleStartTimeStamp,<span></span></pre></td></tr><tr><td scope="row"><pre>                           kAudioUnitScope_Global, 0, &amp;startTime, sizeof(startTime));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013349-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;The audio file player will not play any regions until its start time has been set. The start time establishes the beginning of a timeline: the timestamps of all regions in the schedule are relative to the start time. If the specified sample time is <code>-1</code>, playback begins on the next render cycle.</p><p></p></aside></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40013349-CH1-DontLinkElementID_7" title="Important"></a><p><strong>Important:</strong>&nbsp;The start time semantics of the <code>AUAudioFilePlayer</code> are identical to those of <code>AUScheduledSoundPlayer</code> and full details of the <code>kAudioUnitProperty_ScheduleStartTimeStamp</code> property can be found in <code>AudioUnitProperties.h</code></p><p></p></aside></div><p>Once playing, obtain the play position relative to the start point in samples using the <code>kAudioUnitProperty_CurrentPlayTime</code> property:</p><a name="//apple_ref/doc/uid/DTS40013349-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AudioTimeStamp ts;<span></span></pre></td></tr><tr><td scope="row"><pre>UInt32 size = sizeof(ts);<span></span></pre></td></tr><tr><td scope="row"><pre>err = AudioUnitGetProperty(mFilePlayerAU, kAudioUnitProperty_CurrentPlayTime,<span></span></pre></td></tr><tr><td scope="row"><pre>                           kAudioUnitScope_Global, 0, &amp;ts, &amp;size);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>Float64 sampleFrame = ts.mSampleTime;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div><p>To stop, simply call <code>AudioUnitReset</code>:</p><a name="//apple_ref/doc/uid/DTS40013349-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>err = AudioUnitReset(mFilePlayerAU, kAudioUnitScope_Global, 0);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40013349-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40013349-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2013-05-20</td><td><p>New document that 
+					discusses using the AUAudioFilePlayer audio unit.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-05-20</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

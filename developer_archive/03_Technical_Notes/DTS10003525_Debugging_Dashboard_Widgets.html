@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Note TN2139: Debugging Dashboard Widgets</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003525">
+    <meta id="document-version" name="document-version" content="1.3.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003525-CH1">
+    <meta id="date" name="date" content="2009-05-11">
+    <meta id="description" name="description" content="TN2139: Dashboard widget troubleshooting techniques, from start to finish.">
+    <meta id="book-title" name="book-title" content="Debugging Dashboard Widgets">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Xcode/IDEs}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2139">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Debugging Dashboard Widgets" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003525" title="Technical Note TN2139"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Debugging Dashboard Widgets</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003525-CH1-DontLinkElementID_2" title="Technical Note TN2139"></a><div class="dtsDocNumber">Technical Note TN2139</div><h1 id="pageTitle">Debugging Dashboard Widgets</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003525-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>This Technical Note covers common problems and errors encountered during the development of a Dashboard widget, along with techniques for discovering and preventing such problems. It is targeted at developers working with Dashboard on Mac OS X Tiger.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003525-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;Some of the information in this Technical Note is no longer accurate as of Mac OS X 10.5 Leopard. Developers should use Dashcode for troubleshooting and debugging Dashboard widgets on Mac OS X 10.5 and later.</p><p></p></aside></div>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG2" data-renderer-version="1">Developing in Safari</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG3" data-renderer-version="1">Printing Debug Information</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG13" data-renderer-version="1">Activating Development Mode</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG4" data-renderer-version="1">Widgets That Don't Launch</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG21" data-renderer-version="1">Dashboard Never Appears</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG22" data-renderer-version="1">Default Image, No Content</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG23" data-renderer-version="1">Kicked out of the (Widget) Bar</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG25" data-renderer-version="1">Failure of Specific Features</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG28" data-renderer-version="1">Web Content: Networking, Embeds, File I/O, and Java</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG26" data-renderer-version="1">Widget Preferences</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG5" data-renderer-version="1">Widget Plug-ins</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG8" data-renderer-version="1">Where's my Plug-in?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG11" data-renderer-version="1">Calling a Plug-in</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003525-CH1-TNTAG12" data-renderer-version="1">Crashing Plug-ins</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003525-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Dashboard widgets are not difficult to create, but they can be challenging to work with once something goes wrong. Developers used to working with languages like Objective-C or Java may be used to more control and feedback during the development process than what is provided from the web-based technologies used to create a widget. This Technical Note discusses effective methods to obtain such control and feedback, hopefully making better use of your development time.</p><p>This Technical Note is meant to be a supplement to the <span class="content_text"><a href="/documentation/AppleApplications/Conceptual/Dashboard_Tutorial/" class="urlLink" rel="external">Dashboard Programming Guide</a></span>. Developers interested in learning how to create a Dashboard widget should first read that document; the basics of widget development are not covered here.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG2" title="Developing in Safari"></a><h2 class="jump">Developing in Safari</h2><p>One of the most important things to keep in mind when developing a widget is the fact that it is, in many ways, just a web page. Dashboard widgets use the same Web Kit rendering engine as Safari, so you can do almost all of your development inside Safari and not be concerned with bundling, property lists, default images and icons, all of which add their own complexity (these are discussed later).</p><p>If you've already bundled your widget, simply Control-click on the <code>.wdgt</code> bundle and select Show Package Contents to view all your content from the Finder. You then open your main HTML file in Safari to view its content without the additional variables of the Dashboard runtime.</p><p>Testing your content in Safari is particularly essential in the area of JavaScript errors. Dashboard will report JavaScript errors to the Console application, but it is difficult to block execution from inside a widget in order to narrow down the source of an error. Working in Safari will also help you isolate calls to the <code>widget</code> object and force the good habit of wrapping such calls with <code>if (window.widget)</code> checks.</p><p>The first important step for debugging in Safari is enabling the Debug menu. This is accomplished by typing the Terminal command shown in Listing 1:</p><a name="//apple_ref/doc/uid/DTS10003525-CH1-SOURCECODE1" title="Listing 1Enabling the Debug Menu in Safari."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Enabling the Debug Menu in Safari.</p><div class="codesample clear"><table><tr><td scope="row"><pre>l337_d3v$ defaults write com.apple.Safari IncludeDebugMenu 1<span></span></pre></td></tr></table></div><p>The next time you launch Safari, you should see the Debug menu to the right of the Help menu. Be sure to select the Log JavaScript Exceptions item, to get as much feedback as possible. A new feature in Mac OS X v10.4 is the JavaScript Console, which can also be enabled from the Debug menu. Once the JavaScript console is active, you're ready to work.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG3" title="Printing Debug Information"></a><h2 class="jump">Printing Debug Information</h2><p>The most basic and universal debugging aid in JavaScript programming is the <code>alert</code> statement. It takes a single argument (usually a string) and displays it in a modal dialog. The blocking nature of the dialog can be used to make "breakpoints" in your JavaScript in order to narrow down exactly when during execution a given error appears in Safari's JavaScript Console.</p><p>While the <code>alert</code> function's modal behavior can be a blessing, it can also be a curse. It doesn't take long to build up a large number of <code>alert</code> statements, and before you know it, you're clicking 30 times whenever you refresh your content. This can become cumbersome, and may create a functional problem for code that is running in a <code>setInterval</code> timer. That code may be depending on a certain amount of time to elapse, but if you're busy closing dialogs, the page will take much longer than usual to load and the time elapsed before a single iteration of the timer even got around to executing.</p><p>When running in Dashboard, <code>alert</code> statements are simply printed to the Console, avoiding any of these issues. To get the best of both worlds, create a debug element in your web page appending your debug information to it when in Safari. This debug element allows you to make logging statements that are much less intrusive than modal alerts.</p><p>Declaring a debug element is as simple as inserting a <code>div</code> tag anywhere in your page and providing CSS properties to position it. Listing 1 demonstrates the insertion of a debug <code>div</code> into a webpage. JavaScript methods to show, hide and print to the <code>div</code> are also defined.</p><a name="//apple_ref/doc/uid/DTS10003525-CH1-SOURCECODE2" title="Listing 2Inserting a debug div into existing content"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Inserting a debug <code>div</code> into existing content</p><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;html&gt;
+     &lt;head&gt;
+     &lt;style type="text/css"&gt;
+          #debugDiv {
+               border-style: dotted; 
+               border-color: black;
+               background: gray;
+               position: absolute;
+               bottom: 0px;
+               left: 0px;
+               height: 200px;
+               width: 90%;
+               overflow: scroll;
+               display:none;
+          }
+     &lt;/style&gt;
+     &lt;script language="JavaScript" type="text/javascript"&gt;
+          var debugMode = false;
+
+          // Write to the debug div when in Safari.
+          // Send a simple alert to Console when in Dashboard.
+          function DEBUG(str) {
+               if (debugMode) {
+                    if (window.widget) {
+                         alert(str);
+                    } else {
+                         var debugDiv = document.getElementById('debugDiv');
+                         debugDiv.appendChild(document.createTextNode(str));
+                         debugDiv.appendChild(document.createElement("br"));
+                         debugDiv.scrollTop = debugDiv.scrollHeight;
+                    }
+               }
+          }
+
+          // Toggle the debugMode flag, but only show the debugDiv in Safari
+          function toggleDebug() {
+               debugMode = !debugMode;
+               if (debugMode == true &amp;&amp; !window.widget) {
+                    document.getElementById('debugDiv').style.display = 'block';
+               } else {
+                    document.getElementById('debugDiv').style.display = 'none';
+               }
+          }
+     &lt;/script&gt;
+     &lt;/head&gt;
+
+     &lt;body onload='toggleDebug();DEBUG("loaded!");'&gt;
+
+          &lt;!-- All our existing content... --&gt;
+          Hello World!
+          &lt;!-- Declare the debug div anywhere. CSS handles the positioning --&gt;
+          &lt;div id='debugDiv'&gt;&lt;/div&gt;
+
+     &lt;/body&gt;
+&lt;/html&gt;<span></span></pre></td></tr></table></div><p>Figure 1 demonstrates what the above page looks like in Safari. Note the "loaded!" string that is passed to <code>DEBUG</code> appears in the <code>div</code> at the bottom.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003525-CH1-FIGURE1" title="Figure 1A simple web page with a debug/log div."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;A simple web page with a debug/log <code>div</code>.</figcaption><img src="Art/tn2139_debugDiv.png" alt="" width="538" height="377"></figure><p>An alternate technique is to create a new window using <code>window.open</code>, and write your logging statements directly to that window's <code>document</code> object. This would not require any CSS or HTML declarations, but it would require popup blocking to be turned off in Safari.</p><p>This document does not discuss the basics of JavaScript debugging. A great article about the basics of JavaScript debugging can be found at <span class="content_text"><a href="http://javascript.internet.com/debug-guide.html" class="urlLink" rel="external">The JavaScript Source</a></span>. The article is dated and does not cover some of the newer features of JavaScript and DHTML, but much of the information and common caveats are still applicable. In particular, the <code>debugDiv</code> demonstrated above can replaces <code>document.write</code> and <code>alert</code> calls used in the article. The JavaScript Console in Safari plays the role of the "warning box."</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG13" title="Activating Development Mode"></a><h2 class="jump">Activating Development Mode</h2><p>When the time comes to test your widget in bundled form, it can be quite cumbersome to repeatedly show and hide the Dashboard to switch between your widget and other Desktop apps, such as Console, or the editor you're using to make changes. To minimize the number of times you show and hide Dashboard, you can place Dashboard in Development Mode. This allows you to keep a widget on screen at all times � even when Dashboard is not shown. To enable Development Mode:</p><ul class="ul"><li class="li"><p>Type the following in Terminal: <code>defaults write com.apple.dashboard devmode YES</code></p></li><li class="li"><p>Logout/login (or restart) to reload Dashboard with the new setting</p></li><li class="li"><p>Load your widget into Dashboard</p></li><li class="li"><p>Drag your widget a short distance; do <strong>not</strong> release the mouse</p></li><li class="li"><p>With the mouse still held down, hide Dashboard; your widget should now be hovering over the desktop</p></li></ul><p>Viewing output, making changes, and reloading will be a much smoother process with your widget permanently visible.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003525-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;To reload a widget, make sure it is focused and press Command-R on your keyboard. You should see a "swirl" animation, indicating that the widget's content has been reloaded.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG4" title="Widgets That Don't Launch"></a><h2 class="jump">Widgets That Don't Launch</h2><p>So you've dropped all your content into a <code>.wdgt</code> bundle and are ready to start testing in Dashboard. You pull your widget from the Widget Bar or double-click your bundle in the Finder and nothing happens. Either the widget doesn't show up or it shows up for a split second and vanishes. There are a number of potential reasons for this, categorized below by the accompanying symptoms.</p><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG21" title="Dashboard Never Appears"></a><h3 class="jump">Dashboard Never Appears</h3><p>Double-clicking a functional widget from the Finder should result in the Dashboard being shown and the widget being loaded. If you double-click your widget and the Dashboard never shows itself, your bundle is probably missing one of the following items:</p><ul class="ul"><li class="li"><p><strong>Default image</strong>. The top level of your widget bundle must contain an image file in PNG format named <code>Default.png</code>. This image is displayed while Dashboard loads your regular content. If this file is missing, malformed, or misnamed, the widget will not load. To ensure the image is in the correct format, open it with Preview and select Get Info from the Tools menu. If the info window does not report a Document type of "Portable Network Graphics Image" it is most likely not a valid Default image.</p></li><li class="li"><p><strong>Info.plist file</strong>. Perhaps you forgot to include an <code>Info.plist</code> file at the top level of your widget bundle. The Dashboard Programming Guide covers all the required keys, but the most important are covered below.</p></li><li class="li"><p><strong>CFBundleIdentifier key</strong>. A unique <code>CFBundleIdentifier</code> value in your <code>Info.plist</code> is essential to any application on Mac OS X; Dashboard widgets are no exception. Widgets do not load without this key defined.</p></li><li class="li"><p><strong>MainHTML key</strong>. The <code>MainHTML</code> key defines what content is loaded by the widget. If the key is not present, the widget is not loaded. Remember that the value of this key is case-sensitive. Make sure the value matches the filename exactly.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG22" title="Default Image, No Content"></a><h3 class="jump">Default Image, No Content</h3><p>If your widget successfully displays in Dashboard, you should see its default image on the screen while the main content loads. If the default image vanishes and nothing replaces it, it most likely means your <code>MainHTML</code> key does not match the actual HTML filename in the top level of your widget bundle. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003525-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;If this happens to you, it may be difficult to close the widget. The easiest thing to do in this case is to show the Widget Bar; this reveals the closeboxes for every widget on screen.</p><p></p></aside></div><p>Content that shows itself but is not responsive likely threw a error in JavaScript code stemming from the <code>onload</code> handler. Check the Console for errors.</p></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG23" title="Kicked out of the (Widget) Bar"></a><h3 class="jump">Kicked out of the (Widget) Bar</h3><p>In order for your widget to appear in the Widget Bar, it must be placed in either <code>/Library/Widgets</code> or <code>~/Library/Widgets</code>. Widgets without an <code>Icon.png</code> image file at the top level of the widget bundle will appear in the Widget Bar but with a generic icon.</p><p>Widgets added to one of the two installation directories should appear the next time you show Dashboard. If yours does not, cycle through all the lists in the Widget Bar in case it is just off-screen. The Widget Bar is organized alphabetically based on each widget's localized <code>CFBundleDisplayName</code>.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003525-CH1-DontLinkElementID_7" title="Note"></a><p><strong>Note:</strong>&nbsp;Like the rest of Mac OS X, the Widget Bar gives precedence to filenames that do not match the localized <code>CFBundleDisplayName</code>. If your widget bundle is renamed in the Finder, or <code>CFBundleDisplayName</code> is not defined, the filename is shown.</p><p></p></aside></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG25" title="Failure of Specific Features"></a><h2 class="jump">Failure of Specific Features</h2><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG28" title="Web Content: Networking, Embeds, File I/O, and Java"></a><h3 class="jump">Web Content: Networking, Embeds, File I/O, and Java</h3><p>As described in the Security section of the Dashboard Programming Guide, certain web content features require special <code>Info.plist</code> keys to function in a Dashboard widget. These features include:</p><ul class="ul"><li class="li"><p>Network Access: document location changes, hypertext links XMLHttpRequest objects, any other items that reach across the network</p></li><li class="li"><p>Internet Plug-Ins: Web (not widget) plug-ins via the EMBED tag (to display QuickTime content, for example)</p></li><li class="li"><p>File Access: Attempts to touch the filesystem outside of the <code>.wdgt</code> bundle, via absolute or relative paths</p></li><li class="li"><p>Java Applets: Using the APPLET tag to embed Java content</p></li></ul><p>If content falling under any of these categories is in your widget without the appropriate <code>Info.plist</code> key, the content will not be evaluated or rendered. See the Security section of the Dashboard Programming Guide for more information on the restrictions applied to Dashboard widgets.</p></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG26" title="Widget Preferences"></a><h3 class="jump">Widget Preferences</h3><p>A common mistake when writing out widget preferences is a reversal of the required parameters. The <code>widget.setPreferenceForKey</code> function is defined with a Cocoa-style parameter ordering: parameters are passed in the order the function names them. When calling this function, be sure that you pass the preference value first and the key second. If you're more familiar with Java or JavaScript APIs, you may be expecting to pass the key first, which will persist the information backwards. Subsequent calls to <code>widget.preferenceForKey</code> will then likely return null, since the preference was not actually stored correctly.</p><p>It is also important to persist both preference values and keys as Strings. Primitive values or objects may not be persisted into preferences successfully; attempting to do so will typically yield an error in Console resembling Listing 3.</p><a name="//apple_ref/doc/uid/DTS10003525-CH1-SOURCECODE3" title="Listing 3Typical widget preferences write error."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Typical widget preferences write error.</p><div class="codesample clear"><table><tr><td scope="row"><pre>DashboardClient[869] CFLog (15): Could not generate XML data for property list<span></span></pre></td></tr></table></div><p>It is worth mentioning that widget preferences are also a mechanism for saving widget state. Remember that at any time, the user may log out or restart the computer, at which point your widget's process will be terminated. If you wish to have any transient state restored when the user logs back in and shows Dashboard again, that state needs to be written out as widget preferences as soon as it changes, and fetched when the widget instance is reloaded.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003525-CH1-DontLinkElementID_8" title="Note"></a><p><strong>Note:</strong>&nbsp;Killing a <code>DashboardClient</code> process is not the same as widget removal - the user action which triggers the <code>onremove</code> event handler. Widget removal is only triggered by the user clicking on the closebox. Any widget instance whose <code>DashboardClient</code> process was killed will be reloaded the next time the current user logs in. </p><p></p></aside></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG5" title="Widget Plug-ins"></a><h2 class="jump">Widget Plug-ins</h2><p>The concept behind a widget plug-in is simple: providing JavaScript access to native code and APIs. This section covers common problems when developing a plug-in, how to recognize them, and how to solve and prevent them. The basics to developing a widget plug-in are covered in the Dashboard Programming Guide, and are not discussed here.</p><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG8" title="Where's my Plug-in?"></a><h3 class="jump">Where's my Plug-in?</h3><p>The most common problem with widget plug-ins is that they just don't show up. This problem is usually accompanied by an error in the Console like the one in Listing 3.</p><a name="//apple_ref/doc/uid/DTS10003525-CH1-SOURCECODE4" title="Listing 4Typical error due to a missing widget plug-in."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Typical error due to a missing widget plug-in.</p><div class="codesample clear"><table><tr><td scope="row"><pre>DashboardClient[123] (com.mycompany.MyWidget) undefined: Can't find variable:MyWidgetPlugin (line: 0)<span></span></pre></td></tr></table></div><p>This is actually a generic "undefined variable" error from JavaScript; what's unique about it is that the variable in question is the name of your widget plug-in. This error is seen every time your JavaScript code attempts to reference the plug-in and is an indication that the widget does not recognize this variable as your plug-in. This usually happens for one of the following reasons:</p><ul class="ul"><li class="li"><p><strong>The plug-in is missing or misnamed</strong>. Widget plug-ins should be at the top-level of the widget bundle with a <code>.widgetplugin</code> filename extension and a filename matching the <code>Plugin</code> entry in your widget's <code>Info.plist</code> file. The value of the <code>Plugin</code> key must also include the <code>.widgetplugin</code> extension. If any of these requirements are not met, the plug-in is not loaded. </p><p>After adding the <code>Plugin</code> key to your <code>Info.plist</code>, launching the widget should bring up a confirmation dialog before loading all of the content. This is a good way of confirming that the <code>DashboardClient</code> at least recognizes your <code>Plugin</code> key. It does not, however, guarantee that the plug-in is present or loaded.</p></li><li class="li"><p><strong>A correct implementation of initWithWebView is missing</strong>. The <code>initWithWebView:</code> method is a critical piece of code in your widget plug-in. If it is missing, the signature is incorrect, or it produces an error, your plug-in fails to load, usually throwing a <code>selector not recognized</code> error in Console.</p></li><li class="li"><p><strong>The JavaScript name does not match the native name</strong>. In your plug-in's <code>windowScriptObjectAvailable:</code> method, you must register a key/name with the <code>WebScriptObject</code> that was passed. This name must match the variable name you are using on the JavaScript side; if it does not, JavaScript does not know to treat the variable as a widget plug-in.</p></li><li class="li"><p><strong>The bundle internals are mismatched</strong>. Many developers tend to rename targets in Xcode from time to time. If you rename your widget plug-in's Xcode target, or any of its products, view the Info window for the target and make sure the <strong>Product Name</strong> property under the Build tab matches the <strong>Executable</strong> field under the Properties tab. In the built product, this ensures that the name of the compiled binary in your plug-in's Contents/MacOS folder matches the <code>CFBundleExecutable</code> value in your plug-in's (not your widget's) <code>Info.plist</code> file. If these names do not match, the plug-in's binary is not located and the plug-in does not load. Figure 2 shows the relevant settings in Xcode.</p></li></ul><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003525-CH1-FIGURE2" title="Figure 2Product Name and Executable properties in Xcode target settings."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Product Name and Executable properties in Xcode target settings.</figcaption><img src="Art/tn2139_XcodeShots.png" alt="" width="480" height="318"></figure><p>The easiest way to ensure your plug-in is actually loaded (as opposed to your <code>Plugin</code> key being recognized) is to include an <code>NSLog</code> statement in your <code>initWithWebView:</code> method, as shown in Listing 4:</p><a name="//apple_ref/doc/uid/DTS10003525-CH1-SOURCECODE5" title="Listing 5Reporting the loading of a widget plug-in."></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Reporting the loading of a widget plug-in.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (id) initWithWebView:(WebView*)webview {      NSLog(@"I'm in!");      // initialize...      return self; }<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003525-CH1-DontLinkElementID_9" title="Note"></a><p><strong>Note:</strong>&nbsp;Remember to comment out or remove <code>NSLog</code> statements from your plugin when deploying your widget. In a production scenario, log statements should be reserved for errors and exceptions.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG11" title="Calling a Plug-in"></a><h3 class="jump">Calling a Plug-in</h3><p>A widget plug-in's methods are exposed to JavaScript as soon as you bind it to the <code>WebScriptObject</code> that was passed to <code>windowScriptObjectAvailable:</code>. However, you can choose to provide custom JavaScript signatures for any of your plug-in's methods via the <code>webScriptNameForSelector:</code> method. If you choose to do this, take extra care to make sure the signature registered here matches the calls you are making from JavaScript.</p><p>It is also important to make sure you have not defined methods you are trying to call or members you are trying to reference inside the <code>isSelectorExcludedFromWebScript:</code> or <code>isKeyExcludedFromWebScript:</code> methods. These methods, as their names imply, bar access to the specified selectors/keys from JavaScript.</p><p>Calls to a plug-in method blocked by either of these mechanisms results in a Console error resembling that shown in Listing 5.</p><a name="//apple_ref/doc/uid/DTS10003525-CH1-SOURCECODE6" title="Listing 6Typical method-not-found error from JavaScript.."></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;Typical method-not-found error from JavaScript..</p><div class="codesample clear"><table><tr><td scope="row"><pre>Value undefined (result of expression MyPlugin.MyMethod) is not object. (line: 10)<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG12" title="Crashing Plug-ins"></a><h3 class="jump">Crashing Plug-ins</h3><p>Depending on the complexity of your plug-in, it may end up crashing or hanging during the course of development and use. If the crash is indeed in your code, this should become evident when viewing a crash log from the <code>DashboardClient</code> process that loaded your widget. However, the crash log may only tell you so much. If the methods in question are large, it may not be immediately evident what code is crashing, so further isolation is necessary. This is where gdb comes in. </p><p>This document only discusses how to best use gdb with a widget plug-in. To learn about general use of gdb, see <span class="content_text"><a href="http://developer.apple.com/technotes/tn/tn2032.html" class="browserLink" >Getting Started With gdb</a></span> or <span class="content_text"><a href="http://developer.apple.com/documentation/DeveloperTools/gdb/gdb/gdb_toc.html" class="browserLink" >Debugging With gdb</a></span>.</p><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG14" title="Attaching gdb to a Plug-in "></a><h4 class="jump">Attaching gdb to a Plug-in </h4><p>In order to attach to your widget, you need the process ID of the <code>DashboardClient</code> tied to it. This can be found using Activity Monitor. As Figure 3 demonstrates, the process behind your widget can be identified in Activity Monitor by your widget's <code>CFBundleName</code>. From here, you can acquire the pid and attach to your widget's <code>DashboardClient</code> from gdb, set breakpoints, and catch crashes.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003525-CH1-FIGURE3" title="Figure 3Dashboard widgets inside Activity Monitor."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;Dashboard widgets inside Activity Monitor.</figcaption><img src="Art/tn2139_activityMonitor.png" alt="" width="545" height="480"></figure><p>Also note that an <code>NSLog</code> statement contains the pid of your widget's <code>DashboardClient</code> process. Therefore, if you are already making log statements in your plug-in, looking in Activity Monitor is not necessary. Again, remember to remove any unnecessary log statements before shipping your widget.</p></section><section><a name="//apple_ref/doc/uid/DTS10003525-CH1-TNTAG15" title="Catching a Crash on Startup"></a><h4 class="jump">Catching a Crash on Startup</h4><p>If your plug-in crashes as soon as it is loaded, the <code>DashboardClient</code> process does not stay up long enough for you to get the pid and attach. Since it is not possible to load a widget from gdb, you need a way to catch the <code>DashboardClient</code> between the time it launches and the time it crashes. The simplest way to do this is to insert a loop into your plug-in as early as possible. The best place is inside <code>initWithWebView:</code>, the first message your plug-in receives. Listing 6 demonstrates what this might look like.</p><a name="//apple_ref/doc/uid/DTS10003525-CH1-SOURCECODE7" title="Listing 7Using a loop to stop a widget plug-in."></a><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;Using a loop to stop a widget plug-in.</p><div class="codesample clear"><table><tr><td scope="row"><pre>-(id)initWithWebView: (WebView*) w {
+     NSLog(@"initWithWebView");
+
+     // spin before doing anything serious
+     // this will buy us time to attach with gdb
+     int spin = 1;
+     while (spin == 1) {
+          usleep(1000);
+     }
+
+     self = [super init];
+     return self;
+}<span></span></pre></td></tr></table></div><p>This should hang your widget up and allow you to attach with gdb before a crash occurs. You get the pid from the <code>NSLog</code> statement in Console.</p><p>Once you've obtained the pid, you can attach to the process and change your loop condition, allowing execution to continue as expected. Figure 4 shows a simple example of this.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003525-CH1-FIGURE4" title="Figure 4Breaking a spin loop from gdb."></a><figcaption><strong class="caption_number">Figure 4</strong>&nbsp;&nbsp;Breaking a spin loop from gdb.</figcaption><img src="Art/tn2139_gdbSpin.png" alt="" width="581" height="336"></figure></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003525-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003525-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2009-05-11</td><td><p>Deprecating this document in favor of Dashcode on 10.5 and later.</p></td></tr><tr><td scope="row">2005-09-07</td><td><p>Added clarification on Default images.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>Added clarification on Default images.</p></td></tr><tr><td scope="row">2005-05-02</td><td><p>Dashboard widget troubleshooting techniques, from start to finish.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>New document that 
+					dashboard widget troubleshooting techniques, from start to finish.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-05-11</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1497: FSDeleteObject fails with fBsyErr, sometimes</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004155">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004155-CH1">
+    <meta id="date" name="date" content="2008-09-24">
+    <meta id="description" name="description" content="QA1497: Why Spotlight indexing can cause file deletion to fail, and what to do about it.">
+    <meta id="book-title" name="book-title" content="FSDeleteObject fails with fBsyErr, sometimes">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/CoreServices}, {Topic/Data Management/File Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1497">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="FSDeleteObject fails with fBsyErr, sometimes" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004155" title="Technical Q&amp;A QA1497"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>FSDeleteObject fails with fBsyErr, sometimes</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004155-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1497"></a><div class="dtsDocNumber">Technical Q&amp;A QA1497</div><h1 id="pageTitle">FSDeleteObject fails with fBsyErr, sometimes</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I'm writing some 'safe save' code. When I delete my temporary file, <code>FSDeleteObject</code> fails with <code>fBsyErr</code> (-47), but only sometimes. If I delay for a few seconds and then retry, it works. What's going on?
+</h2><p><span>A: </span>I'm writing some 'safe save' code. When I delete my temporary file, <code>FSDeleteObject</code> fails with <code>fBsyErr</code> (-47), but only sometimes. If I delay for a few seconds and then retry, it works. What's going on?</p><p>There are two common causes for this problem, each described in a subsequent section. However, let's start with some background information.</p><ul class="ul"><li class="li"><p>The Mac OS X kernel supports two delete code paths: <span class="content_text"><a href="x-man-page://2/unlink" class="urlLink" rel="external">unlink</a></span> and <code>FSDeleteObject</code>.</p></li><li class="li"><p>The <code>unlink</code> code path implements the traditional UNIX semantics of allowing you to delete open files.</p></li><li class="li"><p><code>FSDeleteObject</code> implements the traditional Mac OS semantics of returning an error if the file is open. This error is <code>EBUSY</code>, which File Manager translates to <code>fBsyErr</code>.</p></li><li class="li"><p>When you close a modified file, the kernel generates a notification that, amongst other things, causes Spotlight to start indexing the file.</p></li></ul><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004155-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Mac OS X 10.5 'Leopard' introduced a new File Manager API, <code>FSUnlinkObject</code>, which has the same semantics as <code>unlink</code> - it will delete a busy file. This API call is the preferred solution to avoid an error when deleting a file on 10.5 and later.</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS10004155-CH1-SECTION1" title="Spotlight"></a><h2 class="jump">Spotlight</h2><p>The most common cause of <code>FSDeleteObject</code> temporarily failing with <code>fBsyErr</code> is that Spotlight is in the process of indexing the file. If you modify a file, close it, and then immediately try to delete it using <code>FSDeleteObject</code>, it's quite possible that the Spotlight indexer will have it open and you'll get <code>fBsyErr</code>.</p><p>There are numerous ways to prevent this problem.</p><ol class="ol"><li class="li"><p>If, when you create the file, you know that it shouldn't be indexed (for example, in your case, you know that it's a safe save temporary), create it somewhere that Spotlight won't index, or with a name that causes it not to be indexed.</p><p>Places that won't get indexed by Spotlight include:</p><ul class="ul"><li class="li"><p>The standard UNIX temporary directory (<code>/tmp</code>)</p></li><li class="li"><p>The temporary items folder returned by Folder Manager with the <code>kTemporaryFolderType</code> selector</p></li></ul><p>Names that won't get indexed include:</p><ul class="ul"><li class="li"><p>Names beginning with a "."</p></li><li class="li"><p>Names ending with ".noindex"</p></li></ul><p>These lists are not exhaustive 
+			(r. <span class="content_text"><a href="rdar://problem/4823573" class="urlLink" rel="external">4823573</a></span>)
+		 because the full list of what Spotlight doesn't index is likely to change over time. However, if you use one of the techniques listed above, you should be compatible with any future system.</p></li><li class="li"><p>The preceeding technique won't work if you can't tell, in advance, whether the file will persist (and need to be indexed) or not. In that case, if you know you've modified the file but it doesn't need to persist, delete the file (using <code>unlink</code> or <code>FSUnlinkObject</code>) before you close it. That way the Spotlight indexer will never be invoked.</p></li><li class="li"><p>Alternatively, always delete files using <span class="content_text"><a href="x-man-page://2/unlink" class="urlLink" rel="external">unlink</a></span> or <code>FSUnlinkObject</code>.</p></li><li class="li"><p>When <code>FSDeleteObject</code> fails with <code>fBsyErr</code>, delay for a short period of time and then retry.</p></li></ol><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004155-CH1-SECTION2" title="Anti-Virus Scanners"></a><h2 class="jump">Anti-Virus Scanners</h2><p>Some third party anti-virus scanners can also trigger this problem. When you close a modified file, the anti-virus scanner immediately starts to check it for viruses. If it's still checking when you try to delete the file, <code>FSDeleteObject</code> will fail with <code>fBsyErr</code>.</p><p>In this case, the first workaround (option 1 in the previous section) will not work because there are no standard locations or names that prevent anti-virus scanning; you will have to use one of the other options.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004155-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004155-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2008-09-24</td><td><p>Added note to indicate that as of 10.5 (Leopard) - a new File Manager API was added and added the description of it.  Cleaned up grammatical issues.</p></td></tr><tr><td scope="row">2006-11-17</td><td><p>New document that 
+					why Spotlight indexing can cause file deletion to fail, and what to do about it.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2008 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2008-09-24</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

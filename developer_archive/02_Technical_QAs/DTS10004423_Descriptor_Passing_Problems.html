@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1541: Descriptor Passing Problems</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004423">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004423-CH1">
+    <meta id="date" name="date" content="2007-10-29">
+    <meta id="description" name="description" content="QA1541: Describes how to work around common problems with descriptor passing.">
+    <meta id="book-title" name="book-title" content="Descriptor Passing Problems">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Kernel & Driver Layer/Kernel}, {Topic/Drivers, Kernel, & Hardware/Kernel Device Drivers}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1541">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Descriptor Passing Problems" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004423" title="Technical Q&amp;A QA1541"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Descriptor Passing Problems</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004423-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1541"></a><div class="dtsDocNumber">Technical Q&amp;A QA1541</div><h1 id="pageTitle">Descriptor Passing Problems</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I'm passing multiple file descriptors from one process to another over a UNIX domain socket. Sometimes the receiving process only gets the first one. Is this is a known problem?
+</h2><p><span>A: </span>I'm passing multiple file descriptors from one process to another over a UNIX domain socket. Sometimes the receiving process only gets the first one. Is this is a known problem?</p><p>Yes. Mac OS X 10.5 fixes a number of kernel bugs related to descriptor passing 
+			(rr. <span class="content_text"><a href="rdar://problems/4650646,5232558,5232524" class="urlLink" rel="external">4650646, 5232558 and 5232524</a></span>)
+		. On earlier systems you must take steps to avoid these bugs.</p><ul class="ul"><li class="li"><p>Always pass descriptors over a stream-based socket (<code>SOCK_STREAM</code>). It is possible to pass descriptors over a datagram-based socket (<code>SOCK_DGRAM</code>) but the kernel does not guarantee delivery of the message, and hence its associated descriptor.</p></li><li class="li"><p>Avoid writing descriptors to a full socket. In some circumstances the message, and its associated descriptor, might get dropped.</p></li><li class="li"><p>Avoid passing two or more descriptors back-to-back. If you need to do this, acknowledge each descriptor as you pass it. <span class="content_text"><!--a  -->Listing 1<!--/a--></span> shows one way to do this.</p></li></ul><a name="//apple_ref/doc/uid/DTS10004423-CH1-SOURCECODE1" title="Listing 1The safest way to pass descriptors"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;The safest way to pass descriptors</p><div class="codesample clear"><table><tr><td scope="row"><pre>// When we pass a descriptor, we have to pass at least one byte 
+// of data along with it, otherwise the recvmsg call will not 
+// block if the descriptor hasn't been written to the other end 
+// of the socket yet.
+
+static const char kDummyData = 'D';
+
+// Due to a kernel bug in Mac OS X 10.4.x and earlier 
+// &lt;rdar://problem/4650646&gt;, you will run into problems if you write 
+// data to a socket while a process is trying to receive a descriptor 
+// from that socket. A common symptom of this problem is that, if 
+// you write two descriptors back-to-back, the second one just 
+// disappears.
+//
+// To avoid this problem, we explicitly ACK all descriptor transfers. 
+// After writing a descriptor, the sender reads an ACK byte from the 
+// socket. After reading a descriptor, the receiver sends an ACK byte 
+// (kACKData) to unblock the sender.
+
+static const char kACKData   = 'A';
+
+static bool kWorkaround4650646 = true;
+
+static int ReadDescriptor(int fd, int *fdRead)
+    // Read a descriptor from fd and place it in *fdRead.
+    //
+    // On success, the caller is responsible for closing *fdRead.
+{
+    int                 err;
+    int                 junk;
+    struct msghdr       msg;
+    struct iovec        iov;
+    struct {
+        struct cmsghdr  hdr;
+        int             fd;
+    }                   control;
+    char                dummyData;
+    ssize_t             bytesReceived;
+
+    // Pre-conditions
+
+    assert(fd &gt;= 0);
+    assert( fdRead != NULL);
+    assert(*fdRead == -1);
+
+    // Read a single byte of data from the socket, with the assumption 
+    // that this byte has piggybacked on to it a single descriptor that 
+    // we're trying to receive. This is pretty much standard boilerplate 
+    // code for reading descriptors; see &lt;x-man-page://2/recv&gt; for details.
+
+    iov.iov_base = (char *) &amp;dummyData;
+    iov.iov_len  = sizeof(dummyData);
+
+    msg.msg_name       = NULL;
+    msg.msg_namelen    = 0;
+    msg.msg_iov        = &amp;iov;
+    msg.msg_iovlen     = 1;
+    msg.msg_control    = &amp;control;
+    msg.msg_controllen = sizeof(control);
+    msg.msg_flags      = MSG_WAITALL;
+
+    do {
+        bytesReceived = recvmsg(fd, &amp;msg, 0);
+        if (bytesReceived == sizeof(dummyData)) {
+            if ( (dummyData != kDummyData)
+                || (msg.msg_flags != 0) 
+                || (msg.msg_control == NULL) 
+                || (msg.msg_controllen != sizeof(control)) 
+                || (control.hdr.cmsg_len != sizeof(control)) 
+                || (control.hdr.cmsg_level != SOL_SOCKET)
+                || (control.hdr.cmsg_type  != SCM_RIGHTS) 
+                || (control.fd &lt; 0) ) {
+                err = EINVAL;
+            } else {
+                *fdRead = control.fd;
+                err = 0;
+            }
+        } else if (bytesReceived == 0) {
+            err = EPIPE;
+        } else {
+            assert(bytesReceived == -1);
+
+            err = errno;
+            assert(err != 0);
+        }
+    } while (err == EINTR);
+
+    // Send the ACK. If that fails, we have to act like we never got the 
+    // descriptor in our to ensure consistent results for our caller.
+
+    if ( (err == 0) &amp;&amp; kWorkaround4650646) {
+        do {
+            if ( write(fd, &amp;kACKData, sizeof(kACKData)) == -1 ) {
+                err = errno;
+            }
+        } while (err == EINTR);
+
+        if (err != 0) {
+            junk = close(*fdRead);
+            assert(junk == 0);
+            *fdRead = -1;
+        }
+    }
+
+    // Post condition
+
+    assert( (err == 0) == (*fdRead &gt;= 0) );
+
+    return err;
+}
+
+static int WriteDescriptor(int fd, int fdToWrite)
+    // Write the descriptor fdToWrite to fd.
+{
+    int                 err;
+    struct msghdr       msg;
+    struct iovec        iov;
+    struct {
+        struct cmsghdr  hdr;
+        int             fd;
+    }                   control;
+    ssize_t             bytesSent;
+    char                ack;
+
+    // Pre-conditions
+
+    assert(fd &gt;= 0);
+    assert(fdToWrite &gt;= 0);
+
+    control.hdr.cmsg_len   = sizeof(control);
+    control.hdr.cmsg_level = SOL_SOCKET;
+    control.hdr.cmsg_type  = SCM_RIGHTS;
+    control.fd             = fdToWrite;
+
+    iov.iov_base = (char *) &amp;kDummyData;
+    iov.iov_len  = sizeof(kDummyData);
+
+    msg.msg_name       = NULL;
+    msg.msg_namelen    = 0;
+    msg.msg_iov        = &amp;iov;
+    msg.msg_iovlen     = 1;
+    msg.msg_control    = &amp;control;
+    msg.msg_controllen = control.hdr.cmsg_len;
+    msg.msg_flags      = 0;
+    do {
+        bytesSent = sendmsg(fd, &amp;msg, 0);
+        if (bytesSent == sizeof(kDummyData)) {
+            err = 0;
+        } else {
+            assert(bytesSent == -1);
+
+            err = errno;
+            assert(err != 0);
+        }
+    } while (err == EINTR);
+
+    // After writing the descriptor, try to read an ACK back from the 
+    // recipient. If that fails, or we get the wrong ACK, we've failed.
+
+    if ( (err == 0) &amp;&amp; kWorkaround4650646 ) {
+        do {
+            ssize_t     bytesRead;
+
+            bytesRead = read(fd, &amp;ack, sizeof(ack));
+            if (bytesRead == 0) {
+                err = EPIPE;
+            } else if (bytesRead == -1) {
+                err = errno;
+            }
+        } while (err == EINTR);
+
+        if ( (err == 0) &amp;&amp; (ack != kACKData) ) {
+            err = EINVAL;
+        }
+    }
+
+    return err;
+}<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS10004423-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004423-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2007-10-29</td><td><p>New document that 
+					describes how to work around common problems with descriptor passing.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2007 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2007-10-29</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

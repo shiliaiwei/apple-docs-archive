@@ -1,0 +1,1329 @@
+<html><head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Release Note">
+            <meta id="book-title" name="book-title" content="iOS 4.2 API Diffs">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Topic/General}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40010312">
+            <meta id="document-version" name="document-version" content="1.0.3">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="Document that lists new and changed API from iOS 4.1 to iOS 4.2.">
+            <meta id="resources-uri" name="resources-uri" content="../../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="iOS">
+<link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback.css" />
+
+<title>iOS 4.1 to iOS 4.2 API Differences</title>
+
+<style type="text/css">
+    
+    th, td { font-size: 10px; }  /*  For ADC header */
+    
+    #breadcrumb {
+        font-family: lucida grande, geneva, helvetica, arial, sans-serif;
+        font-size: 10px;
+        font-weight: normal;
+        margin-left: 10px;
+        margin-top: 8px;
+    }
+    
+    a:link          { color: #18396E; text-decoration: none; }
+    a:active        { color: #18396E; text-decoration: none; }
+    a:visited       { color: #003366; text-decoration: none; }
+    
+    a:link:hover    { color: #18396E; text-decoration: underline; }
+    a:visited:hover { color: #003366; text-decoration: underline; }
+    
+    div.diffReport {
+        font-size:12px;
+        font-family: lucida grande, geneva, helvetica, arial, sans-serif;
+        padding-bottom: 30px;
+    }
+    
+    .diffReport h1 {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font: bold 30px lucida grande, geneva, helvetica, arial, sans-serif;
+        color: #000;
+    }
+    .diffReport h2 {
+        margin-top: 40px;
+        margin-bottom: 15px;
+        font-size: 24px;
+        color: #000;
+        padding-bottom: 2px; border-bottom: 1px solid #919699;
+    }
+    .diffReport div.subtitle {
+        font: normal 20px lucida grande, geneva, helvetica, arial, sans-serif;
+        margin-left: 30px;
+        margin-top: -10px;
+        color: #333;
+    }
+    .diffReport div.subtitle span.platformName {
+        font: italic 20px lucida grande, geneva, helvetica, arial, sans-serif;
+        color: #966;
+    }
+    
+    
+    .diffReport div.headerFile {
+        margin-left: 20px
+    }
+    .diffReport div.headerName {
+        margin:  15px 0px 10px -20px;
+        padding:  4px 4px  4px  20px;
+        font-weight: bold; font-size: 120%;
+        background-color: #F8F8F8;
+    }
+    
+    .diffReport table {
+        border: 1px #888 solid;
+        padding:2px; border-spacing:0px;
+        border-collapse: collapse;
+        margin-left: 40px;
+        margin-top: 7px
+    }
+    .diffReport td, .diffReport th {
+        font-size: 10px;
+        border: 1px #888 solid;
+        padding:3px 6px;
+    }
+    .diffReport th { font-size: 10px; text-align: center; background-color: #eee; }
+    .diffReport td { font-size: 90%;  text-align: left; }
+    
+    .diffReport .declaration { font-family: courier, monospace }
+    
+    .diffReport .nochange {
+        margin-left: 20px;
+        font-style: italic;
+        color:#888;
+    }
+    
+    .diffReport div.modified { margin-top: 5px }
+    .diffReport div.removed  { margin-top: 5px }
+    .diffReport div.added    { margin-top: 5px }
+    
+    .diffReport div.symbolName {
+        padding-left: 20px;
+        font-family: monospace;
+        font-size: 110%}
+    .diffReport span.symbolArch {
+        font-size: 80%;
+        font-style: italic;
+        color: #CCC;
+        padding-left: 20px; }
+    .diffReport span.noArch {
+        font-style: italic;
+     }
+    
+    
+    .diffReport .removed  .diffStatus {
+        font-style: italic; font-size: 80%; color:red;
+     }
+    .diffReport .added    .diffStatus {
+        font-style: italic; font-size: 80%; color:blue;
+    }
+    .diffReport .modified .diffStatus {
+        font-style: italic; font-size: 80%; color:#080;
+    }
+    
+    .diffReport .headerName .added:after {
+        content: " (Added)";   font-style: italic; font-size: 80%; color:blue;
+    }
+    .diffReport .headerName .removed:after {
+        content: " (Removed)"; font-style: italic; font-size: 80%; color:red;
+    }
+    
+</style>
+
+</head>
+
+<body id="StaticPage"><a name="//apple_ref/doc/uid/TP40010312" title="iOS 4.2 API Diffs"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>iOS 4.2 API Diffs</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              
+
+<!-- start of header -->
+
+<!-- end of header -->
+
+<!-- start of breadcrumb -->
+<!-- end of breadcrumb -->
+
+<div class="diffReport">
+<h1>iOS 4.1 to iOS 4.2 API Differences</h1>
+<h2>Added frameworks:</h2>
+<ul>
+<li>CoreMIDI</li>
+</ul>
+
+<h2>Accelerate</h2>
+<div class="nochange">No changes</div>
+
+<h2>AddressBook</h2>
+<div class="nochange">No changes</div>
+
+<h2>AddressBookUI</h2>
+<div class="nochange">No changes</div>
+
+<h2>AssetsLibrary</h2>
+<div class="nochange">No changes</div>
+
+<h2>AudioToolbox</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioFile.h'>AudioFile.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kAudioFileNotOpenError"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/1576500-anonymous/kaudiofilenotopenerror" class="urlLink">kAudioFileNotOpenError</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioFormat.h'>AudioFormat.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kAudioFormatProperty_ChannelLayoutSimpleName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/kaudioformatproperty_channellayoutsimplename" class="urlLink">kAudioFormatProperty_ChannelLayoutSimpleName</a> </div>
+</div>
+</div>
+
+<h2>AudioUnit</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AudioUnit.framework/Headers/AudioUnitProperties.h'>AudioUnitProperties.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/tdef/VoiceIOFarEndVersionInfo"><span class="diffStatus">Added</span> <!--a -->VoiceIOFarEndVersionInfo<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kAUVoiceIOProperty_FarEndVersionInfo"><span class="diffStatus">Added</span> <!--a -->kAUVoiceIOProperty_FarEndVersionInfo<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kVoiceIOFarEndAUVersion_RequiresBackwardCompatibility"><span class="diffStatus">Added</span> <!--a -->kVoiceIOFarEndAUVersion_RequiresBackwardCompatibility<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kVoiceIOFarEndAUVersion_ThirdParty"><span class="diffStatus">Added</span> <!--a -->kVoiceIOFarEndAUVersion_ThirdParty<!--/a--> </div>
+</div>
+</div>
+
+<h2>AVFoundation</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVAsset.h'>AVAsset.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAsset/hasProtectedContent"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avasset/1389223-hasprotectedcontent" class="urlLink">AVAsset.hasProtectedContent</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/AVAsset(AVAssetProtectedContent)"><span class="diffStatus">Added</span> <!--a -->AVAsset(AVAssetProtectedContent)<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVMetadataItem.h'>AVMetadataItem.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/AVMetadataItem/duration"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadataitem/1386610-duration" class="urlLink">AVMetadataItem.duration</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVMutableMetadataItem/duration"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmutablemetadataitem/1389980-duration" class="urlLink">AVMutableMetadataItem.duration</a> </div>
+</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/cl/AVMetadataItem'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadataitem" class="urlLink">AVMetadataItem</a></div>
+<table><tr><th></th><th>Protocols</th></tr>
+<tr><th>From</th><td scope="row">NSCopying, NSMutableCopying</td></tr>
+<tr><th>To</th><td scope="row">AVAsynchronousKeyValueLoading, NSCopying, NSMutableCopying</td></tr></table><br>
+</div>
+</div>
+
+<h2>CFNetwork</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreAudio</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreData</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreFoundation</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreFoundation.framework/Headers/CFBase.h'>CFBase.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/kCFCoreFoundationVersionNumber_iOS_4_0"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corefoundation/kcfcorefoundationversionnumber_ios_4_0" class="urlLink">#def kCFCoreFoundationVersionNumber_iOS_4_0</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreFoundation.framework/Headers/CFString.h'>CFString.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/func/CFStringGetHyphenationLocationBeforeIndex"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corefoundation/1542693-cfstringgethyphenationlocationbe" class="urlLink">CFStringGetHyphenationLocationBeforeIndex()</a> </div>
+</div>
+</div>
+
+<h2>CoreGraphics</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreLocation</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreLocation.framework/Headers/CLLocation.h'>CLLocation.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instm/CLLocation/initWithCoordinate:altitude:horizontalAccuracy:verticalAccuracy:course:speed:timestamp:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corelocation/cllocation/1423718-init" class="urlLink">-[CLLocation initWithCoordinate:altitude:horizontalAccuracy:verticalAccuracy:course:speed:timestamp:]</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreLocation.framework/Headers/CLLocationManager.h'>CLLocationManager.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/clm/CLLocationManager/authorizationStatus"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corelocation/cllocationmanager/1423523-authorizationstatus" class="urlLink">+[CLLocationManager authorizationStatus]</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/CLAuthorizationStatus"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corelocation/clauthorizationstatus" class="urlLink">CLAuthorizationStatus</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCLAuthorizationStatusAuthorized"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corelocation/clauthorizationstatus/kclauthorizationstatusauthorized" class="urlLink">kCLAuthorizationStatusAuthorized</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCLAuthorizationStatusDenied"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corelocation/clauthorizationstatus/kclauthorizationstatusdenied" class="urlLink">kCLAuthorizationStatusDenied</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCLAuthorizationStatusNotDetermined"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corelocation/clauthorizationstatus/kclauthorizationstatusnotdetermined" class="urlLink">kCLAuthorizationStatusNotDetermined</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCLAuthorizationStatusRestricted"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corelocation/clauthorizationstatus/restricted" class="urlLink">kCLAuthorizationStatusRestricted</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreLocation.framework/Headers/CLLocationManagerDelegate.h'>CLLocationManagerDelegate.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/intfm/CLLocationManagerDelegate/locationManager:didChangeAuthorizationStatus:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423701-locationmanager" class="urlLink">-[CLLocationManagerDelegate locationManager:didChangeAuthorizationStatus:]</a> </div>
+</div>
+</div>
+
+<h2>CoreMedia</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h'>CMFormatDescription.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kCMClosedCaptionFormatType_ATSC"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmclosedcaptionformattype_atsc" class="urlLink">kCMClosedCaptionFormatType_ATSC</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMMPEG2VideoProfile_XDCAM_HD422_720p24_CBR50"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmmpeg2videoprofile_xdcam_hd422_720p24_cbr50" class="urlLink">kCMMPEG2VideoProfile_XDCAM_HD422_720p24_CBR50</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMMPEG2VideoProfile_XDCAM_HD422_720p25_CBR50"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1564241-video_profile_constants/kcmmpeg2videoprofile_xdcam_hd422_720p25_cbr50" class="urlLink">kCMMPEG2VideoProfile_XDCAM_HD422_720p25_CBR50</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMMPEG2VideoProfile_XDCAM_HD422_720p30_CBR50"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmmpeg2videoprofile_xdcam_hd422_720p30_cbr50" class="urlLink">kCMMPEG2VideoProfile_XDCAM_HD422_720p30_CBR50</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreMedia.framework/Headers/CMSimpleQueue.h'><span class="added">CMSimpleQueue.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/CMSIMPLEQUEUE_H"><span class="diffStatus">Added</span> <!--a -->#def CMSIMPLEQUEUE_H<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/func/CMSimpleQueueCreate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1489641-cmsimplequeuecreate" class="urlLink">CMSimpleQueueCreate()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CMSimpleQueueDequeue"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1489820-cmsimplequeuedequeue" class="urlLink">CMSimpleQueueDequeue()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CMSimpleQueueEnqueue"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1489315-cmsimplequeueenqueue" class="urlLink">CMSimpleQueueEnqueue()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CMSimpleQueueGetCapacity"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1489168-cmsimplequeuegetcapacity" class="urlLink">CMSimpleQueueGetCapacity()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CMSimpleQueueGetCount"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1489223-cmsimplequeuegetcount" class="urlLink">CMSimpleQueueGetCount()</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/CMSimpleQueueGetFullness"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/cmsimplequeuegetfullness" class="urlLink">#def CMSimpleQueueGetFullness</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CMSimpleQueueGetHead"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1489410-cmsimplequeuegethead" class="urlLink">CMSimpleQueueGetHead()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CMSimpleQueueGetTypeID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1489165-cmsimplequeuegettypeid" class="urlLink">CMSimpleQueueGetTypeID()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/CMSimpleQueueRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/cmsimplequeueref" class="urlLink">CMSimpleQueueRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CMSimpleQueueReset"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1489224-cmsimplequeuereset" class="urlLink">CMSimpleQueueReset()</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMSimpleQueueError_AllocationFailed"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1584369-simple_queue_error_codes/kcmsimplequeueerror_allocationfailed" class="urlLink">kCMSimpleQueueError_AllocationFailed</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMSimpleQueueError_ParameterOutOfRange"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1584369-simple_queue_error_codes/kcmsimplequeueerror_parameteroutofrange" class="urlLink">kCMSimpleQueueError_ParameterOutOfRange</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMSimpleQueueError_QueueIsFull"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1584369-simple_queue_error_codes/kcmsimplequeueerror_queueisfull" class="urlLink">kCMSimpleQueueError_QueueIsFull</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMSimpleQueueError_RequiredParameterMissing"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1584369-simple_queue_error_codes/kcmsimplequeueerror_requiredparametermissing" class="urlLink">kCMSimpleQueueError_RequiredParameterMissing</a> </div>
+</div>
+</div>
+
+<h2>CoreMIDI</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreMIDI.framework/Headers/MIDIDriver.h'><span class="added">MIDIDriver.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDeviceCreate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508421-mididevicecreate" class="urlLink">MIDIDeviceCreate()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDeviceDispose"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508423-mididevicedispose" class="urlLink">MIDIDeviceDispose()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDeviceListAddDevice"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508395-mididevicelistadddevice" class="urlLink">MIDIDeviceListAddDevice()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDeviceListDispose"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508497-mididevicelistdispose" class="urlLink">MIDIDeviceListDispose()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDeviceListGetDevice"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508251-mididevicelistgetdevice" class="urlLink">MIDIDeviceListGetDevice()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDeviceListGetNumberOfDevices"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508535-mididevicelistgetnumberofdevices" class="urlLink">MIDIDeviceListGetNumberOfDevices()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIDeviceListRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/mididevicelistref" class="urlLink">MIDIDeviceListRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIDriverInterface"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/mididriverinterface" class="urlLink">MIDIDriverInterface</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIDriverRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/mididriverref" class="urlLink">MIDIDriverRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIEndpointGetRefCons"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508417-midiendpointgetrefcons" class="urlLink">MIDIEndpointGetRefCons()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIEndpointSetRefCons"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508268-midiendpointsetrefcons" class="urlLink">MIDIEndpointSetRefCons()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIGetDriverDeviceList"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508306-midigetdriverdevicelist" class="urlLink">MIDIGetDriverDeviceList()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIGetDriverIORunLoop"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508500-midigetdriveriorunloop" class="urlLink">MIDIGetDriverIORunLoop()</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kMIDIDriverInterface2ID"><span class="diffStatus">Added</span> <!--a -->#def kMIDIDriverInterface2ID<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kMIDIDriverInterfaceID"><span class="diffStatus">Added</span> <!--a -->#def kMIDIDriverInterfaceID<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kMIDIDriverTypeID"><span class="diffStatus">Added</span> <!--a -->#def kMIDIDriverTypeID<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreMIDI.framework/Headers/MIDINetworkSession.h'><span class="added">MIDINetworkSession.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/MIDINetworkConnection"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkconnection" class="urlLink">MIDINetworkConnection</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/MIDINetworkConnection/connectionWithHost:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkconnection/1619340-init" class="urlLink">+[MIDINetworkConnection connectionWithHost:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkConnection/host"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkconnection/1619334-host" class="urlLink">MIDINetworkConnection.host</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/MIDINetworkHost"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkhost" class="urlLink">MIDINetworkHost</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkHost/address"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkhost/1619353-address" class="urlLink">MIDINetworkHost.address</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MIDINetworkHost/hasSameAddressAs:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkhost/1619372-hassameaddressas" class="urlLink">-[MIDINetworkHost hasSameAddressAs:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/MIDINetworkHost/hostWithName:address:port:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkhost/1619365-hostwithname" class="urlLink">+[MIDINetworkHost hostWithName:address:port:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/MIDINetworkHost/hostWithName:netService:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkhost/1619371-hostwithname" class="urlLink">+[MIDINetworkHost hostWithName:netService:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/MIDINetworkHost/hostWithName:netServiceName:netServiceDomain:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkhost/1619338-init" class="urlLink">+[MIDINetworkHost hostWithName:netServiceName:netServiceDomain:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkHost/name"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkhost/1619339-name" class="urlLink">MIDINetworkHost.name</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkHost/netServiceDomain"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkhost/1619344-netservicedomain" class="urlLink">MIDINetworkHost.netServiceDomain</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkHost/netServiceName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkhost/1619362-netservicename" class="urlLink">MIDINetworkHost.netServiceName</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkHost/port"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkhost/1619333-port" class="urlLink">MIDINetworkHost.port</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/MIDINetworkSession"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession" class="urlLink">MIDINetworkSession</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MIDINetworkSession/addConnection:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619369-addconnection" class="urlLink">-[MIDINetworkSession addConnection:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MIDINetworkSession/addContact:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619361-addcontact" class="urlLink">-[MIDINetworkSession addContact:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkSession/connectionPolicy"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619360-connectionpolicy" class="urlLink">MIDINetworkSession.connectionPolicy</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MIDINetworkSession/connections"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619366-connections" class="urlLink">-[MIDINetworkSession connections]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MIDINetworkSession/contacts"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619335-contacts" class="urlLink">-[MIDINetworkSession contacts]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/MIDINetworkSession/defaultSession"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619363-default" class="urlLink">+[MIDINetworkSession defaultSession]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MIDINetworkSession/destinationEndpoint"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619367-destinationendpoint" class="urlLink">-[MIDINetworkSession destinationEndpoint]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkSession/enabled"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619368-enabled" class="urlLink">MIDINetworkSession.enabled</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkSession/localName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619358-localname" class="urlLink">MIDINetworkSession.localName</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkSession/networkName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619336-networkname" class="urlLink">MIDINetworkSession.networkName</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MIDINetworkSession/networkPort"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619373-networkport" class="urlLink">MIDINetworkSession.networkPort</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MIDINetworkSession/removeConnection:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619346-removeconnection" class="urlLink">-[MIDINetworkSession removeConnection:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MIDINetworkSession/removeContact:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619332-removecontact" class="urlLink">-[MIDINetworkSession removeContact:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MIDINetworkSession/sourceEndpoint"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworksession/1619359-sourceendpoint" class="urlLink">-[MIDINetworkSession sourceEndpoint]</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/MIDINetworkBonjourServiceType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkbonjourservicetype" class="urlLink">MIDINetworkBonjourServiceType</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDINetworkConnectionPolicy"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkconnectionpolicy" class="urlLink">MIDINetworkConnectionPolicy</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/MIDINetworkConnectionPolicy_Anyone"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkconnectionpolicy/midinetworkconnectionpolicy_anyone" class="urlLink">MIDINetworkConnectionPolicy_Anyone</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/MIDINetworkConnectionPolicy_HostsInContactList"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkconnectionpolicy/midinetworkconnectionpolicy_hostsincontactlist" class="urlLink">MIDINetworkConnectionPolicy_HostsInContactList</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/MIDINetworkConnectionPolicy_NoOne"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworkconnectionpolicy/midinetworkconnectionpolicy_noone" class="urlLink">MIDINetworkConnectionPolicy_NoOne</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/MIDINetworkNotificationContactsDidChange"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworknotificationcontactsdidchange" class="urlLink">MIDINetworkNotificationContactsDidChange</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/MIDINetworkNotificationSessionDidChange"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinetworknotificationsessiondidchange" class="urlLink">MIDINetworkNotificationSessionDidChange</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/MIDI_EXPORT"><span class="diffStatus">Added</span> <!--a -->#def MIDI_EXPORT<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreMIDI.framework/Headers/MIDIServices.h'><span class="added">MIDIServices.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/func/MIDIClientCreate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495360-midiclientcreate" class="urlLink">MIDIClientCreate()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIClientDispose"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495335-midiclientdispose" class="urlLink">MIDIClientDispose()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIClientRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiclientref" class="urlLink">MIDIClientRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDICompletionProc"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midicompletionproc" class="urlLink">MIDICompletionProc</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDestinationCreate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495347-mididestinationcreate" class="urlLink">MIDIDestinationCreate()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDeviceGetEntity"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495261-mididevicegetentity" class="urlLink">MIDIDeviceGetEntity()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDeviceGetNumberOfEntities"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495354-mididevicegetnumberofentities" class="urlLink">MIDIDeviceGetNumberOfEntities()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIDeviceRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midideviceref" class="urlLink">MIDIDeviceRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIEndpointDispose"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495148-midiendpointdispose" class="urlLink">MIDIEndpointDispose()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIEndpointGetEntity"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495196-midiendpointgetentity" class="urlLink">MIDIEndpointGetEntity()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIEndpointRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/midiendpointref" class="urlLink">MIDIEndpointRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIEntityGetDestination"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495223-midientitygetdestination" class="urlLink">MIDIEntityGetDestination()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIEntityGetDevice"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495210-midientitygetdevice" class="urlLink">MIDIEntityGetDevice()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIEntityGetNumberOfDestinations"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495188-midientitygetnumberofdestination" class="urlLink">MIDIEntityGetNumberOfDestinations()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIEntityGetNumberOfSources"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495284-midientitygetnumberofsources" class="urlLink">MIDIEntityGetNumberOfSources()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIEntityGetSource"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495236-midientitygetsource" class="urlLink">MIDIEntityGetSource()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIEntityRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midientityref" class="urlLink">MIDIEntityRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIFlushOutput"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495312-midiflushoutput" class="urlLink">MIDIFlushOutput()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIGetDestination"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495108-midigetdestination" class="urlLink">MIDIGetDestination()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIGetDevice"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495368-midigetdevice" class="urlLink">MIDIGetDevice()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIGetExternalDevice"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495149-midigetexternaldevice" class="urlLink">MIDIGetExternalDevice()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIGetNumberOfDestinations"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495309-midigetnumberofdestinations" class="urlLink">MIDIGetNumberOfDestinations()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIGetNumberOfDevices"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495164-midigetnumberofdevices" class="urlLink">MIDIGetNumberOfDevices()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIGetNumberOfExternalDevices"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495171-midigetnumberofexternaldevices" class="urlLink">MIDIGetNumberOfExternalDevices()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIGetNumberOfSources"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495116-midigetnumberofsources" class="urlLink">MIDIGetNumberOfSources()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIGetSource"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495168-midigetsource" class="urlLink">MIDIGetSource()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIIOErrorNotification"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiioerrornotification" class="urlLink">MIDIIOErrorNotification</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIInputPortCreate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495225-midiinputportcreate" class="urlLink">MIDIInputPortCreate()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDINotification"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinotification" class="urlLink">MIDINotification</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDINotificationMessageID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinotificationmessageid" class="urlLink">MIDINotificationMessageID</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDINotifyProc"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinotifyproc" class="urlLink">MIDINotifyProc</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIObjectAddRemoveNotification"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjectaddremovenotification" class="urlLink">MIDIObjectAddRemoveNotification</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectFindByUniqueID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495191-midiobjectfindbyuniqueid" class="urlLink">MIDIObjectFindByUniqueID()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectGetDataProperty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495213-midiobjectgetdataproperty" class="urlLink">MIDIObjectGetDataProperty()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectGetDictionaryProperty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495154-midiobjectgetdictionaryproperty" class="urlLink">MIDIObjectGetDictionaryProperty()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectGetIntegerProperty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495364-midiobjectgetintegerproperty" class="urlLink">MIDIObjectGetIntegerProperty()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectGetProperties"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495206-midiobjectgetproperties" class="urlLink">MIDIObjectGetProperties()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectGetStringProperty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495282-midiobjectgetstringproperty" class="urlLink">MIDIObjectGetStringProperty()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIObjectPropertyChangeNotification"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjectpropertychangenotification" class="urlLink">MIDIObjectPropertyChangeNotification</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIObjectRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjectref" class="urlLink">MIDIObjectRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectRemoveProperty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495126-midiobjectremoveproperty" class="urlLink">MIDIObjectRemoveProperty()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectSetDataProperty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495169-midiobjectsetdataproperty" class="urlLink">MIDIObjectSetDataProperty()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectSetDictionaryProperty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495160-midiobjectsetdictionaryproperty" class="urlLink">MIDIObjectSetDictionaryProperty()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectSetIntegerProperty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495378-midiobjectsetintegerproperty" class="urlLink">MIDIObjectSetIntegerProperty()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIObjectSetStringProperty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495173-midiobjectsetstringproperty" class="urlLink">MIDIObjectSetStringProperty()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIObjectType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype" class="urlLink">MIDIObjectType</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIOutputPortCreate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495166-midioutputportcreate" class="urlLink">MIDIOutputPortCreate()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIPacket"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midipacket" class="urlLink">MIDIPacket</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIPacketList"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midipacketlist" class="urlLink">MIDIPacketList</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIPacketListAdd"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495128-midipacketlistadd" class="urlLink">MIDIPacketListAdd()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIPacketListInit"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495218-midipacketlistinit" class="urlLink">MIDIPacketListInit()</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/MIDIPacketNext"><span class="diffStatus">Added</span> <!--a -->#def MIDIPacketNext<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIPacketNext"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495178-midipacketnext" class="urlLink">MIDIPacketNext()</a> <span class="symbolArch">(no architecture available)</span></div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIPortConnectSource"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495278-midiportconnectsource" class="urlLink">MIDIPortConnectSource()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIPortDisconnectSource"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495342-midiportdisconnectsource" class="urlLink">MIDIPortDisconnectSource()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIPortDispose"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495345-midiportdispose" class="urlLink">MIDIPortDispose()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIPortRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiportref" class="urlLink">MIDIPortRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIReadProc"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midireadproc" class="urlLink">MIDIReadProc</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIReceived"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495276-midireceived" class="urlLink">MIDIReceived()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIRestart"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495146-midirestart" class="urlLink">MIDIRestart()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDISend"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495289-midisend" class="urlLink">MIDISend()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDISendSysex"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495356-midisendsysex" class="urlLink">MIDISendSysex()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDISourceCreate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495212-midisourcecreate" class="urlLink">MIDISourceCreate()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDISysexSendRequest"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midisysexsendrequest" class="urlLink">MIDISysexSendRequest</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDITimeStamp"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditimestamp" class="urlLink">MIDITimeStamp</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIUniqueID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiuniqueid" class="urlLink">MIDIUniqueID</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIIDNotUnique"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495156-error_constants/kmidiidnotunique" class="urlLink">kMIDIIDNotUnique</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIInvalidClient"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495156-error_constants/kmidiinvalidclient" class="urlLink">kMIDIInvalidClient</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIInvalidPort"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidiinvalidport" class="urlLink">kMIDIInvalidPort</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIInvalidUniqueID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495307-kmidiinvaliduniqueid/kmidiinvaliduniqueid" class="urlLink">kMIDIInvalidUniqueID</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIMessageSendErr"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidimessagesenderr" class="urlLink">kMIDIMessageSendErr</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIMsgIOError"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinotificationmessageid/kmidimsgioerror" class="urlLink">kMIDIMsgIOError</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIMsgObjectAdded"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinotificationmessageid/msgobjectadded" class="urlLink">kMIDIMsgObjectAdded</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIMsgObjectRemoved"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinotificationmessageid/msgobjectremoved" class="urlLink">kMIDIMsgObjectRemoved</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIMsgPropertyChanged"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinotificationmessageid/kmidimsgpropertychanged" class="urlLink">kMIDIMsgPropertyChanged</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIMsgSerialPortOwnerChanged"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinotificationmessageid/msgserialportownerchanged" class="urlLink">kMIDIMsgSerialPortOwnerChanged</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIMsgSetupChanged"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinotificationmessageid/msgsetupchanged" class="urlLink">kMIDIMsgSetupChanged</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIMsgThruConnectionsChanged"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midinotificationmessageid/msgthruconnectionschanged" class="urlLink">kMIDIMsgThruConnectionsChanged</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDINoConnection"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495156-error_constants/kmidinoconnection" class="urlLink">kMIDINoConnection</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDINoCurrentSetup"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495156-error_constants/kmidinocurrentsetup" class="urlLink">kMIDINoCurrentSetup</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectNotFound"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidiobjectnotfound" class="urlLink">kMIDIObjectNotFound</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectType_Destination"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype/destination" class="urlLink">kMIDIObjectType_Destination</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectType_Device"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype/device" class="urlLink">kMIDIObjectType_Device</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectType_Entity"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype/entity" class="urlLink">kMIDIObjectType_Entity</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectType_ExternalDestination"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype/externaldestination" class="urlLink">kMIDIObjectType_ExternalDestination</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectType_ExternalDevice"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype/externaldevice" class="urlLink">kMIDIObjectType_ExternalDevice</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectType_ExternalEntity"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype/kmidiobjecttype_externalentity" class="urlLink">kMIDIObjectType_ExternalEntity</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectType_ExternalMask"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype/kmidiobjecttype_externalmask" class="urlLink">kMIDIObjectType_ExternalMask</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectType_ExternalSource"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype/kmidiobjecttype_externalsource" class="urlLink">kMIDIObjectType_ExternalSource</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectType_Other"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype/kmidiobjecttype_other" class="urlLink">kMIDIObjectType_Other</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIObjectType_Source"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midiobjecttype/source" class="urlLink">kMIDIObjectType_Source</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyAdvanceScheduleTimeMuSec"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyadvancescheduletimemusec" class="urlLink">kMIDIPropertyAdvanceScheduleTimeMuSec</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyCanRoute"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertycanroute" class="urlLink">kMIDIPropertyCanRoute</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyConnectionUniqueID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyconnectionuniqueid" class="urlLink">kMIDIPropertyConnectionUniqueID</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyDeviceID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertydeviceid" class="urlLink">kMIDIPropertyDeviceID</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyDisplayName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertydisplayname" class="urlLink">kMIDIPropertyDisplayName</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyDriverDeviceEditorApp"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertydriverdeviceeditorapp" class="urlLink">kMIDIPropertyDriverDeviceEditorApp</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyDriverOwner"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertydriverowner" class="urlLink">kMIDIPropertyDriverOwner</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyDriverVersion"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertydriverversion" class="urlLink">kMIDIPropertyDriverVersion</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyImage"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyimage" class="urlLink">kMIDIPropertyImage</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyIsBroadcast"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyisbroadcast" class="urlLink">kMIDIPropertyIsBroadcast</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyIsDrumMachine"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyisdrummachine" class="urlLink">kMIDIPropertyIsDrumMachine</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyIsEffectUnit"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyiseffectunit" class="urlLink">kMIDIPropertyIsEffectUnit</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyIsEmbeddedEntity"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyisembeddedentity" class="urlLink">kMIDIPropertyIsEmbeddedEntity</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyIsMixer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyismixer" class="urlLink">kMIDIPropertyIsMixer</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyIsSampler"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyissampler" class="urlLink">kMIDIPropertyIsSampler</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyManufacturer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertymanufacturer" class="urlLink">kMIDIPropertyManufacturer</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyMaxReceiveChannels"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertymaxreceivechannels" class="urlLink">kMIDIPropertyMaxReceiveChannels</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyMaxSysExSpeed"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertymaxsysexspeed" class="urlLink">kMIDIPropertyMaxSysExSpeed</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyMaxTransmitChannels"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertymaxtransmitchannels" class="urlLink">kMIDIPropertyMaxTransmitChannels</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyModel"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertymodel" class="urlLink">kMIDIPropertyModel</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyname" class="urlLink">kMIDIPropertyName</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyNameConfiguration"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertynameconfiguration" class="urlLink">kMIDIPropertyNameConfiguration</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyOffline"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyoffline" class="urlLink">kMIDIPropertyOffline</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyPanDisruptsStereo"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertypandisruptsstereo" class="urlLink">kMIDIPropertyPanDisruptsStereo</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyPrivate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyprivate" class="urlLink">kMIDIPropertyPrivate</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyReceiveChannels"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyreceivechannels" class="urlLink">kMIDIPropertyReceiveChannels</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyReceivesBankSelectLSB"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyreceivesbankselectlsb" class="urlLink">kMIDIPropertyReceivesBankSelectLSB</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyReceivesBankSelectMSB"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyreceivesbankselectmsb" class="urlLink">kMIDIPropertyReceivesBankSelectMSB</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyReceivesClock"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyreceivesclock" class="urlLink">kMIDIPropertyReceivesClock</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyReceivesMTC"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyreceivesmtc" class="urlLink">kMIDIPropertyReceivesMTC</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyReceivesNotes"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyreceivesnotes" class="urlLink">kMIDIPropertyReceivesNotes</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyReceivesProgramChanges"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyreceivesprogramchanges" class="urlLink">kMIDIPropertyReceivesProgramChanges</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertySingleRealtimeEntity"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertysinglerealtimeentity" class="urlLink">kMIDIPropertySingleRealtimeEntity</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertySupportsGeneralMIDI"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertysupportsgeneralmidi" class="urlLink">kMIDIPropertySupportsGeneralMIDI</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertySupportsMMC"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertysupportsmmc" class="urlLink">kMIDIPropertySupportsMMC</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertySupportsShowControl"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertysupportsshowcontrol" class="urlLink">kMIDIPropertySupportsShowControl</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyTransmitChannels"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertytransmitchannels" class="urlLink">kMIDIPropertyTransmitChannels</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyTransmitsBankSelectLSB"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertytransmitsbankselectlsb" class="urlLink">kMIDIPropertyTransmitsBankSelectLSB</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyTransmitsBankSelectMSB"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertytransmitsbankselectmsb" class="urlLink">kMIDIPropertyTransmitsBankSelectMSB</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyTransmitsClock"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertytransmitsclock" class="urlLink">kMIDIPropertyTransmitsClock</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyTransmitsMTC"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertytransmitsmtc" class="urlLink">kMIDIPropertyTransmitsMTC</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyTransmitsNotes"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertytransmitsnotes" class="urlLink">kMIDIPropertyTransmitsNotes</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyTransmitsProgramChanges"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertytransmitsprogramchanges" class="urlLink">kMIDIPropertyTransmitsProgramChanges</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kMIDIPropertyUniqueID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidipropertyuniqueid" class="urlLink">kMIDIPropertyUniqueID</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIServerStartErr"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495156-error_constants/kmidiserverstarterr" class="urlLink">kMIDIServerStartErr</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDISetupFormatErr"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495156-error_constants/kmidisetupformaterr" class="urlLink">kMIDISetupFormatErr</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIUnknownEndpoint"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495156-error_constants/kmidiunknownendpoint" class="urlLink">kMIDIUnknownEndpoint</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIUnknownProperty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidiunknownproperty" class="urlLink">kMIDIUnknownProperty</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIWrongEndpointType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495156-error_constants/kmidiwrongendpointtype" class="urlLink">kMIDIWrongEndpointType</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIWrongPropertyType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1495156-error_constants/kmidiwrongpropertytype" class="urlLink">kMIDIWrongPropertyType</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIWrongThread"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidiwrongthread" class="urlLink">kMIDIWrongThread</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreMIDI.framework/Headers/MIDISetup.h'><span class="added">MIDISetup.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDeviceAddEntity"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508206-midideviceaddentity" class="urlLink">MIDIDeviceAddEntity()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIDeviceRemoveEntity"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508180-midideviceremoveentity" class="urlLink">MIDIDeviceRemoveEntity()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIEntityAddOrRemoveEndpoints"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508340-midientityaddorremoveendpoints" class="urlLink">MIDIEntityAddOrRemoveEndpoints()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIExternalDeviceCreate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508456-midiexternaldevicecreate" class="urlLink">MIDIExternalDeviceCreate()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDISetupAddDevice"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508299-midisetupadddevice" class="urlLink">MIDISetupAddDevice()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDISetupAddExternalDevice"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508222-midisetupaddexternaldevice" class="urlLink">MIDISetupAddExternalDevice()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDISetupRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midisetupref" class="urlLink">MIDISetupRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDISetupRemoveDevice"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508237-midisetupremovedevice" class="urlLink">MIDISetupRemoveDevice()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDISetupRemoveExternalDevice"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508370-midisetupremoveexternaldevice" class="urlLink">MIDISetupRemoveExternalDevice()</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreMIDI.framework/Headers/MIDIThruConnection.h'><span class="added">MIDIThruConnection.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIControlTransform"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midicontroltransform" class="urlLink">MIDIControlTransform</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIThruConnectionCreate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508523-midithruconnectioncreate" class="urlLink">MIDIThruConnectionCreate()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIThruConnectionDispose"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508256-midithruconnectiondispose" class="urlLink">MIDIThruConnectionDispose()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIThruConnectionEndpoint"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midithruconnectionendpoint" class="urlLink">MIDIThruConnectionEndpoint</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIThruConnectionFind"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508377-midithruconnectionfind" class="urlLink">MIDIThruConnectionFind()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIThruConnectionGetParams"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508390-midithruconnectiongetparams" class="urlLink">MIDIThruConnectionGetParams()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIThruConnectionParams"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midithruconnectionparams" class="urlLink">MIDIThruConnectionParams</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIThruConnectionParamsInitialize"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508520-midithruconnectionparamsinitiali" class="urlLink">MIDIThruConnectionParamsInitialize()</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/MIDIThruConnectionParamsSize"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midi_thru_connection/midithruconnectionparamssize" class="urlLink">#def MIDIThruConnectionParamsSize</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIThruConnectionRef"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midithruconnectionref" class="urlLink">MIDIThruConnectionRef</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/MIDIThruConnectionSetParams"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/1508352-midithruconnectionsetparams" class="urlLink">MIDIThruConnectionSetParams()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDITransform"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransform" class="urlLink">MIDITransform</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDITransformControlType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformcontroltype" class="urlLink">MIDITransformControlType</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDITransformType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformtype" class="urlLink">MIDITransformType</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/MIDIValueMap"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/midivaluemap" class="urlLink">MIDIValueMap</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIControlType_14Bit"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformcontroltype/kmidicontroltype_14bit" class="urlLink">kMIDIControlType_14Bit</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIControlType_14BitNRPN"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformcontroltype/kmidicontroltype_14bitnrpn" class="urlLink">kMIDIControlType_14BitNRPN</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIControlType_14BitRPN"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformcontroltype/controltype_14bitrpn" class="urlLink">kMIDIControlType_14BitRPN</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIControlType_7Bit"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformcontroltype/controltype_7bit" class="urlLink">kMIDIControlType_7Bit</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIControlType_7BitNRPN"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformcontroltype/controltype_7bitnrpn" class="urlLink">kMIDIControlType_7BitNRPN</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIControlType_7BitRPN"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformcontroltype/controltype_7bitrpn" class="urlLink">kMIDIControlType_7BitRPN</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDIThruConnection_MaxEndpoints"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/kmidithruconnection_maxendpoints" class="urlLink">kMIDIThruConnection_MaxEndpoints</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDITransform_Add"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformtype/add" class="urlLink">kMIDITransform_Add</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDITransform_FilterOut"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformtype/kmiditransform_filterout" class="urlLink">kMIDITransform_FilterOut</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDITransform_MapControl"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformtype/kmiditransform_mapcontrol" class="urlLink">kMIDITransform_MapControl</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDITransform_MapValue"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformtype/mapvalue" class="urlLink">kMIDITransform_MapValue</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDITransform_MaxValue"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformtype/maxvalue" class="urlLink">kMIDITransform_MaxValue</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDITransform_MinValue"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformtype/minvalue" class="urlLink">kMIDITransform_MinValue</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDITransform_None"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformtype/none" class="urlLink">kMIDITransform_None</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kMIDITransform_Scale"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremidi/miditransformtype/scale" class="urlLink">kMIDITransform_Scale</a> </div>
+</div>
+</div>
+
+<h2>CoreMotion</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreTelephony</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreTelephony.framework/Headers/CoreTelephonyDefines.h'><span class="added">CoreTelephonyDefines.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/CORETELEPHONY_EXTERN"><span class="diffStatus">Added</span> <!--a -->#def CORETELEPHONY_EXTERN<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/CORETELEPHONY_EXTERN_CLASS"><span class="diffStatus">Added</span> <!--a -->#def CORETELEPHONY_EXTERN_CLASS<!--/a--> </div>
+</div>
+</div>
+
+<h2>CoreText</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTFont.h'>CTFont.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/func/CTFontDrawGlyphs"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/1509850-ctfontdrawglyphs" class="urlLink">CTFontDrawGlyphs()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CTFontGetLigatureCaretPositions"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/1508820-ctfontgetligaturecaretpositions" class="urlLink">CTFontGetLigatureCaretPositions()</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontTableSbit"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/1524658-anonymous/kctfonttablesbit" class="urlLink">kCTFontTableSbit</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontTableSbix"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/kctfonttablesbix" class="urlLink">kCTFontTableSbix</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTFontCollection.h'>CTFontCollection.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/tdef/CTFontCollectionCopyOptions"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontcollectioncopyoptions" class="urlLink">CTFontCollectionCopyOptions</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontCollectionCopyDefaultOptions"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontcollectioncopyoptions/kctfontcollectioncopydefaultoptions" class="urlLink">kCTFontCollectionCopyDefaultOptions</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontCollectionCopyStandardSort"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontcollectioncopyoptions/1509424-standardsort" class="urlLink">kCTFontCollectionCopyStandardSort</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontCollectionCopyUnique"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontcollectioncopyoptions/kctfontcollectioncopyunique" class="urlLink">kCTFontCollectionCopyUnique</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTFontTraits.h'>CTFontTraits.h</div>
+<div class='removed'>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontColorGlyphsTrait"><span class="diffStatus">Removed</span> <a href="https://developer.apple.com/documentation/coretext/ctfontsymbolictraits/1508808-colorglyphstrait" class="urlLink">kCTFontColorGlyphsTrait</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTFrame.h'>CTFrame.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/tdef/CTFramePathFillRule"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctframepathfillrule" class="urlLink">CTFramePathFillRule</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFramePathFillEvenOdd"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctframepathfillrule/evenodd" class="urlLink">kCTFramePathFillEvenOdd</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCTFramePathFillRuleAttributeName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/kctframepathfillruleattributename" class="urlLink">kCTFramePathFillRuleAttributeName</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFramePathFillWindingNumber"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctframepathfillrule/windingnumber" class="urlLink">kCTFramePathFillWindingNumber</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCTFramePathWidthAttributeName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/kctframepathwidthattributename" class="urlLink">kCTFramePathWidthAttributeName</a> </div>
+</div>
+</div>
+
+<h2>CoreVideo</h2>
+<div class="nochange">No changes</div>
+
+<h2>EventKit</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/EventKit.framework/Headers/EKError.h'>EKError.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/EKErrorInvalidSpan"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/eventkit/ekerror/code/invalidspan" class="urlLink">EKErrorInvalidSpan</a> </div>
+</div>
+</div>
+
+<h2>EventKitUI</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/EventKitUI.framework/Headers/EKEventViewController.h'>EKEventViewController.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/EKEventViewController/delegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/eventkitui/ekeventviewcontroller/1613939-delegate" class="urlLink">EKEventViewController.delegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intf/EKEventViewDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/eventkitui/ekeventviewdelegate" class="urlLink">EKEventViewDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/EKEventViewDelegate/eventViewController:didCompleteWithAction:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/eventkitui/ekeventviewdelegate/1613925-eventviewcontroller" class="urlLink">-[EKEventViewDelegate eventViewController:didCompleteWithAction:]</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/EKEventViewAction"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/eventkitui/ekeventviewaction" class="urlLink">EKEventViewAction</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/EKEventViewActionDeleted"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/eventkitui/ekeventviewaction/deleted" class="urlLink">EKEventViewActionDeleted</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/EKEventViewActionDone"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/eventkitui/ekeventviewaction/ekeventviewactiondone" class="urlLink">EKEventViewActionDone</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/EKEventViewActionResponded"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/eventkitui/ekeventviewaction/ekeventviewactionresponded" class="urlLink">EKEventViewActionResponded</a> </div>
+</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/cl/EKEventViewController'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/eventkitui/ekeventviewcontroller" class="urlLink">EKEventViewController</a></div>
+<table><tr><th></th><th>Protocols</th></tr>
+<tr><th>From</th><td scope="row">UIActionSheetDelegate</td></tr>
+<tr><th>To</th><td scope="row"><i>none</i></td></tr></table><br>
+</div>
+</div>
+
+<h2>ExternalAccessory</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/ExternalAccessory.framework/Headers/ExternalAccessoryDefines.h'>ExternalAccessoryDefines.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/EA_EXTERN_CLASS_AVAILABLE"><span class="diffStatus">Added</span> <!--a -->#def EA_EXTERN_CLASS_AVAILABLE<!--/a--> </div>
+</div>
+</div>
+
+<h2>Foundation</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/Foundation.framework/Headers/NSObjCRuntime.h'>NSObjCRuntime.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/NSFoundationVersionNumber_iOS_4_0"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/foundation/nsfoundationversionnumber_ios_4_0" class="urlLink">#def NSFoundationVersionNumber_iOS_4_0</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/NSFoundationVersionNumber_iPhoneOS_3_2"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/foundation/nsfoundationversionnumber_iphoneos_3_2" class="urlLink">#def NSFoundationVersionNumber_iPhoneOS_3_2</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/NS_CLASS_AVAILABLE"><span class="diffStatus">Added</span> <!--a -->#def NS_CLASS_AVAILABLE<!--/a--> </div>
+</div>
+</div>
+
+<h2>GameKit</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKAchievement.h'>GKAchievement.h</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/instp/GKAchievement/hidden'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement/1521136-ishidden" class="urlLink">GKAchievement.hidden</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">@property(nonatomic, assign, getter=isHidden) BOOL hidden</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>@property(nonatomic, assign, getter=isHidden, readonly) BOOL hidden</tt></td></tr></table><br>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKAchievementDescription.h'>GKAchievementDescription.h</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/instp/GKAchievementDescription/unachievedDescription'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416584-unachieveddescription" class="urlLink">GKAchievementDescription.unachievedDescription</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">@property(nonatomic, retain) NSString *unachievedDescription</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>@property(nonatomic, retain, readonly) NSString *unachievedDescription</tt></td></tr></table><br>
+<div class='symbolName' title='//apple_ref/occ/instp/GKAchievementDescription/achievedDescription'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416598-achieveddescription" class="urlLink">GKAchievementDescription.achievedDescription</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">@property(nonatomic, retain) NSString *achievedDescription</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>@property(nonatomic, retain, readonly) NSString *achievedDescription</tt></td></tr></table><br>
+<div class='symbolName' title='//apple_ref/occ/instp/GKAchievementDescription/maximumPoints'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416589-maximumpoints" class="urlLink">GKAchievementDescription.maximumPoints</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">@property(nonatomic, assign) NSInteger maximumPoints</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>@property(nonatomic, assign, readonly) NSInteger maximumPoints</tt></td></tr></table><br>
+<div class='symbolName' title='//apple_ref/occ/instp/GKAchievementDescription/identifier'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416586-identifier" class="urlLink">GKAchievementDescription.identifier</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">@property(nonatomic, retain) NSString *identifier</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>@property(nonatomic, retain, readonly) NSString *identifier</tt></td></tr></table><br>
+<div class='symbolName' title='//apple_ref/occ/instp/GKAchievementDescription/title'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416602-title" class="urlLink">GKAchievementDescription.title</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">@property(nonatomic, retain) NSString *title</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>@property(nonatomic, retain, readonly) NSString *title</tt></td></tr></table><br>
+<div class='symbolName' title='//apple_ref/occ/instp/GKAchievementDescription/hidden'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416582-hidden" class="urlLink">GKAchievementDescription.hidden</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">@property(nonatomic, getter=isHidden, assign) BOOL hidden</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>@property(nonatomic, getter=isHidden, assign, readonly) BOOL hidden</tt></td></tr></table><br>
+<div class='symbolName' title='//apple_ref/occ/instp/GKAchievementDescription/image'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416591-image" class="urlLink">GKAchievementDescription.image</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">@property(nonatomic, retain) UIImage *image</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>@property(nonatomic, retain, readonly) UIImage *image</tt></td></tr></table><br>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKError.h'>GKError.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorInvalidParameter"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerror/code/invalidparameter" class="urlLink">GKErrorInvalidParameter</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKFriendRequestComposeViewController.h'><span class="added">GKFriendRequestComposeViewController.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKFriendRequestComposeViewController"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkfriendrequestcomposeviewcontroller" class="urlLink">GKFriendRequestComposeViewController</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKFriendRequestComposeViewController/addRecipientsWithEmailAddresses:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkfriendrequestcomposeviewcontroller/1437190-addrecipients" class="urlLink">-[GKFriendRequestComposeViewController addRecipientsWithEmailAddresses:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKFriendRequestComposeViewController/addRecipientsWithPlayerIDs:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkfriendrequestcomposeviewcontroller/1437188-addrecipientswithplayerids" class="urlLink">-[GKFriendRequestComposeViewController addRecipientsWithPlayerIDs:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKFriendRequestComposeViewController/composeViewDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkfriendrequestcomposeviewcontroller/1437192-composeviewdelegate" class="urlLink">GKFriendRequestComposeViewController.composeViewDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKFriendRequestComposeViewController/maxNumberOfRecipients"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkfriendrequestcomposeviewcontroller/1437194-maxnumberofrecipients" class="urlLink">+[GKFriendRequestComposeViewController maxNumberOfRecipients]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKFriendRequestComposeViewController/setMessage:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkfriendrequestcomposeviewcontroller/1437201-setmessage" class="urlLink">-[GKFriendRequestComposeViewController setMessage:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intf/GKFriendRequestComposeViewControllerDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkfriendrequestcomposeviewcontrollerdelegate" class="urlLink">GKFriendRequestComposeViewControllerDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKFriendRequestComposeViewControllerDelegate/friendRequestComposeViewControllerDidFinish:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkfriendrequestcomposeviewcontrollerdelegate/1437186-friendrequestcomposeviewcontroll" class="urlLink">-[GKFriendRequestComposeViewControllerDelegate friendRequestComposeViewControllerDidFinish:]</a> </div>
+</div>
+</div>
+
+<h2>iAd</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/iAd.framework/Headers/ADBannerView.h'>ADBannerView.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/ADBannerContentSizeIdentifierLandscape"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adbannercontentsizeidentifierlandscape" class="urlLink">ADBannerContentSizeIdentifierLandscape</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/ADBannerContentSizeIdentifierPortrait"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adbannercontentsizeidentifierportrait" class="urlLink">ADBannerContentSizeIdentifierPortrait</a> </div>
+</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/c/data/ADBannerContentSizeIdentifier480x32'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/iad/adbannercontentsizeidentifier480x32" class="urlLink">ADBannerContentSizeIdentifier480x32</a></div>
+<table><tr><th></th><th>Deprecation</th></tr>
+<tr><th>From</th><td scope="row"><i>none</i></td></tr>
+<tr><th>To</th><td scope="row">iOS 4.2</td></tr></table><br>
+<div class='symbolName' title='//apple_ref/c/data/ADBannerContentSizeIdentifier320x50'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/iad/adbannercontentsizeidentifier320x50" class="urlLink">ADBannerContentSizeIdentifier320x50</a></div>
+<table><tr><th></th><th>Deprecation</th></tr>
+<tr><th>From</th><td scope="row"><i>none</i></td></tr>
+<tr><th>To</th><td scope="row">iOS 4.2</td></tr></table><br>
+</div>
+</div>
+
+<h2>ImageIO</h2>
+<div class="nochange">No changes</div>
+
+<h2>MapKit</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MapKit.framework/Headers/MKAnnotationView.h'>MKAnnotationView.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instm/MKAnnotationView/setDragState:animated:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mapkit/mkannotationview/1452639-setdragstate" class="urlLink">-[MKAnnotationView setDragState:animated:]</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MapKit.framework/Headers/MKMapView.h'>MKMapView.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instm/MKMapView/annotationsInMapRect:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mapkit/mkmapview/1452279-annotations" class="urlLink">-[MKMapView annotationsInMapRect:]</a> </div>
+</div>
+</div>
+
+<h2>MediaPlayer</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MPMediaEntity.h'><span class="added">MPMediaEntity.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/MPMediaEntity"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaentity" class="urlLink">MPMediaEntity</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/MPMediaEntity/canFilterByProperty:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaentity/1620123-canfilter" class="urlLink">+[MPMediaEntity canFilterByProperty:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MPMediaEntity/enumerateValuesForProperties:usingBlock:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaentity/1620122-enumeratevaluesforproperties" class="urlLink">-[MPMediaEntity enumerateValuesForProperties:usingBlock:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MPMediaEntity/valueForProperty:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaentity/1620128-valueforproperty" class="urlLink">-[MPMediaEntity valueForProperty:]</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/MPMediaEntityPropertyPersistentID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaentitypropertypersistentid" class="urlLink">MPMediaEntityPropertyPersistentID</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MPMediaItem.h'>MPMediaItem.h</div>
+<div class='removed'>
+<div class="symbolName" title="//apple_ref/occ/clm/MPMediaItem/canFilterByProperty:"><span class="diffStatus">Removed</span> <!--a -->+[MPMediaItem canFilterByProperty:]<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MPMediaItem/enumerateValuesForProperties:usingBlock:"><span class="diffStatus">Removed</span> <!--a -->-[MPMediaItem enumerateValuesForProperties:usingBlock:]<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MPMediaItem/valueForProperty:"><span class="diffStatus">Removed</span> <!--a -->-[MPMediaItem valueForProperty:]<!--/a--> </div>
+</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/MPMediaItemPropertyAlbumArtistPersistentID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaitempropertyalbumartistpersistentid" class="urlLink">MPMediaItemPropertyAlbumArtistPersistentID</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/MPMediaItemPropertyAlbumPersistentID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaitempropertyalbumpersistentid" class="urlLink">MPMediaItemPropertyAlbumPersistentID</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/MPMediaItemPropertyArtistPersistentID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaitempropertyartistpersistentid" class="urlLink">MPMediaItemPropertyArtistPersistentID</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/MPMediaItemPropertyComposerPersistentID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaitempropertycomposerpersistentid" class="urlLink">MPMediaItemPropertyComposerPersistentID</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/MPMediaItemPropertyGenrePersistentID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaitempropertygenrepersistentid" class="urlLink">MPMediaItemPropertyGenrePersistentID</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/MPMediaItemPropertyPodcastPersistentID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaitempropertypodcastpersistentid" class="urlLink">MPMediaItemPropertyPodcastPersistentID</a> </div>
+</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/cl/MPMediaItem'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaitem" class="urlLink">MPMediaItem</a></div>
+<table><tr><th></th><th>Superclass</th><th>Protocols</th></tr>
+<tr><th>From</th><td scope="row">NSObject</td><td>NSCoding</td></tr>
+<tr><th>To</th><td scope="row">MPMediaEntity</td><td><i>none</i></td></tr></table><br>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MPMediaItemCollection.h'>MPMediaItemCollection.h</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/cl/MPMediaItemCollection'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaitemcollection" class="urlLink">MPMediaItemCollection</a></div>
+<table><tr><th></th><th>Superclass</th><th>Protocols</th></tr>
+<tr><th>From</th><td scope="row">NSObject</td><td>NSCoding</td></tr>
+<tr><th>To</th><td scope="row">MPMediaEntity</td><td><i>none</i></td></tr></table><br>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MPMediaLibrary.h'>MPMediaLibrary.h</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/cl/MPMediaLibrary'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmedialibrary" class="urlLink">MPMediaLibrary</a></div>
+<table><tr><th></th><th>Protocols</th></tr>
+<tr><th>From</th><td scope="row"><i>none</i></td></tr>
+<tr><th>To</th><td scope="row">NSCoding</td></tr></table><br>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MPMediaPlaylist.h'>MPMediaPlaylist.h</div>
+<div class='removed'>
+<div class="symbolName" title="//apple_ref/occ/clm/MPMediaPlaylist/canFilterByProperty:"><span class="diffStatus">Removed</span> <!--a -->+[MPMediaPlaylist canFilterByProperty:]<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MPMediaPlaylist/valueForProperty:"><span class="diffStatus">Removed</span> <!--a -->-[MPMediaPlaylist valueForProperty:]<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MPMediaQuery.h'>MPMediaQuery.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/clm/MPMediaItem/persistentIDPropertyForGroupingType:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaitem/1621805-persistentidproperty" class="urlLink">+[MPMediaItem persistentIDPropertyForGroupingType:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/MPMediaItem/titlePropertyForGroupingType:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaitem/1621775-titlepropertyforgroupingtype" class="urlLink">+[MPMediaItem titlePropertyForGroupingType:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMediaQuery/collectionSections"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaquery/1621779-collectionsections" class="urlLink">MPMediaQuery.collectionSections</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMediaQuery/itemSections"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaquery/1621797-itemsections" class="urlLink">MPMediaQuery.itemSections</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/MPMediaItem(MPMediaQueryAdditions)"><span class="diffStatus">Added</span> <!--a -->MPMediaItem(MPMediaQueryAdditions)<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MPMediaQuerySection.h'><span class="added">MPMediaQuerySection.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/MPMediaQuerySection"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaquerysection" class="urlLink">MPMediaQuerySection</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMediaQuerySection/range"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaquerysection/1624166-range" class="urlLink">MPMediaQuerySection.range</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMediaQuerySection/title"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmediaquerysection/1624170-title" class="urlLink">MPMediaQuerySection.title</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MPMoviePlayerController.h'>MPMoviePlayerController.h</div>
+<div class='removed'>
+<div class="symbolName" title="//apple_ref/occ/instm/MPMoviePlayerController/play"><span class="diffStatus">Removed</span> <!--a -->-[MPMoviePlayerController play]<!--/a--> <span class="symbolArch">(no architecture available)</span></div>
+<div class="symbolName" title="//apple_ref/occ/instm/MPMoviePlayerController/setInitialPlaybackTime:"><span class="diffStatus">Removed</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieplayercontroller/1620796-initialplaybacktime" class="urlLink">-[MPMoviePlayerController setInitialPlaybackTime:]</a> <span class="symbolArch">(no architecture available)</span></div>
+<div class="symbolName" title="//apple_ref/occ/instm/MPMoviePlayerController/stop"><span class="diffStatus">Removed</span> <!--a -->-[MPMoviePlayerController stop]<!--/a--> <span class="symbolArch">(no architecture available)</span></div>
+<div class="symbolName" title="//apple_ref/occ/cat/MPMoviePlayerController()"><span class="diffStatus">Removed</span> <!--a -->MPMoviePlayerController()<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/MPMoviePlayerController(MPMediaPlayback)"><span class="diffStatus">Removed</span> <!--a -->MPMoviePlayerController(MPMediaPlayback)<!--/a--> <span class="symbolArch">(no architecture available)</span></div>
+</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/cl/MPMoviePlayerController'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieplayercontroller" class="urlLink">MPMoviePlayerController</a></div>
+<table><tr><th></th><th>Protocols</th></tr>
+<tr><th>From</th><td scope="row"><i>none</i></td></tr>
+<tr><th>To</th><td scope="row">MPMediaPlayback</td></tr></table><br>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MPVolumeView.h'>MPVolumeView.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/MPVolumeView/showsRouteButton"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpvolumeview/1620075-showsroutebutton" class="urlLink">MPVolumeView.showsRouteButton</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPVolumeView/showsVolumeSlider"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpvolumeview/1620079-showsvolumeslider" class="urlLink">MPVolumeView.showsVolumeSlider</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MediaPlayerDefines.h'>MediaPlayerDefines.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/MP_EXTERN_CLASS_AVAILABLE"><span class="diffStatus">Added</span> <!--a -->#def MP_EXTERN_CLASS_AVAILABLE<!--/a--> </div>
+</div>
+</div>
+
+<h2>MessageUI</h2>
+<div class="nochange">No changes</div>
+
+<h2>MobileCoreServices</h2>
+<div class="nochange">No changes</div>
+
+<h2>OpenAL</h2>
+<div class="nochange">No changes</div>
+
+<h2>OpenGLES</h2>
+<div class="nochange">No changes</div>
+
+<h2>QuartzCore</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/QuartzCore.framework/Headers/CAShapeLayer.h'>CAShapeLayer.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/CAShapeLayer/strokeEnd"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/quartzcore/cashapelayer/1522252-strokeend" class="urlLink">CAShapeLayer.strokeEnd</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/CAShapeLayer/strokeStart"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/quartzcore/cashapelayer/1521929-strokestart" class="urlLink">CAShapeLayer.strokeStart</a> </div>
+</div>
+</div>
+
+<h2>QuickLook</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/QuickLook.framework/Headers/QLBase.h'>QLBase.h</div>
+<div class='removed'>
+<div class="symbolName" title="//apple_ref/c/macro/QUICKLOOK_VERSION"><span class="diffStatus">Removed</span> <!--a -->#def QUICKLOOK_VERSION<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/QuickLook.framework/Headers/QLPreviewController.h'>QLPreviewController.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/intfm/QLPreviewControllerDelegate/previewController:frameForPreviewItem:inSourceView:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/quicklook/qlpreviewcontrollerdelegate/1617007-previewcontroller" class="urlLink">-[QLPreviewControllerDelegate previewController:frameForPreviewItem:inSourceView:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/QLPreviewControllerDelegate/previewController:transitionImageForPreviewItem:contentRect:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/quicklook/qlpreviewcontrollerdelegate/1617021-previewcontroller" class="urlLink">-[QLPreviewControllerDelegate previewController:transitionImageForPreviewItem:contentRect:]</a> </div>
+</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/cl/QLPreviewController'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/quicklook/qlpreviewcontroller" class="urlLink">QLPreviewController</a></div>
+<table><tr><th></th><th>Protocols</th></tr>
+<tr><th>From</th><td scope="row">UIDocumentInteractionControllerDelegate</td></tr>
+<tr><th>To</th><td scope="row"><i>none</i></td></tr></table><br>
+</div>
+</div>
+
+<h2>Security</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/Security.framework/Headers/SecBase.h'>SecBase.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/errSecAuthFailed"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/security/errsecauthfailed" class="urlLink">errSecAuthFailed</a> </div>
+</div>
+</div>
+
+<h2>StoreKit</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/StoreKit.framework/Headers/StoreKitDefines.h'>StoreKitDefines.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/SK_EXTERN_CLASS_AVAILABLE"><span class="diffStatus">Added</span> <!--a -->#def SK_EXTERN_CLASS_AVAILABLE<!--/a--> </div>
+</div>
+</div>
+
+<h2>SystemConfiguration</h2>
+<div class="nochange">No changes</div>
+
+<h2>UIKit</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIAccessibility.h'>UIAccessibility.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instm/NSObject/accessibilityScroll:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/objectivec/nsobject/1615161-accessibilityscroll" class="urlLink">-[NSObject accessibilityScroll:]</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/UIAccessibilityScrollDirection"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiaccessibility/uiaccessibilityscrolldirection" class="urlLink">UIAccessibilityScrollDirection</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIAccessibilityScrollDirectionDown"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiaccessibility/uiaccessibilityscrolldirection/down" class="urlLink">UIAccessibilityScrollDirectionDown</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIAccessibilityScrollDirectionLeft"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiaccessibility/uiaccessibilityscrolldirection/left" class="urlLink">UIAccessibilityScrollDirectionLeft</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIAccessibilityScrollDirectionRight"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiaccessibilityscrolldirection/uiaccessibilityscrolldirectionright" class="urlLink">UIAccessibilityScrollDirectionRight</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIAccessibilityScrollDirectionUp"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiaccessibility/uiaccessibilityscrolldirection/up" class="urlLink">UIAccessibilityScrollDirectionUp</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIAccessibilityConstants.h'>UIAccessibilityConstants.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/UIAccessibilityPageScrolledNotification"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiaccessibility/notification/1620190-pagescrolled" class="urlLink">UIAccessibilityPageScrolledNotification</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIApplication.h'>UIApplication.h</div>
+<div class='removed'>
+<div class="symbolName" title="//apple_ref/occ/instm/UIApplication/scheduledLocalNotifications"><span class="diffStatus">Removed</span> <a href="https://developer.apple.com/documentation/uikit/uiapplication/1622993-scheduledlocalnotifications" class="urlLink">-[UIApplication scheduledLocalNotifications]</a> </div>
+</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/UIApplication/scheduledLocalNotifications"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiapplication/1622993-scheduledlocalnotifications" class="urlLink">UIApplication.scheduledLocalNotifications</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/UIApplicationDelegate/application:openURL:sourceApplication:annotation:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1623073-application" class="urlLink">-[UIApplicationDelegate application:openURL:sourceApplication:annotation:]</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIDevice.h'>UIDevice.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instm/UIDevice/playInputClick"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uidevice/1620050-playinputclick" class="urlLink">-[UIDevice playInputClick]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intf/UIInputViewAudioFeedback"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiinputviewaudiofeedback" class="urlLink">UIInputViewAudioFeedback</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfp/UIInputViewAudioFeedback/enableInputClicksWhenVisible"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiinputviewaudiofeedback/1620038-enableinputclickswhenvisible" class="urlLink">UIInputViewAudioFeedback.enableInputClicksWhenVisible</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIKitDefines.h'>UIKitDefines.h</div>
+<div class='removed'>
+<div class="symbolName" title="//apple_ref/c/macro/UIKIT_EXTERN_CLASS"><span class="diffStatus">Removed</span> <!--a -->#def UIKIT_EXTERN_CLASS<!--/a--> </div>
+</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/UIKIT_CLASS_AVAILABLE"><span class="diffStatus">Added</span> <!--a -->#def UIKIT_CLASS_AVAILABLE<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIPrintError.h'><span class="added">UIPrintError.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/UIPrintErrorDomain"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprinterrordomain" class="urlLink">UIPrintErrorDomain</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintJobFailedError"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprinterrorcode/uiprintjobfailederror" class="urlLink">UIPrintJobFailedError</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintNoContentError"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprinterror/code/nocontent" class="urlLink">UIPrintNoContentError</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintUnknownImageFormatError"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprinterror/code/unknownimageformat" class="urlLink">UIPrintUnknownImageFormatError</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintingNotAvailableError"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprinterrorcode/uiprintingnotavailableerror" class="urlLink">UIPrintingNotAvailableError</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIPrintFormatter.h'><span class="added">UIPrintFormatter.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/UIMarkupTextPrintFormatter"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uimarkuptextprintformatter" class="urlLink">UIMarkupTextPrintFormatter</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIMarkupTextPrintFormatter/initWithMarkupText:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uimarkuptextprintformatter/1621845-init" class="urlLink">-[UIMarkupTextPrintFormatter initWithMarkupText:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIMarkupTextPrintFormatter/markupText"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uimarkuptextprintformatter/1621842-markuptext" class="urlLink">UIMarkupTextPrintFormatter.markupText</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/UIPrintFormatter"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintformatter" class="urlLink">UIPrintFormatter</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintFormatter/contentInsets"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintformatter/1621823-contentinsets" class="urlLink">UIPrintFormatter.contentInsets</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintFormatter/drawInRect:forPageAtIndex:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintformatter/1621841-draw" class="urlLink">-[UIPrintFormatter drawInRect:forPageAtIndex:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintFormatter/maximumContentHeight"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintformatter/1621826-maximumcontentheight" class="urlLink">UIPrintFormatter.maximumContentHeight</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintFormatter/maximumContentWidth"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintformatter/1621840-maximumcontentwidth" class="urlLink">UIPrintFormatter.maximumContentWidth</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintFormatter/pageCount"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintformatter/1621843-pagecount" class="urlLink">UIPrintFormatter.pageCount</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintFormatter/printPageRenderer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintformatter/1621821-printpagerenderer" class="urlLink">UIPrintFormatter.printPageRenderer</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintFormatter/rectForPageAtIndex:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintformatter/1621829-rectforpageatindex" class="urlLink">-[UIPrintFormatter rectForPageAtIndex:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintFormatter/removeFromPrintPageRenderer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintformatter/1621834-removefromprintpagerenderer" class="urlLink">-[UIPrintFormatter removeFromPrintPageRenderer]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintFormatter/startPage"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintformatter/1621827-startpage" class="urlLink">UIPrintFormatter.startPage</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/UISimpleTextPrintFormatter"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uisimpletextprintformatter" class="urlLink">UISimpleTextPrintFormatter</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UISimpleTextPrintFormatter/color"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uisimpletextprintformatter/1621830-color" class="urlLink">UISimpleTextPrintFormatter.color</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UISimpleTextPrintFormatter/font"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uisimpletextprintformatter/1621837-font" class="urlLink">UISimpleTextPrintFormatter.font</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UISimpleTextPrintFormatter/initWithText:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uisimpletextprintformatter/1621822-initwithtext" class="urlLink">-[UISimpleTextPrintFormatter initWithText:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UISimpleTextPrintFormatter/text"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uisimpletextprintformatter/1621833-text" class="urlLink">UISimpleTextPrintFormatter.text</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UISimpleTextPrintFormatter/textAlignment"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uisimpletextprintformatter/1621832-textalignment" class="urlLink">UISimpleTextPrintFormatter.textAlignment</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIView/drawRect:forViewPrintFormatter:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiview/1621844-drawrect" class="urlLink">-[UIView drawRect:forViewPrintFormatter:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIView/viewPrintFormatter"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiview/1621835-viewprintformatter" class="urlLink">-[UIView viewPrintFormatter]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/UIViewPrintFormatter"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiviewprintformatter" class="urlLink">UIViewPrintFormatter</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIViewPrintFormatter/view"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiviewprintformatter/1621824-view" class="urlLink">UIViewPrintFormatter.view</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/UIView(UIPrintFormatter)"><span class="diffStatus">Added</span> <!--a -->UIView(UIPrintFormatter)<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIPrintInfo.h'><span class="added">UIPrintInfo.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/UIPrintInfo"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo" class="urlLink">UIPrintInfo</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintInfo/dictionaryRepresentation"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/1623539-dictionaryrepresentation" class="urlLink">-[UIPrintInfo dictionaryRepresentation]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInfo/duplex"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/1623549-duplex" class="urlLink">UIPrintInfo.duplex</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInfo/jobName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/1623543-jobname" class="urlLink">UIPrintInfo.jobName</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInfo/orientation"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/1623550-orientation" class="urlLink">UIPrintInfo.orientation</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInfo/outputType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/1623552-outputtype" class="urlLink">UIPrintInfo.outputType</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/UIPrintInfo/printInfo"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/1623545-printinfo" class="urlLink">+[UIPrintInfo printInfo]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/UIPrintInfo/printInfoWithDictionary:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/1623553-printinfowithdictionary" class="urlLink">+[UIPrintInfo printInfoWithDictionary:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInfo/printerID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/1623535-printerid" class="urlLink">UIPrintInfo.printerID</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/UIPrintInfoDuplex"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/duplex" class="urlLink">UIPrintInfoDuplex</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintInfoDuplexLongEdge"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/duplex/longedge" class="urlLink">UIPrintInfoDuplexLongEdge</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintInfoDuplexNone"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfoduplex/uiprintinfoduplexnone" class="urlLink">UIPrintInfoDuplexNone</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintInfoDuplexShortEdge"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/duplex/shortedge" class="urlLink">UIPrintInfoDuplexShortEdge</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/UIPrintInfoOrientation"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/orientation" class="urlLink">UIPrintInfoOrientation</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintInfoOrientationLandscape"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfoorientation/uiprintinfoorientationlandscape" class="urlLink">UIPrintInfoOrientationLandscape</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintInfoOrientationPortrait"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfoorientation/uiprintinfoorientationportrait" class="urlLink">UIPrintInfoOrientationPortrait</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintInfoOutputGeneral"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/outputtype/general" class="urlLink">UIPrintInfoOutputGeneral</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintInfoOutputGrayscale"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/outputtype/grayscale" class="urlLink">UIPrintInfoOutputGrayscale</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/UIPrintInfoOutputPhoto"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfooutputtype/uiprintinfooutputphoto" class="urlLink">UIPrintInfoOutputPhoto</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/UIPrintInfoOutputType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinfo/outputtype" class="urlLink">UIPrintInfoOutputType</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIPrintInteractionController.h'><span class="added">UIPrintInteractionController.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/UIPrintInteractionController"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller" class="urlLink">UIPrintInteractionController</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/UIPrintInteractionController/canPrintData:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618184-canprint" class="urlLink">+[UIPrintInteractionController canPrintData:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/UIPrintInteractionController/canPrintURL:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618155-canprinturl" class="urlLink">+[UIPrintInteractionController canPrintURL:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInteractionController/delegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618153-delegate" class="urlLink">UIPrintInteractionController.delegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintInteractionController/dismissAnimated:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618166-dismiss" class="urlLink">-[UIPrintInteractionController dismissAnimated:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/UIPrintInteractionController/isPrintingAvailable"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618183-isprintingavailable" class="urlLink">+[UIPrintInteractionController isPrintingAvailable]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintInteractionController/presentAnimated:completionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618149-present" class="urlLink">-[UIPrintInteractionController presentAnimated:completionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintInteractionController/presentFromBarButtonItem:animated:completionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618169-presentfrombarbuttonitem" class="urlLink">-[UIPrintInteractionController presentFromBarButtonItem:animated:completionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintInteractionController/presentFromRect:inView:animated:completionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618176-present" class="urlLink">-[UIPrintInteractionController presentFromRect:inView:animated:completionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInteractionController/printFormatter"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618152-printformatter" class="urlLink">UIPrintInteractionController.printFormatter</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInteractionController/printInfo"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618171-printinfo" class="urlLink">UIPrintInteractionController.printInfo</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInteractionController/printPageRenderer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618148-printpagerenderer" class="urlLink">UIPrintInteractionController.printPageRenderer</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInteractionController/printPaper"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618165-printpaper" class="urlLink">UIPrintInteractionController.printPaper</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/UIPrintInteractionController/printableUTIs"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618150-printableutis" class="urlLink">+[UIPrintInteractionController printableUTIs]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInteractionController/printingItem"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618157-printingitem" class="urlLink">UIPrintInteractionController.printingItem</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInteractionController/printingItems"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618156-printingitems" class="urlLink">UIPrintInteractionController.printingItems</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/UIPrintInteractionController/sharedPrintController"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618159-shared" class="urlLink">+[UIPrintInteractionController sharedPrintController]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintInteractionController/showsPageRange"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/1618180-showspagerange" class="urlLink">UIPrintInteractionController.showsPageRange</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intf/UIPrintInteractionControllerDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontrollerdelegate" class="urlLink">UIPrintInteractionControllerDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/UIPrintInteractionControllerDelegate/printInteractionController:choosePaper:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontrollerdelegate/1618160-printinteractioncontroller" class="urlLink">-[UIPrintInteractionControllerDelegate printInteractionController:choosePaper:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/UIPrintInteractionControllerDelegate/printInteractionControllerDidDismissPrinterOptions:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontrollerdelegate/1618175-printinteractioncontrollerdiddis" class="urlLink">-[UIPrintInteractionControllerDelegate printInteractionControllerDidDismissPrinterOptions:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/UIPrintInteractionControllerDelegate/printInteractionControllerDidFinishJob:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontrollerdelegate/1618154-printinteractioncontrollerdidfin" class="urlLink">-[UIPrintInteractionControllerDelegate printInteractionControllerDidFinishJob:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/UIPrintInteractionControllerDelegate/printInteractionControllerDidPresentPrinterOptions:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontrollerdelegate/1618158-printinteractioncontrollerdidpre" class="urlLink">-[UIPrintInteractionControllerDelegate printInteractionControllerDidPresentPrinterOptions:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/UIPrintInteractionControllerDelegate/printInteractionControllerParentViewController:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontrollerdelegate/1618162-printinteractioncontrollerparent" class="urlLink">-[UIPrintInteractionControllerDelegate printInteractionControllerParentViewController:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/UIPrintInteractionControllerDelegate/printInteractionControllerWillDismissPrinterOptions:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontrollerdelegate/1618151-printinteractioncontrollerwilldi" class="urlLink">-[UIPrintInteractionControllerDelegate printInteractionControllerWillDismissPrinterOptions:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/UIPrintInteractionControllerDelegate/printInteractionControllerWillPresentPrinterOptions:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontrollerdelegate/1618168-printinteractioncontrollerwillpr" class="urlLink">-[UIPrintInteractionControllerDelegate printInteractionControllerWillPresentPrinterOptions:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/UIPrintInteractionControllerDelegate/printInteractionControllerWillStartJob:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontrollerdelegate/1618185-printinteractioncontrollerwillst" class="urlLink">-[UIPrintInteractionControllerDelegate printInteractionControllerWillStartJob:]</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/UIPrintInteractionCompletionHandler"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintinteractioncontroller/completionhandler" class="urlLink">UIPrintInteractionCompletionHandler</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIPrintPageRenderer.h'><span class="added">UIPrintPageRenderer.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/UIPrintPageRenderer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer" class="urlLink">UIPrintPageRenderer</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintPageRenderer/addPrintFormatter:startingAtPageAtIndex:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621632-addprintformatter" class="urlLink">-[UIPrintPageRenderer addPrintFormatter:startingAtPageAtIndex:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintPageRenderer/drawContentForPageAtIndex:inRect:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621641-drawcontentforpageatindex" class="urlLink">-[UIPrintPageRenderer drawContentForPageAtIndex:inRect:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintPageRenderer/drawFooterForPageAtIndex:inRect:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621638-drawfooterforpage" class="urlLink">-[UIPrintPageRenderer drawFooterForPageAtIndex:inRect:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintPageRenderer/drawHeaderForPageAtIndex:inRect:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621639-drawheaderforpageatindex" class="urlLink">-[UIPrintPageRenderer drawHeaderForPageAtIndex:inRect:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintPageRenderer/drawPageAtIndex:inRect:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621636-drawpageatindex" class="urlLink">-[UIPrintPageRenderer drawPageAtIndex:inRect:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintPageRenderer/drawPrintFormatter:forPageAtIndex:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621644-drawprintformatter" class="urlLink">-[UIPrintPageRenderer drawPrintFormatter:forPageAtIndex:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintPageRenderer/footerHeight"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621634-footerheight" class="urlLink">UIPrintPageRenderer.footerHeight</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintPageRenderer/headerHeight"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621630-headerheight" class="urlLink">UIPrintPageRenderer.headerHeight</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintPageRenderer/numberOfPages"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621631-numberofpages" class="urlLink">-[UIPrintPageRenderer numberOfPages]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintPageRenderer/paperRect"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621633-paperrect" class="urlLink">UIPrintPageRenderer.paperRect</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintPageRenderer/prepareForDrawingPages:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621643-prepare" class="urlLink">-[UIPrintPageRenderer prepareForDrawingPages:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintPageRenderer/printFormatters"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621640-printformatters" class="urlLink">UIPrintPageRenderer.printFormatters</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintPageRenderer/printFormattersForPageAtIndex:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621635-printformattersforpage" class="urlLink">-[UIPrintPageRenderer printFormattersForPageAtIndex:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintPageRenderer/printableRect"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpagerenderer/1621628-printablerect" class="urlLink">UIPrintPageRenderer.printableRect</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIPrintPaper.h'><span class="added">UIPrintPaper.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/UIPrintPaper"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpaper" class="urlLink">UIPrintPaper</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/UIPrintPaper/bestPaperForPageSize:withPapersFromArray:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpaper/1623527-bestpaperforpagesize" class="urlLink">+[UIPrintPaper bestPaperForPageSize:withPapersFromArray:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintPaper/paperSize"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpaper/1623529-papersize" class="urlLink">UIPrintPaper.paperSize</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/UIPrintPaper/printRect"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpaper/1623528-printrect" class="urlLink">-[UIPrintPaper printRect]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIPrintPaper/printableRect"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiprintpaper/1623530-printablerect" class="urlLink">UIPrintPaper.printableRect</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/UIPrintPaper(Deprecated_Nonfunctional)"><span class="diffStatus">Added</span> <!--a -->UIPrintPaper(Deprecated_Nonfunctional)<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UITableView.h'>UITableView.h</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/intfm/UITableViewDataSource/tableView:numberOfRowsInSection:'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/uikit/uitableviewdatasource/1614931-tableview" class="urlLink">-[UITableViewDataSource tableView:numberOfRowsInSection:]</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section</tt></td></tr></table><br>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UITextInput.h'>UITextInput.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/UITextInputMode"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uitextinputmode" class="urlLink">UITextInputMode</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/UITextInputMode/currentInputMode"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uitextinputmode/1614538-currentinputmode" class="urlLink">+[UITextInputMode currentInputMode]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UITextInputMode/primaryLanguage"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uitextinputmode/1614535-primarylanguage" class="urlLink">UITextInputMode.primaryLanguage</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/UITextInputCurrentInputModeDidChangeNotification"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uitextinputcurrentinputmodedidchangenotification" class="urlLink">UITextInputCurrentInputModeDidChangeNotification</a> </div>
+</div>
+</div>
+</div>
+
+<!-- start of footer -->
+<div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+
+<!-- end of footer -->
+
+
+            </article>
+</body>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/feedback.js"></script>
+
+</html>

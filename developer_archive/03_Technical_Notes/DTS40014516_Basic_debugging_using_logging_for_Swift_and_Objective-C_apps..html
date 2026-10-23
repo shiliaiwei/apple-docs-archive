@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2347: Basic debugging using logging for Swift and Objective-C apps.</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014516">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014516-CH1">
+    <meta id="date" name="date" content="2017-04-06">
+    <meta id="description" name="description" content="TN2347: talks about basic debugging using the NSLog function and the "DEBUG" preprocessor macro.">
+    <meta id="book-title" name="book-title" content="Basic debugging using logging for Swift and Objective-C apps.">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/CoreFoundation}, {Topic/Xcode}">
+    <meta name="pdf" contents="./tn2347_listing.pdf" /><link id="book-pdf" media="print" rel="alternate" type="application/pdf" href="./tn2347_listing.pdf" />
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2347">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Basic debugging using logging for Swift and Objective-C apps." type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014516" title="Technical Note TN2347"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Basic debugging using logging for Swift and Objective-C apps.</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014516-CH1-DontLinkElementID_2" title="Technical Note TN2347"></a><div class="dtsDocNumber">Technical Note TN2347</div><h1 id="pageTitle">Basic debugging using logging for Swift and Objective-C apps.</h1><p>Displaying log messages in the system console while running your application is one of the oldest debugging mechanisms available. Using logging, you can generate a transcript describing the operations being performed by your application that you can review long after your application has finished running. Also, while your application is running, you can observe log messages being generated and written to the console as the events in your app they describe are taking place. As a developer, you are in complete control of the text and information displayed in the console by <code>NSLog</code>. Logging can reveal even the toughest to find problems in an app. </p><p>This document talks about practical considerations about the <code>NSLog</code> function and the DEBUG preprocessor macro that are helpful for debugging.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAGS1" data-renderer-version="1">Logging in Swift</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAGN1" data-renderer-version="1">NSLog examples</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAG1" data-renderer-version="1">Where to find NSLog's output</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014516-CH1-HOW_TO_CALL_NSLOG" data-renderer-version="1">How to call NSLog</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014516-CH1-HOW_TO_CALL_NSLOG-SIMPLE_EXAMPLE" data-renderer-version="1">Simple example</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014516-CH1-HOW_TO_CALL_NSLOG-ADVANCED_DETAILS" data-renderer-version="1">Advanced details</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAGC" data-renderer-version="1">Good things to include in your logs</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAGF" data-renderer-version="1">Logic and branching</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAGG" data-renderer-version="1">Unique and easy to find text patterns</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAGE" data-renderer-version="1">Variable and property values</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAGD" data-renderer-version="1">Who is being called?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAGA" data-renderer-version="1">Log a backtrace of your stack!</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014516-CH1-THE_DEBUG_PREPROCESSOR_MACRO" data-renderer-version="1">The DEBUG preprocessor macro</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014516-CH1-THE_DEBUG_PREPROCESSOR_MACRO-THE_DEBUG_PREPROCESSOR_MACRO_IN_XCODE" data-renderer-version="1">The DEBUG preprocessor macro in Xcode</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014516-CH1-MORE_IS_BETTER__REALLY" data-renderer-version="1">More is better, really</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAGB" data-renderer-version="1">NSLog is everyone's friend</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014516-CH1-TNTAG3" data-renderer-version="1">Additional Resources</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014516-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAGS1" title="Logging in Swift"></a><h2 class="jump">Logging in Swift</h2><p>Swift provides a default debugging textual representation that you can use for printing any type. The print(_:) or debugPrint(_:) functions can be used to log output from your app to the console for any data type. As shown in <span class="content_text"><!--a  -->Figure 1<!--/a--></span>,  the debugPrint(_:) function will sometimes display additional information and the dump(_:) function will use the object's mirror to print information to standard output.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40014516-CH1-FIGURE1" title="Figure 1Example showing logging in Swift using the debugPrint(_:) and dump(_:) functions."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Example showing logging in Swift using the debugPrint(_:) and dump(_:) functions.</figcaption><img src="Art/tn2347_swiftb.png" alt="" width="594" height="466"></figure><p>For more information about the debugPrint(_:) function, see <span class="content_text"><a href="https://developer.apple.com/reference/swift/1641201-debugprint" class="urlLink" rel="external">Standard Swift Library API Reference: debugPrint(_:separator:terminator:to:)</a></span>.</p><p>To override the default representation used for logging your custom data types using the the debugPrint(_:) function,  you can make your custom data types conform to the CustomDebugStringConvertible protocol. For more information about the CustomDebugStringConvertible protocol,  see <span class="content_text"><a href="https://developer.apple.com/reference/swift/customdebugstringconvertible" class="urlLink" rel="external">Standard Swift Library API Reference: CustomDebugStringConvertible</a></span>.</p><p>The remainder of this document discuses the <code>NSLog</code> function, however many of the same strategies discussed apply to apps written using the Swift language.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAGN1" title="NSLog examples"></a><h2 class="jump">NSLog examples</h2><p>Here is an example of what a call to <code>NSLog</code> looks like:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>NSString *message = @"test message";<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>NSLog( @"Here is a test message: '%@'", message );<span></span></pre></td></tr></table></div><p>and, for the above statement, the console output would appear as follows:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Here is a test message: 'test message'<span></span></pre></td></tr></table></div><p>It's really just that simple!  And, at this point in this document, you now have enough information to start using <code>NSLog</code> to debug your app. But, you should continue to read on: the remainder of this document adds additional details that you can use to empower yourself to use logging more effectively in your projects. </p><p>This document is appropriate for all iOS and macOS developers. It assumes the reader is using Xcode, is acquainted with the Objective-C language, and understands the basics of using the C language preprocessor.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAG1" title="Where to find NSLog's output"></a><h2 class="jump">Where to find NSLog's output</h2><p>The Foundation framework's <code>NSLog</code> function is available in every version of iOS and macOS. As such, you can rely on it being available for your debugging purposes on any Apple platform where your app will run. <code>NSLog</code> outputs messages to the Apple System Log facility or to the Console app (usually prefixed with the time and the process id). Many of the system frameworks use <code>NSLog</code> for logging exceptions and errors, but there is no requirement to restrict its usage to those purposes. It is also perfectly acceptable to use <code>NSLog</code> for outputting variable values, parameters, function results, stack traces, and other information so you can see what is happening in your code at runtime.</p><p>Console output can appear in a number of places including (but not limited to) Xcode and the Console app. For more information about finding the console output from your app's calls to <code>NSLog</code>, please see <span class="content_text"><a href="https://developer.apple.com/library/ios/qa/qa1747/_index.html" class="urlLink" rel="external">Technical Q&amp;A QA1747: Debugging Deployed iOS Apps</a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-HOW_TO_CALL_NSLOG" title="How to call NSLog"></a><h2 class="jump">How to call NSLog</h2><p>The Foundation framework's <code>NSLog</code> function operates just like the standard C library <code>printf</code> function, the big difference being that the format string is specified as a "<code>NSString *</code>" typed value instead of a C-style string.</p><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-HOW_TO_CALL_NSLOG-SIMPLE_EXAMPLE" title="Simple example"></a><h3 class="jump">Simple example</h3><p>Here is an example showing how to call <code>NSLog</code>:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>NSString *outputData = @"The quick brown fox jumps over a lazy dog!";<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>NSLog( @"text: %@", outputData );<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>/* Comment:<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    @"text: %@" - is the printf style formatting template for output (an NSString *)<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    outputData - refers to to the text we wish to display (also an NSString *)<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>*/<span></span></pre></td></tr></table></div><p>And, here is how the output will appear:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>text: The quick brown fox jumps over a lazy dog!<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-HOW_TO_CALL_NSLOG-ADVANCED_DETAILS" title="Advanced details"></a><h3 class="jump">Advanced details</h3><p>The definition for the <code>NSLog</code> function appears as follows:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre>void NSLog(NSString *format, ...);<span></span></pre></td></tr></table></div><p>Note the first parameter is a formatting string and it can contain special substitution tokens that imply additional arguments are expected after that. If care and attention is not taken to ensure that the contents of the format string match up with the remaining arguments, your app may crash (or, at the very least, it will output unusable data to the console). </p><p>Like the <code>printf</code> function, <code>NSLog</code> uses substitution tokens; however, there is one additional substitution token available in Objective-C, <code>%@</code>, used to indicate that its corresponding parameter should be an Objective-C object.</p><p>In addition to the <code>%@</code> substitution token, all of the regular <code>printf</code> style substitution tokens are available for your use. For more information about the substitution tokens used by <code>NSLog</code> see the "<span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265-SW1" class="urlLink" rel="external">String Format Specifiers</a></span>" section of the "<span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Strings/introStrings.html" class="urlLink" rel="external">String Programming Guide</a></span>".</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAGC" title="Good things to include in your logs"></a><h2 class="jump">Good things to include in your logs</h2><p>Logging allows you to create a transcript describing the operation of your application that you can later analyze at your leisure. As such, you want to include as much useful information in your logs as possible so that it is easier for you to really see what is happening as your app runs. Here are some items that are commonly included in logs with some explanation:</p><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAGF" title="Logic and branching"></a><h3 class="jump">Logic and branching</h3><p>Adding logging statements inside of the logic of your code will help you understand which parts are being executed and which branches in your logic are being utilized. It is often useful to add many <code>NSLog</code> statements to especially complex sequences of code so you can better understand the flow of execution at runtime.</p></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAGG" title="Unique and easy to find text patterns"></a><h3 class="jump">Unique and easy to find text patterns</h3><p>In every log statement, it is useful to include some unique and easy to find text pattern so if you do identify a problem in that log statement you can easily search through your source files and find its location.</p></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAGE" title="Variable and property values"></a><h3 class="jump">Variable and property values</h3><p>Printing variable and property values at key places during the execution of your app will allow you to verify that those values are within acceptable bounds. Printing error messages in your logs that explicitly tell you when values are out of range will help you recognize these cases.</p><p>In addition to the <code>%@</code> substitution token, all of the regular <code>printf</code> style substitution tokens can be used in the formatting string. This will allow you to display many different kinds of values. For more information about the substitution tokens that can be used with <code>NSLog</code> see the "<span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265-SW1" class="urlLink" rel="external">String Format Specifiers</a></span>" section of the "<span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Strings/introStrings.html" class="urlLink" rel="external">String Programming Guide</a></span>".</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40014516-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;The <code>printf</code> function offers a number of substitution tokens for printing numbers (%d, %ld, %f, %d, for example). As a convenience,  you can use Objective-C's boxing capability to save time and avoid compiler warnings. For example, the following:</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>double myNumber = 7.7;<span></span></pre></td></tr><tr><td scope="row"><pre>NSLog(@"number: %@", @(myNumber));<span></span></pre></td></tr></table></div><p>Will print:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE7"></a><div class="codesample clear"><table><tr><td scope="row"><pre>number: 7.7<span></span></pre></td></tr></table></div><p>This technique works with all numeric types that the compiler is aware of (signed or unsigned integer or floating point numbers of any size - 8, 16, 32 or 64 bits), and will perform any necessary type coercions for you without generating any compiler warnings.</p></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAGD" title="Who is being called?"></a><h3 class="jump">Who is being called?</h3><p>In analyzing the operation of your application, it may be critical for you to know the sequence in which calls are being made to functions or methods in your application. In these cases, it is a really good idea to add an <code>NSLog</code> statement near the beginning of your method and function definitions that simply prints out the name of the function:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE8"></a><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)pressButton:(id)sender<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    NSLog( @"calling: %s", __PRETTY_FUNCTION__ );<span></span></pre></td></tr><tr><td scope="row"><pre>    ....<span></span></pre></td></tr></table></div><p>Here, the pre-defined compile time variable <code>__PRETTY_FUNCTION__</code> (a C style string) is used to print the name of the function being called. This technique is especially useful when you are analyzing code using lots of delegates and you would like to understand the sequence in which calls are being made to your delegate's methods. </p><p>The above will print the following in the console:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE9"></a><div class="codesample clear"><table><tr><td scope="row"><pre>calling: -[MyObjectClassName pressButton:]<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40014516-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;The <code>__PRETTY_FUNCTION__</code>  compile time variable and others like it are discussed in <span class="content_text"><a href="https://developer.apple.com/library/mac/qa/qa1669/_index.html" class="urlLink" rel="external">Technical Q&amp;A QA1669: Improved logging in Objective-C</a></span>.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAGA" title="Log a backtrace of your stack!"></a><h3 class="jump">Log a backtrace of your stack!</h3><p>When examining crash logs, a stack backtrace is invaluable for figuring out the chain of events that led to any particular circumstance. When using <code>NSLog</code> for debugging, you can retrieve a copy of the current stack backtrace at any time by calling <code>NSThread</code>'s <code>-callStackSymbols</code> class method. The backtrace is returned as an <code>NSArray</code> of strings and you can use <code>NSLog</code> together with the <code>%@</code> substitution token to output the backtrace to the console:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE10"></a><div class="codesample clear"><table><tr><td scope="row"><pre>NSLog(@"%@", [NSThread callStackSymbols]);<span></span></pre></td></tr></table></div><p>And, here is an example of what the output of the above statement looks like:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE11"></a><div class="codesample clear"><table><tr><td scope="row"><pre>2014-04-30 18:44:30.075 AVCustomEdit[52779:60b] (<span></span></pre></td></tr><tr><td scope="row"><pre> 0  AVCustomEdit      0x0000efa6 -[APLSimpleEditor buildCompositionObjectsForPlayback:] + 278<span></span></pre></td></tr><tr><td scope="row"><pre> 1  AVCustomEdit      0x0000686e -[APLViewController viewDidAppear:] + 590<span></span></pre></td></tr><tr><td scope="row"><pre> 2  UIKit             0x007a4099 -[UIViewController _setViewAppearState:isAnimating:] + 526<span></span></pre></td></tr><tr><td scope="row"><pre> 3  UIKit             0x007a4617 -[UIViewController __viewDidAppear:] + 146<span></span></pre></td></tr><tr><td scope="row"><pre> 4  UIKit             0x007a49aa -[UIViewController _executeAfterAppearanceBlock] + 63<span></span></pre></td></tr><tr><td scope="row"><pre> 5  UIKit             0x0069f0d0 ___afterCACommitHandler_block_invoke_2 + 33<span></span></pre></td></tr><tr><td scope="row"><pre> 6  UIKit             0x0069f055 _applyBlockToCFArrayCopiedToStack + 403<span></span></pre></td></tr><tr><td scope="row"><pre> 7  UIKit             0x0069ee9a _afterCACommitHandler + 568<span></span></pre></td></tr><tr><td scope="row"><pre> 8  CoreFoundation    0x029db2bf __CFRunLoopDoObservers + 399<span></span></pre></td></tr><tr><td scope="row"><pre> 9  CoreFoundation    0x029b9254 __CFRunLoopRun + 1076<span></span></pre></td></tr><tr><td scope="row"><pre> 10 CoreFoundation    0x029b89d3 CFRunLoopRunSpecific + 467<span></span></pre></td></tr><tr><td scope="row"><pre> 11 CoreFoundation    0x029b87eb CFRunLoopRunInMode + 123<span></span></pre></td></tr><tr><td scope="row"><pre> 12 GraphicsServices  0x0318b5ee GSEventRunModal + 192<span></span></pre></td></tr><tr><td scope="row"><pre> 13 GraphicsServices  0x0318b42b GSEventRun + 104<span></span></pre></td></tr><tr><td scope="row"><pre> 14 UIKit             0x00681f9b UIApplicationMain + 1225<span></span></pre></td></tr><tr><td scope="row"><pre> 15 AVCustomEdit      0x000026bd main + 141<span></span></pre></td></tr><tr><td scope="row"><pre> 16 libdyld.dylib     0x0269e701 start + 1<span></span></pre></td></tr><tr><td scope="row"><pre>)<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-THE_DEBUG_PREPROCESSOR_MACRO" title="The DEBUG preprocessor macro"></a><h2 class="jump">The DEBUG preprocessor macro</h2><p>In a nutshell, the DEBUG preprocessor macro acts like a switch that you can use to turn on or off different sections of your code. Specifically, the DEBUG macro is intended to be used to turn on and off different sections of your source code related to debugging. Xcode, by default, includes a definition for the DEBUG macro that is set to 1 for debug builds and 0 for release builds. And, you can take advantage of this to automatically include additional debugging and logging code in your debug builds.</p><p>Here is an example showing how the DEBUG macro can be used:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE12"></a><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)pressButton:(id)sender<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>#if DEBUG<span></span></pre></td></tr><tr><td scope="row"><pre>    NSLog(@"preparing to press button!");<span></span></pre></td></tr><tr><td scope="row"><pre>#endif<span></span></pre></td></tr><tr><td scope="row"><pre>    [self prepareForButtonPress];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>#if DEBUG<span></span></pre></td></tr><tr><td scope="row"><pre>    NSLog(@"pressing button!");<span></span></pre></td></tr><tr><td scope="row"><pre>#endif<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    [self activatePressButtonSequence:self withCompletion:^{<span></span></pre></td></tr><tr><td scope="row"><pre>#if DEBUG<span></span></pre></td></tr><tr><td scope="row"><pre>        NSLog(@"button sequence complete.");<span></span></pre></td></tr><tr><td scope="row"><pre>#endif<span></span></pre></td></tr><tr><td scope="row"><pre>            [self buttonPowerDown];<span></span></pre></td></tr><tr><td scope="row"><pre>        }];<span></span></pre></td></tr><tr><td scope="row"><pre>    NSLog(@"This line has no DEBUG macro, so it gets printed in both debug and release builds!");<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>The debug build (with DEBUG==1) will produce the following output in the console:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE13"></a><div class="codesample clear"><table><tr><td scope="row"><pre>preparing to press button!<span></span></pre></td></tr><tr><td scope="row"><pre>pressing button!<span></span></pre></td></tr><tr><td scope="row"><pre>button sequence complete.<span></span></pre></td></tr><tr><td scope="row"><pre>This line has no DEBUG macro, so it gets printed in both debug and release builds!<span></span></pre></td></tr></table></div><p>The release build (with DEBUG==0) will produce the following output in the console:</p><a name="//apple_ref/doc/uid/DTS40014516-CH1-SOURCECODE14"></a><div class="codesample clear"><table><tr><td scope="row"><pre>This line has no DEBUG macro, so it gets printed in both debug and release builds!<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40014516-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;<code>NSLog</code> can take time to execute and this will add additional overhead to the runtime of your application (especially if you add lots and lots of <code>NSLog</code> statements to your app). During testing, this normally isn't a problem. But, for your final shipping product, it is better to remove all of the logging so your customers can enjoy faster performance without the logging going on. Because of this, it is a common practice among developers to use the DEBUG preprocessor macro to conditionally compile your logging code so that it only appears in your debug builds (and does not ship to your final customers).</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-THE_DEBUG_PREPROCESSOR_MACRO-THE_DEBUG_PREPROCESSOR_MACRO_IN_XCODE" title="The DEBUG preprocessor macro in Xcode"></a><h3 class="jump">The DEBUG preprocessor macro in Xcode</h3><p>The preprocessor "DEBUG" macro is defined in all Xcode project templates for debug builds. Preprocessor macros are interpreted at compile time and the DEBUG preprocessor macro can be used to allow debug code to be run in debug builds of your project. If you aren't sure that your project has it defined, you can verify that this it is by selecting the project in Xcode and clicking on the build settings tab. Search for Preprocessing and make sure that DEBUG=1 is being defined for your debug builds (as shown bellow). If it isn't already defined in your project, you can add it. Preprocessor macros are case sensitive.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40014516-CH1-FIGURE2" title="Figure 2The DEBUG preprocessor macro setting in an Xcode project."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;The DEBUG preprocessor macro setting in an Xcode project.</figcaption><img src="Art/tn2347_builds.png" class="wide-image" alt="" width="778" height="324"><img src="Art/tn2347_builds.png" class="ipad-scaled-image" alt="" width="670" height="279"></figure></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-MORE_IS_BETTER__REALLY" title="More is better, really"></a><h2 class="jump">More is better, really</h2><p>If you are debugging your app and you have added logging, but you continue to be eluded by the problem you are trying to find, then you haven't added enough logging. Continue adding logging to your app until you are able to retrieve enough information so you are able to understand what is happening. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAGB" title="NSLog is everyone's friend"></a><h2 class="jump">NSLog is everyone's friend</h2><p>Every iOS or macOS developer you will ever meet has probably encountered <code>NSLog</code> at one time or another. And, developers you know may have some interesting ideas about how to use it that may be helpful for you. If you have any additional questions about <code>NSLog</code> or need help with debugging, please ask questions in the Xcode Debugger section of the Apple Developer Forums. If you have any feedback about this document, please submit it using the Feedback tab at the bottom of the document.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014516-CH1-TNTAG3" title="Additional Resources"></a><h2 class="jump">Additional Resources</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/library/ios/qa/qa1747/_index.html" class="urlLink" rel="external">Technical Q&amp;A QA1747: Debugging Deployed iOS Apps</a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/library/mac/qa/qa1669/_index.html" class="urlLink" rel="external">Technical Q&amp;A QA1669: Improved logging in Objective-C</a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/library/mac/technotes/tn2124/_index.html" class="urlLink" rel="external">Technical Note TN2124: Mac OS X Debugging Magic</a></span></p></li><li class="li"><p>"<span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html#//apple_ref/doc/uid/TP40004265-SW1" class="urlLink" rel="external">String Format Specifiers</a></span>" section of the "<span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Strings/introStrings.html" class="urlLink" rel="external">String Programming Guide</a></span>"</p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/library/ios/qa/qa1431/_index.html" class="urlLink" rel="external">Technical Q&amp;A QA1431: How do I use asserts while debugging</a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/library/ios/technotes/tn2239/_index.html" class="urlLink" rel="external">Technical Note TN2239: iOS Debugging Magic</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40014516-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014516-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-04-06</td><td><p>Corrected some grammatical and spelling errors in the text.  Added new information about logging in the Swift language.</p></td></tr><tr><td scope="row">2017-04-05</td><td><p>Corrected some grammatical and spelling errors in the text.  Added new information about logging in the Swift language.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>Corrected some grammatical and spelling errors in the text.  Added new information about logging in the Swift language.</p></td></tr><tr><td scope="row">2014-05-14</td><td><p>New document that 
+					talks about basic debugging using the NSLog function and the "DEBUG" preprocessor macro.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-04-06</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

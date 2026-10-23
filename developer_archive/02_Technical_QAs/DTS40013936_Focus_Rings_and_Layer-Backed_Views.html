@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1785: Focus Rings and Layer-Backed Views</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40013936">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40013936-CH1">
+    <meta id="date" name="date" content="2018-02-21">
+    <meta id="description" name="description" content="QA1785: Explains how to draw focus rings around custom NSViews.">
+    <meta id="book-title" name="book-title" content="Focus Rings and Layer-Backed Views">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Cocoa Layer/AppKit}, {Topic/User Experience/Windows & Views}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1785">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Focus Rings and Layer-Backed Views" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40013936" title="Technical Q&amp;A QA1785"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Focus Rings and Layer-Backed Views</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40013936-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1785"></a><div class="dtsDocNumber">Technical Q&amp;A QA1785</div><h1 id="pageTitle">Focus Rings and Layer-Backed Views</h1><h2>Q:&nbsp;
+Why is my custom layer-backed view's focus ring drawn incorrectly? How can I fix this?
+</h2><p><span>A: </span>Before OS X 10.7, you would draw your view's focus ring by implementing NSView's <code>-drawRect:</code> method and using for example <code>NSSetFocusRingStyle</code>/<code>NSRectFill</code>. When a view draws a focus ring, it draws it as part of its drawRect method. When the drawing is being targeted into a layer, however, the focus ring cannot extend outside of that layer. This result is a thin, incorrect focus ring in layer-backed mode.</p><p>Starting with OS X 10.7 you can use AppKit APIs to draw your focus ring to automatically ensure consistent focus ring erasure and redraw. Focus rings are drawn separate from its view drawing. So now it is much easier to draw focus rings using the following:</p><a name="//apple_ref/doc/uid/DTS40013936-CH1-SOURCECODE1" title="Listing 1The OS X 10.7 APIs for drawing focus rings in Objective-C."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;The OS X 10.7 APIs for drawing focus rings in Objective-C.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)drawFocusRingMask;<span></span></pre></td></tr><tr><td scope="row"><pre>- (NSRect)focusRingMaskBounds;<span></span></pre></td></tr><tr><td scope="row"><pre>- (void)noteFocusRingMaskChanged;<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40013936-CH1-SOURCECODE2" title="Listing 2The OS X 10.7 APIs for drawing focus rings in Swift."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;The OS X 10.7 APIs for drawing focus rings in Swift.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)drawFocusRingMask;<span></span></pre></td></tr><tr><td scope="row"><pre>@property(readonly) NSRect focusRingMaskBounds;<span></span></pre></td></tr><tr><td scope="row"><pre>- (void)noteFocusRingMaskChanged;<span></span></pre></td></tr></table></div><p>Any layer-backed views that need to draw "together" needs to be in the same backing space.</p><p>Both a custom view and its window's contentView need to be layer-backed in the same location so one won't clip the other.</p><p>A custom view that wants a focus ring to be shown when it is the active first responder, and that doesn't inherit that behavior from a superclass, needs only specify a focus ring mask shape.</p><p>To opt-in for the OS X 10.7 focus ring drawing model, a view simply overrides the <code>-drawFocusRingMask</code> method to draw the shape whose outline should serve as the template for the focus ring, and <code>-focusRingMaskBounds</code> to return the bounding box of the entire element (expressed in the view's interior bounds coordinate space). For a view with a single item, that can be the entire view bounds. For a view that is a multi-part item like a matrix or a segmented control that manages it's own focus changes, it should be a bounds that encloses the sub-element so the changes get the animation effect.</p><p>If your control that has more complex appearance, you use the bounds to determine the edge of your focus ring and use a mask to draw the focus of the elements within.</p><p>For example, a simple rectangular focus ring surrounding a view's frame would be requested by implementing:</p><a name="//apple_ref/doc/uid/DTS40013936-CH1-SOURCECODE3" title="Listing 3Code example to draw the focus ring in Objective-C."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Code example to draw the focus ring in Objective-C.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)drawFocusRingMask {<span></span></pre></td></tr><tr><td scope="row"><pre>    NSRectFill([self bounds]);<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>- (NSRect)focusRingMaskBounds {<span></span></pre></td></tr><tr><td scope="row"><pre>    return [self bounds];<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40013936-CH1-SOURCECODE4" title="Listing 4Code example to draw the focus ring in Swift."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Code example to draw the focus ring in Swift.</p><div class="codesample clear"><table><tr><td scope="row"><pre>override func drawFocusRingMask() {<span></span></pre></td></tr><tr><td scope="row"><pre>    let rect = bounds;<span></span></pre></td></tr><tr><td scope="row"><pre>    rect.fill()<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>override var focusRingMaskBounds: NSRect {<span></span></pre></td></tr><tr><td scope="row"><pre>    return bounds<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40013936-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40013936-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2018-02-21</td><td><p>Editorial update.</p></td></tr><tr><td scope="row">2013-11-12</td><td><p>New document that 
+					explains how to draw focus rings around custom NSViews.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2018 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2018-02-21</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

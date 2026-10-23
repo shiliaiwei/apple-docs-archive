@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>MIDI Network Driver Protocol</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40017273">
+    <meta id="document-version" name="document-version" content="1.0.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40017273-CH2">
+    <meta id="date" name="date" content="2016-12-12">
+    <meta id="description" name="description" content="Describes the implementation details for Apple's MIDI network driver.">
+    <meta id="book-title" name="book-title" content="MIDI Network Driver Protocol">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="MIDI Network Driver Protocol">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="MIDI Network Driver Protocol" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../RevisionHistory.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40017273-CH2" title="MIDI Network Driver Protocol"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>MIDI Network Driver Protocol</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../RevisionHistory.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40017273" title="MIDI Network Driver Protocol"></a><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_8" title="MIDI Network Driver Protocol"></a><h1 id="pageTitle">MIDI Network Driver Protocol</h1><p>This document describes implementation details, particularly the network protocols, of the MIDI Network driver in macOS.</p><p>The MIDI data packet format is a mostly conforming implementation of RFC 6295, <span class="content_text"><a href="http://www.rfc-editor.org/rfc/rfc6295.txt" class="urlLink" rel="external">RTP Payload Format for MIDI</a></span>. The internet draft delegates issues such as session setup, accurate synchronization, and receiver feedback to other protocols. The Apple driver, by contrast, uses a small set of custom commands to perform these functions.</p><section><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_1" title="Control and MIDI Data Ports"></a><h2 class="jump">Control and MIDI Data Ports</h2><p>A participant creates two UDP ports, using an arbitrary pair of consecutive port numbers. The Apple driver attempts to reuse ports from the last time it ran; otherwise, it finds and uses a pair of unused ports.</p><ul class="ul"><li class="li"><p>Port N is the control port.</p></li><li class="li"><p>Port N+1 is the MIDI communication port.</p></li></ul><p>The Apple driver advertises the control port via <span class="content_text"><a href="https://developer.apple.com/bonjour/" class="urlLink" rel="external">Bonjour</a></span> using the service name "<code>_apple-midi._udp</code>".</p></section><section><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_2" title="Session Initiation and Termination"></a><h2 class="jump">Session Initiation and Termination</h2><p>To set up a session, the participants exchange several types of command packets. <span class="content_text">Exchange packet formats</span> shows the common structure of these packets. Each row in this figure (and other figures in this document) describes a 32-bit value stored in the packet. All numbers are stored in network byte order unless otherwise stated. </p><figure class="figure"><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_9" title="Figure 1-1Exchange packet formats"></a><figcaption><strong class="caption_number">Figure 1-1</strong>&nbsp;&nbsp;Exchange packet formats</figcaption><img src="../Art/session_packet_2x.png" alt="" width="541" height="216"></figure><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>Item</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>Value</p></th></tr><tr><td  scope="row"><p>command</p></td><td ><p>16-bit command identifier (two ASCII characters, first in high 8 bits, second in low 8 bits)</p></td></tr><tr><td  scope="row"><p>protocol version</p></td><td ><p>2 (stored in network byte order)</p></td></tr><tr><td  scope="row"><p>initiator token</p></td><td ><p>A random number generated by the session’s initiator.</p></td></tr><tr><td  scope="row"><p>SSRC</p></td><td ><p>The sender's synchronization source identifier.</p></td></tr><tr><td  scope="row"><p>name</p></td><td ><p>A NULL-terminated C string, UTF-8 encoded, indicating the user-visible name of the initiator's session. May be omitted.</p></td></tr></table></div><p>The full sequence of packets sent to establish a session is:</p><ol class="ol"><li class="li"><p>Initiator sends an Invitation (<code>'IN'</code>) packet on control port</p><p>This is a request to create a connection. The sender is the "initiator"; the receiver is the "responder." The name field should be included. Invitation requests are resent every second, up to 12 times, until an Invitation Accepted or Invitation Rejected response is received.</p></li><li class="li"><p>Responder sends an Invitation Accepted (<code>'OK'</code>) or Invitation Rejected (<code>'NO'</code>) packet on control port</p><p>A participant has received an invitation and is responding to it. In its response, the responder should copy the initiator token from the received invitation, but use its own SSRC identifier. The name field should be included in an Invitation Accepted packet and excluded from an Invitation Rejected packet. If the invitation was rejected, no further packets are exchanged.</p></li><li class="li"><p>Initiator sends an Invitation (<code>'IN'</code>) packet on MIDI port</p></li><li class="li"><p>Responder sends an Invitation Accepted (<code>'OK'</code>) or Invitation Rejected (<code>'NO'</code>) packet on MIDI port</p><p>A participant has received an invitation and is responding to it. In its response, the responder should copy the initiator token from the received invitation, but send its own SSRC identifier. The name field should be included in an Invitation Accepted packet and excluded from an Invitation Rejected packet. If the invitation was rejected, no further packets are exchanged.</p></li><li class="li"><p>Initiator initiates clock synchronization (see <span class="content_text">Timestamp Synchronization</span>)
+</p></li></ol><section><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_3" title="Ending a Session"></a><h3 class="jump">Ending a Session</h3><p>When either participant is ready to leave the session, it sends an Exit (<code>'BY'</code>) packet. The name field may be omitted.</p></section></section><section><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_4" title="Timestamp Synchronization"></a><h2 class="jump">Timestamp Synchronization</h2><p>This feature of the protocol provides a common basis for the timestamps in the MIDI RTP payload data packets. The degree of accuracy possible with this method varies with network conditions, but on a local network, it is possible for a receiver to know when a MIDI event occurred (or is scheduled to occur) with a high degree of accuracy, within 1-2 ms.</p><p>The thread servicing a participant's control port may run at a relatively normal priority, whereas the thread servicing a participant’s MIDI port should run at a high priority in order to process incoming MIDI responsively.</p><p>Synchronization packets are exchanged between the participants' MIDI ports. The packet format is shown in <span class="content_text">Timestamp packet structure</span>.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_10" title="Figure 1-2Timestamp packet structure"></a><figcaption><strong class="caption_number">Figure 1-2</strong>&nbsp;&nbsp;Timestamp packet structure</figcaption><img src="../Art/synchronization_packet_2x.png" alt="" width="541" height="354"></figure><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>Item</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>Value</p></th></tr><tr><td  scope="row"><p>SSRC</p></td><td ><p>The sender's synchronization source identifier.</p></td></tr><tr><td  scope="row"><p>count</p></td><td ><p>The count is the number of valid timestamps in the packet minus 1.</p></td></tr><tr><td  scope="row"><p>timestamp</p></td><td ><p>A 64-bit number indicating a time, relative to an arbitrary and unknown point in the past, in units of 100 microseconds.</p></td></tr></table></div><p>The original initiator initiates clock synchronization after the end of the initial invitation handshake packets. A full clock synchronization exchange is as follows:</p><ol class="ol"><li class="li"><p>Initiator sends sync packet with count = 0, current time in timestamp 1</p></li><li class="li"><p>Responder sends sync packet with count = 1, current time in timestamp 2, timestamp 1 copied from received packet</p></li><li class="li"><p>Initiator sends sync packet with count = 2, current time in timestamp 3, timestamps 1 and 2 copied from received packet</p></li></ol><p>At the end of this exchange, each party can estimate the offset between the two clocks using the following formula:</p><p><code>offset_estimate = ((timestamp3 + timestamp1) / 2) - timestamp2</code></p><p>Furthermore, by maintaining a history of synchronization exchanges, each party can calculate a rate at which the clock offset is changing.</p><p>The initiator must initiate a new sync exchange at least once every 60 seconds; otherwise the responder may assume that the initiator has died and terminate the session.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_11" title="Note"></a><p><strong>Note:</strong>&nbsp;During startup, the initiator should send synchronization exchanges more frequently; empirical testing has determined that sending a few exchanges improves clock synchronization accuracy.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_5" title="Exchanging MIDI Packets"></a><h2 class="jump">Exchanging MIDI Packets</h2><p>The participants in a session exchange MIDI packets between the participants' MIDI data ports. A MIDI packet consists of a header, a MIDI command section and a journal session. The format of the packet header is shown in <span class="content_text">MIDI packet header format</span>, with a few limitations and assumptions made.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_12" title="Figure 1-3MIDI packet header format"></a><figcaption><strong class="caption_number">Figure 1-3</strong>&nbsp;&nbsp;MIDI packet header format</figcaption><img src="../Art/midi_packet_2x.png" alt="" width="541" height="147"></figure><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>Item</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>Value</p></th></tr><tr><td  scope="row"><p>V</p></td><td ><p>2</p></td></tr><tr><td  scope="row"><p>P</p></td><td ><p>0</p></td></tr><tr><td  scope="row"><p>X</p></td><td ><p>0</p></td></tr><tr><td  scope="row"><p>CC</p></td><td ><p>0</p></td></tr><tr><td  scope="row"><p>M</p></td><td ><p>1</p></td></tr><tr><td  scope="row"><p>PT</p></td><td ><p>0x61</p></td></tr></table></div><p>The timestamp is in the same units as described in <span class="content_text">Timestamp Synchronization</span> (units of 100 microseconds since an arbitrary time in the past). The lower 32 bits of this value is encoded in the packet. The Apple driver may transmit packets with timestamps in the future. Such messages should not be played until the scheduled time. (A future version of the driver may have an option to not transmit messages with future timestamps, to accommodate hardware not prepared to defer rendering the messages until the proper time.)</p><p>The MIDI command section is shown in <span class="content_text">MIDI command section format</span> and matches the format defined in RFC 6295.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_13" title="Figure 1-4MIDI command section format"></a><figcaption><strong class="caption_number">Figure 1-4</strong>&nbsp;&nbsp;MIDI command section format</figcaption><img src="../Art/timestamp_packet_2x.png" alt="" width="541" height="78"></figure><p>Here are some specific details about how Apple’s driver uses MIDI packets:</p><ul class="ul"><li class="li"><p>The Apple driver always transmits a recovery journal (J=1) but does not require one in received packets.</p></li><li class="li"><p>The Apple driver codes all MIDI 1.0 messages as specified by the RTP protocol. The behavior of the undefined MIDI messages (<code>0xF4</code>, <code>0xF5</code>, <code>0xF9</code> and <code>0xFD</code>) is undefined.</p></li><li class="li"><p>The Apple driver transmits guard packets. These are packets containing no new MIDI information, only recovery journals.</p></li></ul><section><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_6" title="Recovery Journal Format"></a><h3 class="jump">Recovery Journal Format</h3><p>Apple's driver implements the following chapters of the recovery journal:</p><ul class="ul"><li class="li"><p>P (Program Change)</p></li><li class="li"><p>C (Control Change)</p><ul class="simple-spaceabove"><li><p>A bit for toggle tool is not implemented</p></li></ul></li><li class="li"><p>W (Pitch Wheel)</p></li><li class="li"><p>N (Note On/Off)</p></li><li class="li"><p>T (Channel Aftertouch)</p></li><li class="li"><p>A (Poly Aftertouch)</p></li><li class="li"><p>Q (Sequencer state, i.e. beat clock)</p></li><li class="li"><p>F (MIDI Time Code)</p></li></ul><p>The following recovery journal chapters are not implemented:</p><ul class="ul"><li class="li"><p>M (MIDI Parameter System)</p></li><li class="li"><p>E (Note Command Extras)</p></li><li class="li"><p>D (Song Select, Tune Request, Reset, undefined system commands)</p></li><li class="li"><p>V (Active Sense)</p></li><li class="li"><p>X (System Exclusive)</p></li></ul></section></section><section><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_7" title="Receiver Feedback Transmitted to the Sender"></a><h2 class="jump">Receiver Feedback Transmitted to the Sender</h2><p>The recovery journal mechanism requires that the receiver periodically inform the sender of the sequence number of the most recently received packet. This allows the sender to reduce the size of the recovery journal, to encapsulate only those changes to the MIDI stream state occurring after the specified packet number.</p><p>This message is sent on the control port. Its format is described in <span class="content_text">Journal feedback packet format</span>.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40017273-CH2-DontLinkElementID_14" title="Figure 1-5Journal feedback packet format"></a><figcaption><strong class="caption_number">Figure 1-5</strong>&nbsp;&nbsp;Journal feedback packet format</figcaption><img src="../Art/recovery_packet_2x.png" alt="" width="541" height="147"></figure><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>Item</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>Value</p></th></tr><tr><td  scope="row"><p>SSRC</p></td><td ><p>The sender's synchronization source identifier.</p></td></tr><tr><td  scope="row"><p>Sequence number</p></td><td ><p>The sequence number of the most recently received packet.</p></td></tr></table></div></section>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../RevisionHistory.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-12-12</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1708: Improving Image Drawing Performance on iOS</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40010245">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40010245-CH1">
+    <meta id="date" name="date" content="2010-08-18">
+    <meta id="description" name="description" content="QA1708: discusses how to improve CGContextDrawImage and UIImage/drawInRect: performance on iOS.">
+    <meta id="book-title" name="book-title" content="Improving Image Drawing Performance on iOS">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/CoreGraphics}, {Topic/Graphics & Animation/2D Drawing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1708">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Improving Image Drawing Performance on iOS" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40010245" title="Technical Q&amp;A QA1708"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Improving Image Drawing Performance on iOS</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40010245-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1708"></a><div class="dtsDocNumber">Technical Q&amp;A QA1708</div><h1 id="pageTitle">Improving Image Drawing Performance on iOS</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+What can I do to improve my image drawing performance (<code>CGContextDrawImage</code>, <code>UIImage/-drawInRect:</code>, etc)?
+</h2><p><span>A: </span>What can I do to improve my image drawing performance (<code>CGContextDrawImage</code>, <code>UIImage/-drawInRect:</code>, etc)?</p><p>In general, no matter what iOS you're targeting, you should avoid having frequent calls to <code>-drawRect:</code>. This is particularly crucial for improving your application performance on iPhone 4, because you have four times the number of pixels to fill on iPhone 4 compared with other iPhone models.</p><p>If you're hitting image drawing performance issues, then it is likely that you are drawing the images in your view's <code>-drawRect:</code> method using <code>CGContextDrawImage</code> or <code>UIImage/-drawInRect:</code>, and are invalidating and redrawing the view rapidly or even every frame. Note that, because of the way that iPhone/iPod touch/iPad updates its screen, the entire view will be redrawn if you call <code>-setNeedsDisplayInRect:</code> or <code>-setNeedsDisplay:</code>.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40010245-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Each <code>UIView</code> is treated as a single element. When you request a redraw, in part or whole, by calling <code>-setNeedsDisplayInRect:</code> or <code>-setNeedsDisplay:</code>, the entire view will be marked for updates.</p><p></p></aside></div><p>Every <code>UIView</code> is backed with a <code>CALayer</code> and images as layer contents remain in memory as long as the <code>CALayer</code> stays in the hierarchy. This means that most of the operations you see in an application, including movement, rotation, and scaling of the view/layer, do not require a redraw. The best way for animating (moving, rotating or scaling) images is therefore to create views or layers for the images and then use Core Animation to do any animation. This way you can avoid entirely calls to <code>-drawRect:</code> and thus calls to <code>CGContextDrawImage</code> or <code>UIImage/-drawInRect:</code>.</p><p>To illustrate it with a simple example, let's say you want to draw a sprite rotating about its <code>z</code> axis perpendicular to the screen. One way to do it would be applying a rotation transform to the Current Transform Matrix (<code>CGContextRotateCTM</code>) and redrawing the image (<code>CGContextDrawImage</code>) in the <code>UIView</code>'s <code>-drawRect:</code> method at every animation step. However, a much more efficient way is to set the image as the <code>contents</code> property of the backing <code>CALayer</code>, and then animate the layer's <code>transform</code> property to achieve the rotating animation. In the following, <span class="content_text"><!--a  -->Listing 1<!--/a--></span> demonstrates how to set a <code>UIImage</code> as layer contents in a <code>UIImageView</code>, and <span class="content_text"><!--a  -->Listing 2<!--/a--></span> demonstrates an example of animating the view/layer's transform. For more information on programming with Core Animation, see <span class="content_text"><a href="http://developer.apple.com/mac/library/documentation/Cocoa/Conceptual/CoreAnimation_guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004627-SW1" class="browserLink" >Core Animation Programming Guide</a></span>.</p><p>If you have separate moving components within an image, then you should break it down to separate views or layers and animate them individually. For instance, if you're drawing a draggable handle over the image, rather than invalidating the entire image view when the handle is moving, you should put it in an individual layer and move that layer around. </p><p>There are some use cases (not the majority) for which the <code>CALayer</code> and Core Animation approach will not work. For those cases, keep in mind that <code>CGContextDrawImage</code> and <code>UIImage/-drawInRect:</code> could spend a lot of time in decompressing or resampling the images as necessary because the images will not be cached in the layer tree. If you can, adjust your resource art so that the image size (in pixels) is the same as its displayed size (in pixels), meaning you would provide different image sets for iPhone/iPod touch (<code>image.png</code>), iPhone 4 (<code>image@2x.png</code>), and iPad (<code>image-iPad.png</code>). Further, you could cache the images yourself by drawing into a bitmap context and caching the image you create from the context. <span class="content_text"><!--a  -->Listing 3<!--/a--></span> demonstrates how to create your own <code>UIImage</code> copy with the target width and height. You can then cache the resulting image in an image array.</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40010245-CH1-DontLinkElementID_4" title="Warning"></a><p><strong>Warning:</strong>&nbsp;Image draw calls such as <code>CGContextDrawImage</code> and <code>UIImage/-drawInRect:</code> are especially expensive when they have to decompress or scale the images for display.</p><p></p><div class="clear"></div></aside></div><p>Even if the contents of the view or layer are changing in such a way that you cannot eliminate <code>-drawRect:</code> entirely, by dividing the contents into separate views or layers, you can reduce the amount that you need to redraw. When your view logically consists of multiple independent parts, it's recommended that you break it down into a view containing subviews or sublayers with your contents in them. This will allow you to work with them in a more natural way and isolate your drawing updates for each subsection of the view instead of having to take the penalty of updating the entire view. </p><a name="//apple_ref/doc/uid/DTS40010245-CH1-SOURCECODE1" title="Listing 1Setting a UIImage as layer contents in a UIImageView"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Setting a UIImage as layer contents in a UIImageView</p><div class="codesample clear"><table><tr><td scope="row"><pre>// This also sets the view's contentScaleFactor to the image's scale factor imageView.image = image;<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40010245-CH1-SOURCECODE2" title="Listing 2Animating the z rotation of a view"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Animating the z rotation of a view</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)rotateView:(UIView *)view toAngle:(float)angle {     [UIView beginAnimations:nil context:nil];     [view setTransform:CGAffineTransformMakeRotation(angle)];     [UIView commitAnimations]; }<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40010245-CH1-SOURCECODE3" title="Listing 3Resizing a UIImage. The result can be cached in an image array."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Resizing a UIImage. The result can be cached in an image array.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (UIImage*)resizeImage:(UIImage*)image toWidth:(NSInteger)width height:(NSInteger)height
+{
+    // Create a graphics context with the target size
+    // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
+    // On iOS prior to 4, fall back to use UIGraphicsBeginImageContext
+    CGSize size = CGSizeMake(width, height);
+    if (NULL != UIGraphicsBeginImageContextWithOptions)
+        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    else
+        UIGraphicsBeginImageContext(size);
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    // Flip the context because UIKit coordinate system is upside down to Quartz coordinate system
+    CGContextTranslateCTM(context, 0.0, height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+
+    // Draw the original image to the context
+    CGContextSetBlendMode(context, kCGBlendModeCopy);
+    CGContextDrawImage(context, CGRectMake(0.0, 0.0, width, height), image.CGImage);
+
+    // Retrieve the UIImage from the current context
+    UIImage *imageOut = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+
+    return imageOut;
+}<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40010245-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40010245-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-08-18</td><td><p>New document that 
+					discusses how to improve CGContextDrawImage and UIImage/drawInRect: performance on iOS.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-08-18</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

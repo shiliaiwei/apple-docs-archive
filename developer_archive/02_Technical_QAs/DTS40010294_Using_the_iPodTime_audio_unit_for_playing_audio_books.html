@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1717: Using the iPodTime audio unit for playing audio books</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40010294">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40010294-CH1">
+    <meta id="date" name="date" content="2010-09-03">
+    <meta id="description" name="description" content="QA1717: Describes the usage of the AUiPodTime unit which is useful when playing back audio books at different rates without changing pitch.">
+    <meta id="book-title" name="book-title" content="Using the iPodTime audio unit for playing audio books">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1717">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Using the iPodTime audio unit for playing audio books" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40010294" title="Technical Q&amp;A QA1717"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Using the iPodTime audio unit for playing audio books</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40010294-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1717"></a><div class="dtsDocNumber">Technical Q&amp;A QA1717</div><h1 id="pageTitle">Using the iPodTime audio unit for playing audio books</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+What properties can be set for AUiPodTime and how do I configure it?
+</h2><p><span>A: </span>What properties can be set for AUiPodTime and how do I configure it?</p><p>AUiPodTime is a time-stretching audio unit able to perform rate changes from 0.5x to 2x. This unit is designed to be used with audio books and speech recordings such as a recorded lecture allowing playback speed changes without affecting pitch.</p><p>The AUiPodTime audio unit is described by the <code>kAudioUnitType_FormatConverter</code> type and <code>kAudioUnitSubType_AUiPodTime</code> subtype. The input and output stream format must be the canonical audio unit data format and may contain one or two channels. Both formats must have the same number of channels and the same sample rate; all common sample rates are supported.</p><p>When using this audio unit in an audio unit graph, remember to set the output stream format -- each nodes output stream format (including sample rate) must  be set explicitly. This stream format is then propagated to its destination's input stream format.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40010294-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;The AUiPodTime audio unit is not recommended for general purpose music time-stretching and should only be considered when used in the playback of speech.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40010294-CH1-SOURCECODE1" title="Listing 1Typical example of setting up an audio unit graph."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Typical example of setting up an audio unit graph.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)initializeAUGraph:(Float64)inSampleRate
+{
+    printf("initializeAUGraph\n");
+
+    AUNode outputNode;
+    AUNode iPodTimeNode;
+    AUNode mixerNode;
+    AUNode converterNode;
+    AudioUnit converterAU;
+
+    printf("create client format ASBD\n");
+
+    // client format audio going into the converter
+    mClientFormat.SetCanonical(2, true); 
+    mClientFormat.mSampleRate = 22050.0;
+    mClientFormat.Print();
+
+    printf("create output format ASBD\n");
+
+    // output format
+    mOutputFormat.SetAUCanonical(2, false); 
+    mOutputFormat.mSampleRate = inSampleRate;
+    mOutputFormat.Print();
+
+    OSStatus result = noErr;
+
+    printf("-----------\n");
+    printf("new AUGraph\n");
+
+    // create a new AUGraph
+    result = NewAUGraph(&amp;mGraph);
+    if (result) { printf("NewAUGraph result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    // create three CAComponentDescription for the AUs we want in the graph
+
+    // output unit
+    CAComponentDescription output_desc(kAudioUnitType_Output,
+                                       kAudioUnitSubType_RemoteIO,
+                                       kAudioUnitManufacturer_Apple);
+
+    // iPodTime unit
+    CAComponentDescription iPodTime_desc(kAudioUnitType_FormatConverter,
+                                         kAudioUnitSubType_AUiPodTime,
+                                         kAudioUnitManufacturer_Apple);
+
+    // multichannel mixer unit
+    CAComponentDescription mixer_desc(kAudioUnitType_Mixer,
+                                      kAudioUnitSubType_MultiChannelMixer,
+                                      kAudioUnitManufacturer_Apple);
+
+    // AU Converter
+    CAComponentDescription converter_desc(kAudioUnitType_FormatConverter,
+                                          kAudioUnitSubType_AUConverter,
+                                          kAudioUnitManufacturer_Apple);
+
+    printf("add nodes\n");
+
+    // create a node in the graph that is an AudioUnit, using the supplied
+    // AudioComponentDescription to find and open that unit
+    result = AUGraphAddNode(mGraph, &amp;output_desc, &amp;outputNode);
+    if (result) { printf("AUGraphNewNode 1 result %lu %4.4s\n", result, (char*)&amp;result);
+                    return; }
+
+    result = AUGraphAddNode(mGraph, &amp;iPodTime_desc, &amp;iPodTimeNode);
+    if (result) { printf("AUGraphNewNode 2 result %lu %4.4s\n", result, (char*)&amp;result);
+                    return; }
+
+    result = AUGraphAddNode(mGraph, &amp;mixer_desc, &amp;mixerNode);
+    if (result) { printf("AUGraphNewNode 3 result %lu %4.4s\n", result, (char*)&amp;result);
+                    return; }
+
+    result = AUGraphAddNode(mGraph, &amp;converter_desc, &amp;converterNode);
+    if (result) { printf("AUGraphNewNode 3 result %lu %4.4s\n", result, (char*)&amp;result);
+                    return; }
+
+    // connect a node's output to a node's input
+    // converter -&gt; mixer -&gt; iPodTime -&gt; output
+
+    result = AUGraphConnectNodeInput(mGraph, converterNode, 0, mixerNode, 0);
+    if (result) { printf("AUGraphConnectNodeInput result %lu %4.4s\n", result,
+                    (char*)&amp;result); return; }
+
+    result = AUGraphConnectNodeInput(mGraph, mixerNode, 0, iPodTimeNode, 0);
+    if (result) { printf("AUGraphConnectNodeInput result %lu %4.4s\n", result,
+                    (char*)&amp;result); return; }
+
+    result = AUGraphConnectNodeInput(mGraph, iPodTimeNode, 0, outputNode, 0);
+    if (result) { printf("AUGraphConnectNodeInput result %lu %4.4s\n", result,
+                    (char*)&amp;result); return; }
+
+    // open the graph -- AudioUnits are open but not initialized
+    // (no resource allocation occurs here)
+    result = AUGraphOpen(mGraph);
+    if (result) { printf("AUGraphOpen result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    // grab audio unit instances from the nodes
+    result = AUGraphNodeInfo(mGraph, converterNode, NULL, &amp;converterAU);
+    if (result) { printf("AUGraphNodeInfo result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    result = AUGraphNodeInfo(mGraph, mixerNode, NULL, &amp;mMixer);
+    if (result) { printf("AUGraphNodeInfo result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    result = AUGraphNodeInfo(mGraph, iPodTimeNode, NULL, &amp;mIPodTime);
+    if (result) { printf("AUGraphNodeInfo result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    // set bus count
+    UInt32 numbuses = 1;
+
+    printf("set input bus count %lu\n", numbuses);
+
+    result = AudioUnitSetProperty(mMixer, kAudioUnitProperty_ElementCount,
+                    kAudioUnitScope_Input, 0, &amp;numbuses, sizeof(numbuses));
+    if (result) { printf("AudioUnitSetProperty result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    // setup render callback struct
+    AURenderCallbackStruct rcbs;
+    rcbs.inputProc = &amp;renderInput;
+    rcbs.inputProcRefCon = &amp;mUserData;
+
+    printf("set AUGraphSetNodeInputCallback\n");
+
+    // set a callback for the specified node's specified input bus (bus 1)
+    result = AUGraphSetNodeInputCallback(mGraph, converterNode, 0, &amp;rcbs);
+    if (result) { printf("AUGraphSetNodeInputCallback result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    printf("set converter input bus %d client kAudioUnitProperty_StreamFormat\n", 0);
+
+    // set the input stream format, this is the format of the audio
+    // for the converter input bus (bus 1)
+    result = AudioUnitSetProperty(converterAU, kAudioUnitProperty_StreamFormat,
+                kAudioUnitScope_Input, 0, &amp;mClientFormat, sizeof(mClientFormat));
+    if (result) { printf("AudioUnitSetProperty result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    // in an au graph, each nodes output stream format (including sample rate)
+    // needs to be set explicitly this stream format is propagated to its
+    // destination's input stream format
+
+    printf("set converter output kAudioUnitProperty_StreamFormat\n");
+
+    // set the output stream format of the converter
+    result = AudioUnitSetProperty(converterAU, kAudioUnitProperty_StreamFormat,
+                kAudioUnitScope_Output, 0, &amp;mOutputFormat, sizeof(mOutputFormat));
+    if (result) { printf("AudioUnitSetProperty result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    printf("set mixer output kAudioUnitProperty_StreamFormat\n");
+
+    // set the output stream format of the mixer
+    result = AudioUnitSetProperty(mMixer, kAudioUnitProperty_StreamFormat,
+                kAudioUnitScope_Output, 0, &amp;mOutputFormat, sizeof(mOutputFormat));
+    if (result) { printf("AudioUnitSetProperty result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    printf("set iPodTime output kAudioUnitProperty_StreamFormat\n");
+
+    // set the output stream format of the iPodTime unit
+    result = AudioUnitSetProperty(mIPodTime, kAudioUnitProperty_StreamFormat,
+                kAudioUnitScope_Output, 0, &amp;mOutputFormat, sizeof(mOutputFormat));
+    if (result) { printf("AudioUnitSetProperty result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    printf("AUGraphInitialize\n");
+
+    // now that we've set everything up we can initialize the graph, this will also
+    // validate the connections
+    result = AUGraphInitialize(mGraph);
+    if (result) { printf("AUGraphInitialize result %ld %08X %4.4s\n", result,
+                    (unsigned int)result, (char*)&amp;result); return; }
+
+    CAShow(mGraph);
+}<span></span></pre></td></tr></table></div><p>The <code>kTimePitchParam_Rate</code> parameter declared in <code>AudioUnitParameters.h</code> is used to control audio playback rate from 0.5x to 2.0x speed. <code>AudioUnitParameterValue</code> is a <code>Float32</code> rounded by the unit to whichever of the following is closest: 0.5, 0.66667, 0.8, 1.0, 1.25, 1.5, 2. A playback rate of 1.0 is the default.</p><a name="//apple_ref/doc/uid/DTS40010294-CH1-SOURCECODE2" title="Listing 2Method setting the AUiPodTime rate."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Method setting the AUiPodTime rate.</p><div class="codesample clear"><table><tr><td scope="row"><pre>// sets the rate of the iPodTime Audio Unit
+- (void)setIPodTimeRate:(AudioUnitParameterValue)value
+{
+    OSStatus result = AudioUnitSetParameter(mIPodTime,
+            kTimePitchParam_Rate, kAudioUnitScope_Global, 0, value, 0);
+    if (result) { printf("AudioUnitSetParameter kTimePitchParam_Rate
+     Global result %ld %08X %4.4s\n", result, (unsigned int)result, (char*)&amp;result); return; }
+}<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40010294-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40010294-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-09-03</td><td><p>New document that 
+					describes the usage of the AUiPodTime unit which is useful when playing back audio books at different rates without changing pitch.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-09-03</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

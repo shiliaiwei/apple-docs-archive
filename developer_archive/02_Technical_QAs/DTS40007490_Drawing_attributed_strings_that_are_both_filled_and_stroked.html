@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1531: Drawing attributed strings that are both filled and stroked</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40007490">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40007490-CH1">
+    <meta id="date" name="date" content="2013-04-29">
+    <meta id="description" name="description" content="QA1531: Describes how the value of NSStrokeWidthAttributeName indicates fill, stroke, or both, in attributed strings.">
+    <meta id="book-title" name="book-title" content="Drawing attributed strings that are both filled and stroked">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Cocoa Layer/AppKit}, {Topic/Data Management/Strings, Text, & Fonts}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1531">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Drawing attributed strings that are both filled and stroked" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40007490" title="Technical Q&amp;A QA1531"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Drawing attributed strings that are both filled and stroked</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40007490-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1531"></a><div class="dtsDocNumber">Technical Q&amp;A QA1531</div><h1 id="pageTitle">Drawing attributed strings that are both filled and stroked</h1><h2>Q:&nbsp;
+How can I draw a string that specifies both a fill color and a stroke width? 
+</h2><p><span>A: </span>Supply a negative value for <code>NSStrokeWidthAttributeName</code> when you wish to draw a string that is both filled and stroked. </p><p>This is because the sign of the value for <code>NSStrokeWidthAttributeName</code> is interpreted as a mode; it indicates whether the attributed string is to be filled, stroked, or both. Specifically, a zero value displays a fill only, while a positive value displays a stroke only. A negative value allows displaying both a fill and stroke. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40007490-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;The value of <code>NSStrokeWidthAttributeName</code> is interpreted as a percentage of the font point size. </p><p></p></aside></div><figure class="figure"><a name="//apple_ref/doc/uid/DTS40007490-CH1-FIGURE1" title="Figure 1A zero value for stroke width indicates fill with no stroke."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;A zero value for stroke width indicates fill with no stroke.</figcaption><img src="Art/qa1531_FillOnly.png" alt="" width="335" height="80"></figure><figure class="figure"><a name="//apple_ref/doc/uid/DTS40007490-CH1-FIGURE2" title="Figure 2A positive value makes a stroke with no fill."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;A positive value makes a stroke with no fill.</figcaption><img src="Art/qa1531_StrokeOnly.png" alt="" width="335" height="80"></figure><p>The code in <span class="content_text"><!--a  -->Listing 1<!--/a--></span> demonstrates a custom view rendering an attributed string that's both filled and stroked. The results are in <span class="content_text"><!--a  -->Figure 3<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS40007490-CH1-SOURCECODE1" title="Listing 1Render a filled and stroked attributed string."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Render a filled and stroked attributed string.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)drawRect:(NSRect)rect {<span></span></pre></td></tr><tr><td scope="row"><pre>    NSString    *string = @"Got Fill?";<span></span></pre></td></tr><tr><td scope="row"><pre>    NSMutableDictionary *stringAttributes = [NSMutableDictionary dictionary];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Define the font and fill color<span></span></pre></td></tr><tr><td scope="row"><pre>    [stringAttributes setObject: [NSFont fontWithName:@"Arial-Black" size:64] forKey: NSFontAttributeName];<span></span></pre></td></tr><tr><td scope="row"><pre>    [stringAttributes setObject: [NSColor whiteColor] forKey: NSForegroundColorAttributeName];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Supply a negative value for stroke width that is 2% of the font point size in thickness<span></span></pre></td></tr><tr><td scope="row"><pre>    [stringAttributes setObject: [NSNumber numberWithFloat: -2.0] forKey: NSStrokeWidthAttributeName];<span></span></pre></td></tr><tr><td scope="row"><pre>    [stringAttributes setObject: [NSColor blackColor] forKey: NSStrokeColorAttributeName];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Paint the background<span></span></pre></td></tr><tr><td scope="row"><pre>    [[NSColor grayColor] set];<span></span></pre></td></tr><tr><td scope="row"><pre>    [NSBezierPath fillRect: [self bounds]];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Draw the string<span></span></pre></td></tr><tr><td scope="row"><pre>    [string drawAtPoint: NSMakePoint(100, 100) withAttributes: stringAttributes];<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><figure class="figure"><a name="//apple_ref/doc/uid/DTS40007490-CH1-FIGURE3" title="Figure 3Supplying a negative value for stroke width creates both a fill and stroke."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;Supplying a negative value for stroke width creates both a fill and stroke.</figcaption><img src="Art/qa1531_StrokeAndFill.png" alt="" width="476" height="291"></figure><p><strong>See Also</strong></p><p>For more information on drawing strings, see the <span class="content_text"><a href="../../documentation/Cocoa/Conceptual/Strings/introStrings.html#//apple_ref/doc/uid/10000035-SW1" data-renderer-version="1" target="_self">String Programming Guide for Cocoa</a></span>, the <span class="content_text"><a href="../../documentation/Cocoa/Conceptual/AttributedStrings/AttributedStrings.html#//apple_ref/doc/uid/10000036-BBCCGDBG" data-renderer-version="1" target="_self">Attributed Strings Programming Guide</a></span> and <span class="content_text"><a href="../../documentation/Cocoa/Conceptual/CocoaDrawingGuide/Text/Text.html#//apple_ref/doc/uid/TP40003290-CH209-BCIEEIGC" data-renderer-version="1" target="_self">Cocoa Drawing Guide: Text</a></span>.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS40007490-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40007490-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2013-04-29</td><td><p>Editorial correction. </p></td></tr><tr><td scope="row">2008-03-25</td><td><p>New document that 
+					describes how the value of NSStrokeWidthAttributeName indicates fill, stroke, or both, in attributed strings.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-04-29</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

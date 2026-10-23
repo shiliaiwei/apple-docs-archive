@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2203: Automatic Table Sorting with NSArrayController</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40011838">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40011838-CH1">
+    <meta id="date" name="date" content="2012-02-22">
+    <meta id="description" name="description" content="TN2203: Shows how you can use Cocoa bindings to automatically sort rows in an NSTableView.">
+    <meta id="book-title" name="book-title" content="Automatic Table Sorting with NSArrayController">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Cocoa Layer/AppKit}, {Topic/User Experience}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2203">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Automatic Table Sorting with NSArrayController" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40011838" title="Technical Note TN2203"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Automatic Table Sorting with NSArrayController</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40011838-CH1-DontLinkElementID_2" title="Technical Note TN2203"></a><div class="dtsDocNumber">Technical Note TN2203</div><h1 id="pageTitle">Automatic Table Sorting with NSArrayController</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Cocoa Bindings can be a powerful tool especially when it comes to important tasks like populating tables and sorting its data. If done in code, populating tables with data and sorting their contents can require a fair amount of work. Cocoa Bindings can eliminate the need for most, if not all, of that effort. This Tech Note shows how you can use Cocoa Bindings to automatically sort rows in an <code>NSTableView</code> with data provided by an <code>NSArrayController</code>.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011838-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011838-CH1-TNTAG2" data-renderer-version="1">Automatic Table Sorting</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011838-CH1-IMPROVEMENTS_TO_MAC_OS_X_10_5" data-renderer-version="1">Improvements to Mac OS X 10.5</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011838-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40011838-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>In our example, we have an <code>NSTableView</code> with two <code>NSTableColumn</code> objects bound to an <code>NSArrayController</code> named "MyArray". The <code>NSArrayController</code> has its Class set to <code>NSMutableDictionary</code>, with Keys set to <code>lastname</code>, <code>firstname</code>. Each <code>NSTableColumn</code> has the following bindings as shown in Table 1.</p><a name="//apple_ref/doc/uid/DTS40011838-CH1-TABLE1" title="Table 1NSTableColumn Bindings"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;<code>NSTableColumn</code> Bindings</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Column
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Bound To
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Controller Key
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Model Key Path
+</p></th></tr><tr><td  scope="row"><p>
+Last Name
+</p></td><td ><p>
+"MyArray"
+</p></td><td ><p>
+arrangedObjects 
+</p></td><td ><p>
+lastname 
+</p></td></tr><tr><td  scope="row"><p>
+First Name
+</p></td><td ><p>
+"MyArray"
+</p></td><td ><p>
+arrangedObjects 
+</p></td><td ><p>
+firstname
+</p></td></tr></table></div><figure class="figure"><a name="//apple_ref/doc/uid/DTS40011838-CH1-FIGURE1" title="Figure 1Nib Layout"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Nib Layout</figcaption><img src="Art/tn2203_1.png" alt="" width="242" height="312"></figure><p>When the table is first loaded and displayed you can tell the table view how to sort the data. Use the following in Listing 1 to make the table initially sorted by Last Name. This code should reside in your controller object that owns the table view as an outlet, typically inside <code>awakeFromNib</code>.</p><a name="//apple_ref/doc/uid/DTS40011838-CH1-SOURCECODE1" title="Listing 1Initially Sorting the Table View."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Initially Sorting the Table View.</p><div class="codesample clear"><table><tr><td scope="row"><pre>[myTableView setSortDescriptors:<span></span></pre></td></tr><tr><td scope="row"><pre>    [NSArray arrayWithObject:<span></span></pre></td></tr><tr><td scope="row"><pre>        [[[NSSortDescriptor alloc] initWithKey:@"lastname" ascending:YES] autorelease]]];<span></span></pre></td></tr></table></div><p>Users will then be able to freely sort the table by clicking on each <code>NSTableColumn</code> title.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011838-CH1-TNTAG2" title="Automatic Table Sorting"></a><h2 class="jump">Automatic Table Sorting</h2><p>When users add more names to the table the list then appears out of order. What should be done to keep the given sort order when additional names are added to the table?  This is where the <code>NSSortDescriptor</code> object bound to an <code>NSArrayController</code> comes in handy.</p><p>You need to bind your <code>NSArrayController</code> to a set of <code>NSSortDescriptor</code> objects. This can be done by providing a controller object that implements a method to return an <code>NSArray</code> of <code>NSSortDescriptor</code> objects.</p><a name="//apple_ref/doc/uid/DTS40011838-CH1-SOURCECODE2" title="Listing 2Controller object that returns NSSortDescriptors"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Controller object that returns NSSortDescriptors</p><div class="codesample clear"><table><tr><td scope="row"><pre>@implementation MyControllerObject<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>- (NSArray *)sortDescriptors<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    return [myTableView sortDescriptors];<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>//...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>@end<span></span></pre></td></tr></table></div><p>Then you can bind your <code>NSArrayController</code> to "MyControllerObject", Model Key Path = <code>sortDescriptors</code>.</p><p>Even given this binding, objects are not kept sorted when newly inserted. This is perhaps even more confusing when the column headings indicate the sorting has been done. Why is this? We've put sorting completely in the hands of the array controller. The good news is that all we need to do is to tell it to take notice and call rearrangeObjects.</p><p><code>[myArrayController rearrangeObjects];</code></p><p>Listing 3 is an example showing how to add a new name to the <code>NSArrayController</code>.</p><a name="//apple_ref/doc/uid/DTS40011838-CH1-SOURCECODE3" title="Listing 3Adding a name to the NSArrayController"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Adding a name to the <code>NSArrayController</code></p><div class="codesample clear"><table><tr><td scope="row"><pre>NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:<span></span></pre></td></tr><tr><td scope="row"><pre>                                     @"Sally", @"firstname",<span></span></pre></td></tr><tr><td scope="row"><pre>                                     @"Sixpack", @"lastname",<span></span></pre></td></tr><tr><td scope="row"><pre>                                     nil];<span></span></pre></td></tr><tr><td scope="row"><pre>[myArrayController addObject: dict];<span></span></pre></td></tr><tr><td scope="row"><pre>[myArrayController rearrangeObjects];<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011838-CH1-IMPROVEMENTS_TO_MAC_OS_X_10_5" title="Improvements to Mac OS X 10.5"></a><h2 class="jump">Improvements to Mac OS X 10.5</h2><p>Thanks to the addition of the "Auto Rearrange Objects" feature of <code>NSArrayController</code> for 10.5, you no longer have to call:</p><p><code>[myArrayController rearrangeObjects];</code></p><p>To use the "Auto Rearrange Objects" feature either:</p><ol class="ol"><li class="li"><p>Set the "Auto Rearrange Objects" checkbox for your <code>NSArrayController</code> in Interface Builder.</p></li><li class="li"><p>Call <code>[myArrayController setAutomaticallyRearrangesObjects:YES];</code> in your code.</p></li></ol><p>Names added to the array controller will automatically be sorted with the rest of the list.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40011838-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40011838-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2012-02-22</td><td><p>New document that 
+					shows how you can use Cocoa bindings to automatically sort rows in an NSTableView.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-02-22</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

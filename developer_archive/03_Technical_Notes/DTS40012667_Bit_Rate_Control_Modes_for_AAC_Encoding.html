@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2271: Bit Rate Control Modes for AAC Encoding</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40012667">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40012667-CH1">
+    <meta id="date" name="date" content="2012-10-16">
+    <meta id="description" name="description" content="TN2271: Explains AAC encoder strategies and guides the user when selecting a specific encoding strategy for a given application.">
+    <meta id="book-title" name="book-title" content="Bit Rate Control Modes for AAC Encoding">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AudioToolbox}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2271">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Bit Rate Control Modes for AAC Encoding" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40012667" title="Technical Note TN2271"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Bit Rate Control Modes for AAC Encoding</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40012667-CH1-DontLinkElementID_2" title="Technical Note TN2271"></a><div class="dtsDocNumber">Technical Note TN2271</div><h1 id="pageTitle">Bit Rate Control Modes for AAC Encoding</h1><p>Apple’s AAC audio encoder supports various bit rate control strategies tailored for a wide range of applications. This document explains these strategies and guides the user when selecting a strategy for a given application. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG2" data-renderer-version="1">Specifying the amount of output data and target quality</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG2-OFFLINE_APPLICATIONS" data-renderer-version="1">Offline Applications</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG2-REAL_TIME_APPLICATIONS" data-renderer-version="1">Real-time Applications</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG3" data-renderer-version="1">Interfaces</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG3-COMMAND_LINE_SETTINGS" data-renderer-version="1">Command Line Settings</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG3-BIT_RATE_CONTROL_VIA_API" data-renderer-version="1">Bit rate control via API</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG4" data-renderer-version="1">Summary</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG4-CONSTANT_BIT_RATE__CBR__" data-renderer-version="1">Constant Bit Rate (CBR)</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG4-AVERAGE_BIT_RATE__ABR____DEFAULT_MODE" data-renderer-version="1">Average Bit Rate (ABR) - Default Mode</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG4-VARIABLE_BIT_RATE_BUT_CONSTRAINED__VBR_CONSTRAINED__" data-renderer-version="1">Variable Bit Rate But Constrained (VBR_Constrained)</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40012667-CH1-TNTAG4-VARIABLE_BIT_RATE__VBR_" data-renderer-version="1">Variable Bit Rate (VBR)</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40012667-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Just as with many other lossy compression tools, AAC offers different tradeoffs between audio quality and the amount of output data. The amount of output data can be measured in terms of bit rate, packet sizes, and file size. The AAC encoder supports direct control over the amount of output data by a bit rate parameter. Although it is challenging to measure the subjective audio quality, AAC supports direct control over this property by a quality parameter. Due to the contradicting requirements of achieving a certain bit rate versus quality, only one of the two parameters can be used for encoding.</p><p>AAC supports four bit rate control modes supporting either a bit rate or a quality parameter as shown in Table 1.</p><a name="//apple_ref/doc/uid/DTS40012667-CH1-TABLE1" title="Table 1The four bit rate control modes and their main parameter."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;The four bit rate control modes and their main parameter.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Bit rate control mode ( kAudioCodecPropertyBitRateControlMode )
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Parameter
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Parameter Constant
+</p></th></tr><tr><td  scope="row"><p>
+CBR (Constant Bit Rate) - kAudioCodecBitRateControlMode_Constant
+</p></td><td ><p>
+Bit Rate
+</p></td><td ><p>
+kAudioCodecPropertyCurrentTargetBitRate
+</p></td></tr><tr><td  scope="row"><p>
+ABR (Average Bit Rate) - kAudioCodecBitRateControlMode_LongTermAverage
+</p></td><td ><p>
+Bit Rate
+</p></td><td ><p>
+kAudioCodecPropertyCurrentTargetBitRate
+</p></td></tr><tr><td  scope="row"><p>
+VBR_constrained (Constrained VBR) - kAudioCodecBitRateControlMode_VariableConstrained
+</p></td><td ><p>
+Bit Rate
+</p></td><td ><p>
+kAudioCodecPropertyCurrentTargetBitRate
+</p></td></tr><tr><td  scope="row"><p>
+VBR (Variable Bit Rate) - kAudioCodecBitRateControlMode_Variable
+</p></td><td ><p>
+Quality
+</p></td><td ><p>
+kAudioCodecPropertySoundQualityForVBR
+</p></td></tr></table></div><p>The three modes that are based on the bit rate parameter permit different amounts of variations of the bit rate over time.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG2" title="Specifying the amount of output data and target quality"></a><h2 class="jump">Specifying the amount of output data and target quality</h2><p>The amount of output data generated by the encoder is commonly specified by the bit rate parameter in bits per second. The codec aims at the target bit rate. The <code>CBR</code> mode provides the tightest control of the bit rate target, while <code>ABR</code> mode and <code>VBR_constrained</code> mode impose lesser restrictions on the bit rate variation over time. In VBR mode the bit rate will increase when the quality parameter is increased but there is no direct control of the average bit rate. All control modes will generate packets with varying size as illustrated in Fig. 1, even in <code>CBR</code> mode.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40012667-CH1-FIGURE1" title="Figure 1Illustration of packets representing the audio signal."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Illustration of packets representing the audio signal.</figcaption><img src="Art/tn2271_Fig0.png" alt="" width="574" height="602"></figure><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG2-OFFLINE_APPLICATIONS" title="Offline Applications"></a><h3 class="jump">Offline Applications</h3><p>In offline or file-based applications the compressed file size is the most important measure related to the bit rate or quality setting. Hence, for these applications the instantaneous bit rate fluctuation and varying packet sizes are less important. Ultimately, the goal here is to achieve the best audio quality for a given file size, or conversely, to get the smallest file size for a given quality.</p><p>The target file size can be controlled in <code>ABR</code> mode, with the bit rate approximation of file size divided by the audio duration. The target quality can be controlled using <code>VBR</code> mode. The <code>VBR_constrained</code> mode provides a compromise between <code>ABR</code> and <code>VBR</code> modes. The average bit rate in this mode will be at least as high as in <code>ABR</code> mode but it is permitted to increase if the quality would otherwise drop.</p></section><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG2-REAL_TIME_APPLICATIONS" title="Real-time Applications"></a><h3 class="jump">Real-time Applications</h3><p>For real-time applications such as streaming or communications, the instantaneous packet sizes and temporally varying bit rates can be more important depending on the properties of the transmission channel. While the <code>ABR</code> mode is tailored to control file size in offline applications, the <code>VBR</code> and <code>CBR</code> modes are more appropriate for real time.</p><p>The encoder generates packets of varying size representing constant-size blocks of the input audio signal. The packet size can vary significantly depending on the audio content up to 6144 bits per channel. In CBR mode, the packet sizes are constrained so that a true constant bit rate can be achieved with a specified end-to-end delay. This mode conforms to the <code>CBR</code> mode as defined in the MPEG-4 standard. In this case the end-to-end delay is the codec delay plus the delay due to the bitstream buffering. The bitstream buffering is used to enable a constant bit rate transmission of variable packet sizes.</p><p>Fig. 2 illustrates the bitstream buffering at the encoder and decoder site to smooth out the variable packet sizes of the encoder. The transmission rate in this scenario is perfectly constant and the buffer fullness at the encoder and decoder always add up to 100%.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40012667-CH1-FIGURE2" title="Figure 2Illustration of the bit buffering scheme in CBR mode to achieve a perfectly constant transmission rate."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Illustration of the bit buffering scheme in CBR mode to achieve a perfectly constant transmission rate.</figcaption><img src="Art/tn2271_Fig01.png" alt="" width="537" height="194"></figure><p>First appearing in iOS 6.0, applications that need to limit the maximum packet size can force the encoder to maintain that limit. This is only supported in <code>VBR</code> mode. The packet size limit will automatically result in the appropriate VBR quality setting that can maintain the packet size limit. The equivalent bit rate limit is usually about 20% below the virtual bit rate necessary to continuously transmit packets with the maximum size.</p><p>Fig. 3 shows the packet sizes of a castanet recording in VBR mode. The packet sizes vary by a large factor. Fig. 4 shows the resulting packet sizes with the same encoder settings but additional packet size limitation to 4000 bits.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40012667-CH1-FIGURE3" title="Figure 3Packet sizes of a stereo castanet signal in VBR mode (VBR quality = 64, sample rate = 44100)."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;Packet sizes of a stereo castanet signal in VBR mode (VBR quality = 64, sample rate = 44100).</figcaption><img src="Art/tn2271_Fig1.png" class="wide-image" alt="" width="670" height="420"><img src="Art/tn2271_Fig1.png" class="ipad-scaled-image" alt="" width="670" height="420"></figure><figure class="figure"><a name="//apple_ref/doc/uid/DTS40012667-CH1-FIGURE4" title="Figure 4Packet sizes of a stereo castanet signal in VBR mode with a packet size limit of 4000 bits."></a><figcaption><strong class="caption_number">Figure 4</strong>&nbsp;&nbsp;Packet sizes of a stereo castanet signal in VBR mode with a packet size limit of 4000 bits.</figcaption><img src="Art/tn2271_Fig2.png" class="wide-image" alt="" width="670" height="419"><img src="Art/tn2271_Fig2.png" class="ipad-scaled-image" alt="" width="670" height="419"></figure><p>Given a packet size limit, the average bit rate can be estimated by:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40012667-CH1-FIGURE5" title="Figure 5"></a><figcaption><strong class="caption_number">Figure 5</strong>&nbsp;&nbsp;</figcaption><img src="Art/tn2271_Formula1.png" alt="Figure 5 Art/tn2271_Formula1.png" width="178" height="52"></figure><p>with</p><p>R: estimated average bit rate</p><p>D: margin (usually 0.2)</p><p>S: maximum packet size in bits</p><p>Fs: output audio sample rate</p><p>N: codec block size in samples per channel</p><p>Example, for the low-complexity AAC encoder at a sample rate of 44.1kHz with a packet size limit of 4000 bit/s the result is:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40012667-CH1-FIGURE6" title="Figure 6"></a><figcaption><strong class="caption_number">Figure 6</strong>&nbsp;&nbsp;</figcaption><img src="Art/tn2271_Formula2.png" alt="Figure 6 Art/tn2271_Formula2.png" width="338" height="58"></figure></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG3" title="Interfaces"></a><h2 class="jump">Interfaces</h2><p>OS X includes a command line tool and APIs to control the AAC encoder settings.</p><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG3-COMMAND_LINE_SETTINGS" title="Command Line Settings"></a><h3 class="jump">Command Line Settings</h3><p><code>afconvert</code> is a command line tool for audio file conversion including encoding and decoding. It supports all bit rate control options. Table 2 lists the relevant command line options for bit rate control of <code>afconvert</code> in the first column.</p><a name="//apple_ref/doc/uid/DTS40012667-CH1-TABLE2" title="Table 2Command line settings for afconvert."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;Command line settings for <code>afconvert</code>.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Command line parameter
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Value
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Notes
+</p></th></tr><tr><td  scope="row"><p>
+-s &lt;control mode&gt;
+</p></td><td ><p>
+&lt;control mode&gt; = Bit rate control mode:
+0 = CBR
+1 = ABR
+2 = VBR_constrained
+3 = VBR
+</p></td><td ><p>
+</p></td></tr><tr><td  scope="row"><p>
+-b &lt;bit rate&gt;
+</p></td><td ><p>
+&lt;bit rate&gt; = Total bit rate in bit/s
+</p></td><td ><p>
+Not applicable in VBR mode
+</p></td></tr><tr><td  scope="row"><p>
+-u 'vbrq' &lt;quality&gt;
+</p></td><td ><p>
+&lt;quality&gt; = VBR quality in the range 0…127
+</p></td><td ><p>
+VBR mode only
+</p></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG3_COMMAND_LINE_SETTINGS-AFCONVERT_EXAMPLE_USAGE" title="afconvert Example Usage"></a><h4 class="jump">afconvert Example Usage</h4><p>A command line to encode a PCM file using ABR mode with 128 kbit/s:</p><a name="//apple_ref/doc/uid/DTS40012667-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>afconvert PCMin.wav AACout.caf –d aac –s 1 –b 128000<span></span></pre></td></tr></table></div><p>A command line to encode a PCM file using VBR mode with VBR quality 64:</p><a name="//apple_ref/doc/uid/DTS40012667-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>afconvert PCMin.wav AACout.caf –d aac –s 3 –u vbrq 64<span></span></pre></td></tr></table></div><p>A command line to encode a PCM file using VBR_constrained mode with 128 kbit/s:</p><a name="//apple_ref/doc/uid/DTS40012667-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>afconvert PCMin.wav AACout.caf –d aac –s 2 –b 128000<span></span></pre></td></tr></table></div><p>More information about the command line options of <code>afconvert</code> can be obtained when entering:</p><a name="//apple_ref/doc/uid/DTS40012667-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>afconvert -h<span></span></pre></td></tr></table></div><p>Certain command line parameters will implicitly set the bit rate control mode as they are only available for one specific mode, this includes the following parameters that are only valid in VBR mode, therefore the encoder will use VBR mode even if the –s 3 parameter is omitted.</p><a name="//apple_ref/doc/uid/DTS40012667-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre>-u vbrq &lt;n&gt;<span></span></pre></td></tr></table></div><p>The bitrate parameter <code>–b &lt;n&gt;</code> cannot be used in VBR mode.</p><p>The average audio bit rate of a file can be obtained with the command line tool <code>afinfo</code>.</p></section></section><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG3-BIT_RATE_CONTROL_VIA_API" title="Bit rate control via API"></a><h3 class="jump">Bit rate control via API</h3><p>When using the API, the properties available for bit rate control are listed in Table 3. The encoder will be configured according to these property values. The properties can be read as well. This way the user can find out for instance which VBR quality is used when a certain packet size limit is set.</p><a name="//apple_ref/doc/uid/DTS40012667-CH1-TABLE3" title="Table 3Bit rate control via API."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 3</strong>&nbsp;&nbsp;Bit rate control via API.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+API Property
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Value
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Notes
+</p></th></tr><tr><td  scope="row"><p>
+kAudioCodecPropertyBitRateControlMode
+</p></td><td ><p>
+&lt;control mode&gt; = Bit rate control mode:
+0 = CBR
+1 = ABR
+2 = VBR_constrained
+3 = VBR
+</p></td><td ><p>
+</p></td></tr><tr><td  scope="row"><p>
+kAudioCodecPropertyCurrentTargetBitRate
+</p></td><td ><p>
+&lt;bit rate&gt; = Total bit rate in bit/s
+</p></td><td ><p>
+Not applicable in VBR mode
+</p></td></tr><tr><td  scope="row"><p>
+kAudioCodecPropertySoundQualityForVBR
+</p></td><td ><p>
+&lt;quality&gt; = VBR quality in the range 0…127
+</p></td><td ><p>
+VBR mode only
+</p></td></tr><tr><td  scope="row"><p>
+kAudioCodecPropertyPacketSizeLimitForVBR
+</p></td><td ><p>
+&lt;size limit&gt; = packet size limit in bits
+</p></td><td ><p>
+VBR mode only
+</p></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG4" title="Summary"></a><h2 class="jump">Summary</h2><p>Apple’s AAC encoder provides four bit rate control modes as described below. The first three are based on a target bit rate while the fourth is based on a quality target.</p><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG4-CONSTANT_BIT_RATE__CBR__" title="Constant Bit Rate (CBR) "></a><h3 class="jump">Constant Bit Rate (CBR) </h3><p>This mode achieves a constant target bit rate and is compliant with the CBR mode specified in the MPEG-4 standard. This mode is suitable for constant-bit-rate network transmission when decoding in real-time with a fixed end-to-end audio delay. However, due to the strict constant bit rate constraint, this mode results in lower audio quality and higher complexity than other encoding modes.</p></section><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG4-AVERAGE_BIT_RATE__ABR____DEFAULT_MODE" title="Average Bit Rate (ABR) - Default Mode"></a><h3 class="jump">Average Bit Rate (ABR) - Default Mode</h3><p>-- Recommended for controlling file size --</p><p>A target bit rate is achieved over a long-term average (typically after the first few seconds of encoding). Unlike CBR mode, this mode does not provide constant delay when using constant bit rate transmission, but this mode provides almost best global quality while still being able to strictly control the resulting file size.</p></section><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG4-VARIABLE_BIT_RATE_BUT_CONSTRAINED__VBR_CONSTRAINED__" title="Variable Bit Rate But Constrained (VBR_Constrained) "></a><h3 class="jump">Variable Bit Rate But Constrained (VBR_Constrained) </h3><p>-- Recommended as a compromise between VBR and ABR --</p><p>This mode is similar to VBR but limits the average bit rate variation. The lower limit is the user-selected bit rate. Higher bit rate is adapted for difficult audio.</p></section><section><a name="//apple_ref/doc/uid/DTS40012667-CH1-TNTAG4-VARIABLE_BIT_RATE__VBR_" title="Variable Bit Rate (VBR)"></a><h3 class="jump">Variable Bit Rate (VBR)</h3><p>-- Recommended for controlling the audio quality --</p><p>The audio signal is encoded with constant quality and virtually no bit rate constraints. This is the best mode to achieve consistent audio quality with the lowest overall bit rate.</p><p>A packet size limit can be applied in this mode if required for real-time transmission.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40012667-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40012667-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2012-10-16</td><td><p>Updated text + added illustrations and API control information.</p></td></tr><tr><td scope="row">2012-08-22</td><td><p>New document that 
+					explains AAC encoder strategies and guides the user when selecting a specific encoding strategy for a given application. </p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-10-16</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

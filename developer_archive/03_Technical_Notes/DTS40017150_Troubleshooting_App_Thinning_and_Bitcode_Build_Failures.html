@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2432: Troubleshooting App Thinning and Bitcode Build Failures</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017150">
+    <meta id="document-version" name="document-version" content="1.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017150-CH1">
+    <meta id="date" name="date" content="2016-05-31">
+    <meta id="description" name="description" content="TN2432: provides suggestions for troubleshooting App Store submission failures due to issues in the app thinning and bitcode build processes, including a list of known issues and potential workarounds.">
+    <meta id="book-title" name="book-title" content="Troubleshooting App Thinning and Bitcode Build Failures">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Xcode/Compiler Tools}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2432">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Troubleshooting App Thinning and Bitcode Build Failures" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017150" title="Technical Note TN2432"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Troubleshooting App Thinning and Bitcode Build Failures</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017150-CH1-DontLinkElementID_2" title="Technical Note TN2432"></a><div class="dtsDocNumber">Technical Note TN2432</div><h1 id="pageTitle">Troubleshooting App Thinning and Bitcode Build Failures</h1><p>Bitcode compilation and app thinning can be tested via ad hoc deployment. Use the latest version of Xcode to match App Store behavior. Workarounds are provided for common issues.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017150-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017150-CH1-TNTAG1P5" data-renderer-version="1">Troubleshooting</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017150-CH1-TNTAG2" data-renderer-version="1">Diagnosis</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017150-CH1-TNTAG2-DIAGNOSING_BITCODE_AND_APP_THINNING_ISSUES" data-renderer-version="1">Diagnosing Bitcode and App Thinning Issues</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3" data-renderer-version="1">Known Issues and Workarounds</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3-KNOWN_BITCODE_ISSUES" data-renderer-version="1">Known Bitcode Issues</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3-KNOWN_APP_THINNING_ISSUES" data-renderer-version="1">Known App Thinning Issues</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017150-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>App thinning and bitcode compilation require complex processing as part of the app submission process. This document provides best practices, a diagnostic procedure, and common workarounds, in case you encounter a failure before Apple had a chance to implement a fix.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG1P5" title="Troubleshooting"></a><h2 class="jump">Troubleshooting</h2><p>General tips for troubleshooting and best practices are listed below.</p><ul class="ul"><li class="li"><p>Be sure to use the <span class="content_text"><a href="https://itunes.apple.com/us/app/xcode/id497799835?mt=12" class="urlLink" rel="external">latest version of Xcode</a></span> to build and submit your app. The issue you are experiencing may already be fixed in the latest version.</p></li><li class="li"><p>Try to reproduce the failure locally. You can do this from Xcode by exporting an archive for <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/TestingYouriOSApp/TestingYouriOSApp.html#//apple_ref/doc/uid/TP40012582-CH8-SW21" class="urlLink" rel="external">ad hoc deployment</a></span>. That will go through the same processes as the App Store, and you will have more visibility into what is failing and be able to experiment with changes to avoid the issue. The <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017150-CH1-TNTAG2" data-renderer-version="1">Diagnosis</a></span> section will guide you through this process.</p></li><li class="li"><p>Read the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3" data-renderer-version="1">Known Issues and Workarounds</a></span> section below. If the symptoms for one of them match what you are seeing, there may be a workaround that you can use.</p></li><li class="li"><p>If the failure is due to a third-party library used in your app, you may need to work with the library provider to find a solution.</p></li><li class="li"><p>If the failure is related to bitcode compilation, and if your app is for iOS, where bitcode is still optional, you can opt out of submitting with bitcode as a temporary workaround. Please re-enable it later when the issue is fixed.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG2" title="Diagnosis"></a><h2 class="jump">Diagnosis</h2><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG2-DIAGNOSING_BITCODE_AND_APP_THINNING_ISSUES" title="Diagnosing Bitcode and App Thinning Issues"></a><h3 class="jump">Diagnosing Bitcode and App Thinning Issues</h3><p>If bitcode compilation or app thinning failed on the App Store, you can duplicate this failure with the following process. When recompiling from bitcode, the build log will not be visible in Xcode's Report Navigator, but Xcode will give you the option of viewing the logs in case of failure.</p><ol class="ol"><li class="li"><p>Archive your project.</p></li><li class="li"><p>Follow the steps in the App Distribution Guide under the heading <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/TestingYouriOSApp/TestingYouriOSApp.html#//apple_ref/doc/uid/TP40012582-CH8-SW17" class="urlLink" rel="external">Exporting Your App for Testing Outside the Store</a></span>, up to and including Step 6.</p></li><li class="li"><p>Make sure you check "Rebuild from bitcode" in Step 6, as shown in <span class="content_text"><!--a  -->Figure 1<!--/a--></span>.</p></li><li class="li"><p>Observe that the export fails, shown in <span class="content_text"><!--a  -->Figure 2<!--/a--></span></p></li><li class="li"><p>Click on "Show Logs...".</p></li><li class="li"><p>A Finder window opens (<span class="content_text"><!--a  -->Figure 3<!--/a--></span>). Double click on the "IDEDistribution.standard.log" file to open it in the Console app.</p></li><li class="li"><p>Find the error in the Console app. The example in <span class="content_text"><!--a  -->Figure 4<!--/a--></span> shows an "Undefined symbols" error.</p></li><li class="li"><p>In the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3" data-renderer-version="1">Known Issues and Workarounds</a></span> section, use this error message, and your knowledge of your project to find the correct cause and workaround.</p></li></ol><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017150-CH1-FIGURE1" title="Figure 1Export with 'Rebuild from bitcode' checked."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Export with 'Rebuild from bitcode' checked.</figcaption><img src="Art/tn2432_fig5.png" alt="" width="640" height="375"></figure><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017150-CH1-FIGURE2" title="Figure 2Rebuild from bitcode failure."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Rebuild from bitcode failure.</figcaption><img src="Art/tn2432_fig6.png" alt="" width="640" height="375"></figure><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017150-CH1-FIGURE3" title="Figure 3Export logs with the log containing the build messages selected."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;Export logs with the log containing the build messages selected.</figcaption><img src="Art/tn2432_fig7.png" alt="" width="640" height="351"></figure><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017150-CH1-FIGURE4" title="Figure 4The build failure log."></a><figcaption><strong class="caption_number">Figure 4</strong>&nbsp;&nbsp;The build failure log.</figcaption><img src="Art/tn2432_fig8.png" alt="" width="640" height="375"></figure></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3" title="Known Issues and Workarounds"></a><h2 class="jump">Known Issues and Workarounds</h2><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3-KNOWN_BITCODE_ISSUES" title="Known Bitcode Issues"></a><h3 class="jump">Known Bitcode Issues</h3><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_BITCODE_ISSUES-UNDEFINED_SYMBOLS_WHEN_INCONSISTENTLY_USING___ASM_ON_SYMBOLS" title="Undefined symbols when inconsistently using __asm on symbols"></a><h4 class="jump">Undefined symbols when inconsistently using __asm on symbols</h4><p>If a symbol is declared in one source file with an assembly name specified via <code>__asm</code>, and in another source file that same symbol is used without an assembly name, those symbols may be obfuscated inconsistently in the bitcode, leading to <code>Undefined symbols</code> link failures. The assembly names may be specified in system headers with the <code>__DARWIN_ALIAS</code> (or similar) macros.</p><p>Workaround: Consistently use the same symbol declarations in all your code. If the inconsistent symbols are coming from third-party embedded frameworks, you may need to work with the framework vendor to get a fix.</p></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_BITCODE_ISSUES-UNDEFINED_SYMBOLS_WHEN_USING_ASSEMBLY_CODE_OR_INLINE_ASSEMBLY_WITH_LINK_TIME_OPTIMIZATION__LTO__" title="Undefined symbols when using assembly code or inline assembly with link-time optimization (LTO)."></a><h4 class="jump">Undefined symbols when using assembly code or inline assembly with link-time optimization (LTO).</h4><p>When using LTO, symbols in assembly code may be obfuscated inconsistently.</p><p>Workaround: Avoid LTO or rewrite the assembly code to avoid symbol references.</p></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_BITCODE_ISSUES-EMPTY__SECTCREATE_FILE_CAUSES_BITCODE_BUILD_FAILURE" title="Empty -sectcreate file causes bitcode build failure"></a><h4 class="jump">Empty -sectcreate file causes bitcode build failure</h4><p>The linker's <code>-sectcreate</code> option allows you to insert content from a file directly into the output. If the file specified by the <code>-sectcreate</code> option is empty, the bitcode build will fail.</p><p>Workaround: Create an empty section with some other mechanism, or add something to the file so that the section is not completely empty.</p></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_BITCODE_ISSUES-UNDEFINED_SYMBOLS_DUE_TO_UNUSED_LINKONCE_ODR_BITCODE" title="Undefined symbols due to unused linkonce_odr bitcode"></a><h4 class="jump">Undefined symbols due to unused linkonce_odr bitcode</h4><p>If the failure is related to bitcode compilation, and if your app is for a platform where bitcode is still optional (i.e., iOS), you can opt out of submitting with bitcode as a temporary workaround. Please reenable it later when the issue is fixed.</p></section></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3-KNOWN_APP_THINNING_ISSUES" title="Known App Thinning Issues"></a><h3 class="jump">Known App Thinning Issues</h3><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_APP_THINNING_ISSUES-FAILURE_TO_DETECT_AND_HANDLE_A_MALFORMED_INFO_PLIST" title="Failure to detect and handle a malformed Info.plist"></a><h4 class="jump">Failure to detect and handle a malformed Info.plist</h4><p>Workaround: Verify that all Info.plist files contained in your app are correctly formatted Property List files by running <code>plutil -lint Info.plist</code> on each one.</p></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_APP_THINNING_ISSUES-FAILURE_PROCESSING_AN_APP_CONTAINING_AN_INFO_PLIST_WITH_A_CFBUNDLEEXECUTABLE_KEY_WHICH_POINTS_TO_A_MISSING_FILE" title="Failure processing an app containing an Info.plist with a CFBundleExecutable key which points to a missing file"></a><h4 class="jump">Failure processing an app containing an Info.plist with a CFBundleExecutable key which points to a missing file</h4><p>Workaround: Fix Info.plist files to stop referring to missing executables.</p></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_APP_THINNING_ISSUES-FAILURE_HANDLING_APPS_WHERE_THE_CFBUNDLESUPPORTEDPLATFORMS_KEY_IN_AN_INFO_PLIST_FILE_IS_MISSING_OR_SPECIFIES_AN_INVALID_PLATFORM" title="Failure handling apps where the CFBundleSupportedPlatforms key in an Info.plist file is missing or specifies an invalid platform"></a><h4 class="jump">Failure handling apps where the CFBundleSupportedPlatforms key in an Info.plist file is missing or specifies an invalid platform</h4><p>This includes simulator platforms, which should not be used in apps that are sent to the store. Workaround: Verify that all Info.plist files correctly specify <code>CFBundleSupportedPlatforms</code>.</p></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_APP_THINNING_ISSUES-STATIC_LIBRARIES_INCLUDED_IN_AN_APP_BUNDLE_CAUSE_FAILURES" title="Static libraries included in an app bundle cause failures"></a><h4 class="jump">Static libraries included in an app bundle cause failures</h4><p>Static libraries should be linked into your app but not copied into the app bundle. Workaround: Verify that your app does not mistakenly include static libraries.</p></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_APP_THINNING_ISSUES-DSYM_CONTENT_INSIDE_AN_APP_BUNDLE_CAUSES_FAILURES" title="dSYM content inside an app bundle causes failures"></a><h4 class="jump">dSYM content inside an app bundle causes failures</h4><p>There is no reason to have .dSYMs included as part of an app. Workaround: Remove the .dSYM content.</p></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_APP_THINNING_ISSUES-FAILURE_TO_DETECT_AND_REPORT_MISSING_SWIFT_RUNTIME_LIBRARIES" title="Failure to detect and report missing Swift runtime libraries"></a><h4 class="jump">Failure to detect and report missing Swift runtime libraries</h4><p>Workaround: If you're using Swift, verify that your app includes all the necessary Frameworks/libswift*.dylib libraries.</p></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_APP_THINNING_ISSUES-INCONSISTENT_ARCHITECTURES_IN_MACH_O_FILES_LEAD_TO_LINK_FAILURES" title="Inconsistent architectures in Mach-O files lead to link failures"></a><h4 class="jump">Inconsistent architectures in Mach-O files lead to link failures</h4><p>Workaround: Verify that your app's binaries have consistent architectures. For example, if your app is armv7 and arm64, ensure that your frameworks are also all armv7 and arm64 as well.</p></section><section><a name="//apple_ref/doc/uid/DTS40017150-CH1-TNTAG3_KNOWN_APP_THINNING_ISSUES-APP_NAME_BEGINNING_WITH______THE_DASH_CHARACTER__CAUSES_A_FAILURE_IN_APP_THINNING" title="App name beginning with '-' (the dash character) causes a failure in app thinning"></a><h4 class="jump">App name beginning with '-' (the dash character) causes a failure in app thinning</h4><p>Workaround: Rename the app’s folder name to avoid the dash; you can keep the app’s display name the same.</p></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017150-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017150-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-05-31</td><td><p>Editorial</p></td></tr><tr><td scope="row">2016-05-23</td><td><p>Fixed image sizes.</p></td></tr><tr><td scope="row">2016-05-20</td><td><p>New document that 
+					provides suggestions for troubleshooting App Store submission failures due to issues in the app thinning and bitcode build processes, including a list of known issues and potential workarounds.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-05-31</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

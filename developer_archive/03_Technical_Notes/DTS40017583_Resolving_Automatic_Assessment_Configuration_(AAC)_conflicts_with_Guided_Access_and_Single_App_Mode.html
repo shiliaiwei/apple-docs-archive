@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2448: Resolving Automatic Assessment Configuration (AAC) conflicts with Guided Access and Single App Mode</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017583">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017583-CH1">
+    <meta id="date" name="date" content="2016-12-06">
+    <meta id="description" name="description" content="TN2448: describes the conditions under which conflicts occur between AAC and Guided Access (or Single Access Mode), and how to programmatically check for the conflict.">
+    <meta id="book-title" name="book-title" content="Resolving Automatic Assessment Configuration (AAC) conflicts with Guided Access and Single App Mode">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Cocoa Layer/UIKit}, {Topic/Data Management/Device Information}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2448">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Resolving Automatic Assessment Configuration (AAC) conflicts with Guided Access and Single App Mode" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017583" title="Technical Note TN2448"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Resolving Automatic Assessment Configuration (AAC) conflicts with Guided Access and Single App Mode</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017583-CH1-DontLinkElementID_2" title="Technical Note TN2448"></a><div class="dtsDocNumber">Technical Note TN2448</div><h1 id="pageTitle">Resolving Automatic Assessment Configuration (AAC) conflicts with Guided Access and Single App Mode</h1><p>Restrictions imposed by AAC may not be enforced when Guided Access or Single App Mode are enabled. This document describes techniques to detect these cases, so assessment apps can respond appropriately.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017583-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017583-CH1-TNTAG2" data-renderer-version="1">Prerequisites</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017583-CH1-TNTAG3" data-renderer-version="1">Discussion</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017583-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40017583-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>If an app with the AAC entitlement (available on iOS 9.3.2 and higher) is launched on a device and Guided Access has been manually initiated on the device, or SAM (Single App Mode) configured for that app via a profile, then Guided Access and SAM will override the restrictions imposed by AAC. This document describes techniques to detect if this is the case, so the app can optionally stop the assessment.</p><p>For definitions of Guided Access, SAM, and AAC, please see <span class="content_text"><a href="https://support.apple.com/en-us/HT204775" class="urlLink" rel="external">Knowledge Base article HT204775</a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017583-CH1-TNTAG2" title="Prerequisites"></a><h2 class="jump">Prerequisites</h2><p>This document assumes that you already have an app using AAC that works as desired on unsupervised iOS devices.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017583-CH1-TNTAG3" title="Discussion"></a><h2 class="jump">Discussion</h2><p>When both Guided Access or SAM and AAC have been configured for an app, Guided Access or SAM will take precedence over AAC. Consequently, certain restrictions that are automatically imposed by AAC, such as turning off spell check, dictionary lookup, predictive typing, etc, will become inactive. Developers of assessment apps will want to discover if these restrictions are inactive, so they can either stop the assessment or warn the user, as appropriate.</p><p>The best practice is to not initiate Guided Access and to not configure any profiles with SAM for an assessment app, and to use AAC alone for assessment apps.</p><p>If an app can’t assume that Guided Access or SAM are not configured, the app needs to check whether Guided Access or SAM have been enabled. Because AAC requires iOS 9.3.2 or later, the app needs to check the iOS version before checking the state of Guided Access or SAM. Checking the version of iOS is illustrated in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS40017583-CH1-SOURCECODE1" title="Listing 1Checking if an app is running on iOS 9.3.2 or higher."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Checking if an app is running on iOS 9.3.2 or higher.</p><div class="codesample clear"><table><tr><td scope="row"><pre>// Are we running on iOS 9.3.2 or higher?<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>let osVersion_9_3_2 = OperatingSystemVersion(majorVersion: 9, minorVersion: 3, patchVersion: 2)<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>if ProcessInfo.processInfo.isOperatingSystemAtLeast(osVersion_9_3_2) {<span></span></pre></td></tr><tr><td scope="row"><pre>    // We are on iOS 9.3.2 or higher.<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>Checking for Guided Access or SAM should be done at least 2 seconds after app launch, as in <span class="content_text"><!--a  -->Listing 2<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS40017583-CH1-SOURCECODE2" title="Listing 2Checking if Guided Access or SAM is already active on the device."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Checking if Guided Access or SAM is already active on the device.</p><div class="codesample clear"><table><tr><td scope="row"><pre>DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {<span></span></pre></td></tr><tr><td scope="row"><pre>    if UIAccessibilityIsGuidedAccessEnabled() {<span></span></pre></td></tr><tr><td scope="row"><pre>        // Guided Access is enabled.<span></span></pre></td></tr><tr><td scope="row"><pre>        // Test should not proceed until the user disables Guided Access.<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>The two code snippets should be combined to perform an effective check, and this should be done before the app invokes AAC mode. It is up to you to determine if the correct action in this case is to abort the test, display a warning, continue, or to take some other action.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017583-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017583-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-12-06</td><td><p>New document that 
+					describes the conditions under which conflicts occur between AAC and Guided Access (or Single Access Mode), and how to programmatically check for the conflict.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-12-06</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

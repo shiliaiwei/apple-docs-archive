@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Open Directory Module Developer Note</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Release Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40013398">
+    <meta id="document-version" name="document-version" content="1.1.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40013398-TRANSLATED_CHAPTER_965">
+    <meta id="date" name="date" content="2013-10-22">
+    <meta id="description" name="description" content="Documents changes to Open Directory.">
+    <meta id="book-title" name="book-title" content="Open Directory Release Notes">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Technologies/Core Services Layer/OpenDirectory}, {Topic/Networking, Internet, & Web}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Open Directory Release Notes: Open Directory Module Developer Note">
+    <meta id="resources-uri" name="resources-uri" content="../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Open Directory Release Notes" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965" title="Open Directory Module Developer Note"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Open Directory Release Notes</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40013398" title="Open Directory Module Developer Note"></a><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW1" title="Open Directory Module Developer Note"></a>
+<h1 id="pageTitle">Open Directory Module Developer Note</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div>
+<p>A new architecture was introduced in OS X v10.9 Mavericks to allow creation of native Open Directory modules.  Unlike DirectoryService, opendirectoryd uses ‘modules’ implemented as a standalone process that uses XPC to communicate with opendirectoryd.  Implementing a module as an XPC service ensures a private address space, improves security and reliability since modules cannot crash another module nor opendirectoryd.</p><p>Support for DirectoryService plugins has been deprecated and will be removed in a future release.</p><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW2" title="Dynamic / Persistent Data"></a><h2 class="jump">Dynamic / Persistent Data</h2><p>There is an API available to store persistent data based on Core Foundation types.  This API is the preferred method as it associates data with the corresponding configuration.  It is cached in memory and written to disk when changes occur (i.e., “odmoduleconfig_set_dynamicdata”).</p></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW3" title="Module Capabilities"></a><h2 class="jump">Module Capabilities</h2><p>Modules are tagged as having specific capabilities based on the callbacks they support.  For example:</p><ul class="ul"><li class="li"><p>Authentication—supports some form of authentication</p></li><li class="li"><p>Connection—supports connections</p></li><li class="li"><p>Discovery—capable of determining a suitable list of servers</p></li><li class="li"><p>Modification—supports record modifications</p></li><li class="li"><p>Policy—reading/writing password policies</p></li><li class="li"><p>Query—querying of records</p></li></ul></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW4" title="Module Layering"></a><h2 class="jump">Module Layering</h2><p>The new module architecture allows layering of modules to implement different functionality or override functionality depending on needs. As an example, the default Active Directory support uses 4 modules in different areas to accomplish connectivity:</p><ul class="ul"><li class="li"><p>ActiveDirectory</p></li><li class="li"><p>Kerberos</p></li><li class="li"><p>NetLogon</p></li><li class="li"><p>LDAP</p></li></ul><p>The design allows modules to “override” functionality where needed and avoids the need to re-implement the functionality in each module.</p></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW5" title="Requests"></a><h2 class="jump">Requests</h2><p>Majority of activity will have an associated request object (i.e., “od_request_t”) passed into the callbacks.  Requests can be generated externally (via API calls) or internally as an artifact of another call. The request structure contains a child to parent relationship which improves ability to debug issues and filter to specific issues.  The request object allows for easy introspection into in-flight work and useful logging.  Active requests can be viewed using “odutil show requests”.</p></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW6" title="Translation Layer using Mapping Tables"></a><h2 class="jump">Translation Layer using Mapping Tables</h2><p>A new translation layer is built directly into ‘opendirectoryd’ which allows modules to work in their native name space.  Any module can utilize the translation layer by providing appropriate mapping tables in the node configuration or via a mappings template.  When a mapping table is provided, ‘opendirectoryd’ will translate standard attributes (i.e., “kODAttributeTypeFullName”) to the associated value native attribute (i.e., “cn”).</p></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW7" title="Module Entry Points"></a><h2 class="jump">Module Entry Points</h2><p>A function table must be provided by a module when loaded.  The function table informs the system what callbacks are supported but does not dictate which will be active.  Use of a module is dictated by the configuration for a given node. A module must populate “odmodule_vtable_s” with the appropriate callbacks and call “odmodule_main()” accordingly (see below).</p><div class="codesample clear"><table><tr><td scope="row"><pre>   int<span></span></pre></td></tr><tr><td scope="row"><pre>   main(int argc, char *argv[]) {<span></span></pre></td></tr><tr><td scope="row"><pre>   	static struct odmodule_vtable_s vtable = {<span></span></pre></td></tr><tr><td scope="row"><pre>   		.version = ODMODULE_VTABLE_VERSION,<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   		.odm_initialize = initialize,<span></span></pre></td></tr><tr><td scope="row"><pre>   		.odm_copy_auth_information = copy_auth_information,<span></span></pre></td></tr><tr><td scope="row"><pre>   		.odm_configuration_loaded = configuration_loaded,<span></span></pre></td></tr><tr><td scope="row"><pre>   		.odm_locate_service = locate_service,<span></span></pre></td></tr><tr><td scope="row"><pre>   		.odm_parse_dynamic_destination = parse_dynamic_destination,<span></span></pre></td></tr><tr><td scope="row"><pre>   		.odm_create_connection_with_options = create_connection_with_options,<span></span></pre></td></tr><tr><td scope="row"><pre>   		.odm_copy_details = copy_details,<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   		.odm_NodeSetCredentials = NodeSetCredentials,<span></span></pre></td></tr><tr><td scope="row"><pre>   		.odm_NodeSetCredentialsExtended = NodeSetCredentialsExtended,<span></span></pre></td></tr><tr><td scope="row"><pre>   		...<span></span></pre></td></tr><tr><td scope="row"><pre>   	};<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   	odmodule_main(&amp;vtable);<span></span></pre></td></tr><tr><td scope="row"><pre>   	return 0;<span></span></pre></td></tr><tr><td scope="row"><pre>   }<span></span></pre></td></tr></table></div><p>The module will lose control once “odmodule_main” is called and it will only be consulted via the the provided callbacks when necessary.  Most callbacks have a direct mapping to framework APIs though there are additional ones used to support core functionality:</p><ul class="ul"><li class="li"><p><code>odm_initialize</code>—called only once when module is first loaded</p></li><li class="li"><p><code>odm_configuration_loaded</code>—called the first time a configuration is loaded with a new UUID</p></li><li class="li"><p><code>odm_copy_auth_information</code>—must be implemented by authentication modules to inform opendirectoryd of capabilities</p></li><li class="li"><p><code>odm_copy_details</code>—copy details about the connection (merged across all modules to respond to ODNodeCopyDetails)</p></li><li class="li"><p><code>odm_create_connection_with_options</code>—create a new connection object for the module</p></li><li class="li"><p><code>odm_locate_service</code>—called at various times to locate available servers</p></li><li class="li"><p><code>odm_parse_dynamic_destination</code>—used to parse an unknown destination syntax into a valid destination</p></li></ul><p> </p><p>Only APIs that have an implementation should be wired to a callback. All unsupported callbacks should be set to NULL accordingly.  It is strongly recommended that modules implement a sandbox profile to limit exposure of the system.</p></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW8" title="Processing Requests"></a><h2 class="jump">Processing Requests</h2><p>There are three (3) typical return codes for most function callbacks:</p><ul class="ul"><li class="li"><p>eODCallbackResponseSkip—skip the current module and try the next one</p></li><li class="li"><p>eODCallbackResponseAccepted—accepted by the current module and it will respond accordingly</p></li><li class="li"><p>eODCallbackResponseRefused—refuse the operation (will ignore all other modules)</p></li></ul><p>Typically the module will only return one of the first two values.  Once a request has been accepted, it must respond to that request accordingly.  There are several response functions available depending on the active callback:</p><p> </p><ul class="ul"><li class="li"><p>	odrequest_respond_success</p></li><li class="li"><p>	odrequest_respond_error</p></li><li class="li"><p>	odrequest_respond_recordcreate</p></li></ul><p>and so on.</p></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW9" title="Mapping Templates"></a><h2 class="jump">Mapping Templates</h2><p>Modules can provide preset mapping tables via a template or they can be included directly in a configuration via ODConfiguration APIs.  Mapping tables are essentially a dictionary of standard record/attribute types to native, composed or static values.  Both the native and standard attributes are case sensitive and therefore must match the expected values from the server.</p><figure class="figure"><img src="../art/MappingTemplate.png" class="wide-image" alt="../art/MappingTemplate.png" width="688" height="462"><img src="../art/MappingTemplate.png" class="ipad-scaled-image" alt="../art/MappingTemplate.png" width="670" height="449"></figure><p> </p></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW10" title="Configuration files"></a><h2 class="jump">Configuration files</h2><p>A “configuration” template is much like a configuration file but does not have specifics about the node.  It provides a default set of options, module layouts, among other things.  A configuration template is not necessary as all the info can be included in the configuration file directly.  Below is a snapshot of a complex template that is used for Active Directory functionality.  The snapshot shows that authentication use three (3) possible modules.  Modules are consulted in order represented in the configuration.</p><p> </p><figure class="figure"><img src="../art/ConfigurationTemplate.png" class="wide-image" alt="../art/ConfigurationTemplate.png" width="693" height="533"><img src="../art/ConfigurationTemplate.png" class="ipad-scaled-image" alt="../art/ConfigurationTemplate.png" width="670" height="515"></figure><p> </p><p>Module layout is broken into 4 types of areas:</p><p> </p><ul class="ul"><li class="li"><p>“authentication”	- used for authentication related APIs</p></li><li class="li"><p>“default”		- used for all categories of calls (will be added to the tail of the other lists)</p></li><li class="li"><p>“discovery”	- used for locating servers appropriate for this node configuration</p></li><li class="li"><p>“session”		- used for queries and modification related APIs (a.k.a., general API module)</p></li></ul><p> </p></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW11" title="Configuration APIs"></a><h2 class="jump">Configuration APIs</h2><p>An Objective-C based configuration API has been added to the Open Directory framework.  The new API will allow manipulation of the configuration including template, mappings, and options among many other items.  There are five (5) core classes: ODConfiguration, ODMappings, ODRecordMap, ODAttributeMap and ODModuleEntry.  The project template will provide a skeleton configuration tool with all the necessary bits.</p><p> </p><p>An example of building a configuration is shown below that uses both a custom module and an Apple-provided module:</p><div class="codesample clear"><table><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* create an ODRecordMap container */<span></span></pre></td></tr><tr><td scope="row"><pre>   ODRecordMap *recordMap = [ODRecordMap recordMap];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* map standard attributes to LDAP native equivalent */<span></span></pre></td></tr><tr><td scope="row"><pre>   [recordMap setAttributeMap: [ODAttributeMap attributeMapWithValue: @"cn"] forStandardAttribute: kODAttributeTypeFullName];<span></span></pre></td></tr><tr><td scope="row"><pre>   [recordMap setAttributeMap: [ODAttributeMap attributeMapWithValue: @"homeDirectory"] forStandardAttribute: kODAttributeTypeNFSHomeDirectory];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* create an ODMappings container */<span></span></pre></td></tr><tr><td scope="row"><pre>   ODMappings *mappings = [ODMappings mappings];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* add the newly created ODRecordMap so it is used for Users */<span></span></pre></td></tr><tr><td scope="row"><pre>   [mappings setRecordMap: recordMap forStandardRecordType: kODRecordTypeUsers];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* create an ODConfiguration container */<span></span></pre></td></tr><tr><td scope="row"><pre>   ODConfiguration *configuration = [ODConfiguration configuration];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* add the mappings to the configuration as a default */<span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.defaultMappings = mappings;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* create a module entry that will be used in this configuration */<span></span></pre></td></tr><tr><td scope="row"><pre>   ODModuleEntry *myModuleEntry = [ODModuleEntry moduleEntryWithName: @"MyModule" xpcServiceName: @"com.example.myModule"];<span></span></pre></td></tr><tr><td scope="row"><pre>   ODModuleEntry *ldapModuleEntry = [ODModuleEntry moduleEntryWithName: @"ldap" xpcServiceName: nil];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* set a specific option for LDAP */<span></span></pre></td></tr><tr><td scope="row"><pre>   [ldapModuleEntry setOption: @"Use altServer replicas" value: @YES];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /*<span></span></pre></td></tr><tr><td scope="row"><pre>    * the Apple provided LDAP module will be used for authentication and general APIs<span></span></pre></td></tr><tr><td scope="row"><pre>    * the custom Module will be consulted for authentications first<span></span></pre></td></tr><tr><td scope="row"><pre>    * the LDAP module will be used to discover servers<span></span></pre></td></tr><tr><td scope="row"><pre>    */<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.authenticationModuleEntries = @[ myModuleEntry, ldapModuleEntry ];<span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.generalModuleEntries = @[ ldapModuleEntry ];<span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.discoveryModuleEntries = @[ ldapModuleEntry ];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* add a comment to the configuration */<span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.comment = @"Custom configuration for ldap.example.com";<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* set a default destination for the configuration */<span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.preferredDestinationHostName = @"ldap.example.com";<span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.preferredDestinationHostPort = 389;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* set global options */<span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.queryTimeoutInSeconds = 30;<span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.connectionIdleTimeoutInSeconds = 120;<span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.connectionSetupTimeoutInSeconds = 15;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* give the configuration a name */<span></span></pre></td></tr><tr><td scope="row"><pre>   configuration.nodeName = @"/LDAPv3/ldap.example.com";<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   /* get the appropriate rights to change the configuration of Open Directory, allowing user interaction */<span></span></pre></td></tr><tr><td scope="row"><pre>   NSError *error;<span></span></pre></td></tr><tr><td scope="row"><pre>   SFAuthorization *authorization = [[ODSession defaultSession] configurationAuthorizationAllowingUserInteraction: TRUE error: &amp;error];<span></span></pre></td></tr><tr><td scope="row"><pre>   if (authorization) {<span></span></pre></td></tr><tr><td scope="row"><pre>   	/* attempt to add the configuration to the default session */<span></span></pre></td></tr><tr><td scope="row"><pre>   	if (![[ODSession defaultSession] addConfiguration: configuration authorization: authorization error: &amp;error]) {<span></span></pre></td></tr><tr><td scope="row"><pre>   		/* error occurred */<span></span></pre></td></tr><tr><td scope="row"><pre>   	}<span></span></pre></td></tr><tr><td scope="row"><pre>   } else {<span></span></pre></td></tr><tr><td scope="row"><pre>   	/* error occurred */<span></span></pre></td></tr><tr><td scope="row"><pre>   }<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW12" title="Authentication Handlers"></a><h2 class="jump">Authentication Handlers</h2>
+<p>Authentication modules will be consulted in advance via the authentication info callback.  There are currently 3 types of requests that might happen for a module:</p><p> </p><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><tr><td  scope="row"><p>eODAuthInfoAttributes</p></td><td ><p>Determine what standard or native attributes are needed to complete an authentication request.  </p><p> </p><p>Authentication modules may not have access to the record data, therefore it must provide a list of attributes it needs to fulfill the request.  This allows ‘opendirectoryd’ to prefetch the attributes before calling into the module to do the authentication.  There is a default set of attributes that are always retrieved.  Nothing is required if no additional attributes are required.</p><p> </p><p>kODAttributeTypeMetaRecordName</p><p>kODAttributeTypeAuthenticationAuthority</p><p>kODAttributeTypePasswordPolicyOptions</p><p>kODAttributeTypePassword</p><p>kODAttributeTypeGUID</p><p>kODAttributeTypeUniqueID</p><p>kODAttributeTypeRecordType</p></td></tr><tr><td  scope="row"><p>eODAuthInfoAuthTypes</p></td><td ><p>An array of authentication types supported by this module:</p><p> </p><p>kODAuthenticationTypeCRAM_MD5</p><p>kODAuthenticationTypeDigest_MD5</p><p>kODAuthenticationTypeClearText,</p><p>etc.</p></td></tr><tr><td  scope="row"><p>eODAuthInfoMechanisms</p></td><td ><p>An array of mechanisms supported by the authentication module.  The values correspond to those in AuthenticationAuthority (e.g., “Kerberos”, “basic”, etc.).</p></td></tr></table></div><p>All authentication callbacks will be passed an XPC dictionary called “add_info” which will contain additional info related to the request specified above.   There are three (3) possible keys within the dictionary:</p><p> </p><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><tr><td  scope="row"><p>kODAuthInfoUserDetails</p></td><td ><p>an XPC_TYPE_DICTIONARY of keys related to the user</p></td></tr><tr><td  scope="row"><p>kODAuthInfoConnectionDestination</p></td><td ><p>an XPC_TYPE_DICTIONARY containing the current destination for the session connection. Allows for an authentication module to contact the same server if it is running multiple protocols.</p></td></tr><tr><td  scope="row"><p>kODAuthInfoSessionCredentials</p></td><td ><p>an XPC_TYPE_DICTIONARY containing the current credentials attached to the session connection, which is servicing the API calls.  The session credentials may be required depending in order to complete the operation.</p></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW13" title="Logging"></a><h2 class="jump">Logging</h2><p>It is recommended that modules use the provided logging API.  All logging will be routed to “/var/log/opendirectoryd.log”.  Using the API will preserve key details about a request including any relationships to other requests.  The API supports CF-style formats:</p><div class="codesample clear"><table><tr><td scope="row"><pre>odrequest_log_message(request, &lt;loglevel&gt;, &lt;format string or message&gt;, ...);<span></span></pre></td></tr></table></div><p>Log messages have a standardized format which  include identifiers based on the PID and request IDs that allow for easy filtering and debugging:</p><div class="codesample clear"><table><tr><td scope="row"><pre>2013-01-01 12:43:02.258999 PDT - 62906.6480.6481, Module: search - ODNodeCreateWithNameAndOptions request, SessionID: 00000000-0000-0000-0000-000000000000, Name: /Local/Default, Options: 0x0<span></span></pre></td></tr><tr><td scope="row"><pre>2013-01-01 12:43:02.259046 PDT - 62906.6480.6481, Node: /Local/Default, Module: search - found an existing shared connection '/Local/Default:PlistFile:A3129A95-FC85-4E7B-B359-E3F795997716' in pool<span></span></pre></td></tr><tr><td scope="row"><pre>2013-01-01 12:43:02.259055 PDT - 62906.6480.6481, Node: /Local/Default, Module: search - node assigned UUID - EC9BFA56-4CAF-44C2-93F9-AF84930C22EA<span></span></pre></td></tr><tr><td scope="row"><pre>2013-01-01 12:43:02.259088 PDT - 62906.6480.6481, Node: /Local/Default, Module: search - ODNodeCreateWithNameAndOptions completed<span></span></pre></td></tr></table></div><p>The “identifier” for the log message is “62906.6480.6481” which corresponds to:</p><p> </p><ul class="ul"><li class="li"><p><code>62906</code>—the calling PID</p></li><li class="li"><p><code>6480</code>—the original client request</p></li><li class="li"><p><code>6481</code>—the internal child request triggered by the “search” module to satisfy request ID 6480</p></li></ul><p>There is other information included in various message, such as SessionID, NodeID, current Module, etc.  Logging can be adjusted using “odutil set log &lt;level&gt;”, where log level is: “default”, “notice”, “info” or “debug”.</p><p>There is a way to check the current log level to avoid unnecessary and/or expensive operations to generate a log message for a level that is not enabled.</p>
+
+<div class="codesample clear"><table><tr><td scope="row"><pre>   if (log_level_enabled(eODLogNotice)) {<span></span></pre></td></tr><tr><td scope="row"><pre>   	// do more expensive operations<span></span></pre></td></tr><tr><td scope="row"><pre>   }<span></span></pre></td></tr></table></div><p>Possible levels include</p><ul class="ul"><li class="li"><p><code>eODLogCritical</code>—redirects to system.log as well</p></li><li class="li"><p><code>eODLogError</code>—some error occurred (this is the default logging level)</p></li><li class="li"><p><code>eODLogWarning</code>—concerning, but not fatal</p></li><li class="li"><p><code>eODLogNotice</code>—normal log details for high-level information, this should be minimal information</p></li><li class="li"><p><code>eODLogInfo</code>—some information info (like connection checks, scans, etc.)</p></li><li class="li"><p><code>eODLogDebug</code>—full debug information needed to help diagnose involved isues</p></li></ul><p> </p></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW14" title="Installation Locations"></a><h2 class="jump">Installation Locations</h2><p>The following are appropriate installation locations:</p><ul class="ul"><li class="li"><p><code>/Library/OpenDirectory/Modules/</code>—all third-party modules packaged in an XPC service bundle (i.e., module.xpc)</p></li><li class="li"><p><code>/Library/OpenDirectory/Templates/</code>—provided for third-party configuration templates</p></li><li class="li"><p><code>/Library/OpenDirectory/Mappings/</code>—provided for third-party mapping templates</p></li></ul></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW15" title="Migration of Legacy Configurations"></a><h2 class="jump">Migration of Legacy Configurations</h2><p>It is your responsibility to handle migration of legacy configuration settings.</p></section><section><a name="//apple_ref/doc/uid/TP40013398-TRANSLATED_CHAPTER_965-SW16" title="Open Directory Module Template"></a><h2 class="jump">Open Directory Module Template</h2><p>To use the Open Directory Module Template, do the following:</p><ol class="ol"><li class="li"><p>Download an Xcode template by clicking the Companion Files link when viewing this document in HTML form on the developer.apple.com website.</p></li><li class="li"><p>Create a project templates directory (if the does not exist) by issuing the following command:</p><div class="codesample clear"><table><tr><td scope="row"><pre>mkdir -p ~/Library/Developer/Xcode/Templates/Project\ Templates/System\ Plug\-ins/<span></span></pre></td></tr></table></div></li><li class="li"><p>Copy the contents of the file into the resulting directory. You can open that directory by typing the following command:</p><div class="codesample clear"><table><tr><td scope="row"><pre>open ~/Library/Developer/Xcode/Templates/Project\ Templates/System\ Plug\-ins/<span></span></pre></td></tr></table></div></li><li class="li"><p>Relaunch Xcode and select “Open Directory Module” from the “Mac -&gt; System Plug-ins” section of the project picker.</p></li></ol></section>
+
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-10-22</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="High-Speed SDRAM Design Considerations">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002977">
+            <meta id="document-version" name="document-version" content="1.0.2">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1138: Illustrates certain issues with the design of high-speed SDRAM DIMM modules.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+ 
+<title>Technical Note TN1138: High-Speed SDRAM Design Considerations</title> 
+
+    <meta name="keywords" content="Mac OS 8 SDRAM DIMM design considerations clock timing">
+    <meta name="Description" content="Technical Note TN1138: This Technical Note describes some
+of the design issues that should be considered by developers
+of high-speed SDRAM DIMM modules for Macintosh computers.">
+
+
+<meta name="categories" content="Hardware">
+
+
+<meta name="week-posted" content="Jul 27, 1998 - Aug 7, 1998">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002977" title="High-Speed SDRAM Design Considerations"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>High-Speed SDRAM Design Considerations</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/HardwareDrivers/index.html">Hardware & Drivers</a> &gt; <a href="../../technicalnotes/HardwareDrivers/idxAppleHardware-date.html">Apple Hardware</a> &gt; </p><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1138</div>
+<div id="pageheadsub">High-Speed SDRAM Design Considerations</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+<!-- begin_header_box -->
+         
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+     <tr>
+<td width=300 valign="top" align=left scope="row">
+    <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+        </tr>
+        <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+       <span id="menutitle">
+CONTENTS 
+  <br>
+  <br>
+       </span>
+   </td>
+        </tr>
+        <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+       <!-- begin_toc -->
+<p id="menutext"><a HREF = "#Section1">Defining the Problem</a><BR><BR>
+<a HREF = "#Section2">Problem Areas</a><BR><BR>
+<a HREF = "#Section3">Why This Hasn't Been As Much a Problem In the Past</a><BR><BR>
+<a HREF = "#Section4">Design Considerations for Modern RAM Modules</a><BR><BR>
+<a HREF = "#Section5">Additional Notes &amp; Comments</a><BR><BR>
+<a HREF = "#Summary">Summary</a><BR><BR>
+<a HREF = "#References">References</a><BR><BR>
+<a HREF = "#Downloads">Downloadables</a></p>
+<!-- end_toc -->
+</td>
+        </tr>
+
+        <tr>
+   <td width=300 align=left scope="row">
+       <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+   </td>
+        </tr>
+    </table>
+</td>
+<td width=300 valign="top" align=left>
+            
+<!-- begin_intro_text -->
+<P id = "introtext">This Technote describes some of the
+design issues that should be considered by developers of high-speed SDRAM DIMM
+modules for Macintosh computers.</P>
+
+<P id = "introtext">With ever-increasing computer speeds, it is more difficult than ever to design reliable memories that remain stable over time &#38; temperature variations. However, following a few high-speed design guidelines and techniques can save time and valuable resources, as well as produce a more stable and reliable product.</p>
+
+<P id = "introtext">This note is directed at memory developers who are involved in the design and manufacture of high-speed RAM memory modules for Macintosh computers.</p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Aug 31 1998]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+<!-- begin_content -->
+<a NAME="Section1"></a>
+
+<H2>Defining the Problem</H2>
+
+<P>
+RAM module design is becoming ever more critical. Modules that previously worked in some older, slower Macintosh computers may experience intermittent problems--or may not work at all--in newer, faster machines.  Trace lengths, noise, timing, and bus loading have all become critical concerns in today's high-speed systems.</p>
+
+<BR><P><a href="#top">Back to top</a></P>
+
+<a NAME="Section2"></a>
+
+<H2>Problem Areas</H2>
+
+<P>The following lists some potential problem areas for RAM module designers:</P>
+
+<OL> <li TYPE="A">Routing of signal lines;</li>
+
+<li>Partial stuffing options;</li>
+
+<li>Signal line lengths;</li>
+
+<li>Bypass capacitor distribution; and</li>
+
+<li>Clock timing.</li>
+</OL>
+<BR><P><a href="#top">Back to top</a></P>
+
+<a NAME="Section3"></a>
+
+<H2>Why This Hasn't Been As Much a Problem In the Past</H2>
+
+<P>Designing stable RAM memories has always been difficult, but the relatively slow speed buses of the past have allowed considerable margins in the designs.  Pushing systems faster has generally resulted in pushing CPU speeds to new levels, and this will surely continue as the technology moves forward. However, this is becoming increasing difficult to accomplish. In order to squeeze more performance out of today's systems, memory and I/O speeds are being boosted, which also necessitates keeping the entire system in balance. As a result, we are increasing memory bus speeds in order to improve overall system performance as much as possible. These new higher bus speeds are exposing many limitations in traditional RAM module design.</P>
+<BR><P><a href="#top">Back to top</a></P>
+
+<a NAME="Section4"></a>
+
+<H2>Design Considerations for Modern RAM Modules</H2>
+
+<P>There are many techniques that may be applied to RAM memory designs that will help improve their stability. First, plan your design topology with care. Look carefully at signal line lengths and try to match them as closely as possible.  Pay particular attention to the address bus, since this is usually the most heavily loaded.  Furthermore, try to plan the simplest routing of each byte of the data bus.  Give some thought to the placement of the RAMs and clock chips to accomplish these goals.</p>
+
+<P>
+If you plan on having stuffing options in your product (i.e., partially stuffed versions), be sure to place the stuffed RAMs at the end of the signal lines to avoid unterminated stubs.  Moreover, make sure the loading of clocks is balanced in all possible stuffing options.</p>
+
+<P>
+Design your product for 100Mhz operation.  Also, hand-route your critical signal paths, if possible.  Many autorouters are not capable of doing a very good job with highly constrained signals.  Even the autorouters that are capable might not be very efficient because of all the design constraints involved. Often these critical signals are better being hand-routed anyway, in order to accomplish the job in a reasonable amount of time.  Keep in mind that if this is a new design threshold, it may take a couple of iterations of hand routing to get a feel for the actual design constraints.</p>
+
+<P>
+Plan for dedicated power and ground planes with bypass caps placed as closely to the RAMs as possible.  Ensure an adequate number of vias from the connector pads to power and ground, and to the devices.  One via for each power and ground pin per device is recommended.  Twenty-five mil (.025) traces for power and ground pins is highly recommended, but under no circumstances should less than ten mil (.010) be used.</p>
+
+<P>
+Finally, use zero-delay buffers for the clocks.  The Cypress CY2305 is a good example, and serves as a excellent solution for both memory and PCI clocking.  This device will always attempt to adjust its CLKOUT signal for zero skew compared to the REF input. Because of this property, there are several design methods that can be used for the device:</p>
+
+<img src="images/tn1138_001.jpg" align=top alt="Adjustable delay configuration" width=439 height=214>
+
+<P>
+In Reference 1, the CLK1..4 outputs can be advanced or delayed by adjusting the <CODE>Cload</CODE> on the <CODE>CLKOUT</CODE> signal.  The more load applied to <CODE>CLKOUT</CODE>, the more advanced the <CODE>CLK1..4</CODE> signals become relative to <CODE>REF</CODE>. By contrast, the less load applied to <CODE>CLKOUT</CODE>, the more delayed the <CODE>CLK1..4</CODE> signals become relative to <CODE>REF</CODE>.  This means that, within reason, the clocks may be adjusted to compensate for the actual loads being presented by the driven devices (in this case, the RAMs).  The ratio of loading to advance/delay timing is roughly 50 ps/pf (see Cypress specification for exact numbers).  Note, it is important to  load all <CODE>CLK1..4</CODE> outputs evenly in order to minimize clock skew between individual outputs themselves.</p>
+
+<img src="images/tn1138_002.jpg" align=top alt="Adjustable delay configuration" width=435 height=214>
+
+<P>
+If there is no specific delay or advance required on the clocks relative to the REF, the Reference 2 design may be employed.  In this case, <CODE>CLKOUT</CODE> is directly used as one of the driving clock signals. Since the device will zero skew the <CODE>REF</CODE> to <CODE>CLKOUT</CODE> signals, then all of the remaining <CODE>CLK2..4</CODE> signals will also stay in phase with the <CODE>REF</CODE> signal regardless of the actual loading involved (again, all loads are assumed equal).</p>
+
+<P>
+Lastly, in order to increase memory density, some manufacturers are paralleling memories together.  This technique is known as "stacking" or composite memories. Some designs exist that utilize a version of the stacking technology in which the individual RAM devices are soldered together on the substrate. This is simply a modern version of the composite memory products of several years ago in which multiple SIMM or DIMM modules were plugged into a single combiner substrate, which was then plugged into the host.  Other techniques employ internal RAM device designs in which multiple die are actually wired in parallel inside the chip packaging.  In both cases, bus loading and timing become critical due to the parallel bus nature of the architecture. At the time of this writing, Apple does not endorse either of these techniques, or any other technology based on device-stacking.</p>
+<BR><P><a href="#top">Back to top</a></P>
+
+<a NAME="Section5"></a>
+
+<H2>Additional Notes &amp; Comments</H2>
+
+<P>The following are some important items that you may need to consider when
+working through the problem:</P>
+
+<UL> 
+<li>Match the number of devices the clocks are driving;</li>
+
+<li>Ensure clocks are also balanced in partially stuffed products;</li>
+
+<li>Examine signal lengths from CAD/CAM output, both absolute and relative;</li>
+
+<li>Hand route critical signals where possible (or at least analyze autorouted signals); and</li>
+
+<li>Do not rely on stacked devices in your product designs.</li>
+</UL>
+
+<BR><P><a href="#top">Back to top</a></P>
+
+<a NAME="Summary"></a>
+
+<H2>Summary</H2>
+
+<P>As systems get faster, good stable RAM memory designs are becoming increasingly difficult to accomplish.  However, products can be designed that behave well, provided enough care and thought is put into their design beforehand.</P>
+<BR><P><a href="#top">Back to top</a></P>
+
+<a name="References"></a>
+<H2>References</H2>
+
+<p><a HREF = "http://www.cypress.com/products/timi/cy2309.html"> Low Cost 3.3V Zero Delay Buffer for PC and SDRAM, Cypress Semiconductor Corporation</a></p>
+
+<p><a HREF = "http://www.jedec.org">JESD 21 C Configurations for Solid State Memories</a></p>
+
+<p><a HREF = "http://developer.intel.com/technology/memory/pcsdram/spec/">Intel PC Memory Specifications</a></p>
+
+<p><a HREF = "tn1055.html"> Technote 1055: SIMMs to DIMMs: Making Sense Out of Memory Expansion for the Power Macintosh</a></p>
+
+<p><a href="../hw/hw_33.html">Technote HW33: Composite SIMMs Not Supported</a></p>
+
+
+<BR><P><a href="#top">Back to top</a></P>
+
+        <a NAME="Downloads"></a> 
+        <h2>Downloadables</h2>
+
+        <center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+         <TR> 
+            <td width=50 align=left> 
+              <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" height=23 width=22></P>
+            </TD>
+            <td align="left"> 
+              <p>Acrobat version of this Note (132K).</P>
+            </TD>
+            <td width=60 align=left> 
+              <p><a href="pdf/tn1138.pdf">Download</a></P>
+            </TD>
+          </TR>   
+          </table></center><BR><BR>
+
+<BR><P><a href="#top">Back to top</a></P>
+</TD></TR></table></CENTER>
+
+<!-- end_content -->
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

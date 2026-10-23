@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2331: AUSampler - Controlling the Settings of the AUSampler in Real Time</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014027">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014027-CH1">
+    <meta id="date" name="date" content="2014-01-16">
+    <meta id="description" name="description" content="TN2331: discusses different methods of controlling the AUSampler audio unit in real time.">
+    <meta id="book-title" name="book-title" content="AUSampler - Controlling the Settings of the AUSampler in Real Time">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2331">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="AUSampler - Controlling the Settings of the AUSampler in Real Time" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014027" title="Technical Note TN2331"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>AUSampler - Controlling the Settings of the AUSampler in Real Time</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014027-CH1-DontLinkElementID_2" title="Technical Note TN2331"></a><div class="dtsDocNumber">Technical Note TN2331</div><h1 id="pageTitle">AUSampler - Controlling the Settings of the AUSampler in Real Time</h1><p>A Note on Terminology:</p><p>In this document, the individual internal parts of the Sampler Audio Unit’s synthesis engine are referred to as “subcomponents”. These should not be confused with audio components or any other system within the Audio Toolbox.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME" data-renderer-version="1">Controlling the Settings of the AUSampler in Real Time</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME-PERFORMANCE_PARAMETERS" data-renderer-version="1">Performance Parameters</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME-MIDI_CONTROLLER_MESSAGES" data-renderer-version="1">MIDI Controller Messages</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME-GROUP_SCOPE_PARAMETERS" data-renderer-version="1">Group Scope Parameters</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME-WHAT_SETTINGS_CAN_I_CONTROL_IN_THIS_FASHION_" data-renderer-version="1">What Settings Can I Control in this Fashion?</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014027-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME" title="Controlling the Settings of the AUSampler in Real Time"></a><h2 class="jump">Controlling the Settings of the AUSampler in Real Time</h2><p>The Sampler Audio Unit supports the ability to modify the settings of its subcomponents (oscillator pitch, filter cutoff, envelope attack time, etc.) via control information supplied in real time by the host application. The control inputs of all subcomponents are designed as “summing” inputs: The overall effect of the inputs is always equal to the linear sum of all connected inputs (in whatever units the input expects). This means that each connection input added for real-time control will be combined with the existing inputs to produce the final result.</p><p>The full set of currently-connected inputs can always be examined via the INSTRUMENT CONNECTIONS panel in AU Lab’s editor for the Sampler (See Figure 1). The control input connections themselves are configured in advance as part of a preset created using AU Lab. Each connection is set up to modify the value of a particular subcomponent on a one-to-one basis. The relationship between the value at the input of the connection and the value that is sent to the subcomponent’s input is called the “mapping”. This is configurable and extremely flexible.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40014027-CH1-FIGURE1" title="Figure 1AULab Instrument Connections Panel."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;AULab Instrument Connections Panel.</figcaption><img src="Art/tn2331_InstrumentConnection.png" class="wide-image" alt="" width="804" height="629"><img src="Art/tn2331_InstrumentConnection.png" class="ipad-scaled-image" alt="" width="670" height="524"></figure><p>There are three types of real-time connection:</p><ul class="ul"><li class="li"><p>Performance Parameters</p></li><li class="li"><p>MIDI Controller Messages</p></li><li class="li"><p>Group Scope Parameters</p></li></ul><section><a name="//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME-PERFORMANCE_PARAMETERS" title="Performance Parameters"></a><h3 class="jump">Performance Parameters</h3><p>Performance Parameters are a set of eight Audio Unit parameter values (1000-1007) which can be configured to modify any of the Sampler’s subcomponents. These parameters are discoverable via the <code>kAudioUnitProperty_ParameterList</code> property, and they default to an “unmapped” state in which they control nothing, and by default are named “Performance Parameter 1” through “Performance Parameter 8". The input range for Performance Parameters is always normalized to -1.0 to 1.0, or 0.0 to 1.0, depending on what input is being controlled.</p><p>The advantage of these parameters over the other types of input connections is that they are discoverable (via the AUParameterInfo mechanism) by host applications such as Logic Studio, so they can take full advantage of the parameter automation features of such applications. They can be created and configured using the PERFORMANCE PARAMETERS panel in AU Lab’s editor for the Sampler.</p><p>In Figure 2, two Performance Parameters have been created and given them custom names. The first of these is selected to show that the parameter is mapped to the Pan input for the Layer.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40014027-CH1-FIGURE2" title="Figure 2AULab Performance Parameters Panel."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;AULab Performance Parameters Panel.</figcaption><img src="Art/tn2331_PerformanceParameter.png" class="wide-image" alt="" width="804" height="629"><img src="Art/tn2331_PerformanceParameter.png" class="ipad-scaled-image" alt="" width="670" height="524"></figure></section><section><a name="//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME-MIDI_CONTROLLER_MESSAGES" title="MIDI Controller Messages"></a><h3 class="jump">MIDI Controller Messages</h3><p>In order for the default Sampler Audio Unit (i.e., with no user preset loaded) to behave in a reasonable fashion in response to MIDI input, it is set up to use several of the standard General MIDI controller connections. Among these are controller #7 and #11 modifying gain, controller #10 modifying pan, and so forth. The input range of these messages conforms to the MIDI specification’s range of 0 to 127. The vast majority of the 128 total MIDI controller numbers are not set up by default to modify anything, and are available to use as control inputs for various Sampler subcomponents, which is useful if you have a complex preset.</p><p>Once a MIDI controller connection is configured and loaded as part of the preset, each particular subcomponent can be modified independently by sending MIDI control messages with the specific controller numbers (and values) to the Sampler via <code>MusicDeviceMIDIEvent</code>. Each of these connections may be created, modified, and examined using the INSTRUMENT CONNECTIONS panel in AU Lab’s editor for the Sampler.</p><p>In Figure 3 an additional connection has been created, mapping MIDI controller #55 to the Attack Time of the Layer's envelope.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40014027-CH1-FIGURE3" title="Figure 3Creating MIDI Controller Connections."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;Creating MIDI Controller Connections.</figcaption><img src="Art/tn2331_MIDIControllerMessages.png" class="wide-image" alt="" width="804" height="629"><img src="Art/tn2331_MIDIControllerMessages.png" class="ipad-scaled-image" alt="" width="670" height="524"></figure></section><section><a name="//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME-GROUP_SCOPE_PARAMETERS" title="Group Scope Parameters"></a><h3 class="jump">Group Scope Parameters</h3><p>The Sampler Audio Unit also supports a way to send control information to any MIDI controller connection (described above) using AudioUnitSetParameter() calls rather than sending MIDI events. When parameter values are set on the Sampler using the Audio Unit Scope <code>kAudioUnitScope_Group</code>, the parameter change is interpreted as though the parameter ID was a MIDI controller number. For example, the code in Listing 1 will produce the same effect on a Sampler which has a connection set up for MIDI controller #55:</p><a name="//apple_ref/doc/uid/DTS40014027-CH1-SOURCECODE1" title="Listing 1"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;</p><div class="codesample clear"><table><tr><td scope="row"><pre>UInt8 channel = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>UInt8 controllerNumber = 55;<span></span></pre></td></tr><tr><td scope="row"><pre>UInt8 controllerValue = 127; /* set it to max */<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>MusicDeviceMIDIEvent(theSampler,<span></span></pre></td></tr><tr><td scope="row"><pre>                     kMidiMessage_ControlChange|channel, /* status combines the message type and channel */<span></span></pre></td></tr><tr><td scope="row"><pre>                     controllerNumber,<span></span></pre></td></tr><tr><td scope="row"><pre>                     controllerValue,<span></span></pre></td></tr><tr><td scope="row"><pre>                     0);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AudioUnitSetParameter(theSampler,<span></span></pre></td></tr><tr><td scope="row"><pre>                      controllerNumber,<span></span></pre></td></tr><tr><td scope="row"><pre>                      kAudioUnitScope_Group,<span></span></pre></td></tr><tr><td scope="row"><pre>                      (AudioUnitElement )channel,<span></span></pre></td></tr><tr><td scope="row"><pre>                      (AudioUnitParameterValue) controllerValue,<span></span></pre></td></tr><tr><td scope="row"><pre>                      0);<span></span></pre></td></tr></table></div><p>These parameters are not externally discoverable like the Performance Parameters, but using MIDI events you can still create MIDI control data which will, when played back via the Sampler, automate the changes to the subcomponents controlled by those connections.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40014027-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;If no connection exists for MIDI controller #55, neither of the above calls will have any effect, nor will they return an error (a nonexistent connection is legal).</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME-WHAT_SETTINGS_CAN_I_CONTROL_IN_THIS_FASHION_" title="What Settings Can I Control in this Fashion?"></a><h3 class="jump">What Settings Can I Control in this Fashion?</h3><p>Here is a list of the subcomponents and their inputs that can be controlled using connections:</p><section><a name="//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME_WHAT_SETTINGS_CAN_I_CONTROL_IN_THIS_FASHION_-AMPLIFIER" title="Amplifier"></a><h4 class="jump">Amplifier</h4><a name="//apple_ref/doc/uid/DTS40014027-CH1-TABLE1" title="Table 1"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Parameter
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Units
+</p></th></tr><tr><td  scope="row"><p>
+Gain
+</p></td><td ><p>
+Decibels (-96 to 0)
+</p></td></tr><tr><td  scope="row"><p>
+Pan
+</p></td><td ><p>
+Percent (-0.5 to 0.5)
+</p></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME_WHAT_SETTINGS_CAN_I_CONTROL_IN_THIS_FASHION_-OSCILLATOR" title="Oscillator"></a><h4 class="jump">Oscillator</h4><a name="//apple_ref/doc/uid/DTS40014027-CH1-TABLE2" title="Table 2"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Parameter
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Units
+</p></th></tr><tr><td  scope="row"><p>
+Pitch
+</p></td><td ><p>
+Cents
+</p></td></tr><tr><td  scope="row"><p>
+Sample Start
+</p></td><td ><p>
+Milliseconds
+</p></td></tr><tr><td  scope="row"><p>
+Sample Start Factor
+</p></td><td ><p>
+Percentage of sample length (1.0 == 100%)
+</p></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME_WHAT_SETTINGS_CAN_I_CONTROL_IN_THIS_FASHION_-FILTER" title="Filter"></a><h4 class="jump">Filter</h4><a name="//apple_ref/doc/uid/DTS40014027-CH1-TABLE3" title="Table 3"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 3</strong>&nbsp;&nbsp;</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Parameter
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Units
+</p></th></tr><tr><td  scope="row"><p>
+Cutoff
+</p></td><td ><p>
+Cents
+</p></td></tr><tr><td  scope="row"><p>
+Resonance (Q)
+</p></td><td ><p>
+Decibels
+</p></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME_WHAT_SETTINGS_CAN_I_CONTROL_IN_THIS_FASHION_-LFO" title="LFO"></a><h4 class="jump">LFO</h4><a name="//apple_ref/doc/uid/DTS40014027-CH1-TABLE4" title="Table 4"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 4</strong>&nbsp;&nbsp;</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Parameter
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Units
+</p></th></tr><tr><td  scope="row"><p>
+Delay Time
+</p></td><td ><p>
+Time Octaves**
+</p></td></tr><tr><td  scope="row"><p>
+Rate
+</p></td><td ><p>
+Octaves
+</p></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40014027-CH1-CONTROLLING_THE_SETTINGS_OF_THE_AUSAMPLER_IN_REAL_TIME_WHAT_SETTINGS_CAN_I_CONTROL_IN_THIS_FASHION_-ENVELOPE" title="Envelope"></a><h4 class="jump">Envelope</h4><a name="//apple_ref/doc/uid/DTS40014027-CH1-TABLE5" title="Table 5"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 5</strong>&nbsp;&nbsp;</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Parameter
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Units
+</p></th></tr><tr><td  scope="row"><p>
+Delay Time
+</p></td><td ><p>
+Time Octaves**
+</p></td></tr><tr><td  scope="row"><p>
+Attack Time
+</p></td><td ><p>
+Time Octaves**
+</p></td></tr><tr><td  scope="row"><p>
+Hold Time
+</p></td><td ><p>
+Time Octaves**
+</p></td></tr><tr><td  scope="row"><p>
+Decay Time
+</p></td><td ><p>
+Time Octaves**
+</p></td></tr><tr><td  scope="row"><p>
+Release Time
+</p></td><td ><p>
+Time Octaves**
+</p></td></tr><tr><td  scope="row"><p>
+Sustain Level
+</p></td><td ><p>
+Percent (1.0 == 100%)
+</p></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40014027-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;<strong>**</strong> The term "Time Octaves" refers to a way of controlling time in an exponential fashion, such that a value of 1.0 doubles the amount of time, 2.0 quadruples it, and so on.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40014027-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;Envelope Factor-based versions of Delay Time, Attack Time, Hold Time, Decay Time and Release Time use Linear time factor units, (e.g. an attack value of 3.0 implies the envelope takes 3x longer to attack).</p><p></p></aside></div><p>It is important to remember that within any Sampler preset, the filters, oscillators, low frequency oscillators, and envelopes are defined at the Layer level, so presets with multiple layers have multiple independent sets of subcomponents, each of which can be controlled independently. If you open a preset with multiple layers in AU Lab’s INSTRUMENT CONNECTIONS editor, you will see the “destination” for each connection specifies both the layer number and the particular subcomponent input.</p><p>In Figure 4, a new connection is being created which will control a subcomponent in Layer 2.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40014027-CH1-FIGURE4" title="Figure 4Instrument Connections For Multiple Layers"></a><figcaption><strong class="caption_number">Figure 4</strong>&nbsp;&nbsp;Instrument Connections For Multiple Layers</figcaption><img src="Art/tn2331_LayerConnection.png" class="wide-image" alt="" width="972" height="812"><img src="Art/tn2331_LayerConnection.png" class="ipad-scaled-image" alt="" width="670" height="559"></figure></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40014027-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014027-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-01-16</td><td><p>New document that 
+					discusses different methods of controlling the AUSampler audio unit in real time.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-01-16</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

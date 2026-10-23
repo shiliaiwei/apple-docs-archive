@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2022: The Death of typeFSSpec: Moving Along to typeFileURL</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003059">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003059-CH1">
+    <meta id="date" name="date" content="2011-07-27">
+    <meta id="description" name="description" content="TN2022: Discusses the typeFileURL format and how to use it to pass file references between applications in Mac OS X.">
+    <meta id="book-title" name="book-title" content="The Death of typeFSSpec: Moving Along to typeFileURL">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/CoreServices}, {Topic/Data Management/File Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2022">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="The Death of typeFSSpec: Moving Along to typeFileURL" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003059" title="Technical Note TN2022"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>The Death of typeFSSpec: Moving Along to typeFileURL</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003059-CH1-DontLinkElementID_2" title="Technical Note TN2022"></a><div class="dtsDocNumber">Technical Note TN2022</div><h1 id="pageTitle">The Death of typeFSSpec: Moving Along to typeFileURL</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>This technote describes the <code>typeFileURL</code> data format and discusses how to use this data type to pass references to files between applications in Mac OS X. This new data type provides a convenient way to pass references to files that have yet to be created between applications running in Mac OS X.</p><p>The <code>FSSpec</code> data type is not suitable for encoding information about files in Mac OS X. Most importantly, an <code>FSSpec</code> cannot encode long or Unicode file names such as those used in the Mac OS X file system. In addition, Directory ID numbers and volume reference numbers are application specific in Mac OS X. This means that a directory ID number or volume reference number used in one application will not have any meaning for another applications. <code>FSSpec</code> records include volume reference numbers, directory ID numbers, and do not contain sufficient space for long file names. As a result, <code>FSSpec</code> does not provide suitable encoding for storing references to files or for passing references to files between applications in Mac OS X.</p><p>For the most part, alias records encoded in Apple events provide suitable remedy for the shortcomings of <code>FSSpec</code> records, except for one case — references to files that have yet to be created. In these cases, <code>typeFileURL</code> is the best way to provide a such a pre-determined file reference.</p><p>Users will expect to be able to use longer file names in Mac OS X, and the new Navigation Services routines will allow them to do this. Most importantly, for the purposes of this document, it should be noted that calls to <code>NavPutFile</code> have been replaced with the <code>NavCreatePutFileDialog</code>/<code>NavDialogRun</code> calling sequence that allows a user to provide a longer, Unicode file name that is returned in a CFString. This document discusses how this information can be packaged up for transmission between applications and transmission within Apple event factored applications.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003059-CH1-SECTYPEFILEURLDEFINED" data-renderer-version="1">typeFileURL Defined</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003059-CH1-SECWHENTOUSE" data-renderer-version="1">When to use typeFileURL</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003059-CH1-SECCREATINGTO" data-renderer-version="1">Creating a typeFileURL from a Navigation Services reply</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003059-CH1-SECCREATINGFROM" data-renderer-version="1">Creating a file referenced by a typeFileURL</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003059-CH1-SECADVANCED" data-renderer-version="1">Advanced routines for using typeFileURL</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003059-CH1-SECDOWNLOADS" data-renderer-version="1">Downloads</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003059-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003059-CH1-SECTYPEFILEURLDEFINED" title="typeFileURL Defined"></a><h2 class="jump">typeFileURL Defined</h2><p>In a nutshell, <code>typeFileURL</code> is a Core Foundation URL encoded to a stream of bytes in UTF-8 format. This is the suggested data type to use when your application would like to create a reference to a file that has yet to be created. Furthermore, there are a number of other good reasons to use this type; depending on your processing requirements, you may wish to use this data type in a number of different circumstances. Here are some properties and features of the <code>typeFileURL</code> data format:</p><ul class="ul"><li class="li"><p><code>typeAlias</code> and <code>typeFSRef</code> require deterministic reference and cannot refer to files that have yet to be created. <code>typeFileURL</code> uses the weak "by name" style reference provided by URLs, and as such is quite capable of providing pre-determined references to files.</p></li><li class="li"><p><code>typeFileURL</code> provides facilities encoding of special characters in directory and file names including '/', ':', and Unicode characters.</p></li><li class="li"><p>It is the same data format as the <code>'furl'</code> drag flavor. This flavor is attached to drag references containing HFS flavors. It is used internally by the Drag Manager as follows:</p><ul class="nested"><li class="nested li"><p>In the sending application: when a HFS flavor is added to a drag item, the Drag Manager encodes a <code>'furl'</code> flavor in the drag item referencing the same file.</p></li><li class="nested li"><p>In the receiving application: The <code>'furl'</code> flavor is decoded and used to update the <code>FSSpec</code> record's fields in the HFS flavor before it is passed to the receiving application.</p></li></ul><p>The result is that an application can use the HFS flavors directly without worrying about stale directory ID numbers of volume reference numbers. But, as well, an application that uses the <code>typeFileURL</code> data type may use the encoded <code>'furl'</code> flavor directly, instead of using the HFS flavor.</p></li><li class="li"><p>URLs provided by Core Foundation encode mount-point information. As such, <code>typeFileURL</code> references are capable of distinguishing between volumes with the same name.</p></li><li class="li"><p><code>typeFileURL</code> does not encode any process-specific information such as volume reference numbers or directory ID numbers. As such, it is valid to pass this format from process to process.</p></li><li class="li"><p><code>typeFileURL</code> is a static non-persistent reference. That is, if a <code>typeFileURL</code> is created that references a file and that file is later moved, the <code>typeFileURL</code> will no longer reference that file. For this type of functionality, you should consider using the <code>typeAlias</code> format.</p></li></ul><p>The routines shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span> provide a functional definition for the <code>typeFileURL</code> format. These routines can be used to convert Apple event descriptor records containing <code>typeFileURL</code> data into Core Foundation URLs. Core Foundation URLs themselves provide clear reference to files that can be used by applications.</p><a name="//apple_ref/doc/uid/DTS10003059-CH1-SOURCECODE1" title="Listing 1Routines illustrating how to encode and decode 'furl' Apple event descriptor records.  These routines provide a functional definition for this data type."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Routines illustrating how to encode and decode 'furl' Apple event descriptor records.  These routines provide a functional definition for this data type.</p><div class="codesample clear"><table><tr><td scope="row"><pre> /* encode -&gt; AEDesc
+    FURLDescFromCFURL encodes a Core Foundation URL into a
+    Apple event descriptor record and returns a pointer to
+    the descriptor record. If an error occurs, NULL is
+    returned. */
+AEDesc * FURLDescFromCFURL(AEDesc *furlDesc, CFURLRef url) {
+    CFDataRef theData;
+    OSStatus err;
+    AEDesc *furlResult;
+
+        /* set up locals to a known state */
+    furlResult = NULL;
+
+        /* encode the URL to a UTF8 data string */
+    theData = CFURLCreateData(nil, url, kCFStringEncodingUTF8, true);
+    if (theData != NULL) {
+
+            /* put the data into the descriptor */
+        err = AECreateDesc('furl', CFDataGetBytePtr(theData),
+            CFDataGetLength(theData), furlDesc);
+
+            /* if successful, set the result */
+        if (err == noErr) {
+            furlResult = furlDesc;
+        }
+            /* release the local buffer */
+        CFRelease(theData);
+    }
+        /* return a pointer to the furl descriptor */
+    return furlResult;
+}
+
+    /* decode -&gt; CFURL
+    FURLDescToCFURL decodes an Apple event descriptor record
+    containing a furl descriptor and returns a Core Foundation
+    URL. If an error occurs, NULL is returned. */
+CFURLRef FURLDescToCFURL(AEDesc *furlDesc) {
+    Ptr dataPtr;
+    Size bytecount;
+    CFURLRef url;
+    OSStatus err;
+
+        /* set up locals to a known state */
+    url = NULL;
+
+        /* verify the type is correct */
+    if (furlDesc-&gt;descriptorType == 'furl') {
+
+            /* count the bytes in the descriptor */
+        bytecount = AEGetDescDataSize(furlDesc);
+
+            /* allocate a local buffer for the bytes */
+        dataPtr = malloc(bytecount);
+        if (dataPtr != NULL) {
+
+                /* copy the bytes from the descriptor */
+            err = AEGetDescData(furlDesc, dataPtr, bytecount);
+            if (err == noErr) {
+
+                    /* create a Core Foundation URL */
+                url = CFURLCreateWithBytes(nil, dataPtr, bytecount,
+                    kCFStringEncodingUTF8, nil);
+
+            }
+                /* deallocate the local buffer */
+            free(dataPtr);
+        }
+    }
+        /* return the new URL */
+    return url;
+}<span></span></pre></td></tr></table></div><p>These are runtime data types used by applications for communications of file locations. As such, a definition of the binary format for this type is not provided in this document. However, developers who are interested in discovering the exact details of the binary encoding used for this data type should consult the Core Foundation documentation.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003059-CH1-SECWHENTOUSE" title="When to use typeFileURL"></a><h2 class="jump">When to use typeFileURL</h2><p>The <code>typeFileURL</code> was specifically designed to allow reference to files that have yet to be created. As such, its primary function is to allow file naming and reference in "Save As..." style Apple events sent between and within applications.</p><p>In an application that has been factored and sends Apple events to itself for processing in response to user interface commands, the <code>typeFileURL</code> is a necessary encoding mechanism as the traditional encoding schemes not sufficient for encoding references to files that have yet to be created in Mac OS X.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003059-CH1-FIGURE1" title="Figure 1An illustration showing how the typeFileURL format is used to encode references to files in Apple events."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;An illustration showing how the typeFileURL format is used to encode references to files in Apple events.</figcaption><img src="Art/tn2022_001.gif" alt="" width="446" height="298"></figure><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003059-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;In a factored application, both the sending application and the receiving application are one and the same.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003059-CH1-SECCREATINGTO" title="Creating a typeFileURL from a Navigation Services reply"></a><h2 class="jump">Creating a typeFileURL from a Navigation Services reply</h2><p>Naturally, the first step in the process illustrated in <span class="content_text"><!--a  -->Figure 1<!--/a--></span> is retrieving a Core Foundation URL from the Navigation Services reply that references the file that should be created. In Mac OS X, the Navigation Services reply record returned by a <code>NavCreatePutFileDialog</code>/<code>NavDialogRun</code> sequence will contain an <code>FSRef</code> referring to the folder where the new file should be created in the first AEDesc record in the AEDescList contained in the <code>NavReplyRecord</code>'s <code>selection</code> field, and the name of the new file will contained in the CFString referred to by the <code>saveFileName</code> field. <span class="content_text"><!--a  -->Listing 2<!--/a--></span> illustrates one way this can be done.</p><a name="//apple_ref/doc/uid/DTS10003059-CH1-SOURCECODE2" title="Listing 2An example of how one could generate a Core Foundation URL from a Navigation Services reply record returned by a NavCreatePutFileDialog/NavDialogRun sequence."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;An example of how one could generate a Core Foundation URL from a Navigation Services reply record returned by a NavCreatePutFileDialog/NavDialogRun sequence.</p><div class="codesample clear"><table><tr><td scope="row"><pre> /* GetCFURLFromNavReply returns a URL referencing a file that
+    is yet to be created in response to a
+    NavCreatePutFileDialog/NavDialogRun sequence */
+CFURLRef GetCFURLFromNavReply(const NavReplyRecord * navReply) {
+    OSStatus err;
+    FSRef parentFSRef;
+    CFURLRef parentURLRef, fullURLRef;
+    AEKeyword theAEKeyword;
+    DescType typeCode;
+    Size actualSize;
+
+        /* ensure locals are in a known state */
+    fullURLRef = NULL;
+
+        /* get the FSRef referring to the parent directory */
+    err = AEGetNthPtr(&amp;navReply-&gt;selection, 1, typeFSRef,
+        &amp;theAEKeyword, &amp;typeCode, &amp;parentFSRef, sizeof(FSRef), &amp;actualSize);
+    if (err == noErr) {
+
+            /* convert the FSRef into a Core Foundation URL */
+        parentURLRef = CFURLCreateFromFSRef(NULL, &amp;parentFSRef);
+        if (parentURLRef != NULL) {
+
+                /* add the file name to the end of the url */
+            fullURLRef = CFURLCreateCopyAppendingPathComponent(NULL,
+                parentURLRef, navReply-&gt;saveFileName, false);
+
+                /* release the path to the parent */
+            CFRelease(parentURLRef);
+        }
+    }
+        /* return the reference to the new URL */
+    return fullURLRef;
+}<span></span></pre></td></tr></table></div><p>Once the file reference has been encoded as a CFURL, a routine such as <code>FURLDescFromCFURL</code> (see <span class="content_text"><!--a  -->Listing 1<!--/a--></span>) can be used to encode it into a Apple event descriptor record as an <code>'furl'</code> formatted descriptor. Once it has been converted into this format, it is ready for transport in an Apple event.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003059-CH1-SECCREATINGFROM" title="Creating a file referenced by a typeFileURL"></a><h2 class="jump">Creating a file referenced by a typeFileURL</h2><p>For decoding an Apple event descriptor record containing a <code>typeFileURL</code> your application would use a technique similar to the one presented in the <code>FURLDescToCFURL</code> routine shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>. This will provide a CFURL referencing the file that is to be created, which in turn can be used to generate both a reference to the directory (where the file should be created), and the name of the file to create. These items can then be passed to <code>FSCreateFileUnicode</code>, shown in <span class="content_text"><!--a  -->Listing 3<!--/a--></span>, to perform the file creation operation. Once the file has been created, it can be referenced using an <code>FSRef</code> record.</p><a name="//apple_ref/doc/uid/DTS10003059-CH1-SOURCECODE3" title="Listing 3An example of how one could create a file referenced by a CFURL using the FSCreateFileUnicode routine."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;An example of how one could create a file referenced by a CFURL using the FSCreateFileUnicode routine.</p><div class="codesample clear"><table><tr><td scope="row"><pre> /* CreateFileUsingCFURL creates the file referenced by
+    the CFURL using the supplied catalog parameters. */
+OSStatus CreateFileUsingCFURL(
+            FSRef *newFileReference,
+            CFURLRef url,
+            FSCatalogInfoBitmap whichInfo,
+            const FSCatalogInfo * catalogInfo) {
+
+    CFURLRef parentURL;
+    CFStringRef fileNameRef;
+    FSRef parentDirectory;
+    UniCharPtr nameStringPtr;
+    OSStatus err;
+
+        /* set locals to a known state */
+    err = coreFoundationUnknownErr;
+
+        /* get the url to the parent directory */
+    parentURL = CFURLCreateCopyDeletingLastPathComponent(NULL, url);
+    if (parentURL != NULL) {
+
+            /* convert the URL to a FSRef */
+        if (CFURLGetFSRef(parentURL, &amp;parentDirectory)) {
+
+                /* get the leaf name from the URL */
+            fileNameRef = CFURLCopyLastPathComponent(url);
+            if (fileNameRef != NULL) {
+
+                    /* get the leaf name from the URL */
+                nameStringPtr = CFStringGetCharactersPtr(fileNameRef);
+                if (nameStringPtr != NULL) {
+
+                        /* create the file */
+                    err = FSCreateFileUnicode(
+                        &amp;parentDirectory,
+                        CFStringGetLength(fileNameRef),
+                        nameStringPtr,
+                        whichInfo, catalogInfo,
+                        newFileReference, NULL);
+                }
+                    /* release the file name */
+                CFRelease(fileNameRef);
+            }
+        }
+            /* release the parent url */
+        CFRelease(parentURL);
+    }
+        /* return the status value */
+    return err;
+}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003059-CH1-SECADVANCED" title="Advanced routines for using typeFileURL"></a><h2 class="jump">Advanced routines for using typeFileURL</h2><p>Sample code presented in this document was chosen for illustration and was designed to present ideas. More advanced users may wish to consult sample code listings provided in the attached download file. These source files include:</p><ul class="ul"><li class="li"><p>Apple event coercion handlers for automatic conversion to/from <code>typeFileURL</code>, <code>typeChar</code>, <code>typeStyledText</code>, <code>typeUnicodeText</code>, <code>cFile</code>, <code>typeFSS</code>, <code>typeFSRef</code>, <code>typeAlias</code>, and <code>typeObjectSpecifier</code></p></li><li class="li"><p>Utility routines for using <code>typeFileURL</code> records in Apple event records</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003059-CH1-SECDOWNLOADS" title="Downloads"></a><h2 class="jump">Downloads</h2><ul class="ul"><li class="li"><p>Advanced typeFileURL routines ("tn2022_code.zip", 9.7K)
+
+</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003059-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003059-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2011-07-27</td><td><p>Reformatted content and made minor editorial changes.</p></td></tr><tr><td scope="row">2001-06-07</td><td><p>New document that 
+					discusses the typeFileURL format and how to use it to pass file references between applications in Mac OS X.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2011 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2011-07-27</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1778: How to reproduce bugs reported against Mac App Store submissions</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40013062">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40013062-CH1">
+    <meta id="date" name="date" content="2017-06-28">
+    <meta id="description" name="description" content="QA1778: describes how to build and test your macOS app in order to reproduce issues only seen after submission to the Mac App Store.">
+    <meta id="book-title" name="book-title" content="How to reproduce bugs reported against Mac App Store submissions">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Xcode/Compiler Tools}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1778">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="How to reproduce bugs reported against Mac App Store submissions" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40013062" title="Technical Q&amp;A QA1778"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>How to reproduce bugs reported against Mac App Store submissions</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40013062-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1778"></a><div class="dtsDocNumber">Technical Q&amp;A QA1778</div><h1 id="pageTitle">How to reproduce bugs reported against Mac App Store submissions</h1><h2>Q:&nbsp;
+I have reports of a bug in a macOS app I submitted to the Mac App Store, but I can't reproduce it with Xcode. How can I build my app so that it matches the Mac App Store version and reproduces the issue?
+</h2><p><span>A: </span>To reproduce a bug that Mac App Review or your users are seeing, you need to be sure that you are testing the <strong>exact</strong> build of the app that you submitted to the Mac App Store, in a minimally-privileged environment.</p><section><a name="//apple_ref/doc/uid/DTS40013062-CH1-TEST_WITH_A_GUEST_ACCOUNT" title="Test with a Guest Account"></a><h2 class="jump">Test with a Guest Account</h2><p>The most common reason for an app to work in your test environment but fail in Mac App Review or on a user's system is your test environment giving the app more privileges or including optional system components. The simplest way to rule this out is to test your app on a Guest account, ideally on a fresh install of the OS indicated in any crash or bug reports.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013062-CH1-TEST_THE_EXACT_BUILD_YOU_RELEASE" title="Test the Exact Build You Release"></a><h2 class="jump">Test the Exact Build You Release</h2><p>If there are bugs or <span class="content_text"><a href="http://blog.llvm.org/2011/05/what-every-c-programmer-should-know_14.html" class="urlLink" rel="external">undefined behavior</a></span> in your code, compiler optimizations may cause the app you submitted to the Mac App Store to behave differently than any test builds made with different build settings.</p><p>Using Xcode's Archive feature, you can be sure you are testing the <strong>exact</strong> same build of your app that you plan to publish to the Mac App Store.</p><section><a name="//apple_ref/doc/uid/DTS40013062-CH1-TEST_THE_EXACT_BUILD_YOU_RELEASE-ARCHIVE_BUILD_WORKFLOW" title="Archive Build Workflow"></a><h3 class="jump">Archive Build Workflow</h3><p>To <span class="content_text"><a href="http://help.apple.com/xcode/mac/current/#/devf37a1db04" class="urlLink" rel="external">create an archived build</a></span> that you can both test and submit:</p><p><strong>1)</strong> In Xcode, choose <code>Product &gt; Archive</code> to archive a build of your app. You can find the archive in the Archives tab of the Organizer window as shown in <span class="content_text"><!--a  -->Figure 1<!--/a--></span>.</p><p>If you have trouble with this step, follow the directions in <span class="content_text"><a href="https://developer.apple.com/library/mac/technotes/tn2215/" class="urlLink" rel="external">Technical Note, TN2215, Troubleshooting application archiving in Xcode</a></span>.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40013062-CH1-FIGURE1" title="Figure 1The MyProject archive in the Archives organizer."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;The MyProject archive in the Archives organizer.</figcaption><img src="Art/QA1778_ArchiveOrganizer.png" class="wide-image" alt="" width="976" height="409"><img src="Art/QA1778_ArchiveOrganizer.png" class="ipad-scaled-image" alt="" width="670" height="280"></figure><p><strong>2)</strong> Deploy the build by selecting it in the Archives organizer and clicking <code>Export</code>, then <code>Export as macOS App</code> in the sheet that appears. Proceed to export it to the appropriate location.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40013062-CH1-FIGURE2" title="Figure 2Select Export as a macOS App in the sheet to export the MyProject archive."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Select Export as a macOS App in the sheet to export the MyProject archive.</figcaption><img src="Art/QA1778_ExportMac.png" class="wide-image" alt="" width="973" height="468"><img src="Art/QA1778_ExportMac.png" class="ipad-scaled-image" alt="" width="670" height="322"></figure><p><strong>3)</strong> Run the app on a Guest account, ideally on a fresh install of the OS indicated in any crash or bug reports.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40013062-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;If you build your app for more than one architecture, be sure to test it on the same kind of machine that exhibited the bug. For example, it is possible that the issue only reproduces a certain way in 32-bit code, and running on a 64-bit machine may not reproduce the issue. You can force a particular architecture to be run by selecting your app in Finder, then choosing "Get Info" from the "File" menu.</p><p></p></aside></div><p>If you have problems installing a provisioning profile on your test system so you can run your test app, try the troubleshooting information in <span class="content_text"><a href="https://developer.apple.com/library/mac/qa/qa1759/" class="urlLink" rel="external">QA1759: Installing Production Provisioning Profiles</a></span>.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013062-CH1-NEXT_STEPS" title="Next Steps"></a><h2 class="jump">Next Steps</h2><p>Once you can reproduce a problem, you will need to debug it. After launching your archived build, you can use Xcode's debugger on it by choosing <code>Debug &gt; Attach to Process</code>, see <span class="content_text"><a href="http://help.apple.com/xcode/mac/current/#/devaeaf4813e" class="urlLink" rel="external">Debug an app or process that is already running</a></span> for more information. If a problem only reproduces in an optimized build, you may find that Xcode's debugger sometimes behaves oddly. This is because compiler optimizations make it difficult to translate back from machine code to a line number or variable name in source code. Do not be afraid to fall back on "caveman debugging" by using <code>NSLog</code> or <code>printf</code> if you are unsure what a value really is. For more information on writing rich <code>NSLog</code> statements, see <span class="content_text"><a href="http://developer.apple.com/library/ios/qa/qa1669/" class="browserLink" >QA1669: Improved Logging in Objective-C</a></span> for more information.</p><p>For more information on debugging at the assembly level, see <span class="content_text"><a href="https://developer.apple.com/library/mac/technotes/tn2124/" class="urlLink" rel="external">TN2124: Mac OS X Debugging Magic</a></span>.</p><p>If you are still unable to reproduce a crash, follow the steps in <span class="content_text"><a href="https://developer.apple.com/library/mac/qa/qa1765/" class="urlLink" rel="external">QA1765: How to Match a Crash Report to a Build</a></span> to verify that you are testing the build that exhibited the crash.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40013062-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40013062-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-06-28</td><td><p>Updated for Xcode 8. </p></td></tr><tr><td scope="row">2013-01-24</td><td><p>New document that 
+					describes how to build and test your macOS app in order to reproduce issues only seen after submission to the Mac App Store.
+</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-06-28</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

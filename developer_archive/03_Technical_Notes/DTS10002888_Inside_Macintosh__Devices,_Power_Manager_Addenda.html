@@ -1,0 +1,830 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<!-- Template 03-24-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Inside Macintosh: Devices, Power Manager Addenda">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002888">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1046.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+<title>Technical Note TN1046: Inside Macintosh: Devices, Power Manager Addenda</title>
+
+    <meta name="keywords" content="Mac OS 8 power manager additions timer GetLastActivity UpdateSystemActivity PMgrStateQInstall">
+    <meta name="Description" content="Technical Note TN1046: This Technical Note discusses addenda
+to the Inside Macintosh: Devices, Power Manager Chapter.
+Topics include: Addenda to the Power Manager Dispatch Routines,
+GetStartupTimer, PMgrStateQInstall, and PMgrStateQRemove,
+etc.">
+
+
+<meta name="categories" content="Inside Macintosh Addenda and Devices">
+
+
+<meta name="week-posted" content="Apr 29, 1996 - May 3, 1996">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002888" title="Inside Macintosh: Devices, Power Manager Addenda"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Inside Macintosh: Devices, Power Manager Addenda</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+ <!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxMacOS9Earlier-date.html">Mac OS 9 & Earlier</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/index.html" target="_blank">Reference Library</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1046</div>
+<div id="pageheadsub">Inside Macintosh: Devices, Power Manager Addenda</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+ <!-- begin_header_box -->
+ <table width="600" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td width=300 valign="top" align=left scope="row">
+			<table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>    
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+				</tr>
+				<tr bgcolor="#e6e6e6">
+					<td background="images/tnmenubody.gif" width=300 align=left>
+						<span id="menutitle">
+							CONTENTS 
+    <BR>
+    <BR>
+						</span>
+					</td>
+				</tr>
+				<tr bgcolor="#e6e6e6">
+					<td background="images/tnmenubody.gif" width=300 align=left>
+						<p id="menutext">
+<a HREF = "#RTFToC1">PMFeatures</a>, April 1996
+<BR><BR><a HREF = "#RTFToC2">Startup Time Structure</a>, April 1996
+<BR><BR><a HREF = "#RTFToC3">GetStartupTimer</a>, April 1996
+<BR><BR><a HREF = "#RTFToC4">SetStartupTimer</a>, April 1996
+<BR><BR><a HREF = "#RTFToC5">State Change Notification Queue Structure</a>, April 1996
+<BR><BR><a HREF = "#RTFToC6">PMgrStateQInstall</a>, April 1996
+<BR><BR><a HREF = "#RTFToC7">PMgrStateQRemove</a>, April 1996
+<BR><BR><a HREF = "#RTFToC8">State Change Queue Notification Function</a>, April 1996
+<BR><BR><a HREF = "#RTFToC9">UpdateSystemActivity</a>, April 1996
+<BR><BR><a HREF = "#RTFToC10">GetLastActivity</a>, April 1996
+<BR><BR><a HREF = "#RTFToC11">DelaySystemIdle</a>, April 1996<BR><BR>						
+<a href="#Downloads">Downloadables</a><BR>
+</p>
+						
+					</td>
+				</tr>
+				<tr>
+					<td width=300 align=left scope="row">
+						<img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td width=300 valign="top" align=left>	
+		<!-- begin_intro_text -->							
+<P id = "introtext">This Technote discusses addenda to the 
+<a href="http://developer.apple.com/documentation/mac/Devices/Devices-230.html">
+<i>Inside Macintosh: Devices, Power Manager</i></a> Chapter.</p>
+
+<P id = "introtext">This Note is intended for Macintosh  developers who  are using the Power Manager Dispatch routines.</p>
+
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [May 1 1996]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+ <!-- begin_content -->
+
+
+
+<a name = "RTFToC1"></a>
+<h2>PMFeatures </h2>
+
+<P>One additional bit field: <code>hasStartupTimer</code> has been added to  the possible
+<code>PMFeature</code> return values: </p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+Bit Name          Bit Number      Description
+hasStartupTimer      10                 The startup timer is supported.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></P>
+
+
+<a name = "RTFToC2"></a>
+<h2>Startup Time Structure </h2>
+
+
+<P>The startup time structure used by the <code>GetStartupTimer</code> and <code>SetStartupTimer</code>
+functions is defined by the <code>StartupTime</code> data type.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+ typedef struct StartupTime {
+     unsigned long    startTime;        /* startup time as number of
+                     seconds since midnight, January 1, 1904*/
+    Boolean    startEnabled;    /* 1=enable startup timer, 0=disable timer*/
+    SInt8    filler;
+
+} StartupTime;
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></P>
+<a name = "RTFToC3"></a>
+<h2>GetStartupTimer </h2>
+
+<P>You can use the <code>GetStartupTimer</code> function to find out when the computer will
+start up from power off mode.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+void GetStartupTimer(StartupTime *theTime);
+
+theTime    A pointer to a StartupTime structure, which specifies whether
+    the timer is enabled or disabled and the time at which the
+    startup timer is set to start up the computer.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>DESCRIPTION</h5>
+<P>The <code>GetStartupTimer</code> function returns the time when the computer will
+start up from a power off mode.</p>
+<P>If the computer doesn't support the startup timer, <code>GetStartupTimer</code> returns a
+value of 0.</p>
+
+<h5>ASSEMBLY-LANGUAGE INFORMATION</h5>
+<p>
+The trap is <code>_PowerManagerDispatch</code> ($A09E). The selector value is for
+<code>GetStartupTimer</code> is 38 ($26) in the low word of register D0. The pointer to
+StartupTime is passed in register A0.</p>
+
+<h5>SEE ALSO</h5>
+<p>
+The <code>StartupTime</code> structure is described in <a HREF = "#RTFToC2">Startup Time Structure</a>.</p>
+<P><a href="#top">Back to top</a></P>
+<a name = "RTFToC4"></a>
+<h2>SetStartupTimer </h2>
+
+
+<P>You can use the <code>SetStartupTimer</code> function to set the time when the computer will start up from power off mode.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+void SetStartupTimer(StartupTime *theTime);
+
+theTime    A pointer to a StartupTime structure, which specifies whether
+    to enable or disable the timer, and the time at which the
+    startup timer is set to start up the computer.
+</pre>
+	</TD>
+</TR>
+</table></CENTER> 
+
+<h5>DESCRIPTION</h5>
+
+<P>The <code>SetStartupTimer</code> function sets the time when the computer will start
+up from a power off mode and enables or disables the timer.  On a computer that
+doesn't support the startup timer, <code>SetStartupTimer</code> does nothing.</p>
+
+<h5>ASSEMBLY-LANGUAGE INFORMATION</h5>
+
+<P>The trap is <code>_PowerManagerDispatch ($A09E)</code>. The selector value is for
+<code>SetStartupTimer</code> is 39 ($27) in the low word of register D0. The pointer to <code>StartupTime</code> is passed in register A0.</p>
+
+<h5>SEE ALSO</h5>
+
+<P>The <code>StartupTime</code> structure is described in <a HREF = "#RTFToC2">Startup Time Structure</a>.</p>
+<P><a href="#top">Back to top</a></P>
+<a name = "RTFToC5"></a>
+<h2>State Change Notification Queue Structure </h2>
+
+
+<P>The state change notification queue structure used by the <code>PMgrStateQInstall</code>
+and <code>PMgrStateQInstall</code> functions is defined by the <code>PMgrQueueElement</code> data type.
+</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+#define PMgrStateQType    'PM'
+
+struct PMgrQueueElement {
+    Ptr        *pmQLink;    /* pointer to next queue element*/
+    short        pmQType;    /* queue type (must be
+                      PMgrStateQType)*/
+    short        pmFlags;    /* as defined below            */
+    long        pmNotifyBits;    /* bitmap of desired notifications*/
+    StateNotifyProc    pmProc;        /*pointer to routine to call*/
+    long        pmUser;        /* user-defined private storage,*/
+} PMgrQueueElement;
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<P>The values of the bits in the pmFlags field are as follows:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+Bit Name           Bit Number     Description
+sleepTimeout       0              The sleep timer value has changed.
+sleepEnable        1              Sleep control has been enabled/disabled
+hardDiskTimeout    2              The hard disk timer has changed.
+hardDiskSpindown   3              The hard disk spindown state has
+                                  changed.
+dimmingTimeout     4              The screen dimming timer has changed.
+dimmingEnable      5              Screen dimming has been enabled or
+                                  disabled
+diskModeAddress    6              The SCSI disk mode address has changed
+processorCycling   7              Processor cycling has been enabled or
+                                  disabled
+processorSpeed     8              The processor speed has changed
+wakeupTimer        9              The wakeup timer has changed.
+startupTimer       10             The startup timer has changed.
+hdPowerRemoved     11             The hard disk power has been removed by
+                                  the user.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></P>
+<a name = "RTFToC6"></a>
+<h2>PMgrStateQInstall</h2>
+
+<P>You can use the <code>PMgrStateQInstall</code> function to notify your software when Power
+Manager state configuration parameters have changed.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr PMgrStateQInstall(PMgrStateQElement *theElement);
+
+theElement    A pointer to an element for the state change
+        notification queue.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>DESCRIPTION</h5>
+
+<P>The <code>PMgrStateQInstall</code> function installs an element into the state
+configuration change queue to provide notification to your software when
+certain Power Manager state configuration parameters have changed.   </p>
+
+<P>When a requested configuration parameter has changed, the software calls the
+routine pointed to by the pmProc field so that it can do any special
+processing. The routine is passed a pointer to its queue element so that, for
+example, the routine can reference its variables.</p>
+
+<P>Before calling <code>PMgrStateQInstall</code>, the calling program must set the pmQType
+field to <code>PmgrStateQtype</code> or the queue element won't be added to the queue and
+<code>PMgrStateQInstall</code> will return an error.</p>
+
+<h5>SPECIAL CONSIDERATIONS</h5>
+
+<P>The <code>pmNotifyBits</code> field may be modified by the <code>PMgrStateQInstall</code> if it
+requests notification for a feature that this computer does not support. In
+this case your software may remove the element.</p>
+
+<h5>ASSEMBLY-LANGUAGE INFORMATION</h5>
+
+<P>The trap is <code>_PowerManagerDispatch ($A09E)</code>. The selector value for
+<code>PMgrStateQInstall</code> is 34 ($22) in the low word of register D0. The pointer to
+<code>PMgrStateQElement</code> is passed in register A0.  The result code is returned in the
+low word of register D0.</p>
+
+<h5>RESULT CODE</h5>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+noErr    0    No error
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>SEE ALSO</h5>
+<P>The PMgrStateQElement structure is described in <a HREF = "#RTFToC5">State Change
+Notification Queue Structure</a>.</p>
+
+<P>The application-defined state change notification function is described in
+<a HREF = "#RTFToC8">State Change Notification Function</a>.</p>
+<P><a href="#top">Back to top</a></P>
+<a name = "RTFToC7"></a>
+<h2>PMgrStateQRemove</h2>
+
+<P>You can use the <code>PMgrStateQRemove</code> function to discontinue notification of your
+software when Power Manager state configuration parameters have changed.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr PMgrStateQRemove(PMgrStateQElement *theElement);
+
+theElement    A pointer to the element for the state change
+        notification queue that you wish to remove.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>DESCRIPTION</h5>
+
+<P>The <code>PMgrStateQRemove</code> function removes a  queue element installed by
+<code>PMgrStateQInstall</code>. If the <code>pmQType</code> field of the queue element is not set to
+<code>PmgrStateQtype</code>, <code>PMgrStateQInstall</code> will return an error.</p>
+
+<h5>ASSEMBLY-LANGUAGE INFORMATION</h5>
+
+<P>The trap is <code>_PowerManagerDispatch ($A09E)</code>. The selector value is for
+<code>PMgrStateQRemove</code> is 35 ($23) in the low word of register D0. The pointer to
+<code>PMgrStateQElement</code> is passed in register A0.  The result code is returned in the
+low word of register D0.</p>
+
+<h5>RESULT CODE</h5>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+noErr    0    No error
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>SEE ALSO</h5>
+
+<P>The <code>PMgrStateQElement</code> structure is described in <a HREF = "#RTFToC5">State Change
+Notification Queue Structure</a>.</p>
+
+<P>The application-defined state change notification function is described in
+<a HREF = "#RTFToC8">State Change Notification Function</a>.</p>
+<P><a href="#top">Back to top</a></P>
+<a name = "RTFToC8"></a>
+<h2>State Change Notification Function</h2>
+
+
+<P>A state change notification function can perform any operation that you require
+when certain Power Manager state configuration parameters have changed .</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+pascal void MyStateNotificationProc (PMgrStateQElement *theElement);
+
+theElement    A pointer to the element in the configuration
+        change queue that was used to install
+        this function.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>DESCRIPTION</h5>
+
+<P>Your state change notification function is called by the Power Manager
+when  certain configuration parameters have changed.  It is called, for
+instance, when the sleep timer value or processor speed have changed. You can
+determine which of the configuration parameters have changed by examining the
+bit map in the <code>pmNotifyBits</code> field of the <code>PMgrStateQElement</code> that was passed to
+your function.</p>
+
+<h5>SEE ALSO</h5>
+
+<P>The <code>PMgrStateQElement</code> structure is described in <a HREF = "#RTFToC5">State Change Notification Queue Structure</a>.</p>
+
+<P>The <code>PMgrStateQInstall</code> function and the <code>PMgrStateQRemove</code> function.</p>
+<P><a href="#top">Back to top</a></P>
+<a name = "RTFToC9"></a>
+<h2>UpdateSystemActivity </h2>
+
+
+<P>You can use the <code>UpdateSystemActivity</code> function to notify the Power Manager that
+activity has taken place .</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+void UpdateSystemActivity(short activityType);
+
+activityType    A value indicating the type of activity that has
+                occurred. See the description below for the meaning
+                of this field.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>DESCRIPTION</h5>
+
+<P>The <code>UpdateSystemActivity</code> function is used to notify the Power Manager
+that activity has taken place and the timers used to measure idle time should
+be updated to the time of this call. This function can be used by device
+drivers to prevent the computer from entering a low-power mode while critical
+activity is taking place on a particular device. The function is passed a
+parameter indicating the type of activity that has occurred.</p>
+
+<P>This function is slightly different from <code>DelaySystemIdle</code>, which should be used
+to prevent sleep or idle during a critical section. <code>UpdateSystemActivity</code> simply
+updates the tick count for the activity type selected. Conversely,
+<code>DelaySystemIdle</code> actually moves the counter to some number of ticks into the
+future, which allows the caller to go off and do somethingwithout fear of
+idling.</p>
+
+<p>
+The valid types of activity are:
+</p>
+ 
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+Value Name       Value        Description
+OverallAct       0            general type of activity
+UsrActivity      1            user activity (i.e.keyboard or
+                              mouse)
+NetActivity      2            interaction with network(s)
+HDActivity       3            hard disk or storage device in
+                              use
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>SPECIAL CONSIDERATIONS</h5>
+
+<P>In general, device drivers should make this call to notify the Power
+Manager of system activity on their particular device.  For example, input
+device drivers would call <code>UpdateSystemActivity (UsrActivity)</code>
+while a storage device driver would call <code>UpdateSystemActivity (HDActivity)</code>.</p>
+
+<P>If a device driver registers with the power manager state change queue and
+implements its own power management timing facilities, it does not need to call
+<code>UpdateSystemActivity</code>.  For example, a media bay hard disk on a PowerBook should
+register for <code>sleeptimeout</code>, <code>sleepenabled</code>, <code>spindownenabled</code>, and <code>hdtimeout</code> change
+notifications.  It then can maintain its own timer.  This allows the internal
+hard disk and the media bay hard disk to spin down independently.  By not
+calling UpdateSystemActivity, it won't unnecessarily keep the internal drive
+powered.  It should also be installed in the sleep queue so it can refuse sleep
+requests if activity is occurring on its associated device.</p>
+
+
+<BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>IMPORTANT:</B><BR>
+Calling UpdateSystemActivity more than necessary will cause delays in
+the invocation of power saving features which will reduce battery life and
+overall power efficiency.</P>
+</TD></TR></table></CENTER><BR>
+
+
+<h5>ASSEMBLY-LANGUAGE INFORMATION</h5>
+
+<P>The trap is _PowerManagerDispatch ($A09E). The selector value  for
+UpdateSystemActivity is 36 ($24) in the low word of register D0. The
+activityType is passed in the high  word of D0.</p>
+
+<h5>SEE ALSO</h5>
+
+<P>The <a HREF = "#RTFToC10">GetLastActivity</a> function.</p>
+<P><a href="#top">Back to top</a></P>
+<a name = "RTFToC10"></a>
+<h2>GetLastActivity </h2>
+
+
+<P>You can use the GetLastActivity function to find out when the last time a
+particular activity took place.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr GetLastActivity(ActivityInfo *theActivity();
+
+theActivity        A pointer to an ActivityInfo structure, which
+                specifies the  type of activity and when that
+                activity last occurred.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>DESCRIPTION</h5>
+
+<P>The GetLastActivity function returns the time in ticks of the last
+occurrence of the specified activity type. This function can be used by
+software that needs to track power management activity. The activity type and
+time are specified in the following structure: </p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+struct ActivityInfo {
+    short        activityType;    /* same selectors as
+                       UpdateSystemActivity */
+    unsigned long    activityTime;    /*time of last event of selected
+                       type as number of
+                       seconds since midnight,
+                       January 1, 1904 */
+} ActivityInfo;
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>ASSEMBLY-LANGUAGE INFORMATION</h5>
+
+<P>The trap is <code>_PowerManagerDispatch ($A09E)</code>.  The selector value for
+<code>GetLastActivity</code> is 40 ($28) in the low  word of register D0. The pointer to the
+<code>ActivityInfo</code> structure is passed in register A0.</p>
+
+<h5>See also:</h5>
+
+<P>The <a HREF = "#RTFToC9">UpdateSystemActivity function</a>.</p>
+<P><a href="#top">Back to top</a></P>
+<a name = "RTFToC11"></a>
+<h2>DelaySystemIdle </h2>
+
+
+<P>You can use the <code>DelaySystemIdle</code> function to control power cycling.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+void DelaySystemIdle();
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h5>DESCRIPTION</h5>
+
+<P>The <code>DelaySystemIdle</code> function delays power cycling  and/or sleep to a
+time in the near future.  This call should only be used when timing-sensitive
+I/O operations (e.g., Read/Write) need to occur without interruption from the
+Power Manager and the power cycling wait time or sleep timeout may not be long
+enough to ensure that this occurs.</p>
+
+<h5>SPECIAL CONSIDERATIONS</h5>
+
+<P>Care should be taken to make this call only when absolutely necessary
+since  it can  affect power efficiency.</p>
+
+<h5>ASSEMBLY-LANGUAGE INFORMATION</h5>
+
+<p>
+The trap is <code>_PowerManagerDispatch</code> ($A09E). The selector value is for
+<code>DelaySystemIdle</code> is 37 ($25) in the low word of register D0.
+</p>
+
+
+<P><a href="#top">Back to top</a></P>
+
+
+         <P><a NAME=Downloads></a></P>
+         
+         <H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (60K).</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/tn1046.pdf">Download</a></P>
+               </TD>
+            </TR>
+</table>
+<P><a href="#top">Back to top</a></P>
+
+
+</TD></TR></table></center>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

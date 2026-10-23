@@ -1,0 +1,1799 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="AEStream and Friends">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/ApplicationServices}, {Topic/Interapplication Communication}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003079">
+            <meta id="document-version" name="document-version" content="2.0.0">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN2046: Describes the AEStream family of routines.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="Stylesheet" HREF="../../style.css" TYPE="text/css">
+
+<title>Technical Note TN2046: AEStream and Friends</title>
+
+<meta name="keywords" content="AppleScript Application Apple event events script scripting">
+
+<meta name="Description" content="Technical Note TN2046: This technical note discusses various
+methods of using AppleScripts inside of applications.">
+
+<STYLE TYPE="text/css">
+#menutext3
+	{
+	font-family: helvetica, geneva, arial, sans-serif;
+	font-size: 10px;
+	margin-left: 45px;
+	line-height: 14px;
+	}
+H3 {
+	color: #000000;
+	font-family: geneva, arial, helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+}
+H4 {
+	color: #000000;
+	font-family: geneva, arial, helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+}
+</STYLE>
+
+
+
+<meta name="categories" content="Processes, Interapplication Communication and AppleScript">
+
+
+<meta name="week-posted" content="Mar 25, 2002 - Mar 29, 2002">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10003079" title="AEStream and Friends"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>AEStream and Friends</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="topofdocument"></a>
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalnotes/Carbon/idxInterapplicationCommunication-date.html">Interapplication Communication</a> &gt; </p><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN2046</div>
+<div id="pageheadsub">AEStream and Friends</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+         
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+					<!-- begin_toc -->
+
+
+<p id="menutext">
+<a href="#astrmintro">Introduction</a><BR>
+<a href="#atrmtips">AEStream* Tips</a><BR>
+<a href="#opcldstream">Opening and Closing an Apple event Stream</a><BR>
+</p>
+<p id="menutext2">
+<a href="#AEStreamOpen">AEStreamOpen</a><BR>
+<a href="#AEStreamClose">AEStreamClose</a><BR>
+</p>
+<p id="menutext">
+<a href="#wrtthmdown">Writing Descriptors</a><BR>
+</p>
+<p id="menutext2">
+<a href="#AEStreamWriteAEDesc">AEStreamWriteAEDesc</a><BR>
+<a href="#AEStreamWriteDesc">AEStreamWriteDesc</a><BR>
+<a href="#AEStreamOpenDesc">AEStreamOpenDesc</a><BR>
+<a href="#AEStreamWriteData">AEStreamWriteData</a><BR>
+<a href="#AEStreamCloseDesc">AEStreamCloseDesc</a><BR>
+</p>
+<p id="menutext">
+<a href="#wrtnglsts">Writing Lists</a><BR>
+</p>
+<p id="menutext2">
+<a href="#AEStreamOpenList">AEStreamOpenList</a><BR>
+<a href="#AEStreamCloseList">AEStreamCloseList</a><BR>
+</p>
+<p id="menutext">
+<a href="#wrtngrecs">Writing Records</a><BR>
+</p>
+<p id="menutext2">
+<a href="#AEStreamOpenRecord">AEStreamOpenRecord</a><BR>
+<a href="#AEStreamCloseRecord">AEStreamCloseRecord</a><BR>
+<a href="#AEStreamSetRecordType">AEStreamSetRecordType</a><BR>
+<a href="#AEStreamWriteKeyDesc">AEStreamWriteKeyDesc</a><BR>
+<a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a><BR>
+<a href="#AEStreamWriteKey">AEStreamWriteKey</a><BR>
+</p>
+<p id="menutext">
+<a href="#wrtngevents">Writing Apple Event Records</a><BR>
+</p>
+<p id="menutext2">
+<a href="#AEStreamOpenEvent">AEStreamOpenEvent</a><BR>
+<a href="#AEStreamCreateEvent">AEStreamCreateEvent</a><BR>
+<a href="#AEStreamOptionalParam">AEStreamOptionalParam</a><BR>
+</p>
+<p id="menutext">
+<a href="#doenleoads">Downloadables</a><BR>
+</p>
+
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+ 
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+            
+<!-- begin_intro_text -->
+
+<p id="introtext">This Technote describes the <CODE>AEStream*</CODE> collection of
+APIs that can be used to construct Apple event records and Apple event
+descriptors using stream oriented calling conventions.  These APIs allow you to use
+interesting and easy to maintain stream oriented algorithms for
+creating complex Apple event descriptor records.</P>
+
+<p id="introtext">The <CODE>AEStream*</CODE> routines are not intended to be
+a replacement for the other documented Apple Event Manager APIs.  Rather, they supplement
+the other APIs and accomodate different styles of programming.  Together with
+the other collection of Apple Event Manager APIs, the <CODE>AEStream*</CODE> routines make it simpler
+to create Apple event descriptor records in a wider variety of algorithms.</P>
+
+
+<p id="introtext">
+This Note is directed at application developers interested in using stream
+oriented algorithms for constructing complex Apple event descriptors.</P>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3 align=center>[Mar 29 2002]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+
+          <!-- begin_content -->
+     
+
+
+
+
+<a NAME="astrmintro" x-level=1 x-title="Introduction"></a>
+<H2>Introduction</H2>
+
+
+<P>The <CODE>AEStream*</CODE> routines allow you to append data to Apple event descriptor
+records in a way that is similar to opening and writing data to a file.
+Once an <CODE>AEStreamRef</CODE> has been opened, callers can append information
+to the stream using <CODE>AEStream</CODE>* routines describing the resulting
+descriptor that should be created.  The commands sent to the stream are saved
+in the <CODE>AEStreamRef</CODE> but they are not actually combined to
+create a descriptor record until the <CODE>AEStreamRef</CODE> is closed.
+</p>
+
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td align="left">
+<P><B><a NAME="simplecreate" kind = "Listing">Listing 1</a>.</B> An example illustrating
+how to make a simple descriptor.</P>
+</TD></TR><TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+
+    AEStreamRef ref;
+    char* p = "Hello World";
+
+        /* open the stream */
+    ref = <a href="#AEStreamOpen">AEStreamOpen</a>();
+    if (ref != NULL) {
+
+            /* save a descriptor to the stream */
+        err = <a href="#AEStreamWriteDesc">AEStreamWriteDesc</a>( ref, typeChar, p, strlen(p));
+        if (err == noErr) {
+
+                /* close the stream gathering the contents
+                into theNewDesc, a new descriptor */
+            <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a> theNewDesc;
+            err = <a href="#AEStreamClose">AEStreamClose</a>( ref, &theNewDesc);
+            if (err == noErr) {
+
+                /* here we would use the new descriptor
+                for some purpose */
+
+                    /* dispose of the descriptor once we're
+                    finished with it. */
+                <a href="http://developer.apple.com/documentation/mac/IAC/IAC-176.html">AEDisposeDesc</a>(&theNewDesc);
+            }
+        } else {
+                /* if an error occurred creating the descriptor,
+                close the stream and discard the result. */
+            <a href="#AEStreamClose">AEStreamClose</a>( ref, NULL);
+        }
+    }
+
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<p>In the simplest case, an <CODE>AEStreamRef</CODE> can be used to create simple
+descriptor records as shown in <a href="#simplecreate">Listing 1</a>.  But, going by
+this sample, it's not obvious that there is any advantage to using the <CODE>AEStream*</CODE> calls
+rather than using a simple call to <CODE><a href="http://developer.apple.com/documentation/mac/IAC/IAC-209.html">AECreateDesc</a></CODE> as shown in <a href="#listingtwo">Listing 2</a>.
+And, it is true, in this particular case, there is no particular advantage to using
+the <CODE>AEStream*</CODE> calls.  However, in some similar circumstances the <CODE>AEStream*</CODE> calls may
+prove to be a better choice than simply calling <CODE><a href="http://developer.apple.com/documentation/mac/IAC/IAC-209.html">AECreateDesc</a></CODE>.
+</p>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td align="left">
+<P><B><a NAME="listingtwo" kind = "Listing">Listing 2</a>.</B> An example illustrating
+how to make a simple descriptor using <CODE><a href="http://developer.apple.com/documentation/mac/IAC/IAC-209.html">AECreateDesc</a></CODE>.</P>
+</TD></TR><TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+    char* p = "Hello World";
+    err = <a href="http://developer.apple.com/documentation/mac/IAC/IAC-209.html">AECreateDesc</a>(typeChar, p, strlen(p), &textDesc);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<p>Say, for example, the contents of the descriptor record are complex and can
+not be determined all at once, but you would like to accumulate that data
+in sequence as the contents of the descriptor record.  To create such a descriptor
+using <CODE><a href="http://developer.apple.com/documentation/mac/IAC/IAC-209.html">AECreateDesc</a></CODE>, you would have to accumulate the data yourself, collect it
+into a large contiguous block of memory, and then copy the data to a descriptor
+by calling <CODE><a href="http://developer.apple.com/documentation/mac/IAC/IAC-209.html">AECreateDesc</a></CODE>.  However, the <CODE>AEStream*</CODE> routines provide facilities
+for performing these operations without having to maintain any additional house
+keeping information.  As shown in <a href="#listingthree">Listing 3</a>, repeated
+calls to the <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE> routine can be used to build-up the contents of
+a descriptor record.  Also, when calling <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE>, there is no need to specify all
+of the information that will be included in the descriptor at the same time (it
+could be collected across a number of calls in many different routines, for example).</p>
+
+
+
+<a NAME="AddTextDesc"></a>
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td align="left">
+<P><B><a NAME="listingthree" kind = "Listing">Listing 3</a>.</B> An example illustrating 
+how to build a simple descriptor, one letter at a time.</P>
+</TD></TR><TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+
+    /* AddTextDesc adds a text descriptor containing the
+    text in the string pointed to by theText to an AEStreamRef.
+    It adds the text one character at a time illustrate how the
+    AEStream* routines can be used to build up the data contents
+    of descriptors incrementally. */
+<a href="../../qa/ov/ov02.html">OSStatus</a> AddTextDesc(AEStreamRef ref, char* theText) {
+    char* p;
+    <a href="../../qa/ov/ov02.html">OSStatus</a> err;
+
+        /* start a descriptor of type text */
+    err = <a href="#AEStreamOpenDesc">AEStreamOpenDesc</a>( ref, typeChar);
+    if (err == noErr) {
+
+            /* add the string to the descriptor,
+            one letter at a time */
+        for (p=theText; *p; p++) {
+
+                /* write a single character */
+            err = <a href="#AEStreamWriteData">AEStreamWriteData</a>( ref, p, 1);
+            if (err != noErr) break;
+        }
+        if (err == noErr) {
+
+                /* mark the end of the descriptor */
+            err = <a href="#AEStreamCloseDesc">AEStreamCloseDesc</a>(AEStreamRef ref);
+        }
+    }
+    return err;
+}
+
+....
+
+    AEStreamRef ref;
+    ref = <a href="#AEStreamOpen">AEStreamOpen</a>();
+    if (ref != NULL) {
+
+            /* call our AddTextDesc to add a text descriptor to
+            the AEStreamRef */
+        err = AddTextDesc(ref, "Hello World");
+        if (err == noErr) {
+            <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a> theNewDesc;
+
+                /* close the stream gathering the contents
+                into theNewDesc, a new descriptor */
+            err = <a href="#AEStreamClose">AEStreamClose</a>( ref, &theNewDesc);
+            if (err == noErr) {
+
+                /* here we would use the new descriptor
+                for some purpose */
+
+                    /* dispose of the descriptor once we're
+                    finished with it. */
+                <a href="http://developer.apple.com/documentation/mac/IAC/IAC-176.html">AEDisposeDesc</a>(&theNewDesc);
+            }
+        } else {
+                /* if an error occurred creating the descriptor,
+                close the stream and discard the result. */
+            <a href="#AEStreamClose">AEStreamClose</a>( ref, NULL);
+        }
+    }
+
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<p>In the implementation of some algorithms, it may make more sense to incrementally
+build a descriptor record using techiques similar to those used in
+<a href="#listingthree">Listing 3</a>.  Similarly, you may use the <CODE>AEStream*</CODE> routines
+to incrementally build <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE> structures and <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>
+structures.  For instance, to build a list <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE>, we simply bracket
+a sequence of calls writing individual descriptors with calls to <CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE>
+and <CODE><a href="#AEStreamCloseList">AEStreamCloseList</a></CODE>.  The <CODE>AddAListOfStrings</CODE> routine defined in 
+<a href="#listingfour">Listing 4</a> shows an example of how to use these routines
+to create a simple list of text descriptors.  And, as one may expect, it is perfectly
+acceptable to nest calls to <CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE> and <CODE><a href="#AEStreamCloseList">AEStreamCloseList</a></CODE>
+to create lists inside of lists.</p>
+
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td align="left">
+<P><B><a NAME="listingfour" kind = "Listing">Listing 4</a>.</B> An example illustrating
+how to make a complex descriptor containing a list of strings.</P>
+</TD></TR><TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+
+    /* AddAListOfStrings appends a single <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a> structure to
+    the AEStreamRef containing a list of n descriptors of typeChar
+    built using the array of string pointers provided in the strings
+    parameter. */
+<a href="../../qa/ov/ov02.html">OSStatus</a> AddAListOfStrings(AEStreamRef ref, char** strings, long n) {
+    <a href="../../qa/ov/ov02.html">OSStatus</a> err;
+    long i;
+
+            /* start collecting items into a list */
+    err = <a href="#AEStreamOpenList">AEStreamOpenList</a>(ref);
+    if (err == noErr) {
+
+            /* add all of our strings to the list
+            using the <a href="#AddTextDesc">AddTextDesc</a> routine defined in
+            <a href="#listingthree">Listing 3</a> */
+        for (i=0; i&lt;n; i++) {
+            err = <a href="#AddTextDesc">AddTextDesc</a>(ref, strings[i]);
+            if (err != noErr) break;
+        }
+
+            /* close the list */
+        if (err == noErr) {
+            err = <a href="#AEStreamCloseList">AEStreamCloseList</a>(ref);
+        }
+    }
+    return err;
+}
+
+        /* a list of strings we will use to create our
+        descriptor list */
+    char* gStringList[] = {
+        "Hello World",
+        "Apple events",
+        "AEStream*",
+        "one last string"
+    };
+
+    AEStreamRef ref;
+    long i;
+    <a href="../../qa/ov/ov02.html">OSStatus</a> err;
+
+        /* open a stream */
+    ref = <a href="#AEStreamOpen">AEStreamOpen</a>();
+    if (ref != NULL) {
+
+            /* add a descriptor containing list of strings to
+            the AEStream */
+        err = AddAListOfStrings(ref, gStringList,
+                           sizeof(gStringList)/sizeof(char*));
+
+            /* close the AEStream, saving the new
+            descriptor if no errors occurred */
+        if (err == noErr) {
+            <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a> theNewDesc;
+
+                /* close the stream gathering the contents
+                into theNewDesc, a new descriptor */
+            err = <a href="#AEStreamClose">AEStreamClose</a>( ref, &theNewDesc);
+            if (err == noErr) {
+
+                /* here we would use the new descriptor
+                for some purpose */
+
+                    /* dispose of the descriptor once we're
+                    finished with it. */
+                <a href="http://developer.apple.com/documentation/mac/IAC/IAC-176.html">AEDisposeDesc</a>(&theNewDesc);
+            }
+        } else {
+                /* if an error occurred creating the descriptor,
+                close the stream and discard the result. */
+            <a href="#AEStreamClose">AEStreamClose</a>( ref, NULL);
+        }
+    }
+
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<p>Similar techniques can be used to construct complex <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>s and
+to add parameters to Apple event records.  For the most part, adding descriptors
+to records and parameters to Apple events proceeds in a similar fashion to creating
+a <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE>; however, the <CODE>AEStream*</CODE> routines have additional provisions that allow
+you to specify record types and keywords associated with descriptors in records.
+Routines for creating records and adding elements to them are presented later
+in this document.</p>
+
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+<a NAME="atrmtips" x-level=1 x-title="AEStream* Tips"></a>
+<H2>AEStream* Tips</H2>
+
+<p>Here are some key points to remember when using the <CODE>AEStream*</CODE> routines:</p>
+
+<UL>
+
+<li>You create exactly one descriptor record between calls to <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>
+and <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE>.  Don't expect <CODE>AEStream*</CODE> to automatically create a list
+for you if you write more than one descriptor between <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE> and <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE>.
+If you want to create a list, then add the descriptors between calls to
+<CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE> and <CODE><a href="#AEStreamCloseList">AEStreamCloseList</a></CODE>.<BR><BR></li>
+
+<li>Be careful to balance all of your calls.  For every call to <CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE> 
+there must be a call to <CODE><a href="#AEStreamCloseDesc">AEStreamCloseDesc</a></CODE>, for every <CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE> call there
+must be a corresponding <CODE><a href="#AEStreamCloseList">AEStreamCloseList</a></CODE> call, and so on.  As shown in the outline
+provided in <a href="#stsketch">Listing 5</a>, it is possible make complex calling sequences to the
+<CODE>AEStream*</CODE> routines to create complex nested structures.
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td align="left">
+<P><B><a NAME="stsketch" kind = "Listing">Listing 5</a>.</B> An outline of a calling sequence
+illustrating how calls to <CODE>AEStream*</CODE> can be nested to create a complex Apple event descriptor.</P>
+</TD></TR><TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+open a stream
+   begin a list
+      write a descriptor
+      write a descriptor
+      open a descriptor
+         write some data
+         write some data
+         write some data
+         write some data
+      close the descriptor
+      open a record
+         set the record type
+         write a key/descriptor pair
+         write a key/descriptor pair
+      close the record
+      begin a list
+         write a descriptor
+         write a descriptor
+         open a record
+            set the record type
+            write a key/descriptor pair
+            write a key/descriptor pair
+         close the record
+      end a list
+      write a descriptor
+   end a list
+close the stream -&gt; a new descriptor
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+The <CODE>AEStream*</CODE> routines maintain state information that tracks
+the nesting of calls made to the library.  This is necessary for its own operation, but it also
+uses this information to report errors.  If your calls to the library are not balanced properly,
+<CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> will return an <CODE>errAEStreamBadNesting</CODE> error when you
+try to close the <CODE>AEStreamRef</CODE>.<BR><BR></li>
+
+<li>Weigh other alternatives.  Ask: will your code be simpler, more clear, and easier to maintain
+if you use the original Apple Event Manager routines such as <CODE><a href="http://developer.apple.com/documentation/mac/IAC/IAC-209.html">AECreateDesc</a></CODE> or the AEBuild* routines
+(see Technical Note <a href="tn2045.html">TN2045</a>) instead of the <CODE>AEStream*</CODE>
+routines?  Using the <CODE>AEStream*</CODE>
+routines may improve the clarity of some implementations, but for others the 
+<CODE>AEStream*</CODE> routines may not be the
+best choice.<BR><BR></li>
+
+<li>Be sure to dispose of the descriptor record created by <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE>.  It is
+your application's responsibility to dispose of the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> record
+once it has finished using it.<BR><BR></li>
+
+</UL>
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+
+<a NAME="opcldstream" x-level=1 x-title="Opening and Closing an Apple event Stream"></a>
+<H2>Opening and Closing an Apple event Stream</H2>
+
+
+<P>
+There are three routines that allow you to create and open a new
+<CODE>AEStreamRef</CODE> for collecting commands that will be used to create a new
+descriptor record when <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> is called.  <CODE>AEStreamOpen</CODE> should be used
+for creating records of type <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE>, <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE>, and <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>.  The
+routine <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> can be used to create new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> records
+and the routine <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE> can be used to open an
+existing <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> record so you can add parameters to it.  No matter which routine
+you choose to open an <CODE>AEStreamRef</CODE>, you must call <CODE>AEStreamClose</CODE> to close the
+stream and collect all of the commands issued to the <CODE>AEStreamRef</CODE> into the resulting
+descriptor record.
+</P>
+
+
+<a NAME="AEStreamOpen" x-level=2 x-title="AEStreamOpen"></a>
+<H3>AEStreamOpen</H3>
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+AEStreamRef AEStreamOpen(void);
+</pre>
+<P><B>Result:</B><BR>
+An <CODE>AEStreamRef</CODE> or, if an error occurs, the
+value <CODE>NULL</CODE>.</P>
+</TD></TR></table></CENTER><BR><BR>
+                 
+<P>
+<CODE>AEStreamOpen</CODE> opens a new <CODE>AEStreamRef</CODE> that you can use for
+collecting commands describing an Apple event descriptor record.  Once you have
+opened an <CODE>AEStreamRef</CODE> you can call the other <CODE>AEStream*</CODE> routines to describe
+the format of the descriptor record you would like to create.  The example provided
+in <a href="#simplecreate">Listing 1</a> shows how you would call this routine. </P>
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+<a NAME="AEStreamClose" x-level=2 x-title="AEStreamClose"></a>
+<H3>AEStreamClose</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamClose(
+    AEStreamRef ref,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a>* desc);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.<BR><BR></li>
+
+ <li><CODE>desc</CODE> - either a pointer to <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> record
+ where the sequence of items written to the <CODE>AEStreamRef</CODE>
+ should be saved or the value <CODE>NULL</CODE>.    If this parameter is
+ set to NULL, then <CODE>AEStreamClose</CODE> will discard the result
+ and dispose of the <CODE>AEStreamRef</CODE> (no matter what state it is
+ in).<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P><CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> closes and deallocates an <CODE>AEStreamRef</CODE> created by calling one of
+the routines <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+<CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.  If a pointer to a descriptor is provided in the
+second parameter, then the resulting descriptor record will be stored in that
+location.  If the <CODE>AEStreamRef</CODE> was created by <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>
+or <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE>, then the resulting descriptor will contain a complete
+Apple event.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+It is the calling application's responsibility to dispose of the descriptor record
+returned by <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE>.  Once you are finished with the descriptor
+record, you should dispose of it by calling <CODE><a href="http://developer.apple.com/documentation/mac/IAC/IAC-176.html">AEDisposeDesc</a></CODE>.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>Providing a <CODE>NULL</CODE> pointer in the <CODE>desc</CODE> parameter instructs
+<CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> to discard the result and dispose of the <CODE>AEStreamRef</CODE> (no matter what
+state it is in).  When you call <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> in this way, you do not need to worry about
+balancing nested calls to <CODE>AEStream*</CODE> (such as, for example, <CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE> 
+and <CODE><a href="#AEStreamCloseList">AEStreamCloseList</a></CODE>).
+This can be particularly useful in error handling situations when you would like to
+dispose of the <CODE>AEStreamRef</CODE>, but you do not necessarily know anything about what state
+it is in.</P>
+
+<P>All nested sequences of calls must be appropriately balanced before <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE>
+is called.  That is to say, every <CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE> call must have a corresponding
+<CODE><a href="#AEStreamCloseList">AEStreamCloseList</a></CODE> call, every <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> call must have a corresponding
+<CODE><a href="#AEStreamCloseRecord">AEStreamCloseRecord</a></CODE> call, and so on.  Calling <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> to close 
+an <CODE>AEStreamRef</CODE>
+after nested calls have not been balanced properly will result in a <CODE>errAEStreamBadNesting</CODE>
+error.  The example listing in <a href="#simplecreate">Listing 1</a> illustrates how to call
+<CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> to obtain the resulting descriptor record and how to call
+<CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> discarding the result after an error has occurred.</P>
+
+
+<P>In the case where <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> fails and returns an error, the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE>
+record pointed to by the <CODE>desc</CODE> parameter will be set to a descriptor of 
+<CODE>typeNull</CODE>.  Because of this, it is always safe to call <CODE><a href="http://developer.apple.com/documentation/mac/IAC/IAC-176.html">AEDisposeDesc</a></CODE>
+on the descriptor record returned by <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> no matter what result code
+is returned.</P>
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+<a NAME="wrtthmdown" x-level=1 x-title="Writing Descriptors"></a>
+<H2>Writing Descriptors</H2>
+
+
+<P>
+The <CODE>AEStream*</CODE> routines include three different facilities that allow you
+to add individual descriptor records to an <CODE>AEStreamRef</CODE>.
+
+<OL TYPE="1" START="0">
+
+<li><CODE><a href="#AEStreamWriteAEDesc">AEStreamWriteAEDesc</a></CODE>, allows you to write a pre-built <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE>
+record (of any format) to an <CODE>AEStreamRef</CODE>.  This allows you to take pre-assembled
+descriptors and build them into complex descriptor structures in much the same
+way as you would use constants in any program.<BR><BR></li>
+
+<li><CODE><a href="#AEStreamWriteDesc">AEStreamWriteDesc</a></CODE> lets you provide a data buffer and a <CODE>typeCode</CODE>
+that will be used to create the descriptor.<BR><BR></li>
+
+<li>The <CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE>, <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE>, and
+<CODE><a href="#AEStreamCloseDesc">AEStreamCloseDesc</a></CODE> calls allow you to create a descriptor record
+by building up the data it contains incrementally.  All of the data provided
+across multiple calls to <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE> is combined
+when the resulting descriptor record is created.  The example shown in
+<a href="#listingthree">Listing 3</a> shows how to use these three calls
+to build a descriptor record incrementally.<BR><BR></li>
+
+</OL>
+
+<P>
+These routines are described in this section.  Keep in mind that all of these routines 
+can be used to create individual descriptor records (<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> records).  
+These same routines are used for adding descriptor records to <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE> 
+and <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> structures, but to do so calls to these routines must 
+be bracketed by calls to <CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE>/<CODE><a href="#AEStreamCloseList">AEStreamCloseList</a></CODE>
+and <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE>/<CODE><a href="#AEStreamCloseRecord">AEStreamCloseRecord</a></CODE>, respectively.  
+</P>
+
+
+
+<a NAME="AEStreamWriteAEDesc" x-level=2 x-title="AEStreamWriteAEDesc"></a>
+<H3>AEStreamWriteAEDesc</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamWriteAEDesc(
+    AEStreamRef ref,
+    const <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a> *desc);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.<BR><BR></li>
+ 
+ <li><CODE>desc</CODE> - a pointer to an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> record that should be copied
+ into the <CODE>AEStreamRef</CODE>.  <CODE>AEStreamWriteAEDesc</CODE> copies the
+ <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> immediately so there is no need to retain this storage after
+ calling <CODE>AEStreamWriteAEDesc</CODE>. <BR><BR></li>
+ 
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P><CODE><a href="#AEStreamWriteAEDesc">AEStreamWriteAEDesc</a></CODE> copies an entire existing Apple event 
+descriptor record to the <CODE>AEStreamRef</CODE>.</P>  
+
+<P>This routine useful in cases where you have a pre-assembled
+descriptor record that you would like to use in the descriptor you are creating.  For
+example, say you have a complex object specifier record that could be costly to create
+every time you build a descriptor, but you would like to add it to many different
+descriptor records.  In this case, it would be more efficient to create the object
+specifier record at program start up time and then use it, much like a constant, again and
+again, in calls to <CODE><a href="#AEStreamWriteAEDesc">AEStreamWriteAEDesc</a></CODE>.</P>
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+<a NAME="AEStreamWriteDesc" x-level=2 x-title="AEStreamWriteDesc"></a>
+<H3>AEStreamWriteDesc</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamWriteDesc(
+    AEStreamRef ref,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/DescType.html">DescType</a> newType,
+    const void* data,
+    Size length);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.<BR><BR></li>
+
+ <li><CODE>newType</CODE> - A type code for the new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE>
+ being copied to the <CODE>AEStreamRef</CODE>.<BR><BR></li>
+
+ <li><CODE>data</CODE> - A pointer to a block of memory containing <CODE>length</CODE>
+ bytes of data that will be used in the new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> being copied to the <CODE>AEStreamRef</CODE>.
+ <CODE>AEStreamWriteDesc</CODE> copies the data immediately so you do not need to retain this
+ memory after calling <CODE><a href="#AEStreamWriteDesc">AEStreamWriteDesc</a></CODE>.<BR><BR></li>
+
+ <li><CODE>length</CODE> - The number of bytes pointed to by the data parameter.<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+                  
+<P>
+<CODE><a href="#AEStreamWriteDesc">AEStreamWriteDesc</a></CODE> allows you to provide a <CODE>typeCode</CODE> and a data
+buffer that will be used to create a descriptor record.  With this routine, you must
+provide all of the data that will be used in the descriptor record all at once.  If you
+would like to provide the data incrementally, then you should use the
+<CODE>AEStreamOpenDesc</CODE>, <CODE>AEStreamWriteData</CODE>,
+and <CODE><a href="#AEStreamCloseDesc">AEStreamCloseDesc</a></CODE> calls (described next).
+</P>
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+
+
+
+
+
+<a NAME="AEStreamOpenDesc" x-level=2 x-title="AEStreamOpenDesc"></a>
+<H3>AEStreamOpenDesc</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamOpenDesc(
+    AEStreamRef ref,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/DescType.html">DescType</a> newType);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.<BR><BR></li>
+
+ <li><CODE>newType</CODE> - A type code for the new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> being copied
+ to the <CODE>AEStreamRef</CODE>.<BR><BR></li>
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+
+
+<P>
+Calling <CODE>AEStreamOpenDesc</CODE> marks the beginning of a sequence of zero or more
+calls to <CODE>AEStreamWriteData</CODE>.  All of the calls to <CODE>AEStreamWriteData</CODE> made between
+calls to <CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE> and <CODE><a href="#AEStreamCloseDesc">AEStreamCloseDesc</a></CODE> will be combined to create a descriptor
+with the <CODE>typeCode</CODE> specified in the call to <CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE>.  A call to
+<CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE> may be followed by any number of calls <CODE>AEStreamWriteData</CODE> and
+must be balanced with a call to <CODE><a href="#AEStreamCloseDesc">AEStreamCloseDesc</a></CODE>.</P>
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+<a NAME="AEStreamWriteData" x-level=2 x-title="AEStreamWriteData"></a>
+<H3>AEStreamWriteData</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamWriteData(
+    AEStreamRef ref,
+    const void* data,
+    Size length);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>. <CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE> or <CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE> must
+ have been called on this <CODE>AEStreamRef</CODE> prior to calling
+ <CODE>AEStreamWriteData</CODE>.<BR><BR></li>
+
+ <li><CODE>data</CODE> - A pointer to a block of memory containing <CODE>length</CODE>
+ bytes of data that will be used in the new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> being copied to the <CODE>AEStreamRef</CODE>.
+ <CODE>AEStreamWriteData</CODE> copies the data immediately so you do not need to retain this
+ memory after calling <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE>.<BR><BR></li>
+
+ <li><CODE>length</CODE> - The number of bytes pointed to by the data parameter.<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded. </P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P><CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE> appends data to the current descriptor record being defined
+in the <CODE>AEStreamRef</CODE>.  You can call this routine any number of times to build
+up the data contents of a descriptor record incrementally.  Calls to <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE>
+must be preceded by either a call to <CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE> or a call to
+<CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE>.  After calling <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE> one or more times to define
+the data contents of a descriptor record, you must call <CODE>AEStreamCloseDesc</CODE> to complete the descriptor's
+definition and balance the preceding call to either <CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE> or <CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE>.
+The example shown in <a href="#listingthree">Listing 3</a> shows how to call <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE>.
+</P>
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+<a NAME="AEStreamCloseDesc" x-level=2 x-title="AEStreamCloseDesc"></a>
+<H3>AEStreamCloseDesc</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamCloseDesc(AEStreamRef ref);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>. <CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE> or <CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE> must
+ have been called on this <CODE>AEStreamRef</CODE> prior to calling
+ <CODE>AEStreamCloseDesc</CODE>.<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>
+<CODE>AEStreamCloseDesc</CODE> is used to mark the end of a descriptor record being written
+to an <CODE>AEStreamRef</CODE>.  After calling <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE> one or more times to define
+the data contents of a descriptor record, you must call this routine
+to complete the descriptor's definition and balance the preceding call to either
+<CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE> or <CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE>.  The example shown
+in <a href="#listingthree">Listing 3</a> shows how to call <CODE><a href="#AEStreamCloseDesc">AEStreamCloseDesc</a></CODE>.
+</P>
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+<a NAME="wrtnglsts" x-level=1 x-title="Writing Lists"></a>
+<H2>Writing Lists</H2>
+
+<P>Routines in this section are used to delimit a group of descriptor records
+that will be combined to create at <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE> structure in the resulting
+descriptor.  </P>
+
+
+
+
+<a NAME="AEStreamOpenList" x-level=2 x-title="AEStreamOpenList"></a>
+<H3>AEStreamOpenList</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamOpenList(AEStreamRef ref);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>Calling <CODE>AEStreamOpenList</CODE> marks the beginning of a sequence of zero or more
+descriptor definitions that will be combined to create a single <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE>
+structure in the resulting descriptor record.  Every call to <CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE> must
+be balanced with a corresponding call to <CODE>AEStreamCloseList</CODE>.  The descriptors included
+in an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE> structure can be:
+</P>
+
+<OL TYPE="1" START="0">
+
+<li><CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE>s defined using any of the three methods described in the
+<a href="#wrtthmdown">Writing Descriptors</a> section.<BR><BR></li>
+
+<li><CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE>s defined using the routines described in this section.<BR><BR></li>
+
+<li><CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>s defined using the routines described in the <a href="#wrtngrecs">Writing Records</a>
+section.<BR><BR></li>
+
+</OL>
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+<a NAME="AEStreamCloseList" x-level=2 x-title="AEStreamCloseList"></a>
+<H3>AEStreamCloseList</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamCloseList(AEStreamRef ref);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.  <CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE> must
+ have been called on this <CODE>AEStreamRef</CODE> prior to calling
+ <CODE>AEStreamCloseList</CODE>.<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+                   
+<P>
+<CODE>AEStreamCloseList</CODE> is used to mark the end of a list started by calling
+to <CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE>.  Call this routine after writing some descriptors
+to an <CODE>AEStreamRef</CODE> to balance the preceding call to <CODE><a href="#AEStreamOpenList">AEStreamOpenList</a></CODE>.
+</P>
+
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+<a NAME="wrtngrecs" x-level=1 x-title="Writing Records"></a>
+<H2>Writing Records</H2>
+
+<P>
+Routines provided for writing <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> structures are very similar to the 
+set of routines provided for writing <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE> structures.  The main
+difference is the routines for writing <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> structures include provisions
+for specifying type codes associated with <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> and the keywords associated with
+record elements.  For flexibility, the <CODE>AEStream*</CODE> routines provide more than
+one way to specify these additional elements.
+</P>
+
+
+
+<a NAME="AEStreamOpenRecord" x-level=2 x-title="AEStreamOpenRecord"></a>
+<H3>AEStreamOpenRecord</H3>
+
+
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamOpenRecord(
+    AEStreamRef ref,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/DescType.html">DescType</a> newType);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.<BR><BR></li>
+
+ <li><CODE>newType</CODE> - A type code for the new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> being copied
+ to the <CODE>AEStreamRef</CODE>.  Sometimes <CODE>typeAERecord</CODE> (<CODE>'reco'</CODE>), but usually
+ a different type is used.<BR><BR></li>
+ 
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<P>Calling <CODE>AEStreamOpenRecord</CODE> marks the beginning of a sequence of zero or more
+keyword/descriptor definitions that will be combined to create a single <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>
+structure in the resulting descriptor record.  Every call to <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> must
+be balanced with a corresponding call to <CODE>AEStreamCloseRecord</CODE>.  Each keyword/descriptor
+definition is introduced with a call to either <CODE><a href="#AEStreamWriteKeyDesc">AEStreamWriteKeyDesc</a></CODE>,
+<CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE>, or <CODE><a href="#AEStreamWriteKey">AEStreamWriteKey</a></CODE>.</P>
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+<a NAME="AEStreamCloseRecord" x-level=2 x-title="AEStreamCloseRecord"></a>
+<H3>AEStreamCloseRecord</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamCloseRecord(AEStreamRef ref);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>. <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> must
+ have been called on this <CODE>AEStreamRef</CODE> prior to calling
+ <CODE>AEStreamCloseRecord</CODE>.<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+
+                   
+<P>
+<CODE>AEStreamCloseRecord</CODE> is used to mark the end of a record started by calling
+to <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE>.  Call this routine after writing some keyword/descriptor pairs
+to an <CODE>AEStreamRef</CODE> to balance the preceding call to <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE>.
+</P>
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+
+<a NAME="AEStreamSetRecordType" x-level=2 x-title="AEStreamSetRecordType"></a>
+<H3>AEStreamSetRecordType</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamSetRecordType(
+    AEStreamRef ref,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/DescType.html">DescType</a> newType);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.<BR><BR></li>
+
+ <li><CODE>newType</CODE> - A type code for the new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> currently
+ being copied to the <CODE>AEStreamRef</CODE>.  Since
+ <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE>/<CODE><a href="#AEStreamCloseRecord">AEStreamCloseRecord</a></CODE>
+ calls can be nested, this call will set the type for the record
+ associated with the most recent <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> call.<BR><BR></li>
+ 
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P><CODE><a href="#AEStreamSetRecordType">AEStreamSetRecordType</a></CODE> can be called after <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> to set the type
+of the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> being defined to a different type than the type specified in the
+<CODE>newType</CODE> parameter to the <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> call.  In the case where your code
+is creating nested records, <CODE><a href="#AEStreamSetRecordType">AEStreamSetRecordType</a></CODE> will set the type of the
+<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> associated with the most recent call to <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE>.
+This routine can only be called between <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE>
+and <CODE><a href="#AEStreamCloseRecord">AEStreamCloseRecord</a></CODE> calls.
+</P>
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+<a NAME="AEStreamWriteKeyDesc" x-level=2 x-title="AEStreamWriteKeyDesc"></a>
+<H3>AEStreamWriteKeyDesc</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamWriteKeyDesc(
+    AEStreamRef ref,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a> key,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/DescType.html">DescType</a> newType,
+    const void* data,
+    Size length);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.  Since <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE>/<CODE><a href="#AEStreamCloseRecord">AEStreamCloseRecord</a></CODE>
+ calls can be nested, this call will add a new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pair
+ to the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> associated with the most recent <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> call.<BR><BR></li>
+
+ <li><CODE>key</CODE> - The <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE> associated with the new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> being added
+ to the current <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>.<BR><BR></li>
+
+ <li><CODE>newType</CODE> - A type code for the new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE>
+ being copied to the <CODE>AEStreamRef</CODE>.<BR><BR></li>
+
+ <li><CODE>data</CODE> - A pointer to a block of memory containing <CODE>length</CODE>
+ bytes of data that will be used in the new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> being copied to the <CODE>AEStreamRef</CODE>.
+ <CODE><a href="#AEStreamWriteKeyDesc">AEStreamWriteKeyDesc</a></CODE> copies the data immediately so you do not need to retain this
+ memory after calling <CODE><a href="#AEStreamWriteKeyDesc">AEStreamWriteKeyDesc</a></CODE>.<BR><BR></li>
+
+ <li><CODE>length</CODE> - The number of bytes pointed to by the data parameter.<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+                    
+<P>Call <CODE><a href="#AEStreamWriteKeyDesc">AEStreamWriteKeyDesc</a></CODE> to write a complete keyword/descriptor pair to
+an <CODE>AEStreamRef</CODE> for inclusion in a <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>.
+This routine can only be called between <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE>
+and <CODE><a href="#AEStreamCloseRecord">AEStreamCloseRecord</a></CODE> calls.  <CODE><a href="#AEStreamWriteKeyDesc">AEStreamWriteKeyDesc</a></CODE>
+is analogous to the Apple Event Manager routine <CODE><a href="http://developer.apple.com/documentation/mac/IAC/IAC-221.html">AEPutParamPtr</a></CODE>, and
+it is nearly the same as <CODE><a href="#AEStreamWriteDesc">AEStreamWriteDesc</a></CODE> (except it has an
+additional <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE> parameter).  The sample shown in
+<a href="#eventopen">Listing 6</a> shows how you could call this routine.</P>
+
+<P>In the case where your code is creating nested records, <CODE><a href="#AEStreamWriteKeyDesc">AEStreamWriteKeyDesc</a></CODE>
+will add a <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pair to the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> associated with the
+most recent call to <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> or <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.
+<CODE><a href="#AEStreamWriteKeyDesc">AEStreamWriteKeyDesc</a></CODE> can only be called while an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>
+is being written - it cannot be called to add <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pairs
+to a <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> while you are writing to a nested <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE> inside of
+that <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>.</P>
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+<a NAME="AEStreamOpenKeyDesc" x-level=2 x-title="AEStreamOpenKeyDesc"></a>
+<H3>AEStreamOpenKeyDesc</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamOpenKeyDesc(
+    AEStreamRef ref,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a> key,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/DescType.html">DescType</a> newType);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.  Since <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE>/<CODE><a href="#AEStreamCloseRecord">AEStreamCloseRecord</a></CODE>
+ calls can be nested, this call will add a new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pair
+ to the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> associated with the most recent <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> call.<BR><BR></li>
+
+ <li><CODE>key</CODE> - The <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE> associated with the new
+ <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pair being added to the current <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>.<BR><BR></li>
+
+ <li><CODE>newType</CODE> - A type code for the new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE>
+ being copied to the <CODE>AEStreamRef</CODE>.<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>Call <CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE> to start the definition of a keyword/descriptor
+pair for inclusion in an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>.
+<CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE> is the same as <CODE><a href="#AEStreamOpenDesc">AEStreamOpenDesc</a></CODE> with the exception that it includes
+an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE> parameter that will be used as the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> element's keyword.  You should
+use this routine when you would like to provide the
+data associated with a keyword/descriptor pair in an incremental fashion with repeated
+calls to <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE>.  After calling <CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE> you should
+call <CODE><a href="#AEStreamWriteData">AEStreamWriteData</a></CODE> a number of times to define the data contents for the descriptor
+before calling <CODE><a href="#AEStreamCloseDesc">AEStreamCloseDesc</a></CODE> to complete the definition.  
+</P>
+
+<P>In the case where your code is creating nested records, <CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE>
+will begin a <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pair in the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> associated with the
+most recent call to <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> or <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.
+<CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE> can only be called while an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>
+is being written - it cannot be called to begin <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pairs
+in a <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> while you are writing to a nested <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE> inside of
+that <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>.</P>
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+<a NAME="AEStreamWriteKey" x-level=2 x-title="AEStreamWriteKey"></a>
+<H3>AEStreamWriteKey</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamWriteKey(
+    AEStreamRef ref,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a> key);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.<BR><BR></li>
+
+ <li><CODE>key</CODE> - The <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE> associated with the new
+ <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pair being added to the current <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>.<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<P>Call <CODE>AEStreamWriteKey</CODE> to start the definition of a keyword/descriptor
+pair for inclusion in an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>.  This routine only writes the keyword
+part of the definition and it must be followed by a sequence of <CODE>AEStream*</CODE>
+calls that define exactly one descriptor record.  That descriptor can be any of the
+following:</P>
+
+<UL>
+
+<li>An <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> defined using any of the three methods described in the
+<a href="#wrtthmdown">Writing Descriptors</a> section.<BR><BR></li>
+
+<li>An <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE> defined using the routines described in the <a href="#wrtnglsts">Writing Lists</a>
+section.<BR><BR></li>
+
+<li>An <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> defined using the routines described in this section.<BR><BR></li>
+
+</UL>
+
+<P>
+The sample shown in <a href="#eventopen">Listing 6</a> shows how you could call this routine.
+</P>
+
+<P>In the case where your code is creating nested records, <CODE><a href="#AEStreamWriteKey">AEStreamWriteKey</a></CODE>
+will begin a <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pair in the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> associated with the
+most recent call to <CODE><a href="#AEStreamOpenRecord">AEStreamOpenRecord</a></CODE> or <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.
+<CODE><a href="#AEStreamWriteKey">AEStreamWriteKey</a></CODE> can only be called while an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>
+is being written - it cannot be called to begin <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pairs
+in a <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> while you are writing to a nested <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE> inside
+of that <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>.</P>
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+
+
+
+
+<a NAME="wrtngevents" x-level=1 x-title="Writing Apple Event Records"></a>
+<H2>Writing Apple Event Records</H2>
+
+
+<P>The <CODE>AEStream*</CODE> routines can be used to create complete Apple event records.
+<CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> can be used to define a new <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE>
+record, and the routine <CODE>AEStreamOpenEvent</CODE> can be used to supplement
+an existing one.  Since the contents of <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> records are formatted
+the same as <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE>s, we use the same routines for filling in the parameters
+as we use for adding <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> elements.  For Apple events, we use the routines
+<CODE><a href="#AEStreamWriteKeyDesc">AEStreamWriteKeyDesc</a></CODE>, <CODE><a href="#AEStreamOpenKeyDesc">AEStreamOpenKeyDesc</a></CODE>, or
+<CODE><a href="#AEStreamWriteKey">AEStreamWriteKey</a></CODE> defined in the <a href="#wrtngrecs">Writing
+Records</a> section.  <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> records include provisions for optional
+parameters.  So that you can specify which of the parameters you supply are
+optional, <CODE>AEStream*</CODE> provides the <CODE><a href="#AEStreamOptionalParam">AEStreamOptionalParam</a></CODE> call.  
+</P>
+
+
+
+<a NAME="AEStreamOpenEvent" x-level=2 x-title="AEStreamOpenEvent"></a>
+<H3>AEStreamOpenEvent</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+AEStreamRef AEStreamOpenEvent(<a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a> *event);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+  <li><CODE>event</CODE> - An existing Apple event record that you would
+  like to add parameters to.<BR><BR></li>
+  
+</UL>
+<P><B>Result:</B><BR>
+An <CODE>AEStreamRef</CODE> or, if an error occurs, the
+value <CODE>NULL</CODE>.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P><CODE>AEStreamOpenEvent</CODE> allows you to open an existing <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE>
+record in an <CODE>AEStreamRef</CODE> so you can use the <CODE>AEStream*</CODE> routines
+to append additional parameters to the event.  Once you have opened an event
+record the contents of the event record are copied into the <CODE>AEStreamRef</CODE>.  When
+you have finished describing the parameters for the event record, call <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE>
+to save them to an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> record. The example shown in <a href="#eventopen">Listing 6</a>
+illustrates how to call this routine.
+</P>
+
+<P>If there is not enough storage available to complete the operation, <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE> will
+return <CODE>NULL</CODE> and the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> parameter will remain unchanged.  Otherwise, if successful,
+<CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE> will return a vaild <CODE>AEStreamRef</CODE> and the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE>
+parameter will be
+set to a descriptor of <CODE>typeNull</CODE>.  When you open an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE>
+record using <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>, you must define the parameters using the same routines
+you would use for adding keyword/descriptor pairs to records as described in the
+<a href="#wrtngrecs">Writing Records</a> section together with the <CODE><a href="#AEStreamOptionalParam">AEStreamOptionalParam</a></CODE>
+routine described in this section.</P>
+
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td align="left">
+<P><B><a NAME="eventopen" kind = "Listing">Listing 6</a>.</B> An example illustrating
+how to call <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.</P>
+</TD></TR><TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a> event;
+AEStreamRef ref;
+<a href="../../qa/ov/ov02.html">OSStatus</a> err;
+char* p = "Hello World";
+....
+ref = <a href="#AEStreamOpenEvent">AEStreamOpenEvent</a>(&event);
+if (ref != NULL) {
+
+        /* add a direct parameter */
+    err = <a href="#AEStreamWriteKeyDesc">AEStreamWriteKeyDesc</a>( ref, keyDirectObject, typeChar, p, strlen(p));
+    if (err == noErr) {
+
+            /* add another, optional parameter. */
+        err = <a href="#AEStreamWriteKey">AEStreamWriteKey</a>( ref, 'mine');
+        if (err == noErr) {
+
+                /* add all of our strings to the list
+                using the <a href="#AddTextDesc">AddTextDesc</a> routine defined in
+                <a href="#listingthree">Listing 3</a> */
+            err = <a href="#AddTextDesc">AddTextDesc</a>( ref, "this is an optional parameter");
+            if (err == noErr) {
+
+                    /* flag the parameter with the keyword 'mine' as an
+                    optional parameter. */
+                err = <a href="#AEStreamOptionalParam">AEStreamOptionalParam</a>( ref, 'mine');
+                if (err == noErr) {
+
+                        /* close the stream */
+                    err = <a href="#AEStreamClose">AEStreamClose</a>(ref, &event);
+                    if (err == noErr) {
+
+                            /* send the event */
+                        err = <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Sending_an_Apple_Event.html">AESend</a>(&amp;event, ...);
+                    ....
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+                    
+<P>
+<CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE> clears the contents of the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> structure passed
+to it and sets it to a <CODE>'null'</CODE> descriptor after it reads the 
+<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> into the <CODE>AEStreamRef</CODE>.  To copy the
+<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> back into this variable after you are finished writing parameters
+to it, call <CODE><a href="#AEStreamClose">AEStreamClose</a></CODE> providing this same structure as the destination
+for the resulting descriptor record.</P>
+            
+            
+
+     
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+<a NAME="AEStreamCreateEvent" x-level=2 x-title="AEStreamCreateEvent"></a>
+<H3>AEStreamCreateEvent</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+AEStreamRef AEStreamCreateEvent(
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEEventClass.html">AEEventClass</a> clazz,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEEventID.html">AEEventID</a> id,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/DescType.html">DescType</a> targetType,
+    const void* targetData,
+    long targetLength,
+    short returnID,
+    long transactionID);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+
+<li><CODE>clazz</CODE> - The event class for the resulting Apple event.<BR><BR></li>
+
+<li><CODE>id</CODE> - The event id for the resulting Apple event.<BR><BR></li>
+
+<li><CODE>targetType</CODE> - The address type for the addressing information
+described in the next two parameters: usually one of <CODE>typeApplSignature</CODE>,
+<CODE>typeProcessSerialNumber</CODE>, or <CODE>typeKernelProcessID</CODE>.<BR><BR></li>
+
+<li><CODE>targetData</CODE> - A pointer to the address information.<BR><BR></li>
+
+<li><CODE>targetLength</CODE> - The number of bytes pointed to by the <CODE>targetData</CODE>
+parameter.<BR><BR></li>
+
+<li><CODE>returnID</CODE> - Usually, set to the value <CODE>kAutoGenerateReturnID</CODE>. See 
+the Apple Event Manager documentation for more information.<BR><BR></li>
+
+<li><CODE>transactionID</CODE> - Usually, set to the value <CODE>kAnyTransactionID</CODE>.
+See the Apple Event Manager documentation for more information.<BR><BR></li>
+
+</UL>
+<P><B>Result:</B><BR>
+An <CODE>AEStreamRef</CODE> or, if an error occurs, the
+value <CODE>NULL</CODE>.</P>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<P>
+<CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> calls <CODE><a href="http://developer.apple.com/documentation/mac/IAC/IAC-207.html">AECreateAppleEvent</a></CODE> before calling
+<CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE> to open an <CODE>AEStreamRef</CODE> for adding parameters to
+the event.  
+</P>
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+
+
+
+
+<a NAME="AEStreamOptionalParam" x-level=2 x-title="AEStreamOptionalParam"></a>
+<H3>AEStreamOptionalParam</H3>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="../../qa/ov/ov02.html">OSStatus</a> AEStreamOptionalParam(
+    AEStreamRef ref,
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a> key);
+</pre>
+<P><B>Parameters:</B></P>
+<UL>
+ 
+ <li><CODE>ref</CODE> - An <CODE>AEStreamRef</CODE> created by either
+ <CODE><a href="#AEStreamOpen">AEStreamOpen</a></CODE>, <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or
+ <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>.<BR><BR></li>
+ 
+ <li><CODE>key</CODE> - The <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE> associated with the any
+ <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>/<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> pair being added to an
+ <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE>.  <CODE><a href="#AEStreamCreateEvent">AEStreamCreateEvent</a></CODE> or <CODE><a href="#AEStreamOpenEvent">AEStreamOpenEvent</a></CODE>
+ must precede any calls to <CODE>AEStreamOptionalParam</CODE>.<BR><BR></li>
+ 
+</UL>
+<P><B>Result:</B><BR>
+A numeric result code indicating the success of the call. A value of <CODE>noErr</CODE>
+(zero) means the call succeeded.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+                  
+<P>
+The <CODE><a href="#AEStreamOptionalParam">AEStreamOptionalParam</a></CODE> allows you to designate optional parameters
+(by <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEKeyword.html">AEKeyword</a></CODE>) in <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> records.  The sample shown 
+in <a href="#eventopen">Listing 6</a> shows how you could call this routine.
+</P>
+
+
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>         
+         
+<a NAME="doenleoads" x-level=1 x-title="Downloadables"></a>
+<H2>Downloadables</H2>   
+<table BORDER=0 CELLPADDING=3 WIDTH="100%">
+<TR>
+ <td width=50 align=left><P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P></TD>
+ <td align="left"><P>Acrobat version of this Note (104K)</P></TD>
+ <td width=60 align=left><P><a href="pdf/tn2046.pdf">Download</a></P></TD>
+</TR>
+</table>
+
+         
+<P><a href="#topofdocument">Back to top</a></P>
+<BR><BR>
+
+
+
+
+
+</TD></TR></table></CENTER>
+<!-- end_content -->
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

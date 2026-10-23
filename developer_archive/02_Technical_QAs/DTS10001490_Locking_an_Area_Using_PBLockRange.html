@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+            <meta id="book-title" name="book-title" content="Locking an Area Using PBLockRange">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001490">
+            <meta id="document-version" name="document-version" content="1.0.2">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="OPS09: Describes the behavior of PBLockRange.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+
+<title>Technical Q&amp;A OPS09: Locking an Area Using PBLockRange</title>
+
+
+
+<meta name="keywords" content="Mac OS 8 PBLockRange FSRead -45 error locking file">
+<meta name="Description" content="Technical Q&amp;A OPS09: Q&amp;A describes the function of PBLockRange
+focusing on what locking an area using PBLockRange accomplishes.">
+
+
+
+
+<meta name="categories" content="Operating System Utilities">
+
+
+<meta name="week-posted" content="May 13, 1996 - May 17, 1996">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10001490" title="Locking an Area Using PBLockRange"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Locking an Area Using PBLockRange</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technicalQA"> 
+
+<!-- white background -->
+
+
+
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalqas/index.html">Technical Q&As</a> &gt; <a href="../../technicalqas/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalqas/Carbon/idxFileManagement-date.html">File Management</a> &gt; </p><!-- end_header_information -->
+
+
+<!-- bottom_of_header_marker_comment -->
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Q&amp;A OPS09</div>
+<div id="pageheadsub">Locking an Area Using PBLockRange</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+
+
+
+
+			<!-- -->
+			
+			<!-- Document Body -->
+
+<CENTER><table cellspacing="0" cellpadding="0" border="0" WIDTH="600">
+<tr>
+<td align="left" scope="row">
+
+<font size="+4">Q</font>  I'm locking a small area of a shared file, using PBLockRange, 
+so others cannot write to it. When I try to <i>read</i> the locked area from another
+machine (by calling FSRead),  it returns a -45 (file locked) error. If I try to
+read over an unlocked area, it works fine.
+ 
+<p>I've never used PBLockRange before, but all of the documentation on it (that
+I've found, anyway) says that the locking is for <i>writing</i> not reading,
+and the documentation on FSRead never suggests that it might return a "file
+locked" error code.</p>
+
+<font size="+4">A</font>  PBLockRange is behaving properly in this situation, and has always behaved
+this way.  The idea is that by locking a section of a file you want to control
+all access to the section.  While the section is locked and you are making
+changes to it, other users should not be able to read the portion of the file
+that is changing.  The information might not be properly synched with the
+changes made, so readers might be reading old information.  By denying readers
+access to the locked portion of the file, you guarantee the integrity of the
+data to which readers have access.
+
+<p>As page 2-50 of <i>Inside Macintosh: Files</i> states:</p>
+ 
+<p>"When a user needs to modify a portion of a file that has been opened with
+shared read/write permission, it is usually desirable to make that portion of
+the file unavailable to other users while the changes are made.  You can call
+the PBLockRange function to lock a range of bytes before modifying the file and
+then PBUnlockRange to unlock that range after your changes are safely recorded
+in the file.</p>
+ 
+<p>"Locking a range of bytes in a file gives the user exclusive read/write access
+to that range and makes it inaccessible to other users.  Other users can
+neither write nor read the bytes in that range until you unlock it.  If other
+users attempt to read data from a portion of a file that you have locked, they
+receive the fLckdErr result code."<br>For a thorough description of working with files in a shared environment, see
+Technical Note <a href = "../../technotes/fl/fl_37.html" target="_blank">FL 37- "Want Permission to do What."</a></p>
+
+<!-- begin_date --><H4 ALIGN=center>Updated: 14-May-96</H4><!-- end_date -->
+
+
+</td>
+</tr>
+</table></CENTER>
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

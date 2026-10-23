@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1908: Finding and Fixing Category Method Name Clashes</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40016829">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40016829-CH1">
+    <meta id="date" name="date" content="2016-03-23">
+    <meta id="description" name="description" content="QA1908: describes how to use the OBJC_PRINT_REPLACED_METHODS environment variable to find category method name clashes.">
+    <meta id="book-title" name="book-title" content="Finding and Fixing Category Method Name Clashes">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Languages & Utilities/Objective-C}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1908">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Finding and Fixing Category Method Name Clashes" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40016829" title="Technical Q&amp;A QA1908"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Finding and Fixing Category Method Name Clashes</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40016829-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1908"></a><div class="dtsDocNumber">Technical Q&amp;A QA1908</div><h1 id="pageTitle">Finding and Fixing Category Method Name Clashes</h1><h2>Q:&nbsp;
+How can I make sure that the methods in a category don't clash with methods in the original class?
+</h2><p><span>A: </span>Categories in Objective-C allow you to add your own methods to existing classes. A category can be declared for any class, even if you don’t have the original implementation source code. Any methods that you declare in a category will be available to all instances of the original class, as well as any subclasses of the original class. At runtime, there’s no difference between a method added by a category and one that is implemented by the original class. The <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html" class="urlLink" rel="external">Programming with Objective-C</a></span> guide discusses creating your own categories. </p><p>When using a category to add methods to a class you don't control (such as the standard Cocoa or Cocoa Touch classes), you need to be very careful about method names. If the name of a method declared in a category is the same as a method in the original class, or a method in another category on the same class (or even a superclass), the behavior is undefined as to which method implementation is used at runtime. This often leads to subtle bugs or crashes which can be extremely difficult to track down. You should follow the steps listed under <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016829-CH1-FIND" data-renderer-version="1">Finding Category Method Name Clashes</a></span> before shipping your application, to find these bugs before your customers do.</p><section><a name="//apple_ref/doc/uid/DTS40016829-CH1-CATEGORY_METHOD_NAME_BEST_PRACTICE" title="Category Method Name Best Practice"></a><h2 class="jump">Category Method Name Best Practice</h2><p>It is not possible to tell whether a given method name will conflict with an existing method defined by the original class because classes often contain private methods that are not listed in the classes interface. Further, a future version of the class may add new methods that clash with methods previously defined in your category. In order to avoid undefined behavior, it’s best practice to add a prefix to method names in categories on framework classes, just like you should add a prefix to the names of your own classes. You might choose to use the same three letters you use for your class prefixes, but lowercase to follow the usual convention for method names, then an underscore, before the rest of the method name.</p><a name="//apple_ref/doc/uid/DTS40016829-CH1-SOURCECODE1" title="Listing 1Example category declaration containing a method with a prefixed name."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Example category declaration containing a method with a prefixed name.</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface UIView (MyCategory)<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// CORRECT: The method name is prefixed.<span></span></pre></td></tr><tr><td scope="row"><pre>- (BOOL)wxyz_isOccludedByView:(UIView*)otherView;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// INCORRECT: The method name is not prefixed. This method may clash with an existing method in UIView.<span></span></pre></td></tr><tr><td scope="row"><pre>- (BOOL)isOccludedByView:(UIView*)otherView;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>@end<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40016829-CH1-FIND" title="Finding Category Method Name Clashes"></a><h2 class="jump">Finding Category Method Name Clashes</h2><p>You can use the <code>OBJC_PRINT_REPLACED_METHODS</code> environment variable to enable extra debug logging that prints a message when methods are replaced by category implementations. When a category is loaded, a message similar to <span class="content_text"><!--a  -->Listing 2<!--/a--></span> is printed for each method in the category that clashes with an existing method in the original class.</p><a name="//apple_ref/doc/uid/DTS40016829-CH1-SOURCECODE2" title="Listing 2Log output when a method is replaced by a category implementation"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Log output when a method is replaced by a category implementation</p><div class="codesample clear"><table><tr><td scope="row"><pre>objc[21184]: REPLACED: -[UIView isOccludedByView:] by category MyCategory (IMP was 0x1873728a0 (/System/Library/Frameworks/UIKit.framework/UIKit), now 0x10002e700 (/var/mobile/Containers/Bundle/Application/14AFE8C4-EA96-4A51-8D40-F1DAD35CC3D8/&lt;YourApplicationName&gt;.app/&lt;YourApplicationName&gt;))<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40016829-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;You should ignore log messages that do not explicitly name your application or a custom framework it links against. Some system frameworks use categories to provide implementations of methods that are defined as stubs in the original class. This causes extra log messages to be emitted when running with  the <code>OBJC_PRINT_REPLACED_METHODS</code> environment variable enabled <strong>and is expected behavior</strong>.</p><p></p></aside></div><p>You can use the <span class="content_text"><a href="https://developer.apple.com/library/ios/recipes/xcode_help-scheme_editor/Articles/SchemeDialog.html" class="urlLink" rel="external">Scheme Editor</a></span> to configure environment variables for your application when you run it in Xcode.</p><ol class="ol"><li class="li"><p>From the Scheme toolbar menu, choose a scheme.</p></li><li class="li"><p>From the same menu, choose Edit Scheme to display the scheme dialog.</p></li><li class="li"><p>In the left column, select Run.</p></li><li class="li"><p>To specify environment variables, click Environment Variables and then click the Add button.</p></li><li class="li"><p>Name the new environment variable <code>OBJC_PRINT_REPLACED_METHODS</code> and give it a value of <code><!--a  -->YES<!--/a--></code>.</p></li><li class="li"><p>Click Close.</p></li><li class="li"><p>Click the Run button or choose Product &gt; Run.</p></li></ol><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016829-CH1-FIGURE1" title="Figure 1You can specify arguments passed on launch and environment variables."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;You can specify arguments passed on launch and environment variables.</figcaption><img src="Art/qa1908_scheme_run.png" class="wide-image" alt="" width="896" height="504"><img src="Art/qa1908_scheme_run.png" class="ipad-scaled-image" alt="" width="670" height="376"></figure><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40016829-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40016829-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-03-23</td><td><p>New document that 
+					describes how to use the OBJC_PRINT_REPLACED_METHODS environment variable to find category method name clashes.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-03-23</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

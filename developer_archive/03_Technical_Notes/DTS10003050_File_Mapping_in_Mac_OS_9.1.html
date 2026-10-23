@@ -1,0 +1,1433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="File Mapping in Mac OS 9.1">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003050">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN2011.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+<title>Technical Note TN2011: File Mapping in Mac OS 9.1</title>
+
+<meta name="keywords" content="file mapping virtual memory">
+    
+<meta name="Description" content="Technical Note TN2011: A description and explanation of the
+new file mapping APIs provided in Mac OS 9.1.">
+
+
+
+<meta name="categories" content="Runtime Architecture, Files, Memory, Operating System, Overview and System Releases">
+
+
+<meta name="week-posted" content="Jan 22, 2001 - Jan 26, 2001">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+
+<BODY bgcolor="#ffffff" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10003050" title="File Mapping in Mac OS 9.1"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>File Mapping in Mac OS 9.1</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxMacOS9Earlier-date.html">Mac OS 9 & Earlier</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Carbon/idxFileManagement-date.html" target="_blank">Carbon > File Management</a></li>
+		<li><a href="http://developer.apple.com/referencelibrary/Carbon/idxRuntimeArchitecture-date.html" target="_blank">Carbon > Runtime Architecture</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN2011</div>
+<div id="pageheadsub">File Mapping in Mac OS 9.1</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+<center><table width="600" cellpadding="0" cellspacing="0" border="0"><tr><td align="left" scope="row">
+
+<a NAME="doctop" title="Back to Top"></a>
+
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left>
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+                <tr>
+                    
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                            <br>
+                        <p id="menutext">
+                            <a href="#fmp_overview">Overview</a>
+                        </p>
+                        <p id="menutext2">
+                            <a href="#fmp_availability">Availability</a>
+                            <br>
+                            <br>
+                      <a href="#fmp_mappedforks">Mapped File Forks</a>
+                            <br>
+                            <br>
+                      <a href="#fmp_mappedviews">Mapped File Views</a>
+                            <br>
+                            <br>
+          <a href="#fmp_ownership">Process Ownership of File Mappings</a>
+                            <br>
+                            <br>
+          <a href="#fmp_shutdown">File Mappings and System Shutdown</a>
+                            <br>
+                            <br>
+          <a href="#fmp_pagesize">Memory Page Size</a>
+                            <br>
+                        </p>
+                        <p id="menutext">
+                            <a href="#fmp_apidescs">File Mapping APIs</a>
+                            <br>
+                            <br>
+                            <a href="#implementationnotes">Implementation Notes for Mac OS 9.1</a>
+                            <br>
+                            <br>
+                            <a href="#fmpdownloads">Downloadables</a>
+                            <br>
+                            <br>
+
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+<p id="introtext">
+This Technical Note discusses the new file mapping APIs introduced in Mac&nbsp;OS&nbsp;9.1.  These APIs allow applications to take advantage of the virtual memory system to supplement the virtual memory address space available for their use.  Using these new APIs, not only is it possible for an application to create and use its own private blocks of virtual memory, but it is also possible for an application to specify the data files that will be used by the virtual memory system as the backing store for the virtual memory it allocates.  
+</p>
+
+<p id="introtext">
+All developers interested in taking advantage of the virtual memory system for supplementing the addressable memory available to their application or implementing memory mapped access to large collections of data stored on disk will want to read this Technical Note.
+</p>
+
+<!-- begin_date -->
+            <h4 align=center>
+                [Jan 25 2001]
+            </h4>
+<!-- end_date -->
+        </td>
+    </tr>
+</table>
+
+<br>
+
+<hr width=500 align=center>
+
+
+<table width="600" cellpadding="0" cellspacing="0" border="0"><tr><td align="left" scope="row">
+
+<BR><BR>
+<a NAME="fmp_overview" title="Overview"></a>
+<h2>Overview</h2>
+         
+<p>File mapping allows an application to take advantage of the virtual memory system and supplement the memory space allocated for it with additional pageable memory.   This mechanism works by implementing a direct one to one mapping between the range of file mapped memory addresses allocated for the application and the contents of a file on disk.  Once a file mapped address range has been allocated for an application, the application can use that range of memory addresses as if it were any other block of memory.</p>
+
+<p><img src="images/filemap.jpg" alt="File Mapping" align=left width=350 height=350>
+Terminology used in this document makes a distinction between the contents of the file on disk and the virtual contents of the file in memory.  A file that has been opened for use with these APIs is referred to as a mapped file, and the particular fork that is being used for file mapping is referred to as the mapped file fork.  The address range in memory allocated by the virtual memory system for your application's use is referred to as the mapped file view.</p>
+
+<P>There is a one to one correspondence between the addresses within the mapped file view and offsets into the section of the mapped file fork used for file mapping purposes.  Specifically, the lowest address in the mapped file view will correspond to the lowest offset into the mapped file fork and the highest address in the mapped file view will correspond to the highest offset into the mapped file fork.</P>
+
+<P>An application is free to use as many file mappings as it requires.  As well, file mappings can be allocated and deallocated on the fly during particular processing operations.  For example, say a particular function in an application required access to a very large lookup table during execution, but that function wasn't called very often.  In this case, the table could be stored in a file rather than in memory and the function could open a read-only memory mapped view to the file and then access elements in stored in the table in the file as if it were accessing a elements in an array stored in memory.</P>
+
+
+</td></tr></table>
+
+<BR><BR>
+<a NAME="fmp_availability" title="Availability"></a>
+<h3>Availability</h3>
+
+<a NAME="gestaltFileMappingAttr"></a>
+<a NAME="gestaltFileMappingPresent"></a>
+
+<p>The <CODE>gestaltFileMappingAttr</CODE> <CODE><a href="http://developer.apple.com/documentation/mac/OSUtilities/OSUtilities-11.html">Gestalt</a></CODE> selector can be used to determine if the file mapping APIs are available.  Your application can use this selector to test for the availability of the file mapping APIs as follows:
+</p>
+
+<a NAME="FileMappingAvailable"></a>
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+    /* FileMappingAvailable returns true if the file mapping APIs
+    discussed in this document are available for your application
+    to use. */
+Boolean FileMappingAvailable(void) {
+    long response;
+    if (<a href="http://developer.apple.com/documentation/mac/OSUtilities/OSUtilities-11.html">Gestalt</a>(gestaltFileMappingAttr, &amp;response) != <CODE>noErr</CODE>)
+        response = 0;
+    return ((response &amp; (1&lt;&lt;gestaltFileMappingPresent)) != 0);
+
+}
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+ 
+<p>The file mapping APIs are exported from <CODE>InterfaceLib</CODE>.</p>
+
+
+<P><a href="#doctop">Back to top</a></P>
+              
+
+<BR><BR>
+<a NAME="fmp_mappedforks" title="Mapped File Forks"></a>
+<H3>Mapped File Forks</H3>
+
+<P>
+A file must be opened using <CODE><a href="#OpenMappedFile">OpenMappedFile</a></CODE> before a mapped file view can be created. <CODE><a href="#OpenMappedFile">OpenMappedFile</a></CODE> lets you to specify the file to be opened, the fork to be opened, and the <CODE><a href="#MappingPrivileges">MappingPrivileges</a></CODE> to be used when opening the file fork.  <CODE><a href="#OpenMappedFile">OpenMappedFile</a></CODE> returns a <CODE><a href="#BackingFileID">BackingFileID</a></CODE> that is used to identify the mapped file fork. <CODE><a href="#OpenMappedFile">OpenMappedFile</a></CODE> fails if the file fork cannot be opened with the <CODE><a href="#MappingPrivileges">MappingPrivileges</a></CODE> requested.
+</P>
+
+<P>
+While the mapped file fork is open, all other access paths to the file fork are denied regardless of the <CODE><a href="#MappingPrivileges">MappingPrivileges</a></CODE> requested. Mapped file forks cannot be accessed by way of the File Manager while the mapped file fork is open. Likewise, file forks opened by the File Manager cannot be opened as mapped file forks.
+</P>
+
+<P>
+Two variants of <CODE><a href="#OpenMappedFile">OpenMappedFile</a></CODE>, <CODE><a href="#FSpOpenMappedFile">FSpOpenMappedFile</a></CODE> and <CODE><a href="#OpenMappedScratchFile">OpenMappedScratchFile</a></CODE>, are provided. <CODE><a href="#FSpOpenMappedFile">FSpOpenMappedFile</a></CODE> allows applications to specify the file fork to be opened using a <CODE><a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/FSSpec.html">FSSpec</a></CODE> instead of a <CODE><a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/FSRef.html">FSRef</a></CODE>. <CODE><a href="#OpenMappedScratchFile">OpenMappedScratchFile</a></CODE> attempts to create and open a scratch file for use as a mapped file fork on a specified volume. The data for a scratch file is only valid in an open mapped file view. When a mapped file view is created for a scratch file, data on disk is not paged into memory. When a mapped file view for a scratch file is unmapped, changes are not written from memory to disk.
+</P>
+
+<P>
+A program can obtain information about an open mapped file fork using <CODE><a href="#GetMappedFileInformation">GetMappedFileInformation</a></CODE>. A program can obtain a list of open mapped file forks using <CODE><a href="#GetNextMappedFile">GetNextMappedFile</a></CODE>. A program can change the size of an open mapped file fork using <CODE><a href="#SetMappedFileSize">SetMappedFileSize</a></CODE>.
+</P>
+
+<P>
+When a program is finished using a mapped file fork, it must close the mapped file fork using <CODE><a href="#CloseMappedFile">CloseMappedFile</a></CODE>. All mapped file views using the <CODE><a href="#BackingFileID">BackingFileID</a></CODE> must be closed before closing the mapped file fork. <CODE><a href="#CloseMappedFile">CloseMappedFile</a></CODE> deletes the scratch file after it is closed if the <CODE><a href="#BackingFileID">BackingFileID</a></CODE> is for a scratch file.
+</P>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+<BR><BR>
+<a NAME="fmp_mappedviews" title="Mapped File Views"></a>
+<H3>Mapped File Views</H3>
+
+<P>
+To access the data in a mapped file fork, a program must create a mapped file view by using <CODE><a href="#MapFileView">MapFileView</a></CODE>. <CODE><a href="#MapFileView">MapFileView</a></CODE> lets you to specify the mapped file fork, the offset into the mapped file fork where the mapped file view should start, the length of the mapped file view, the memory access level (<CODE><a href="#FileViewAccess">FileViewAccess</a></CODE>), the size of a excluded range of bytes (a guard zone) to place adjacent to each end of the mapped file view, the optional characteristics of the mapped file view (<CODE><a href="#FileViewOptions">FileViewOptions</a></CODE>), and the requested base address of the mapped file view. <CODE><a href="#MapFileView">MapFileView</a></CODE> returns the base address of the mapped file view, the length of the mapped file view, and a <CODE><a href="#FileViewID">FileViewID</a></CODE> that identifies the mapped file view.
+</P>
+
+<P>
+A program can obtain the valid bits allowed in the <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> and <CODE><a href="#FileViewOptions">FileViewOptions</a></CODE> passed to <CODE><a href="#MapFileView">MapFileView</a></CODE> using <CODE><a href="#GetFileViewAccessOptions">GetFileViewAccessOptions</a></CODE>. A program can obtain information about a mapped file view using <CODE><a href="#GetFileViewInformation">GetFileViewInformation</a></CODE>. A program can obtain the <CODE><a href="#FileViewID">FileViewID</a></CODE> for a specific address using <CODE><a href="#GetFileViewFromAddress">GetFileViewFromAddress</a></CODE>. A program can obtain a list of mapped file views using <CODE><a href="#GetNextView">GetNextView</a></CODE>. A program can change memory access level of a mapped file view using <CODE><a href="#SetFileViewAccess">SetFileViewAccess</a></CODE>. A program can change the backing base of a mapped file view using <CODE><a href="#SetFileViewBackingBase">SetFileViewBackingBase</a></CODE>.
+</P>
+ 
+<P>
+When a program is finished using a mapped file view, it must close the mapped file view using <CODE><a href="#UnmapFileView">UnmapFileView</a></CODE>. Any modified memory in a mapped file view is written to the mapped file fork when the mapped file view is un-mapped unless the mapped file fork is a scratch file created with <CODE><a href="#OpenMappedScratchFile">OpenMappedScratchFile</a></CODE>.
+</P>
+         <P><a href="#doctop">Back to top</a></P>
+
+<BR><BR>
+<a NAME="fmp_ownership" title="Process Ownership of File Mappings"></a>
+<H3>Process Ownership of File Mappings</H3>
+
+<P>
+When a mapped file fork is opened, the current process becomes the owning process for that mapped file fork and all of its mapped file views. The owning process is the only process that can change or un-map the mapped file views it owns, and change or close the mapped file forks it owns. When the owning process terminates, all mapped file views created by that process are unmapped, and all mapped file forks opened by a process are closed.
+</P>
+
+<P>
+Process ownership may be overridden by specifying <CODE><a href="#kNoProcessMappedFile">kNoProcessMappedFile</a></CODE> in the <CODE><a href="#MappingPrivileges">MappingPrivileges</a></CODE> when a mapped file fork is opened. Mapped file forks opened with the <CODE><a href="#kNoProcessMappedFile">kNoProcessMappedFile</a></CODE> privilege are not owned by any process.
+</P>
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>IMPORTANT:</B><BR>
+Programs using <CODE><a href="#kNoProcessMappedFile">kNoProcessMappedFile</a></CODE> must un-map mapped file views and close mapped file forks when they are no longer needed. Failing to do so is a programming error and will cause the system to run out of logical address space.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P><a href="#doctop">Back to top</a></P>
+         
+<BR><BR>
+<a NAME="fmp_shutdown" title="File Mappings and System Shutdown"></a>
+<H3>File Mappings and System Shutdown</H3>
+
+<P>
+All mapped file views are unmapped and all mapped file forks are closed at the <CODE>sdOnUnmount</CODE> stage of the system shutdown process. This means that the only safe time to use code or data stored in file mapped files opened with the File Mapping programming interfaces is at or before the <CODE>sdOnDrivers</CODE> stage of the system shutdown process.
+</P>
+         <P><a href="#doctop">Back to top</a></P>
+
+
+<BR><BR>
+<a NAME="fmp_pagesize" title="Memory Page Size"></a>
+<H3>Memory Page Size</H3>
+
+<P>
+The page size used by the file mapping APIs is the same as the page size used by the Virtual Memory Manager.  This page size can be determined by using the <CODE>gestaltLogicalPageSize</CODE> <CODE><a href="http://developer.apple.com/documentation/mac/OSUtilities/OSUtilities-11.html">Gestalt</a></CODE> selector.
+</P>
+         <P><a href="#doctop">Back to top</a></P>
+         
+         
+         
+         
+
+
+<BR><BR>
+<a NAME="fmp_apidescs" title="File Mapping APIs"></a>
+<H2>File Mapping APIs</H2>
+
+<P>
+This section presents the new file mapping APIs together with comments describing their usage.  
+</P>
+         <P><a href="#doctop">Back to top</a></P>
+
+
+<BR><BR>
+<a NAME="BackingFileID"></a>
+<P><B><CODE>BackingFileID</CODE></B></P>
+
+<P>A BackingFileID is used to access a mapped file fork.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+typedef struct OpaqueBackingFileID *BackingFileID;
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="MappingPrivileges"></a>
+<P><B><CODE>MappingPrivileges</CODE></B></P>
+
+<P>A set of flags that describe what operations can be performed on a
+                    mapped file fork.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+typedef OptionBits MappingPrivileges;
+enum {
+    kInvalidMappedPrivileges = 0x00000000,
+    kCanReadMappedFile = 0x00000001,   /* mapped file fork
+                                       has read access */
+    kCanWriteMappedFile = 0x00000002,  /* mapped file fork
+                                       has write access */
+    kNoProcessMappedFile = (long)0x80000000,  /* mapped file fork
+                                              and views are not
+                                              tracked by process */
+    kValidMappingPrivilegesMask =
+        kCanReadMappedFile
+        + kCanWriteMappedFile
+        + kNoProcessMappedFile
+};
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><a NAME="kCanReadMappedFile"></a><B>kCanReadMappedFile</B> - Allow the file fork to be mapped such that the memory can be read (this is required).<BR><BR></li>
+<li><a NAME="kCanWriteMappedFile"></a><B>kCanWriteMappedFile</B> - Allow the file fork to be mapped such that the memory can be written. If not set, then the memory can be mapped read-only.<BR><BR></li>
+<li><a NAME="kNoProcessMappedFile"></a><B>kNoProcessMappedFile</B> - The mapped file fork and its mapped file views are not tracked by process ID.<BR><BR></li>
+</UL>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="MappedFileAttributes"></a>
+<P><B><CODE>MappedFileAttributes</CODE></B></P>
+
+<P>A set of flags returned by <CODE><a href="#GetMappedFileInformation">GetMappedFileInformation</a></CODE> that describe the attributes of a mapped file fork.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+typedef OptionBits MappedFileAttributes;
+enum {
+    kIsMappedScratchFile = 0x00000001  /* mapped file fork
+                                       is scratch file */
+};
+
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><a NAME="kIsMappedScratchFile"></a><B>kIsMappedScratchFile</B> - Set when the mapped file fork is a scratch file created with <CODE><a href="#OpenMappedScratchFile">OpenMappedScratchFile</a></CODE>.<BR><BR></li>
+</UL>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="kMappedFileInformationVersion1"></a>
+<P><B><CODE>kMappedFileInformationVersion1</CODE></B></P>
+
+<P>The version number of the <CODE>MappedFileInformation</CODE> struct.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+enum {
+    kMappedFileInformationVersion1 = 1    /* version 1 of
+                                          MappedFileInformation */
+};
+
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+         <P><a href="#doctop">Back to top</a></P>
+
+
+<BR><BR>
+<a NAME="MappedFileInformation"></a>
+<P><B><CODE>MappedFileInformation</CODE></B></P>
+
+<P>Receives the information supplied by <CODE><a href="#GetMappedFileInformation">GetMappedFileInformation</a></CODE>. The current version of this struct is <CODE>kMappedFileInformationVersion1</CODE>.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+struct MappedFileInformation {
+    <a href="http://developer.apple.com/documentation/mac/Processes/Processes-34.html">ProcessSerialNumber</a> owningProcess; /* owning process */
+    <a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/FSRef.html">FSRef</a> *ref; /* pointer to <a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/FSRef.html">FSRef</a> or NULL */
+    <a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/HFSUniStr255.html">HFSUniStr255</a> *forkName; /* pointer to <a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/HFSUniStr255.html">HFSUniStr255</a> or NULL */
+    <a href="#MappingPrivileges">MappingPrivileges</a> privileges; /* mapping privileges */
+    UInt64 currentSize; /* size in bytes */
+    <a href="#MappedFileAttributes">MappedFileAttributes</a> attributes; /* attributes */
+};
+typedef struct MappedFileInformation MappedFileInformation;
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>owningProcess</B> - The <CODE><a href="http://developer.apple.com/documentation/mac/Processes/Processes-34.html">ProcessSerialNumber</a></CODE> of the process that owns this mapped file fork. <BR><BR></li>
+<li><B>ref</B> - A pointer to a <CODE><a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/FSRef.html">FSRef</a></CODE> where the <CODE><a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/FSRef.html">FSRef</a></CODE> of the mapped file fork is returned, or <CODE>NULL</CODE> if the <CODE><a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/FSRef.html">FSRef</a></CODE> is not needed.<BR><BR></li>
+<li><B>forkName</B> - A pointer to a <CODE><a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/HFSUniStr255.html">HFSUniStr255</a></CODE> where the fork name of the mapped file fork is returned, or <CODE>NULL</CODE> if the fork name is not needed.<BR><BR></li>
+<li><B>privileges</B> - The <CODE><a href="#MappingPrivileges">MappingPrivileges</a></CODE> of the mapped file fork.<BR><BR></li>
+<li><B>currentSize</B> - The size, in bytes, of the mapped file fork.<BR><BR></li>
+<li><B>attributes</B> - The <CODE><a href="#MappedFileAttributes">MappedFileAttributes</a></CODE> of the mapped file fork.</li>
+</UL>
+
+<CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>IMPORTANT:</B><BR>
+An application must set both the <CODE>ref</CODE> and <CODE>forkName</CODE> fields of <CODE><a href="#MappedFileInformation">MappedFileInformation</a></CODE> structure before calling <CODE><a href="#GetMappedFileInformation">GetMappedFileInformation</a></CODE>.</P>
+</TD></TR></table></CENTER><BR><BR>
+                    
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="FileViewAccess"></a>
+<P><B><CODE>FileViewAccess</CODE></B></P>
+
+<P>Values of type <CODE>FileViewAccess</CODE> represent allowable access to the memory in a mapped file view.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+typedef OptionBits FileViewAccess;
+
+enum {
+        /* defined bit numbers */
+    <a href="#kFileViewAccessReadBit">kFileViewAccessReadBit</a> = 0, /* Reads allowed */
+
+    <a href="#kFileViewAccessWriteBit">kFileViewAccessWriteBit</a> = 1, /* Writes allowed */
+
+    <a href="#kFileViewAccessExecuteBit">kFileViewAccessExecuteBit</a> = 2, /* Instruction execution
+                                   permitted */
+
+        /* masks */
+    <a href="#kFileViewAccessReadMask">kFileViewAccessReadMask</a> = /* Reads allowed */
+        1L &lt;&lt; <a href="#kFileViewAccessReadBit">kFileViewAccessReadBit</a>,
+
+    <a href="#kFileViewAccessWriteMask">kFileViewAccessWriteMask</a> = /* Writes allowed */
+        1L &lt;&lt; <a href="#kFileViewAccessWriteBit">kFileViewAccessWriteBit</a>,
+
+    <a href="#kFileViewAccessExecuteMask">kFileViewAccessExecuteMask</a> = /* Instruction execution permitted */
+        1L &lt;&lt; <a href="#kFileViewAccessExecuteBit">kFileViewAccessExecuteBit</a>,
+};
+
+enum {
+        /* special masks */
+    <a href="#kFileViewAccessExcluded">kFileViewAccessExcluded</a> = 0, /* All access is prohibited */
+
+    <a href="#kFileViewAccessReadOnly">kFileViewAccessReadOnly</a> =
+        <a href="#kFileViewAccessReadMask">kFileViewAccessReadMask</a>
+        | <a href="#kFileViewAccessExecuteMask">kFileViewAccessExecuteMask</a>,
+
+    <a href="#kFileViewAccessReadWrite">kFileViewAccessReadWrite</a> =
+        <a href="#kFileViewAccessReadMask">kFileViewAccessReadMask</a>
+        | <a href="#kFileViewAccessWriteMask">kFileViewAccessWriteMask</a>
+        | <a href="#kFileViewAccessExecuteMask">kFileViewAccessExecuteMask</a>
+};
+
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>Only three bits of <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> have been defined for use at the current time.  All remaining bits are reserved by Apple for future use.  For convenience, most a number of masks have been provided that can be used in conjunction with the binary-or operator ( | ) to produce desired <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> value.  These masks are
+defined as follows:</P>    
+                 
+<UL>
+
+<li><a NAME="kFileViewAccessReadBit"></a><a NAME="kFileViewAccessReadMask"></a><B>kFileViewAccessReadMask</B> - Memory in mapped file view can be read from.<BR><BR></li>
+
+<li><a NAME="kFileViewAccessWriteBit"></a><a NAME="kFileViewAccessWriteMask"></a><B>kFileViewAccessWriteMask</B> - Memory in mapped file view can be written to.<BR><BR></li>
+
+<li><a NAME="kFileViewAccessExecuteBit"></a><a NAME="kFileViewAccessExecuteMask"></a><B>kFileViewAccessExecuteMask</B> - Instruction execution from mapped file view is permitted (currently unsupported).<BR><BR></li>
+
+<li><a NAME="kFileViewAccessExcluded"></a><B>kFileViewAccessExcluded</B> - Absolutely no access is permitted.  If any access occurs, then an exception will be generated (currently unsupported).<BR><BR></li>
+
+<li><a NAME="kFileViewAccessReadOnly"></a><B>kFileViewAccessReadOnly</B> - Only read operations are permitted.<BR><BR></li>
+
+<li><a NAME="kFileViewAccessReadWrite"></a><B>kFileViewAccessReadWrite</B> - All types of access are permitted, including reading, writing, and instruction execution.<BR><BR></li>
+
+</UL>
+
+<CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+All memory maintained by the Mac OS 9.1 Virtual Memory Manager is
+executable. As discussed in the <a href="#implementationnotes">Implementation Notes for Mac OS 9.1</a> section, the only values defined for variables of type <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> are <CODE>kFileViewAccessReadOnly</CODE> or <CODE>kFileViewAccessReadWrite</CODE>. Any other <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> values used with the routines defined in this document will result in a <CODE>paramErr</CODE>.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+                    
+
+<P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="FileViewOptions"></a>
+<P><B><CODE>FileViewOptions</CODE></B></P>
+
+<P>Values of type <CODE>FileViewOptions</CODE> specify desired characteristics of the mapped file view being created. At this time, only <CODE>kNilOptions</CODE> is supported.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+typedef OptionBits FileViewOptions;
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>Possible values that are defined for <CODE>FileViewOptions</CODE> include:</P>    
+     
+<UL>
+<li><a NAME="kNilOptions"></a><B>kNilOptions</B> - no options.<BR><BR></li>
+</UL>
+
+<P><a href="#doctop">Back to top</a></P>
+   
+   
+   
+     
+<BR><BR>
+<a NAME="kMapEntireFork"></a>
+<P><B><CODE>kMapEntireFork</CODE></B></P>
+
+<P>Pass <CODE>kMapEntireFork</CODE> to <CODE><a href="#MapFileView">MapFileView</a></CODE> as the <CODE>backingLength</CODE> parameter to file map the entire contents of a file.</P>
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+enum {
+    kMapEntireFork = (-1)
+};
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+     
+
+<P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="FileViewID"></a>
+<P><B><CODE>FileViewID</CODE></B></P>
+
+<P>A <CODE>FileViewID</CODE> is used to access a mapped file view.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+typedef struct OpaqueFileViewID* FileViewID;
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="kFileViewInformationVersion1"></a>
+<P><B><CODE>kFileViewInformationVersion1</CODE></B></P>
+
+<P>The version number of the <CODE>FileViewInformation</CODE> struct.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+enum {
+    kFileViewInformationVersion1 = 1
+        /* version 1 of <a href="#MappedFileInformation">MappedFileInformation</a> */
+};
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+<BR><BR>
+<a NAME="FileViewInformation"></a>
+<P><B><CODE>FileViewInformation</CODE></B></P>
+
+<P>Receives the information supplied by <CODE><a href="#GetFileViewInformation">GetFileViewInformation</a></CODE>. The current version of this <CODE>struct</CODE> is <CODE>kFileViewInformationVersion1</CODE>.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+struct FileViewInformation {
+    <a href="http://developer.apple.com/documentation/mac/Processes/Processes-34.html">ProcessSerialNumber</a> owningProcess; /* owning process */
+    LogicalAddress viewBase; /* starting address of mapped file view */
+    ByteCount viewLength; /* length of the mapped file view */
+    <a href="#BackingFileID">BackingFileID</a> backingFile; /* the mapped file fork */
+    UInt64 backingBase; /* offset into mapped file fork */
+    <a href="#FileViewAccess">FileViewAccess</a> access; /* the <a href="#FileViewAccess">FileViewAccess</a> */
+    ByteCount guardLength; /* size of the guard ranges */
+    <a href="#FileViewOptions">FileViewOptions</a> options; /* the <a href="#FileViewOptions">FileViewOptions</a> */
+};
+typedef struct FileViewInformation FileViewInformation;
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>owningProcess</B> - The <CODE><a href="http://developer.apple.com/documentation/mac/Processes/Processes-34.html">ProcessSerialNumber</a></CODE> of the process that owns this mapped file view.<BR><BR></li>
+<li><B>viewBase</B> - The starting address of mapped file view.<BR><BR></li>
+<li><B>viewLength</B> - The length of the mapped file view.<BR><BR></li>
+<li><B>backingFile</B> - The <CODE><a href="#BackingFileID">BackingFileID</a></CODE> of the mapped file fork.<BR><BR></li>
+<li><B>backingBase</B> - The offset into mapped file fork.<BR><BR></li>
+<li><B>access</B> - The <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE>.<BR><BR></li>
+<li><B>guardLength</B> - The size of the guard ranges.<BR><BR></li>
+<li><B>options</B> - The <CODE><a href="#FileViewOptions">FileViewOptions</a></CODE>.<BR><BR></li>
+</UL>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="OpenMappedFile"></a>
+<P><B><CODE>OpenMappedFile</CODE></B></P>
+
+<P>Opens a file fork with the privileges requested for use as backing storage.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr OpenMappedFile(
+    const <a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/FSRef.html">FSRef</a> *ref,
+    UniCharCount forkNameLength,
+    const UniChar *forkName, /* can be NULL */
+    <a href="#MappingPrivileges">MappingPrivileges</a> privileges,
+    <a href="#BackingFileID">BackingFileID</a> *backingFile);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>ref</B> - The file to map.<BR><BR></li>
+<li><B>forkNameLength</B> - The fork name length in Unicode characters.<BR><BR></li>
+<li><B>forkName</B> - The fork name in Unicode (<CODE>NULL</CODE> = data fork).<BR><BR></li>
+<li><B>privileges</B> - The requested <CODE><a href="#MappingPrivileges">MappingPrivileges</a></CODE>.<BR><BR></li>
+<li><B>backingFile</B> - Receives a <CODE><a href="#BackingFileID">BackingFileID</a></CODE> which you can use to access the mapped file fork.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>paramErr</CODE>, <CODE>vmMappingPrivilegesErr</CODE>, or various File Manager and Memory Manager errors.<BR><BR></li>
+</UL>
+
+<P>The <CODE><a href="#OpenMappedFile">OpenMappedFile</a></CODE> function opens the fork specified by the <CODE>forkNameLength</CODE> and <CODE>forkName</CODE> parameters of the file specified by the ref parameter and returns a <CODE><a href="#BackingFileID">BackingFileID</a></CODE> in the <CODE>backingFile</CODE> parameter. You can pass the <CODE><a href="#BackingFileID">BackingFileID</a></CODE> to other routines which accept a <CODE><a href="#BackingFileID">BackingFileID</a></CODE> as an input parameter.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+Additional information about the Mac OS 9.1 implementation of <CODE><a href="#OpenMappedFile">OpenMappedFile</a></CODE> can be found in <a href="#implementationnotes">Implementation Notes for Mac OS 9.1</a> section at the end of this document.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>The privileges parameter specifies what operations you want to perform on the mapped file fork. Programs can request either <CODE><a href="#kCanReadMappedFile">kCanReadMappedFile</a></CODE> privileges, or both <CODE><a href="#kCanReadMappedFile">kCanReadMappedFile</a></CODE> and <CODE><a href="#kCanWriteMappedFile">kCanWriteMappedFile</a></CODE> privileges. To disable Process Manager tracking of the mapped file fork and its mapped file views, you may also request <CODE><a href="#kNoProcessMappedFile">kNoProcessMappedFile</a></CODE> privileges.</P>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="FSpOpenMappedFile"></a>
+<P><B><CODE>FSpOpenMappedFile</CODE></B></P>
+
+<P>Opens a file fork with the privileges requested for use as backing storage.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr FSpOpenMappedFile(
+    const <a href="http://developer.apple.com/documentation/Carbon/Files/FileManager/File_Manager/DataTypes/FSSpec.html">FSSpec</a> *spec,
+    Boolean mapResFork,
+    <a href="#MappingPrivileges">MappingPrivileges</a> privileges,
+    <a href="#BackingFileID">BackingFileID</a> *backingFile);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>spec</B> - The file to map.<BR><BR></li>
+<li><B>mapResFork</B> - Fork to map: false = data fork; true = resource fork.<BR><BR></li>
+<li><B>privileges</B> - The requested <CODE><a href="#MappingPrivileges">MappingPrivileges</a></CODE>.<BR><BR></li>
+<li><B>backingFile</B> - Receives a <CODE><a href="#BackingFileID">BackingFileID</a></CODE> which you can use to access the mapped file fork.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>paramErr</CODE>, <CODE>vmMappingPrivilegesErr</CODE>, or various File Manager and Memory Manager errors.<BR><BR></li>
+</UL>
+
+<P>The <CODE><a href="#FSpOpenMappedFile">FSpOpenMappedFile</a></CODE> function opens the fork specified by the <CODE>mapResFork</CODE> parameter of the file specified by the <CODE>spec</CODE> parameter and returns a <CODE><a href="#BackingFileID">BackingFileID</a></CODE> in the <CODE>backingFile</CODE> parameter. You can pass the <CODE><a href="#BackingFileID">BackingFileID</a></CODE> to other routines which accept a <CODE><a href="#BackingFileID">BackingFileID</a></CODE> as an input parameter.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+Additional information about the Mac OS 9.1 implementation of <CODE><a href="#FSpOpenMappedFile">FSpOpenMappedFile</a></CODE> can be found in <a href="#implementationnotes">Implementation Notes for Mac OS 9.1</a> section at the end of this document.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<P>The <CODE>privileges</CODE> parameter specifies what operations you want to perform on the mapped file fork. Programs can request either <CODE><a href="#kCanReadMappedFile">kCanReadMappedFile</a></CODE> privileges, or both <CODE><a href="#kCanReadMappedFile">kCanReadMappedFile</a></CODE> and <CODE><a href="#kCanWriteMappedFile">kCanWriteMappedFile</a></CODE> privileges. To disable Process Manager tracking of the mapped file fork and its mapped file views, you may also request <CODE><a href="#kNoProcessMappedFile">kNoProcessMappedFile</a></CODE> privileges.</P>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="OpenMappedScratchFile"></a>
+<P><B><CODE>OpenMappedScratchFile</CODE></B></P>
+
+<P>Creates and opens a scratch file with the privileges requested for use as backing storage.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr OpenMappedScratchFile(
+    FSVolumeRefNum volume,
+    ByteCount fileSize,
+    <a href="#MappingPrivileges">MappingPrivileges</a> privileges,
+    <a href="#BackingFileID">BackingFileID</a> *backingFile);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>volume</B> - The volume where scratch file should be created or <CODE>kFSInvalidVolumeRefNum</CODE> to let the system choose the volume.<BR><BR></li>
+<li><B>fileSize</B> - The size of the scratch file.<BR><BR></li>
+<li><B>privileges</B> - The requested <CODE><a href="#MappingPrivileges">MappingPrivileges</a></CODE>.<BR><BR></li>
+<li><B>backingFile</B> - Receives a <CODE><a href="#BackingFileID">BackingFileID</a></CODE> which you can use to access the mapped file fork.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>paramErr</CODE>, <CODE>vmMappingPrivilegesErr</CODE>, or various File Manager and Memory Manager errors.<BR><BR></li>
+</UL>
+
+<P>The <CODE><a href="#OpenMappedScratchFile">OpenMappedScratchFile</a></CODE> function creates a file with the size specified by the <CODE>fileSize</CODE> parameter on the volume specified by the volume parameter. If <CODE>kFSInvalidVolumeRefNum</CODE> is passed as the volume parameter, the system code will choose the location of the file. <CODE><a href="#OpenMappedScratchFile">OpenMappedScratchFile</a></CODE> then opens the file and returns a <CODE><a href="#BackingFileID">BackingFileID</a></CODE> in the backingFile parameter. You can pass the <CODE><a href="#BackingFileID">BackingFileID</a></CODE> to other routines which accept a <CODE><a href="#BackingFileID">BackingFileID</a></CODE> as an input parameter.</P>
+
+<P>The privileges parameter specifies what operations you want to perform on the mapped file fork. Programs can request either <CODE><a href="#kCanReadMappedFile">kCanReadMappedFile</a></CODE> privileges, or both <CODE><a href="#kCanReadMappedFile">kCanReadMappedFile</a></CODE> and <CODE><a href="#kCanWriteMappedFile">kCanWriteMappedFile</a></CODE> privileges. To disable Process Manager tracking of the mapped file fork and its mapped file views, you may also request <CODE><a href="#kNoProcessMappedFile">kNoProcessMappedFile</a></CODE> privileges.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+The contents of the backing file created by <CODE><a href="#OpenMappedScratchFile">OpenMappedScratchFile</a></CODE> is undefined and are not initialized for your application.  
+</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>The data for a scratch file is only valid in an open mapped file view. When a mapped file view is first created for a scratch file with <CODE><a href="#MapFileView">MapFileView</a></CODE>, data on disk is not paged into memory. When that mapped file view is unmapped with <CODE><a href="#UnmapFileView">UnmapFileView</a></CODE>, changes are not flushed from memory to disk.</P>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="CloseMappedFile"></a>
+<P><B><CODE>CloseMappedFile</CODE></B></P>
+
+<P>Closes a mapped file fork.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr CloseMappedFile(<a href="#BackingFileID">BackingFileID</a> backingFile);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>backingFile</B> - The mapped file fork to close.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>vmInvalidBackingFileIDErr</CODE>, <CODE>vmInvalidOwningProcessErr</CODE>, <CODE>vmBusyBackingFileErr</CODE>, or various File Manager errors.<BR><BR></li>
+</UL>
+
+<P>The <CODE>CloseMappedFile</CODE> function closes the mapped file fork specified by the <CODE>backingFile</CODE> parameter.</P>
+
+<P>All mapped file views using the <CODE><a href="#BackingFileID">BackingFileID</a></CODE> must be closed before closing the mapped file fork. If the <CODE><a href="#BackingFileID">BackingFileID</a></CODE> is for a scratch file created with <CODE><a href="#OpenMappedScratchFile">OpenMappedScratchFile</a></CODE>, the scratch file is deleted by <CODE><a href="#CloseMappedFile">CloseMappedFile</a></CODE> after it is closed. </P>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="GetMappedFileInformation"></a>
+<P><B><CODE>GetMappedFileInformation</CODE></B></P>
+
+<P>Returns information about a mapped file fork.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr GetMappedFileInformation(
+    <a href="#BackingFileID">BackingFileID</a> backingFile,
+    <a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/APIREF/SOURCESIV/systemandtoolboxtypes.htm">PBVersion</a> version,
+    <a href="#MappedFileInformation">MappedFileInformation</a> *mappedFileInfo);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>backingFile</B> - The mapped file fork.<BR><BR></li>
+<li><B>version</B> - The version of the <CODE><a href="#MappedFileInformation">MappedFileInformation</a></CODE> struct passed.<BR><BR></li>
+<li><B>mappedFileInfo</B> - A pointer to the <CODE><a href="#MappedFileInformation">MappedFileInformation</a></CODE> struct where the information about a mapped file fork is returned.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>paramErr</CODE>, <CODE>vmInvalidBackingFileIDErr</CODE>, or various File Manager errors.</li>
+</UL>
+
+<CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>IMPORTANT:</B><BR>
+An application must set both the <CODE>ref</CODE> and <CODE>forkName</CODE> fields of <CODE><a href="#MappedFileInformation">MappedFileInformation</a></CODE> structure before calling <CODE><a href="#GetMappedFileInformation">GetMappedFileInformation</a></CODE>.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>The <CODE><a href="#GetMappedFileInformation">GetMappedFileInformation</a></CODE> function returns information about the mapped file fork specified by the <CODE>backingFile</CODE> parameter. The struct version of the <CODE>mappedFileInfo</CODE> parameter is passed in the version parameter. The mapped file fork information is returned in the <CODE>mappedFileInfo</CODE> parameter.</P>
+
+
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+<BR><BR>
+<a NAME="GetNextMappedFile"></a>
+<P><B><CODE>GetNextMappedFile</CODE></B></P>
+
+<P>Gets a list of mapped file forks.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr GetNextMappedFile(<a href="#BackingFileID">BackingFileID</a> *backingFile);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>backingFile</B> - <BR>Input: The last <CODE><a href="#BackingFileID">BackingFileID</a></CODE> returned by <CODE>GetNextMappedFile</CODE>, or <CODE>kInvalidID</CODE> to get the first mapped file fork.<BR>Output: If <CODE>noErr</CODE>, receives the <CODE><a href="#BackingFileID">BackingFileID</a></CODE> of the next mapped file fork.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>vmInvalidBackingFileIDErr</CODE>, or <CODE>vmNoMoreBackingFilesErr</CODE>.<BR><BR></li>
+</UL>
+
+<P>The <CODE>GetNextMappedFile</CODE> function returns the <CODE><a href="#BackingFileID">BackingFileID</a></CODE> of the mapped file fork next in the list of mapped file forks. You can enumerate through the list of mapped file forks by passing <CODE>kInvalidID</CODE> as the <CODE>backingFile</CODE> parameter and then repetitively calling <CODE><a href="#GetNextMappedFile">GetNextMappedFile</a></CODE> with the last <CODE><a href="#BackingFileID">BackingFileID</a></CODE> returned until the result code <CODE>vmNoMoreBackingFilesErr</CODE> is returned.</P>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="SetMappedFileSize"></a>
+<P><B><CODE>SetMappedFileSize</CODE></B></P>
+
+<P>Changes the size (logical end-of-file) of a mapped file fork.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr SetMappedFileSize(
+    <a href="#BackingFileID">BackingFileID</a> backingFile,
+    UInt16 positionMode,
+    const SInt64 *positionOffset);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>backingFile</B> - The mapped file fork to change the size of.<BR><BR></li>
+<li><B>positionMode</B> - The base location for the new size: <CODE>fsFromStart</CODE>, or <CODE>fsFromLEOF</CODE>.<BR><BR></li>
+<li><B>positionOffset</B> - Pointer to a <CODE>SInt64</CODE> which contains the offset of the size from the base.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>paramErr</CODE>, or various File Manager errors.<BR><BR></li>
+</UL>
+
+<P>The <CODE><a href="#SetMappedFileSize">SetMappedFileSize</a></CODE> function sets the logical end-of-file of the mapped file fork specified by <CODE>backingFile</CODE>. The new logical end-of-file is specified by the <CODE>positionMode</CODE> and <CODE>positionOffset</CODE> parameters.</P>
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+Additional information about the Mac OS 9.1 implementation of <CODE><a href="#SetMappedFileSize">SetMappedFileSize</a></CODE> can be found in <a href="#implementationnotes">Implementation Notes for Mac OS 9.1</a> section at the end of this document.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+                    
+
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="GetFileViewAccessOptions"></a>
+<P><B><CODE>GetFileViewAccessOptions</CODE></B></P>
+
+<P>Returns the valid <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> and <CODE><a href="#FileViewOptions">FileViewOptions</a></CODE> bits.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr GetFileViewAccessOptions(
+    <a href="#FileViewAccess">FileViewAccess</a> *access,
+    <a href="#FileViewOptions">FileViewOptions</a> *options);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>access</B> - Receives the valid memory access flags.<BR><BR></li>
+<li><B>options</B> - Receives the valid view options.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, or <CODE>paramErr</CODE>.<BR><BR></li>
+</UL>
+
+<P>The <CODE>GetFileViewAccessOptions</CODE> function returns the valid <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> and <CODE><a href="#FileViewOptions">FileViewOptions</a></CODE> bits. Programs can use it to determine what <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> and <CODE><a href="#FileViewOptions">FileViewOptions</a></CODE> are available.</P>
+
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+<BR><BR>
+<a NAME="MapFileView"></a>
+<P><B><CODE>MapFileView</CODE></B></P>
+
+<P>Creates a mapped file view into a mapped file fork.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr MapFileView(
+    <a href="#BackingFileID">BackingFileID</a> backingFile,
+    const UInt64 *backingBase, /* can be NULL */
+    ByteCount backingLength,
+    <a href="#FileViewAccess">FileViewAccess</a> access,
+    ByteCount guardLength,
+    <a href="#FileViewOptions">FileViewOptions</a> options,
+    LogicalAddress *viewBase,
+    ByteCount *viewLength,
+    <a href="#FileViewID">FileViewID</a> *theView);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>backingFile</B> - The mapped file fork to create a mapped file view from.<BR><BR></li>
+<li><B>backingBase</B> - Pointer to the offset into mapped file fork. Passing a <CODE>NULL</CODE> pointer is the same as passing an offset of zero.<BR><BR></li>
+<li><B>backingLength</B> - The number of bytes to map, or <CODE><a href="#kMapEntireFork">kMapEntireFork</a></CODE> to map from <CODE>backingBase</CODE> to the mapped file fork's logical end-of-file.  The backingBase parameter must be a whole multiple of the logical page size (as determined using the
+<CODE>gestaltLogicalPageSize</CODE> <CODE><a href="http://developer.apple.com/documentation/mac/OSUtilities/OSUtilities-11.html">Gestalt</a></CODE> selector).<BR><BR></li>
+<li><B>access</B> - The <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE>.<BR><BR></li>
+<li><B>guardLength</B> - The size, in bytes, of the excluded logical address ranges to place adjacent to each end of the mapped file view.<BR><BR></li>
+<li><B>options</B> - The desired characteristics of the mapped file view.<BR><BR></li>
+<li><B>viewBase</B> - <BR>Input: The requested viewBase.<BR>Output: Receives the starting address of mapped file view.<BR><BR></li>
+<li><B>viewLength</B> - Receives the mapped file view length.<BR><BR></li>
+<li><B>theView</B> - Receives a <CODE><a href="#FileViewID">FileViewID</a></CODE> which you can use to access the mapped file view.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>paramErr</CODE>, <CODE>vmInvalidBackingFileIDErr</CODE>, <CODE>vmInvalidOwningProcessErr</CODE>, <CODE>vmFileViewAccessErr</CODE>, or various File Manager and Memory Manager errors.<BR><BR></li>
+</UL>
+
+<P>The <CODE><a href="#MapFileView">MapFileView</a></CODE> function creates a mapped file view into the mapped file fork specified by the <CODE>backingFile</CODE> parameter. <CODE><a href="#MapFileView">MapFileView</a></CODE> returns a <CODE><a href="#FileViewID">FileViewID</a></CODE> in the <CODE>theView</CODE> parameter. You can pass the <CODE><a href="#FileViewID">FileViewID</a></CODE> to other routines which accept a <CODE><a href="#FileViewID">FileViewID</a></CODE> as an input parameter.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+Additional information about the Mac OS 9.1 implementation of <CODE><a href="#MapFileView">MapFileView</a></CODE> can be found in <a href="#implementationnotes">Implementation Notes for Mac OS 9.1</a> section at the end of this document.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>The <CODE>backingBase</CODE> and <CODE>backingLength</CODE> parameters specify what part of the mapped file fork will be mapped to memory. The access parameter specifies the allowable access to the memory in a mapped file view. The <CODE>guardLength</CODE> parameter specifies the size, in bytes, of the excluded logical address ranges to place adjacent to each end of the mapped file view. The options parameter specifies the desired characteristics of the mapped file view. The <CODE>viewBase</CODE> parameter, as an optional input, specifies the requested <CODE>viewBase</CODE>.</P>
+
+<P>The <CODE>backingBase</CODE> parameter must be a whole multiple of the logical page size. If <CODE><a href="#kMapEntireFork">kMapEntireFork</a></CODE> is passed as <CODE>backingLength</CODE>, accesses past the mapped file fork's logical end-of-file will not cause exceptions, but will have undefined behavior. Only accesses up to <CODE>viewLength</CODE> should be considered valid.</P>
+
+<P>The starting address of the mapped file view is returned in the <CODE>viewBase</CODE> parameter. The length of the mapped file view is returned in the <CODE>viewLength</CODE> parameter.</P>
+
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+<BR><BR>
+<a NAME="UnmapFileView"></a>
+<P><B><CODE>UnmapFileView</CODE></B></P>
+
+<P>Un-maps a mapped file view.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr UnmapFileView(<a href="#FileViewID">FileViewID</a> theView);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>theView</B> - The mapped file view to un-map.<BR><BR></li>
+<li><B>result</B> - An operating system result code: <CODE>noErr</CODE>, <CODE>vmInvalidFileViewIDErr</CODE>, <CODE>vmInvalidOwningProcessErr</CODE>, or various File Manager and Memory Manager errors.<BR><BR></li>
+</UL>
+
+<P>The <CODE>UnmapFileView</CODE> function un-maps a mapped file view specified by the <CODE>theView</CODE> parameter from memory.</P>
+
+<P>All modified memory is flushed to the mapped file fork before the mapped file view is unmapped unless the mapped file view is to a scratch file.</P>
+
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+<BR><BR>
+<a NAME="GetFileViewInformation"></a>
+<P><B><CODE>GetFileViewInformation</CODE></B></P>
+
+<P>Returns information about a mapped file view.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr GetFileViewInformation(
+    <a href="#FileViewID">FileViewID</a> theView,
+    <a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/APIREF/SOURCESIV/systemandtoolboxtypes.htm">PBVersion</a> version,
+    <a href="#FileViewInformation">FileViewInformation</a> *fileViewInfo);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>theView</B> - The mapped file view.<BR><BR></li>
+<li><B>version</B> - The version of the <CODE><a href="#FileViewInformation">FileViewInformation</a></CODE> <CODE>struct</CODE> passed.<BR><BR></li>
+<li><B>fileViewInfo</B> - A pointer to the <CODE><a href="#FileViewInformation">FileViewInformation</a></CODE> <CODE>struct</CODE> where the information about a mapped file view is returned.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>paramErr</CODE>, or <CODE>vmInvalidFileViewIDErr</CODE>.<BR><BR></li>
+</UL>
+
+<P>The <CODE><a href="#GetFileViewInformation">GetFileViewInformation</a></CODE> function returns information about the mapped file view specified by the <CODE>theView</CODE> parameter. The struct version of the <CODE>fileViewInfo</CODE> parameter is passed in the <CODE>version</CODE> parameter. The mapped file view information is returned in the <CODE>fileViewInfo</CODE> parameter.</P>
+
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+<BR><BR>
+<a NAME="GetFileViewFromAddress"></a>
+<P><B><CODE>GetFileViewFromAddress</CODE></B></P>
+
+<P>Returns the <CODE><a href="#FileViewID">FileViewID</a></CODE> for a given address.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr GetFileViewFromAddress(
+    LogicalAddress address,
+    <a href="#FileViewID">FileViewID</a> *theView);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>address</B> - The memory address.<BR><BR></li>
+<li><B>theView</B> - Receives a <CODE><a href="#FileViewID">FileViewID</a></CODE> for the given memory address.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>paramErr</CODE>, or <CODE>vmAddressNotInFileViewErr</CODE>.<BR><BR></li>
+</UL>
+
+<P>The <CODE>GetFileViewFromAddress</CODE> function returns the <CODE><a href="#FileViewID">FileViewID</a></CODE> for address specified in the address parameter.</P>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+
+<BR><BR>
+<a NAME="GetNextView"></a>
+<P><B><CODE>GetNextView</CODE></B></P>
+
+<P>Gets a list of mapped file views.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr GetNextFileView(<a href="#FileViewID">FileViewID</a> *theView);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>theView</B> - <BR>Input: The last <CODE><a href="#FileViewID">FileViewID</a></CODE> returned by <CODE>GetNextView</CODE>, or <CODE>kInvalidID</CODE> to get the first mapped file view.<BR>Output: If <CODE>noErr</CODE>, receives the <CODE><a href="#FileViewID">FileViewID</a></CODE> of the next mapped file view.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>paramErr</CODE>, <CODE>vmInvalidFileViewIDErr</CODE>, or vmNoMoreFileViewsErr.<BR><BR></li>
+</UL>
+
+<P>The <CODE>GetNextView</CODE> function returns the <CODE><a href="#FileViewID">FileViewID</a></CODE> of the mapped file view next in the list of mapped file views. You can enumerate through the list of mapped file views by passing <CODE>kInvalidID</CODE> as the <CODE>theView</CODE> parameter and then repetitively calling <CODE><a href="#GetNextView">GetNextView</a></CODE> with the last <CODE><a href="#FileViewID">FileViewID</a></CODE> returned until the result code <CODE>vmNoMoreFileViewsErr</CODE> is returned.</P>
+
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+<BR><BR>
+<a NAME="SetFileViewAccess"></a>
+<P><B><CODE>SetFileViewAccess</CODE></B></P>
+
+<P>Changes a mapped file view's <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE>.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr SetFileViewAccess(
+    <a href="#FileViewID">FileViewID</a> theView,
+    <a href="#FileViewAccess">FileViewAccess</a> access);
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>theView</B> - The mapped file view.<BR><BR></li>
+<li><B>accessLevel</B> - The new <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE>.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>paramErr</CODE>, <CODE>vmInvalidFileViewIDErr</CODE>, or <CODE>vmFileViewAccessErr</CODE>.<BR><BR></li>
+</UL>
+
+<P>The <CODE>SetFileViewAccess</CODE> function changes the <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> of the mapped file view specified by the <CODE>theView</CODE> parameter. The new <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> is specified by the <CODE>accessLevel</CODE> parameter.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+Additional information about the Mac OS 9.1 implementation of <CODE><a href="#SetFileViewAccess">SetFileViewAccess</a></CODE> can be found in <a href="#implementationnotes">Implementation Notes for Mac OS 9.1</a> section at the end of this document.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+<BR><BR>
+<a NAME="SetFileViewBackingBase"></a>
+<P><B><CODE>SetFileViewBackingBase</CODE></B></P>
+
+<P>Changes the backing base of a mapped file view.</P>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+OSErr SetFileViewBackingBase(
+    <a href="#FileViewID">FileViewID</a> theView,
+    const UInt64 *newBackingBase); /* can be NULL */
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+<UL>
+<li><B>theView</B> - The mapped file view.<BR><BR></li>
+<li><B>newBackingBase</B> - Pointer to the offset into mapped file fork. Passing a <CODE>NULL</CODE> pointer is the same as passing an offset of zero.<BR><BR></li>
+<li>result - An operating system result code: <CODE>noErr</CODE>, <CODE>vmInvalidFileViewIDErr</CODE>, or <CODE>paramErr</CODE>.<BR><BR></li>
+</UL>
+
+<P>The <CODE>SetFileViewBackingBase</CODE> function changes the backing base of the mapped file view specified by <CODE>theView</CODE>. The new backing base is specified by the <CODE>newBackingBase</CODE> parameter.</P>
+
+<BR><BR><CENTER><table class="toc" BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+Additional information about the Mac OS 9.1 implementation of <CODE><a href="#SetFileViewBackingBase">SetFileViewBackingBase</a></CODE> can be found in <a href="#implementationnotes">Implementation Notes for Mac OS 9.1</a> section at the end of this document.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+
+         <P><a href="#doctop">Back to top</a></P>
+
+
+
+<BR><BR>
+<a NAME="implementationnotes" title="Implementation Notes for Mac OS 9.1"></a>
+<H2>Implementation Notes for Mac OS 9.1</H2>
+
+<P>
+Mac OS 9.1 is the first implementation of the File Mapping APIs, and as such there are some limitations in the values that may be provided as parameters to some of its routines.  This section outlines these limitations.
+</P>
+
+
+<H3>Address Space Limitations</H3>
+
+<P>
+The Mac OS 9.1 Virtual Memory Manager provides a single address space of
+1023 megabytes. Part of that address space is used for main memory and
+pageable system data. The remainder of that address space is available for
+file mapping (both CFM file mappings and mapped file views created with
+<a href="#MapFileView">MapFileView</a>). Thus, the size and number of mapped file views is limited.
+</P>
+
+
+
+<H3><CODE><a href="#OpenMappedFile">OpenMappedFile</a></CODE></H3>
+<UL>
+<li>Only the data fork can be opened for use as backing storage. <CODE>paramErr</CODE> is returned if you try to map a fork other than the data fork.<BR><BR></li>
+<li>The backing storage file is opened, but <CODE><a href="#OpenMappedFile">OpenMappedFile</a></CODE> does not obtain exclusive access to that file. Instead, <CODE><a href="#MapFileView">MapFileView</a></CODE> obtains exclusive access to the backing storage file when the file is mapped to memory.<BR><BR></li>
+</UL>
+
+<H3><CODE><a href="#FSpOpenMappedFile">FSpOpenMappedFile</a></CODE></H3>
+<UL>
+<li>Only the data fork can be opened for use as backing storage. <CODE>paramErr</CODE> is returned if you try to map a fork other than the data fork.<BR><BR></li>
+<li>The backing storage file is opened, but <CODE><a href="#FSpOpenMappedFile">FSpOpenMappedFile</a></CODE> does not obtain exclusive access to that file. Instead, <CODE><a href="#MapFileView">MapFileView</a></CODE> obtains exclusive access to the backing storage file when the file is mapped to memory.<BR><BR></li>
+</UL>
+
+<H3><CODE><a href="#SetMappedFileSize">SetMappedFileSize</a></CODE></H3>
+<UL>
+<li><CODE><a href="#SetMappedFileSize">SetMappedFileSize</a></CODE> is not implemented and always returns <CODE>paramErr</CODE>.<BR><BR></li>
+</UL>
+
+<H3><CODE><a href="#MapFileView">MapFileView</a></CODE></H3>
+<UL>
+<li>The entire file fork must be mapped (creating a mapped file view smaller than the entire file is not implemented). Thus: <BR><BR>
+
+<UL>
+<li>The <CODE>backingBase</CODE> parameter must be 0. <CODE>paramErr</CODE> is returned if <CODE>backingBase</CODE> is not 0.<BR><BR></li>
+<li>The <CODE>backingLength</CODE> parameter must be <CODE><a href="#kMapEntireFork">kMapEntireFork</a></CODE>. <CODE>paramErr</CODE> is returned if <CODE>backingLength</CODE> is not <CODE><a href="#kMapEntireFork">kMapEntireFork</a></CODE>.<BR><BR></li>
+
+<li>The <CODE>guardLength</CODE> parameter is ignored in the 9.1 implementation.<BR><BR></li>
+
+<li>The <CODE>viewBase</CODE> parameter is only used as an output variable in the 9.1 implementation - any value provided in the variable pointed to by this parameter when <CODE><a href="#MapFileView">MapFileView</a></CODE> will be ignored.<BR><BR></li>
+
+</UL>
+</li>
+
+<li>The <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> parameter must be either <CODE><a href="#kFileViewAccessReadOnly">kFileViewAccessReadOnly</a></CODE> or <CODE><a href="#kFileViewAccessReadWrite">kFileViewAccessReadWrite</a></CODE>. <CODE>paramErr</CODE> is returned if anything else is passed.<BR><BR></li>
+<li><a href="#FileViewOptions">FileViewOptions</a> must be <CODE><a href="#kNilOptions">kNilOptions</a></CODE> (as reflected by <CODE><a href="#GetFileViewAccessOptions">GetFileViewAccessOptions</a></CODE>). <CODE>paramErr</CODE> is returned if anything else is passed.<BR><BR></li>
+<li>The <CODE>viewBase</CODE> parameter as an input is currently ignored.<BR><BR></li>
+<li><CODE><a href="#MapFileView">MapFileView</a></CODE> will fail with <CODE>opWrErr</CODE> or <CODE>permErr</CODE> if exclusive access to the backing storage file cannot be obtained.<BR><BR></li>
+</UL>
+
+<H3><CODE><a href="#SetFileViewAccess">SetFileViewAccess</a></CODE></H3>
+<UL>
+<li>The <CODE><a href="#FileViewAccess">FileViewAccess</a></CODE> parameter must be either <CODE><a href="#kFileViewAccessReadOnly">kFileViewAccessReadOnly</a></CODE> or <CODE><a href="#kFileViewAccessReadWrite">kFileViewAccessReadWrite</a></CODE>.  <CODE>paramErr</CODE> is returned if anything else is passed.<BR><BR></li>
+</UL>
+
+<H3><a href="#SetFileViewBackingBase">SetFileViewBackingBase</a></H3>
+<UL>
+<li><CODE><a href="#SetFileViewBackingBase">SetFileViewBackingBase</a></CODE> is not implemented and always returns <CODE>paramErr</CODE>.<BR><BR></li>
+</UL>
+         <P><a href="#doctop">Back to top</a></P>
+
+
+<BR><BR>
+         <a NAME="fmpdownloads" title="Downloadables"></a>
+         
+         <H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (360K).</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/tn2011.pdf">Download</a></P>
+               </TD>
+            </TR>
+                    </table>
+         <BR>
+         
+         <P><a href="#doctop">Back to top</a></P>
+
+
+</td></tr></table></center>
+
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

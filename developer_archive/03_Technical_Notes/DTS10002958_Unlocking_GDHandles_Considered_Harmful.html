@@ -1,0 +1,561 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Unlocking GDHandles Considered Harmful">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002958">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1118.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+   <title>Technical Note TN1118: Unlocking GDHandles Considered Harmful</title>
+   
+    <meta name="keywords" content="Mac OS 8 QuickDraw data structures gdhandles unlocking gdevice crash">
+    <meta name="Description" content="Technical Note TN1118: This Technical Note discusses problems
+in Mac OS                                    and in third-party
+code which can cause a crash. The problem occurs when a program
+inadvertently unlocks                                   
+one or more QuickDraw data structures. The crash        
+                           typically occurs elsewhere, when
+the system accesses one                                 
+  of these data structures under the assumption that it is
+                                   locked.">
+
+
+<meta name="categories" content="Memory and QuickDraw">
+
+
+<meta name="week-posted" content="Jun 1, 1998 - Jun 5, 1998">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002958" title="Unlocking GDHandles Considered Harmful"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Unlocking GDHandles Considered Harmful</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxGraphicsImaging-date.html">Graphics & Imaging</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/GraphicsImaging/index.html" target="_blank">Reference Library > Graphics & Imaging</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1118</div>
+<div id="pageheadsub">Unlocking GDHandles Considered Harmful</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+<center><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+         
+ <!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+<!-- begin_toc -->
+<p id="menutext"><a HREF = "#Section1">The
+         Symptoms</a><BR>
+         <BR>
+         <a HREF = "#Section2">The
+         Problem</a><BR>
+         <BR>
+         <a HREF = "#Section3">The
+         Solutions</a><BR>
+         <BR>
+         <a href="#Summary">Summary</a><BR><BR>
+<a href="#References">References</a><BR><BR>
+<a href="#Changes">Change History</a><BR><BR>
+<a href="#Downloads">Downloadables</a></p>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+            
+			<!-- begin_intro_text -->
+<p id="introtext">Recently, Apple
+         became aware of problems in Mac OS and in third-party code
+         which can cause a crash.</P>
+         
+         <p id="introtext">The problem occurs when a program inadvertently unlocks
+         one or more <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">QuickDraw</a>
+         data structures. The crash typically occurs elsewhere, when
+         the system accesses one of these data structures under the
+         assumption that it is locked.</P>
+         
+         <p id="introtext">This Technote is addressed to two audiences: developers
+         whose products make any use of the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+         data structure, and users who seek more information on
+         certain intermittent crashes reported in other media.</P>
+               
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Jun 15 1998]</h3>
+<!-- end_date -->
+        </td>
+    </tr>
+</table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+<!-- begin_content -->
+<H2><a NAME=Section1></a>The
+Symptoms</H2>
+
+<P>The problem manifests most often as a crash in <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-180.html#HEADING180-0"><CODE>StdText</CODE></a>
+(MacsBug reports the crash in <CODE>NQDStdText</CODE>, which is the
+PowerPC version of <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-180.html#HEADING180-0"><CODE>StdText</CODE></a>).
+The crash occurs when a half-dereferenced <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+is accessed after a call which can (and does) move memory.</P>
+
+<P>It should be noted that a crash could theoretically appear in a
+number of places as a result of the problem. The problem generally
+does not occur near the site of the crash. One of the more insidious
+potential examples of this is in the cursor drawing routines, which
+are executed at interrupt time. An unlocked <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+could be accessed while it is being moved by the <a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a>, although this is considered a rare, if at all extant,
+symptom.</P>
+     <BR><P><a href="#top">Back to top</a></P>
+<H2><a NAME=Section2></a>The
+Problem</H2>
+
+<P><a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-279.html#HEADING279-0"><CODE>NewGDevice</CODE></a>
+locks a <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+immediately after creating it, and the rest of <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-2.html">QuickDraw</a>
+assumes it will stay locked. The problem is that some programs,
+including numerous third-party applications and some versions of
+Apple's Monitors &amp; Sound control panel (including the version in
+Mac OS 8) contain code like this:</P>
+
+     
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+   // begin problematic code
+   <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html">GDHandle</a> gdh = <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-287.html#HEADING287-0">GetMainDevice</a> ( );
+   <a href="http://developer.apple.com/documentation/mac/Memory/Memory-88.html#HEADING88-0">HLock</a> ((Handle)gdh);
+   // do something with or to gdh
+   // which moves memory (requires gdh to be locked)
+   <a href="http://developer.apple.com/documentation/mac/Memory/Memory-89.html#HEADING89-0">HUnlock</a> ((Handle)gdh);
+   // this is the problem line
+   // end problematic code</pre>
+</TD></TR></table></CENTER><BR><BR>
+   
+
+<P>The above code assumes that the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+is unlocked before the code executes, and unlocks it as the code ends.
+(Ironically, there was never any need to lock this <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>.)</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+         Versions of Monitors &amp; Sound which shipped in Mac OS
+         8.1 and later do not have this problem.</P>
+         
+         <P>There has always been a requirement that a <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+         in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+         graphic device list</a> remain locked. The requirement is
+         present in the first-released implementation of <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-197.html">Color
+         QuickDraw</a> (the Mac II ROMs) and the original source code
+         contains comments to the effect that a <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+         in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+         graphic device list</a> must never be unlocked.</P>
+         
+         <P>Thus, the potential for the problem has always been
+         present, though the symptoms have only recently been
+         isolated. Because of the complex way in which relocatable
+         <a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+         Manager</a> blocks move over time, programs which cause the
+         problem have not necessarily also caused the symptoms, and
+         when they have caused the symptoms, the symptoms have not
+         always been easily reproducible. (The offending programs
+         have been "getting away with it.")</P>
+         
+         <P>An exhaustive search of Apple's previous documentation
+         turned up no instances of explicit prohibitions against
+         unlocking a <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+         in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+         graphic device list</a>. Informally communicated Mac OS
+         programming lore has always held that you should be careful
+         when changing the state of a handle not created by your own
+         code. We are now making this rule formal and explicit. (See
+         the <a HREF = "#devsol">Developer Solution</a> section, below,
+         for details.)</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<BR><P><a href="#top">Back to top</a></P>
+<H2><a NAME=Section3></a>The
+Solutions</H2>
+
+<P>The previous version of this Technote claimed there would be a
+solution which users could apply. In fact, there is only a developer
+solution.</P>
+
+<H3><a NAME=devsol></a>Developer
+Solution</H3>
+
+<P>You should make sure none of your code unlocks a <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+graphic device list</a>. Use code like the following if you need to
+make sure a <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+is locked while you access it:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre><a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html">GDHandle</a> gdh = <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-287.html#HEADING287-0">GetMainDevice</a> ( );
+SInt8 hState = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-86.html#HEADING86-0">HGetState</a> ((Handle) gdh);
+   <a href="http://developer.apple.com/documentation/mac/Memory/Memory-88.html#HEADING88-0">HLock</a> ((Handle)gdh);
+    // do something with or to gdh
+    // which moves memory (requires gdh to be locked)
+   <a href="http://developer.apple.com/documentation/mac/Memory/Memory-87.html#HEADING87-0">HSetState</a> ((Handle)gdh,hState);</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>This code saves the handle's state, locks the handle, and restores
+the handle's previous state. This means that if the handle is locked
+before this code runs, it will stay locked afterward, and if the
+handle is unlocked before this code runs, it will be unlocked
+afterward.</P>
+
+<P>In a perfect world, you would not need to lock or unlock any
+<a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>,
+because it would always be locked before your program ever saw it.
+However, the possibility that other programs may erroneously unlock a
+<a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+graphic device list</a> is real. The above code shows one proper way
+to protect yourself from that possibility.</P>
+
+<P>Another technique would be to avoid locking a <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+entirely and, instead, copy its fields into local variables as
+necessary. Most fields of the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+are small and should not be inconvenient to copy.</P>
+
+<P>Apple has not found any cases in which you need to keep any
+<a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+which is <B>not</B> in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+graphic device list</a> locked. For example, a <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+created by <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-311.html#HEADING311-0"><CODE>NewGWorld</CODE></a>
+is unlocked.</P>
+
+<P>If your program needs to lock any <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>,
+the easiest and safest thing to do is save and restore the state of
+the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+in order to work properly, regardless of whether the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+is in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+graphic device list</a>.</p>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+         
+This solution does not solve the problem completely with
+         respect to binaries that have already been deployed. If a
+         <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+         is ever unlocked by an existing binary program, the
+         potential for a crash begins immediately because system
+         code, such as <CODE>NQDStdText</CODE>, will not be altered
+         to lock a <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+         before accessing it. This solution only keeps new programs
+         from causing the problem and keeps them from crashing if
+         they ever encounter an unexpectedly unlocked <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+         in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+         graphic device list</a>. The system, however, may still
+         crash when it encounters such a <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>.</P>
+         
+         <P>An exhaustive search of Apple's previous documentation
+         produced no clear directions for when to use <a href="http://developer.apple.com/documentation/mac/Memory/Memory-89.html#HEADING89-0"><CODE>HUnlock</CODE></a>
+         and when to use <a href="http://developer.apple.com/documentation/mac/Memory/Memory-86.html#HEADING86-0"><CODE>HGetState</CODE></a>
+         and <a href="http://developer.apple.com/documentation/mac/Memory/Memory-87.html#HEADING87-0"><CODE>HSetState</CODE></a>.
+         As a result, DTS has produced a <a HREF = "tn1122.html">separate
+         Technote</a> treating this issue in detail.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+
+
+<H3>User Solution</H3>
+
+<P>The previous version of this Technote claimed Apple would be
+releasing a system extension that masks this problem.
+Since this Technote's publication, however, Apple has chosen not to release this extension.</P>
+<BR><P><a href="#top">Back to top</a></P>
+<a NAME="Summary"></a>
+<H2><a NAME=Summary></a>Summary</H2>
+
+<P>No <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+graphic device list</a> should ever be unlocked. Some programs, both
+from Apple and from third parties, unlock at least one <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+graphic device list</a>. This can cause a crash. Developers should
+preserve the state of any <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-275.html"><CODE>GDHandle</CODE></a>
+in the <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-284.html">system's
+graphic device list</a>, which needs to be locked by calling <a href="http://developer.apple.com/documentation/mac/Memory/Memory-86.html#HEADING86-0"><CODE>HGetState</CODE></a>
+and <a href="http://developer.apple.com/documentation/mac/Memory/Memory-87.html#HEADING87-0"><CODE>HSetState</CODE></a>.
+There is no solution users can apply.</P>
+
+<BR><P><a href="#top">Back to top</a></P>
+
+<a NAME="References"></a>
+<H2>References</H2>
+
+   <p>The <a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+   Manager</a> chapter in <a href="http://developer.apple.com/documentation/mac/Memory/Memory-2.html"><I>Inside
+   Macintosh: Memory</I></a></p>
+   
+   <p>The <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-270.html">Graphics
+   Devices</a> chapter in <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-2.html"><I>Inside
+   Macintosh: Imaging with QuickDraw</I></a></p>
+   
+   <p><a HREF = "tn1122.html">Technote 1122: "Locking and
+   Unlocking Handles"</a></p>
+   
+   <p><a HREF = "http://www.digitalalchemy.com/mercutio/GDeviceProblem.html">Understanding
+   the Mercutio-GDevice Problem</a></p>
+<BR><P><a href="#top">Back to top</a></P>
+
+<a NAME="Changes"></a>
+<H2>Change History</H2>
+<table BORDER=0 CELLPADDING=3 WIDTH=544>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>06-February-1998</P>
+               </TD>
+               <td align="left">
+                  <P>First published.</P>
+               </TD>
+            </TR>
+               <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-June-1998</P>
+               </TD>
+               <td align="left">
+                  <P>Updated to remove the description of the user-level solution.</P>
+               </TD>
+            </TR>
+</table><BR>
+
+<BR><P><a href="#top">Back to top</a></P>
+
+        <a NAME="Downloads"></a> 
+        <br><h2>Downloadables</h2>
+
+        <center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+          <TR> 
+            <td width=50 align=left> 
+              <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" width=22 height=23></P>
+            </TD>
+            <td align="left"> 
+              <p>Acrobat version of this Note (64K).</P>
+            </TD>
+            <td width=60 align=left> 
+              <p><a href="pdf/tn1118.pdf">Download</a></P>
+            </TD>
+          </TR>
+        </table></center><BR><BR>
+
+        </td></tr></table></center>
+<!-- end_content -->
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

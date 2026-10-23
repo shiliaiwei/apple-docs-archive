@@ -1,0 +1,770 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="USB Printer Sharing Compatibility">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003038">
+            <meta id="document-version" name="document-version" content="1.0.2">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1199.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+   <title>Technical Note TN1199: USB Printer Sharing Compatibility</title>
+   
+    <meta name="keywords" content="USB,Printer,Sharing,
+csCode,driver,name registry,chooser,printer name,csParam">
+    <meta name="Description" content="Technical Note TN1199: This Technote describes how USB printer
+driver developers can make their drivers compatible with
+USB Printer Sharing while retaining the ability to use custom
+csCodes, pass pointers to private data, and display the correct
+printer name in the Chooser.">
+
+
+<meta name="categories" content="Devices and Printing">
+
+
+<meta name="week-posted" content="May 29, 2000 - Jun 2, 2000">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10003038" title="USB Printer Sharing Compatibility"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>USB Printer Sharing Compatibility</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxPrinting-date.html">Printing</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Printing/idxHardwareDrivers-date.html" target="_blank">Printing > Hardware & Drivers</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1199</div>
+<div id="pageheadsub">USB Printer Sharing Compatibility</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+ 
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+     <tr>
+<td width=300 valign="top" align=left scope="row">
+    <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>    
+    <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+       <span id="menutitle">
+CONTENTS 
+  <br>
+  <br>
+       </span>
+   </td>
+</tr>
+<tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+       <!-- begin_toc -->
+<P id="menutext">
+<a HREF = "#Section1">Introduction</a><BR><BR>
+<a HREF = "#Section2">Printer Name in the Chooser</a><BR><BR>
+<a HREF = "#Section3">Name Registry Properties</a><BR><BR>
+<a HREF = "#Section4">Handling Errors</a><BR><BR>
+<a HREF = "#Section5">Control and Status Calls</a><BR><BR>
+<a HREF = "#Section6">Gestalt Information</a><BR><BR>
+<a HREF = "#Summary">Summary</a><BR><BR>
+<a HREF = "#References">References</a><BR><BR>
+<a HREF = "#Downloads">Downloadables</a></p>
+   </td>
+</tr>
+<tr>
+   <td width=300 align=left scope="row">
+       <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+   </td>
+</tr>
+    </table>
+</td>
+<td width=300 valign="top" align=left>
+<!-- begin_intro_text -->
+<P id = "introtext">This Technote
+describes how USB printer driver developers can make their
+drivers compatible with USB Printer Sharing.</p>
+
+<P id = "introtext">For printer drivers that support it, USB Printer Sharing
+provides transparent sharing of printers across a TCP/IP network (including AirPort) and
+is a significant added benefit for users.  By paying attention
+to a few simple guidelines, printer driver developers can
+ensure that their drivers work seamlessly with USB Printer
+Sharing while retaining the ability to use custom <CODE>csCodes</CODE>,
+pass pointers to private data, and display the correct
+printer name in the Chooser.</P>
+      
+<P id = "introtext">This Note is directed at USB printer driver developers who want their
+ drivers to be compatible with USB Printer Sharing.</P>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Jun 19 2000]</h3>
+<!-- end_date -->
+</TD>
+     </TR>
+  </table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+<!-- begin_content --><a NAME="Section1"></a>
+
+<H2>Introduction</H2>
+
+<P>USB Printer Sharing operates by breaking the local link
+ between a printer driver and its USB printer class driver.
+ The link between these two drivers is traditionally made using
+ a pair of device drivers having entries in both the unit table
+ and    the name registry. USB Printer Sharing creates a pair
+ of device drivers on the client. The client printer driver sends
+ commands to these device drivers as it normally would, but
+ instead of passing the commands to a local printer class driver,
+ the USB Printer Sharing device drivers send the commands over the
+ network using TCP/IP to a server Macintosh. The serving Macintosh takes the
+ commands off the wire and invokes the device drivers on the server.
+</P>
+
+<table BORDER=0 CELLPADDING=1 WIDTH=500>
+<TR>
+    <TD ALIGN="CENTER" align="left">
+<img src="images/tn1199_001.jpg" alt="Nonshared printer" width=149 height=192 align=bottom>
+<P ALIGN="center">A Typical USB Printer Driver</P><BR><BR>
+    </TD>
+</TR>
+
+<TR>
+    <TD ALIGN="CENTER" align="left">
+<img src="images/tn1199_002.jpg" alt="shared printer" width=382 height=283 align=bottom>
+<P ALIGN="center">A USB Printer Driver Running with USB Printer Sharing</P>
+    </TD>
+</TR>
+</table>
+
+<BR><BR><BR>
+
+<P>In order for USB Printer Sharing to work correctly on the client Macintosh,
+it must export a name registry entry from the serving Macintosh into the
+name registry on the client Macintosh. When the name registry is transferred,
+USB Printer Sharing tries to maintain the properties from the serving
+Macintosh. For compatibility reasons, however, there are certain properties
+that are not transferred. These properties are:</P>
+
+
+<UL>
+<li><CODE>name</CODE></li>
+<li><CODE>privateData</CODE></li>
+<li><CODE>read</CODE></li>
+<li><CODE>write</CODE></li>
+</UL>
+
+<P>The most basic compatibility problem occurs when the name registry
+contains properties whose data contains pointers into the serving Macintosh's
+memory. When this data is transferred to the client Macintosh, these pointers
+are no longer valid and when software on the client tries to dereference
+the pointers, the Macintosh will either crash or the printer driver will get
+incorrect data. See <a HREF = "#Section5">Control and Status Calls</a> for a way
+around this problem.  In addition to the properties listed above, the USB
+Printer Sharing software will not transfer a property whose name ends
+with '<CODE>.private</CODE>'. For example, the property '<CODE>mydata.private</CODE>' will not
+be sent from the server to the client's name registry. Printer software
+can use the '<CODE>.private</CODE>' suffix naming convention in order to prevent
+properties with pointers from being sent across the wire.</P>
+
+<BR><P><a HREF = "#top">Back to top</a></p><BR>
+
+
+<a NAME="Section2"></a>
+
+<H2>Printer Name in the Chooser</H2>
+
+<P>If a printer driver follows the USB DDK printer driver example,
+ the printer names shown in the Chooser will be taken from
+ the name registry. This is the recommended method for determining
+ the name of a particular printer. There is a maximum length of 31 characters for
+ name registry names, however, and the names created by USB Printer
+ Sharing (a concatenation of the printer name, " on ", and the Computer
+ name as set in the File Sharing control panel) can easily exceed this length.
+ In order to make this full printer
+ name available to printer drivers, the USB Printer Sharing software adds
+ a property, <CODE>usbps.name</CODE>, that contains the entire printer
+ name and can be up to 66 characters in length.</P>
+
+
+<BR><P><a HREF = "#top">Back to top</a></p><BR>
+
+<a NAME="Section3"></a>
+
+<H2>Name Registry Properties</H2>
+
+<P>Any unique name registry properties created by the USB Printer
+ Sharing software, as opposed to those simply transferred from machine to
+ machine by the Printer Sharing software, will be prefixed by '<CODE>usbps.</CODE>'.
+ Currently there are two such properties:</P>
+
+<UL>
+<li><CODE>usbps.name</CODE> - The full name of the printer</li>
+<li><CODE>usbps.url</CODE> - The url for the remote printer</li>
+</UL>
+
+
+<BR><P><a HREF = "#top">Back to top</a></p><BR>
+
+
+<P><a NAME="Section4"></a></P>
+
+<H2>Handling Errors</H2>
+
+<P>It is important that printer drivers check the errors returned
+ from device driver calls, both those immediately returned and
+ those in the <CODE>ioResult</CODE> field of the <CODE>IOParam</CODE>
+ block for asynchronous calls. Because of the network nature of
+ USB Printer Sharing, errors (such as host unreachable) are much
+ more common than local USB errors. Printer drivers should be
+ prepared for these errors. In particular, a printer driver should
+ be prepared for an open error as a result of their first read or
+ write transaction. When the device driver is opened, USB Printer
+ Sharing begins to connect with the remote printer, but it returns
+ from open before this potentially long operation is completed.
+ When the printer driver calls read or write, USB Printer Sharing
+ may take that opportunity to return an error indicating that the
+ open failed.</P>
+
+
+<BR><P><a HREF = "#top">Back to top</a></p><BR>
+
+
+<P><a NAME="Section5"></a></P>
+
+<H2>Control and Status Calls</H2>
+
+<P>In order for USB Printer Sharing to work, it needs to translate a
+ device driver call made on a local Macintosh into a set of network
+ packets that can be decoded and sent to a device driver on the
+ server side. Using pointers in calls to the local device driver
+ can cause problems as they reference memory on the local machine
+ and these pointers are not valid on the server. USB Printer Sharing
+ knows how to handle the buffer pointers that are part of the
+ device driver read and write calls, but control and status can be
+ problematic.  USB Printer Sharing special cases the following status
+ call <CODE>csCodes</CODE> and knows how to dereference the pointers inherent
+ in these calls:</P>
+
+<UL>
+<li><CODE>kDrvrCentronicsStatus</CODE></li>
+<li><CODE>kDrvr1284IdString</CODE></li>
+<li><CODE>kDrvrSoftReset</CODE></li>
+<li><CODE>kDrvrNumDevices</CODE></li>
+</UL>
+
+<P>    In order for USB Printer Sharing to support your custom <CODE>csCodes</CODE>, you can
+define any number of <CODE>csCodes</CODE> for USB Printer Sharing to handle using one
+of two methods:  Direct or Indirect.</P>
+
+
+<H3>Direct:</H3>
+   
+<P>In the Direct method, USB Printer Sharing looks for <CODE>drvrOut.csCodes2</CODE>
+   and <CODE>drvrIn.csCodes2</CODE> entries in the Name Registry. If either is
+   found, its data is taken as an array of shorts representing the extended
+   <CODE>csCodes</CODE> that are Direct <CODE>csCodes</CODE>.  The Printer Class driver supports these with the following
+   protocol: the
+   <CODE>csParam[ ]</CODE> array contains 11 shorts that are treated as 22 bytes of raw data,
+   starting at address <CODE>&amp;csParam[0]</CODE>.  Please note that USB Printer Sharing does
+   not handle pointers in the Direct case.  Do not include pointers in the 22 bytes of raw data.
+   If you need to pass pointer-based data, use the Indirect method described below.</P>
+
+
+<H3>Indirect:</H3>
+
+<P>In the Indirect method, USB Printer Sharing looks for <CODE>drvrOut.csCodes1</CODE> and <CODE>drvrIn.csCodes1</CODE> entries in the Name Registry. If either is found, its data is taken as an array of shorts representing the extended <CODE>csCodes</CODE> that are Indirect <CODE>csCodes</CODE>.  The Printer Class driver supports these with the following protocol:</P>
+
+<table BORDER=1 CELLPADDING=10 WIDTH=475>
+  <TR>
+  <td valign=top align=left>
+  <P><B>Data Address</B></P>
+  </TD>
+  <td valign=top align=left>
+  <P><B>Data Size</B></P>
+  </TD>
+  <td valign=top align=left>
+  <P><B>Data Type</B></P>
+  </TD>
+  <td valign=top align=left>
+  <P><B>Description</B></P>
+  </TD>
+  </TR>
+  <TR>
+  <td valign=top align=left>
+  <P>&amp;<CODE>csParam[0]</CODE></P>
+  </TD>
+  <td valign=top align=left>
+  <P>4 bytes</P>
+  </TD>
+  <td valign=top align=left>
+  <P>pointer</P>
+  </TD>
+  <td valign=top align=left>
+  <P>A pointer to a buffer that is passed from a device manager client to a device driver (i.e., the printer class driver).</P>
+  </TD>
+  </TR>
+  <TR>
+  <td valign=top align=left>
+  <P>&amp;<CODE>csParam[2]</CODE></P>
+  </TD>
+  <td valign=top align=left>
+  <P>4 bytes</P>
+  </TD>
+  <td valign=top align=left>
+  <P>unsigned long</P>
+  </TD>
+  <td valign=top align=left>
+  <P>The actual size of the data buffer pointed to by <CODE>csParam[0]</CODE>.  This value
+      is passed over to the Server in the case of <CODE>drvrOut.csCodes1</CODE> and back to the
+      Client in the case of <CODE>drvrIn.csCodes1</CODE>.</P>
+  </TD>
+  </TR>
+  <TR>
+  <td valign=top align=left>
+  <P>&amp;<CODE>csParam[4]</CODE></P>
+  </TD>
+  <td valign=top align=left>
+  <P>4 bytes</P>
+  </TD>
+  <td valign=top align=left>
+  <P>pointer</P>
+  </TD>
+  <td valign=top align=left>
+  <P>A pointer to a buffer that is to receive data returned from the printer class driver.</P>
+  </TD>
+  </TR>
+  <TR>
+  <td valign=top align=left>
+  <P>&amp;<CODE>csParam[6]</CODE></P>
+  </TD>
+  <td valign=top align=left>
+  <P>4 bytes</P>
+  </TD>
+  <td valign=top align=left>
+  <P>unsigned long</P>
+  </TD>
+  <td valign=top align=left>
+<P>The maximum size of the data that can be returned in the buffer pointed to by
+<CODE>csParam[4]</CODE>. Upon return, this value is updated to indicate the
+actual number of bytes that were copied into the buffer.</P>
+  </TD>
+  </TR>
+</table>
+
+<H4>Notes:</H4>
+
+<UL>
+<li>The four bytes beginning at <CODE>csParam[0]</CODE> point to a buffer that is
+    passed from a device manager client to a device driver (i.e., the
+    printer class driver).</li>
+
+<li>The four bytes beginning at <CODE>csParam[2]</CODE> are the actual size of the data
+    pointed to by <CODE>csParam[0]</CODE>.</li>
+
+<li>If <CODE>csParam[0]</CODE> is <CODE>NULL</CODE> or <CODE>csParam[2]</CODE> is <CODE>0</CODE>, then no data is passed from
+    the client to the server.</li>
+
+<li>The four bytes beginning at <CODE>csParam[4]</CODE> point to a buffer that is to
+    receive data returned from the printer class driver.</li>
+
+<li>The four bytes beginning at <CODE>csParam[6]</CODE> are the maximum size of the data
+    that can be returned in <CODE>csParam[4]</CODE>.</li>
+
+<li>If <CODE>csParam[4]</CODE> is <CODE>NULL</CODE> or <CODE>csParam[6]</CODE> is <CODE>0</CODE>, then no data will be copied
+    back from the server to the client.</li>
+
+<li>The pointers to the buffers in <CODE>csParam[0]</CODE> and <CODE>csParam[4]</CODE> may overlap.</li>
+</UL>
+
+
+<P>To add this capability to the sample PrinterClassDriver, insert the
+following pieces of code.</P>
+
+<P>In PrinterClassDriver.c's <CODE>RegisterDevice()</CODE> add:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+static short    ourCSCodes[] = { 200, 201, 202 };
+RegEntryID    self;
+OSErrerr = noErr;
+
+...
+if ( err == noErr )
+err = RegistryPropertyCreate( &amp;self, &quot;drvrOut.csCodes1&quot;,
+&amp;ourCSCodes, sizeof (ourCSCodes) );
+if ( err == noErr &amp;&amp; pPrinterPB-&gt;printerProtocol
+    != kUSBPrinterUnidirectionalProtocol )
+err = RegistryPropertyCreate( &amp;self, &quot;drvrIn.csCodes1&quot;,
+&amp;ourCSCodes, sizeof (ourCSCodes) );
+...
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>In usbprint.c's <CODE>DRVRStatus()</CODE> add:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+switch ( pb-&gt;csCode )
+{
+case kDrvrCentronicsStatus:
+...
+case 200:
+case 201:
+case 202:
+    // do something useful here
+...
+}
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>In PrinterClassDriver.c's <CODE>ControlStatusRequests()</CODE> add:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+switch( ((CntrlParam *) pb)-&gt;csCode )
+{
+case kDrvrCentronicsStatus:
+...
+case 200:
+case 201:
+case 202:
+    // do something useful here
+    break;
+...
+}
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<BR><P><a HREF = "#top">Back to top</a></p><BR>
+
+<P><a NAME="Section6"></a></P>
+
+<H2>Gestalt Information</H2>
+
+<P>The Gestalt Selector for USB Printer Sharing is <CODE>'zak '</CODE> and it returns
+    the version number of the running server.  The version number is encoded
+    in the low order word in the same manner as the system software version,
+    e.g., for 1.0 it would be <CODE>0x0100</CODE> and for version 1.2.3 it would be <CODE>0x0123</CODE>.
+    The upper two bits in the high order word are used as flags to indicate the
+    current state of USB Printer Sharing.</P>
+    
+<UL>
+   <li>If the bit <CODE>0x80000000</CODE> is set, then USB Printer Sharing is running.</li>
+   <li>If the bit <CODE>0x40000000</CODE> is set, then USB Printer Sharing was installed at boot time.</li>
+   <li>A Gestalt error means that USB Printer Sharing is not installed.</li>
+</UL>
+
+<P>Here are the constants to use for the above values:</P>
+
+<table BORDER=1 CELLPADDING=10 WIDTH=475>
+  <TR>
+     <td valign=top align=left>
+     <P><B>Constant</B></P>
+     </TD>
+     <td valign=top align=left>
+     <P><B>Value</B></P>
+     </TD>
+  </TR>
+  <TR>
+<td valign=top align=left>
+     <P><CODE>kServerSignature</CODE></P>
+</TD>
+<td valign=top align=left>
+     <P><CODE>'zak '</CODE></P>
+</TD>
+  </TR>
+  <TR>
+<td valign=top align=left>
+     <P><CODE>gestaltUSBPrinterSharingVersion</CODE></P>
+</TD>
+<td valign=top align=left>
+     <P><CODE>kServerSignature</CODE></P>
+</TD>
+  </TR>
+  <TR>
+<td valign=top align=left>
+     <P><CODE>gestaltUSBPrinterSharingVersionMask</CODE></P>
+</TD>
+<td valign=top align=left>
+     <P><CODE>0x0000FFFF</CODE></P>
+</TD>
+  </TR>
+  <TR>
+<td valign=top align=left>
+     <P><CODE>gestaltUSBPrinterSharingAttr</CODE></P>
+</TD>
+<td valign=top align=left>
+     <P><CODE>kServerSignature</CODE></P>
+</TD>
+  </TR>
+  <TR>
+<td valign=top align=left>
+     <P><CODE>gestaltUSBPrinterSharingAttrMask</CODE></P>
+</TD>
+<td valign=top align=left>
+     <P><CODE>0xFFFF0000</CODE></P>
+</TD>
+  </TR>
+  <TR>
+<td valign=top align=left>
+     <P><CODE>gestaltUSBPrinterSharingAttrRunning</CODE></P>
+</TD>
+<td valign=top align=left>
+     <P><CODE>0x80000000</CODE></P>
+</TD>
+  </TR>
+  <TR>
+<td valign=top align=left>
+     <P><CODE>gestaltUSBPrinterSharingAttrBooted</CODE></P>
+</TD>
+<td valign=top align=left>
+     <P><CODE>0x40000000</CODE></P>
+</TD>
+  </TR>
+</table>
+
+
+<BR><P><a HREF = "#top">Back to top</a></p><BR>
+
+<a NAME="Summary"></a>
+    
+<H2>Summary</H2>
+
+<P>By paying attention to these simple guidelines, printer driver developers
+can ensure that their drivers work seamlessly with USB Printer Sharing
+while retaining the ability to use custom <CODE>csCodes</CODE> and pass pointers to private data.</P>
+      
+<a name="References"></a>
+<H2>References</H2>
+
+
+   <p><a href="http://developer.apple.com/macos/printing.html">
+   Apple's Printing Technologies</a></p>
+   <p><a href="http://developer.apple.com/hardware/usb/download.htm">Current USB DDK</a></p>
+
+
+<BR><P><a HREF = "#top">Back to top</a></p><BR>
+      
+
+<a NAME="Downloads"></a> 
+<h2>Downloadables</h2>
+
+<center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+ <TR> 
+    <td width=50 align=left> 
+      <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" width=22 height=23></P>
+    </TD>
+    <td align="left"> 
+      <p>Acrobat version of this Note (120K).</P>
+    </TD>
+    <td width=60 align=left> 
+      <p><a href="pdf/tn1199.pdf">Download</a></P>
+    </TD>
+  </TR> 
+</table></center><BR><BR>
+
+<BR><P><a href="#top">Back to top</a></P>
+</TD></TR></table></CENTER>
+
+<!-- end_content -->
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

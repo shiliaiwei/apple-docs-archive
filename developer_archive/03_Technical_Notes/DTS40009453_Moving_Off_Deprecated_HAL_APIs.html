@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2223: Moving Off Deprecated HAL APIs</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009453">
+    <meta id="document-version" name="document-version" content="1.3.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009453-CH1">
+    <meta id="date" name="date" content="2010-04-14">
+    <meta id="description" name="description" content="TN2223: Discusses transitioning to the newer AudioDevice and AudioObject APIs available on Mac OS X 10.5+">
+    <meta id="book-title" name="book-title" content="Moving Off Deprecated HAL APIs">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/CoreAudio}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2223">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Moving Off Deprecated HAL APIs" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009453" title="Technical Note TN2223"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Moving Off Deprecated HAL APIs</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009453-CH1-DontLinkElementID_2" title="Technical Note TN2223"></a><div class="dtsDocNumber">Technical Note TN2223</div><h1 id="pageTitle">Moving Off Deprecated HAL APIs</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>This Technical Note discusses transitioning to the newer <code>AudioDevice</code> and <code>AudioObject</code> APIs available since the release of Mac OS X 10.5.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009453-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009453-CH1-SECTION2" data-renderer-version="1">IOProc Registration Changes</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40009453-CH1-SUBSECTION2" data-renderer-version="1">Examples</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009453-CH1-SECTION4" data-renderer-version="1">Property Accessor Changes</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40009453-CH1-SUBSECTION4" data-renderer-version="1">Examples</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009453-CH1-SECTION6" data-renderer-version="1">Reference</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009453-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40009453-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>The <code>AudioHardware.h</code> header file contains APIs used to work with the audio HAL. The audio HAL provides the abstraction through which applications can access audio hardware. There are a set of HAL APIs which have been deprecated since the release of Mac OS X 10.5 and should no longer be used.</p><p>There are two types of deprecated APIs. The first type are the <code>AudioDeviceIOProc</code> registration calls, these include <code>AudioDeviceAddIOProc</code> and <code>AudioDeviceRemoveIOProc</code>. The second type are the property accessors such as  <code>AudioHardwareGetProperty</code>, <code>AudioDeviceSetProperty</code> and related APIs.</p><p>Transitioning to the newer APIs is straight forward and recommended for all applications currently using the older deprecated APIs.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009453-CH1-SECTION2" title="IOProc Registration Changes"></a><h2 class="jump">IOProc Registration Changes</h2><p>The <code>AudioDeviceIOProc</code> registration change introduces the <code>AudioDeviceIOProcID</code> type and remaps <code>AudioDeviceAddIOProc</code> and <code>AudioDeviceRemoveIOProc</code> to <code>AudioDeviceCreateIOProcID</code>  and <code>AudioDeviceDestroyIOProcID</code> respectively.</p><p>An <code>AudioDeviceIOProcID</code> represents both an IOProc and the client data that goes with it. Once created, an <code>AudioDeviceIOProcID</code> can be used everywhere one would use a regular IOProc. The purpose for an <code>AudioDeviceIOProcID</code> is to allow a client to register the same function pointer as an IOProc with a device multiple times (as long as the user client data pointer is different each time).</p><p>When using these new registration APIs, you pass the <code>AudioDeviceIOProcID</code> returned from <code>AudioDeviceCreateIOProcID</code> to <code>AudioDeviceStart</code> and <code>AudioDeviceStop</code> rather than the IOProc itself.</p><section><a name="//apple_ref/doc/uid/DTS40009453-CH1-SUBSECTION2" title="Examples"></a><h3 class="jump">Examples</h3><a name="//apple_ref/doc/uid/DTS40009453-CH1-SOURCECODE1" title="Listing 1Deprecated - AudioDeviceIOProc Registration."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Deprecated - <code>AudioDeviceIOProc</code> Registration.</p><div class="codesample clear"><table><tr><td scope="row"><pre>OSStatus MyIOProc(AudioDeviceID           inDevice,
+                  const AudioTimeStamp*   inNow,
+                  const AudioBufferList*  inInputData,
+                  const AudioTimeStamp*   inInputTime,
+                  AudioBufferList*        outOutputData,
+                  const AudioTimeStamp*   inOutputTime,
+                  void*                   inClientData)
+{
+    // your IOProc here
+    ...
+}
+
+// Deprecated
+void DeprecatedFakePlay(AudioObjectID inDevice, void* inClientData)
+{
+    //  register the IOProc
+    OSStatus theError = AudioDeviceAddIOProc(inDevice, MyIOProc, inClientData);
+    // handle errors
+
+    //  start IO
+    theError = AudioDeviceStart(inDevice, MyIOProc);
+
+    ...
+
+    //  stop IO
+    theError = AudioDeviceStop(inDevice, MyIOProc);
+
+    //  unregister the IOProc
+    theError = AudioDeviceRemoveIOProc(inDevice, MyIOProc);
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40009453-CH1-SOURCECODE2" title="Listing 2New - AudioDeviceIOProc Registration."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;New - <code>AudioDeviceIOProc</code> Registration.</p><div class="codesample clear"><table><tr><td scope="row"><pre>OSStatus MyIOProc(AudioDeviceID           inDevice,
+                  const AudioTimeStamp*   inNow,
+                  const AudioBufferList*  inInputData,
+                  const AudioTimeStamp*   inInputTime,
+                  AudioBufferList*        outOutputData,
+                  const AudioTimeStamp*   inOutputTime,
+                  void*                   inClientData)
+{
+    // your IOProc here
+    ...
+}
+
+// New Mac OS X 10.5+
+void NewFakePlay(AudioObjectID inDevice, void* inClientData)
+{
+    //  register the IOProc
+    AudioDeviceIOProcID theIOProcID = NULL;
+
+    OSStatus theError = AudioDeviceCreateIOProcID(inDevice, MyIOProc, inClientData, &amp;theIOProcID);
+    // handle errors
+    // ensure theIOProcID != NULL
+
+    //  start IO
+    theError = AudioDeviceStart(inDevice, theIOProcID);
+
+    ...
+
+    //  stop IO
+    theError = AudioDeviceStop(inDevice, theIOProcID);
+
+    //  unregister the IOProc
+    theError = AudioDeviceDestroyIOProcID(inDevice, theIOProcID);
+}<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009453-CH1-SECTION4" title="Property Accessor Changes"></a><h2 class="jump">Property Accessor Changes</h2><p>The Property Accessor changes are a little different but can be summed up like this -- All the individual class property access functions have been replaced by a similarly named <code>AudioObject</code>-prefixed function.</p><p>The table below illustrates the basic mapping where 'XXX' in the older API name can be replaced by 'Hardware', 'Device' or 'Stream':</p><a name="//apple_ref/doc/uid/DTS40009453-CH1-TABLE1" title="Table 1"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Deprecated API
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+New API
+</p></th></tr><tr><td  scope="row"><p>
+AudioXXXGetPropertyInfo
+</p></td><td ><p>
+AudioObjectHasProperty, AudioObjectIsPropertySettable, AudioObjectGetPropertyDataSize
+</p></td></tr><tr><td  scope="row"><p>
+AudioXXXGetProperty
+</p></td><td ><p>
+AudioObjectGetPropertyData
+</p></td></tr><tr><td  scope="row"><p>
+AudioXXXSetProperty
+</p></td><td ><p>
+AudioObjectSetPropertyData
+</p></td></tr><tr><td  scope="row"><p>
+AudioXXXAddPropertyListener
+</p></td><td ><p>
+AudioObjectAddPropertyListener
+</p></td></tr><tr><td  scope="row"><p>
+AudioXXXRemovePropertyListener
+</p></td><td ><p>
+AudioObjectRemovePropertyListener
+</p></td></tr></table></div><p>The key difference between the deprecated and new API is the use of the <code>AudioObjectPropertyAddress</code> structure.</p><a name="//apple_ref/doc/uid/DTS40009453-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>struct  AudioObjectPropertyAddress
+{
+    AudioObjectPropertySelector mSelector;
+    AudioObjectPropertyScope    mScope;
+    AudioObjectPropertyElement  mElement;
+};
+typedef struct AudioObjectPropertyAddress   AudioObjectPropertyAddress;<span></span></pre></td></tr></table></div><p>The <code>AudioObjectPropertyAddress</code> structure is used with the new APIs to encapsulate the distinguishing information for a specific property; the selector ID (<code>mSelector</code>), the scope (<code>mScope</code>) and the element (<code>mElement</code>). The HAL uses the terms scope and element in the same way that the AudioUnit API does.</p><p>Most objects have only one scope and one element, for example the System Object, Stream Object and Control Object have only one scope, <code>kAudioObjectPropertyScopeGlobal</code> and one element, <code>kAudioObjectPropertyElementMaster</code>.</p><p>Device Objects are different and may have three other scopes beside <code>kAudioObjectPropertyScopeGlobal</code>. These are <code>kAudioDevicePropertyScopeInput</code>, <code>kAudioDevicePropertyScopeOutput</code>, and <code>kAudioDevicePropertyScopePlayThrough</code>.</p><p>For a Device Object, the element (<code>mElement</code>) of the <code>AudioObjectPropertyAddress</code> structure refers to the channel number on the device.</p><section><a name="//apple_ref/doc/uid/DTS40009453-CH1-SUBSECTION4" title="Examples"></a><h3 class="jump">Examples</h3><a name="//apple_ref/doc/uid/DTS40009453-CH1-SOURCECODE4" title="Listing 3Deprecated - Getting the default Input device."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Deprecated - Getting the default Input device.</p><div class="codesample clear"><table><tr><td scope="row"><pre>AudioDeviceID DeprecatedGetDefaultInputDevice()
+{
+    AudioDeviceID theAnswer = 0;
+    UInt32 theSize = sizeof(AudioDeviceID);
+    OSStatus theError = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultInputDevice,
+                                                 &amp;theSize,
+                                                 &amp;theAnswer);
+
+    // handle errors
+
+    return theAnswer;
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40009453-CH1-SOURCECODE5" title="Listing 4New - Getting the default input device."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;New - Getting the default input device.</p><div class="codesample clear"><table><tr><td scope="row"><pre>AudioDeviceID NewGetDefaultInputDevice()
+{
+    AudioDeviceID theAnswer = 0;
+    UInt32 theSize = sizeof(AudioDeviceID);
+    AudioObjectPropertyAddress theAddress = { kAudioHardwarePropertyDefaultInputDevice,
+                                              kAudioObjectPropertyScopeGlobal,
+                                              kAudioObjectPropertyElementMaster };
+
+    OSStatus theError = AudioObjectGetPropertyData(kAudioObjectSystemObject,
+                                                   &amp;theAddress,
+                                                   0,
+                                                   NULL,
+                                                   &amp;theSize,
+                                                   &amp;theAnswer);
+    // handle errors
+
+    return theAnswer;
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40009453-CH1-SOURCECODE6" title="Listing 5Deprecated - Getting the current volume scalar."></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Deprecated - Getting the current volume scalar.</p><div class="codesample clear"><table><tr><td scope="row"><pre>Float32 DeprecatedGetVolumeScalar(AudioDeviceID inDevice, bool inIsInput, UInt32 inChannel)
+{
+    Float32 theAnswer = 0;
+    UInt32 theSize = sizeof(Float32);
+    OSStatus theError = AudioDeviceGetProperty(inDevice,
+                                               inChannel,
+                                               inIsInput,
+                                               kAudioDevicePropertyVolumeScalar,
+                                               &amp;theSize,
+                                               &amp;theAnswer);
+    // handle errors
+
+    return theAnswer;
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40009453-CH1-SOURCECODE7" title="Listing 6New - Getting the current volume scalar."></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;New - Getting the current volume scalar.</p><div class="codesample clear"><table><tr><td scope="row"><pre>Float32 NewGetVolumeScalar(AudioDeviceID inDevice, bool inIsInput, UInt32 inChannel)
+{
+    Float32 theAnswer = 0;
+    UInt32 theSize = sizeof(Float32);
+    AudioObjectPropertyScope theScope = inIsInput ? kAudioDevicePropertyScopeInput :
+                                                    kAudioDevicePropertyScopeOutput
+    AudioObjectPropertyAddress theAddress = { kAudioDevicePropertyVolumeScalar,
+                                              theScope,
+                                              inChannel };
+
+    OSStatus theError = AudioObjectGetPropertyData(inDevice,
+                                                   &amp;theAddress,
+                                                   0,
+                                                   NULL,
+                                                   &amp;theSize,
+                                                   &amp;theAnswer);
+    // handle errors
+
+    return theAnswer;
+}<span></span></pre></td></tr></table></div><p>Note the usage of <code>kAudioObjectSystemObject</code> when replacing the old APIs. <code>kAudioObjectSystemObject</code> is an  <code>AudioObjectID</code> that always refers to the one and only instance of the Audio System Object.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009453-CH1-SECTION6" title="Reference"></a><h2 class="jump">Reference</h2><p>See <code>CoreAudio/AudioHardware.h</code> for further details.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40009453-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009453-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-04-14</td><td><p>Editorial</p></td></tr><tr><td scope="row">2010-04-08</td><td><p>Editorial</p></td></tr><tr><td scope="row">2010-01-09</td><td><p>New document that 
+					discusses transitioning to the newer AudioDevice and AudioObject APIs available on Mac OS X 10.5+</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-04-14</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

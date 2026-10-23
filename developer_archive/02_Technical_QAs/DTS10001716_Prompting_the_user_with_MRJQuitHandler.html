@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+            <meta id="book-title" name="book-title" content="Prompting the user with MRJQuitHandler">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001716">
+            <meta id="document-version" name="document-version" content="1.0.3">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="QA1187.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+
+
+
+<title>Technical Q&amp;A QA1187: Prompting the user with MRJQuitHandler</title>
+
+<meta name="keywords" content="java handlequit mrjquithandler quit">
+
+<meta name="Description" content="Technical Q&amp;A QA1187: Explanation of the recommended way
+to use the MRJQuitHandler in jdk 1.3.1, including user prompting on quit.">
+
+
+
+<meta name="categories" content="Java">
+
+
+<meta name="week-posted" content="Aug 12, 2002 - Aug 16, 2002">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10001716" title="Prompting the user with MRJQuitHandler"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Prompting the user with MRJQuitHandler</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technicalQA">
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalqas/index.html">Technical Q&As</a> &gt; <a href="../../technicalqas/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalqas/LegacyTechnologies/idxJava-date.html">Java</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Java/idxUserExperience-date.html" target="_blank">Java > User Experience</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Q&amp;A QA1187</div>
+<div id="pageheadsub">Prompting the user with MRJQuitHandler</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+
+
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600> <TR> <td align="left">
+
+<!-- begin_content -->
+
+<hr width=500 align=center>
+         
+
+         <P id=p2>Q:
+      My application needs to perform some closing actions when the user tries to quit using Command-Q or the application menu.  How should I do that?</p>
+
+         
+         <P id=p4>A:
+      The expected behavior of any application on Mac OS X is to exit when encountering selection of the 
+&quot;Quit&quot; item from the application menu, or its Command-Q keyboard equivalent.  To satisfy such a requirement, all graphical Java applications on Mac OS X have this functionality provided automatically.  It is possible, however, to execute code prior to the application's exit.  To do so, you will need to register a class that implements
+      the <code>com.apple.mrj.MRJQuitHandler</code> interface with your application.
+       The class must provide an implementation of
+      the <code>handleQuit()</code> method, and be registered with a call to
+      <code>MRJApplicationUtils.registerQuitHandler()</code>.</p>
+
+<P id=p4>      To prompt the user before quitting, whether it be to save
+      unchanged work or to simply confirm the quit action as a
+      safeguard, a dialog can be brought up from within <code>handleQuit()</code>.
+       Based on the user's response, you must either: 
+       
+       <OL>
+       		<li>Quit the application by calling <code>System.exit()</code>
+      		<li>Abort the quit process by throwing <code>IllegalStateException</code>
+      	</OL>
+</P>
+<P id=p4>      A problem existed on versions of Mac OS X prior to 10.2 where
+      showing a modal dialog from <code>handleQuit()</code> resulted in a hang if both an <code>MRJQuitHandler</code> and an <code>MRJAboutHandler</code> were registered.  The workaround for those earlier versions is to show the dialog on a separate thread.  Note that this is not a problem on 10.2, and the workaround is not necessary (see below for more).</p>
+
+<P id=p4>      Please note that the <CODE>handleQuit()</CODE> method is for executing code <B>before exiting</B>.  It should be assumed that when execution of <CODE>handleQuit()</CODE> completes, the application will exit.  The <a href="http://developer.apple.com/documentation/Java/Reference/Java/index.html">javadocs</a> for <code>MRJQuitHandler</code> state that to abort the quit, <CODE>IllegalStateException</CODE> must be thrown.  This includes waiting on any pending execution on a separate thread, such as the workaround above. This way,  you can control exactly when the application exits with <code>System.exit()</code>.  If all of your cleanup logic is to be performed within <CODE>handleQuit()</CODE>, and there is no need to abort or delay the exit, there should be no need to throw <CODE>IllegalStateException</CODE>.</p>
+<P id=p4>      The code below demonstrates a sample application that properly
+      implements the <code>MRJQuitHandler</code> and safely prompts the user
+      for a quit confirmation on Mac OS X 10.1 and 10.2.   Note that <CODE>IllegalStateException</CODE> is thrown in the example below to abort the quit while the separate thread allows the user input to determine whether <CODE>System.exit(0)</CODE> should be called.</p>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+import javax.swing.*;
+import java.awt.*;
+import com.apple.mrj.*;
+
+public class MRJHandlerTest extends JFrame implements MRJQuitHandler {
+
+    public MRJHandlerTest() {
+        super(&quot;TestProject&quot;);
+        getContentPane().add(new JLabel(
+            &quot;&lt;HTML&gt;&lt;CENTER&gt;To test the MRJQuitHandler, &quot; +
+            &quot;select \&quot;Quit MRJHandlerTest\&quot; &quot; +
+            &quot;from the application menu.&lt;/CENTER&gt;&lt;/HTML&gt;&quot;));
+        MRJApplicationUtils.registerQuitHandler(this);
+    }
+
+    public void handleQuit() {
+        // Workaround for 2868805:  show modal dialogs in a separate thread.
+        // This encapsulation is not necessary in 10.2, 
+        // but will not break either.
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                // Show the dialog and act accordingly.
+                int result = JOptionPane.showConfirmDialog(null,
+                    &quot;Do you really want to quit?&quot;,
+                    &quot;Really Quit?&quot;,
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+                if (result == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
+            }
+        });
+
+        // Throw IllegalStateException so new thread can execute.  
+        // If showing dialog on this thread in 10.2, we would throw
+        // upon JOptionPane.NO_OPTION
+        throw new IllegalStateException(&quot;Quit Pending User Confirmation&quot;);
+    }
+
+    public static void main(String[] args) {
+        new MRJHandlerTest().setVisible(true);
+    }
+}
+</pre>
+</TD></TR><TR><td align="left">
+<P><B>Listing 1</B>.       Proper use of <code>MRJQuitHandler</code>.</P>
+</TD></TR></table></CENTER><BR><BR>
+          
+
+
+<hr width=500 align=center>
+ 
+<!-- begin_date --><H4 ALIGN=center>[Aug 13 2002]</H4><!-- end_date -->
+
+</TD> </TR> </table></CENTER>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

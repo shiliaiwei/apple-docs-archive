@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1761: Resumable Downloads</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40011825">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40011825-CH1">
+    <meta id="date" name="date" content="2012-02-13">
+    <meta id="description" name="description" content="QA1761: Explains how to resume HTTP downloads.">
+    <meta id="book-title" name="book-title" content="Resumable Downloads">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/Foundation}, {Topic/Networking, Internet, & Web}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1761">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Resumable Downloads" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40011825" title="Technical Q&amp;A QA1761"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Resumable Downloads</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40011825-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1761"></a><div class="dtsDocNumber">Technical Q&amp;A QA1761</div><h1 id="pageTitle">Resumable Downloads</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+My app downloads large files over HTTP. How can I resume a partially completed download?
+</h2><p><span>A: </span>The answer depends on your target platform:</p><ul class="ul"><li class="li"><p>If you're working on Mac OS X it's easy to resume downloads using the NSURLDownload class. See the <span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html#//apple_ref/doc/uid/10000165i" class="browserLink" >URL Loading System Programming Guide</a></span> for more information about this.</p></li><li class="li"><p>NSURLDownload is not supported on iOS. However, if you're a Newsstand app, Newsstand has built-in support for resuming downloads. See <span class="content_text"><a href="http://developer.apple.com/library/ios/#documentation/StoreKit/Reference/NewsstandKit_Framework/_index.html#//apple_ref/doc/uid/TP40010838" class="browserLink" >Newsstand Kit Framework Reference</a></span> for the details.</p></li><li class="li"><p>If you're a generic iOS app, you will have to write the code to resume downloads yourself, as explained below.</p></li></ul><p>Resuming an HTTP download isn't too difficult, but you need to understand some critical HTTP concepts:</p><ul class="ul"><li class="li"><p><strong>entity tag</strong> — This is a unique identifier provided by the server that denotes a specific version of a specific resource; if someone changes the resource on the server, the entity tag will change.</p></li><li class="li"><p><strong>Range header</strong> — This allows you to request a specific range of bytes from a resource.</p></li><li class="li"><p><strong>If-Range header</strong> — This header specifies that you only want to get a range of bytes from a resource if the entity tag hasn't changed.</p></li></ul><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40011825-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;For a detailed explanation of these concepts, see <span class="content_text"><a href="http://www.ietf.org/rfc/rfc2616.txt" class="urlLink" rel="external">RFC 2616</a></span>.</p><p></p></aside></div><p>The basic strategy for resuming a download is:</p><ol class="ol"><li class="li"><p>When you do the initial download, save the entity tag associated the resource.</p></li><li class="li"><p>As you save data to disk, remember how much of the data is valid.</p></li><li class="li"><p>When you come to resume the download, get the entity tag and the amount of data you've saved and apply these values to the request via the <code>Range</code> and <code>If-Range</code> headers.</p></li><li class="li"><p>Execute the request. It will either succeed (and you'll receive the remaining bytes of the resource) or it will fail (in which case you have to get the entire resource from scratch).</p></li></ol><p>If the server doesn't support entity tags you can do similar things with the last-modified date.</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40011825-CH1-DontLinkElementID_4" title="Warning"></a><p><strong>Warning:</strong>&nbsp;The features necessary to support resuming downloads are optional; servers are not required to support them. If you're targeting a specific server, you can tailor your code for that server; however, if your goal is to resume downloads from any server, you should read see <span class="content_text"><a href="http://www.ietf.org/rfc/rfc2616.txt" class="urlLink" rel="external">RFC 2616</a></span> to learn how to make your code compatible with all servers.</p><p></p><div class="clear"></div></aside></div><p>For a concrete example of this, you can use a packet trace (see <span class="content_text"><a href="https://developer.apple.com/library/mac/#qa/qa1176/_index.html" class="urlLink" rel="external">Technical Q&amp;A QA1176, 'Getting a Packet Trace'</a></span>) to look at how Safari resumes a download on your Mac. <span class="content_text"><!--a  -->Listing 1<!--/a--></span> shows a typical resume request.</p><a name="//apple_ref/doc/uid/DTS40011825-CH1-SOURCECODE1" title="Listing 1An HTTP resume request"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;An HTTP resume request</p><div class="codesample clear"><table><tr><td scope="row"><pre>GET /download.info.apple.com/[...]/MacOSXUpdCombo10.6.8.dmg HTTP/1.1<span></span></pre></td></tr><tr><td scope="row"><pre>Host: supportdownload.apple.com<span></span></pre></td></tr><tr><td scope="row"><pre>User-Agent: Safari/7534.52.7 [...]<span></span></pre></td></tr><tr><td scope="row"><pre>Accept: */*<span></span></pre></td></tr><tr><td scope="row"><pre>If-Range: "968f3f3e86e0339ce722170ae656bc73:1319461845"<span></span></pre></td></tr><tr><td scope="row"><pre>Range: bytes=4041400-<span></span></pre></td></tr><tr><td scope="row"><pre>Accept-Language: en-au<span></span></pre></td></tr><tr><td scope="row"><pre>Accept-Encoding: gzip, deflate<span></span></pre></td></tr><tr><td scope="row"><pre>[...]<span></span></pre></td></tr><tr><td scope="row"><pre>Connection: keep-alive<span></span></pre></td></tr></table></div><p>The <code>Range</code> header tells the server you want to get the data starting at offset 4041400. The <code>If-Range</code> header tells the server you only want that data if the data hasn't changed since the server gave the client the supplied entity tag (that is, "968f3f3e86e0339ce722170ae656bc73:1319461845").</p><p><span class="content_text"><!--a  -->Listing 2<!--/a--></span> shows the corresponding response.</p><a name="//apple_ref/doc/uid/DTS40011825-CH1-SOURCECODE2" title="Listing 2An HTTP resume response"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;An HTTP resume response</p><div class="codesample clear"><table><tr><td scope="row"><pre>HTTP/1.1 206 Partial Content<span></span></pre></td></tr><tr><td scope="row"><pre>Server: Apache<span></span></pre></td></tr><tr><td scope="row"><pre>Accept-Ranges: bytes<span></span></pre></td></tr><tr><td scope="row"><pre>Content-Type: application/octet-stream<span></span></pre></td></tr><tr><td scope="row"><pre>Last-Modified: Mon, 24 Oct 2011 13:04:42 GMT<span></span></pre></td></tr><tr><td scope="row"><pre>ETag: "968f3f3e86e0339ce722170ae656bc73:1319461845"<span></span></pre></td></tr><tr><td scope="row"><pre>Date: Mon, 23 Jan 2012 16:13:25 GMT<span></span></pre></td></tr><tr><td scope="row"><pre>Content-Range: bytes 4041400-1087036999/1087037000<span></span></pre></td></tr><tr><td scope="row"><pre>Content-Length: 1082995600<span></span></pre></td></tr><tr><td scope="row"><pre>Connection: keep-alive<span></span></pre></td></tr></table></div><p>The HTTP status (206) tells you that the response only contains a subset of the resource. The <code>Content-Range</code> header tells you exactly what range of the resource the server is returning (byte 4041400 through to byte 1087036999) and total length of the resource (1087037000). Finally, the <code>Content-Length</code> header tells you how many bytes the server is returning in this particular response.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS40011825-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40011825-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2012-02-13</td><td><p>New document that 
+					explains how to resume HTTP downloads.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-02-13</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

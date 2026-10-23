@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+  <title>CFNetwork Framework Release Notes</title>
+
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/release-notes-1.6.3.css" />
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback-1.6.3.css" />
+  <meta charset='utf-8'> 
+<meta id="j-version" name="j-version" content="" />
+<meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+<meta id="document-version" name="document-version" content="6.1.0" />
+<meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Technologies/Core Services Layer/CoreServices}, {Topic/Networking, Internet, &amp; Web}" />
+<meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40000990" />
+<meta id="chapterId" name="chapterId" content="TP40000990-CH1">
+<meta id="book-title" name="book-title" content="CFNetwork Framework Release Notes" />
+<meta id="book-resource-type" name="book-resource-type" content="Release Note" />
+<meta id="book-root" name="book-root" content="./" />
+<meta id="book-json" name="book-json" content="book.json">
+<meta id="date" name="date" content="2008-06-05" />
+<meta id="description" name="description" content="" />
+<meta id="IndexTitle" name="IndexTitle" content="" />
+<meta id="resources-uri" name="resources-uri" content="../../../Resources/1282">
+<link id="book-index-page" rel="Start" title="" type="text/html" href="./index.html">
+<!-- , next_chapter: next_chapter, previous_chapter: previous_chapter -->
+<link id="next-page" rel="Next" type="text/html" href="">
+<link id="previous-page" rel="Prev" type="text/html" href="">
+<meta id="devcenter" name="devcenter" content="<!-- DEVCENTER_NAME -->" />
+<meta id="devcenter-url" name="devcenter-url" content="<!-- DEVCENTER_URL -->" />
+<meta id="reflib" name="reflib" content="<!-- REFLIB_NAME -->" />
+
+<meta id="xcode-display" name="xcode-display" content="render" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta id="platforms" name="platforms" content="OS X">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta id="platforms" name="platforms" content="OS X">
+</head>
+
+  <body class="release-notes">
+    <a name="//apple_ref/doc/uid/TP40000990" title="CFNetwork Framework Release Notes"></a>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+    <div id='ssi_Header' class="hideInXcode <!-- library -->">
+        <a id="ssi_LibraryTitle" href="../../../navigation/">Documentation Archive
+      </a>
+        <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+        <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+    </div>
+    <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+        <label for='adcsearch'>Search Documentation Archive</label>
+        <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+    </form>
+</div>
+ 
+<header id="header">
+    <div id="title" role="banner">
+        <h1>CFNetwork Framework Release Notes</h1>
+        <span id="file_links">
+            <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+            <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+        </span>
+    </div>
+    <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+        <li id="toc_button" style="display:none">
+            <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+        </li>
+        <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top"><<Jump To&#133;>></option></select></li>
+        <li id="downloadSample_button" style="display:none">
+            <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+        </li>
+    </ul>
+</header>
+<nav id="tocContainer" tabindex="7">
+    <ul id="toc" role="tree"></ul>
+</nav>
+<article id="contents" class="chapter" role="main">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1"></a><a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_10"></a>
+  <h1>CFNetwork Framework Release Notes for OS X v10.5 and v10.6</h1>
+
+	<section class="intro section">
+  <p class="para">
+  CFNetwork is a framework which provides C APIs for common Internet protocols such as HTTP, FTP, and others.  These APIs are designed with portability, performance, and consistency in mind, and are available to Cocoa and Carbon applications.  CFNetwork is part of the CoreServices umbrella framework.  Simply linking with CoreServices will make the CFNetwork framework available for use.
+</p><p class="para">
+  This document describes the changes in CFNetwork since OS X v10.4, Tiger. Note that you may be able to find more information on many of these changes in Apple&#39;s developer documentation.
+
+</p>
+</section>
+
+  <section class="table-of-contents">
+  <h4>Contents:</h4>
+  <ul>
+      <li><a href="#//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_1">CFError</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_2">Changes in CFNetworkErrors.h for OS X v10.5</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_3">New API available for OS X v10.5</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_8">New API available for OS X v10.6</a></li>
+  </ul>
+</section>
+
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_1"></a>
+  <h3 class="section-name" tabindex="0">CFError</h3>
+  <p class="para">
+  CFError is a new CFType introduced in CoreFoundation for reporting errors; see the <em class="u-book"><a href="../../CoreFoundation/RN-CoreFoundation/index.html#//apple_ref/doc/uid/TP40000994" data-renderer-version="2" target="_self">Core Foundation Release Notes for OS X v10.9</a></em> for more details on CFError.  In Leopard, CFNetwork has adopted CFError. As such, CFNetwork provides its own error domains, error codes and user info entries in a new header file named CFNetworkErrors.h  These new domains and error codes are listed below.  Do reference the header file CFNetworkErrors.h for the most up to date information.
+
+
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_2"></a>
+  <h3 class="section-name" tabindex="0">Changes in CFNetworkErrors.h for OS X v10.5</h3>
+  <dl class="term-definition termdef">
+	<tr>
+  <td scope="row"><dt class="term">Error domains:</dt></td>
+  <td><dd class='definition'><p class="para">
+  <code class="code-voice">const CFStringRef kCFErrorDomainCFNetwork;</code>
+</p></dd></td>
+</tr>
+<tr>
+  <td scope="row"><dt class="term">Error keys and codes that can be obtained from the CFError&#39;s userInfo dictionary:</dt></td>
+  <td><dd class='definition'><p class="para">
+  When an error of kCFHostErrorUnknown is returned, this key&#39;s value is set to a CFNumber containing the raw error value returned by getaddrinfo()
+</p><p class="para">
+  <code class="code-voice">const CFStringRef kCFGetAddrInfoFailureKey;</code>
+</p></dd></td>
+</tr>
+<tr>
+  <td scope="row"><dt class="term">When a SOCKS failure has occurred, this key&#39;s value is set to a CFString containing the status value returned by the SOCKS server.</dt></td>
+  <td><dd class='definition'><p class="para">
+  <code class="code-voice">const CFStringRef kCFSOCKSStatusCodeKey;</code>
+</p></dd></td>
+</tr>
+<tr>
+  <td scope="row"><dt class="term">When an error of kCFSOCKSErrorUnsupportedServerVersion is returned, this key&#39;s value is set to a CFString containing the version number requested by the server.</dt></td>
+  <td><dd class='definition'><p class="para">
+  <code class="code-voice">const CFStringRef kCFSOCKSVersionKey;</code>
+</p></dd></td>
+</tr>
+<tr>
+  <td scope="row"><dt class="term">When an error of kCFSOCKS5ErrorUnsupportedNegotiationMethod is returned, this key&#39;s value is set to a CFString containing the negotiation method requested by the server.</dt></td>
+  <td><dd class='definition'><p class="para">
+  <code class="code-voice">const CFStringRef kCFSOCKSNegotiationMethodKey;</code>
+</p></dd></td>
+</tr>
+<tr>
+  <td scope="row"><dt class="term">When an error of kCFNetServicesErrorDNSServiceFailure is returned, this key&#39;s value is set to a CFNumber containing the value returned from DNS; interret it using the values dns_sd.h</dt></td>
+  <td><dd class='definition'><p class="para">
+  const CFStringRef kCFDNSServiceFailureKey;
+</p></dd></td>
+</tr>
+<tr>
+  <td scope="row"><dt class="term">When an error of kCFFTPErrorUnexpectedStatusCode is returned, this key&#39;s value is set to a CFString containing the status code returned by the server.</dt></td>
+  <td><dd class='definition'><p class="para">
+  <code class="code-voice">const CFStringRef kCFFTPStatusCodeKey;</code>
+</p></dd></td>
+</tr>
+<tr>
+  <td scope="row"><dt class="term">When an error of kCFFTPErrorUnexpectedStatusCode is returned, this key&#39;s value is set to a CFString containing the status code returned by the server.</dt></td>
+  <td><dd class='definition'><p class="para">
+  <code class="code-voice">const CFStringRef kCFFTPStatusCodeKey;</code>
+</p></dd></td>
+</tr>
+
+</dl><p class="para">
+  Please see <a href="../../../navigation/redirect.html#//apple_ref/doc/uid/TP30000943-TP30000421" data-renderer-version="1" target="_self">Reference Library &gt; Core Foundation</a> for more details on the CFError type.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_3"></a>
+  <h3 class="section-name" tabindex="0">New API available for OS X v10.5</h3>
+  
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_4"></a>
+  <h3 class="section-name" tabindex="0">CFNetServices.h</h3>
+  <p class="para">
+  <code class="code-voice">SInt32 CFNetServiceGetPortNumber(CFNetServiceRef theService);</code>
+</p><p class="para">
+  Query a Network Service for its port number. The function parameter, &quot;theService&quot;, is the Network Service instance to be queried and it must be non-NULL. It returns an SInt32 containing the port number in host byte order.  On error, it returns -1 if the entity&#39;s port is not known (has not been resolved)
+
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_5"></a>
+  <h3 class="section-name" tabindex="0">CFProxySupport.h</h3>
+  <p class="para">
+  <code class="code-voice">CFArrayRef CFNetworkCopyProxiesForURL(CFURLRef url, CFDictionaryRef proxySettings);</code>
+</p><p class="para">
+  Given an URL and a proxy dictionary, determines the ordered list of proxies that should be used to download the given URL.  The parameter, &quot;url&quot;, specifies which CFURLRef to find proxy information for.  The &quot;proxySettings&quot; parameter is a dictionary describing the available proxy settings; the dictionary&#39;s format should match that described in and returned by SystemConfiguration.framework.  This function returns an array of dictionaries; each dictionary describes a single proxy.  
+</p><p class="para">
+  
+</p><p class="para">
+  <code class="code-voice">CFArrayRef CFNetworkCopyProxiesForAutoConfigurationScript(CFStringRef proxyAutoConfigurationScript, CFURLRef targetURL);</code>
+</p><p class="para">
+  Thus function executes the script given in &quot;proxyAutoConfigurationScript&quot;, using &quot;targetURL&quot; as input. It will return an array of proxies as returned by the script.
+</p><p class="para">
+  
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>CFRunLoopSourceRefCFNetworkExecuteProxyAutoConfigurationURL(CFURLRef proxyAutoConfigURL,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                                         CFURLRef targetURL,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CFProxyAutoConfigurationResultCallback cb,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                                         CFStreamClientContext *clientContext);</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  
+</p><p class="para">
+  Asynchronously downloads the autoconfiguration script from the given URL, then runs that script using &quot;targetURL&quot; as input.  Once completed, the callback &quot;cb&quot; is called via the run loop, passing the proxy array returned by the script.  Note that the caller must schedule the returned run loop source on a running run loop in order to receive the callback.
+</p><p class="para">
+  Proxy Type Keys - see CFProxySupport.h for more details
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFProxyTypeKey;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFProxyTypeNone;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFProxyTypeHTTP;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFProxyTypeHTTPS;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFProxyTypeSOCKS;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFProxyTypeFTP;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFProxyTypeAutoConfigurationURL;</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the proxy&#39;s hostname; value is a CFString.  Note that this may be an IPv4 or IPv6 dotted-IP string.
+</p><p class="para">
+  <code class="code-voice">const CFStringRef kCFProxyHostNameKey;</code>
+</p><p class="para">
+  
+</p><p class="para">
+  Key for the proxy&#39;s port number; value is a CFNumber specifying the port on which to contact the proxy.
+</p><p class="para">
+  <code class="code-voice">const CFStringRef kCFProxyPortNumberKey;</code>
+</p><p class="para">
+  
+</p><p class="para">
+  Key for the proxy&#39;s PAC file location; this key is only present if the proxy&#39;s type is    kCFProxyTypeAutoConfigurationURL.  Value is a CFURL specifying the location of a proxy auto-configuration file.
+</p><p class="para">
+  <code class="code-voice">const CFStringRef kCFProxyAutoConfigurationURLKey;</code>
+</p><p class="para">
+  
+</p><p class="para">
+  Key for the username to be used with the proxy; value is a CFString.  Note that this key will only be present if the username could be extracted from the information passed in.  No external credential stores (like the Keychain) are consulted.
+</p><p class="para">
+  <code class="code-voice">const CFStringRef kCFProxyUsernameKey;</code>
+</p><p class="para">
+  
+</p><p class="para">
+  Key for the password to be used with the proxy; value is a CFString.  Note that this key will only be present if the username could be extracted from the information passed in.  No external credential stores (like the Keychain) are consulted.
+</p><p class="para">
+  <code class="code-voice">const CFStringRef kCFProxyPasswordKey;</code>
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_6"></a>
+  <h3 class="section-name" tabindex="0">CFHTTPStream.h</h3>
+  <p class="para">
+  Stream property key, for copy operations. The value is the CFHTTPMessage transmitted by the stream, after all modifications (such as for authentication, connection policy, or redirection) have been made.
+</p><p class="para">
+  <code class="code-voice">const CFStringRef kCFStreamPropertyHTTPFinalRequest;</code>
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_7"></a>
+  <h3 class="section-name" tabindex="0">CFHTTPMessage.h</h3>
+  <p class="para">
+  These two strings represent authentication methods that are supported in CFNetwork.
+</p><p class="para">
+  <code class="code-voice">const CFStringRef kCFHTTPAuthenticationSchemeNTLM;</code>
+</p><p class="para">
+  <code class="code-voice">const CFStringRef kCFHTTPAuthenticationSchemeNegotiate;</code>
+</p>
+  
+</section>
+
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_8"></a>
+  <h3 class="section-name" tabindex="0">New API available for OS X v10.6</h3>
+  
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_9"></a>
+  <h3 class="section-name" tabindex="0">CFProxySupport.h</h3>
+  <p class="para">
+  In order to simply the programming model around using proxies with CFNetwork, we added support for getting the system stored internet proxy settings directly to CFNetwork. Prior to this, one had to use the SystemConfiguration framework to retrieve the proxies and CFNetwork to set the proxies on the stream.
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>CFDictionaryRef CFNetworkCopySystemProxySettings( void );</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   This function returns a dictionary containing key-value pairs that represent the current internet proxy settings.  See below for definitions of the keys and values. Returns NULL if no proxy settings have been defined or if an error was encountered. The caller is responsible for releasing the returned dictionary.
+
+</p><div class="note">
+  <a name="//apple_ref/doc/uid/TP40000990-CH1-DontLinkElementID_11"></a>
+  <aside>
+    <p>
+      <strong>Note:</strong>
+      This call is supported on the iPhone and the SnowLeopard release of OS X.
+    </p>
+    
+  </aside>
+</div><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesExceptionsList</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the list of host name patterns that should bypass the proxy; value is a CFArray of CFStrings.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesExcludeSimpleHostnames</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key whose value indicates if simple hostnames will be excluded; value is a CFNumber.  Simple hostnames will be excluded if the key is present and has a non-zero value.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesFTPEnable</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the enabled status of the ftp proxy; value is a CFNumber.  The proxy is enabled if the key is present and has a non-zero value.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesFTPPassive</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the state of passive mode for the ftp proxy; value is a CFNumber.  A value of one indicates that passive mode is enabled, a value of zero indicates that passive mode is not enabled.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesFTPPort</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the port number associated with the ftp proxy; value is a CFNumber which is the port number.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesFTPProxy</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the host name associated with the ftp proxy; value is a CFString which is the proxy host name.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesGopherEnable</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the enabled status of the gopher proxy; value is a CFNumber.  The proxy is enabled if the key is present and has a non-zero value.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesGopherPort</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the port number associated with the gopher proxy; value is a CFNumber which is the port number.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesGopherProxy</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the host name associated with the gopher proxy; value is a CFString which is the proxy host name.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesHTTPEnable</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the enabled status of the HTTP proxy; value is a CFNumber.  The proxy is enabled if the key is present and has a non-zero value.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesHTTPPort</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the port number associated with the HTTP proxy; value is a CFNumber which is the port number.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesHTTPProxy</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the host name associated with the HTTP proxy; value is a CFString which is the proxy host name.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesHTTPSEnable</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+   Key for the enabled status of the HTTPS proxy; value is a CFNumber.  The proxy is enabled if the key is present and has a non-zero value.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesHTTPSPort</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the port number associated with the HTTPS proxy; value is a CFNumber which is the port number.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesHTTPSProxy</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the host name associated with the HTTPS proxy; value is a CFString which is the proxy host name.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesRTSPEnable</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the enabled status of the RTSP proxy; value is a CFNumber.  The proxy is enabled if the key is present and has a non-zero value.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesRTSPPort</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the port number associated with the RTSP proxy; value is a CFNumber which is the port number.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesRTSPProxy</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the host name associated with the RTSP proxy; value is a CFString which is the proxy host name.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesSOCKSEnable</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the enabled status of the SOCKS proxy; value is a CFNumber.  The proxy is enabled if the key is present and has a non-zero value.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesSOCKSPort</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the port number associated with the SOCKS proxy; value is a CFNumber which is the port number.
+
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesSOCKSProxy</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the host name associated with the SOCKS proxy; value is a CFString which is the proxy host name.
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesProxyAutoConfigEnable</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the enabled status ProxyAutoConfig (PAC); value is a CFNumber.  ProxyAutoConfig is enabled if the key is present and has a non-zero value.
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesProxyAutoConfigURLString</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the url which indicates the location of the ProxyAutoConfig (PAC) file; value is a CFString which is url for the PAC file.
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>const CFStringRef kCFNetworkProxiesProxyAutoDiscoveryEnable</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Key for the enabled status of proxy auto discovery; value is a CFNumber.  Proxy auto discovery is enabled if the key is present and has a non-zero value.
+
+</p>
+  
+</section>
+
+</section>
+
+  <div id="copyright" class='copyright'>
+    <br><hr><div align="center"><p class="content_text" lang="en" dir="ltr">Copyright &#x00a9; 2018 Apple Inc. All rights reserved. <a class="link" href="http://www.apple.com/legal/terms/site.html" target="_blank">Terms of Use</a>   |  <a class="link" href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |   Updated: 2008-06-05
+</div>
+  <div id="pediaWindow">
+    <div id="pediaHeader"></div>
+    <div id="pediaBody"></div>
+  </div>
+</article>
+
+
+
+    <footer id="footer">
+  <script src="../../../Resources/1282/JavaScript/lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/release-notes-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/feedback-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+</footer>
+
+  	<div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+  </body>
+</html>

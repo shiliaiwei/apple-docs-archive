@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2406: Changes To App Containers In iOS 8</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014932">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014932-CH1">
+    <meta id="date" name="date" content="2014-09-17">
+    <meta id="description" name="description" content="TN2406: describes how to locate the standard directories in iOS 8.">
+    <meta id="book-title" name="book-title" content="Changes To App Containers In iOS 8">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/Foundation}, {Topic/Data Management/File Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2406">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Changes To App Containers In iOS 8" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014932" title="Technical Note TN2406"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Changes To App Containers In iOS 8</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014932-CH1-DontLinkElementID_2" title="Technical Note TN2406"></a><div class="dtsDocNumber">Technical Note TN2406</div><h1 id="pageTitle">Changes To App Containers In iOS 8</h1><p>Beginning in iOS 8, the Documents and Library directories are no longer siblings of your application's bundle. This document describes how to ensure your app is not affected by these changes.</p><p>iOS 8 changes the locations of the standard directories used for storing user and app data (e.g. Documents, Library). While the locations of these directories have always been an implementation detail, some applications improperly assume that the Documents and Library directories reside in the same directory as the application's bundle. iOS 8 splits the data of an application from the application bundle. Code which attempts to derive the path to the Documents or Library directories will return an invalid path on iOS 8. Attempting to access this path will fail, and may terminate your app.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40014932-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;This change affects all applications, regardless of when they were built.</p><p></p></aside></div><p>If your application or framework accesses the Documents directory, the Library directory, or any of the other standard directories, follow the recommendations listed under <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40014932-CH1-LOCCOM" data-renderer-version="1">Locating The Standard Directories</a></span> when building a URL or path to your data. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014932-CH1-LOCCOM" data-renderer-version="1">Locating The Standard Directories</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014932-CH1-FURTHER_READING" data-renderer-version="1">Further Reading</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014932-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40014932-CH1-LOCCOM" title="Locating The Standard Directories"></a><h2 class="jump">Locating The Standard Directories</h2><p>Applications should always call the system to get the locations of the standard directories. </p><a name="//apple_ref/doc/uid/DTS40014932-CH1-SOURCECODE1" title="Listing 1Using NSFileManager to retrieve the location of the Documents directory."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Using NSFileManager to retrieve the location of the Documents directory.</p><div class="codesample clear"><table><tr><td scope="row"><pre>// Returns the URL to the application's Documents directory.<span></span></pre></td></tr><tr><td scope="row"><pre>- (NSURL *)applicationDocumentsDirectory<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>The <code>NSFileManager</code> class provides the <code>-URLsForDirectory:inDomains:</code> and <code>-URLForDirectory:inDomain:appropriateForURL:create:error:</code> methods to retrieve the url of the given standard directory. Refer to the values listed under <code>NSSearchPathDirectory</code> in the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/cocoa/reference/foundation/Miscellaneous/Foundation_Constants/Reference/reference.html" class="urlLink" rel="external">Foundation Constants Reference</a></span> for the complete list of standard directories that can be located using these APIs. Note that not all of the listed values are relevant on iOS.</p><p>While URLs are the preferred format for referencing locations on disk, your application may require a path when interfacing with C-based APIs. If you have a file system URL (that is, -isFileURL returns YES), you can call -path to extract the path from the URL. The resulting path is guaranteed to be compatible with path-based APIs.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40014932-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;Always ask for the  URL of the standard directory that is closest to your data. For example, if your data resides in <code>Library/Application Support</code> then you should pass <code>NSApplicationSupportDirectory</code> to <code>-URLForDirectory:inDomain:appropriateForURL:create:error:</code>.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014932-CH1-FURTHER_READING" title="Further Reading"></a><h2 class="jump">Further Reading</h2><p><span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/AccessingFilesandDirectories/AccessingFilesandDirectories.html" class="urlLink" rel="external">Accessing Files and Directories</a></span> in the "File System Programming Guide".</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40014932-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014932-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-08-28</td><td><p>New document that 
+					describes how to locate the standard directories in iOS 8.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-09-17</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

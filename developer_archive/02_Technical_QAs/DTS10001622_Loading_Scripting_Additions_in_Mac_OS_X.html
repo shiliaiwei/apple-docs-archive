@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1070: Loading Scripting Additions in Mac OS X</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001622">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10001622-CH1">
+    <meta id="date" name="date" content="2005-05-06">
+    <meta id="description" name="description" content="QA1070: Explains how to load scripting additions so you can call them using Apple events.">
+    <meta id="book-title" name="book-title" content="Loading Scripting Additions in Mac OS X">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/CoreServices}, {Topic/Languages & Utilities/Other Languages}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1070">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Loading Scripting Additions in Mac OS X" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10001622" title="Technical Q&amp;A QA1070"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Loading Scripting Additions in Mac OS X</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10001622-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1070"></a><div class="dtsDocNumber">Technical Q&amp;A QA1070</div><h1 id="pageTitle">Loading Scripting Additions in Mac OS X</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I would like to use scripting additions in my application by sending myself Apple events, but I get "event not handled" errors. How do I load the scripting additions?
+</h2><p><span>A: </span>I would like to use scripting additions in my application by sending myself Apple events, but I get "event not handled" errors. How do I load the scripting additions?</p><p>First, a little architectural background: In classic Mac OS, scripting addition handlers are loaded at boot time into a shared system-wide table, namely the Apple Event Manager's "system handler table."  Also, the scripting addition handlers are refreshed whenever someone sends a <code>kASAppleScriptSuite</code>/<code>kGetAEUT</code> event to the handler installed by AppleScript. (The event id "gdut" is short for "get dynamic user terminology.") AppleScript sends itself a <code>kASAppleScriptSuite</code>/<code>kGetAEUT</code> event when it is first initialized and before it compiles a script.</p><p>In Mac OS X, the system handler table is somewhat misnamed: there is a separate one for each application, and they are not shared at all, so each one must be initialized separately. For performance reasons, this isn't done automatically as a normal part of the application initialization sequence - it is only done if an application uses AppleScript or initializes the table itself. </p><p>The simplest way to load the scripting addition entries into the system Apple event handler table is to open a connection to the AppleScript component, as shown in Listing 1. In turn, this will load the scripting additions in the scripting additions folder and refresh the entries in the system Apple event dispatch table.</p><a name="//apple_ref/doc/uid/DTS10001622-CH1-SOURCECODE1" title="Listing 1Opening a connection to the AppleScript component."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Opening a connection to the AppleScript component.</p><div class="codesample clear"><table><tr><td scope="row"><pre>theComponent = OpenDefaultComponent(kOSAComponentType, typeAppleScript);<span></span></pre></td></tr></table></div><p>If your application runs or compiles AppleScript scripts, then you need to do this anyway, so simply be sure that AppleScript is initialized before your application invokes any scripting additions.</p><p>However, if your application is only interested in using the scripting additions, then initializing all of AppleScript will entail additional overhead that may not be warranted. So, if you would like to load the scripting additions without loading AppleScript, you can do so by having your application send itself a <code>kASAppleScriptSuite</code>/<code>kGetAEUT</code> Apple event.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10001622-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;The handler for <code>kASAppleScriptSuite</code>/<code>kGetAEUT</code> is installed by the system automatically in Mac OS X 10.2 (Jaguar) and later. In Mac OS X 10.0 and 10.1, the application must first manually install the handler by calling <code>OSAInstallStandardHandlers</code> in the OpenScripting framework.</p><p></p></aside></div><p>Listing 2 shows the source code required to do this. Every time this routine is called, it will synchronize the set of loaded scripting additions with the contents of the scripting additions folder. Typically, you would only do this once, but calling it more than once would be useful if, for example, you want your application to install a new scripting addition and then use it without relaunching.</p><a name="//apple_ref/doc/uid/DTS10001622-CH1-SOURCECODE2" title="Listing 2Sample routine for loading or updating scripting additions."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Sample routine for loading or updating scripting additions.</p><div class="codesample clear"><table><tr><td scope="row"><pre>void LoadScriptingAdditions()
+{
+    OSErr err;
+    AppleEvent e, r;
+    ProcessSerialNumber selfPSN = { 0, kCurrentProcess };
+
+    #if MAC_OS_X_VERSION_MIN_REQUIRED &lt; MAC_OS_X_VERSION_10_2
+    void (*f)();
+    CFBundleRef b;
+
+    /* First, call the routine that installs the kASAppleScriptSuite /
+       kGetAEUTApple event handler in your applications Apple event dispatch
+       table. This part is only required if your application is running in
+       Mac OS X 10.0 or 10.1. It is not necessary and will silently fail
+       anywhere else (such as when running in Classic or Mac OS 9). */
+
+    b = CFBundleGetBundleWithIdentifier(CFSTR("com.apple.openscripting"));
+    if (b != NULL) {
+        f = (void (*)()) CFBundleGetFunctionPointerForName(b, CFSTR("OSAInstallStandardHandlers"));
+        if (f != NULL) (*f)();
+    }
+    #endif
+
+    /* Second, send ourselves a kASAppleScriptSuite / kGetAEUT
+       Apple event. This will load the scripting additions into our
+       application's system Apple event dispatch table - it will also
+       refresh the table so it is synchronized with the contents of
+       the scripting additions folder. */
+
+    err = AEBuildAppleEvent(kASAppleScriptSuite, kGetAEUT,
+        typeProcessSerialNumber, &amp;selfPSN, sizeof(selfPSN),
+        kAutoGenerateReturnID, kAnyTransactionID, &amp;e, NULL, "");
+    if (err == noErr) {
+        AESend(&amp;e, &amp;r, kAEWaitReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
+        AEDisposeDesc(&amp;e);
+        AEDisposeDesc(&amp;r);
+    }
+}<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS10001622-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10001622-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2005-05-06</td><td><p>Document OSAInstallStandardHandlers as unnecessary in 10.2 and later.</p></td></tr><tr><td scope="row">2001-09-13</td><td><p>New document that 
+					explains how to load scripting additions so you can call them using Apple events.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2005 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2005-05-06</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

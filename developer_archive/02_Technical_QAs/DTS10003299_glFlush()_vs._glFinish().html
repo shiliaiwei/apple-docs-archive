@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Q&amp;A QA1158: glFlush() vs. glFinish()</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003299">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003299-CH1">
+    <meta id="date" name="date" content="2004-10-11">
+    <meta id="description" name="description" content="QA1158.">
+    <meta id="book-title" name="book-title" content="glFlush() vs. glFinish()">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/OpenGL}, {Topic/Graphics & Animation/3D Drawing}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1158">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="glFlush() vs. glFinish()" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003299" title="Technical Q&amp;A QA1158"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>glFlush() vs. glFinish()</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003299-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1158"></a><div class="dtsDocNumber">Technical Q&amp;A QA1158</div><h1 id="pageTitle">glFlush() vs. glFinish()</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003299-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003299-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;<strong>Legacy Document</strong></p><p>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p><p>Current information on this Reference Library topic can be found here:</p><p><span class="content_text"><a href="http://developer.apple.com/referencelibrary/index.html" class="browserLink" >Reference Library</a></span></p><p></p></aside></div><h2>Q:&nbsp;
+What's the difference between <code>glFlush</code>() and <code>glFinish</code>()?
+</h2><p><span>A: </span>OpenGL commands are not executed immediately. Instead, they are submitted to a command buffer that is then fed into to the hardware. The <code>glFlush</code>() and <code>glFinish</code>() commands are both used to force submission of the command buffer to the hardware for execution. <code>glFlush</code>() causes all OpenGL commands currently queued to be submitted to the hardware for execution. This function returns immediately after having transferred the pending OpenGL command queue to the hardware (or software) renderer. These commands are queued for execution in some finite amount of time, but <code>glFlush</code>() does not block waiting for command completion.</p><p><code>glFinish</code>() has the same effect as <code>glFlush</code>(), with the addition that <code>glFinish</code>() will block until all commands submitted have been executed. The entire command stream sent to the hardware (or software) renderer is guaranteed to finish execution before <code>glFinish</code>() will return.</p><p>Care must be taken when using these two functions on Mac OS X due to the asynchronous nature of the Window Server. Visual anomalies may occur if <code>glFlush</code>() or <code>glFinish</code>() are used inappropriately, as MacOS X's windowing system update mechanism is asynchronous. Partially rendering a scene, followed by a call to <code>glFlush</code>() or introducing unnecessary synchronization points with <code>glFinish</code>(), can result in the windowing system compositing incorrect draw buffer pixels onto the screen, resulting in flickering or other visual anomalies. This occurs because when a screen update is needed, the window server will asynchronously fetch data from the window's back buffer.</p><p>Given the design and operation of the Mac OS X Window Server, it is best to keep the back buffer as current as possible with a complete scene. Since <code>glFlush</code>() and <code>glFinish</code>() force processing of OpenGL commands submitted, calling either of these after drawing an incomplete scene may result in that scene being rendered in the back buffer, with which the window server may asynchronously update the screen. Obviously, this would cause flickering or flashing as the partially rendered scene is drawn to the screen.</p><p>Additionally, if <code>glFlush</code>() or <code>glFinish</code>() is called when the window server needs to update the front buffer, an implicit swap will take place. This will happen regardless of whether or not the application makes a call to its buffer swapping function (<code>aglSwapBuffer()</code> in Carbon, <code>-flushBuffer</code> in Cocoa or <code>cglFlushDrawable()</code> in CGL). In NSOpenGL and CGL, the term "flush" actually refers to a buffer swap and not just a <code>glFlush</code>().</p><p>As a general rule for double buffered contexts, the current OpenGL command buffer will not be sent to the graphics processor until <code>glFlush</code>() or <code>glFinish</code>() is called, a buffer swap is requested or the command buffer is full. This also applies to single buffered contexts, although executing a buffer swap is really just an implicit <code>glFlush</code>() to submit the command stream to the hardware. This means that <code>glFlush</code>() and <code>glFinish</code>() commands are equivalent to a swap, since all rendering is taking place directly in the front buffer. For reference, the command buffer itself is approximately 500k in size and is used for vertices, normals, texture coordinates, etc. but not textures themselves, which are stored "out of line".</p><p>In general, most applications will not have to use <code>glFlush</code>() or <code>glFinish</code>() to perform the normal task of getting image data to the screen. However, there are several cases that absolutely require the use of <code>glFlush</code>() and/or <code>glFinish</code>() in order to behave properly. One such instance is when an OpenGL application is multithreaded. To keep drawing synchronized across the threads and prevent command buffer corruption, as each thread completes its command submissions it should finish with a call to <code>glFlush</code>(). Another such instance is where the drawable is changed during rendering. Before the drawable can be successfully switched to another drawable, a call must be made to <code>glFlush</code>() to ensure that all the commands written to the previous drawable's command buffer have been successfully submitted.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS10003299-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003299-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2004-10-11</td><td><p>New document that 
+					explanation of the differences between glFlush() and glFinish()</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2004 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2004-10-11</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

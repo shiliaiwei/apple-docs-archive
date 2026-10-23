@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Note TN2080: Understanding and Detecting OpenGL Functionality</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003103">
+    <meta id="document-version" name="document-version" content="1.2.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003103-CH1">
+    <meta id="date" name="date" content="2018-06-04">
+    <meta id="description" name="description" content="TN2080: Discusses OpenGL API design, and how to access the full power of hardware and software renderers.">
+    <meta id="book-title" name="book-title" content="Understanding and Detecting OpenGL Functionality">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/OpenGL}, {Topic/Graphics & Animation/3D Drawing}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2080">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Understanding and Detecting OpenGL Functionality" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003103" title="Technical Note TN2080"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Understanding and Detecting OpenGL Functionality</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+Retired Document: This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003103-CH1-SW1" title="Technical Note TN2080"></a><div class="dtsDocNumber">Technical Note TN2080</div><h1 id="pageTitle">Understanding and Detecting OpenGL Functionality</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003103-CH1-DontLinkElementID_1" title="Important:"></a><p><strong>Important:</strong>&nbsp;Retired Document: This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>This Technical Note discusses OpenGL functionality, how the API is designed and how developers can detect and access the full power of the hardware or software renderer. It starts by describing the division between core and extended functionality and the test which may be used to find specific features. Continues with descriptions of the different versions of OpenGL. Finally, concludes with a full code example that clients can use to ensure they are properly tracking and scaling to the full feature set of the selected renderer. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SECTION2" data-renderer-version="1">Core OpenGL API</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SECTION3" data-renderer-version="1">Finding the OpenGL API Version</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SECTION4" data-renderer-version="1">OpenGL Extensions</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SECTION5" data-renderer-version="1">Checking for OpenGL Extensions</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SECTION6" data-renderer-version="1">OpenGL Core Functionality Changes per API Version</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION6" data-renderer-version="1">OpenGL 1.1</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION7" data-renderer-version="1">OpenGL 1.2</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION8" data-renderer-version="1">OpenGL 1.2.1</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION9" data-renderer-version="1">OpenGL 1.3</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION10" data-renderer-version="1">OpenGL 1.4</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION11" data-renderer-version="1">OpenGL 1.5</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SECTION13" data-renderer-version="1">Finding a Valid Renderer for Functionality Checking</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SECTION14" data-renderer-version="1">Detecting Functionality with glCheck</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003103-CH1-SECTION15" data-renderer-version="1">glCheck Source Code</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003103-RevisionHistory-SW1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>OpenGL commands can be divided into two areas, core API and extensions. OpenGL is designed with this in mind and even if a specific command is not in the base specification, one can use a supported extension to access the desired capability. In contrast, other 3D APIs may include a larger group of functions in their core but this is no guarantee of GPU support. Using those features requires additional hardware support checking, lest one end up with undesirable performance for commands which do not have hardware support on the target system. OpenGL guarantees that, if an extension is supported in the OpenGL extensions string or via the core API for a particular renderer, then the full functionality of that particular extension is provided. When looking at what functionality is present in a specific implementation, an application should first look at the core API version for the current renderer, then look to the extensions string.. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SECTION2" title="Core OpenGL API"></a><h2 class="jump">Core OpenGL API</h2><p>The OpenGL API intrinsically supports certain core functionality based on the API version. The definitive reference for a particular version is the OpenGL API specification, which can be found at the opengl.org web site's <span class="content_text"><a href="http://www.opengl.org/developers/documentation/specs.html" class="urlLink" rel="external">OpenGL specifications page</a></span>. Command documentation can also be found in Mac OS X "man" pages and in the book "OpenGL Reference Manual". </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003103-CH1-SW2" title="Note"></a><p><strong>Note:</strong>&nbsp;Within the "gl.h" header file constant definitions for each OpenGL version which the header supports can be found. These will look like <code>#define GL_VERSION_1_1</code>. These constants have no bearing on the version of OpenGL supported by the OS nor the current renderer and simply indicate what OpenGL core function declarations are in that particular file. Lastly, some older versions (prior to Mac OS X) of the "gl.h" file did not contain these constants, instead they resided in the "glext.h" header file. </p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SECTION3" title="Finding the OpenGL API Version"></a><h2 class="jump">Finding the OpenGL API Version</h2><p>The OpenGL API version number can be determined using <code>glGetString (GL_VERSION)</code>. The API version is based on renderer capabilities and is variable per renderer. It is also worth noting this command is valid only after a rendering context is established and connected to a device by attaching a drawable because the renderer is otherwise in-determinant. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003103-CH1-SW3" title="Note"></a><p><strong>Note:</strong>&nbsp;This is not always true, see <span class="content_text"><!--a  -->Finding a Valid Renderer for Functionality Checking<!--/a--></span> section below for more details. </p><p></p></aside></div><p>The version string is returned in a specific format, with the major and minor version information first followed by vendor specific information (see OpenGL specification section 6.1.11). In practice, the required space between these fields may not be present prior to Mac OS X 10.1, so developers should check for the initial numeric followed by a period and second numeric. <span class="content_text"><!--a  -->Listing 1<!--/a--></span> shows read and pares the version string, in this case checking for the OpenGL 1.2 or later API version. This code assumes that a context is established and attached to a drawable on the renderer in question (this requirement holds true for all <code>gl...</code> functions). </p><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE1" title="Listing 1Finding the current renderer's version"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Finding the current renderer's version</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;OpenGL/gl.h&gt;
+
+// get version string pointer
+enum { kShortVersionLength = 32 }; // more than enough to hold the version
+const GLubyte * strVersion = glGetString(GL_VERSION); // get version string
+// get just the non-vendor specific part of version string
+GLubyte strShortVersion [kShortVersionLength];
+short i = 0;
+bool fOpenGL12plus = false;
+while ((((strVersion[i] &lt;= '9') &amp;&amp; (strVersion[i] &gt;= '0')) ||
+         (strVersion[i] == '.')) &amp;&amp; (i &lt; kShortVersionLength))
+{ // get only basic version info (until first space or not 1-9 or .)
+    strShortVersion [i] = strVersion[i];
+    i++;
+}
+strShortVersion [i] = 0; //truncate string
+// if we are not version 1.0 or 1.1 then must be 1.2 or later
+if (!strstr ((const char *) strShortVersion, "1.0") &amp;&amp;
+    !strstr ((const char *) strShortVersion, "1.1"))
+    fOpenGL12plus = true;<span></span></pre></td></tr></table></div><p>Once the major and minor version is determined one can look for extended functionality. OpenGL provides an extension mechanism for developers to access functionality beyond which the base specification, through extensions. A little background on the extension process is helpful in understanding the design and functionality and overlap of extensions. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SECTION4" title="OpenGL Extensions"></a><h2 class="jump">OpenGL Extensions</h2><p>As the OpenGL API is extended new functionality is normally provided through extensions. These can be vendor specific, multi-vendor, or Architecture Review Board (ARB) approved. The source for information about extensions is again the opengl.org web site's <span class="content_text"><a href="http://www.opengl.org/developers/documentation/extensions.html" class="urlLink" rel="external">OpenGL extensions page</a></span> with specific extension descriptions at SGI's <span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/" class="urlLink" rel="external">OpenGL Extensions Registry</a></span>. All Mac OS X extensions are detailed in our <span class="content_text"><a href="../../opengl/extensions.html" class="urlLink" rel="external">OpenGL extensions guide</a></span>. Normally, extensions tend to start life as vendor specific or multi-vendor and then move to multi-vendor or ARB acceptance and possible inclusion in the core specification. This is not required but is just a by product of innovation and forward progress with a cross platform API. </p><p>Because of this adoption path, more than one extension may cover the same basic functionality and renderers may support one or more of the extensions of interest. There may be an ARB extension with the same or similar functionality as a vendor specific extension and, as this functionality becomes more ubiquitous, it can be moved into the core OpenGL API by the OpenGL ARB. As noted previously, developers should check for the functionality desired both as part of the core API and as an extension, including checking for all extensions that cover the functionality desired. An example of this is the texture environment combiner operations, which can be supported either through the <code>GL_ARB_texture_env_combine</code> or the <code>GL_EXT_texture_env_combine</code> extension or in the core of OpenGL 1.3, all of which have very similar functionality but may use different command and constant syntax. So, if the renderer's API version does not support the functionality desired, examine the extensions string provided by the renderer for the specific extension name which exposes the functionality desired. </p><p>Lastly, while there are different methods which need to be checked to verify certain functionality, OpenGL should continue to export the name strings of promoted extensions in the extensions string, and continue to support the previous versions of extensions which have been exported in early versions of Mac OS X. Thus no extension should ever be removed from the extensions string. This guarantees developers are able check for a feature using a current methodology and reliably continue to use the same methodology in all future versions of Mac OS X. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SECTION5" title="Checking for OpenGL Extensions"></a><h2 class="jump">Checking for OpenGL Extensions</h2><p>The extension name strings consists of extension names supported by that particular renderer separated by spaces. The extensions string can be long and one should not copy it to a limited length temporary string but rather, check the string for the extension name in place. The name string for an extension is not the extensions name but the string indicated by the "Name Strings" field of the extension description. <span class="content_text"><!--a  -->Listing 2<!--/a--></span> shows an example of how to check the extensions string for functionality which maybe in one or more extensions or a version of the core specification, using the GLU convenience function gluCheckExtension. Note, this listing builds on code presented in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>. </p><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE2" title="Listing 2Checking for an OpenGL feature via the extensions string and version number"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Checking for an OpenGL feature via the extensions string and version number</p><div class="codesample clear"><table><tr><td scope="row"><pre>bool fTexEnvCombine = false;
+// get extensions string
+const GLubyte * strExtension = glGetString (GL_EXTENSIONS);
+if (gluCheckExtension ("GL_ARB_texture_env_combine", strExtension) ||
+    gluCheckExtension ("GL_EXT_texture_env_combine", strExtension))
+    fTexEnvCombine = true;
+// also check for API support (short version string from above)
+// if we are not version 1.0, 1.1 or 1.2 then must be 1.3 or later
+if (!strstr ((const char *) strShortVersion, "1.0") &amp;&amp;
+    !strstr ((const char *) strShortVersion, "1.1") &amp;&amp;
+    !strstr ((const char *) strShortVersion, "1.2"))
+    fTexEnvCombine = true;<span></span></pre></td></tr></table></div><p>To conclude, only after successfully checking the API version or the extensions string for the particular current renderer should an application use the desired command. Once the command is found to be supported in the core of OpenGL or in an extension for the renderer in use, no further work is required. Just include the OpenGL framework, "gl.h" and the "glext.h" header files and call the command as needed (no use of function pointers is required for Mac OS X OpenGL but they could be used depending on what OS versions and OpenGL features are supported by any application, see <span class="content_text"><a href="https://developer.apple.com/legacy/library/qa/qa2001/qa1188.html" class="urlLink" rel="external">QA1188: GetProcAdress and OpenGL Entry Points</a></span> for more information on function pointers). </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003103-CH1-SW4" title="Note"></a><p><strong>Note:</strong>&nbsp;Developers should use caution in enabling untested OpenGL features in their code. History shows when an application automatically enables an untested code path based on OpenGL features which become available after an application is released (such as via a software update) there is high likelihood of application failures. This is not to say allowing for new features is not desireable, just that developers should use care and test thoroughly. </p><p></p></aside></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003103-CH1-DontLinkElementID_2" title="Important"></a><p><strong>Important:</strong>&nbsp;Having just the command declaration in a header file or even having a function export by a stub library to link against is not enough to ensure the feature is supported by the current renderer. One must ensure the particular renderer in use supports the command. Additionally, ensure the application is coded to support the feature whether it is found in core functionality or an extension, as there can be different constants or command names. Lastly, be careful to use core constants with core command syntax and extension constants with extension commands syntax when applicable. </p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SECTION6" title="OpenGL Core Functionality Changes per API Version"></a><h2 class="jump">OpenGL Core Functionality Changes per API Version</h2><p>Since the core OpenGL functionality has changed as different API versions have been adopted, it is convenient to known what basic functionality was added with each API version. The following list shows the changes in core functionality in various OpenGL API versions. Also indicated is the extension from which the functionality is derived. One should consult the actual specification for detailed information on the functionality and how it is implemented, especially since there are likely differences between the implementation presented in the core API and extension on which it is based. Additional detail on the core API changes can be found in the 1.4 OpenGL specification appendix D through F. </p><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION6" title="OpenGL 1.1"></a><h3 class="jump">OpenGL 1.1</h3><p><span class="content_text"><a href="http://www.opengl.org/developers/documentation/Specs/glspec1.1/glspec.html" class="urlLink" rel="external">OpenGL 1.1</a></span> adds:</p><ul class="ul"><li class="li"><p>Vertex Array (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/vertex_array.txt" class="urlLink" rel="external">GL_EXT_vertex_array</a></span>) </p></li><li class="li"><p>Polygon Offset (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/polygon_offset.txt" class="urlLink" rel="external">GL_EXT_polygon_offset</a></span>) </p></li><li class="li"><p>Logical Operation (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/blend_logic_op.txt" class="urlLink" rel="external">GL_EXT_blend_logic_op</a></span>) </p></li><li class="li"><p>Texture Image Formats (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/texture.txt" class="urlLink" rel="external">GL_EXT_texture</a></span>) </p></li><li class="li"><p>Texture Replace Environment (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/texture.txt" class="urlLink" rel="external">GL_EXT_texture</a></span>) </p></li><li class="li"><p>Texture Proxies (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/texture.txt" class="urlLink" rel="external">GL_EXT_texture</a></span>) </p></li><li class="li"><p>Copy Texture and Subtexture (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/copy_texture.txt" class="urlLink" rel="external">GL_EXT_copy_texture</a></span> and <span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/subtexture.txt" class="urlLink" rel="external">GL_EXT_subtexture</a></span>) </p></li><li class="li"><p>Texture Objects (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/texture_object.txt" class="urlLink" rel="external">GL_EXT_texture_object</a></span>) </p></li><li class="li"><p>A number of other minor changes outlined in Appendix C section 9 </p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION7" title="OpenGL 1.2"></a><h3 class="jump">OpenGL 1.2</h3><p><span class="content_text"><a href="http://www.opengl.org/developers/documentation/OpenGL12.html" class="urlLink" rel="external">OpenGL 1.2</a></span> adds:</p><ul class="ul"><li class="li"><p>Three-Dimensional Texturing (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/texture3D.txt" class="urlLink" rel="external">GL_EXT_texture3D</a></span>) </p></li><li class="li"><p>BGRA Pixel Formats (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/bgra.txt" class="urlLink" rel="external">GL_EXT_bgra</a></span>) </p></li><li class="li"><p>Packed Pixel Formats (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/packed_pixels.txt" class="urlLink" rel="external">GL_EXT_packed_pixels</a></span>) </p></li><li class="li"><p>Normal Rescaling (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/rescale_normal.txt" class="urlLink" rel="external">GL_EXT_rescale_normal</a></span>) </p></li><li class="li"><p>Separate Specular Color (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/separate_specular_color.txt" class="urlLink" rel="external">GL_EXT_separate_specular_color</a></span>) </p></li><li class="li"><p>Texture Coordinate Edge Clamping (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/SGIS/texture_edge_clamp.txt" class="urlLink" rel="external">GL_SGIS_texture_edge_clamp</a></span>) </p></li><li class="li"><p>Texture Level of Detail Control (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/SGIS/texture_lod.txt" class="urlLink" rel="external">GL_SGIS_texture_lod</a></span>) </p></li><li class="li"><p>Vertex Array Draw Element Range (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/draw_range_elements.txt" class="urlLink" rel="external">GL_EXT_draw_range_elements</a></span>) </p></li><li class="li"><p>Imaging Subset (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/SGI/color_table.txt" class="urlLink" rel="external">GL_SGI_color_table</a></span>, <span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/color_subtable.txt" class="urlLink" rel="external">GL_EXT_color_subtable</a></span>, <span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/convolution.txt" class="urlLink" rel="external">GL_EXT_convolution</a></span>, <span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/HP/convolution_border_modes.txt" class="urlLink" rel="external">GL_HP_convolution_border_modes</a></span>, <span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/SGI/color_matrix.txt" class="urlLink" rel="external">GL_SGI_color_matrix</a></span>, <span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/histogram.txt" class="urlLink" rel="external">GL_EXT_histogram</a></span>, <span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/blend_color.txt" class="urlLink" rel="external">GL_EXT_blend_color</a></span>, <span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/blend_minmax.txt" class="urlLink" rel="external">GL_EXT_blend_minmax</a></span>, and <span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/blend_subtract.txt" class="urlLink" rel="external">GL_EXT_blend_subtract</a></span>; Note, may not be present on all implementations, the must be verified by checking for <span class="content_text"><a href="http://www.opengl.org/developers/documentation/OpenGL12.html#imaging" class="urlLink" rel="external">ARB_imaging</a></span> extension) </p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION8" title="OpenGL 1.2.1"></a><h3 class="jump">OpenGL 1.2.1</h3><p>OpenGL 1.2.1 introduced ARB extensions with no specific core API changes.</p></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION9" title="OpenGL 1.3"></a><h3 class="jump">OpenGL 1.3</h3><p><span class="content_text"><a href="http://www.opengl.org/developers/documentation/OpenGL13.html" class="urlLink" rel="external">OpenGL 1.3</a></span> adds:</p><ul class="ul"><li class="li"><p>Compressed Textures (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_compression.txt" class="urlLink" rel="external">GL_ARB_texture_compression</a></span>) </p></li><li class="li"><p>Cube Map Textures (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_cube_map.txt" class="urlLink" rel="external">GL_ARB_texture_cube_map</a></span>) </p></li><li class="li"><p>Multisample (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/multisample.txt" class="urlLink" rel="external">GL_ARB_multisample</a></span>) </p></li><li class="li"><p>Multitexture (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/multitexture.txt" class="urlLink" rel="external">GL_ARB_multitexture</a></span>) </p></li><li class="li"><p>Texture Add Environment Mode (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_env_add.txt" class="urlLink" rel="external">GL_ARB_texture_env_add</a></span>) </p></li><li class="li"><p>Texture Combine Environment Mode (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_env_combine.txt" class="urlLink" rel="external"><codeVoice>GL_ARB_texture_env_combine</codeVoice></a></span>) </p></li><li class="li"><p>Texture Dot3 Environment Mode (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_env_dot3.txt" class="urlLink" rel="external">GL_ARB_texture_env_dot3</a></span>) </p></li><li class="li"><p>Texture Border Clamp (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_border_clamp.txt" class="urlLink" rel="external">GL_ARB_texture_border_clamp</a></span>) </p></li><li class="li"><p>Transpose Matrix (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/transpose_matrix.txt" class="urlLink" rel="external">GL_ARB_transpose_matrix</a></span>) </p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION10" title="OpenGL 1.4"></a><h3 class="jump">OpenGL 1.4</h3><p><span class="content_text"><a href="http://www.opengl.org/developers/documentation/OpenGL14.html" class="urlLink" rel="external">OpenGL 1.4</a></span> adds:</p><ul class="ul"><li class="li"><p>Automatic Mipmap Generation (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/SGIS/generate_mipmap.txt" class="urlLink" rel="external">GL_SGIS_generate_mipmap</a></span>) </p></li><li class="li"><p>Blend Squaring (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/NV/blend_square.txt" class="urlLink" rel="external">GL_NV_blend_square</a></span>) </p></li><li class="li"><p>Depth Textures (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/depth_texture.txt" class="urlLink" rel="external">GL_ARB_depth_texture</a></span>) </p></li><li class="li"><p>Shadows (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/shadow.txt" class="urlLink" rel="external">GL_ARB_shadow</a></span>) </p></li><li class="li"><p>Fog Coordinate (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/fog_coord.txt" class="urlLink" rel="external">GL_EXT_fog_coord</a></span>) </p></li><li class="li"><p>Multiple Draw Arrays (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/multi_draw_arrays.txt" class="urlLink" rel="external">GL_EXT_multi_draw_arrays</a></span>) </p></li><li class="li"><p>Point Parameters (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/point_parameters.txt" class="urlLink" rel="external">GL_ARB_point_parameters</a></span>) </p></li><li class="li"><p>Secondary Color (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/secondary_color.txt" class="urlLink" rel="external">GL_EXT_secondary_color</a></span>) </p></li><li class="li"><p>Separate Blend Functions (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/blend_func_separate.txt" class="urlLink" rel="external">GL_EXT_blend_func_separate</a></span>) </p></li><li class="li"><p>Stencil Wrap (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/stencil_wrap.txt" class="urlLink" rel="external">GL_EXT_stencil_wrap</a></span>) </p></li><li class="li"><p>Texture Crossbar Environment Mode (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_env_crossbar.txt" class="urlLink" rel="external">GL_ARB_texture_env_crossbar</a></span>) </p></li><li class="li"><p>Texture LOD Bias (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/texture_lod_bias.txt" class="urlLink" rel="external">GL_EXT_texture_lod_bias</a></span>) </p></li><li class="li"><p>Texture Mirrored Repeat (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/texture_mirrored_repeat.txt" class="urlLink" rel="external">GL_ARB_texture_mirrored_repeat</a></span>) </p></li><li class="li"><p>Window Raster Position (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/window_pos.txt" class="urlLink" rel="external">GL_ARB_window_pos</a></span>) </p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SUBSECTION11" title="OpenGL 1.5"></a><h3 class="jump">OpenGL 1.5</h3><p><span class="content_text"><a href="http://www.opengl.org/developers/documentation/OpenGL15.html" class="urlLink" rel="external">OpenGL 1.5</a></span> adds: </p><ul class="ul"><li class="li"><p>Buffer Objects (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/vertex_buffer_object.txt" class="urlLink" rel="external">GL_ARB_vertex_buffer_object</a></span>) </p></li><li class="li"><p>Occlusion Queries (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/ARB/occlusion_query.txt" class="urlLink" rel="external">GL_ARB_occlusion_query</a></span>) </p></li><li class="li"><p>Shadow Functions (<span class="content_text"><a href="http://oss.sgi.com/projects/ogl-sample/registry/EXT/shadow_funcs.txt" class="urlLink" rel="external">GL_EXT_shadow_funcs</a></span>) </p></li></ul><p>The functionality above is required to be present if the renderer reports a particular version no matter what extensions are supported. Again, it is worth noting that renderers may or may not support the extensions which the API functionality is based. For example if a renderer reports version 1.3, it may or may not support the <code>GL_ARB_texture_env_combine</code> or <code>GL_EXT_texture_env_combine</code> extensions, though the functionality this extension represents will be available through the core 1.3 API. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SECTION13" title="Finding a Valid Renderer for Functionality Checking"></a><h2 class="jump">Finding a Valid Renderer for Functionality Checking</h2><p>As discussed previously, checking functionality requires a renderer attached to a drawable for OpenGL commands to return valid results. When no drawable is attached OpenGL commands are effectively "NO-OPs" thus return invalid results. There are a couple different techniques to ensure a valid rendering environment. First, one can build a pixel format and context then attach this to a valid drawable for the OS API in use, such as a window, view or screen. Since renderers can change with enclosing display changes, one should also ensure the drawable used is correctly positioned on the display of interest (or iterate across the set of displays of interest). While, there is no requirement to make the drawable visible, which allows this action to take place without disturbing the user, it would be desirable to have a method that does not involve creation of a drawable and which could be used by any OS API (CGL, NSOpenGL, or AGL). </p><p><span class="content_text"><!--a  -->Listing 3<!--/a--></span> shows a technique using CGL, which is available to any Mach-O application, to determine the capabilities of a renderer based on the display, even if that application is using NSOpenGL or AGL vice CGL for its interface to OpenGL. This code does not create a drawable but instead uses the OpenGL display mask in the pixel format to limit the pixel format and thus the context, to single display and equivalently, a single renderer. Once this context is created and set current, normal OpenGL calls will be valid for the contexts single renderer. One could use this code, if desired, to loop over available displays and establish capability information for all displays, thus all renderers, without creating a drawable nor being intrusive to the user. </p><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE3" title="Listing 3Setting up a valid rendering context on a display"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Setting up a valid rendering context on a display</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;OpenGL/OpenGL.h&gt;
+#include &lt;ApplicationServices/ApplicationServices.h&gt;
+
+CGDirectDisplayID display = CGMainDisplayID ();
+CGOpenGLDisplayMask cglDisplayMask = 
+                        CGDisplayIDToOpenGLDisplayMask (display);
+{ // check capabilities of display represented by display mask
+    CGLPixelFormatAttribute attribs[] = {kCGLPFADisplayMask, 
+                                         cglDisplayMask, NULL};
+    CGLPixelFormatObj pixelFormat = NULL;
+    long numPixelFormats = 0;
+    CGLContextObj cglContext = 0;
+    CGLContextObj curr_ctx = CGLGetCurrentContext ();
+
+    CGLChoosePixelFormat (attribs, &amp;pixelFormat, &amp;numPixelFormats);
+    if (pixelFormat) {
+        CGLCreateContext (pixelFormat, NULL, &amp;cglContext);
+        CGLDestroyPixelFormat (pixelFormat);
+        if (cglContext) {
+            CGLSetCurrentContext (cglContext);
+            // test functionality here
+            CGLDestroyContext (cglContext);
+        }
+    }
+    CGLSetCurrentContext (curr_ctx); // reset current CGL context
+}<span></span></pre></td></tr></table></div><p>Now that we have code to check the OpenGL core version, extension string and set up a valid renderer on any display, we can extend this to create an all inclusive OpenGL functionality checking example which developers can use as is or extend to meet their individual needs. The next two sections cover this example. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SECTION14" title="Detecting Functionality with glCheck"></a><h2 class="jump">Detecting Functionality with glCheck</h2><p>glCheck is a set of routines which can be used by OpenGL clients to easily get the OpenGL feature set for all attached displays. The sample code is factored by display as this is a logical division of hardware capabilities. Even though two displays maybe driven by a single hardware device, no display will be driven by more than one hardware device. The glCheck code can be set up prior to using OpenGL and then updated for display re-configuration events. Once initialized, clients can directly access the capability structure to determine if the current OpenGL context has a certain capability. The sample code itself contains flags for all features present at the time of this writing, but clients are free to remove features they are using if they like. This can save some memory but since the feature checking code is called extremely infrequently it is not required for performance purposes. It is important to note that the code encompasses checking for both the core OpenGL version and extension string so clients are freed to just check a simple lightweight flag for a specific feature. glCheck provides a complete and lightweight runtime check which replaces heavy weight runtime calls to <code>glGetString</code> and incomplete feature checking. </p><p>The API is very simple and can be called from both Cocoa and Carbon clients. Using the API consists of four steps: initializing the structures and possibly notification routines, updating the structures on display configuration changes, checking for feature or capabilities as needed at runtime, and finally freeing the structures and removing any notification routines on exit. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003103-CH1-SW5" title="Note"></a><p><strong>Note:</strong>&nbsp;Clients may not need to check for a specific feature in some cases. For example if one knows that a specific renderer needs to be handled specially then a lightweight check for just the renderer identification of the current context can be enough to decide which code path to utilize. It is still important to use care with this technique as a specific renderer's feature set may change and when the client really needs a feature they should really check for that feature. </p><p></p></aside></div><p>Initialization for both Cocoa and Carbon is accomplished with the code shown in <span class="content_text"><!--a  -->Listing 4<!--/a--></span>. This code establishes global variables to store a list of structures, number of active displays and a universal procedure pointer for an update notification routine if used. Applications are free to store this information as they please, globals are used for simplicity in this example implementation. <code>getCurrentCaps</code> is the setup and update routine which first checks to see if OpenGL capabilities have been previously retrieved and if so, have they changed. The <code>HaveOpenGLCapsChanged</code> routine is reasonably lightweight and looks for additional displays or geometry change to indicate a display configuration change. If there has been a change we free the current data structures and proceed down the normal initialization path. Initialization itself is simple but not lightweight. First we pass NULL as a structure pointer to flag that we are just looking for the number of displays to be used in structure memory allocation. We then allocate memory for displays * size of <code>GLCaps</code> structure and pass this back into the <code>CheckOpenGLCaps</code> routine to actually retrieve the caps. </p><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE4" title="Listing 4Initializing OpenGL Capabilities Structures"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Initializing OpenGL Capabilities Structures</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;stdlib.h&gt;
+#include &lt;Carbon/Carbon.h&gt;
+#include &lt;ApplicationServices/ApplicationServices.h&gt;
+
+#include "glCheck.h" // header code in Listing 8
+
+// configuration info globals
+GLCaps * gDisplayCaps = NULL; // array of GLCaps
+CGDisplayCount gNumDisplays = 0; // number of displays
+
+// related DM change notification 
+// (required for display config change notifications)
+DMExtendedNotificationUPP gConfigEDMUPP = NULL;
+
+static void getCurrentCaps (void)
+{
+  if (gDisplayCaps &amp;&amp; 
+      HaveOpenGLCapsChanged (gDisplayCaps, gNumDisplays)) { // if changed
+    free (gDisplayCaps); // set up to build new ones
+    gDisplayCaps = NULL;
+  }
+  if (!gDisplayCaps) { // if we do not have caps
+    // will just update number of displays
+    CheckOpenGLCaps (0, NULL, &amp;gNumDisplays); 
+    gDisplayCaps = (GLCaps*) malloc (sizeof (GLCaps) * gNumDisplays);
+    CheckOpenGLCaps (gNumDisplays, gDisplayCaps, &amp;gNumDisplays);
+  }
+}<span></span></pre></td></tr></table></div><p>While the <code>getCurrentCaps</code> initialization routine can be called any time, it involves a significant amount of string searches making it not especially appropriate for executing at a high rate. It is recommended to call <code>getCurrentCaps</code> after clients launch prior to deciding on OpenGL code paths and then when display configurations change. It is not required to call <code>getCurrentCaps</code> every frame, or on every updated event. For Cocoa applications it is recommended one call <code>getCurrentCaps</code> from <code>awakeFromNib</code> initially and either install a Carbon Display Manager notification procedure or use OpenGLView's update method if using the notification procedure is not desired. Using the <code>update</code> method has the down side of checking for display changes more often than needed, but the <code>HaveOpenGLCapsChanged</code> check should keep the overhead low. Carbon applications can call <code>getCurrentCaps</code> initially in main, or other location prior to deciding on which OpenGL features to use. Updates are handled in a similar method to Cocoa though for Carbon one should just use the notification procedure in all cases. <span class="content_text"><!--a  -->Listing 5<!--/a--></span> and <span class="content_text"><!--a  -->Listing 6<!--/a--></span> show Cocoa and Carbon initialization code. </p><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE5" title="Listing 5Cocoa Initialization Code"></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Cocoa Initialization Code</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;Cocoa/Cocoa.h&gt;
+#include &lt;Carbon/Carbon.h&gt; // for display manager functionality
+
+#pragma mark ---- Display Manager Event Handling ----
+// if notification procedures are used...
+
+// update our GL configuration info based on display change notification
+void handleConfigDMEvent (void *userData, short msg, void *notifyData)
+{
+  if (kDMNotifyEvent == msg) { // post change notifications only
+    getCurrentCaps (); // from Listing 4
+  }
+}
+
+// ---------------------------------
+
+// called for window resizes, moves and display changes 
+// (resize, depth and display config change)
+// not required if an application is using display change notifications
+
+- (void) update
+{
+  [super update];
+
+  // do any application update stuff here...
+
+  if (![self inLiveResize]) { // if not doing live resize
+    // this call checks to see if the current config changed in a
+    //   reasonably lightweight way to prevent expensive allocations
+    getCurrentCaps (); // from Listing 4
+  }
+}
+
+// ---------------------------------
+
+- (void) awakeFromNib
+{
+  // do app initialization stuff here...
+
+  // initialize OpenGL capabilities 
+  // (this could be anytime prior to deciding on OpenGL code paths)
+  // get current GL capabilities for all displays
+  getCurrentCaps (); // from Listing 4
+
+  // configure display change notification (if desired)
+  gConfigEDMUPP = NewDMExtendedNotificationUPP (handleConfigDMEvent);
+  DMRegisterExtendedNotifyProc (gConfigEDMUPP, NULL, NULL, &amp;psn);
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE6" title="Listing 6Carbon Initialization Code"></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;Carbon Initialization Code</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;Carbon/Carbon.h&gt; // for display manager functionality
+
+#pragma mark ---- Display Manager Event Handling ----
+
+// update our GL configuration info based on display change notification
+void handleConfigDMEvent (void *userData, short msg, void *notifyData)
+{
+  if (kDMNotifyEvent == msg) { // post change notifications only
+    getCurrentCaps (); // from Listing 4
+  }
+}
+
+// ---------------------------------
+
+main ()
+{
+  // do client initialization stuff...
+
+  // initialize OpenGL capabilities
+  // get current GL capabilities for all displays
+  getCurrentCaps (); // from Listing 4
+
+  // configure display change notification
+  gConfigEDMUPP = NewDMExtendedNotificationUPP (handleConfigDMEvent);
+  DMRegisterExtendedNotifyProc (gConfigEDMUPP, NULL, NULL, &amp;psn);
+
+  // client run loop...
+
+  // client exit stuff...
+}<span></span></pre></td></tr></table></div><p>Checking for specific capabilities is lightweight and fairly simple to accomplish. This processed is designed to be used as needed at application runtime during frame generation. <span class="content_text"><!--a  -->Listing 7<!--/a--></span> and <span class="content_text"><!--a  -->Listing 8<!--/a--></span> show Cocoa and Carbon capability checking, specifically in this case for the <code>GL_EXT_texture_rectangle</code> (non-power of two texturing support) feature. It is assumed that applications cached the values of the current context and its pixel format. The example assumes these are stored in <code>self</code> for the Cocoa example and globally in the Carbon case though applications are free to store these as they require. The methodology present is the same in both cases. Clients will determine the renderer identification for the current context based on current virtual screen and pixel format renderer identifications. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003103-CH1-SW6" title="Note"></a><p><strong>Note:</strong>&nbsp;Using renderer identification to determine renderer capabilities is not fool proof. There can be cases where two identical renderers exist on a system, such as having the same type of AGP and PCI video cards. This will only be an issue when looking at video memory as all other capabilities will always be the same for both cards. If two of the same type of renderers do exist on a system and they have different amounts of video memory then the following technique will yield in-determinant results and may select either renderer depending on the ordering of the display based list. There is no simple way to avoid this matching issue and this is an extremely rare case that will only occur with multiple video cards which are of the exact same GPU type but which have different amounts of video memory. In all other cases finding the current renderer identification will yield correct and completely deterministic results. Given the rareness of this issue, this example does not do any work to avoid these in-determinant cases. </p><p></p></aside></div><p>Once an application has the current renderer identification they can traverse the array of capabilities, find the structure of interest by matching the renderer and then directly look up the feature desired. This array index can then be used directly for all OpenGL feature determination until one of two events occur, either a context update is needed (see <span class="content_text"><a href="https://developer.apple.com/legacy/library/qa/qa2001/qa1209.html" class="urlLink" rel="external">Technical Q&amp;A QA1209, 'Updating OpenGL Contexts'</a></span> for information on when contexts updates are needed) or a display configuration change occurs which may change the configuration array. Study <span class="content_text"><!--a  -->Listing 7<!--/a--></span> and <span class="content_text"><!--a  -->Listing 8<!--/a--></span> for specific details of this example implementation. </p><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE7" title="Listing 7Testing OpenGL features with glCheck and Cocoa"></a><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;Testing OpenGL features with glCheck and Cocoa</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;Cocoa/Cocoa.h&gt;
+// assumes initialization code from Listing 4
+
+{
+  // this finds the correct renderer via context virtual screen
+  //  and pixel format renderer list then checks the capabilities list
+  //  for texture rectangle capability (for example) it assumes gDisplayCaps
+  //  and gNumDisplays are defined and initialized
+
+  BOOL hasCap = NO;
+  long renderer;
+
+  // match renderer using pixel format and context virtual screen
+  [[self pixelFormat] getValues:&amp;renderer 
+                      forAttribute:NSOpenGLPFARendererID 
+                      forVirtualScreen:
+                        [[self openGLContext] currentVirtualScreen]];
+  for (i = 0; i &lt; gNumDisplays; i++) {
+    if ((renderer == gDisplayCaps[i].rendererID) &amp;&amp; // if we match
+        gDisplayCaps[i].fTexRect) { // and have the capability
+      hasCap = YES;
+      break;
+    }
+  }
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE8" title="Listing 8Testing OpenGL features with glCheck and Carbon"></a><p class="codesample clear"><strong class="caption_number">Listing 8</strong>&nbsp;&nbsp;Testing OpenGL features with glCheck and Carbon</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;agl/agl.h&gt;
+// assumes initialization code from Listing 4
+
+{
+  // this finds the correct renderer via context virtual screen
+  //  and pixel format renderer list then checks the capabilities list
+  //  for texture rectangle capability (for example) it assumes gDisplayCaps
+  //  and gNumDisplays are defined and initialized
+
+  Boolean hasCap = false;
+  GLint renderer = 0;
+
+  // match renderer using pixel format and context virtual screen
+  AGLPixelFormat pf = aglPixFmt; // first PF
+  GLint pfVS = 0, currVS = aglGetVirtualScreen (aglContext); // current VS
+  aglDescribePixelFormat (pf, AGL_VIRTUAL_SCREEN, &amp;pfVS); // get VS for PF
+  while ((pfVS != currVS) &amp;&amp; pf) { // while PF's and the VS's do not match
+    pf = aglNextPixelFormat (pf); // get next PF
+    aglDescribePixelFormat (pf, AGL_VIRTUAL_SCREEN, &amp;pfVS); // get VS
+  }
+  if (pf) // if we matched VS (we should)
+    aglDescribePixelFormat(pf, AGL_RENDERER_ID, &amp;renderer); // get rend
+  for (i = 0; i &lt; gNumDisplays; i++) {
+    if ((renderer == gDisplayCaps[i].rendererID) &amp;&amp; // if we match
+        DisplayCaps[i]. fTexRect) { // and have the capability
+      hasCap = YES;
+      break;
+    }
+  }
+}<span></span></pre></td></tr></table></div><p>Finally, <span class="content_text"><!--a  -->Listing 9<!--/a--></span> shows the common code which should be executed on exit to free memory allocated and dispose any callbacks we have installed. The listing assumes the same global variables used in the previous code examples. </p><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE9" title="Listing 9Disposing OpenGL Capability Records and Notifications"></a><p class="codesample clear"><strong class="caption_number">Listing 9</strong>&nbsp;&nbsp;Disposing OpenGL Capability Records and Notifications</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;stdlib.h&gt;
+#include &lt;Carbon/Carbon.h&gt;
+// assumes initialization code from Listing 4
+
+// if notification installed, remove display change notification
+if (gConfigEDMUPP) { // dispose UPP for DM notifications
+  DisposeDMExtendedNotificationUPP (gConfigEDMUPP);
+  gConfigEDMUPP = NULL;
+}
+
+// free memory for display capabilities records
+if (gDisplayCaps) {
+  free (gDisplayCaps);
+  gDisplayCaps = NULL;
+}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003103-CH1-SECTION15" title="glCheck Source Code"></a><h2 class="jump">glCheck Source Code</h2><p>The glcheck code example in <span class="content_text"><!--a  -->Listing 10<!--/a--></span> and <span class="content_text"><!--a  -->Listing 11<!--/a--></span> shows an example implementation of the capability checking discussed in this technical note. This code sample has a header file that defines a simple structure with feature based flags that show what capabilities a particular renderer possesses is detailed in <span class="content_text"><!--a  -->Listing 10<!--/a--></span>. </p><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE10" title="Listing 10OpenGL capability checking code: glCheck.h"></a><p class="codesample clear"><strong class="caption_number">Listing 10</strong>&nbsp;&nbsp;OpenGL capability checking code: glCheck.h</p><div class="codesample clear"><table><tr><td scope="row"><pre>// glcheck allows developer to check the hardware capabilities of all GPU's
+// returning an array of records reflecting the attached hardware. This
+// list can be regenerated on Display Manager notifications to keep the
+// client update to on capabilities and setup changes. This is provided as
+// sample to allow developers the freedom to check as few or as many
+// conditions and capabilities as they would like or add their own checks
+
+#include &lt;Carbon/Carbon.h&gt;
+
+#include &lt;ApplicationServices/ApplicationServices.h&gt;
+
+typedef struct {
+  // developers can add capabilities as required
+
+  CGDirectDisplayID cgDisplayID; // CG display ID (main identifier)
+  unsigned long displayID; // QD display ID
+  GDHandle hGDevice; // graphics device handle
+  CGOpenGLDisplayMask cglDisplayMask; // CGL display mask
+
+  // current (at time of look up) device geometry
+  long deviceWidth; // pixel width
+  long deviceHeight; // pixel width
+  long deviceOriginX; // left location of device (relative to main device)
+  long deviceOriginY; // upper location of device (relative to main device)
+  short deviceDepth; // pixel depth in bits
+  short deviceRefresh; // integer refresh rate in Hz
+
+  // Renderer info
+  long deviceVRAM; // video memory in bytes
+  long deviceTextureRAM; // uses current mode (geometry, pixel depth, etc.)
+  unsigned long rendererID; // renderer ID
+  char strRendererName [256]; // name of hardware renderer
+  char strRendererVendor [256]; // name of hardware renderer vendor
+  char strRendererVersion [256]; // string rep of hardware renderer version
+  bool fullScreenCapable; // does device support full screen
+  // can add more device specs as you want
+
+  // Renderer Caps
+  long textureUnits; // standard gl path max number of texture units
+  long maxTextureSize; // maximum 1D and 2D texture size supported
+  long max3DTextureSize; // maximum 3D texture size supported
+  long maxCubeMapTextureSize; // maximum cube map texture size supported
+  long maxRectTextureSize; // maximum rectangular texture size supported
+
+  // OpenGL version support
+  unsigned short glVersion; // bcd gl version (ie. 1.4 is 0x0140)
+
+
+  // Functionality
+  bool fSpecularVector; // GL_APPLE_specular_vector
+  bool fTransformHint; // GL_APPLE_transform_hint 
+  bool fPackedPixels; // GL_APPLE_packed_pixels or 1.2+
+  bool fClientStorage; // GL_APPLE_client_storage
+  bool fYCbCr; // GL_APPLE_ycbcr_422 (YUV texturing)
+  bool fTextureRange; // GL_APPLE_texture_range (AGP texturing)
+  bool fFence; // GL_APPLE_fence
+  bool fVAR; // GL_APPLE_vertex_array_range
+  bool fVAO; // GL_APPLE_vertex_array_object
+  bool fElementArray; // GL_APPLE_element_array
+  bool fVPEvals; // GL_APPLE_vertex_program_evaluators
+  bool fFloatPixels; // GL_APPLE_float_pixels
+  bool fFlushRenderer; // GL_APPLE_flush_render
+  bool fPixelBuffer; // GL_APPLE_pixel_buffer
+  bool fImaging; // GL_ARB_imaging (not required in 1.2+)
+  bool fTransposeMatrix; // GL_ARB_transpose_matrix or 1.3+
+  bool fMultitexture; // GL_ARB_multitexture or 1.3+
+  bool fTexEnvAdd; // GL_ARB_texture_env_add, GL_EXT_texture_env_add or 1.3+
+  bool fTexEnvCombine; // GL_ARB_texture_env_combine or 1.3+
+  bool fTexEnvDot3; // GL_ARB_texture_env_dot3 or 1.3+
+  bool fTexEnvCrossbar; // GL_ARB_texture_env_crossbar or 1.4+
+  bool fTexCubeMap; // GL_ARB_texture_cube_map or 1.3+
+  bool fTexCompress; // GL_ARB_texture_compression or 1.3+
+  bool fMultisample; // GL_ARB_multisample or 1.3+ (Anti-aliasing)
+  bool fTexBorderClamp; // GL_ARB_texture_border_clamp or 1.3+
+  bool fPointParam; // GL_ARB_point_parameters or 1.4+
+  bool fVertexProg; // GL_ARB_vertex_program
+  bool fFragmentProg; // GL_ARB_fragment_program
+  bool fTexMirrorRepeat; // GL_ARB_texture_mirrored_repeat or 1.4+
+  bool fDepthTex; // GL_ARB_depth_texture or 1.4+
+  bool fShadow; // GL_ARB_shadow or 1.4+
+  bool fShadowAmbient; // GL_ARB_shadow_ambient
+  bool fVertexBlend; // GL_ARB_vertex_blend
+  bool fWindowPos; // GL_ARB_window_pos or 1.4+
+  bool fTex3D; // GL_EXT_texture3D or 1.2+
+  bool fClipVolHint; // GL_EXT_clip_volume_hint
+  bool fRescaleNorm; // GL_EXT_rescale_normal or 1.2+
+  bool fBlendColor; // GL_EXT_blend_color or GL_ARB_imaging
+  bool fBlendMinMax; // GL_EXT_blend_minmax or GL_ARB_imaging
+  bool fBlendSub; // GL_EXT_blend_subtract or GL_ARB_imaging
+  bool fCVA; // GL_EXT_compiled_vertex_array
+  bool fTexLODBias; // GL_EXT_texture_lod_bias or 1.4+
+  bool fABGR; // GL_EXT_abgr
+  bool fBGRA; // GL_EXT_bgra or 1.2+
+  bool fTexFilterAniso; // GL_EXT_texture_filter_anisotropic
+  bool fPaletteTex; // GL_EXT_paletted_texture
+  bool fShareTexPalette; // GL_EXT_shared_texture_palette
+  bool fSecColor; // GL_EXT_secondary_color or 1.4+
+  bool fTexCompressS3TC; // GL_EXT_texture_compression_s3tc
+  bool fTexRect; // GL_EXT_texture_rectangle
+  bool fFogCoord; // GL_EXT_fog_coord
+  bool fDrawRangeElements; // GL_EXT_draw_range_elements
+  bool fStencilWrap; // GL_EXT_stencil_wrap or 1.4+
+  bool fBlendFuncSep; // GL_EXT_blend_func_separate or 1.4+
+  bool fMultiDrawArrays; // GL_EXT_multi_draw_arrays or 1.4+
+  bool fShadowFunc; // GL_EXT_shadow_funcs
+  bool fStencil2Side; // GL_EXT_stencil_two_side
+  bool fColorSubtable; // GL_EXT_color_subtable or GL_ARB_imaging
+  bool fConvolution; // GL_EXT_convolution or GL_ARB_imaging
+  bool fHistogram; // GL_EXT_histogram or GL_ARB_imaging
+  bool fColorTable; // GL_SGI_color_table or GL_ARB_imaging
+  bool fColorMatrix; // GL_SGI_color_matrix
+  bool fTexEdgeClamp; // GL_SGIS_texture_edge_clamp or 1.2+
+  bool fGenMipmap; // GL_SGIS_generate_mipmap or 1.4+
+  bool fTexLOD; // GL_SGIS_texture_lod or 1.2+
+  bool fPointCull; // GL_ATI_point_cull_mode
+  bool fTexMirrorOnce; // GL_ATI_texture_mirror_once
+  bool fPNtriangles; // GL_ATI_pn_triangles or GL_ATIX_pn_triangles
+  bool fTextFragShader; // GL_ATI_text_fragment_shader
+  bool fBlendEqSep; // GL_ATI_blend_equation_separate
+  bool fBlendWeightMinMax; // GL_ATI_blend_weighted_minmax
+  bool fCombine3; // GL_ATI_texture_env_combine3
+  bool fSepStencil; // GL_ATI_separate_stencil
+  bool fArrayRevComps4Byte; // GL_ATI_array_rev_comps_in_4_bytes
+  bool fPointSprite; // GL_NV_point_sprite
+  bool fRegCombiners; // GL_NV_register_combiners
+  bool fRegCombiners2; // GL_NV_register_combiners2
+  bool fTexEnvCombine4; // GL_NV_texture_env_combine4
+  bool fBlendSquare; // GL_NV_blend_square or 1.4+
+  bool fFogDist; // GL_NV_fog_distance
+  bool fMultisampleFilterHint; // GL_NV_multisample_filter_hint
+  bool fTexGenReflect; // GL_NV_texgen_reflection
+  bool fTexShader; // GL_NV_texture_shader
+  bool fTexShader2; // GL_NV_texture_shader2
+  bool fTexShader3; // GL_NV_texture_shader3
+  bool fDepthClamp; // GL_NV_depth_clamp
+  bool fLightMaxExp; // GL_NV_light_max_exponent
+  bool fConvBorderModes; // GL_HP_convolution_border_modes or GL_ARB_imaging
+  bool fRasterPosClip; // GL_IBM_rasterpos_clip
+} GLCaps;
+
+// this does a reasonable check to see if things have changed without being 
+// too heavy weight; returns 1 if changed 0 if not
+// checks num displays, displayID, displayMask, each display geometry and 
+// renderer VRAM and ID
+unsigned char HaveOpenGLCapsChanged (GLCaps aDisplayCaps[], 
+                                     CGDisplayCount dspyCnt);
+
+
+// This will walk all active displays and gather information about their
+// hardware renderer 
+
+// An array length (maxDisplays) and array of GLCaps are passed in. Up to
+// maxDisplays of the array are filled in with the displays meeting the
+// specified criteria. The actual number of displays filled in is returned
+// in dspyCnt. Calling this function with maxDisplays of 0 will just
+// return the number of displays in dspyCnt.
+
+// Developers should note this is NOT an exhaustive list of all the
+// capabilities one could query, nor a required set of capabilities,
+// feel free to add or subtract queries as you find helpful for your 
+// application/use.
+
+// one note on mirrored displays... if the display configuration is 
+// changed it is possible (and likely) that the current active display
+// in a mirrored configuration (as identified by the OpenGL Display Mask)
+// will change if the mirrored display is removed. 
+// This is due to the preference of selection the external display as 
+// the active display. This may affect full screen apps which should 
+// always detect display configuration changes and respond accordingly.
+
+void CheckOpenGLCaps (CGDisplayCount maxDisplays, 
+                      GLCaps * aDisplayCaps, 
+                      CGDisplayCount * dspyCnt);<span></span></pre></td></tr></table></div><p>The source code, as shown in <span class="content_text"><!--a  -->Listing 11<!--/a--></span>, has a number of sections. In the first section, displays are enumerated and iterated on resulting in an a table with a capabilities structure for each display. The next section information is gathered about each display and renderer in turn. First basic CoreGraphics and Carbon display information to ease use by either Cocoa or Carbon applications. Next, the Carbon device information is used to retrieve renderer full screen and memory limits. Finally we use our CGL code to create a rendering context and retrieve specific OpenGL info for all supported functionality and some example limits. Developers are free to reduce or expand this checking as required for their specific application. Lastly, as covered previously, <code>CheckOpenGLCaps</code> is not designed for performance critical sections of code, it is recommended that this routine be called once after an application starts and then on any display configuration changes and for clients to directly access feature flags as outlined previously. </p><a name="//apple_ref/doc/uid/DTS10003103-CH1-SOURCECODE11" title="Listing 11OpenGL capability checking code: glCheck.c"></a><p class="codesample clear"><strong class="caption_number">Listing 11</strong>&nbsp;&nbsp;OpenGL capability checking code: glCheck.c</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include "glCheck.h"
+
+#include &lt;OpenGL/OpenGL.h&gt;
+#include &lt;AGL/agl.h&gt;
+#include &lt;OpenGL/gl.h&gt;
+#include &lt;OpenGL/glu.h&gt;
+#include &lt;OpenGL/glext.h&gt;
+
+#include &lt;string.h&gt;
+
+// -------------------------
+
+// local CF dictionary routines
+
+static long _getDictLong (CFDictionaryRef refDict, CFStringRef key)
+{
+  long int_value;
+  CFNumberRef num_value = (CFNumberRef)CFDictionaryGetValue(refDict, key);
+  if (!num_value) // if can't get a number for the dictionary
+    return -1; // fail
+  // or if cant convert it
+  if (!CFNumberGetValue(num_value, kCFNumberLongType, &amp;int_value)) 
+    return -1; // fail
+  return int_value; // otherwise return the long value
+}
+
+static double _getDictDouble (CFDictionaryRef refDict, CFStringRef key)
+{
+  double double_value;
+  CFNumberRef num_value = (CFNumberRef)CFDictionaryGetValue(refDict, key);
+  if (!num_value) // if can't get a number for the dictionary
+    return -1; // fail
+  // or if cant convert it
+  if (!CFNumberGetValue(num_value, kCFNumberDoubleType, &amp;double_value)) 
+    return -1; // fail
+  return double_value; // otherwise return the long value
+}
+
+// -------------------------
+
+// this does a reasonable check to see if things have changed without being 
+// too heavy weight; returns 1 if changed 0 if not
+// checks num displays, displayID, displayMask, each display geometry and 
+// renderer VRAM and ID
+
+unsigned char HaveOpenGLCapsChanged (GLCaps aDisplayCaps[], 
+                                     CGDisplayCount dspyCnt)
+{
+  CGDisplayCount maxDisplays = 32;
+  CGDirectDisplayID activeDspys[32];
+  CGDisplayErr error;
+  short i;
+  CGDisplayCount newDspyCnt = 0;
+
+  if (NULL == aDisplayCaps) return 1;
+
+  error = CGGetActiveDisplayList(maxDisplays, activeDspys, &amp;newDspyCnt);
+  // if error getting list mark as changed
+  if (error) return 1; 
+  // if number of displays not equal
+  if (dspyCnt != newDspyCnt) return 1;
+
+  for (i = 0; i &lt; dspyCnt; i++) {
+    // get device ids
+    if (aDisplayCaps[i].cgDisplayID != activeDspys[i]) return 1;
+    if (aDisplayCaps[i].cglDisplayMask != 
+        CGDisplayIDToOpenGLDisplayMask(activeDspys[i])) return 1;
+
+    // get current geometry
+    {
+      CGRect displayRect = CGDisplayBounds (activeDspys[i]);
+      // get mode dictionary
+      CFDictionaryRef dispMode = CGDisplayCurrentMode (activeDspys[i]);
+      // check for all geometry matches 
+      if (aDisplayCaps[i].deviceWidth != (long) displayRect.size.width)
+        return 1; 
+      if (aDisplayCaps[i].deviceHeight != (long) displayRect.size.height) 
+        return 1; 
+      if (aDisplayCaps[i].deviceOriginX != (long) displayRect.origin.x) 
+        return 1; 
+      if (aDisplayCaps[i].deviceOriginY != (long) displayRect.origin.y) 
+        return 1; 
+      if (aDisplayCaps[i].deviceDepth != 
+                 (short) _getDictLong (dispMode,  kCGDisplayBitsPerPixel)) 
+        return 1; 
+      if (aDisplayCaps[i].deviceRefresh != 
+          (short)(_getDictDouble (dispMode, kCGDisplayRefreshRate) + 0.5)) 
+        return 1; // round to GLint
+    }
+
+    // get renderer info based on gDevice
+    {
+      CGLRendererInfoObj info;
+      long j, numRenderers = 0, rv = 0;
+      CGLError err = 0;
+      long deviceVRAM; // video memory in bytes
+      unsigned long rendererID; // renderer ID
+
+      err = CGLQueryRendererInfo (aDisplayCaps[i].cglDisplayMask, 
+                                  &amp;info, &amp;numRenderers);
+      if(0 == err) {
+        CGLDescribeRenderer (info, 0, kCGLRPRendererCount, &amp;numRenderers);
+        for (j = 0; j &lt; numRenderers; j++) {
+          // find accelerated renderer (assume only one)
+          CGLDescribeRenderer (info, j, kCGLRPAccelerated, &amp;rv); 
+          if (true == rv) { // if accelerated
+            // what is the renderer ID
+            CGLDescribeRenderer (info, j, kCGLRPRendererID, &amp;rendererID); 
+            if (rendererID != aDisplayCaps[i].rendererID) // check match
+              return 1;
+            // what is the VRAM
+            CGLDescribeRenderer (info, j, kCGLRPVideoMemory, &amp;deviceVRAM); 
+            if (deviceVRAM != aDisplayCaps[i].deviceVRAM) // check match
+              return 1;
+            break; // done
+          }
+        }
+      }
+      CGLDestroyRendererInfo (info);
+    }
+  }
+  return 0;
+}
+
+// -------------------------
+
+// This will walk all active displays and gather information about their
+// hardware renderer 
+
+// An array length (maxDisplays) and array of GLCaps are passed in. Up to
+// maxDisplays of the array are filled in with the displays meeting the
+// specified criteria. The actual number of displays filled in is returned
+// in dspyCnt. Calling this function with maxDisplays of 0 will just
+// return the number of displays in dspyCnt.
+
+// Developers should note this is NOT an exhaustive list of all the
+// capabilities one could query, nor a required set of capabilities,
+// feel free to add or subtract queries as you find helpful for your 
+// application/use.
+
+// one note on mirrored displays... if the display configuration is 
+// changed it is possible (and likely) that the current active display
+// in a mirrored configuration (as identified by the OpenGL Display Mask)
+// will change if the mirrored display is removed. 
+// This is due to the preference of selection the external display as 
+// the active display. This may affect full screen apps which should 
+// always detect display configuration changes and respond accordingly.
+
+void CheckOpenGLCaps (CGDisplayCount maxDspys, 
+                      GLCaps dCaps[], 
+                      CGDisplayCount * dCnt)
+{
+  CGLContextObj curr_ctx = 0;
+  CGDirectDisplayID dspys[32];
+  CGDisplayErr err;
+  short i;
+  short size = sizeof (GLCaps);
+
+  // no devices
+  *dCnt = 0;
+
+  if (maxDspys == 0) { // find number of displays
+    *dCnt = 0;
+    err = CGGetActiveDisplayList (32, dspys, dCnt);
+    if (err) // err getting list
+      *dCnt = 0; // 0 displays since can't correctly find any
+    // zero list to ensure the routines are used correctly
+    memset (dspys, 0, sizeof (CGDirectDisplayID) * *dCnt);
+    return; // return dCnt
+  }
+  if (NULL == dCaps) return;
+
+  err = CGGetActiveDisplayList(maxDspys, dspys, dCnt);
+  if (err) return; // err getting list
+  if (0 == *dCnt) return; // no displays
+
+  memset (dCaps, 0, size * *dCnt); // zero memory
+
+  for (i = 0; i &lt; *dCnt; i++) {
+    // get device ids
+    dCaps[i].cgDisplayID = dspys[i];
+    dCaps[i].cglDisplayMask = CGDisplayIDToOpenGLDisplayMask(dspys[i]);
+
+    { // get current geometry
+      CGRect displayRect = CGDisplayBounds (dspys[i]);
+      // get mode dictionary
+      CFDictionaryRef dispMode = CGDisplayCurrentMode (dspys[i]); 
+      dCaps[i].deviceWidth = (long) displayRect.size.width; 
+      dCaps[i].deviceHeight = (long) displayRect.size.height; 
+      dCaps[i].deviceOriginX = (long) displayRect.origin.x; 
+      dCaps[i].deviceOriginY = (long) displayRect.origin.y; 
+      dCaps[i].deviceDepth = (short) _getDictLong (dispMode, 
+                                              kCGDisplayBitsPerPixel); 
+      dCaps[i].deviceRefresh = (short) (_getDictDouble (dispMode,
+                                        kCGDisplayRefreshRate) + 0.5); 
+    }
+
+    { // find gDevice device by bounds
+      GDHandle hGD;
+      for (hGD = GetDeviceList (); hGD; hGD = GetNextDevice (hGD))
+      {
+        if (!TestDeviceAttribute (hGD, screenDevice) ||
+            !TestDeviceAttribute (hGD, screenActive))
+          continue;
+
+        // if postion and sizes match
+        if (((*hGD)-&gt;gdRect.top == dCaps[i].deviceOriginY) &amp;&amp;
+          ((*hGD)-&gt;gdRect.left == dCaps[i].deviceOriginX) &amp;&amp;
+          (((*hGD)-&gt;gdRect.bottom - (*hGD)-&gt;gdRect.top) ==
+                                                  dCaps[i].deviceHeight) &amp;&amp;
+          (((*hGD)-&gt;gdRect.right - (*hGD)-&gt;gdRect.left) ==
+                                                  dCaps[i].deviceWidth)) {
+          dCaps[i].hGDevice = hGD;
+          break;
+        }
+      }
+      if (dCaps[i].hGDevice == NULL)
+        return; // err
+      if (noErr != DMGetDisplayIDByGDevice (dCaps[i].hGDevice,
+                                            &amp;dCaps[i].displayID, false))
+        dCaps[i].displayID = 0; // err getting display ID
+    }
+
+
+    { // get renderer info based on gDevice
+      CGLRendererInfoObj info;
+      long j, numRenderers = 0, rv = 0;
+      CGLError err = 0;
+
+      err = CGLQueryRendererInfo (dCaps[i].cglDisplayMask, 
+                                  &amp;info, 
+                                  &amp;numRenderers);
+      if(0 == err) {
+        CGLDescribeRenderer (info, 0, kCGLRPRendererCount, &amp;numRenderers);
+        for (j = 0; j &lt; numRenderers; j++) {
+          // find accelerated renderer (assume only one)
+          CGLDescribeRenderer (info, j, kCGLRPAccelerated, &amp;rv); 
+          if (true == rv) { // if accelerated
+            // what is the renderer ID
+            CGLDescribeRenderer (info, j, kCGLRPRendererID,
+                                 &amp;dCaps[i].rendererID);
+            // can we do full screen?
+            CGLDescribeRenderer (info, j, kCGLRPFullScreen, &amp;rv); 
+            dCaps[i].fullScreenCapable = (bool) rv;
+            // what is the VRAM?
+            CGLDescribeRenderer (info, j, kCGLRPVideoMemory,
+                                 &amp;dCaps[i].deviceVRAM);
+            // what is the current texture memory? 
+            CGLDescribeRenderer (info, j, kCGLRPTextureMemory,
+                                 &amp;dCaps[i].deviceTextureRAM);
+            break; // done
+          }
+        }
+      }
+      CGLDestroyRendererInfo (info);
+    }
+
+    { // build context and context specific info
+      CGLPixelFormatAttribute attribs[] = { kCGLPFADisplayMask,
+                                            dCaps[i].cglDisplayMask, 
+                                            NULL };
+      CGLPixelFormatObj pixelFormat = NULL;
+      long numPixelFormats = 0;
+      CGLContextObj cglContext;
+
+      curr_ctx = CGLGetCurrentContext (); // get current CGL context
+      CGLChoosePixelFormat (attribs, &amp;pixelFormat, &amp;numPixelFormats);
+      if (pixelFormat) {
+        CGLCreateContext(pixelFormat, NULL, &amp;cglContext);
+        CGLDestroyPixelFormat (pixelFormat);
+        CGLSetCurrentContext (cglContext);
+        if (cglContext) {
+          const GLubyte * strExt;
+          const GLubyte * strRend;
+          const GLubyte * strVers;
+          const GLubyte * strVend;
+
+          // get renderer strings
+          strRend = glGetString (GL_RENDERER);
+          strncpy (dCaps[i].strRendererName, strRend, 255);
+          strVend = glGetString (GL_VENDOR);
+          strncpy (dCaps[i].strRendererVendor, strVend, 255);
+          strVers = glGetString (GL_VERSION);
+          strncpy (dCaps[i].strRendererVersion, strVers, 255);
+          { // get BCD version
+            short j = 0;
+            short shiftVal = 8;
+            while (((strVers[j] &lt;= '9') &amp;&amp; (strVers[j] &gt;= '0')) ||
+                                            (strVers[j] == '.')) { 
+            // get only basic version info (until first non-digit or non-.)
+              if ((strVers[j] &lt;= '9') &amp;&amp; (strVers[j] &gt;= '0')) {
+                dCaps[i].glVersion += (strVers[j] - '0') &lt;&lt; shiftVal;
+                shiftVal -= 4;
+              }
+              j++;
+            }
+          }
+          strExt = glGetString (GL_EXTENSIONS);
+
+          // get caps
+          glGetIntegerv (GL_MAX_TEXTURE_UNITS, 
+                         &amp;dCaps[i].textureUnits);
+          glGetIntegerv (GL_MAX_TEXTURE_SIZE,
+                         &amp;dCaps[i].maxTextureSize); 
+          glGetIntegerv (GL_MAX_3D_TEXTURE_SIZE, 
+                         &amp;dCaps[i].max3DTextureSize);
+          glGetIntegerv (GL_MAX_CUBE_MAP_TEXTURE_SIZE, 
+                         &amp;dCaps[i].maxCubeMapTextureSize);
+
+          // get functionality info
+          dCaps[i].fSpecularVector = 
+            gluCheckExtension ("GL_APPLE_specular_vector", strExt);
+          dCaps[i].fTransformHint = 
+            gluCheckExtension ("GL_APPLE_transform_hint", strExt);
+          dCaps[i].fPackedPixels = 
+            gluCheckExtension ("GL_APPLE_packed_pixels", strExt) || 
+            gluCheckExtension ("GL_APPLE_packed_pixel", strExt) || 
+            (dCaps[i].glVersion &gt;= 0x0120);
+          dCaps[i].fClientStorage = 
+            gluCheckExtension ("GL_APPLE_client_storage", strExt);
+          dCaps[i].fYCbCr = 
+            gluCheckExtension ("GL_APPLE_ycbcr_422", strExt);
+          dCaps[i].fTextureRange = 
+            gluCheckExtension ("GL_APPLE_texture_range", strExt);
+          dCaps[i].fFence = 
+            gluCheckExtension ("GL_APPLE_fence", strExt);
+          dCaps[i].fVAR = 
+            gluCheckExtension ("GL_APPLE_vertex_array_range", strExt);
+          dCaps[i].fVAO = 
+            gluCheckExtension ("GL_APPLE_vertex_array_object", strExt);
+          dCaps[i].fElementArray = 
+            gluCheckExtension ("GL_APPLE_element_array", strExt);
+          dCaps[i].fVPEvals = 
+            gluCheckExtension("GL_APPLE_vertex_program_evaluators",strExt);
+          dCaps[i].fFloatPixels = 
+            gluCheckExtension ("GL_APPLE_float_pixels", strExt);
+          dCaps[i].fFlushRenderer = 
+            gluCheckExtension ("GL_APPLE_flush_render", strExt);
+          dCaps[i].fPixelBuffer = 
+            gluCheckExtension ("GL_APPLE_pixel_buffer", strExt);
+          dCaps[i].fImaging = 
+            gluCheckExtension ("GL_ARB_imaging", strExt);
+          dCaps[i].fTransposeMatrix = 
+            gluCheckExtension ("GL_ARB_transpose_matrix", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0130);
+          dCaps[i].fMultitexture = 
+            gluCheckExtension ("GL_ARB_multitexture", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0130);
+          dCaps[i].fTexEnvAdd = 
+            gluCheckExtension ("GL_ARB_texture_env_add", strExt) ||
+            gluCheckExtension ("GL_EXT_texture_env_add", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0130);
+          dCaps[i].fTexEnvCombine = 
+            gluCheckExtension ("GL_ARB_texture_env_combine", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0130);
+          dCaps[i].fTexEnvDot3 = 
+            gluCheckExtension ("GL_ARB_texture_env_dot3", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0130);
+          dCaps[i].fTexEnvCrossbar = 
+            gluCheckExtension ("GL_ARB_texture_env_crossbar", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fTexCubeMap = 
+            gluCheckExtension ("GL_ARB_texture_cube_map", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0130);
+          dCaps[i].fTexCompress = 
+            gluCheckExtension ("GL_ARB_texture_compression", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0130);
+          dCaps[i].fMultisample = 
+            gluCheckExtension ("GL_ARB_multisample", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0130);
+          dCaps[i].fTexBorderClamp = 
+            gluCheckExtension ("GL_ARB_texture_border_clamp", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0130);
+          dCaps[i].fPointParam = 
+            gluCheckExtension ("GL_ARB_point_parameters", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fVertexProg = 
+            gluCheckExtension ("GL_ARB_vertex_program", strExt);
+          dCaps[i].fFragmentProg = 
+            gluCheckExtension ("GL_ARB_fragment_program", strExt);
+          dCaps[i].fTexMirrorRepeat = 
+            gluCheckExtension ("GL_ARB_texture_mirrored_repeat", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fDepthTex = 
+            gluCheckExtension ("GL_ARB_depth_texture", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fShadow = 
+            gluCheckExtension ("GL_ARB_shadow", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fShadowAmbient = 
+            gluCheckExtension ("GL_ARB_shadow_ambient", strExt);
+          dCaps[i].fVertexBlend = 
+            gluCheckExtension ("GL_ARB_vertex_blend", strExt);
+          dCaps[i].fWindowPos = 
+            gluCheckExtension ("GL_ARB_window_pos", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fTex3D = 
+            gluCheckExtension ("GL_EXT_texture3D", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0120);
+          dCaps[i].fClipVolHint = 
+            gluCheckExtension ("GL_EXT_clip_volume_hint", strExt);
+          dCaps[i].fRescaleNorm = 
+            gluCheckExtension ("GL_EXT_rescale_normal", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0120);
+          dCaps[i].fBlendColor = 
+            gluCheckExtension ("GL_EXT_blend_color", strExt) ||
+            gluCheckExtension ("GL_ARB_imaging", strExt);
+          dCaps[i].fBlendMinMax = 
+            gluCheckExtension ("GL_EXT_blend_minmax", strExt) ||
+            gluCheckExtension ("GL_ARB_imaging", strExt);
+          dCaps[i].fBlendSub = 
+            gluCheckExtension ("GL_EXT_blend_subtract", strExt) ||
+            gluCheckExtension ("GL_ARB_imaging", strExt);
+          dCaps[i].fCVA = 
+            gluCheckExtension ("GL_EXT_compiled_vertex_array", strExt);
+          dCaps[i].fTexLODBias = 
+            gluCheckExtension ("GL_EXT_texture_lod_bias", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fABGR = 
+            gluCheckExtension ("GL_EXT_abgr", strExt);
+          dCaps[i].fBGRA = 
+            gluCheckExtension ("GL_EXT_bgra", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0120);
+          dCaps[i].fTexFilterAniso = 
+            gluCheckExtension ("GL_EXT_texture_filter_anisotropic",strExt);
+          dCaps[i].fPaletteTex = 
+            gluCheckExtension ("GL_EXT_paletted_texture", strExt);
+          dCaps[i].fShareTexPalette = 
+            gluCheckExtension ("GL_EXT_shared_texture_palette", strExt);
+          dCaps[i].fSecColor = 
+            gluCheckExtension ("GL_EXT_secondary_color", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fTexCompressS3TC = 
+            gluCheckExtension ("GL_EXT_texture_compression_s3tc", strExt);
+          dCaps[i].fTexRect = 
+            gluCheckExtension ("GL_EXT_texture_rectangle", strExt);
+          dCaps[i].fFogCoord = 
+            gluCheckExtension ("GL_EXT_fog_coord", strExt);
+          dCaps[i].fDrawRangeElements = 
+            gluCheckExtension ("GL_EXT_draw_range_elements", strExt);
+          dCaps[i].fStencilWrap = 
+            gluCheckExtension ("GL_EXT_stencil_wrap", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fBlendFuncSep = 
+            gluCheckExtension ("GL_EXT_blend_func_separate", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fMultiDrawArrays = 
+            gluCheckExtension ("GL_EXT_multi_draw_arrays", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fShadowFunc = 
+            gluCheckExtension ("GL_EXT_shadow_funcs", strExt);
+          dCaps[i].fStencil2Side = 
+            gluCheckExtension ("GL_EXT_stencil_two_side", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fColorSubtable = 
+            gluCheckExtension ("GL_EXT_color_subtable", strExt) || 
+            gluCheckExtension ("GL_ARB_imaging", strExt);
+          dCaps[i].fConvolution = 
+            gluCheckExtension ("GL_EXT_convolution", strExt) || 
+            gluCheckExtension ("GL_ARB_imaging", strExt);
+          dCaps[i].fHistogram = 
+            gluCheckExtension ("GL_EXT_histogram", strExt) || 
+            gluCheckExtension ("GL_ARB_imaging", strExt);
+          dCaps[i].fColorTable = 
+            gluCheckExtension ("GL_SGI_color_table", strExt) || 
+            gluCheckExtension ("GL_ARB_imaging", strExt);
+          dCaps[i].fColorMatrix = 
+            gluCheckExtension ("GL_SGI_color_matrix", strExt) || 
+            gluCheckExtension ("GL_ARB_imaging", strExt);
+          dCaps[i].fTexEdgeClamp = 
+            gluCheckExtension ("GL_SGIS_texture_edge_clamp", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0120);
+          dCaps[i].fGenMipmap = 
+            gluCheckExtension ("GL_SGIS_generate_mipmap", strExt);
+          dCaps[i].fTexLOD = 
+            gluCheckExtension ("GL_SGIS_texture_lod", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0120);
+          dCaps[i].fPointCull = 
+            gluCheckExtension ("GL_ATI_point_cull_mode", strExt);
+          dCaps[i].fTexMirrorOnce = 
+            gluCheckExtension ("GL_ATI_texture_mirror_once", strExt);
+          dCaps[i].fPNtriangles = 
+            gluCheckExtension ("GL_ATI_pn_triangles", strExt) ||
+            gluCheckExtension ("GL_ATIX_pn_triangles", strExt);
+          dCaps[i].fTextFragShader = 
+            gluCheckExtension ("GL_ATI_text_fragment_shader", strExt);
+          dCaps[i].fBlendEqSep = 
+            gluCheckExtension ("GL_ATI_blend_equation_separate", strExt);
+          dCaps[i].fBlendWeightMinMax = 
+            gluCheckExtension ("GL_ATI_blend_weighted_minmax", strExt);
+          dCaps[i].fCombine3 = 
+            gluCheckExtension ("GL_ATI_texture_env_combine3", strExt);
+          dCaps[i].fSepStencil = 
+            gluCheckExtension ("GL_ATI_separate_stencil", strExt);
+          dCaps[i].fArrayRevComps4Byte = 
+            gluCheckExtension ("GL_ATI_array_rev_comps_in_4_bytes",strExt);
+          dCaps[i].fPointSprite = 
+            gluCheckExtension ("GL_NV_point_sprite", strExt);
+          dCaps[i].fRegCombiners = 
+            gluCheckExtension ("GL_NV_register_combiners", strExt);
+          dCaps[i].fRegCombiners2 = 
+            gluCheckExtension ("GL_NV_register_combiners2", strExt);
+          dCaps[i].fTexEnvCombine4 = 
+            gluCheckExtension ("GL_NV_texture_env_combine4", strExt);
+          dCaps[i].fBlendSquare = 
+            gluCheckExtension ("GL_NV_blend_square", strExt) ||
+            (dCaps[i].glVersion &gt;= 0x0140);
+          dCaps[i].fFogDist = 
+            gluCheckExtension ("GL_NV_fog_distance", strExt);
+          dCaps[i].fMultisampleFilterHint = 
+            gluCheckExtension ("GL_NV_multisample_filter_hint", strExt);
+          dCaps[i].fTexGenReflect = 
+            gluCheckExtension ("GL_NV_texgen_reflection", strExt);
+          dCaps[i].fTexShader = 
+            gluCheckExtension ("GL_NV_texture_shader", strExt);
+          dCaps[i].fTexShader2 = 
+            gluCheckExtension ("GL_NV_texture_shader2", strExt);
+          dCaps[i].fTexShader3 = 
+            gluCheckExtension ("GL_NV_texture_shader3", strExt);
+          dCaps[i].fDepthClamp = 
+            gluCheckExtension ("GL_NV_depth_clamp", strExt);
+          dCaps[i].fLightMaxExp = 
+            gluCheckExtension ("GL_NV_light_max_exponent", strExt);
+          dCaps[i].fRasterPosClip = 
+            gluCheckExtension ("GL_IBM_rasterpos_clip", strExt);
+          dCaps[i].fConvBorderModes = 
+            gluCheckExtension ("GL_HP_convolution_border_modes", strExt) ||
+            gluCheckExtension ("GL_ARB_imaging", strExt);
+
+          if (dCaps[i].fTexRect) // only check if extension supported
+            glGetIntegerv (GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT,
+                           &amp;dCaps[i].maxRectTextureSize);
+          else
+            dCaps[i].maxRectTextureSize = 0;
+
+          CGLDestroyContext (cglContext);
+        }
+      }
+      CGLSetCurrentContext (curr_ctx); // reset current CGL context
+    }
+  }
+}<span></span></pre></td></tr></table></div><p>This concludes the discussion of OpenGL functionality. Understanding the relation of core to extended commands is key to easily navigating and using OpenGL on all supported platforms. This Technical Note discussed core and extended functionality and how to determine if a certain feature is supported. Furthermore, creating valid rendering contexts was discussed in the context of Mac OS X OpenGL interface API's. Lastly, a concrete example of how to fully check for available system renderers and their functionality is provided. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003103-CH1-SW1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003103-RevisionHistory-SW1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2018-06-04</td><td><p>Moved to Retired Documents Library.</p></td></tr><tr><td scope="row">2003-12-29</td><td><p>New document that 
+					discusses OpenGL API design, and how to access the full power of hardware and software renderers.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2018 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2018-06-04</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

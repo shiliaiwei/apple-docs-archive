@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Introduction to Error Handling Programming Guide For Cocoa</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40001806">
+    <meta id="document-version" name="document-version" content="1.9.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40001806-CH201">
+    <meta id="date" name="date" content="2011-01-07">
+    <meta id="description" name="description" content="Describes NSError objects, related Application Kit support for error handling, and how to use these features in your code.">
+    <meta id="book-title" name="book-title" content="Error Handling Programming Guide">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Technologies/Core Services Layer/Foundation}, {Topic/Data Management/Event Handling}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Error Handling Programming Guide: Introduction to Error Handling Programming Guide For Cocoa">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Error Handling Programming Guide" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../ErrorObjectsDomains/ErrorObjectsDomains.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X,iOS,tvOS,watchOS">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40001806-CH201" title="Introduction to Error Handling Programming Guide For Cocoa"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Error Handling Programming Guide</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../ErrorObjectsDomains/ErrorObjectsDomains.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40001806" title="Introduction to Error Handling Programming Guide For Cocoa"></a><a name="//apple_ref/doc/uid/TP40001806-CH201-SW1" title="Introduction to Error Handling Programming Guide For Cocoa"></a><h1 id="pageTitle">Introduction to Error Handling Programming Guide For Cocoa</h1><a name="//apple_ref/doc/uid/TP40001806-CH201-DontLinkElementID_1"></a><p>Every program must deal with errors as they occur at runtime. The program, for example, might not be able to open a file, or perhaps it cannot parse an XML document. Often errors such as these require the program to inform the user about them. And perhaps the program can attempt to get around the problem causing the error.</p><p><span class="pediaLink" data-header="Cocoa (Touch)" data-contents="Cocoa and Cocoa Touch are the application development environments for OS X and iOS, respectively. "><a href="../../../../General/Conceptual/DevPedia-CocoaCore/Cocoa.html#//apple_ref/doc/uid/TP40008195-CH9" data-renderer-version="1" target="_self">Cocoa</a></span> (and Cocoa Touch) offer developers programmatic tools for these tasks: the <code><a href="https://developer.apple.com/documentation/foundation/nserror" class="urlLink" target="_self">NSError</a></code> class in Foundation and new methods and mechanisms in the Application Kit to support error handling in applications. An <code>NSError</code> object encapsulates information specific to an error, including the domain (subsystem) originating the error and the localized strings to present in an error alert. With an application there is also an architecture allowing the various objects in an application to refine the information in an error object and perhaps to recover from the error. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/TP40001806-CH201-DontLinkElementID_7" title="Important"></a><p><strong>Important:</strong>&nbsp;The <code>NSError</code> class is available on both OS X and iOS. However, the error-responder and error-recovery APIs and mechanisms are available only in the Application Kit (OS X).</p><p></p></aside></div><a name="//apple_ref/doc/uid/TP40001806-CH201-DontLinkElementID_2"></a><p>You should read this document to understand the <code>NSError</code> API and architecture and how to use them.</p><a name="//apple_ref/doc/uid/TP40001806-CH201-DontLinkElementID_3" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2><p><em>Error Handling Programming Guide for Cocoa</em> has the following articles:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="../ErrorObjectsDomains/ErrorObjectsDomains.html#//apple_ref/doc/uid/TP40001806-CH202-CJBGAIBJ" data-renderer-version="1">Error Objects, Domains, and Codes</a></span> describes the attributes of an <code>NSError</code> object, particularly its domain and error code, and discusses the possible contents of an error object’s “user info” dictionary, including localized message strings and underlying errors.</p></li><li class="li"><p><span class="content_text"><a href="../CreateCustomizeNSError/CreateCustomizeNSError.html#//apple_ref/doc/uid/TP40001806-CH204-BAJIIGCC" data-renderer-version="1">Using and Creating Error Objects</a></span> explains how to evaluate an error, how to display an error message using an <code>NSError</code> object, and how to implement methods that return an <code>NSError</code> object by reference.</p></li><li class="li"><p><span class="content_text"><a href="../ErrorRespondRecover/ErrorRespondRecover.html#//apple_ref/doc/uid/TP40001806-CH203-BAJCBIFC" data-renderer-version="1">Error Responders and Error Recovery</a></span> describes the Application Kit architecture for passing error objects up a chain of objects in an application, giving each object a chance to customize the error before it is presented. It also discusses the role of the recovery attempter, an object designated to attempt a recovery from an error if the user requests it.</p></li><li class="li"><p><span class="content_text"><a href="../HandleReceivedError/HandleReceivedError.html#//apple_ref/doc/uid/TP40001806-CH205-BAJEHAJC" data-renderer-version="1">Handling Received Errors</a></span> discusses how, in the chain of error-responder objects, you handle a received error and customize it.</p></li><li class="li"><p><span class="content_text"><a href="../RecoverFromErrors/RecoverFromErrors.html#//apple_ref/doc/uid/TP40001806-CH206-BCIDEGGF" data-renderer-version="1">Recovering From Errors</a></span> explains the procedure for attempting a user-requested recovery from an error.</p></li></ul><p>The two chapters relevant to iOS are <span class="content_text"><a href="../ErrorObjectsDomains/ErrorObjectsDomains.html#//apple_ref/doc/uid/TP40001806-CH202-CJBGAIBJ" data-renderer-version="1">Error Objects, Domains, and Codes</a></span> and <span class="content_text"><a href="../CreateCustomizeNSError/CreateCustomizeNSError.html#//apple_ref/doc/uid/TP40001806-CH204-BAJIIGCC" data-renderer-version="1">Using and Creating Error Objects</a></span>.</p><div id="seeAlsoSection"><a name="//apple_ref/doc/uid/TP40001806-CH201-DontLinkElementID_4" title="See Also"></a><h2 class="jump">See Also</h2><p>“<span class="content_text"><a href="../../../../DataManagement/Conceptual/DocBasedAppProgrammingGuideForOSX/StandardBehaviors/StandardBehaviors.html#//apple_ref/doc/uid/TP40011179-CH5-SW32" data-renderer-version="1" target="_self">The Document Architecture Supports Robust Error Handling</a></span>" in <em><a href="../../../../DataManagement/Conceptual/DocBasedAppProgrammingGuideForOSX/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011179" data-renderer-version="1" target="_self">Document-Based App Programming Guide for Mac</a></em> offers valuable advice for subclasses that override methods with a by-reference <code><a href="https://developer.apple.com/documentation/foundation/nserror" class="urlLink" target="_self">NSError</a></code> parameter.</p><p><span class="content_text"><!--a target="_self" -->Types of Dialogs and When to Use Them<!--/a--></span>  offers advice on the form and content of alerts in OS X. <em><!--a target="_self" -->iOS Human Interface Guidelines<!--/a--></em> offers similar advice for alerts on iOS. You should consult these guidelines before composing your error messages. Also take a look at the following documents discussing areas of Cocoa programming related to error handling and the presentation of error messages:</p><ul class="ul"><li class="li"><p><em><a href="../../Assertions/Assertions.html#//apple_ref/doc/uid/10000014i" data-renderer-version="1" target="_self">Assertions and Logging Programming Guide</a></em> (both platforms)</p></li><li class="li"><p><em><a href="../../Dialog/Dialog.html#//apple_ref/doc/uid/10000071i" data-renderer-version="1" target="_self">Dialogs and Special Panels</a></em> (alerts on OS X)</p></li><li class="li"><p><em><a href="../../Sheets/Sheets.html#//apple_ref/doc/uid/10000002i" data-renderer-version="1" target="_self">Sheet Programming Topics</a></em> (OS X)</p></li><li class="li"><p><em><a href="https://developer.apple.com/documentation/uikit/uialertview" class="urlLink" target="_self">UIAlertView Class Reference</a></em> (iOS)</p></li></ul><p><em><a href="../../Exceptions/Exceptions.html#//apple_ref/doc/uid/10000012i" data-renderer-version="1" target="_self">Exception Programming Topics</a></em> discusses how to raise and handle exceptions. <span class="content_text"><a href="../../ObjectiveC/Chapters/ocExceptionHandling.html#//apple_ref/doc/uid/TP30001163-CH13" data-renderer-version="1" target="_self">Exception Handling</a></span> in <em><a href="../../ObjectiveC/Introduction/introObjectiveC.html#//apple_ref/doc/uid/TP30001163" data-renderer-version="1" target="_self">The Objective-C Programming Language</a></em> describes the compiler directives <code>@try</code>, <code>@catch</code>, <code>@throw</code>, and <code>@finally</code>, which are used in exception handling. </p></div>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../ErrorObjectsDomains/ErrorObjectsDomains.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2005, 2011 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2011-01-07</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

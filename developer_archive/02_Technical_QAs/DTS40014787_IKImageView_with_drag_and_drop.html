@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1866: IKImageView with drag and drop</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014787">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014787-CH1">
+    <meta id="date" name="date" content="2014-08-05">
+    <meta id="description" name="description" content="QA1866: explains how to use drag and drop with the IKImageView.">
+    <meta id="book-title" name="book-title" content="IKImageView with drag and drop">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Kernel & Driver Layer/ImageCaptureCore}, {Topic/Graphics & Animation/2D Drawing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1866">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="IKImageView with drag and drop" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014787" title="Technical Q&amp;A QA1866"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>IKImageView with drag and drop</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014787-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1866"></a><div class="dtsDocNumber">Technical Q&amp;A QA1866</div><h1 id="pageTitle">IKImageView with drag and drop</h1><h2>Q:&nbsp;
+The <code>IKImageView</code> has the ability to receive drags. How can I add the ability to perform outgoing drags?  What flavor should I use to drag images to instances of <code>IKImageView</code>?
+</h2><p><span>A: </span><code>IKImageView</code> provides drag and drop handlers for receiving images by way of the <code>NSFilenamesPboardType</code> pasteboard flavor. They are able to receive drag and dropped image files, but they do not have a built in ability to provide outgoing drags. You can add that ability yourself by adding a -<code>mouseDown</code>: (or -<code>mouseMoved</code>:) handler to a subclass of <code>IKImageView</code> that you can use to initiate outgoing drags. </p><p>The <code>NSFilenamesPboardType</code> requires special handling because it must reference image files saved on disk and is not the same as just adding image data to the pasteboard. If you would like to provide drag and drop data to instances of <code>IKImageView</code> in your own windows or in other application's windows, then you will need to implement your own outgoing drags using the <code>NSFilenamesPboardType</code> flavor and manage the files yourself. </p><p>The listing below shows an example of how to initiate a drag from inside a -<code>mouseDown</code>: handler on a subclass of <code>IKImageView</code> that will allow you to drag images to other instances of <code>IKImageView</code>.</p><a name="//apple_ref/doc/uid/DTS40014787-CH1-SOURCECODE1" title="Listing 1Initiating an outgoing drag from an IKImageView"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Initiating an outgoing drag from an <code>IKImageView</code></p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)mouseDown:(NSEvent*)event<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>  NSLog(@"%s",__FUNCTION__);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>  // if there is an image to drag around...<span></span></pre></td></tr><tr><td scope="row"><pre>  if ( [self image] != NULL ) {<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // generate a file name, path, and url<span></span></pre></td></tr><tr><td scope="row"><pre>    NSString *fileName = [NSString stringWithFormat:@"%@-%@",<span></span></pre></td></tr><tr><td scope="row"><pre>        [[NSProcessInfo processInfo] globallyUniqueString],<span></span></pre></td></tr><tr><td scope="row"><pre>        @"dragfile.png"];<span></span></pre></td></tr><tr><td scope="row"><pre>    NSString *filePath =<span></span></pre></td></tr><tr><td scope="row"><pre>        [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];<span></span></pre></td></tr><tr><td scope="row"><pre>    NSURL *fileURL = [NSURL fileURLWithPath:filePath];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // create a temporary file to house the image<span></span></pre></td></tr><tr><td scope="row"><pre>    CGImageDestinationRef destination = CGImageDestinationCreateWithURL(<span></span></pre></td></tr><tr><td scope="row"><pre>        (__bridge CFURLRef) fileURL, kUTTypePNG, 1, NULL);<span></span></pre></td></tr><tr><td scope="row"><pre>    if ( destination != NULL ) {<span></span></pre></td></tr><tr><td scope="row"><pre>      CGImageDestinationAddImage(destination, [self image], nil);<span></span></pre></td></tr><tr><td scope="row"><pre>      if ( CGImageDestinationFinalize(destination) ) {<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        // add a reference to the file path to the drag pasteboard<span></span></pre></td></tr><tr><td scope="row"><pre>        // using the special NSFilenamesPboardType type<span></span></pre></td></tr><tr><td scope="row"><pre>        NSPasteboard *dragPasteboard =<span></span></pre></td></tr><tr><td scope="row"><pre>            [NSPasteboard pasteboardWithName:NSDragPboard];<span></span></pre></td></tr><tr><td scope="row"><pre>        [dragPasteboard declareTypes:@[NSFilenamesPboardType] owner:nil];<span></span></pre></td></tr><tr><td scope="row"><pre>        [dragPasteboard setPropertyList:@[filePath]<span></span></pre></td></tr><tr><td scope="row"><pre>            forType:NSFilenamesPboardType];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        // calculate the drag image and position<span></span></pre></td></tr><tr><td scope="row"><pre>        NSImage* dragImage = [[NSWorkspace sharedWorkspace]<span></span></pre></td></tr><tr><td scope="row"><pre>            iconForFile:filePath];<span></span></pre></td></tr><tr><td scope="row"><pre>        NSPoint dragPosition = [self convertPoint:[event locationInWindow]<span></span></pre></td></tr><tr><td scope="row"><pre>            fromView:nil];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        // perform the drag operation<span></span></pre></td></tr><tr><td scope="row"><pre>        // this method call runs synchronously<span></span></pre></td></tr><tr><td scope="row"><pre>        // so we can delete the file after it is<span></span></pre></td></tr><tr><td scope="row"><pre>        // compete<span></span></pre></td></tr><tr><td scope="row"><pre>        [self dragImage:dragImage<span></span></pre></td></tr><tr><td scope="row"><pre>            at:dragPosition<span></span></pre></td></tr><tr><td scope="row"><pre>            offset:NSZeroSize<span></span></pre></td></tr><tr><td scope="row"><pre>            event:event<span></span></pre></td></tr><tr><td scope="row"><pre>            pasteboard: dragPasteboard<span></span></pre></td></tr><tr><td scope="row"><pre>            source:self<span></span></pre></td></tr><tr><td scope="row"><pre>            slideBack:YES];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        // the above dragImage method runs synchronously, so when we return<span></span></pre></td></tr><tr><td scope="row"><pre>        // here the drag operation is technically complete, the receiver will<span></span></pre></td></tr><tr><td scope="row"><pre>        // have been called, etc.... However, some receivers will only have<span></span></pre></td></tr><tr><td scope="row"><pre>        // made note of the drag operation and they may not be finished<span></span></pre></td></tr><tr><td scope="row"><pre>        // with the file just yet so it's important not to delete it right away.<span></span></pre></td></tr><tr><td scope="row"><pre>        // In this sample we maintain the file on disk for a short time<span></span></pre></td></tr><tr><td scope="row"><pre>        // before deleting it.<span></span></pre></td></tr><tr><td scope="row"><pre>        const uint64_t kSecondsToKeepFile = 3, kNanosecondsPerSecond = 1000000000;<span></span></pre></td></tr><tr><td scope="row"><pre>        dispatch_queue_t mainqueue =<span></span></pre></td></tr><tr><td scope="row"><pre>            dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);<span></span></pre></td></tr><tr><td scope="row"><pre>        dispatch_time_t when =<span></span></pre></td></tr><tr><td scope="row"><pre>            dispatch_time(0, kNanosecondsPerSecond*kSecondsToKeepFile);<span></span></pre></td></tr><tr><td scope="row"><pre>        dispatch_after(when, mainqueue,<span></span></pre></td></tr><tr><td scope="row"><pre>          ^{  NSError *error;<span></span></pre></td></tr><tr><td scope="row"><pre>            if (![[NSFileManager defaultManager] removeItemAtPath:filePath error:&amp;error]) {<span></span></pre></td></tr><tr><td scope="row"><pre>              NSLog(@"error removing %@ %@", filePath, error);<span></span></pre></td></tr><tr><td scope="row"><pre>            }<span></span></pre></td></tr><tr><td scope="row"><pre>          });<span></span></pre></td></tr><tr><td scope="row"><pre>      }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>      // done with the image destination<span></span></pre></td></tr><tr><td scope="row"><pre>      CFRelease(destination);<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>  }<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40014787-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;The comment about removing the temporary file we used for the drag operation. Here, some apps may receive the drag command from your app but choose to process it at a later time - usually a very short time later, but potentially after your -<code>mouseDown</code>: handler has exited (and you have deleted your temporary file). To minimize any such synchronization problems, the strategy employed here is to simply leave the files in the temporary directory for a short time after an outgoing drag and drop operation completes to allow time for receiving apps to access them. This strategy works with many apps, but you will need to do your own testing.</p><p></p></aside></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40014787-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014787-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-08-05</td><td><p>New document that 
+					explains how to use drag and drop with the IKImageView.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-08-05</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1509: Getting the pixel data from a CGImage object</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004216">
+    <meta id="document-version" name="document-version" content="2.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004216-CH1">
+    <meta id="date" name="date" content="2008-08-27">
+    <meta id="description" name="description" content="QA1509: Describes how to access the pixel data of a CGImage object">
+    <meta id="book-title" name="book-title" content="Getting the pixel data from a CGImage object">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/ApplicationServices}, {Topic/Graphics & Animation/2D Drawing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1509">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Getting the pixel data from a CGImage object" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004216" title="Technical Q&amp;A QA1509"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Getting the pixel data from a CGImage object</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004216-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1509"></a><div class="dtsDocNumber">Technical Q&amp;A QA1509</div><h1 id="pageTitle">Getting the pixel data from a CGImage object</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+How do I access the pixel data of a <code>CGImage</code> object?
+</h2><p><span>A: </span>How do I access the pixel data of a <code>CGImage</code> object?</p><p>On Mac OS X 10.5 or later, a new call has been added that allows you to obtain the actual pixel data from a <code>CGImage</code> object. This call, <code>CGDataProviderCopyData</code>, returns a CFData object that contains the pixel data from the image in question. An example of using this call to obtain pixel data from a <code>CGImage</code> is shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>. Once you have the CFData object with your pixel information, you can call <code>CFDataGetBytePtr</code> to get a pointer to the pixel data, or <code>CFDataGetBytes</code> to copy a subrange of pixel data.</p><a name="//apple_ref/doc/uid/DTS10004216-CH1-SOURCECODE1" title="Listing 1Getting raw pixel data from a CGImage."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Getting raw pixel data from a <code>CGImage</code>.</p><div class="codesample clear"><table><tr><td scope="row"><pre>CFDataRef CopyImagePixels(CGImageRef inImage) {     return CGDataProviderCopyData(CGImageGetDataProvider(inImage)); }<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004216-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;<code>CopyImagePixels</code> as written will return <code>NULL</code> if the passed in <code>CGImage</code> object is <code>NULL</code> or if the contents of the image are too large to fit in memory.</p><p></p></aside></div><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004216-CH1-DontLinkElementID_4" title="Warning"></a><p><strong>Warning:</strong>&nbsp;The pixel data returned by <code>CGDataProviderCopyData</code> has not been color matched and is in the format that the image is in, as described by the various CGImageGet functions (see for <span class="content_text"><!--a target="_self" -->Getting Information About an Image<!--/a--></span> more information). If you want the image in a different format, or color matched to a specific color space, then you should draw the image to a bitmap context as described later in this Q&amp;A, with the caveat that alpha information from the image will be multiplied into the color components.</p><p></p><div class="clear"></div></aside></div><p>Prior to Mac OS X 10.5 an image's pixels are not as readily available. The only way to guarantee access to the equivalent bits is to create a bitmap context with a memory buffer you specify and then draw the <code>CGImage</code> to the context using <code>CGContextDrawImage</code>. After drawing the <code>CGImage</code> to the context you will have a copy of the data in the buffer you specified (which can also be easily accessed using the <code>CGBitmapContexGetData</code> function). The code in <span class="content_text"><!--a  -->Listing 2<!--/a--></span> demonstrates how to do this.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004216-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;<span class="content_text"><!--a  -->Listing 2<!--/a--></span> creates a bitmap context with a 8-bits per component ARGB color space, draws the source image to this context, then retrieves the image bits in this color space from the context. Regardless of what the source image format is (CMYK, 24-bit RGB, Grayscale, and so on) it will be converted over to this color space.</p><p></p></aside></div><p>For more information about creating bitmap contexts for other pixel formats, see the <span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/index.html" class="browserLink" >Quartz 2D Programming Guide</a></span>.</p><a name="//apple_ref/doc/uid/DTS10004216-CH1-SOURCECODE2" title="Listing 2Accessing the pixel data of a CGImage."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Accessing the pixel data of a <code>CGImage</code>.</p><div class="codesample clear"><table><tr><td scope="row"><pre>void ManipulateImagePixelData(CGImageRef inImage)
+{
+    // Create the bitmap context
+    CGContextRef cgctx = CreateARGBBitmapContext(inImage);
+    if (cgctx == NULL) 
+    { 
+        // error creating context
+        return;
+    }
+
+     // Get image width, height. We'll use the entire image.
+    size_t w = CGImageGetWidth(inImage);
+    size_t h = CGImageGetHeight(inImage);
+    CGRect rect = {{0,0},{w,h}}; 
+
+    // Draw the image to the bitmap context. Once we draw, the memory 
+    // allocated for the context for rendering will then contain the 
+    // raw image data in the specified color space.
+    CGContextDrawImage(cgctx, rect, inImage); 
+
+    // Now we can get a pointer to the image data associated with the bitmap
+    // context.
+    void *data = CGBitmapContextGetData (cgctx);
+    if (data != NULL)
+    {
+
+        // **** You have a pointer to the image data ****
+
+        // **** Do stuff with the data here ****
+
+    }
+
+    // When finished, release the context
+    CGContextRelease(cgctx); 
+    // Free image data memory for the context
+    if (data)
+    {
+        free(data);
+    }
+
+}
+
+CGContextRef CreateARGBBitmapContext (CGImageRef inImage)
+{
+    CGContextRef    context = NULL;
+    CGColorSpaceRef colorSpace;
+    void *          bitmapData;
+    int             bitmapByteCount;
+    int             bitmapBytesPerRow;
+
+     // Get image width, height. We'll use the entire image.
+    size_t pixelsWide = CGImageGetWidth(inImage);
+    size_t pixelsHigh = CGImageGetHeight(inImage);
+
+    // Declare the number of bytes per row. Each pixel in the bitmap in this
+    // example is represented by 4 bytes; 8 bits each of red, green, blue, and
+    // alpha.
+    bitmapBytesPerRow   = (pixelsWide * 4);
+    bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
+
+    // Use the generic RGB color space.
+    colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+    if (colorSpace == NULL)
+    {
+        fprintf(stderr, "Error allocating color space\n");
+        return NULL;
+    }
+
+    // Allocate memory for image data. This is the destination in memory
+    // where any drawing to the bitmap context will be rendered.
+    bitmapData = malloc( bitmapByteCount );
+    if (bitmapData == NULL) 
+    {
+        fprintf (stderr, "Memory not allocated!");
+        CGColorSpaceRelease( colorSpace );
+        return NULL;
+    }
+
+    // Create the bitmap context. We want pre-multiplied ARGB, 8-bits 
+    // per component. Regardless of what the source image format is 
+    // (CMYK, Grayscale, and so on) it will be converted over to the format
+    // specified here by CGBitmapContextCreate.
+    context = CGBitmapContextCreate (bitmapData,
+                                    pixelsWide,
+                                    pixelsHigh,
+                                    8,      // bits per component
+                                    bitmapBytesPerRow,
+                                    colorSpace,
+                                    kCGImageAlphaPremultipliedFirst);
+    if (context == NULL)
+    {
+        free (bitmapData);
+        fprintf (stderr, "Context not created!");
+    }
+
+    // Make sure and release colorspace before returning
+    CGColorSpaceRelease( colorSpace );
+
+    return context;
+}<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS10004216-CH1-SECTION1" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/index.html" class="browserLink" >Quartz 2D Programming Guide</a></span></p></li><li class="li"><p><span class="content_text"><a href="/qa/qa2001/qa1037.html" class="urlLink" rel="external">Technical Q&amp;A QA1037, '<codeVoice>CGBitmapContextCreate</codeVoice> Supported Color Spaces'</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004216-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004216-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2008-08-27</td><td><p>Updated to refer to CGDataProviderCopyData(), available as of Mac OS X 10.5.</p></td></tr><tr><td scope="row">2007-03-05</td><td><p>New document that 
+					describes how to access the pixel data of a CGImage object</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2008 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2008-08-27</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

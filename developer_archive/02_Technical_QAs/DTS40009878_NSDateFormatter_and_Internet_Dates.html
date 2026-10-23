@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1480: NSDateFormatter and Internet Dates</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009878">
+    <meta id="document-version" name="document-version" content="2.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009878-CH1">
+    <meta id="date" name="date" content="2014-08-14">
+    <meta id="description" name="description" content="QA1480: Explains how to use NSDateFormatter with fixed-format dates, like those in various Internet protocols.">
+    <meta id="book-title" name="book-title" content="NSDateFormatter and Internet Dates">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/Foundation}, {Topic/Data Management/Dates, Times, & Numbers}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1480">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="NSDateFormatter and Internet Dates" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009878" title="Technical Q&amp;A QA1480"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>NSDateFormatter and Internet Dates</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009878-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1480"></a><div class="dtsDocNumber">Technical Q&amp;A QA1480</div><h1 id="pageTitle">NSDateFormatter and Internet Dates</h1><h2>Q:&nbsp;
+I'm using NSDateFormatter to parse an Internet-style date, but this fails for some users in some regions. I've set a specific date format string; shouldn't that force NSDateFormatter to work independently of the user's region settings?
+</h2><p><span>A: </span>No. While setting a date format string will appear to work for most users, it's not the right solution to this problem. There are many places where format strings behave in unexpected ways. For example:</p><ul class="ul"><li class="li"><p>A user can change their calendar (using System Preferences &gt; Language &amp; Region &gt; Calendar on OS X, or Settings &gt; General &gt; International &gt; Calendar on iOS). In that case NSDateFormatter will treat the numbers in the string you parse as if they were in the user's chosen calendar. For example, if the user selects the Buddhist calendar, parsing the year "2010" will yield an NSDate in 1467, because the year 2010 on the Buddhist calendar was the year 1467 on the (Gregorian) calendar that we use day-to-day.</p></li><li class="li"><p>On iOS, the user can override the default AM/PM versus 24-hour time setting (via Settings &gt; General &gt; Date &amp; Time &gt; 24-Hour Time), which causes NSDateFormatter to rewrite the format string you set, which can cause your time parsing to fail.</p></li></ul><p>To solve this problem properly, you have to understand that NSDateFormatter has two common roles:</p><ul class="ul"><li class="li"><p>generating and parsing user-visible dates</p></li><li class="li"><p>generating and parsing fixed-format dates, such as the RFC 3339-style dates used by many Internet protocols</p></li></ul><p>If you're working with user-visible dates, you should avoid setting a fixed date format string because it's very hard to predict how your format string will be expressed in all possible user configurations. Rather, you should limit yourself to setting date and time styles (via <code>-[NSDateFormatter setDateStyle:]</code> and <code>-[NSDateFormatter setTimeStyle:]</code>) or generate your date format string from a template (using <code>+[NSDateFormatter dateFormatFromTemplate:options:locale:]</code>).</p><p>On the other hand, if you're working with fixed-format dates, you should first set the locale of the date formatter to something appropriate for your fixed format. In most cases the best locale to choose is "en_US_POSIX", a locale that's specifically designed to yield US English results regardless of both user and system preferences. "en_US_POSIX" is also invariant in time (if the US, at some point in the future, changes the way it formats dates, "en_US" will change to reflect the new behaviour, but "en_US_POSIX" will not), and between machines ("en_US_POSIX" works the same on iOS as it does on OS X, and as it it does on other platforms).</p><p>Once you've set "en_US_POSIX" as the locale of the date formatter, you can then set the date format string and the date formatter will behave consistently for all users.</p><p><span class="content_text"><!--a  -->Listing 1<!--/a--></span> shows how to use NSDateFormatter for both of the roles described above. First it creates a "en_US_POSIX" date formatter to parse the incoming <span class="content_text"><a href="http://www.ietf.org/rfc/rfc3339.txt" class="urlLink" rel="external">RFC 3339</a></span> date string, using a fixed date format string and UTC as the time zone. Next, it creates a standard date formatter for rendering the date as a string to display to the user.</p><a name="//apple_ref/doc/uid/DTS40009878-CH1-SOURCECODE1" title="Listing 1Parsing an RFC 3339 date-time"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Parsing an RFC 3339 date-time</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (NSString *)userVisibleDateTimeStringForRFC3339DateTimeString:(NSString *)rfc3339DateTimeString<span></span></pre></td></tr><tr><td scope="row"><pre>    // Returns a user-visible date time string that corresponds to the<span></span></pre></td></tr><tr><td scope="row"><pre>    // specified RFC 3339 date time string. Note that this does not handle<span></span></pre></td></tr><tr><td scope="row"><pre>    // all possible RFC 3339 date time strings, just one of the most common<span></span></pre></td></tr><tr><td scope="row"><pre>    // styles.<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    NSString *          userVisibleDateTimeString;<span></span></pre></td></tr><tr><td scope="row"><pre>    NSDateFormatter *   rfc3339DateFormatter;<span></span></pre></td></tr><tr><td scope="row"><pre>    NSLocale *          enUSPOSIXLocale;<span></span></pre></td></tr><tr><td scope="row"><pre>    NSDate *            date;<span></span></pre></td></tr><tr><td scope="row"><pre>    NSDateFormatter *   userVisibleDateFormatter;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    userVisibleDateTimeString = nil;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Convert the RFC 3339 date time string to an NSDate.<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    rfc3339DateFormatter = [[[NSDateFormatter alloc] init] autorelease];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    [rfc3339DateFormatter setLocale:enUSPOSIXLocale];<span></span></pre></td></tr><tr><td scope="row"><pre>    [rfc3339DateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];<span></span></pre></td></tr><tr><td scope="row"><pre>    [rfc3339DateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    date = [rfc3339DateFormatter dateFromString:rfc3339DateTimeString];<span></span></pre></td></tr><tr><td scope="row"><pre>    if (date != nil) {<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        // Convert the NSDate to a user-visible date string.<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        userVisibleDateFormatter = [[[NSDateFormatter alloc] init] autorelease];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        [userVisibleDateFormatter setDateStyle:NSDateFormatterShortStyle];<span></span></pre></td></tr><tr><td scope="row"><pre>        [userVisibleDateFormatter setTimeStyle:NSDateFormatterShortStyle];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        userVisibleDateTimeString = [userVisibleDateFormatter stringFromDate:date];<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>    return userVisibleDateTimeString;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>The code in <span class="content_text"><!--a  -->Listing 1<!--/a--></span> is correct, but it's not as efficient as it could be. Specifically, it creates a date formatter, uses it once, and then throws it away. A better approach is the one shown in <span class="content_text"><!--a  -->Listing 2<!--/a--></span>. This holds on to its date formatters for subsequent reuse.</p><a name="//apple_ref/doc/uid/DTS40009878-CH1-SOURCECODE2" title="Listing 2Parsing an RFC 3339 date-time more efficiently"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Parsing an RFC 3339 date-time more efficiently</p><div class="codesample clear"><table><tr><td scope="row"><pre>static NSDateFormatter *    sUserVisibleDateFormatter;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>- (NSString *)userVisibleDateTimeStringForRFC3339DateTimeString2:(NSString *)rfc3339DateTimeString<span></span></pre></td></tr><tr><td scope="row"><pre>    // Returns a user-visible date time string that corresponds to the<span></span></pre></td></tr><tr><td scope="row"><pre>    // specified RFC 3339 date time string. Note that this does not handle<span></span></pre></td></tr><tr><td scope="row"><pre>    // all possible RFC 3339 date time strings, just one of the most common<span></span></pre></td></tr><tr><td scope="row"><pre>    // styles.<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    static NSDateFormatter *    sRFC3339DateFormatter;<span></span></pre></td></tr><tr><td scope="row"><pre>    NSString *                  userVisibleDateTimeString;<span></span></pre></td></tr><tr><td scope="row"><pre>    NSDate *                    date;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // If the date formatters aren't already set up, do that now and cache them<span></span></pre></td></tr><tr><td scope="row"><pre>    // for subsequence reuse.<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if (sRFC3339DateFormatter == nil) {<span></span></pre></td></tr><tr><td scope="row"><pre>        NSLocale *                  enUSPOSIXLocale;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        sRFC3339DateFormatter = [[NSDateFormatter alloc] init];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        [sRFC3339DateFormatter setLocale:enUSPOSIXLocale];<span></span></pre></td></tr><tr><td scope="row"><pre>        [sRFC3339DateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];<span></span></pre></td></tr><tr><td scope="row"><pre>        [sRFC3339DateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if (sUserVisibleDateFormatter == nil) {<span></span></pre></td></tr><tr><td scope="row"><pre>        sUserVisibleDateFormatter = [[NSDateFormatter alloc] init];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        [sUserVisibleDateFormatter setDateStyle:NSDateFormatterShortStyle];<span></span></pre></td></tr><tr><td scope="row"><pre>        [sUserVisibleDateFormatter setTimeStyle:NSDateFormatterShortStyle];<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Convert the RFC 3339 date time string to an NSDate.<span></span></pre></td></tr><tr><td scope="row"><pre>    // Then convert the NSDate to a user-visible date string.<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    userVisibleDateTimeString = nil;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    date = [sRFC3339DateFormatter dateFromString:rfc3339DateTimeString];<span></span></pre></td></tr><tr><td scope="row"><pre>    if (date != nil) {<span></span></pre></td></tr><tr><td scope="row"><pre>        userVisibleDateTimeString = [sUserVisibleDateFormatter stringFromDate:date];<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>    return userVisibleDateTimeString;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>If you cache date formatters, or any other objects that depend on the user's current locale, you should subscribe to the <code>NSCurrentLocaleDidChangeNotification</code> notification and update your cached objects when the current locale changes. The code in <span class="content_text"><!--a  -->Listing 2<!--/a--></span> defines <code>sUserVisibleDateFormatter</code> outside of the method so that other code, not shown, can update it as necessary. In contrast, <code>sRFC3339DateFormatter</code> is defined inside the method because, by design, it is not dependent on the user's locale settings.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009878-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Alternatively, you could configure <code>sUserVisibleDateFormatter</code> to use <code>+[NSLocale autoupdatingCurrentLocale]</code>, which is a locale that automatically accounts for changes in the user's locale settings.</p><p></p></aside></div><p>Finally, if you're willing to look at solutions outside of the Cocoa space, it's very easy and efficient to parse and generate fixed-format dates using the standard C library functions <code>strptime_l</code> and <code>strftime_l</code>. Be aware that the C library also has the idea of a current locale. To guarantee a fixed date format, you should pass <code>NULL</code> to the <code>loc</code> parameter of these routines. This causes them to use the POSIX locale (also known as the C locale), which is equivalent to Cocoa's "en_US_POSIX" locale.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS40009878-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009878-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-08-14</td><td><p>Removed a reference to a bug in +autoupdatingCurrentLocale (r. 7792724) that was fixed in iOS 4 (r. 15794178). Added a reference to date formatter templates. Made minor editorial changes.</p></td></tr><tr><td scope="row">2010-04-29</td><td><p>RFC 3339 dates are always in UTC, so set the time zone on the RFC 3339 date formatter to UTC.</p></td></tr><tr><td scope="row">2010-03-31</td><td><p>New document that 
+					explains how to use NSDateFormatter with fixed-format dates, like those in various Internet protocols.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-08-14</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2115: Image Color Management</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004098">
+    <meta id="document-version" name="document-version" content="1.1.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004098-CH1">
+    <meta id="date" name="date" content="2006-11-01">
+    <meta id="description" name="description" content="TN2115: Learn how to properly support color management in your application.">
+    <meta id="book-title" name="book-title" content="Image Color Management">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/ApplicationServices}, {Topic/Graphics & Animation/2D Drawing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2115">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Image Color Management" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004098" title="Technical Note TN2115"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Image Color Management</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004098-CH1-DontLinkElementID_2" title="Technical Note TN2115"></a><div class="dtsDocNumber">Technical Note TN2115</div><h1 id="pageTitle">Image Color Management</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Describes how to easily determine whether or not your application is properly color managed when drawing or printing images and how to modify your code to ensure it is color managed.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004098-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004098-CH1-SECTION2" data-renderer-version="1">Background - Mac OS X Color Management</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004098-CH1-SECTION3" data-renderer-version="1">The Problem</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004098-CH1-SECTION4" data-renderer-version="1">How can I verify color management in my application when drawing or printing images?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004098-CH1-SECTION5" data-renderer-version="1">Why isn't my application being properly color managed when drawing or printing images?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004098-CH1-SECTION6" data-renderer-version="1">How can I fix my application to be properly color managed when drawing or printing images?</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10004098-CH1-SUBSECTION6" data-renderer-version="1">Use the Image I/O framework for image handling</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004098-CH1-SECTION8" data-renderer-version="1">References</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004098-CH1-SECTION9" data-renderer-version="1">Downloadables</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004098-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10004098-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>With the growing prevalence of color digital media, such as digital photos, applications that handle color correctly when drawing or printing images benefit greatly by being able to accurately reproduce color over a wide range of devices. This results in a higher quality product and more satisfied customers. But how do you know if your application is properly color managed? Is there a simple test that will give you this information?</p><p>This Technote describes one technique for determining whether or not your application is being properly color managed when drawing or printing images.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004098-CH1-SECTION2" title="Background - Mac OS X Color Management"></a><h2 class="jump">Background - Mac OS X Color Management</h2><p>Mac OS X takes a system-wide approach to managing color data by integrating ICC color management via ColorSync into all layers of the graphics stack (for more information about ColorSync, please see <span class="content_text"><a href="http://developer.apple.com/technotes/tn/tn2035.html" class="browserLink" >TN2035: ColorSync on Mac OS X</a></span>). </p><p>As Figure 1 shows, ColorSync is built into the system at a low level on top of Darwin. Built on top of ColorSync are a variety of graphics frameworks providing a diverse set of functionality, and most all of these frameworks make use of color management provided by ColorSync. </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004098-CH1-FIGURE1" title="Figure 1ColorSync Architectural Diagram"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;ColorSync Architectural Diagram</figcaption><img src="Art/tn2115_ArchBlockDiagram.jpg" alt="" width="622" height="332"></figure><p>Developers who take advantage of the various color managed frameworks in Mac OS X can be confident their applications will display and print images correctly. For example, ColorSync color management on Mac OS X will recognize any profile embedded in an image for the following file formats:</p><p>JPEG, GIF, TIFF, PNG, PSD, PICT</p><p>When such images are then drawn or printed, the embedded image profile will be correctly color matched against a profile for the destination device (for example a monitor or printer). If no embedded profile is provided with the image file, Mac OS X will assume a Generic RGB color space (see <span class="content_text"><a href="http://developer.apple.com/technotes/tn/tn2035.html" class="browserLink" >TN2035: ColorSync on Mac OS X</a></span> and <span class="content_text"><a href="http://developer.apple.com/qa/qa2004/qa1396.html" class="browserLink" >Q&amp;A 1396 Creating color spaces that ensure color matching</a></span>).</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004098-CH1-SECTION3" title="The Problem"></a><h2 class="jump">The Problem</h2><p>Color plays a very important role in the world of digital media. Color makes a difference—often a dramatic difference—in your images and graphics. Users can be very disappointed when they display or print an image and the color is vastly different from expectations. For this reason, applications that handle color correctly gain a distinct advantage over those that don't. But managing color correctly in your application can be increasingly difficult, and the availability of a wide variety of different image libraries complicates matters even further</p><p>So how do you really know if drawing or printing of images is being properly color managed in your application?</p><p>Or what if you also make use of a third-party framework in your application? Is there a simple technique for verifying proper color management when displaying or printing images in your application? </p><p>One simple technique is the use of images with embedded "trick" profiles. This Technote describes this technique.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004098-CH1-SECTION4" title="How can I verify color management in my application when drawing or printing images?"></a><h2 class="jump">How can I verify color management in my application when drawing or printing images?</h2><p>Included with this Technote are a set of image files with embedded "trick" profiles. These aren't "normal" profiles you would expect to see in a typical image file. Instead, these profiles were specially made to allow you to easily tell whether or not ColorSync color management is being performed when the image is drawn or printed. Simply look at the message displayed and you will know right away if the proper color management is being performed (the image files were constructed to display different colors when color managed).</p><p>For example, if you draw or print the enclosed image file "<code>TestRGB.jpg</code>" in an application which correctly performs color management (such as the Mac OS X Preview application) you should see the output as shown in Figure 2 below. This indicates the application is being properly color managed. In this case, the embedded image profile is being recognized by ColorSync and is being color-matched against an appropriate destination profile:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004098-CH1-FIGURE2" title="Figure 2Image file properly color managed."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Image file properly color managed.</figcaption><img src="Art/tn2115_ColorMatchedImage.jpg" alt="" width="458" height="296"></figure><p>On the other hand, if you see the following output when drawing/printing the same image then you know your application is not being properly color managed. In this case, the embedded image profile is not being taken into account for any drawing or printing operation.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004098-CH1-FIGURE3" title="Figure 3Image file *not* properly color managed."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;Image file *not* properly color managed.</figcaption><img src="Art/tn2115_NonColorMatchedImage.jpg" alt="" width="457" height="294"></figure><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004098-CH1-SECTION5" title="Why isn't my application being properly color managed when drawing or printing images?"></a><h2 class="jump">Why isn't my application being properly color managed when drawing or printing images?</h2><p>If you display or print the enclosed images with "trick" profiles in your application and you find they are not being properly color managed it can be for one of the following reasons:</p><ul class="ul"><li class="li"><p>You are not using one of the available color managed frameworks in Mac OS X which respect image profiles such as the Image I/O framework. For example, you could be using a third-party framework which does not support color management.</p></li><li class="li"><p>You are using one of the available color managed frameworks in Mac OS X but you are circumventing the built-in color management (for example with the <code>CGImageCreateCopyWithColorSpace</code> function or others).</p></li><li class="li"><p>You are writing your own image handling code but you are ignoring any embedded image profiles.</p></li><li class="li"><p>You are using device color spaces (see <span class="content_text"><a href="http://developer.apple.com/qa/qa2004/qa1396.html" class="browserLink" >Q&amp;A 1396 Creating color spaces that ensure color matching</a></span>).</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004098-CH1-SECTION6" title="How can I fix my application to be properly color managed when drawing or printing images?"></a><h2 class="jump">How can I fix my application to be properly color managed when drawing or printing images?</h2><p>What can you do to ensure your application will be properly color managed when drawing or printing images? Follow these guidelines:</p><ul class="ul"><li class="li"><p>Use one of the available color managed frameworks in Mac OS X which respect embedded image profiles such as the Image I/O framework or the Cocoa <code>NSImage</code> class.</p></li><li class="li"><p>If you are using a third-party image framework make sure it supports color management.</p></li><li class="li"><p>If you are writing your own custom image-handling code make sure and identify any embedded profiles in your image files and color match these against  a device profile for your drawing destination.</p></li></ul><p>For examples of code written using one of the color managed frameworks in Mac OS X take a look at the available <span class="content_text"><a href="http://developer.apple.com/samplecode/GraphicsImaging/index-date.html" class="browserLink" >Graphics &amp; Imaging sample code</a></span> on the ADC website. For example, see the <span class="content_text"><a href="http://developer.apple.com/samplecode/ImageApp/index.html" class="browserLink" >ImageApp</a></span> sample code for a good example of use of the Image I/O framework.</p><section><a name="//apple_ref/doc/uid/DTS10004098-CH1-SUBSECTION6" title="Use the Image I/O framework for image handling"></a><h3 class="jump">Use the Image I/O framework for image handling</h3><p>We recommend use of the Image I/O framework, introduced in Mac OS X v10.4, for working with images in your application. The Image I/O framework provides image reading or writing functionality for the Core Graphics framework (the Core Graphics framework and the the Image I/O framework together comprise the Quartz 2D API). The Image I/O framework is also a companion framework to <code>CGImage</code>.</p><p>Why make use of the Image I/O framework in your application? Because the Image I/O framework makes it easy to work with image file formats in a color managed way. The Image I/O framework provides the best compromise between an API which is easy to work with but at the same time provides access to a diverse set of options. </p><p>The Image I/O framework currently supports the following image file formats:</p><ul class="ul"><li class="li"><p>Web standards</p><p>TIFF, JPEG, PNG, GIF, JPEG-2000</p></li><li class="li"><p>Floating Point HDR formats</p><p>OpenEXR, Radiance, LogLuv TIFF, Float TIFF, and Pixar TIFF</p></li><li class="li"><p>Camera Raw formats</p><p>Canon, Nikon, Minolta, Olympus, Sony</p></li><li class="li"><p>Others</p><p>.bmp, .psd, .qtif, .tga, .sgi, .xbm, .icns, .ico, .pict, .ptng, .fpx</p></li><li class="li"><p>MetaData</p><p>Exif, IPTC, CIFF, GPS, some MakerNotes, …</p></li></ul><p>ImageIO supports embedded profiles for the following image file formats:</p><p>- JPEG, GIF, TIFF, PNG, PSD, PICT</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004098-CH1-SECTION8" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/technotes/tn/tn2035.html" class="browserLink" >TN2035: ColorSync on Mac OS X</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/qa/qa2004/qa1396.html" class="browserLink" >Q&amp;A 1396 Creating color spaces that ensure color matching</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGImageSource/index.html" class="browserLink" >CGImageSource Reference</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGImageDestination/index.html" class="browserLink" >CGImageDestination Reference</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Quartz-date.html" class="browserLink" >Quartz Documentation</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/samplecode/ImageApp/index.html" class="browserLink" >ImageApp sample code</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004098-CH1-SECTION9" title="Downloadables"></a><h2 class="jump">Downloadables</h2><ul class="ul"><li class="li"><p>Images with trick profiles. ("tn2115_Images.zip", 870.7K)
+
+</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004098-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004098-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2006-11-01</td><td><p>New document that 
+					learn how to properly support color management in your application.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2006 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2006-11-01</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

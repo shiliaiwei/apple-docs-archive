@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1727: TLS Session Cache</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40010700">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40010700-CH1">
+    <meta id="date" name="date" content="2015-08-19">
+    <meta id="description" name="description" content="QA1727: describes how the TLS session cache affects HTTPS connections that need different TLS parameters.">
+    <meta id="book-title" name="book-title" content="TLS Session Cache">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/Foundation}, {Topic/Networking, Internet, & Web}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1727">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="TLS Session Cache" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40010700" title="Technical Q&amp;A QA1727"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>TLS Session Cache</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40010700-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1727"></a><div class="dtsDocNumber">Technical Q&amp;A QA1727</div><h1 id="pageTitle">TLS Session Cache</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I'm using NSURLConnection to access two HTTPS URLs on the same server. I want to use a unique client identity for each connection. When I access the first URL I get an authentication challenge that allows me to supply the correct client identity, but when I then access the second URL I don't get any authentication challenges. How can I get an authentication challenge for this second connection?
+</h2><p><span>A: </span>When you access a URL via HTTPS, you're actually using HTTP over TLS (Transport Layer Security, the evolution of SSL, the Secure Sockets Layer). You don't get a second challenge because the second connection reuses the TLS session established by the first. To understand this problem, you need to understand something about TLS itself, and how it is implemented on OS X and iOS.</p><p>Opening a TLS session is computationally expensive (because it involves working with large asymmetric keys), so TLS has a mechanism to avoid doing this work for each connection. A TLS connection can either establish a new session or it can attempt to resume an existing session, where resuming an existing session is much cheaper than starting a new one. A TLS client can therefore boost performance by maintaining a cache of existing sessions and reusing them when it's appropriate.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40010700-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;You can learn more about resuming TLS sessions by reading Section 7.3 of <span class="content_text"><a href="https://www.rfc-editor.org/rfc/rfc5246.txt" class="urlLink" rel="external">RFC 5246</a></span>.</p><p></p></aside></div><p>The core TLS code on both OS X and iOS, Secure Transport, maintains such a cache. This TLS session cache is implemented independently in each process. In most circumstances the TLS session cache works transparently to speed up TLS connections, but in some cases it can cause problems. In this case, your second connection has reused the TLS session of the first connection, and thus you don't have an opportunity to supply a new client identity for the second connection.</p><p>Because caching can occur at various levels within the NSURLConnection stack, before trying to work around a TLS session cache problem it's a good idea to confirm that this is actually the root cause. You can do this by exploiting the fact that TLS session cache entries persist for about 10 minutes. Thus, if the problem still occurs when the second connection follows the first connection by 9 minutes, but goes away if the delay is 11 minutes, chances are that the TLS session cache is to blame.</p><p>Inside the NSURLConnection Framework, there's no direct way to flush the TLS session cache (other than to terminate the process itself), nor is there a way to tell NSURLConnection not to use it 
+			(r. <span class="content_text"><a href="rdar://problem/8957312" class="urlLink" rel="external">8957312</a></span>)
+		. The only reasonable workaround is to change your connection in such a way that the second connection doesn't hit (in the sense of a "cache hit") the cache entry created by the first connection. To do this you need to understand the TLS session cache key format used by NSURLConnection or, more accurately, the CFSocketStream that underlies NSURLConnection.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40010700-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;This solution can better be achieved by adopting the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Foundation/Reference/NSURLSession_class/" class="urlLink" rel="external">NSURLSession</a></span> API. Using this framework, you can created two NSURLSessions, one for each desired connection. Since NSURLSession maintains it's own TLS session cache, the second connection will avoid consulting the first cache, and will return the authentication challenge.</p><p></p></aside></div><p>If you cannot switch to NSURLSession, please see below.</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40010700-CH1-DontLinkElementID_5" title="Warning"></a><p><strong>Warning:</strong>&nbsp;The specifics of the TLS session cache—including the exact cache key format used by CFSocketStream and the lifetime of cache entries—is documented here for debugging purposes only.</p><p></p><div class="clear"></div></aside></div><p>In the absence of a proxy, the TLS session cache key contains the destination IP address, the destination port, and the destination DNS name, for example, <code>{131.39.46.209:47873}devforums.apple.com</code>. Consequently, altering the IP address, the port, or the DNS name will cause a TLS session cache miss, and allow your second connection to receive the TLS authentication challenges. While it's unlikely that you'll be able to alter the IP address component of the TLS session cache key, the port and DNS name components are potential workaround candidates. For example:</p><ul class="ul"><li class="li"><p>If your two connections represent very different operations, you might consider configuring your server to listen on two different ports. For example, if the first connection is for enrollment and the second connection is for data transfer, you can have two instances of your server, one for enrollment and one for data transfer, each listening on their own port. Most HTTP servers are easy to configure in this way.</p></li><li class="li"><p>If you have control over the DNS namespace of the server, you could configure that namespace to ensure that each connection goes to a unique DNS address. Let's say your server is currently at <code>myapp.example.com</code>. You could configure your DNS server to map all names within that domain (<code>*.myapp.example.com</code>) to your server. Your clients could then have each connection target a unique name within that namespace, thus avoiding any chance the connection will hit the TLS session cache. For example, your client's first connection might target <code>s464287123.myapp.example.com</code>, its second connection <code>s338233934.myapp.example.com</code>, and so on, all of which are redirected by your DNS server to <code>myapp.example.com</code>.</p></li><li class="li"><p>Both of the previous suggestions require you to reconfigure the server in some way. If you have no control over the server, your options are rather limited. One sneaky workaround is to append a dot (".") to the DNS name you're connecting to. If you're not familiar with the details of DNS, a name ending in dot is considered to be a fully qualified domain name (FQDN), whereas names not ending in dot (partially qualified domain names, PQDN) may be resolved by appending some default domain. For example, <code>devforums.apple.com.</code> (note the trailing dot) is an FQDN for DevForums but, when you're at Apple and the default DNS domain is <code>apple.com.</code>, you can refer to it via the PQDN of <code>devforums</code>.</p><p>It turns out that the host name from the URL you give NSURLConnection passes down, unmodified, through many layers of CFNetwork until it eventually forms a component of the Secure Transport TLS session cache key. Thus, if you have a program that first connected to <code>devforums.apple.com.</code> (with a trailing dot) and then connected to <code>devforums.apple.com</code> (without a trailing dot), each connection will get TLS authentication challenges.</p><p>The obvious drawback of this approach is that it doesn't scale; you can't just keep adding dots!</p></li></ul><br/><hr/><a name="//apple_ref/doc/uid/DTS40010700-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40010700-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2015-08-19</td><td><p>Added Note to redirect users to NSURLSession and updated expository content.</p></td></tr><tr><td scope="row">2011-02-10</td><td><p>New document that 
+					describes how the TLS session cache affects HTTPS connections that need different TLS parameters.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-08-19</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

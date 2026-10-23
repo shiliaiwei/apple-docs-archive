@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2276: Audio Unit AUPlugIn - Updating an existing Audio Unit for OS X Lion and later</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40011031">
+    <meta id="document-version" name="document-version" content="3.2.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40011031-CH1">
+    <meta id="date" name="date" content="2012-08-17">
+    <meta id="description" name="description" content="TN2276: Discusses required audio unit project changes for building and running on OS X Lion (and v10.6.x).">
+    <meta id="book-title" name="book-title" content="Audio Unit AUPlugIn - Updating an existing Audio Unit for OS X Lion and later">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2276">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Unit AUPlugIn - Updating an existing Audio Unit for OS X Lion and later" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40011031" title="Technical Note TN2276"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Unit AUPlugIn - Updating an existing Audio Unit for OS X Lion and later</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40011031-CH1-DontLinkElementID_2" title="Technical Note TN2276"></a><div class="dtsDocNumber">Technical Note TN2276</div><h1 id="pageTitle">Audio Unit AUPlugIn - Updating an existing Audio Unit for OS X Lion and later</h1><p>When updating audio units for Mac OS X Lion or later there are a number of changes that must be made to your Xcode project for the audio unit to build and run on the system. Once these changes are in place, the audio unit will build and run in Mac OS X Lion and also run when deployed in Mac OS X v10.6.x.</p><p>This technical note discusses these changes using the FilterDemo audio unit sample code project as an example.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40011031-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Audio units already compiled for Mac OS X v10.6.x continue to work in Mac OS X Lion without modification.</p><p></p></aside></div>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011031-CH1-TNTAG1" data-renderer-version="1">Overview</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011031-CH1-TNTAG2" data-renderer-version="1">Example: Updating the FilterDemo Audio Unit</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011031-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40011031-CH1-TNTAG1" title="Overview"></a><h2 class="jump">Overview</h2><p>Mac OS X Lion introduces a new plug-in model called <code>AUPlugIn</code> which is no longer based on the Component Manager. The <code>AUPlugIn</code> model has a new dispatch mechanism requiring  the inclusion of two new dispatch helper files called <code>AUPlugInDispatch.h</code> and <code>AUPlugInDispatch.cpp</code> respectively.</p><p>A new <code>AUDIOCOMPONENT_ENTRY()</code> macro has been added to <code>ComponentBase.h</code> and by using this macro audio unit entry points are created for both the audio unit plug-in for Mac OS X Lion and the Component Manager component for backwards compatibility with Mac OS X v10.6.x. </p><p>Because audio units no longer use the Component Manager on Mac OS X Lion or newer, <code>AUPlugIn</code> based audio units do not use resource files (<code>.r</code> files) or the '<code>thng</code>' resource to define properties such as <code>kComponentType</code>, <code>kComponentSubType</code>, and <code>kComponentManufactureType</code>. These properties are now specified in the project's <code>Info.plist</code> file for the audio unit. You can continue to include the Component Manager resource file in the project for backwards compatibility with Mac OS X v10.6.x.</p><p>The new <code>AUPlugIn</code> entry point generated by the <code>AUDIOCOMPONENT_ENTRY()</code> macro is required and must be added to the exports file (<code>.exp</code>). You can leave the Component Manager entry point in the exports file to provide backwards compatibility with Mac OS X v10.6.x.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011031-CH1-TNTAG2" title="Example: Updating the FilterDemo Audio Unit"></a><h2 class="jump">Example: Updating the FilterDemo Audio Unit</h2><p>Download the FilterDemo Audio Unit sample and walk though the following update steps. Mac OS X Lion and the associated Xcode tools are required.</p><ol class="ol"><li class="li"><p>Open the file <code>Filter.cpp</code> and replace <code>COMPONENT_ENTRY(Filter)</code> with <code>AUDIOCOMPONENT_ENTRY(AUBaseFactory,</code> <code>Filter)</code>. This is the new macro that generates the plugin entry for the audio unit. See Listing 1.</p></li><li class="li"><p>Add the new entry point called <code>_FilterFactory</code> to the <code>Filter.exp</code> file. <code>_FilterFactory</code> is generated by the <code>AUDIOCOMPONENT_ENTRY()</code> macro. Leave <code>_FilterEntry</code> for backwards compatibility. See Listing 2.</p></li><li class="li"><p>Add an <code>AudioComponents</code> dictionary to the <code>Info.plist</code> file. Audio unit plugins do not use resource files to define their properties, therefore these items now need to be specified in the <code>Info.plist</code> file. Note that the resource file (<code>Filter.r</code>) should be left in place for backwards compatibility. See Listing 3 and Figure 1.</p></li><li class="li"><p>Add the <code>AUPlugInDispatch.h</code> and <code>AUPlugInDispatch.cpp</code> files to the project. These dispatch helper files are located in <code>Developer/Extras/CoreAudio/AUPublic/AUBase</code> and are required by the <code>AUPlugIn</code> manager. See Figure 2.</p></li></ol><a name="//apple_ref/doc/uid/DTS40011031-CH1-SOURCECODE1" title="Listing 1Change entry point generation macro in Filter.cpp"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Change entry point generation macro in <code>Filter.cpp</code></p><div class="codesample clear"><table><tr><td scope="row"><pre>//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<span></span></pre></td></tr><tr><td scope="row"><pre>//	Standard DSP AudioUnit implementation<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// old component manager entry point no longer required<span></span></pre></td></tr><tr><td scope="row"><pre>//COMPONENT_ENTRY(Filter)<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// new AUPlugIn macro<span></span></pre></td></tr><tr><td scope="row"><pre>AUDIOCOMPONENT_ENTRY(AUBaseFactory, Filter)<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40011031-CH1-SOURCECODE2" title="Listing 2Add new entry point in Filter.exp"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Add new entry point in <code>Filter.exp</code></p><div class="codesample clear"><table><tr><td scope="row"><pre>_FilterEntry<span></span></pre></td></tr><tr><td scope="row"><pre>_FilterFactory<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40011031-CH1-SOURCECODE3" title="Listing 3AudioComponents array in the Info.plist file."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;<code>AudioComponents</code> array in the <code>Info.plist</code> file.</p><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key&gt;AudioComponents&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;description&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;Filter AU&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;factoryFunction&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;FilterFactory&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;manufacturer&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;Acme&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;name&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;Apple Demo: Filter&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;subtype&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;FILT&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;type&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;aufx&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;version&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;integer&gt;65536&lt;/integer&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/array&gt;<span></span></pre></td></tr></table></div><figure class="figure"><a name="//apple_ref/doc/uid/DTS40011031-CH1-FIGURE1" title="Figure 1Graphical representation of AudioComponents array."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Graphical representation of <code>AudioComponents</code> array.</figcaption><img src="Art/tn2276_plist.png" alt="" width="477" height="180"></figure><figure class="figure"><a name="//apple_ref/doc/uid/DTS40011031-CH1-FIGURE2" title="Figure 2AUPlugInDispatch files added to Xcode project."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;AUPlugInDispatch files added to Xcode project.</figcaption><img src="Art/tn2276_project.png" alt="" width="260" height="378"></figure><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40011031-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40011031-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2012-08-17</td><td><p>Fixed plist information</p></td></tr><tr><td scope="row">2012-05-09</td><td><p>Editorial</p></td></tr><tr><td scope="row">2011-09-30</td><td><p>Fixed plist information</p></td></tr><tr><td scope="row">2011-08-22</td><td><p>Editorial</p></td></tr><tr><td scope="row">2011-05-23</td><td><p>New document that 
+					discusses required audio unit project changes for building and running on OS X Lion (and v10.6.x).</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-08-17</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

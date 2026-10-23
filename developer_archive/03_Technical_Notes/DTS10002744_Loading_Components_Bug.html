@@ -1,0 +1,411 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Loading Components Bug">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002744">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="QT02.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../style.css" TYPE="text/css">
+
+
+
+<title>Technical Note QT02: Loading Components Bug</title>
+
+
+
+<meta name="keywords" content="Mac OS 8 Loading Components bug Quicktime Manager resource file">
+<meta name="Description" content="Technical Note QT02: This Technical Note documents the bug
+where the Component Manager may change the current resource
+file in the resource search path.">                                       
+
+
+
+
+<meta name="categories" content="QuickTime">
+
+
+<meta name="week-posted" content="Nov 30, 1992 - Dec 4, 1992">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002744" title="Loading Components Bug"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Loading Components Bug</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a name="top"></a>
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxMacOS9Earlier-date.html">Mac OS 9 & Earlier</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/index.html" target="_blank">Reference Library</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note QT02</div>
+<div id="pageheadsub">Loading Components Bug</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                 
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+					<!-- begin_toc -->
+					
+					<p id="menutext">
+<a href="#Section1">What, Me Worry?</a><BR><BR>
+<a href="#Section2">Que pasa?</a><BR><BR>
+<a href="#Section3">Whatsamatta U?</a><BR><BR>
+<a href="#References">References</a><BR><BR>
+<a href="#Downloads">Downloadables</a></P>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+<!-- begin_intro_text --><P id = "introtext">The Component Manager may change the current resource file in the resource
+search path. This is a bug and will be fixed as soon as possible.</p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3 align=center>[Dec 01 1992]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+
+          <!-- begin_content -->
+<a name="Section1"></a><H2>What, Me Worry?</h2>
+
+<p>In general, the bug documented here will not be a problem for most applications
+(Don't worry, be happy), because most of the time the component will already be
+in memory or doesn't have to be loaded, and most applications leave the
+resource search path set to the topmost file. Here are a couple of questions to
+help you understand if this bug pertains to you:</p>
+
+<ul type="disc">
+	<li>Do you use the Component Manager?</li>
+
+	<li>Do you keep more than one resource file open and change the current resource path (that is, <code>CurResFile</code>)?</li>
+
+	<li>Do you open components at a time when you depend on the current resource path being set to something other than the topmost file?</li>
+</ul>
+
+
+<p>If you've said yes to all of the above questions, write a check payable to Jim
+Reekes for 33 percent of the amount of taxable income declared on your Federal
+Income Tax statement. Then continue reading this Technote to find out if this
+bug will byte you. Otherwise, take a vacation, you've been working too hard.</p>
+<a name="Section2"></a>
+<P><a href="#top">Back to top</a></p><H2>Que pasa?</h2>
+
+<p>When the call <code>_OpenComponent</code> is made, the Component Manager may need
+to load the component's code. To load the Component, the component's resource
+file must be opened and closed. A side effect of this may be to change the top
+of the Resource Manager's search path. To open the component's resource file,
+the Component Manager calls <code>_OpenComponentResFile</code>. It then loads the
+component's code, and calls <code>_CloseComponentResFile</code>. The Resource Manager 
+will set the current resource search path to the top most file, <i>which will be 
+the map that was at the top of the path prior to opening the component</i>.</p>
+
+<p align=center><img src="images/qt_02_001.gif" alt="Figure 1" width=416 height=189></p>
+
+<p align=center><b>Figure 1</b>. Resource Search Paths</p>
+<a name="Section3"></a>
+<P><a href="#top">Back to top</a></p><H2>Whatsamatta U?</h2>
+
+<p>Figure 1 shows how the resource search path is configured during the course of
+opening a component. The "before" path shows how the resource search path would
+look for an application that has opened a resource file and then set the top of
+the resource search path to be itself. Remember the way the Resource Manager works? 
+The top of the search path is searched first when calling <code>_GetResource</code>, 
+and then, if the resource is not found, the search is continued at the next file 
+down in the search path. If an application is opening resource files, it may wish 
+to avoid inadvertently getting resources from that newly opened file. For example, 
+let's say you have opened a resource file that contains sound resources but your 
+application also has sound resources and you don't want to get the wrong one at 
+the wrong time. So you may wish to protect yourself by setting the search path 
+to begin at the application level to exclude the open resource file above it by 
+using <code>_CurResFile</code>. This way whenever you call <code>_GetResource</code> 
+you'll be sure to only get sound resources from your application.</p>
+
+<p>When a new resource file is opened, by default the resource search path is set
+to start at this file. This is a good thing. Then when that file is closed, the
+Resource Manager will set the top of the search path to the next file. This may
+be a bad thing if you don't want resources to be loaded from this file. This is
+exactly what is happening when a component is loaded by the Component Manager.
+The Component Manager may need to load the code resource from the component's
+resource file. This is the "during" path shown in the Figure 1.<b> </b>Once the
+code resource has been loaded, the Component Manager will close the resource
+file. This is the situation shown in the "after" path of the figure.</p>
+
+<p>The lesson to learn is that opening a component may change the current resource
+search path. You can open a component by calling any component's method. Now you don't 
+need to save and restore the resource path around every component call, but when you use 
+<code>_OpenComponent</code> you should protect yourself. Additionally when you use the 
+Component Manager's trap <code>_OpenComponentResFile</code> it will change the resource 
+search path just like <code>_OpenResFile</code>. So you may wish to preserve the 
+resource search path yourself around this call too. Below is an example of 
+the code you may wish to use:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre> oldResFile = CurResFile();
+    c = OpenComponent(aComponent)
+    UseResFile(oldResFile);
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<p>One potential side-effect of this is when you use a component and don't know
+it. QuickTime, for example, is based on components. QuickTime installs graphic
+procedures to support <code>_DrawPicture</code>. If a picture contains a compressed
+image (JPEG, for example), it may cause the image decompression component to be
+loaded and possibly change the resource search path. If you know you are
+supporting QuickTime image compressed images using <code>_DrawPicture</code>, 
+you may need to save and restore the resource search path around it.</p>
+
+<a name="References"></a>
+<P><a href="#top">Back to top</a></p><H2>References</h2>
+<P><i>Inside Macintosh,</i> Component Manager</p>
+<P><i>Inside Macintosh,</i> Resource Manager</p>
+
+
+
+
+         <a name="Downloads"></a>
+       <P><a href="#top">Back to top</a></p><H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (76K).</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/qt_02.pdf">Download</a></P>
+               </TD>
+            </TR>
+           
+         </table>
+         <BR>
+</TD></TR></table></center>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+
+
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

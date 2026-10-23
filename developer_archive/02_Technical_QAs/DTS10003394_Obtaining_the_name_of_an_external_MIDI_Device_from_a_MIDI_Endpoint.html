@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1374: Obtaining the name of an external MIDI Device from a MIDI Endpoint</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003394">
+    <meta id="document-version" name="document-version" content="3.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003394-CH1">
+    <meta id="date" name="date" content="2014-03-24">
+    <meta id="description" name="description" content="QA1374: Get the names of external MIDI Devices from MIDI Endpoints.">
+    <meta id="book-title" name="book-title" content="Obtaining the name of an external MIDI Device from a MIDI Endpoint">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/CoreMIDI}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1374">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Obtaining the name of an external MIDI Device from a MIDI Endpoint" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003394" title="Technical Q&amp;A QA1374"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Obtaining the name of an external MIDI Device from a MIDI Endpoint</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003394-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1374"></a><div class="dtsDocNumber">Technical Q&amp;A QA1374</div><h1 id="pageTitle">Obtaining the name of an external MIDI Device from a MIDI Endpoint</h1><h2>Q:&nbsp;
+How do I get the name of an external MIDI Device from a MIDI Endpoint?
+</h2><p><span>A: </span>CoreMIDI supports external MIDI devices with multiple ports, for example a synthesizer with more than one MIDI input. External MIDI devices can have multiple endpoints and entities. Therefore, instead of querying just the MIDI Object for the device name, the MIDI endpoints, entities and external devices must all be checked to obtain the appropriate device name.</p><p>Since the release of OS X 10.4, MIDIServices.h has included the property <code>kMIDIPropertyDisplayName</code> which can be used for this purpose. This property provides the Apple-recommended user-visible name for an endpoint, by combining the device and endpoint names for you. For objects other than endpoints, the display name is the same as the name.</p><a name="//apple_ref/doc/uid/DTS10003394-CH1-SOURCECODE1" title="Listing 1Getting an endpoint display name."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Getting an endpoint display name.</p><div class="codesample clear"><table><tr><td scope="row"><pre>// ____________________________________________________________________________<span></span></pre></td></tr><tr><td scope="row"><pre>// Obtain the name of an endpoint without regard for whether it has connections.<span></span></pre></td></tr><tr><td scope="row"><pre>// The result should be released by the caller.<span></span></pre></td></tr><tr><td scope="row"><pre>static CFStringRef GetEndpointDisplayName(MIDIEndpointRef endpoint)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    CFStringRef result = CFSTR(""); // default<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    MIDIObjectGetStringProperty(endpoint, kMIDIPropertyDisplayName, &amp;result);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    return result;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003394-CH1-SOURCECODE2" title="Listing 2Getting an endpoint name following connections."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Getting an endpoint name following connections.</p><div class="codesample clear"><table><tr><td scope="row"><pre>// Obtain the name of an endpoint, following connections.<span></span></pre></td></tr><tr><td scope="row"><pre>// The result should be released by the caller.<span></span></pre></td></tr><tr><td scope="row"><pre>static CFStringRef CreateConnectedEndpointName(MIDIEndpointRef endpoint)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    CFMutableStringRef result = CFStringCreateMutable(NULL, 0);<span></span></pre></td></tr><tr><td scope="row"><pre>    CFStringRef str;<span></span></pre></td></tr><tr><td scope="row"><pre>    OSStatus err;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Does the endpoint have connections?<span></span></pre></td></tr><tr><td scope="row"><pre>    CFDataRef connections = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>    int nConnected = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>    bool anyStrings = false;<span></span></pre></td></tr><tr><td scope="row"><pre>    err = MIDIObjectGetDataProperty(endpoint, kMIDIPropertyConnectionUniqueID, &amp;connections);<span></span></pre></td></tr><tr><td scope="row"><pre>    if (connections != NULL) {<span></span></pre></td></tr><tr><td scope="row"><pre>        // It has connections, follow them<span></span></pre></td></tr><tr><td scope="row"><pre>        // Concatenate the names of all connected devices<span></span></pre></td></tr><tr><td scope="row"><pre>        nConnected = CFDataGetLength(connections) / sizeof(MIDIUniqueID);<span></span></pre></td></tr><tr><td scope="row"><pre>        if (nConnected) {<span></span></pre></td></tr><tr><td scope="row"><pre>            const SInt32 *pid = reinterpret_cast&lt;const SInt32 *&gt;(CFDataGetBytePtr(connections));<span></span></pre></td></tr><tr><td scope="row"><pre>            for (int i = 0; i &lt; nConnected; ++i, ++pid) {<span></span></pre></td></tr><tr><td scope="row"><pre>               MIDIUniqueID id = EndianS32_BtoN(*pid);<span></span></pre></td></tr><tr><td scope="row"><pre>               MIDIObjectRef connObject;<span></span></pre></td></tr><tr><td scope="row"><pre>               MIDIObjectType connObjectType;<span></span></pre></td></tr><tr><td scope="row"><pre>               err = MIDIObjectFindByUniqueID(id, &amp;connObject, &amp;connObjectType);<span></span></pre></td></tr><tr><td scope="row"><pre>               if (err == noErr) {<span></span></pre></td></tr><tr><td scope="row"><pre>                if (connObjectType == kMIDIObjectType_ExternalSource  ||<span></span></pre></td></tr><tr><td scope="row"><pre>                                                      connObjectType == kMIDIObjectType_ExternalDestination) {<span></span></pre></td></tr><tr><td scope="row"><pre>                   // Connected to an external device's endpoint (10.3 and later).<span></span></pre></td></tr><tr><td scope="row"><pre>                   str = EndpointName(static_cast&lt;MIDIEndpointRef&gt;(connObject), true);<span></span></pre></td></tr><tr><td scope="row"><pre>                } else {<span></span></pre></td></tr><tr><td scope="row"><pre>                     // Connected to an external device (10.2) (or something else, catch-all)<span></span></pre></td></tr><tr><td scope="row"><pre>                  str = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>                  MIDIObjectGetStringProperty(connObject, kMIDIPropertyName, &amp;str);<span></span></pre></td></tr><tr><td scope="row"><pre>                }<span></span></pre></td></tr><tr><td scope="row"><pre>                if (str != NULL) {<span></span></pre></td></tr><tr><td scope="row"><pre>                    if (anyStrings)<span></span></pre></td></tr><tr><td scope="row"><pre>                        CFStringAppend(result, CFSTR(", "));<span></span></pre></td></tr><tr><td scope="row"><pre>                    else anyStrings = true;<span></span></pre></td></tr><tr><td scope="row"><pre>                    CFStringAppend(result, str);<span></span></pre></td></tr><tr><td scope="row"><pre>                    CFRelease(str);<span></span></pre></td></tr><tr><td scope="row"><pre>                }<span></span></pre></td></tr><tr><td scope="row"><pre>               }<span></span></pre></td></tr><tr><td scope="row"><pre>            }<span></span></pre></td></tr><tr><td scope="row"><pre>        }<span></span></pre></td></tr><tr><td scope="row"><pre>        CFRelease(connections);<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if (anyStrings)<span></span></pre></td></tr><tr><td scope="row"><pre>        return result;<span></span></pre></td></tr><tr><td scope="row"><pre>    else<span></span></pre></td></tr><tr><td scope="row"><pre>        CFRelease(result);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Here, either the endpoint had no connections, or we failed to obtain names for any of them.<span></span></pre></td></tr><tr><td scope="row"><pre>    return CreateEndpointName(endpoint, false);<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>//////////////////////////////////////<span></span></pre></td></tr><tr><td scope="row"><pre>// Obtain the name of an endpoint without regard for whether it has connections.<span></span></pre></td></tr><tr><td scope="row"><pre>// The result should be released by the caller.<span></span></pre></td></tr><tr><td scope="row"><pre>static CFStringRef CreateEndpointName(MIDIEndpointRef endpoint, bool isExternal)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    CFMutableStringRef result = CFStringCreateMutable(NULL, 0);<span></span></pre></td></tr><tr><td scope="row"><pre>    CFStringRef str;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // begin with the endpoint's name<span></span></pre></td></tr><tr><td scope="row"><pre>    str = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>    MIDIObjectGetStringProperty(endpoint, kMIDIPropertyName, &amp;str);<span></span></pre></td></tr><tr><td scope="row"><pre>    if (str != NULL) {<span></span></pre></td></tr><tr><td scope="row"><pre>        CFStringAppend(result, str);<span></span></pre></td></tr><tr><td scope="row"><pre>        CFRelease(str);<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    MIDIEntityRef entity = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>    MIDIEndpointGetEntity(endpoint, &amp;entity);<span></span></pre></td></tr><tr><td scope="row"><pre>    if (entity == NULL)<span></span></pre></td></tr><tr><td scope="row"><pre>        // probably virtual<span></span></pre></td></tr><tr><td scope="row"><pre>        return result;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if (CFStringGetLength(result) == 0) {<span></span></pre></td></tr><tr><td scope="row"><pre>        // endpoint name has zero length -- try the entity<span></span></pre></td></tr><tr><td scope="row"><pre>        str = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>        MIDIObjectGetStringProperty(entity, kMIDIPropertyName, &amp;str);<span></span></pre></td></tr><tr><td scope="row"><pre>        if (str != NULL) {<span></span></pre></td></tr><tr><td scope="row"><pre>            CFStringAppend(result, str);<span></span></pre></td></tr><tr><td scope="row"><pre>            CFRelease(str);<span></span></pre></td></tr><tr><td scope="row"><pre>        }<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // now consider the device's name<span></span></pre></td></tr><tr><td scope="row"><pre>    MIDIDeviceRef device = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>    MIDIEntityGetDevice(entity, &amp;device);<span></span></pre></td></tr><tr><td scope="row"><pre>    if (device == NULL) return result;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    str = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>    MIDIObjectGetStringProperty(device, kMIDIPropertyName, &amp;str);<span></span></pre></td></tr><tr><td scope="row"><pre>    if (str != NULL) {<span></span></pre></td></tr><tr><td scope="row"><pre>        // if an external device has only one entity, throw away<span></span></pre></td></tr><tr><td scope="row"><pre>                // the endpoint name and just use the device name<span></span></pre></td></tr><tr><td scope="row"><pre>        if (isExternal &amp;&amp; MIDIDeviceGetNumberOfEntities(device) &lt; 2) {<span></span></pre></td></tr><tr><td scope="row"><pre>            CFRelease(result);<span></span></pre></td></tr><tr><td scope="row"><pre>            return str;<span></span></pre></td></tr><tr><td scope="row"><pre>        } else {<span></span></pre></td></tr><tr><td scope="row"><pre>            // does the entity name already start with the device name?<span></span></pre></td></tr><tr><td scope="row"><pre>                        // (some drivers do this though they shouldn't)<span></span></pre></td></tr><tr><td scope="row"><pre>            // if so, do not prepend<span></span></pre></td></tr><tr><td scope="row"><pre>            if (CFStringCompareWithOptions(str /* device name */,<span></span></pre></td></tr><tr><td scope="row"><pre>                                    result /* endpoint name */,<span></span></pre></td></tr><tr><td scope="row"><pre>                                         CFRangeMake(0, CFStringGetLength(str)), 0) != kCFCompareEqualTo) {<span></span></pre></td></tr><tr><td scope="row"><pre>                // prepend the device name to the entity name<span></span></pre></td></tr><tr><td scope="row"><pre>                if (CFStringGetLength(result) &gt; 0)<span></span></pre></td></tr><tr><td scope="row"><pre>                    CFStringInsert(result, 0, CFSTR(" "));<span></span></pre></td></tr><tr><td scope="row"><pre>                CFStringInsert(result, 0, str);<span></span></pre></td></tr><tr><td scope="row"><pre>            }<span></span></pre></td></tr><tr><td scope="row"><pre>            CFRelease(str);<span></span></pre></td></tr><tr><td scope="row"><pre>        }<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    return result;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS10003394-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003394-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-03-24</td><td><p>Editorial</p></td></tr><tr><td scope="row">2014-01-21</td><td><p>Editorial</p></td></tr><tr><td scope="row">2013-08-06</td><td><p>Editorial</p></td></tr><tr><td scope="row">2004-12-01</td><td><p>New document that 
+					get the names of external MIDI Devices from MIDI Endpoints.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-03-24</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

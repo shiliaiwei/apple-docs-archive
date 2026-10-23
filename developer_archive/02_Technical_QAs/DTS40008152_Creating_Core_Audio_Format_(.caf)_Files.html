@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1534: Creating Core Audio Format (.caf) Files</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40008152">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40008152-CH1">
+    <meta id="date" name="date" content="2009-01-07">
+    <meta id="description" name="description" content="QA1534: Describes how to use afconvert to create .caf files">
+    <meta id="book-title" name="book-title" content="Creating Core Audio Format (.caf) Files">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/CoreAudio}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1534">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Creating Core Audio Format (.caf) Files" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40008152" title="Technical Q&amp;A QA1534"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Creating Core Audio Format (.caf) Files</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40008152-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1534"></a><div class="dtsDocNumber">Technical Q&amp;A QA1534</div><h1 id="pageTitle">Creating Core Audio Format (.caf) Files</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I'm trying to author Core Audio Format files using QuickTime Player but it doesn't have a .caf file exporter. How can I create .caf files on Mac OS X?
+</h2><p><span>A: </span>I'm trying to author Core Audio Format files using QuickTime Player but it doesn't have a .caf file exporter. How can I create .caf files on Mac OS X?</p><p>While QuickTime supports importing Core Audio Format (<code>.caf</code>) files, it does not currently provide an audio exporter capable of creating these files.</p><p>The easiest way to create a Core Audio Format file is by using the <code>afconvert</code> tool located in <code>/usr/bin/</code>.</p><p><code>afconvert</code> (a.k.a. Audio File Convert) will convert a source audio file to a new audio file and supports a large set of file formats, data formats and encoding options.</p><p>For example, Listing 1 demonstrates how you might use <code>afconvert</code> from the Terminal to create a <code>.caf</code> file containing AAC audio encoded with an average data rate of 192kbps.</p><a name="//apple_ref/doc/uid/DTS40008152-CH1-SOURCECODE1" title="Listing 1Convert an .aif file to a .caf file."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Convert an .aif file to a .caf file.</p><div class="codesample clear"><table><tr><td scope="row"><pre>afconvert -v -f 'caff' -d aac -s 1 -b 192000 MySource.aif MyOutput.caf<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40008152-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>NAME
+     afconvert -- Audio File Convert
+
+SYNOPSIS
+     afconvert [option...] input_file [output_file]
+
+DESCRIPTION
+     Audio File Convert will convert a source audio file to a new audio file of the specified file type containing audio data of the specified data type.
+
+OPTIONS (may appear before or after arguments)
+     { -f | --file } file_format:
+        '3gpp' = 3GP Audio (.3gp)
+                   data_formats: 'aac ' 'samr' 
+        '3gp2' = 3GPP2 Audio (.3g2)
+                   data_formats: 'aac ' 'samr' 
+        'adts' = AAC ADTS (.aac, .adts)
+                   data_formats: 'aac ' 
+        'ac-3' = AC3 (.ac3)
+                   data_formats: 'ac-3' 
+        'AIFC' = AIFC (.aifc, .aiff, .aif)
+                   data_formats: I8 BEI16 BEI24 BEI32 BEF32 
+                                 BEF64 UI8 'ulaw' 'alaw' 'MAC3' 'MAC6' 
+                                 'ima4' 'QDMC' 'QDM2' 'Qclp' 'agsm' 
+        'AIFF' = AIFF (.aiff, .aif)
+                   data_formats: I8 BEI16 BEI24 BEI32 
+        'amrf' = AMR (.amr)
+                   data_formats: 'samr' 
+        'caff' = Apple CAF (.caf)
+                   data_formats: '.mp1' '.mp2' '.mp3' 'MAC3' 'MAC6' 
+                                 'QDM2' 'QDMC' 'Qclp' 'Qclq' 'aac ' 'aacl' 
+                                 'agsm' 'alac' 'alaw' 'drms' 'dvca' 'dvi ' 
+                                 'dvi8' 'ilbc' 'ima4' 'lpc ' I8 BEI16 
+                                 BEI24 BEI32 BEF32 BEF64 LEI16 LEI24 
+                                 LEI32 LEF32 LEF64 'ms\x00\x02' 'ms\x00\x11' 'ms\x001' 
+                                 'ms\x00U' 'samr' 'ulaw' 'vdva' 
+        'MPG1' = MPEG Layer 1 (.mp1, .mpeg, .mpa)
+                   data_formats: '.mp1' 
+        'MPG2' = MPEG Layer 2 (.mp2, .mpeg, .mpa)
+                   data_formats: '.mp2' 
+        'MPG3' = MPEG Layer 3 (.mp3, .mpeg, .mpa)
+                   data_formats: '.mp3' 
+        'mp4f' = MPEG4 Audio (.mp4)
+                   data_formats: 'aac ' 'aacl' 
+        'm4af' = MPEG4 Audio (.m4a)
+                   data_formats: 'aac ' 'aacl' 'alac' 
+        'NeXT' = NeXT/Sun (.snd, .au)
+                   data_formats: I8 BEI16 BEI24 BEI32 BEF32 
+                                 BEF64 'ulaw' 
+        'Sd2f' = Sound Designer II (.sd2)
+                   data_formats: I8 BEI16 BEI24 BEI32 
+        'WAVE' = WAVE (.wav)
+                   data_formats: UI8 LEI16 LEI24 LEI32 LEF32 
+                                 LEF64 'ulaw' 'alaw' 
+    { -d | --data } data_format[@sample_rate_hz][/format_flags][#frames_per_packet] :
+        [-][BE|LE]{F|[U]I}{8|16|24|32|64} (PCM)
+            e.g. BEI16   F32@44100
+        or a data format appropriate to file format, as above
+        format_flags: hex digits, e.g. '80'
+        Frames per packet can be specified for some encoders, e.g.: samr#12
+    { -c | --channels } number_of_channels
+        add/remove channels without regard to order
+    { -l | --channellayout } layout_tag
+        layout_tag: name of a constant from CoreAudioTypes.h
+          (prefix "kAudioChannelLayoutTag_" may be omitted)
+        if specified once, applies to output file; if twice, the first
+          applies to the input file, the second to the output file
+    { -b | --bitrate } bit_rate_bps
+         e.g. 128000
+    { -q | --quality } codec_quality
+        codec_quality: 0-127
+    { -r | --src-quality } src_quality
+        src_quality (sample rate converter quality): 0-127
+    { --src-complexity } src_complexity
+        src_complexity (sample rate converter complexity): line, norm, bats
+    { -v | --verbose }
+        print progress verbosely
+    { -s | --strategy } strategy
+        bitrate allocation strategy for encoding an audio track
+        0 for CBR, 1 for ABR, 2 for VBR_constrained, 3 for VBR
+    { -t | --tag }
+        If encoding to CAF, store the source file's format and name in a user chunk.
+        If decoding from CAF, use the destination format and filename found in a user chunk.
+    --read-track track_index
+        For input files containing multiple tracks, the index (0..n-1) of the track
+        to read and convert.
+    --prime-method method
+        decode priming method (see AudioConverter.h)
+    --no-filler
+        don't page-align audio data in the output file
+    { -u | --userproperty } property value
+        set an arbitrary property to a given value
+        property must be a four char code
+        value is a signed 32-bit integer
+        A maximum of 8 properties may be set
+        e.g. use '-u vbrq &lt;sound_quality&gt;' to set the sound quality level (&lt;sound_quality&gt;: 0-127) 
+             for VBR encoding strategy (i.e., -s 3) 
+    { -h | --help }
+        print help<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS40008152-CH1-SECTION1" title="References"></a><h2 class="jump">References</h2><p><span class="content_text"><a href="http://developer.apple.com/documentation/MusicAudio/Reference/CAFSpec/CAF_intro/chapter_1_section_1.html" class="browserLink" >Introduction to Apple Core Audio Format Specification</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40008152-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40008152-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2009-01-07</td><td><p>New document that 
+					describes how to use afconvert to create .caf files</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-01-07</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1871: Cocoa Bindings in OS X Storyboards</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40016747">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40016747-CH1">
+    <meta id="date" name="date" content="2016-04-04">
+    <meta id="description" name="description" content="QA1871: describes how to bind the UI elements in view controller scenes to an application's model objects.">
+    <meta id="book-title" name="book-title" content="Cocoa Bindings in OS X Storyboards">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Cocoa Layer/AppKit}, {Topic/Data Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1871">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Cocoa Bindings in OS X Storyboards" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40016747" title="Technical Q&amp;A QA1871"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Cocoa Bindings in OS X Storyboards</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40016747-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1871"></a><div class="dtsDocNumber">Technical Q&amp;A QA1871</div><h1 id="pageTitle">Cocoa Bindings in OS X Storyboards</h1><h2>Q:&nbsp;
+Given that there is no File’s Owner in an OS X storyboard, how can I bind the UI elements in my view controller scenes to my application's model objects?
+</h2><p><span>A: </span>In an OS X storyboard, every scene has a controller. We use that controller to manage the content of the scene and interact with the other parts of the application, thus you don’t need a File’s Owner object anymore. (For more information on File’s Owner, see the <span class="content_text"><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/LoadingResources/CocoaNibs/CocoaNibs.html#//apple_ref/doc/uid/10000051i-CH4-SW15" class="urlLink" rel="external">About File's Owner</a></span> section of Resource Programming Guide.)</p><p>In your view controller scene, the controller is an object of the <code>NSViewController</code> subclass. You can use its <code>representedObject</code> property, or make any number of other properties that are more type-safe, to represent the model your view controller works with, and then bind through them. </p><p>For Cocoa bindings to work correctly, be sure that the model properties are ready for use when Cocoa bindings need them. This is especially important when you need to load the model data immediately after the application launch. To achieve that, there are two cases to consider:</p><ul class="ul"><li class="li"><p>For a document based application, you can set up the model properties in the <code>-makeWindowControllers</code> method of your document class, as shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS40016747-CH1-SOURCECODE1" title="Listing 1Document based application"></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Document based application</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)makeWindowControllers {<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    /* Your code to set up the window controller(s) for your document*/<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Set up the view controller’s representedObject property here,<span></span></pre></td></tr><tr><td scope="row"><pre>    // assume the contentViewController of the current window controller<span></span></pre></td></tr><tr><td scope="row"><pre>    // is the view controller you working with.<span></span></pre></td></tr><tr><td scope="row"><pre>    yourViewController = (YourViewController *)windowController.contentViewController;<span></span></pre></td></tr><tr><td scope="row"><pre>    yourViewController.representedObject = &lt;your_model_object&gt;;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div></li><li class="li"><p>For a non-document based application, you might set up the model properties in the <code>-awakeFromNib</code> method of your view controller class, as shown in <span class="content_text"><!--a  -->Listing 2<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS40016747-CH1-SOURCECODE2" title="Listing 2Non-document based application"></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Non-document based application</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)awakeFromNib {<span></span></pre></td></tr><tr><td scope="row"><pre>    [super awakeFromNib];<span></span></pre></td></tr><tr><td scope="row"><pre>    if (! self.representedObject) {<span></span></pre></td></tr><tr><td scope="row"><pre>        self.representedObject = &lt;your_model_object&gt;;<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div></li></ul><p>Once the model properties have been set up, you can safely use key paths starting with "self.representedObject" (or other properties you defined). <span class="content_text"><!--a  -->Figure 1<!--/a--></span> shows you how to bind an <code>NSArrayController</code> object within a view controller scene to the <code>managedObjectContext</code> property of the view controller's <code>representedObject</code> (which represents a document object owning that property).</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016747-CH1-FIGURE1" title="Figure 1Binding to the view controller's model property"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Binding to the view controller's model property</figcaption><img src="Art/qa1871_binding.jpg" class="wide-image" alt="" width="900" height="633"><img src="Art/qa1871_binding.jpg" class="ipad-scaled-image" alt="" width="670" height="471"></figure><p>Be aware that the object of a model property may be replaced when it is written back through Cocoa bindings. As an example, when you bind an <code>NSArrayController</code> object to an <code>NSMutableArray</code> property, <code>NSArrayController</code> uses the <code>mutableArrayValueForKey:</code> method defined in <code>NSKeyValueCoding.h</code> to write back changes. Your <code>NSMutableArray</code> object will be replaced with a new array if you don't implement the array mutation methods for the property. The details are covered in <code>NSKeyValueCoding.h</code>.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40016747-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Binding directly to key paths like "self.view.window.windowController.document" may not be safe, because when the binding is working, the view is not necessarily in the view hierarchy (OS X may remove it from the view hierarchy when it is off-screen), thus "self.view.window" may be nil.</p><p></p></aside></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40016747-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40016747-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-04-04</td><td><p>Adjusted the image size and added the content related to the mutability of model properties.</p></td></tr><tr><td scope="row">2016-03-31</td><td><p>Adjusted the image size and added the content related to the mutability of model properties.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>Adjusted the image size and added the content related to the mutability of model properties.</p></td></tr><tr><td scope="row">2016-02-18</td><td><p>New document that 
+					describes how to bind the UI elements in view controller scenes to an application's model objects.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-04-04</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

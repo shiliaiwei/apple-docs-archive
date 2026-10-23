@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1606: Audio Unit Processing Graph - Ensuring audio playback continues when screen is locked</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009413">
+    <meta id="document-version" name="document-version" content="1.4.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009413-CH1">
+    <meta id="date" name="date" content="2010-03-15">
+    <meta id="description" name="description" content="QA1606: Discusses how to ensure audio playback while the phone is locked when using multiple Audio Units.">
+    <meta id="book-title" name="book-title" content="Audio Unit Processing Graph - Ensuring audio playback continues when screen is locked">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1606">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Unit Processing Graph - Ensuring audio playback continues when screen is locked" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009413" title="Technical Q&amp;A QA1606"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Unit Processing Graph - Ensuring audio playback continues when screen is locked</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009413-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1606"></a><div class="dtsDocNumber">Technical Q&amp;A QA1606</div><h1 id="pageTitle">Audio Unit Processing Graph - Ensuring audio playback continues when screen is locked</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I'm using an AUGraph and I'd like my audio to continue playing during screen lock. Is there anything else I need to configure in addition to the Audio Session kAudioSessionCategory_MediaPlayback category to allow my AURenderCallback to continue being called?
+</h2><p><span>A: </span>I'm using an AUGraph and I'd like my audio to continue playing during screen lock. Is there anything else I need to configure in addition to the Audio Session kAudioSessionCategory_MediaPlayback category to allow my AURenderCallback to continue being called?</p><p>When an Audio Unit Processing Graph is used for <strong>Output</strong> only, the default I/O render size is changed from 22 milliseconds (1024 samples @ 44.1kHz) to 88 milliseconds (4096 samples @ 44.1kHz) when the screen is locked. This is done to conserve power since there is no user interaction with the screen once the screen goes dark.</p><p>If an application does not account for this change, any Audio Unit asked to provide 4096 samples will return an error since its <code>kAudioUnitProperty_MaximumFramesPerSlice</code> setting will be less than this value.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40009413-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;The default setting for Audio Units is 1156 maximum frames per slice.</p><p></p></aside></div><p>The Remote I/O Audio Unit by default is already configured for 4096 maximum frames per slice, the issue affects all other Audio Units used in the graph.</p><p>If an application intends to continue playback when the screen is locked, it is the clients responsibility to change the <code>kAudioUnitProperty_MaximumFramesPerSlice</code> property appropriately for each Audio Unit being used to handle requests for 4096 samples.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009413-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;When an Audio Unit Processing Graph has <strong>Input</strong> running, no  I/O size changes are made since this would cause glitching. Therefore, the additional <code>kAudioUnitProperty_MaximumFramesPerSlice</code> configuration discussed is not required in this case.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40009413-CH1-SOURCECODE1" title="Listing 1Typical Audio Unit Graph setup configuring the kAudioUnitProperty_MaximumFramesPerSlice property for the mixer."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Typical Audio Unit Graph setup configuring the kAudioUnitProperty_MaximumFramesPerSlice property for the mixer.</p><div class="codesample clear"><table><tr><td scope="row"><pre>// audio render procedure
+static OSStatus renderProc(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags,
+                           const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber,
+                           UInt32 inNumberFrames, AudioBufferList *ioData)
+{
+    // your audio render code here
+
+    return noErr;
+}
+
+AUGraph   mGraph;
+AudioUnit mMixer;
+
+- (void)initializeAUGraph
+{
+    // create two AudioComponentDescriptions for the AUs we want in the graph
+    // output unit
+    AudioComponentDescription output_desc = {kAudioUnitType_Output, kAudioUnitSubType_RemoteIO,
+                                             kAudioUnitManufacturer_Apple, 0, 0};
+     // multichannel mixer unit
+    AudioComponentDescription mixer_desc = {kAudioUnitType_Mixer, kAudioUnitSubType_MultiChannelMixer,
+                                            kAudioUnitManufacturer_Apple, 0, 0};
+    AUNode outputNode;
+    AUNode mixerNode;
+    CAStreamBasicDescription desc;
+
+    // create a new AUGraph
+    NewAUGraph(&amp;mGraph);
+
+    // create a node in the graph that is an AudioUnit, using the supplied AudioComponentDescription
+    // to find and open that unit
+    AUGraphAddNode(mGraph, &amp;output_desc, &amp;outputNode);
+    AUGraphAddNode(mGraph, &amp;mixer_desc, &amp;mixerNode);
+
+    // connect a node's output to a node's input
+    AUGraphConnectNodeInput(mGraph, mixerNode, 0, outputNode, 0);
+
+    // open the graph AudioUnits are open but not initialized (no resource allocation occurs here)
+    AUGraphOpen(mGraph);
+
+    // get the mixer audio unit since we need to configure it
+    AUGraphNodeInfo(mGraph, mixerNode, NULL, &amp;mMixer);
+
+    // set bus count
+    UInt32 numbuses = 1;
+
+    AudioUnitSetProperty(mMixer, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &amp;numbuses,
+                         sizeof(numbuses));
+
+    // setup render callback struct
+    AURenderCallbackStruct rcbs;
+    rcbs.inputProc = &amp;renderProc;
+    rcbs.inputProcRefCon = self;
+
+    // Set a callback for the specified node's specified input
+    AUGraphSetNodeInputCallback(mGraph, mixerNode, 0, &amp;rcbs);
+
+    // set input stream format to what we want
+    UInt32 size = sizeof(desc);
+    AudioUnitGetProperty(mMixer, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &amp;desc, &amp;size);
+
+    desc.ChangeNumberChannels(2, false); 
+    desc.mSampleRate = 44100.0;
+
+    AudioUnitSetProperty(mMixer, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &amp;desc,
+                         sizeof(desc));
+
+    // set output stream format to what we want
+    AudioUnitGetProperty(mMixer, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &amp;desc, &amp;size);
+
+    desc.ChangeNumberChannels(2, false); 
+    desc.mSampleRate = 44100.0;
+
+    AudioUnitSetProperty(mMixer, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &amp;desc,
+                         sizeof(desc));
+
+    // set the mixer unit to handle 4096 samples per slice since we want to keep rendering during screen lock
+    UInt32 maxFPS = 4096;
+    AudioUnitSetProperty(mMixer, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0,
+                         &amp;maxFPS, sizeof(maxFPS));
+
+    // now that we've set everything up we can initialize the graph, this will also validate the connections
+    AUGraphInitialize(mGraph);
+}<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40009413-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009413-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-03-15</td><td><p>Editorial.</p></td></tr><tr><td scope="row">2010-01-14</td><td><p>Corrected value for default AU maximum frames per slice.</p></td></tr><tr><td scope="row">2009-12-14</td><td><p>Editorial</p></td></tr><tr><td scope="row">2009-12-09</td><td><p>New document that 
+					discusses how to ensure audio playback while the phone is locked when using multiple Audio Units.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-03-15</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

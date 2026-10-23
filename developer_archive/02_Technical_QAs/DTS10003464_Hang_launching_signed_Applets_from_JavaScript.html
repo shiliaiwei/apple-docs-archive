@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Q&amp;A QA1395: Hang launching signed Applets from JavaScript</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003464">
+    <meta id="document-version" name="document-version" content="1.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003464-CH1">
+    <meta id="date" name="date" content="2004-12-02">
+    <meta id="description" name="description" content="QA1395.">
+    <meta id="book-title" name="book-title" content="Hang launching signed Applets from JavaScript">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Languages & Utilities/Other Languages}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1395">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Hang launching signed Applets from JavaScript" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003464" title="Technical Q&amp;A QA1395"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Hang launching signed Applets from JavaScript</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003464-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1395"></a><div class="dtsDocNumber">Technical Q&amp;A QA1395</div><h1 id="pageTitle">Hang launching signed Applets from JavaScript</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003464-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003464-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;<strong>Legacy Document</strong></p><p>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p><p>Current information on this Reference Library topic can be found here:</p><p><span class="content_text"><a href="http://developer.apple.com/referencelibrary/InternetWeb/idxJava-date.html" class="browserLink" >Internet &amp; Web &gt; Java</a></span></p><p></p></aside></div><h2>Q:&nbsp;
+I use LiveConnect in a JavaScript <code>onLoad()</code> handler, and my Applet hangs before it's finished loading.
+</h2><p><span>A: </span>In Java 1.4.2 Update 2 on Mac OS X 10.3 there is a potential for a hang if LiveConnect is used to call a method in a signed applet if the applet has not yet been loaded and the certificate used to sign the applet has not yet been authenticated as trusted.</p><p>To workaround the issue, make sure the signed applet is trusted before making LiveConnect calls to the applet's methods. Since JavaScript can't detect if the applet is loaded and trusted without using LiveConnect, an easy solution is for the applet to call out to a JavaScript function to let it know that it is loaded and that it is safe to call applet methods. For example, if the JavaScript function being used to notify it that an applet has been loaded is called <code>appletLoaded()</code>, as shown in Listing 1, the following listings show how to call it from the applet's <code>init()</code> method. Listings 2, and 3 show example java code that can be used by the applet to call out to the JavaScript. Listing 2 shows calling out to JavaScript using the applet's context, and Listing 3 shows calling out to JavaScript using LiveConnect. Using the applet's context as show in Listing 2 requires less overhead because LiveConnect doesn't need to be initialized, but the end result is the same for both.</p><a name="//apple_ref/doc/uid/DTS10003464-CH1-SOURCECODE1" title="Listing 1HTML and JavaScript showing the example appletLoaded() function."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;HTML and JavaScript showing the example appletLoaded() function.</p><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;LiveConnect Applet Example&lt;/title&gt;
+&lt;/head&gt;
+    &lt;body&gt;
+        &lt;script type="text/javascript" language="JavaScript"&gt;
+            &lt;!--
+            var OkToScriptJavaToJavaScriptApplet = 0;
+
+            function appletLoaded() {
+               OkToScriptJavaToJavaScriptApplet = 1;
+               // It is now safe to call back into the applet from JavaScript
+               // Either call needed functions directly from this function,
+               // or verify that OkToScriptJavaToJavaScriptApplet is not zero
+               // before calling it from another function.
+               }
+            //--&gt; 
+        &lt;/script&gt;
+        &lt;applet archive="JavaToJavaScriptApplet.jar" code="JavaToJavaScriptApplet"
+            width=600 height=100 name=JavaToJavaScriptApplet mayscript&gt;
+            Your browser does not support Java, so nothing is displayed.
+        &lt;/applet&gt;
+    &lt;/body&gt;
+&lt;/html&gt;<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003464-CH1-SOURCECODE2" title="Listing 2Calling JavaScript from Java using the showDocument method."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Calling JavaScript from Java using the showDocument method.</p><div class="codesample clear"><table><tr><td scope="row"><pre>public void init() { try {     getAppletContext().showDocument(new java.net.URL("javascript:appletLoaded()"), "_self");     } catch (java.net.MalformedURLException e) {e.printStackTrace();} }<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003464-CH1-SOURCECODE3" title="Listing 3Calling JavaScript from Java using LiveConnect."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Calling JavaScript from Java using LiveConnect.</p><div class="codesample clear"><table><tr><td scope="row"><pre>public void init() {     JSObject win = JSObject.getWindow(this);     win.eval("appletLoaded()"); }<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS10003464-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003464-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2004-12-02</td><td><p>New document that 
+					making a LiveConnect call to a signed Applet before that Applet has finished loading can cause a hang.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2004 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2004-12-02</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

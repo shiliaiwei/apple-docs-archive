@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1533: How to handle kAudioUnitProperty_MaximumFramesPerSlice</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004404">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004404-CH1">
+    <meta id="date" name="date" content="2015-05-28">
+    <meta id="description" name="description" content="QA1533: Illustrates how to use the kAudioUnitProperty_MaximumFramesPerSlice property">
+    <meta id="book-title" name="book-title" content="How to handle kAudioUnitProperty_MaximumFramesPerSlice">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1533">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="How to handle kAudioUnitProperty_MaximumFramesPerSlice" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004404" title="Technical Q&amp;A QA1533"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>How to handle kAudioUnitProperty_MaximumFramesPerSlice</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004404-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1533"></a><div class="dtsDocNumber">Technical Q&amp;A QA1533</div><h1 id="pageTitle">How to handle kAudioUnitProperty_MaximumFramesPerSlice</h1><h2>Q:&nbsp;
+What is the <code>kAudioUnitProperty_MaximumFramesPerSlice</code> and how do I use it appropriately?
+</h2><p><span>A: </span>The <code>kAudioUnitProperty_MaximumFramesPerSlice</code> is used by Audio Units to determine what the maximum number of frames the Audio Unit will be asked to render for any given render call. If you ask an Audio Unit to render for more frames than the value specified by this property, the Audio Unit will return an error and not render any data. Therefore, you need to ensure that value specified by the <code>kAudioUnitProperty_MaximumFramesPerSlice</code> property is always as big as the largest number of frames you would ask to render.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004404-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Your application should always configure and honor this property. It allows the Audio Units to know how big to allocate their internal buffers and perform any additional setup. Additionally,  an Audio Unit will not ask its input for more samples than the maximum frames. If more frames are required the Audio Unit will pull multiple times. This can arise in situations, for example, when using the Varispeed Audio Unit where it may be performing playback at 4X speed.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS10004404-CH1-SOURCECODE1" title="Listing 1Configuring maximum frames"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Configuring maximum frames</p><div class="codesample clear"><table><tr><td scope="row"><pre>// get the output device's frame count and set any Audio Units to match<span></span></pre></td></tr><tr><td scope="row"><pre>UInt32 numFrames;<span></span></pre></td></tr><tr><td scope="row"><pre>UInt32 dataSize = sizeof(numFrames);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AudioObjectPropertyAddress theAddress = { kAudioDevicePropertyBufferFrameSize,<span></span></pre></td></tr><tr><td scope="row"><pre>                                          kAudioObjectPropertyScopeGlobal,<span></span></pre></td></tr><tr><td scope="row"><pre>                                          kAudioObjectPropertyElementMaster };<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>result = AudioObjectGetPropertyData(myDeviceID, theAddress, 0, NULL, &amp;dataSize, &amp;numFrames);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>if (result == noErr)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    result = AudioUnitSetProperty(myOutputAU, kAudioUnitProperty_MaximumFramesPerSlice,<span></span></pre></td></tr><tr><td scope="row"><pre>        kAudioUnitScope_Global, 0, &amp;numFrames, sizeof(numFrames));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    result = AudioUnitSetProperty(myMixerAU, kAudioUnitProperty_MaximumFramesPerSlice,<span></span></pre></td></tr><tr><td scope="row"><pre>        kAudioUnitScope_Global, 0, &amp;numFrames, sizeof(numFrames));<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>If you utilize any sample rate conversions in your Audio Unit chain or graph it is important to take this into account. For example, if the output sample rate of your AUConverter is 44.1kHz and the input is 22.0kHz the AUConverter will scale up its maximum frames by 2X to ensure it will be able to pull the data through correctly.</p><a name="//apple_ref/doc/uid/DTS10004404-CH1-SOURCECODE2" title="Listing 2AUConverter scaling"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;AUConverter scaling</p><div class="codesample clear"><table><tr><td scope="row"><pre>// input sample rate = 22kHz<span></span></pre></td></tr><tr><td scope="row"><pre>// output sample rate = 44.1kHz<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>UInt32 numFrames = 1500;<span></span></pre></td></tr><tr><td scope="row"><pre>UInt32 dataSize = sizeof(numFrames);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AudioUnitSetProperty(myAU, kAudioUnitProperty_MaximumFramesPerSlice,<span></span></pre></td></tr><tr><td scope="row"><pre>    kAudioUnitScope_Global, 0, &amp;numFrames, sizeof(numFrames));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// the AUConverter will scale up<span></span></pre></td></tr><tr><td scope="row"><pre>AudioUnitGetProperty(myAU, kAudioUnitProperty_MaximumFramesPerSlice,<span></span></pre></td></tr><tr><td scope="row"><pre>    kAudioUnitScope_Global, 0, &amp;numFrames, &amp;dataSize);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// numFrames is now 3000<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004404-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;For maximum memory utilization and performance you may wish to install a property listener on your Audio Unit using <code>AudioUnitAddPropertyListener</code> and listen for sample rate or I/O cycle changes and re-assess the maximum frames.</p><p></p></aside></div><br/><hr/><a name="//apple_ref/doc/uid/DTS10004404-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004404-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2015-05-28</td><td><p>Updated Listing 1 to use AudioObjectGetPropertyData</p></td></tr><tr><td scope="row">2012-03-06</td><td><p>Editorial</p></td></tr><tr><td scope="row">2007-07-16</td><td><p>New document that 
+					illustrates how to use the kAudioUnitProperty_MaximumFramesPerSlice property</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-05-28</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

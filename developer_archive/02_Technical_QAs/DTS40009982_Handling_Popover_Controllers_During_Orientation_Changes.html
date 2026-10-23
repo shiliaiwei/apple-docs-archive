@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1694: Handling Popover Controllers During Orientation Changes</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009982">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009982-CH1">
+    <meta id="date" name="date" content="2010-12-10">
+    <meta id="description" name="description" content="QA1694: Shows best practices for handling popover controllers during device orientation changes.">
+    <meta id="book-title" name="book-title" content="Handling Popover Controllers During Orientation Changes">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Cocoa Layer/UIKit}, {Topic/User Experience}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1694">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Handling Popover Controllers During Orientation Changes" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009982" title="Technical Q&amp;A QA1694"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Handling Popover Controllers During Orientation Changes</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009982-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1694"></a><div class="dtsDocNumber">Technical Q&amp;A QA1694</div><h1 id="pageTitle">Handling Popover Controllers During Orientation Changes</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+How do I handle popover controllers when the device orientation changes?
+</h2><p><span>A: </span>How do I handle popover controllers when the device orientation changes?</p><p>When showing a popover controller, there are times when you will need to handle how the popover controller appears after a change in device orientation.</p><p>Situations when handling is required:</p><ul class="ul"><li class="li"><p>If the popover controller is presented from a target rectangle using the <code>–presentPopoverFromRect:inView:permittedArrowDirections:animated:</code> method of UIPopoverController.</p></li><li class="li"><p>If the popover controller is presented from a bar button item that is removed after the rotation has finished.</p></li></ul><section><a name="//apple_ref/doc/uid/DTS40009982-CH1-SECTION1" title="Presenting a popover controller from a target rectangle after an orientation change"></a><h2 class="jump">Presenting a popover controller from a target rectangle after an orientation change</h2><ul class="ul"><li class="li"><p>In the <code>-didRotateFromInterfaceOrientation:</code> method of UIApplication, present the popover controller again after the rotation has finished.</p><a name="//apple_ref/doc/uid/DTS40009982-CH1-SOURCECODE1" title="Listing 1Presenting a popover controller from a target rectangle after the rotation has finished."></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Presenting a popover controller from a target rectangle after the rotation has finished.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [aPopover presentPopoverFromRect:targetRect.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}<span></span></pre></td></tr></table></div></li></ul><ul class="ul"><li class="li"><p>Do not present more than one popover controller at a time. For more information on the proper usage of UIPopoverController, read the <span class="content_text"><a href="http://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/UIElementGuidelines/UIElementGuidelines.html#//apple_ref/doc/uid/TP40006556-CH13-SW40" class="browserLink" >Popover section</a></span> in the in the <span class="content_text"><a href="http://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/MobileHIG/Introduction/Introduction.html" class="browserLink" >iOS Human Interface Guidelines</a></span>.</p></li><li class="li"><p>Do not use <code>self.popovercontroller</code> for a custom popover controller, if you are using a split-view controller. The default popover controller should be reserved for the master list view controller.</p></li></ul><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009982-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;For more information on UIPopoverController methods, read the <span class="content_text"><a href="http://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIPopoverController_class/Reference/Reference.html" class="browserLink" >UIPopoverController Class Reference</a></span> and the <span class="content_text"><a href="http://developer.apple.com/library/ios/#documentation/UIKit/Reference/UIPopoverControllerDelegate_protocol/Reference/Reference.html" class="browserLink" >UIPopoverControllerDelegate Protocol Reference</a></span>.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40009982-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009982-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-12-10</td><td><p>Updated to reflect consolidated iPad/iPhone Human Interface Guidelines.</p></td></tr><tr><td scope="row">2010-05-18</td><td><p>Removed situations where handling of popover controllers was not required.</p></td></tr><tr><td scope="row">2010-05-17</td><td><p>New document that 
+					shows best practices for handling popover controllers during device orientation changes.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-12-10</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Q&amp;A QA1351: Directories Appear as Volume Aliases</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003324">
+    <meta id="document-version" name="document-version" content="1.2.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003324-CH1">
+    <meta id="date" name="date" content="2018-06-04">
+    <meta id="description" name="description" content="QA1351: Discusses how VFS plug-ins should handle device numbers to ensure compatibility with Carbon applications.">
+    <meta id="book-title" name="book-title" content="Directories Appear as Volume Aliases">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/CoreServices}, {Topic/Data Management/File Management}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1351">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Directories Appear as Volume Aliases" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003324" title="Technical Q&amp;A QA1351"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Directories Appear as Volume Aliases</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+Retired Document: This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003324-CH1-SW1" title="Technical Q&amp;A QA1351"></a><div class="dtsDocNumber">Technical Q&amp;A QA1351</div><h1 id="pageTitle">Directories Appear as Volume Aliases</h1><h2>Q:&nbsp;
+I'm writing a network file system (VFS plug-in KEXT) for Mac OS X. Everything seems to work fine at the BSD layer, but the Finder is very confused, showing every directory on my file system as a volume alias. How can I fix this?
+</h2><p><span>A: </span>I'm writing a network file system (VFS plug-in KEXT) for Mac OS X. Everything seems to work fine at the BSD layer, but the Finder is very confused, showing every directory on my file system as a volume alias. How can I fix this?</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003324-CH1-DontLinkElementID_1" title="Important:"></a><p><strong>Important:</strong>&nbsp;Retired Document: This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>To fix this problem you must ensure that every object on your volume returns the same value in the <code>st_dev</code> field returned by <code>stat</code>. In addition, this value must match the device number for the volume itself. The system gets the device number for a volume by calling <code>statfs</code> and extracting the device number from the first word of the <code>f_fsid</code> array in the <code>statfs</code> structure. You must make sure that this number matches the value you're returning from <code>stat</code>.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003324-CH1-SW2" title="Note"></a><p><strong>Note:</strong>&nbsp;You might think that the system should get the device information from the <code>f_mntfromname</code> field returned by <code>statfs</code>. However, this field does not contain a device node path if the volume is a network volume.</p><p></p></aside></div><p>The typical data flow for this value is as follows.</p><ul class="ul"><li class="li"><p>For a local file system, your mount entry point (<code>examplefs_mount</code>) is called with arguments that contain a path to a device node. Your file system should look up this path (using <code>namei</code>) to find the vnode for the device (let's call this <code>devvp</code>). It should then initialize the volume's <code>f_fsid</code> as follows.</p><a name="//apple_ref/doc/uid/DTS10003324-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>mp-&gt;mnt_stat.f_fsid.val[0] = (long) devvp-&gt;v_rdev; mp-&gt;mnt_stat.f_fsid.val[1] = mp-&gt;mnt_vfc-&gt;vfc_typenum;<span></span></pre></td></tr></table></div></li><li class="li"><p>For a network file system, your mount entry point (<code>examplefs_mount</code>) should initialize the volume's <code>f_fsid</code> by calling <code>vfs_getnewfsid</code>. This sets up the <code>f_fsid</code> to a synthetic value that uniquely identifies the volume.</p></li><li class="li"><p>In your <code>statfs</code> entry point (<code>examplefs_statfs</code>), make sure that you return sensible results in the <code>f_fsid</code> field of the <code>statfs</code> structure. In most cases you don't need to do anything here because the system gets the initial value of this structure from your volume's <code>mnt_stat</code> structure.</p></li><li class="li"><p>In your getattr entry point (<code>examplefs_getattr</code>), return the device number (<code>mp-&gt;mnt_stat.f_fsid.val[0]</code>) in the <code>vap-&gt;va_fsid</code> so that the kernel can copy that value into the <code>st_dev</code> field of the <code>stat</code> structure that it returns to the caller. </p></li><li class="li"><p>If your volume supports the <code>ATTR_CMN_DEVID</code> attribute, its value must match the <code>st_dev</code> value returned via <code>stat</code>. </p></li><li class="li"><p>If your volume supports the <code>ATTR_CMN_FSID</code> attribute, its value must match the <code>f_fsid</code> value returned via <code>statfs</code>. </p></li></ul><p>The rest of this document explains how mixing up your device numbers leads to the observed symptoms. If all you want to do is fix this problem and move on to the next bug, you can safely skip it. On the other hand, if you want to learn a little about the interaction between Carbon File Manager and the BSD layer of Mac OS X, by all means read on.</p><p>To understand what's going you need to understand the difference between how BSD and Carbon represent the file system as a whole. Under BSD the file system is a single tree. Each volume is mounted as a directory in the tree (a mount point) and moving through that directory can take you from one volume to another. BSD programs are aware of this and can cope with it just fine.</p><p>On the other hand, Carbon represents the file system as a forest of trees. Each volume has its own root directory, with a tree of directories spread out underneath it. Because each volume is a separate entity, Carbon programs do not expect that moving within a volume's directory structure will take them to a different volume.</p><p>Mac OS X must provide BSD semantics for BSD programs and Carbon semantics for Carbon programs. The BSD semantics are the native file system semantics on Mac OS X, so that part is easy. Providing Carbon semantics is trickier. Carbon File Manager is responsible for emulating Carbon semantics on top of the native BSD API. This involves a number of subtle tricks, some of which can trip up file system implementers. Thus, this is just one example of a general problem: you must carefully code your VFS plug-in in order for Carbon programs to work properly.</p><p>This particular case revolves around mount points. When Carbon File Manager encounters a mount point within a directory, it can't pass the mount point directly back to the program because Carbon programs don't expect to cross volumes when navigating the directory tree. Instead, Carbon File Manager returns what's known as a synthetic alias. To a Carbon program this synthetic alias looks like an alias file (the <code>kIsAlias</code> bit is set in the file's Finder flags). If the Carbon program wants to traverse this 'alias', it calls the Alias Manager to resolve it. The Alias Manager recognizes the synthetic alias and resolves it by returning a reference to the root directory of the destination volume. Thus, to a Carbon program, a mount point looks like an alias to the root directory of the destination volume.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003324-CH1-DontLinkElementID_2" title="Important"></a><p><strong>Important:</strong>&nbsp;Carbon programs should use the Alias Manager (<code>FSIsAliasFile</code> and <code>FSResolveAliasFile</code>, or their older equivalents) to detect and resolve alias files. Do not try to interpret alias files by hand. Doing so is likely to cause future incompatibilities.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003324-CH1-SW3" title="Note"></a><p><strong>Note:</strong>&nbsp;For debugging purposes only, a mount point synthetic alias file has the <code>kIsAlias</code> bit set in the Finder flags and has file type <code>'lcmt'</code> and file creator <code>'rhap'</code>.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003324-CH1-SW4" title="Note"></a><p><strong>Note:</strong>&nbsp;Carbon File Manager uses a very similar mechanism to support symbolic links.</p><p></p></aside></div><p>In this case, Carbon File Manager is interpreting every directory on your file system as a mount point, and thus Carbon programs (including the Finder) see every directory as an alias to a volume. The key question is why. It turns out that Carbon File Manager uses the device number associated with a file system object (the <code>st_dev</code> field of the <code>stat</code> structure returned by <code>stat</code>) to determine mount point changes. When examining a directory, Carbon File Manager compares the <code>st_dev</code> of the directory with the device number associated with the volume on which the directory resides. If they're different, as is the case with your file system, it assumes that the directory represents a mount point. At that point it returns a synthetic alias for the volume, which the Finder displays as a volume alias. If you make all of the device numbers match (as described above), Carbon File Manager will recognise your directories as directories, and the problem goes away.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS10003324-CH1-SW1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003324-RevisionHistory-SW1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2018-06-04</td><td><p>Moved to Retired Documents Library.</p></td></tr><tr><td scope="row">2004-05-25</td><td><p>Discusses how VFS plug-ins should handle device numbers to ensure compatibility with Carbon applications.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>Discusses how VFS plug-ins should handle device numbers to ensure compatibility with Carbon applications.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>New document that 
+					discusses how VFS plug-ins should handle device numbers to ensure compatibility with Carbon applications.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2018 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2018-06-04</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

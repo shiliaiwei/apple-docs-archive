@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Introduction to AltiVec/SSE Migration Guide</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40002729">
+    <meta id="document-version" name="document-version" content="1.0.5">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40002729-CH204">
+    <meta id="date" name="date" content="2005-09-08">
+    <meta id="description" name="description" content="Explains how to convert PowerPC AltiVec code to Intel SSE code.">
+    <meta id="book-title" name="book-title" content="AltiVec/SSE Migration Guide">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="AltiVec/SSE Migration Guide (Legacy): Introduction to AltiVec/SSE Migration Guide">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="AltiVec/SSE Migration Guide" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../migration_sse_overview/migration_sse_overview.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40002729-CH204" title="Introduction to AltiVec/SSE Migration Guide"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>AltiVec/SSE Migration Guide</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../migration_sse_overview/migration_sse_overview.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/TP40002729" title="Introduction to AltiVec/SSE Migration Guide"></a><a name="//apple_ref/doc/uid/TP40002729-CH204-DontLinkElementID_2" title="Introduction to AltiVec/SSE Migration Guide"></a><h1 id="pageTitle"><a name="//apple_ref/doc/uid/TP40002729-CH204-TPXREF101" title="Introduction to AltiVec/SSE Migration Guide"></a>Introduction to AltiVec/SSE Migration Guide</h1><a name="//apple_ref/doc/uid/TP40002729-CH204-DontLinkElementID_1"></a><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/TP40002729-CH204-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p><em>AltiVec/SSE Migration Guide</em> will assist experienced developers who need to migrate their vector-oriented code from the PowerPC AltiVec extensions to the Intel x86 SSE extensions. Both of these are sets of SIMD (single instruction, multiple data) instructions, accessible through C intrinsics. The instructions operate on special sets of 128-bit registers that can be used to hold vectors of smaller-sized data, to be operated on in parallel.</p><p>The two sets of instructions serve the same purposes, but are implemented differently; porting of algorithms from one to the other must be done carefully.</p><p>Most work involving vector-oriented calculations can be done via Apple’s Accelerate frameworks, which provide higher-level functions for image processing, signal processing, linear algebra, vector math, and operations on large numbers. The advantage of using these frameworks is that the hardware dependencies are abstracted away by highly optimized library code that will be maintained not only for PowerPC and Apple’s initial Intel processors, but also for future processors.</p><p>Developers who have already written AltiVec code should consider adopting the Accelerate frameworks, instead of porting to SSE. However, some developers will need to port their code, or to write new AltiVec and SSE versions of new algorithms. Similarly, those who are porting Windows applications to Mac OS X may need to port existing SSE code to AltiVec.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40002729-CH204-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp; This is a preliminary document for an application binary interface (ABI) in development. Although this document has been reviewed for technical accuracy, it is not final. Apple Computer is supplying this information to help developers plan for the adoption of the technologies and programming interfaces described herein. This information is subject to change, and software implemented according to this document should be tested with final operating system software and final documentation. Newer versions of this document may be provided with future seeds of the ABI. For information about updates to this and other developer documentation, view the New &amp; Updated sidebars in subsequent seeds of the ADC Reference Library.</p><p></p></aside></div><a name="//apple_ref/doc/uid/TP40002729-CH204-192011" title="Who Should Read This Document"></a><a name="//apple_ref/doc/uid/TP40002729-CH204-CJBBDHEF" title="Who Should Read This Document"></a><h2 class="jump">Who Should Read This Document</h2><p>Any developer who needs to port existing AltiVec code to SSE or vice versa, or who needs to write custom-optimized code for both architectures.</p><a name="//apple_ref/doc/uid/TP40002729-CH204-192480" title="Organization of This Document"></a><a name="//apple_ref/doc/uid/TP40002729-CH204-TPXREF103" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2><p>This document is organized into the following chapters: </p><ul class="ul"><li class="li"><p><span class="content_text"><a href="../migration_sse_overview/migration_sse_overview.html#//apple_ref/doc/uid/TP40002729-CH206-TPXREF101" data-renderer-version="1">AltiVec to SSE Migration Overview</a></span> This chapter introduces basic information on migrating vector-oriented code from the PowerPC AltiVec extensions to the Intel x86 SSE extensions.</p></li><li class="li"><p><span class="content_text"><a href="../migration_sse_C/migration_sse_C.html#//apple_ref/doc/uid/TP40002729-CH247-TPXREF101" data-renderer-version="1">Programming SSE in C</a></span> This chapter describes the intrinsics and data types provided for programming SSE in C.</p></li><li class="li"><p><span class="content_text"><a href="../migration_sse_translation/migration_sse_translation.html#//apple_ref/doc/uid/TP40002729-CH248-TPXREF101" data-renderer-version="1">Translating Altivec to SSE</a></span> This chapter provides in-depth tutorial information on translating AltiVec to to SSE code.</p></li></ul><section><a name="//apple_ref/doc/uid/TP40002729-CH204-163018" title="Assumptions"></a><a name="//apple_ref/doc/uid/TP40002729-CH204-BCIJGCHJ" title="Assumptions"></a><h2 class="jump">Assumptions</h2><p>The document assumes the following:</p><ul class="ul"><li class="li"><p>Your application runs in Mac OS X.</p><p>Your application can use any of the Mac OS X development environments: Carbon, Cocoa, Java, or BSD UNIX.</p><p>If your application runs in a version of the Mac OS that is earlier than Mac OS X version 10.0, you should first read <span class="content_text"><a href="../../../../Carbon/Conceptual/carbon_porting_guide/cpg_intro_struct/cpg_intro_struct.html#//apple_ref/doc/uid/TP30000991" data-renderer-version="1" target="_self">Carbon Porting Guide</a></span> and Technical Note TN2003 <span class="content_text"><a href="http://developer.apple.com/technotes/tn/tn2003.html" class="browserLink" >Moving Your Code to Mac OS X</a></span>.</p><p>If your application runs in the UNIX operating system but not specifically in Mac OS X, you should first read <span class="content_text"><a href="../../../../Porting/Conceptual/PortingUnix/intro/intro.html#//apple_ref/doc/uid/TP30001003" data-renderer-version="1" target="_self">Porting UNIX/Linux Applications to Mac OS X</a></span>.</p><p>If your application runs only in the Windows operating system, you should first read <span class="content_text"><a href="../../../../Porting/Conceptual/win32porting/win32porting.html#//apple_ref/doc/uid/10000190i" data-renderer-version="1" target="_self">Porting to Mac OS X from Windows Win32 API</a></span>.</p></li><li class="li"><p>You know how to use Xcode.</p><p>Currently Xcode is the only GUI tool available that compiles code to run universally. </p><p>If you are unfamiliar with Xcode, you might want to take a look at <span class="content_text"><!--a target="_self" -->Xcode 2.1 User Guide<!--/a--></span>.</p><p>If you have been using CodeWarrior, you should read <span class="content_text"><a href="../../../../DeveloperTools/Conceptual/MovingProjectsToXcode/migration_overview/migration_overview.html#//apple_ref/doc/uid/20001708" data-renderer-version="1" target="_self">Moving Projects from CodeWarrior to Xcode</a></span>.</p></li></ul></section><section><a name="//apple_ref/doc/uid/TP40002729-CH204-197097" title="Conventions"></a><h2 class="jump">Conventions</h2><p>The term <em class="newTerm">x86</em> is a generic term used in some parts of this book to refer to the class of microprocessors manufactured by Intel. This book uses the term x86 as a synonym for IA-32 (Intel Architecture 32-bit).</p></section>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../migration_sse_overview/migration_sse_overview.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2005 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2005-09-08</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

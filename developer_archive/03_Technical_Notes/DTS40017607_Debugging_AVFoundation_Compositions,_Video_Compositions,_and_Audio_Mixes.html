@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2447: Debugging AVFoundation Compositions, Video Compositions, and Audio Mixes</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017607">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017607-CH1">
+    <meta id="date" name="date" content="2017-03-17">
+    <meta id="description" name="description" content="TN2447: Discusses techniques for debugging complex AVFoundation Compositions, Video Compositions, and Audio Mixes">
+    <meta id="book-title" name="book-title" content="Debugging AVFoundation Compositions, Video Compositions, and Audio Mixes">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AVFoundation}, {Topic/Audio, Video, & Visual Effects}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2447">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Debugging AVFoundation Compositions, Video Compositions, and Audio Mixes" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017607" title="Technical Note TN2447"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Debugging AVFoundation Compositions, Video Compositions, and Audio Mixes</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017607-CH1-DontLinkElementID_2" title="Technical Note TN2447"></a><div class="dtsDocNumber">Technical Note TN2447</div><h1 id="pageTitle">Debugging AVFoundation Compositions, Video Compositions, and Audio Mixes</h1><p>This document discusses some common problems you may encounter when creating complex AVFoundation compositions, video compositions and audio mixes, and how to debug them.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017607-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS" data-renderer-version="1">Common pitfalls</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS-COMPOSITIONS" data-renderer-version="1">Compositions</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS-VIDEO_COMPOSITIONS__AUDIO_MIXES" data-renderer-version="1">Video Compositions, Audio Mixes</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017607-CH1-DEBUGGING_COMPOSITIONS__VIDEO_COMPOSITIONS_AND_AUDIO_MIXES" data-renderer-version="1">Debugging Compositions, Video Compositions and Audio Mixes</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017607-CH1-DEBUGGING_COMPOSITIONS__VIDEO_COMPOSITIONS_AND_AUDIO_MIXES-VISUALIZE_THE_COMPOSITION" data-renderer-version="1">Visualize the Composition</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017607-CH1-DEBUGGING_VIDEO_COMPOSITIONS" data-renderer-version="1">Debugging Video Compositions</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017607-CH1-DEBUGGING_VIDEO_COMPOSITIONS-AVVIDEOCOMPOSITIONVALIDATIONHANDLING_PROTOCOL" data-renderer-version="1">AVVideoCompositionValidationHandling protocol</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017607-CH1-ADDITIONAL_INFORMATION" data-renderer-version="1">Additional Information</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017607-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40017607-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>The AVFoundation framework provides a feature-rich set of classes to facilitate the editing of audiovisual assets. At the heart of AVFoundation’s editing API are compositions, defined by the <code>AVComposition</code> object. A composition is simply a collection of tracks from one or more different media assets. The <code>AVMutableComposition</code> class provides an interface for inserting and removing tracks, as well as managing their temporal orderings. The tracks in an <code>AVComposition</code> object are fixed.</p><p>If you want to perform any custom audio or video processing on the tracks in your composition, you need to incorporate an audio mix or a video composition, respectively. An <code>AVAudioMix</code> object manages the input parameters for mixing audio tracks. It allows custom audio processing to be performed on audio tracks during playback or other operations. You can also set the relative volumes and ramping of audio tracks. </p><p>A video composition describes, for any time in the aggregate time range of its instructions, the number and IDs of video tracks that are to be used in order to produce a composed video frame corresponding to that time. When AV Foundation’s built-in video compositor is used, the instructions a video composition contains can specify a spatial transformation, an opacity value, and a cropping rectangle for each video source, and these can vary over time via simple linear ramping functions. An <code>AVVideoComposition</code> object represents an immutable video composition. The AV Foundation framework also provides a mutable subclass, <code>AVMutableVideoComposition</code>, that you can use to create new videos.</p><p>It’s quite possible to construct elaborate and complex compositions, video compositions, and audio mixes with entirely valid values that produce unexpected results. It's possible, for example, for a valid video composition to produce frames from which the contents of the source video tracks are entirely absent.</p><p>This document discusses some common pitfalls when constructing these, and ways to more easily debug them.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS" title="Common pitfalls"></a><h2 class="jump">Common pitfalls</h2><p>Here are some of the common types of problems you may encounter when building complex compositions, video compositions and audio mixes.</p><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS-COMPOSITIONS" title="Compositions"></a><h3 class="jump">Compositions</h3><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS_COMPOSITIONS-MISALIGNED_TRACK_SEGMENTS" title="Misaligned track segments"></a><h4 class="jump">Misaligned track segments</h4><p>The alignment of the tracks might be wrong. For example, this can happen as a result of CMTime value rounding errors when inserting tracks into a composition for a specific time.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017607-CH1-FIGURE1" title="Figure 1Misaligned track segments."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Misaligned track segments.</figcaption><img src="Art/tn2447_misalignedtracksegments.png" class="wide-image" alt="" width="705" height="372"><img src="Art/tn2447_misalignedtracksegments.png" class="ipad-scaled-image" alt="" width="670" height="353"></figure></section></section><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS-VIDEO_COMPOSITIONS__AUDIO_MIXES" title="Video Compositions, Audio Mixes"></a><h3 class="jump">Video Compositions, Audio Mixes</h3><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS_VIDEO_COMPOSITIONS__AUDIO_MIXES-GAPS_BETWEEN_SEGMENTS" title="Gaps between segments"></a><h4 class="jump">Gaps between segments</h4><p>Don’t leave gaps between the segments in a video composition. This will almost certainly result in black frames, or a continuation of the last frame.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017607-CH1-FIGURE2" title="Figure 2Gaps between segments."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Gaps between segments.</figcaption><img src="Art/tn2447_gapsbetweensegments.png" class="wide-image" alt="" width="676" height="390"><img src="Art/tn2447_gapsbetweensegments.png" class="ipad-scaled-image" alt="" width="670" height="386"></figure></section><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS_VIDEO_COMPOSITIONS__AUDIO_MIXES-MISALIGNED_LAYER_INSTRUCTIONS" title="Misaligned layer instructions"></a><h4 class="jump">Misaligned layer instructions</h4><p>There could be a misalignment between the video composition time ranges and the composition track segments.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017607-CH1-FIGURE3" title="Figure 3Misaligned layer instructions."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;Misaligned layer instructions.</figcaption><img src="Art/tn2447_misalignedlayerinstructions.png" class="wide-image" alt="" width="685" height="566"><img src="Art/tn2447_misalignedlayerinstructions.png" class="ipad-scaled-image" alt="" width="670" height="553"></figure></section><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS_VIDEO_COMPOSITIONS__AUDIO_MIXES-MISALIGNED_OPACITY_AUDIO_RAMPS" title="Misaligned opacity/audio ramps"></a><h4 class="jump">Misaligned opacity/audio ramps</h4><p>You might have made a mistake in one of the ramps — by making it too long, for example.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017607-CH1-FIGURE4" title="Figure 4Misaligned opacity/audio ramps."></a><figcaption><strong class="caption_number">Figure 4</strong>&nbsp;&nbsp;Misaligned opacity/audio ramps.</figcaption><img src="Art/tn2447_misalignedopacityaudioramps.png" alt="" width="616" height="455"></figure></section><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS_VIDEO_COMPOSITIONS__AUDIO_MIXES-BOGUS_LAYER_TRANSFORMS" title="Bogus layer transforms"></a><h4 class="jump">Bogus layer transforms</h4><p>You may have an error in the layer transformation matrix. This can cause your output to spin off beyond the boundaries of the output frame.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017607-CH1-FIGURE5" title="Figure 5Bogus layer transforms."></a><figcaption><strong class="caption_number">Figure 5</strong>&nbsp;&nbsp;Bogus layer transforms.</figcaption><img src="Art/tn2447_boguslayertransforms.png" alt="" width="589" height="617"></figure></section><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-COMMON_PITFALLS_VIDEO_COMPOSITIONS__AUDIO_MIXES-STATIC_FRAME_FOR_THE_ENTIRE_DURATION_OF_THE_SOURCE_ASSET" title="Static frame for the entire duration of the source asset"></a><h4 class="jump">Static frame for the entire duration of the source asset</h4><p>You may have a video composition that produces a single static frame for the entire duration of the source asset. This can occur if you set the <code>frameDuration</code> of the <code>AVMutableVideoComposition</code> to the asset's duration. In the processing by the video compositor, only one frame would be produced, at the start time, and then "held" for the specified duration, in spite of the instructions for varying opacities, transforms, etc. </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017607-CH1-FIGURE6" title="Figure 6Static frame for the entire duration of the source asset."></a><figcaption><strong class="caption_number">Figure 6</strong>&nbsp;&nbsp;Static frame for the entire duration of the source asset.</figcaption><img src="Art/tn2447_staticframeforduration.png" class="wide-image" alt="" width="676" height="390"><img src="Art/tn2447_staticframeforduration.png" class="ipad-scaled-image" alt="" width="670" height="386"></figure></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-DEBUGGING_COMPOSITIONS__VIDEO_COMPOSITIONS_AND_AUDIO_MIXES" title="Debugging Compositions, Video Compositions and Audio Mixes"></a><h2 class="jump">Debugging Compositions, Video Compositions and Audio Mixes</h2><p>What’s the best way to debug a complex composition, video composition and audio mix? </p><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-DEBUGGING_COMPOSITIONS__VIDEO_COMPOSITIONS_AND_AUDIO_MIXES-VISUALIZE_THE_COMPOSITION" title="Visualize the Composition"></a><h3 class="jump">Visualize the Composition</h3><p>One technique that works well is to visualize these. Rather than looking at your code, you look at a picture of your composition, video composition and audio mix. </p><p>There’s sample code that has been designed just for this purpose:</p><p><span class="content_text"><a href="https://developer.apple.com/library/content/samplecode/AVCompositionDebugViewer/" class="urlLink" rel="external">AVCompositionDebugViewer(Mac)</a></span></p><p><span class="content_text"><a href="https://developer.apple.com/library/content/samplecode/AVCompositionDebugVieweriOS/Introduction/Intro.html#//apple_ref/doc/uid/DTS40013421" class="urlLink" rel="external">AVCompositionDebugVieweriOS</a></span></p><p>These sample applications implement a custom<code> AVCompositionDebugView </code>class which presents a visual description of the underlying <code>AVComposition</code>, <code>AVVideoComposition</code> and <code>AVAudioMix</code> objects which form the composition. See <span class="content_text"><!--a  -->Figure 7<!--/a--></span>.</p><p>Simply drop the<code> AVCompositionDebugView </code>into your own app. It’s a non-interactive view. Extend it to draw your own video instructions. It will help you spot any overlaps and gaps in the composition tracks, video instructions, and the audio mix.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017607-CH1-FIGURE7" title="Figure 7The AVCompositionDebugViewer app."></a><figcaption><strong class="caption_number">Figure 7</strong>&nbsp;&nbsp;The AVCompositionDebugViewer app.</figcaption><img src="Art/tn2447_samplecode.png" class="wide-image" alt="" width="870" height="634"><img src="Art/tn2447_samplecode.png" class="ipad-scaled-image" alt="" width="670" height="488"></figure></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-DEBUGGING_VIDEO_COMPOSITIONS" title="Debugging Video Compositions"></a><h2 class="jump">Debugging Video Compositions</h2><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-DEBUGGING_VIDEO_COMPOSITIONS-AVVIDEOCOMPOSITIONVALIDATIONHANDLING_PROTOCOL" title="AVVideoCompositionValidationHandling protocol"></a><h3 class="jump">AVVideoCompositionValidationHandling protocol</h3><p>The <code>AVVideoCompositionValidationHandling</code> protocol declares methods that you can implement in the delegate of an <code>AVVideoComposition</code> object to indicate whether validation of a video composition should continue after specific errors have been found:</p><p><span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avvideocompositionvalidationhandling/1389404-videocomposition" class="urlLink" rel="external">videoComposition(_:shouldContinueValidatingAfterFindingInvalidValueForKey:)</a></span></p><p><span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avvideocompositionvalidationhandling/1388620-videocomposition" class="urlLink" rel="external">videoComposition(_:shouldContinueValidatingAfterFindingEmptyTimeRange:)</a></span></p><p><span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avvideocompositionvalidationhandling/1390721-videocomposition" class="urlLink" rel="external">videoComposition(_:shouldContinueValidatingAfterFindingInvalidTimeRangeIn:)</a></span></p><p><span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avvideocompositionvalidationhandling/1388452-videocomposition" class="urlLink" rel="external">videoComposition(_:shouldContinueValidatingAfterFindingInvalidTrackIDIn:layerInstruction:asset:)</a></span></p><p>In the course of validation with the <span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avvideocomposition/1389917-isvalid" class="urlLink" rel="external">isValid(for:timeRange:validationDelegate:)</a></span> method, the receiver will invoke its <code>validationDelegate</code> with reference to any trouble spots in the video composition.</p><p>You should implement the methods defined by the <code>AVVideoCompositionValidationHandling</code> protocol to aid in the debugging of a video composition.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017607-CH1-ADDITIONAL_INFORMATION" title="Additional Information"></a><h2 class="jump">Additional Information</h2><p>For more information about the editing of audiovisual assets with AVFoundation, see the <span class="content_text"><a href="https://developer.apple.com/library/content/documentation/AudioVideo/Conceptual/AVFoundationPG/Articles/03_Editing.html#//apple_ref/doc/uid/TP40010188-CH8-SW1" class="urlLink" rel="external">Editing chapter of the AV Foundation Programming Guide</a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017607-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017607-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-03-17</td><td><p>Editorial.</p></td></tr><tr><td scope="row">2017-02-13</td><td><p>New document that 
+					discusses techniques for debugging complex AVFoundation Compositions, Video Compositions, and Audio Mixes</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-03-17</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

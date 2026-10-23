@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2173: Multipathing with FibreChannel on Mac OS X</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004219">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004219-CH1">
+    <meta id="date" name="date" content="2007-03-23">
+    <meta id="description" name="description" content="TN2173: An explanation on how FibreChannel multipathing works on Mac OS X and how to design storage hardware to take advantage of it">
+    <meta id="book-title" name="book-title" content="Multipathing with FibreChannel on Mac OS X">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Kernel & Driver Layer/Kernel}, {Topic/Drivers, Kernel, & Hardware/Kernel Device Drivers}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2173">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Multipathing with FibreChannel on Mac OS X" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004219" title="Technical Note TN2173"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Multipathing with FibreChannel on Mac OS X</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004219-CH1-DontLinkElementID_2" title="Technical Note TN2173"></a><div class="dtsDocNumber">Technical Note TN2173</div><h1 id="pageTitle">Multipathing with FibreChannel on Mac OS X</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Describes what is required of FibreChannel target hardware and host bus adapter drivers to take advantage of multipathing on Mac OS X</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004219-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004219-CH1-SECTION2" data-renderer-version="1">Multipathing Implementation used by Mac OS X</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004219-CH1-SECTION3" data-renderer-version="1">Supporting Multipathing in your HBA Driver</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004219-CH1-SECTION4" data-renderer-version="1">Supporting Multipathing in your SCSI Target Device</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004219-CH1-SECTION5" data-renderer-version="1">Related Information</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004219-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10004219-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>The purpose of multipathing is to allow a single device to be connected to a host computer by more than one path, providing both redundancy and load balancing for increased performance. This technote explains what is required to make your host bus adapter (HBA) drivers and FibreChannel target devices compatible with the multipathing support in Mac OS X.</p><p>Support for multipathing began shipping with Mac OS X 10.3.5. It's important to be aware that Apple’s multipathing implementation differs significantly from that of other storage vendors. Many vendors implement multipathing support at the logical unit level whereas Mac OS X implements multipathing at the target device level. As a result, multipathing currently does not get enabled on Mac OS X for many 3rd party storage solutions</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004219-CH1-SECTION2" title="Multipathing Implementation used by Mac OS X"></a><h2 class="jump">Multipathing Implementation used by Mac OS X</h2><p>Mac OS X provides multipathing support on a per-target basis. Multipathing at the LUN level is not currently supported. The support for multipathing is provided by the IOSCSIArchitectureModelFamily KEXT and will be automatically enabled for devices that implement the required characteristics in firmware.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004219-CH1-FIGURE1" title="Figure 1Architecture of the multipathing support in Mac OS X."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Architecture of the multipathing support in Mac OS X.</figcaption><img src="Art/tn2173_design.jpg" alt="" width="607" height="205"></figure><p>IOSCSIArchitectureModelFamily requires that all targets using multipath support show the same LUN configuration. RAID controllers and other hardware that broadcast the same world-wide node name (WWNN) for multiple target interfaces but do not publish their LUNs symmetrically are not compatible with this multipathing approach and will exhibit undesirable characteristics and behavior.</p><p>Load balancing across available paths to a device is done using a pressure-based algorithm. This algorithm attempts to keep the amount of outstanding I/O equal across all connections to a device by assigning new I/O requests to the port with the least amount of outstanding I/O.</p><p>Although its primary function is to provide multipathing support across FibreChannel, this same technology is implemented as part of the Mac OS X SCSI support and could potentially be used across other implementations of SCSI as well. To support a different interface, you will need to either extract or synthesize a WWNN for each target you are connecting to. On FibreChannel, the WWNN is part of the information available for every node attached to the fabric.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004219-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Currently, multipathing support requires the "Physical Interconnect" key in the Protocol Characteristics dictionary of the controller to be set to "Fibre Channel Interface". Other values will result in all data being sent across only one interface. At the time multipathing was added, FibreChannel was the only interface implemented that could support multipathing and a check against the protocol characteristics dictionary was added to prevent compatibility issues for existing drivers.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004219-CH1-SECTION3" title="Supporting Multipathing in your HBA Driver"></a><h2 class="jump">Supporting Multipathing in your HBA Driver</h2><p>If you are implementing a host bus adapter (HBA), have your HBA set the <code>kIOPropertyFibreChannelNodeWorldWideNameKey</code> property for each target device. This property is mandatory for FibreChannel controllers and optional for most other interfaces.</p><p>If your HBA does not need to dynamically discover targets added after boot (that is, returns false from <code> DoesHBAPerformDeviceManagement</code> and relies on IOSCSIParallelFamily to discover any targets when the HBA becomes active), you can call <code>SetTargetProperty</code> from inside <code>InitializeTargetForID</code> to add the <code>kIOPropertyFibreChannelNodeWorldWideNameKey</code> property to the new target.</p><a name="//apple_ref/doc/uid/DTS10004219-CH1-SOURCECODE1" title="Listing 1Setting the kIOPropertyFibreChannelNodeWorldWideNameKey key for non-managed targets."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Setting the kIOPropertyFibreChannelNodeWorldWideNameKey key for non-managed targets.</p><div class="codesample clear"><table><tr><td scope="row"><pre>bool
+com_foo_sampleAdapter::DoesHBAPerformDeviceManagement ( void )
+{
+    // Report that we *DO NOT* manage our own devices - we rely on the OS to discover targets for us
+    return false;
+}
+
+bool
+com_foo_sampleAdapter::InitializeTargetForID ( SCSITargetIdentifier targetID )
+{ 
+    bool retVal = false;
+    OSData *targetWWNN = NULL;
+
+    // [...]
+    // Do any other target-specific setup here
+
+    // Set the WWNN to a hard-coded value for demonstration purposes
+    // In the real world, you would obtain the WWNN for each target node
+    // from your FibreChannel HBA
+    targetWWNN = OSData::withBytes("12345678", 8); // 64-bit WWNN
+
+    SetTargetProperty(targetID, kIOPropertyFibreChannelNodeWorldWideNameKey, targetWWNN);
+    targetWWNN-&gt;release();
+    retVal = true;
+
+    return retVal;
+}<span></span></pre></td></tr></table></div><p>Alternatively, if your HBA is handling the creation and destruction of targets itself, locate the WWNN for the target  and pass it to <code>CreateTargetForID</code> as a member of the properties dictionary.</p><a name="//apple_ref/doc/uid/DTS10004219-CH1-SOURCECODE2" title="Listing 2Setting the kIOPropertyFibreChannelNodeWorldWideNameKey key for managed targets."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Setting the kIOPropertyFibreChannelNodeWorldWideNameKey key for managed targets.</p><div class="codesample clear"><table><tr><td scope="row"><pre>bool
+com_foo_sampleAdapter::DoesHBAPerformDeviceManagement ( void )
+{
+    // Report that we *DO* manage our own devices - we will query all possible targets ourselves
+    return true;
+}
+
+bool
+com_foo_sampleAdapter::addNewTarget ( SCSITargetIdentifier targetID )
+{ 
+    bool retVal = false;
+    OSDictionary *targetDictionary = NULL;
+    OSData *targetWWNN = NULL;
+
+    targetDictionary = OSDictionary::withCapacity(2); // Just a small dict
+
+    // [...]
+    // Do any other target-specific setup here
+
+    // Set the WWNN to a hard-coded value for demonstration purposes
+    // In the real world, you would obtain the WWNN for each target node
+    // from your FibreChannel HBA
+    targetWWNN = OSData::withBytes("12345678", 8); // 64-bit WWNN
+
+    targetDictionary-&gt; setObject(kIOPropertyFibreChannelNodeWorldWideNameKey, targetWWNN);
+    targetWWNN-&gt;release();
+
+    CreateTargetForID(targetID, targetDictionary);
+    targetDictionary-&gt;release();
+
+    retVal = true;
+
+    return retVal;
+}<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004219-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;Multipathing support requires each connection to the device to appear with a unique SCSI Domain Identifier. If it does not, the multipathing subsystem assumes that it is the same connection and will not transfer data over this secondary connection. This will be handled for you if you subclass from IOSCSIParallelInterfaceController. If your driver subclasses from a different source such as IOSCSIProtocolServices or IOSCSIProtocolInterface, you will likely need to ensure this yourself.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004219-CH1-SECTION4" title="Supporting Multipathing in your SCSI Target Device"></a><h2 class="jump">Supporting Multipathing in your SCSI Target Device</h2><p>If you are implementing a target device, your device must publish results for INQUIRY page 83h, Device Identification Page, in binary format and provide either a EUI-64 or FCNameIdentifier.</p><p>LUNs that are not presented symmetrically are currently not supported on Mac OS X. It is recommended that you provide a mechanism to allow a user to configure your target devices so that all LUNs are reported symmetrically.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004219-CH1-SECTION5" title="Related Information"></a><h2 class="jump">Related Information</h2><p>Technical Committee T10, SCSI Storage Interfaces</p><p><span class="content_text"><a href="http://www.t10.org" class="urlLink" rel="external">http://www.t10.org</a></span></p><p>Darwin Source Code, particularly the IOSCSIArchitectureModelFamily and IOSCSIParallelFamily source</p><p><span class="content_text"><a href="http://developer.apple.com/darwin/" class="browserLink" >http://developer.apple.com/darwin/</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004219-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004219-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2007-03-23</td><td><p>Added important notes about the requirement to set the physical interconnect property in the protocol characteristics to Fibre Channel and about requiring unique SCSI domain identifiers for each connection.
+</p></td></tr><tr><td scope="row">2007-02-23</td><td><p>New document that 
+					an explanation on how FibreChannel multipathing works on Mac OS X and how to design storage hardware to take advantage of it</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2007 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2007-03-23</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

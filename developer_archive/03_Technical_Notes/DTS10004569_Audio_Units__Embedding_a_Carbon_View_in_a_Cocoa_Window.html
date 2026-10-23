@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Note TN2213: Audio Units: Embedding a Carbon View in a Cocoa Window</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004569">
+    <meta id="document-version" name="document-version" content="1.2.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004569-CH1">
+    <meta id="date" name="date" content="2010-06-04">
+    <meta id="description" name="description" content="TN2213.">
+    <meta id="book-title" name="book-title" content="Audio Units: Embedding a Carbon View in a Cocoa Window">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2213">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Units: Embedding a Carbon View in a Cocoa Window" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004569" title="Technical Note TN2213"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Units: Embedding a Carbon View in a Cocoa Window</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10004569-CH1-DontLinkElementID_2" title="Technical Note TN2213"></a><div class="dtsDocNumber">Technical Note TN2213</div><h1 id="pageTitle">Audio Units: Embedding a Carbon View in a Cocoa Window</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004569-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>Now that Audio Units support both Cocoa and Carbon custom views, Audio Unit host applications should support both kinds of views in order to provide a complete user experience. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004569-CH1-INTRODUCTION" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004569-CH1-PROCESS" data-renderer-version="1">Process</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004569-CH1-MANAGING_CARBON_COCOA_WINDOW_ACTIVATION" data-renderer-version="1">Managing Carbon/Cocoa Window Activation</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004569-CH1-MANAGING_CARBON_COCOA_WINDOW_RESIZING" data-renderer-version="1">Managing Carbon/Cocoa Window Resizing</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004569-CH1-REFERENCES" data-renderer-version="1">References</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004569-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10004569-CH1-INTRODUCTION" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Using Cocoa's parent-child window relationships (WindowGroups in Carbon) creatively, we can provide the illusion of supporting a Carbon view in a Cocoa window, or of supporting a Cocoa view in a Carbon window. This document details the implementation of carbon view support in a cocoa inspector window.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004569-CH1-FIGURE1" title="Figure 1A Cocoa window hosting the Carbon view"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;A Cocoa window hosting the Carbon view</figcaption><img src="Art/tn2213_Figure1.png" alt="" width="668" height="353"></figure><p>Figure 1 shows the Carbon view contained in a shadowless, plain Carbon window that is exactly the size of the Carbon view it contains. Its window is linked to the owning Cocoa window.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004569-CH1-FIGURE2" title="Figure 2Illustration of how the windows are stacked"></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Illustration of how the windows are stacked</figcaption><img src="Art/tn2213_Figure2.png" alt="" width="478" height="507"></figure><p>Figure 2 shows that the Cocoa Window contains a navigation toolbar and a drawer.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004569-CH1-PROCESS" title="Process"></a><h2 class="jump">Process</h2><p>This hybrid, embedded view is created using Cocoa's NSWindow class and Carbon's Window Manager. There's a good deal of functionality overlap between the two (i.e., the Window Manager can be used to manipulate Cocoa windows to some degree, and the NSWindow API can be used to manipulate Carbon windows to some degree.) If your hosting application is written with Carbon APIs, feel free to lean more heavily on the Window Manager equivalents of the Cocoa calls indicated.</p><p>Here are the steps required to configure your windows in a parent/child relationship:</p><ol class="ol"><li class="li"><p>Create your Cocoa and Carbon windows:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>NSWindow *owningCocoaWindow;<span></span></pre></td></tr><tr><td scope="row"><pre>WindowRef ownedCarbonWindow;<span></span></pre></td></tr></table></div></li><li class="li"><p>Position the Carbon window so that it is aligned with the Cocoa window the way you want using:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>void MoveWindow (short x, short y);<span></span></pre></td></tr><tr><td scope="row"><pre>void SizeWindow (short width, short height);<span></span></pre></td></tr></table></div></li><li class="li"><p>Wrap your Carbon window in Cocoa:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>NSWindow *wrappedCarbonWindow = [[NSWindow alloc] initWithWindowRef:ownedCarbonWindow];<span></span></pre></td></tr></table></div></li><li class="li"><p>Establish the parent-child relationship:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>[owningCocoaWindow addChildWindow:wrappedCarbonWindow ordered:NSWindowAbove];<span></span></pre></td></tr></table></div><p>This will "lock" the child window to the parent window. Moving the parent window will move the child window as if they are the same entity.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004569-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;Child windows can be moved independently of the parent. Consequently, using textured windows, or windows with titlebars can present UI difficulties.</p><p></p></aside></div></li></ol><p>When you want to remove the Carbon view, first end the parent-child relationship: <code>[owningCocoaWindow removeChildWindow:wrappedCarbonWindow];</code> and then close or hide the window, relinquishing resources as normal.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004569-CH1-MANAGING_CARBON_COCOA_WINDOW_ACTIVATION" title="Managing Carbon/Cocoa Window Activation"></a><h2 class="jump">Managing Carbon/Cocoa Window Activation</h2><p>When a Carbon window is the child of a Cocoa window, there can be activation issues. For example, when a window is not active and the user clicks on the Carbon window, the Carbon child window becomes active without activating its parent. This results in a strange appearance because the window still appears inactive even though the user clicked in the content. </p><p>Your application can choose to use a floating window to alleviate some of these problems, but you may still have some activation problems that you need to address.</p><p>There are two ways of solving this problem. The most straightforward, is to tell the Window Manager not to update the activation state of the window. You may do this by calling:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre> OSStatus result = SetWindowActivationScope( ownedCarbonWindow, kWindowActivationScopeNone);<span></span></pre></td></tr></table></div><p>You then register to listen to the <code>NSWindowDidBecomeMainNotification</code> and the <code>NSWindowDidResignMainNotification</code> notifications on the Cocoa window. When you receive the notification, activate or deactivate the Carbon window as appropriate:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre> ActivateWindow(ownedCarbonWindow, [(NSWindow *)[notification object] isMainWindow]);<span></span></pre></td></tr></table></div><p>Alternatively, install a Carbon Event handler on the Carbon child window. This activates the parent window when the Carbon child window gets activated.</p><p>This is accomplished by using the Carbon Event Manager API:</p><ol class="ol"><li class="li"><p>Install a Carbon Event handler.</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE7"></a><div class="codesample clear"><table><tr><td scope="row"><pre>EventHandlerRef 	mCarbonEventHandlerRef; // Keep this variable as a data member of your parent window.<span></span></pre></td></tr><tr><td scope="row"><pre>                                                           // It needs to be valid as long as the window is visible<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    EventTypeSpec	windowEventTypes[] = {<span></span></pre></td></tr><tr><td scope="row"><pre>        {kEventClassWindow, kEventWindowGetClickActivation },<span></span></pre></td></tr><tr><td scope="row"><pre>        {kEventClassWindow, kEventWindowHandleDeactivate }<span></span></pre></td></tr><tr><td scope="row"><pre>    };<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    EventHandlerUPP   ehUPP = NewEventHandlerUPP(CarbonWindowEventHandler);<span></span></pre></td></tr><tr><td scope="row"><pre>    OSStatus result = InstallWindowEventHandler( ownedCarbonWindow, ehUPP,<span></span></pre></td></tr><tr><td scope="row"><pre>                                         sizeof(windowEventTypes) / sizeof(EventTypeSpec),<span></span></pre></td></tr><tr><td scope="row"><pre>                                          windowEventTypes, self, &amp;mCarbonWindowHandlerRef );<span></span></pre></td></tr></table></div></li><li class="li"><p>Once you have installed the Carbon Event handler, handle those two events:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE8"></a><div class="codesample clear"><table><tr><td scope="row"><pre>pascal OSStatus CarbonWindowEventHandler(EventHandlerCallRef nextHandlerRef,<span></span></pre></td></tr><tr><td scope="row"><pre>                                                   EventRef event, void *userData)<span></span></pre></td></tr><tr><td scope="row"><pre>    {<span></span></pre></td></tr><tr><td scope="row"><pre>        UInt32      eventKind = GetEventKind(event);<span></span></pre></td></tr><tr><td scope="row"><pre>        switch (eventKind) {<span></span></pre></td></tr><tr><td scope="row"><pre>            case kEventWindowHandleDeactivate:<span></span></pre></td></tr><tr><td scope="row"><pre>                // don't allow window to get deactivated while app is active<span></span></pre></td></tr><tr><td scope="row"><pre>                // (do this only if you are a floating window that doesn't hide)<span></span></pre></td></tr><tr><td scope="row"><pre>                ActivateWindow(ownedCarbonWindow, TRUE);<span></span></pre></td></tr><tr><td scope="row"><pre>                return noErr;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>            case kEventWindowGetClickActivation:<span></span></pre></td></tr><tr><td scope="row"><pre>                ClickActivationResult howToHandleClick = kActivateAndHandleClick;<span></span></pre></td></tr><tr><td scope="row"><pre>                SetEventParameter(event, kEventParamClickActivation, typeClickActivationResult,<span></span></pre></td></tr><tr><td scope="row"><pre>                            sizeof(ClickActivationResult), &amp;howToHandleClick);<span></span></pre></td></tr><tr><td scope="row"><pre>                return noErr;<span></span></pre></td></tr><tr><td scope="row"><pre>        }<span></span></pre></td></tr><tr><td scope="row"><pre>        return eventNotHandledErr;<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr></table></div></li></ol><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004569-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;You must remove your Carbon Event handler in the windowWillClose: delegate method of your Cocoa window before you remove the child Carbon window from its parent: <code>RemoveEventHandler(mCarbonWindowHandlerRef);</code></p><p></p></aside></div><p>If you do not use a floating window, you must handle application activation and deactivation. To do this, install an application event handler:</p><ol class="ol"><li class="li"><p>Install an application [De]Activation Carbon event handler.</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE9"></a><div class="codesample clear"><table><tr><td scope="row"><pre>EventHandlerRef applicationHandlerRef;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    EventTypeSpec   applicationEventTypes[] = {<span></span></pre></td></tr><tr><td scope="row"><pre>        {kEventClassApplication, kEventAppActivated },<span></span></pre></td></tr><tr><td scope="row"><pre>        {kEventClassApplication, kEventAppDeactivated }<span></span></pre></td></tr><tr><td scope="row"><pre>    };<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    EventHandlerUPP ehUPP = NewEventHandlerUPP(CarbonApplicationEventHandler);<span></span></pre></td></tr><tr><td scope="row"><pre>    OSStatus result = InstallApplicationEventHandler( ehUPP,<span></span></pre></td></tr><tr><td scope="row"><pre>                                                      sizeof(applicationEventTypes) / sizeof(EventTypeSpec),<span></span></pre></td></tr><tr><td scope="row"><pre>                                                      applicationEventTypes, self, &amp; applicationHandlerRef ));<span></span></pre></td></tr></table></div></li><li class="li"><p>Once you have installed the event handler, handle those two events:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE10"></a><div class="codesample clear"><table><tr><td scope="row"><pre>pascal OSStatus CarbonApplicationEventHandler (EventHandlerCallRef nextHandlerRef,<span></span></pre></td></tr><tr><td scope="row"><pre>                                                         EventRef event, void *userData)<span></span></pre></td></tr><tr><td scope="row"><pre>    {<span></span></pre></td></tr><tr><td scope="row"><pre>        UInt32      eventKind = GetEventKind(event);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        switch (eventKind) {<span></span></pre></td></tr><tr><td scope="row"><pre>            case kEventAppActivated:<span></span></pre></td></tr><tr><td scope="row"><pre>                ActivateWindow(ownedCarbonWindow, TRUE);<span></span></pre></td></tr><tr><td scope="row"><pre>                return noErr;<span></span></pre></td></tr><tr><td scope="row"><pre>            case kEventAppDeactivated:<span></span></pre></td></tr><tr><td scope="row"><pre>                ActivateWindow(ownedCarbonWindow, FALSE);<span></span></pre></td></tr><tr><td scope="row"><pre>                return noErr;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>            default:<span></span></pre></td></tr><tr><td scope="row"><pre>                // pass-thru all kEventClassApplication events we're not interested in.<span></span></pre></td></tr><tr><td scope="row"><pre>                break;<span></span></pre></td></tr><tr><td scope="row"><pre>        }<span></span></pre></td></tr><tr><td scope="row"><pre>        return eventNotHandledErr;<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr></table></div></li><li class="li"><p>You need to do something similar for the Cocoa window when its child Carbon window receives an activation notification:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE11"></a><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)applicationDidBecomeActiveNotification:(NSNotification *)inNotification<span></span></pre></td></tr><tr><td scope="row"><pre>    {<span></span></pre></td></tr><tr><td scope="row"><pre>        if (ownedCarbonWindow)<span></span></pre></td></tr><tr><td scope="row"><pre>            ActivateWindow(ownedCarbonWindow, TRUE);<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    - (void)windowDidBecomeKey:(NSNotification *)inNotification<span></span></pre></td></tr><tr><td scope="row"><pre>    {<span></span></pre></td></tr><tr><td scope="row"><pre>        [NSApp activateIgnoringOtherApps:YES];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        if (ownedCarbonWindow)<span></span></pre></td></tr><tr><td scope="row"><pre>            ActivateWindow(ownedCarbonWindow, TRUE);<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr></table></div></li></ol><p>As you did previously, remove your event handler in your windowWillClose: delegate method: <code>RemoveEventHandler(applicationHandlerRef);</code></p><p>Keep in mind that this source code is simplified. Your application must ensure that when <code>ActivateWindow</code> is called from within the application event handler, the event is not processed in the window event handler. We recommend setting a flag whenever <code>ActivateWindow</code> is called on the Carbon window. Then in the event handler, you can return <code>noErr</code> if that flag is set. This prevents the Carbon event handler from processing the event twice.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004569-CH1-MANAGING_CARBON_COCOA_WINDOW_RESIZING" title="Managing Carbon/Cocoa Window Resizing"></a><h2 class="jump">Managing Carbon/Cocoa Window Resizing</h2><p>The advantage of installing a Carbon event handler to handle activation is that it also allows you to handle window resizing in the same manner. If the Carbon view resizes itself in response to user interaction (ie, to expand its window in response to the user clicking on a disclosure triangle), the well-behaved host needs to resize the parent Cocoa view as well.</p><p>This is accomplished by installing a control event handler:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE12"></a><div class="codesample clear"><table><tr><td scope="row"><pre>EventTypeSpec   controlEventTypes[] = {<span></span></pre></td></tr><tr><td scope="row"><pre>        {kEventClassControl, kEventControlBoundsChanged }<span></span></pre></td></tr><tr><td scope="row"><pre>    };<span></span></pre></td></tr></table></div><p>You must install a control event handler on the Carbon window (you may pass the object that needs to handle the resizing in the user info parameter):</p><ol class="ol"><li class="li"><p>Install a control bounds changed Carbon event handler.</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE13"></a><div class="codesample clear"><table><tr><td scope="row"><pre>EventHandlerRef carbonEventHandlerRef;<span></span></pre></td></tr><tr><td scope="row"><pre>EventTypeSpec   controlEventTypes[] = {<span></span></pre></td></tr><tr><td scope="row"><pre>{kEventClassControl, kEventControlBoundsChanged }<span></span></pre></td></tr><tr><td scope="row"><pre>};<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>verify_noerr (InstallControlEventHandler(rootCarbonControl, NewEventHandlerUPP(CarbonEventHandler),<span></span></pre></td></tr><tr><td scope="row"><pre>                                                   sizeof(controlEventTypes) / sizeof(EventTypeSpec),<span></span></pre></td></tr><tr><td scope="row"><pre>                                                   controlEventTypes, owningCocoaWindow,<span></span></pre></td></tr><tr><td scope="row"><pre>                                                   &amp;carbonEventHandlerRef));<span></span></pre></td></tr></table></div></li><li class="li"><p>Add a new case to your handler for the control event class:</p><a name="//apple_ref/doc/uid/DTS10004569-CH1-SOURCECODE14"></a><div class="codesample clear"><table><tr><td scope="row"><pre>pascal OSStatus CarbonEventHandler (EventHandlerCallRef nextHandlerRef, EventRef event, void *userData)<span></span></pre></td></tr><tr><td scope="row"><pre>    {<span></span></pre></td></tr><tr><td scope="row"><pre>        NSInspectorWindow   *cocoaWindow = (NSInspectorWindow *)userData;<span></span></pre></td></tr><tr><td scope="row"><pre>        ControlRef           control;<span></span></pre></td></tr><tr><td scope="row"><pre>        UInt32               eventKind = GetEventKind(event);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        GetEventParameter(event, kEventParamDirectObject, typeControlRef,<span></span></pre></td></tr><tr><td scope="row"><pre>                                    NULL, sizeof(control), NULL, &amp;control);<span></span></pre></td></tr><tr><td scope="row"><pre>        switch (eventKind) {<span></span></pre></td></tr><tr><td scope="row"><pre>            case kEventControlBoundsChanged:<span></span></pre></td></tr><tr><td scope="row"><pre>                [cocoaWindow performSelectorOnMainThread:@selector(fitCarbonWindowToParentWindow)<span></span></pre></td></tr><tr><td scope="row"><pre>                                                          withObject:nil waitUntilDone:YES];<span></span></pre></td></tr><tr><td scope="row"><pre>                err = noErr;<span></span></pre></td></tr><tr><td scope="row"><pre>                break;<span></span></pre></td></tr><tr><td scope="row"><pre>            default:<span></span></pre></td></tr><tr><td scope="row"><pre>                break; // pass-thru all kEventClassControl events we're not prepared for.<span></span></pre></td></tr><tr><td scope="row"><pre>            }<span></span></pre></td></tr><tr><td scope="row"><pre>        }<span></span></pre></td></tr><tr><td scope="row"><pre>        return eventNotHandledErr;<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr></table></div></li></ol><p>In your <code>fitCarbonWindowToParentWindow</code> method, you can resize both windows in order to accommodate the new size of the Carbon control. It's generally a good idea to remove the child Carbon window from its parent before you do any resizing. Glue the windows back together again when you are done moving and resizing them. Although it is fairly straightforward, the implementation of this may vary based on the contents of the host window and are therefore best left as an exercise to the reader.</p><p>Don't forget to remove the event handler when your window closes: <code>RemoveEventHandler(carbonEventHandlerRef);</code></p><p>Like the activation code, this code is a bit simplified. Note that you may need to add a flag that you can access in your Carbon event handler that lets you know when you are in the process of manually resizing your Carbon window. This flag allows you to ignore your <code>kEventControlBoundsChanged</code> event to avoid getting caught in an infinite loop.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004569-CH1-REFERENCES" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/mac/library/documentation/MusicAudio/Conceptual/CoreAudioOverview/Introduction/Introduction.html" class="browserLink" >Core Audio Overview</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/MusicAudio/Conceptual/AudioUnitProgrammingGuide/index.html" class="browserLink" >Audio Unit Programming Guide</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://lists.apple.com/mailman/listinfo/coreaudio-api" class="urlLink" rel="external">CoreAudio Mailing List</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/samplecode/CocoaInCarbon/" class="browserLink" >Cocoa in Carbon Sample Code</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/Cocoa/Conceptual/CarbonCocoaDoc/CarbonCocoaDoc.html" class="browserLink" >Carbon in Cocoa</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004569-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004569-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-06-04</td><td><p>Fixed a bug with listing 2 in Activation section to now return eventNotHandledErr correctly.</p></td></tr><tr><td scope="row">2008-02-29</td><td><p>New document that 
+					carbon-Cocoa Integration for Audio Units</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-06-04</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

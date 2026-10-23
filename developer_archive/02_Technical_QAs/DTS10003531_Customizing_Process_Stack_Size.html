@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1419: Customizing Process Stack Size</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003531">
+    <meta id="document-version" name="document-version" content="2.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003531-CH1">
+    <meta id="date" name="date" content="2011-01-26">
+    <meta id="description" name="description" content="QA1419: Describes methods for setting the stack size of a process and/or thread.">
+    <meta id="book-title" name="book-title" content="Customizing Process Stack Size">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/CoreServices}, {Topic/Performance}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1419">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Customizing Process Stack Size" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003531" title="Technical Q&amp;A QA1419"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Customizing Process Stack Size</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003531-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1419"></a><div class="dtsDocNumber">Technical Q&amp;A QA1419</div><h1 id="pageTitle">Customizing Process Stack Size</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+My application maintains a large number of concurrent threads and needs to use a large amount of stack allocated data. How can I protect against overflowing my allocated stack space?
+</h2><p><span>A: </span>My application maintains a large number of concurrent threads and needs to use a large amount of stack allocated data. How can I protect against overflowing my allocated stack space?</p><p>Each Mac OS X process is launched with a default stack size of 8 Megabytes. This allocation is used exclusively for the main thread's stack needs. Each subsequent thread created is allocated its own default stack, the size of which differs depending on the threading API used. For example, the Mac OS X implementation of Pthreads defines a default stack size of 512 Kilobytes, while Carbon MPTasks are created with a 4 Kilobyte stack.</p><p>A process can outgrow its allocated stack space by any of the following means: </p><ul class="ul"><li class="li"><p>Deep recursion</p></li><li class="li"><p>Deeply nested procedure calls</p></li><li class="li"><p>Large allocations of stack data </p></li><li class="li"><p>Many concurrent threads</p></li></ul><section><a name="//apple_ref/doc/uid/DTS10003531-CH1-SECTION1" title="Determining Process Stack Limits"></a><h2 class="jump">Determining Process Stack Limits</h2><p>Since certain system defaults and limits can change between releases  of Mac OS X, it is useful to be able to determine the default process stack size for the system you are developing on. From the command line, <span class="content_text"><a href="x-man-page://1/csh" class="urlLink" rel="external"><codeVoice>limit</codeVoice></a></span> (csh, tcsh) or <span class="content_text"><a href="x-man-page://1/sh" class="urlLink" rel="external"><codeVoice>ulimit</codeVoice> <codeVoice>-a</codeVoice></a></span> (sh, bash) will output a variety of system defaults including the default process stack size.</p><p>Alternately, the system-defined default and maximum process stack sizes can be obtained using the <code>getrlimit</code> function call. See the Darwin man page for <span class="content_text"><a href="x-man-page://2/getrlimit" class="urlLink" rel="external"><codeVoice>getrlimit</codeVoice></a></span> for more  information.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003531-CH1-SECTION2" title="Setting a Larger Stack at Link Time"></a><h2 class="jump">Setting a Larger Stack at Link Time</h2><p>If you find your application is crashing because it is outgrowing the default 8 Megabyte stack allocation, you can raise its default by passing the <code>-stack_size</code> flag on the link line and specifying a new stack size up to 64 Megabytes.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003531-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Stack allocations must be done in multiples of the host's virtual memory page size. PowerPC and Intel-based Mac OS X systems have a page size of 4096 bytes.</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS10003531-CH1-SUBSECTION2" title="Setting The Stack Size to 16MB (0x1000000)"></a><h3 class="jump">Setting The Stack Size to 16MB (0x1000000)</h3><p>Using Xcode:</p><p>Add <code>-Wl,-stack_size,1000000</code> to the <strong>Other Linker Flags</strong> field of the Build Styles pane.</p><p>Using ld from a Makefile or command line:</p><p><code>ld -stack_size 1000000 foo.o bar.o</code></p><p>Using gcc, pass link flags through to ld with <code>-Wl</code>:</p><p><code>gcc -Wl,-stack_size -Wl,1000000 foo.c</code></p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003531-CH1-SECTION4" title="Dynamically Growing The Process Stack at Runtime"></a><h2 class="jump">Dynamically Growing The Process Stack at Runtime</h2><p>Using the BSD system call <code>setrlimit</code>, you can increase the stack size of a process up to the size allowed by the system. See the Darwin man page for <span class="content_text"><a href="x-man-page://2/setrlimit" class="urlLink" rel="external"><codeVoice>setrlimit</codeVoice></a></span> for more information.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003531-CH1-SECTION5" title="Setting The Stack Size for an Individual Thread"></a><h2 class="jump">Setting The Stack Size for an Individual Thread</h2><p>You can also increase the stack size allocated to threads as you create them. In Pthreads this is done by setting up a custom attribute and passing it to <code>pthread_create</code>.</p><a name="//apple_ref/doc/uid/DTS10003531-CH1-SOURCECODE1" title="Listing 1Setting a Pthread's Stack Size"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Setting a Pthread's Stack Size</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;limits.h&gt;
+#include &lt;pthread.h&gt;
+
+#define REQUIRED_STACK_SIZE 1024*1024
+
+int CreateThreadWithLargeStack (pthread_t *outThread, void *threadFunc, void *arg)
+{
+    int 			err = 0;
+    pthread_attr_t 	stackSizeAttribute;
+    size_t			stackSize = 0;
+
+    /*  Initialize the attribute */
+    err = pthread_attr_init (&amp;stackSizeAttribute);
+    if (err) return (err);
+
+    /* Get the default value */
+    err = pthread_attr_getstacksize(&amp;stackSizeAttribute, &amp;stackSize); 
+    if (err) return (err);
+
+    /* If the default size does not fit our needs, set the attribute with our required value */
+    if (stackSize &lt; REQUIRED_STACK_SIZE)
+    {
+        err = pthread_attr_setstacksize (&amp;stackSizeAttribute, REQUIRED_STACK_SIZE);
+        if (err) return (err);
+    }
+
+    /*  Create the thread with our attribute */
+    err = pthread_create (outThread, &amp;stackSizeAttribute, threadFunc, arg);
+    return (err);
+}<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS10003531-CH1-SUBSECTION5" title="Carbon MPTasks"></a><h3 class="jump">Carbon MPTasks</h3><p>If you are using Carbon Multiprocessing Services, you can set the stack size of an MPTask when it is created by passing a value other than 0 in the <code>stackSize</code> parameter of <code>MPCreateTask</code>.</p></section><section><a name="//apple_ref/doc/uid/DTS10003531-CH1-SUBSECTION6" title="Cocoa NSThreads"></a><h3 class="jump">Cocoa NSThreads</h3><p>As of Mac OS X 10.5, the NSThread class includes the <code>setStackSize:</code> method which can be used to set a stack size of up 1GB. Previous releases hard coded the stack size of an NSThread to 512KB.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003531-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003531-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2011-01-26</td><td><p>Updated "Other Linker Flags" sntax for Xcode 3.1.2.</p></td></tr><tr><td scope="row">2008-02-20</td><td><p>Updated NSThread section for Leopard.</p></td></tr><tr><td scope="row">2005-04-22</td><td><p>New document that 
+					describes methods for setting the stack size of a process and/or thread.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2011 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2011-01-26</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

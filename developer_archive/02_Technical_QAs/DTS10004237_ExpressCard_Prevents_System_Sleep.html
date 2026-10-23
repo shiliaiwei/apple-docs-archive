@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1517: ExpressCard Prevents System Sleep</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004237">
+    <meta id="document-version" name="document-version" content="1.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004237-CH1">
+    <meta id="date" name="date" content="2007-02-28">
+    <meta id="description" name="description" content="QA1517: Describes how some ExpressCard cards can prevent system sleep and how to fix the problem.">
+    <meta id="book-title" name="book-title" content="ExpressCard Prevents System Sleep">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Drivers, Kernel, & Hardware/Hardware}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1517">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="ExpressCard Prevents System Sleep" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004237" title="Technical Q&amp;A QA1517"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>ExpressCard Prevents System Sleep</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004237-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1517"></a><div class="dtsDocNumber">Technical Q&amp;A QA1517</div><h1 id="pageTitle">ExpressCard Prevents System Sleep</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+When our ExpressCard card is inserted, our Mac doesn't go to sleep. It keeps trying but wakes up immediately. What is causing this symptom and how can we fix it?
+</h2><p><span>A: </span>When our ExpressCard card is inserted, our Mac doesn't go to sleep. It keeps trying but wakes up immediately. What is causing this symptom and how can we fix it?</p><p>The ExpressCard slot found on Macintosh portable products such as the MacBook Pro features both a PCI Express interface and a USB interface. According to the ExpressCard Standard, the USB interface should comply with the <span class="content_text"><a href="http://www.usb.org/developers/docs/" class="urlLink" rel="external">Universal Serial Bus specification</a></span> (currently revision 2.0). However, developers of USB functions will find that the USB specified V<sub>BUS</sub> power (5 volts) is not present at the interface. Instead the ExpressCard +3.3 V and +3.3 VAUX signals are available.</p><p>The ExpressCard interface turns off the +3.3 V signal when sleeping in accordance with the ExpressCard specification, but the +3.3 VAUX signal remains powered. It is important to understand that when a Macintosh computer is sleeping, USB devices are suspended and are capable of waking the machine if they are disconnected.</p><p>A traditional USB device indicates that it is connected by pulling either the D+ or the D- line to the V<sub>BUS</sub> power rail. An ExpressCard device should do so by pulling either the USBD+ or USBD- line to the +3.3 VAUX rail. If it instead pulls the line to the +3.3 V rail, when the computer goes to sleep, the USBD+ or USBD- line will be floating. The computer will interpret this as a device disconnect and will wake up immediately.</p><p>Thus USB functions should get their power from the +3.3 VAUX source (and if necessary also from the +3.3 V signal when operating) so that they do not disconnect when suspended. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004237-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;The ExpressCard Standard prohibits connecting the +3.3 V and +3.3 VAUX signals within the device: the two signals must be isolated power planes within the module.</p><p></p></aside></div><p>The <span class="content_text"><a href="http://www.expresscard.org" class="urlLink" rel="external">PCMCIA organization</a></span> (responsible for the ExpressCard Standard document) is working on providing additional guidance in their specification, but many cards have been made that do not use the +3.3 VAUX power for their USB function. Vendors of these cards should consider redesigning their cards to use +3.3 VAUX power in order to avoid the sleep problem described earlier.</p><p>For cards already shipped, a workaround exists on systems that either have the <span class="content_text"><a href="http://www.apple.com/support/downloads/expresscardupdate10.html" class="urlLink" rel="external">ExpressCard Update 1.0</a></span> installed or are running Mac OS X 10.4.8 or later.</p><p>If the device's USB function is a Composite class device, the workaround can be implemented using a codeless kernel extension (KEXT). The KEXT simply adds the Boolean property <code>ExpressCardCantWake</code> with a value of <code>true</code> to the device's I/O Registry entry. The USB Composite class driver checks for this property and informs the USB family if the property is set. In turn, the USB host controller driver (<code>AppleUSBUHCIDriver</code> for low- or full-speed devices or <code>AppleUSBEHCIDriver</code> for hi-speed devices) disables the wakeup-enable feature for the ExpressCard port if the device is connected there.</p><p>An example of such a codeless KEXT is available from <span class="content_text"><!--a  -->Downloadables<!--/a--></span>. Instructions on how to use it are in the project's <code>Info.plist</code> file.</p><p>If the device's USB function is not a composite class device, you can add code to your device's driver to enable the above workaround, or you can subclass <code>IOUSBCompositeDriver</code> and ensure that <code>IOUSBCompositeDriver::ConfigureDevice</code> is called. If you choose to modify your own driver, insert the code in <span class="content_text"><!--a  -->Listing 1<!--/a--></span> into your driver's <code>start</code> method.</p><a name="//apple_ref/doc/uid/DTS10004237-CH1-SOURCECODE1" title="Listing 1Code to tell the USB family that an ExpressCard device will disconnect on sleep."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Code to tell the USB family that an ExpressCard device will disconnect on sleep.</p><div class="codesample clear"><table><tr><td scope="row"><pre> // See if this is an ExpressCard device which would disconnect on sleep (thus waking every time)
+    //
+    expressCardCantWakeRef = OSDynamicCast(OSBoolean, fDevice-&gt;getProperty(kUSBExpressCardCantWake));
+
+    if (expressCardCantWakeRef &amp;&amp; expressCardCantWakeRef-&gt;isTrue()) {
+        fDevice-&gt;GetBus()-&gt;retain();
+        fDevice-&gt;GetBus()-&gt;message(kIOUSBMessageExpressCardCantWake, this, fDevice);
+        fDevice-&gt;GetBus()-&gt;release();
+    }<span></span></pre></td></tr></table></div><p>The <code>kIOUSBMessageExpressCardCantWake</code> message only needs to be issued once for the device and not once for each interface.</p><p>The constants <code>kUSBExpressCardCantWake</code> and <code>kIOUSBMessageExpressCardCantWake</code> are defined in the version of <code>IOKit/usb/USB.h</code> included in Xcode 2.4 and later.</p><section><a name="//apple_ref/doc/uid/DTS10004237-CH1-SECTION1" title="Downloadables"></a><h2 class="jump">Downloadables</h2><ul class="ul"><li class="li"><p>USBExpressCardCantWake: example codeless KEXT for USB composite class devices. ("qa1517_USBExpressCardCantWake.zip", 11.2K)
+
+</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004237-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004237-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2007-02-28</td><td><p>New document that 
+					describes how some ExpressCard cards can prevent system sleep and how to fix the problem.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2007 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2007-02-28</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

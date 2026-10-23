@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2428: Data Management and Synchronization for Shared iPad</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40016748">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40016748-CH1">
+    <meta id="date" name="date" content="2016-03-01">
+    <meta id="description" name="description" content="TN2428: provides best practices to ensure that user-specific data is cloud-based and efficiently managed on a Shared iPad.">
+    <meta id="book-title" name="book-title" content="Data Management and Synchronization for Shared iPad">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Data Management/Syncing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2428">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Data Management and Synchronization for Shared iPad" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40016748" title="Technical Note TN2428"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Data Management and Synchronization for Shared iPad</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40016748-CH1-DontLinkElementID_2" title="Technical Note TN2428"></a><div class="dtsDocNumber">Technical Note TN2428</div><h1 id="pageTitle">Data Management and Synchronization for Shared iPad</h1><p>While any app can implement appropriate support for Shared iPad, developers building for the education market will want to adopt the following best practices to ensure that user-specific data is cloud-based and efficiently managed. </p><p>Since local data may be purged when switching users or when the device is reconfigured to meet changed classroom use needs, the following best practices describe the recommended approach for ensuring persistent storage depending on your application architecture and the type and volume of user-specific data.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40016748-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Indicate support for purgeable local storage support.</p><p></p></aside></div><p>Supporting purgeable local storage means that you either have no persistent content of consequence (for example a calculator app) or your app ensures that any content that requires persistence is stored in the cloud. Once you've implemented the following best practices, you'll want to indicate your support for Shared iPad by setting the <span class="content_text"><a href="https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html" class="urlLink" rel="external">NSSupportsPurgeableLocalStorage</a></span> key to Yes in your project’s Info.plist. Doing so indicates that your app supports having its local data purged when the user logs out. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG1" data-renderer-version="1">Data Management Best Practices</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG3" data-renderer-version="1">Store all user data in the cloud</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG4" data-renderer-version="1">Fetch remote data on demand</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG5" data-renderer-version="1">Sync data as it changes</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG10" data-renderer-version="1">Store first launch or progress flags in the cloud</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG7" data-renderer-version="1">Limit background task assertion requirements</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG11" data-renderer-version="1">Indicate purgeable local storage support in your project PList</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG2" data-renderer-version="1">Sync Technologies</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG6" data-renderer-version="1">Sync using NSURLSession</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG8" data-renderer-version="1">Synchronize credentials via Keychain</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016748-CH1-TNTAG9" data-renderer-version="1">Synchronize data via iCloud</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40016748-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG1" title="Data Management Best Practices"></a><h2 class="jump">Data Management Best Practices</h2><section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG3" title="Store all user data in the cloud"></a><h3 class="jump">Store all user data in the cloud</h3><p>Shared iPad requires a cloud-based synchronization model for any data required to persist between uses of the app. Send data to your own backend using NSURLSession, or use iCloud, NSUbiquitousKeyValueStore, and store credentials in Keychain.</p></section><section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG4" title="Fetch remote data on demand"></a><h3 class="jump">Fetch remote data on demand</h3><p>Since all data associated with a given app may not be required at any given time, develop a download strategy that ensures you only download what’s needed when it’s needed or just before. Rather than bringing back all known user content you may need in the app, consider only pulling what’s required in the current context. </p></section><section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG5" title="Sync data as it changes"></a><h3 class="jump">Sync data as it changes</h3><p>Sync user entered or created data as you get it. Be sure to synchronize during applicationWillResignActive at the minimum but keep in mind that waiting too long or holding an overly large batch for synchronization will provide an inferior user experience and may in rare cases lead to data loss. </p></section><section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG10" title="Store first launch or progress flags in the cloud"></a><h3 class="jump">Store first launch or progress flags in the cloud</h3><p>If your app determines the need for a first launch experience based on a flag currently stored in the local file system or NSUserDefaults, you should move these per-user flags to NSUbiquitousKeyValueStore and check there before presenting your first launch experience. </p><p>For more information on the NSUbiquitousKeyValueStore, check out the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Foundation/Reference/NSUbiquitousKeyValueStore_class/index.html" class="urlLink" rel="external">NSUbiquitousKeyValueStore Class Reference</a></span> and <span class="content_text"><a href="https://developer.apple.com/library/ios/samplecode/PrefsInCloud/Introduction/Intro.html" class="urlLink" rel="external">PrefsInCloud sample project</a></span>.</p></section><section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG7" title="Limit background task assertion requirements"></a><h3 class="jump">Limit background task assertion requirements</h3><p>Limit the amount of work you do in background task assertions to the minimum needed to ensure data consistency and synchronization — generally calls to NSURLSession or iCloud APIs to upload the user's data. These APIs provide support to continue the network operation without blocking the transition between users.</p></section><section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG11" title="Indicate purgeable local storage support in your project PList"></a><h3 class="jump">Indicate purgeable local storage support in your project PList</h3><p>Indicate support for Shared iPad by setting the <span class="content_text"><a href="https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html" class="urlLink" rel="external">NSSupportsPurgeableLocalStorage</a></span> key to Yes in your project’s Info.plist. Doing so indicates that your app supports having its local data purged when the user logs out. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG2" title="Sync Technologies"></a><h2 class="jump">Sync Technologies</h2><section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG6" title="Sync using NSURLSession"></a><h3 class="jump">Sync using NSURLSession</h3><p>Apps using NSURLSession with the appropriate background configuration to push user-specific settings or data will be assured that their uploads will continue after the user has switched apps and, more importantly, after the current user has signed out on a shared iPad.</p><p>For more information on NSURLSession, review the WWDC 2015 video <span class="content_text"><a href="https://developer.apple.com/videos/play/wwdc2015-711/" class="urlLink" rel="external">Networking with NSURLSession</a></span>, the WWDC 2014 video <span class="content_text"><a href="https://developer.apple.com/videos/play/wwdc2014-707/" class="urlLink" rel="external">What’s New in Foundation Networking</a></span>, and the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Foundation/Reference/NSURLSession_class/index.html" class="urlLink" rel="external">NSURLSession Class Reference</a></span>.</p></section><section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG8" title="Synchronize credentials via Keychain"></a><h3 class="jump">Synchronize credentials via Keychain</h3><p>Keychain on Shared iPad provides automatic synchronization across devices using the same Apple ID. Storing credentials and other lightweight information in Keychain via Keychain Services API ensures they will be secure and available wherever the user signs in.</p><p>For more information on Keychain implementation, check out the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Security/Conceptual/keychainServConcepts/iPhoneTasks/iPhoneTasks.html" class="urlLink" rel="external">Keychain Services Programming Guide</a></span>.</p></section><section><a name="//apple_ref/doc/uid/DTS40016748-CH1-TNTAG9" title="Synchronize data via iCloud"></a><h3 class="jump">Synchronize data via iCloud</h3><p>Implementing support for iCloud Documents and Key-Value Storage APIs means your user content will be in-sync without having to explicitly manage that synchronization process. While CloudKit is more transactional and under your explicit control, CloudKit operations are designed to ensure data you've committed arrives in iCloud storage even if the app is exited or the user signs out. </p><p>Check out the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/iCloudDesignGuide/Chapters/Introduction.html" class="urlLink" rel="external">iCloud Design Guide</a></span> for which storage API is best for your app. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40016748-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40016748-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-02-18</td><td><p>New document that 
+					provides best practices to ensure that user-specific data is cloud-based and efficiently managed on a Shared iPad.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-03-01</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

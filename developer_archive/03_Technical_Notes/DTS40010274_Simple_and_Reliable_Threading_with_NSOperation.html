@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2109: Simple and Reliable Threading with NSOperation</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40010274">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40010274-CH1">
+    <meta id="date" name="date" content="2010-08-27">
+    <meta id="description" name="description" content="TN2109: Describes how Cocoa application developers can use NSOperation to solve many of the problems inherent in threaded code.">
+    <meta id="book-title" name="book-title" content="Simple and Reliable Threading with NSOperation">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/Foundation}, {Topic/Data Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2109">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Simple and Reliable Threading with NSOperation" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40010274" title="Technical Note TN2109"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Simple and Reliable Threading with NSOperation</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_2" title="Technical Note TN2109"></a><div class="dtsDocNumber">Technical Note TN2109</div><h1 id="pageTitle">Simple and Reliable Threading with NSOperation</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Threads are a great way to solve a number of tricky problems. For example, if you have some long-running computation to do, you really want to push that work off to a secondary thread so as to keep your user interface responsive. However, it's very easy to get into trouble when using threads in an iOS application. Threads are tricky to program with in general and, of course, large parts of Cocoa Touch can only be called from the main thread.</p><p>This technote describes one way to manage your threaded code, namely, via NSOperation. This is a specific example of a general technique known as <strong>thread confinement</strong>, where you strictly limit the scope of your threaded code so as to avoid traditional threading problems, like accessing data structures while they are being mutated by another thread, as well as platform-specific issues, like accidentally calling UIKit from a secondary thread.</p><p>This article is specifically written for iOS application developers, but the core techniques discussed here also apply to Mac OS X.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SECTION2" data-renderer-version="1">Threads And Their Problems</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SECTION3" data-renderer-version="1">NSOperation To The Rescue!</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION3" data-renderer-version="1">Using NSOperation in ListAdder</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION7" data-renderer-version="1">AdderOperation: Beyond the Basics</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION8" data-renderer-version="1">Thread Confinement</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SECTION10" data-renderer-version="1">NSOperations Hints and Tips</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION10" data-renderer-version="1">NSOperation and GCD</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION11" data-renderer-version="1">The Deallocation Problem</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION12" data-renderer-version="1">Concurrent Operations</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION13" data-renderer-version="1">Unfinished Operations</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40010274-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Threads let you solve two tricky problems:</p><ul class="ul"><li class="li"><p>parallel computation — In this world of multicore CPUs, many tasks will run faster if you divide the work between threads that are scheduled on different cores.</p><p>This approach can be useful even on a single core system (as is the case for all current iOS devices). Specifically, if your computation thread spends some fraction of its time blocked (for example, waiting for disk I/O), you can use multiple threads to do useful computation on one thread while the other thread is blocked.</p></li><li class="li"><p>asynchronous computation — If you have some long-running computation to do and, as is the case on iOS, you must keep the main thread responsive, you can move that computation to a secondary thread. This allows your main thread to treat the computation as it would any other asynchronous operation.</p></li></ul><p>However, threads are not always the right solution. Threads have a significant cost, in terms of both memory and, more importantly, code complexity. In many cases it's a good idea to use the asynchronous APIs available in iOS instead. Specifically, a thread is a poor choice if you expect it to spend a significant amount of its time blocked. For example:</p><ul class="ul"><li class="li"><p>periodic execution — Starting a thread just to execute code periodically is never a good idea. You should use NSTimer instead. </p></li><li class="li"><p>networking — On a typical iOS device, the CPU is much faster than the network so, if you start a thread to do your networking synchronously, that thread will spend most of its time blocked. A better approach is to use the asynchronous networking APIs provided by iOS.</p></li></ul><p>Once you've decided that it's appropriate to solve your problem with threads, you need to decide on the overall structure of your code. A common approach is to use the NSThread API directly, or perhaps take advantage of Cocoa's <code>-performSelectorInBackground:withObject:</code> method. It is, however, very easy to run into problems with these mechanism. The first section of this technote (<span class="content_text"><!--a  -->Threads And Their Problems<!--/a--></span>) describe some of those problems, just so you can get a feel for why it's so important to be careful with threads. The next section (<span class="content_text"><!--a  -->NSOperation To The Rescue!<!--/a--></span>) describes how you can use NSOperation to address those problems in a simple and reliable way. Finally, the last section (<span class="content_text"><!--a  -->NSOperations Hints and Tips<!--/a--></span>) offers some hints and tips for using NSOperation effectively.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SECTION2" title="Threads And Their Problems"></a><h2 class="jump">Threads And Their Problems</h2><p>Imagine you have an application that displays a list of numbers with a total at the top. Actually, you don't have to imagine this, you can just look at <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span>, which was specifically created for this technote. <span class="content_text"><!--a  -->Figure 1<!--/a--></span> shows the basic UI.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40010274-CH1-FIGURE1" title="Figure 1The ListAdder UI"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;The ListAdder UI</figcaption><img src="Art/tn2109_ListAdder.png" alt="" width="207" height="385"></figure><p>Such an application might have a view controller class with a property that is the list of numbers, represented as a mutable array. <span class="content_text"><!--a  -->Listing 1<!--/a--></span> shows how this might be declared.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE1" title="Listing 1The numbers array declaration"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;The numbers array declaration</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface ListAdderViewController () [...]  @property (nonatomic, retain, readonly ) NSMutableArray *   numbers;  [...]  @end<span></span></pre></td></tr></table></div><p>Now imagine, just for the sake of this example, that adding up the list of numbers takes a very long time. So, as the user changes the list, you have to update the total, but you can't do that on the main thread because it would block the user interface too long. Thus you have to do the summation asynchronously. One obvious way to do that is to start a thread. <span class="content_text"><!--a  -->Listing 2<!--/a--></span> shows how you might do this. You'll note that the core calculation loop contains a long delay so that you can actually see the various threading problems as they crop up.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE2" title="Listing 2Recalculating on a thread"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Recalculating on a thread</p><div class="codesample clear"><table><tr><td scope="row"><pre>// ---- Broken Code ---- Do Not Use ---- Broken Code ---- Do Not Use ----
+
+- (void)recalculateTotalUsingThread
+{
+    self.recalculating = YES;
+    [self performSelectorInBackground:@selector(threadRecalculateNumbers) withObject:self.numbers];
+}
+
+- (void)threadRecalculateNumbers
+{
+    NSAutoreleasePool *     pool;
+    NSInteger               total;
+    NSUInteger              numberCount;
+    NSUInteger              numberIndex;
+    NSString *              totalStr;
+
+    pool = [[NSAutoreleasePool alloc] init];
+    assert(pool != nil);
+
+    total = 0;
+    numberCount = [self.numbers count];
+    for (numberIndex = 0; numberIndex &lt; numberCount; numberIndex++) {
+        NSNumber *  numberObj;
+
+        // Sleep for a while. This makes it easiest to test various problematic cases.
+
+        [NSThread sleepForTimeInterval:1.0];
+
+        // Do the mathematics.
+
+        numberObj = [self.numbers objectAtIndex:numberIndex];
+        assert([numberObj isKindOfClass:[NSNumber class]]);
+
+        total += [numberObj integerValue];
+    }
+
+    // The user interface is adjusted by a KVO observer on recalculating.
+
+    totalStr = [NSString stringWithFormat:@"%ld", (long) total];
+    self.formattedTotal = totalStr;
+    self.recalculating = NO;
+
+    [pool drain];
+}
+
+// ---- Broken Code ---- Do Not Use ---- Broken Code ---- Do Not Use ----<span></span></pre></td></tr></table></div><p>This code has numerous issues. The first one is pretty obvious: the end of <code>-threadRecalculateNumbers</code> applies the results to the user interface. In doing so, it ends up calling UIKit on a secondary thread. That's because other parts of the program use key-value observing (KVO) to observe the <code>recalculating</code> property and reload the table view accordingly. If you change <code>recalculating</code> on a secondary thread, this code ends up calling UIKit on a secondary thread, which is not allowed.</p><p>Fixing that problem is relatively easy. <span class="content_text"><!--a  -->Listing 3<!--/a--></span> shows a replacement for <code>-threadRecalculateNumbers</code> with the fix.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE3" title="Listing 3Recalculating on a thread, second try"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Recalculating on a thread, second try</p><div class="codesample clear"><table><tr><td scope="row"><pre>// ---- Broken Code ---- Do Not Use ---- Broken Code ---- Do Not Use ----
+
+- (void)threadRecalculateNumbers
+{
+    NSAutoreleasePool *     pool;
+    NSInteger               total;
+    NSUInteger              numberCount;
+    NSUInteger              numberIndex;
+    NSString *              totalStr;
+
+    pool = [[NSAutoreleasePool alloc] init];
+    assert(pool != nil);
+
+    total = 0;
+    numberCount = [self.numbers count];
+    for (numberIndex = 0; numberIndex &lt; numberCount; numberIndex++) {
+        NSNumber *  numberObj;
+
+        // Sleep for a while. This makes it easiest to test various problematic cases.
+
+        [NSThread sleepForTimeInterval:1.0];
+
+        // Do the mathematics.
+
+        numberObj = [self.numbers objectAtIndex:numberIndex];
+        assert([numberObj isKindOfClass:[NSNumber class]]);
+
+        total += [numberObj integerValue];
+    }
+
+    // Update the user interface on the main thread.
+
+    totalStr = [NSString stringWithFormat:@"%ld", (long) total];
+    [self performSelectorOnMainThread:@selector(threadRecalculateDone:) withObject:totalStr waitUntilDone:NO];
+
+    [pool drain];
+}
+
+- (void)threadRecalculateDone:(NSString *)result
+{
+    // The user interface is adjusted by a KVO observer on recalculating.
+
+    self.formattedTotal = result;
+    self.recalculating = NO;
+}
+
+// ---- Broken Code ---- Do Not Use ---- Broken Code ---- Do Not Use ----<span></span></pre></td></tr></table></div><p>So, we're done, right?  Wrong!  While this code fixes the problem mentioned above, it still has other problems. One such problem relates to the <code>numbers</code> property. This is a mutable array, and the code is now accessing the array on one thread (the secondary thread) while potentially mutating the array on another (the main thread). So, what happens if the main thread changes the <code>numbers</code> array while a secondary thread is recalculating?  Bad things. Imagine this scenario:</p><ol class="ol"><li class="li"><p>The user adds an item. This starts a long recalculation on thread A.</p></li><li class="li"><p>A short while later, before thread A completes, the user then removes an item. This starts another long recalculation on thread B.</p></li></ol><p>Now think back to the main recalculation loop. For convenience, it's reproduced in <span class="content_text"><!--a  -->Listing 4<!--/a--></span>, with all the extraneous stuff cut away.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE4" title="Listing 4A stripped down recalculation loop"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;A stripped down recalculation loop</p><div class="codesample clear"><table><tr><td scope="row"><pre>NSUInteger              numberCount;
+NSUInteger              numberIndex;
+
+numberCount = [self.numbers count];
+for (numberIndex = 0; numberIndex &lt; numberCount; numberIndex++) {
+    NSNumber *  numberObj;
+
+    numberObj = [self.numbers objectAtIndex:numberIndex];
+    total += [numberObj integerValue];
+}<span></span></pre></td></tr></table></div><p>As you can see, the code first gets the count of the number of elements in the array, then iterates over that many elements. If the user removes an item from the <code>numbers</code> array after the secondary thread has initialized <code>numberCount</code>, this code will eventually access an element off the end of the array and crash.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;To make things clearer the examples in this technote use old school array iteration techniques rather than the Objective-C 2 for..in syntax. However, this problem applies even if you use for..in syntax. Mutating an array while you're iterating it using for..in syntax will result in the <code>Collection xxx was mutated while being enumerated</code> exception.</p><p></p></aside></div><p>Of course, fixing this is relatively easy: when you start the thread you make an immutable copy of the <code>numbers</code> array and have the thread operate on that. That way the thread is isolated from the changes done by the main thread. <span class="content_text"><!--a  -->Listing 5<!--/a--></span> shows the basic idea.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE5" title="Listing 5Recalculating on a thread, third try"></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Recalculating on a thread, third try</p><div class="codesample clear"><table><tr><td scope="row"><pre>// ---- Broken Code ---- Do Not Use ---- Broken Code ---- Do Not Use ----
+
+- (void)recalculateTotalUsingThread
+{
+    NSArray *       immutableNumbers;
+
+    self.recalculating = YES;
+
+    immutableNumbers = [[self.numbers copy] autorelease];
+    assert(immutableNumbers != nil);
+    [self performSelectorInBackground:@selector(threadRecalculateNumbers:) withObject:immutableNumbers];
+}
+
+- (void)threadRecalculateNumbers:(NSArray *)immutableNumbers
+{
+    NSAutoreleasePool *     pool;
+    NSInteger               total;
+    NSUInteger              numberCount;
+    NSUInteger              numberIndex;
+    NSString *              totalStr;
+
+    pool = [[NSAutoreleasePool alloc] init];
+    assert(pool != nil);
+
+    total = 0;
+    numberCount = [immutableNumbers count];
+    for (numberIndex = 0; numberIndex &lt; numberCount; numberIndex++) {
+        NSNumber *  numberObj;
+
+        // Sleep for a while. This makes it easiest to test various problematic cases.
+
+        [NSThread sleepForTimeInterval:1.0];
+
+        // Do the mathematics.
+
+        numberObj = [immutableNumbers objectAtIndex:numberIndex];
+        assert([numberObj isKindOfClass:[NSNumber class]]);
+
+        total += [numberObj integerValue];
+    }
+
+    totalStr = [NSString stringWithFormat:@"%ld", (long) total];
+    [self performSelectorOnMainThread:@selector(threadRecalculateDone:) withObject:totalStr waitUntilDone:NO];
+
+    [pool drain];
+}
+
+// ---- Broken Code ---- Do Not Use ---- Broken Code ---- Do Not Use ----<span></span></pre></td></tr></table></div><p>This fixes all of the crashing bugs associated with threaded recalculation. However, there are still a number of other serious bugs in this code. The most obvious is associated with the order in which results arrive. Imagine the following sequence:</p><ol class="ol"><li class="li"><p>The user adds a bunch of items to the list. This kicks off a recalculation that takes a long time (because calculation time is proportional to the length of the array). This calculation runs on thread A.</p></li><li class="li"><p>The user removes all but one item from the list. This kicks off another recalculation, running on thread B, that completes quickly.</p></li><li class="li"><p>Thread B completes and applies its results to the user interface. The user interface is now showing the correct number.</p></li><li class="li"><p>Thread A completes and applies its results to the user interface. This leaves the user interface showing stale results.</p></li></ol><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;Again, this isn't something you have to imagine. The Defaults/Minimum button in <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span> toggles between a long list and a short list, allowing you to easily reproduce this problem.</p><p></p></aside></div><p>The solution to this problem is to apply some sort of tag to the recalculation operation, and only commit its results if that tag is still valid. This in itself isn't hard to do, but at this point you should start to realize that a more structured approach is needed. One good structure to use here is NSOperation, discussed in detail in the next section. However, before we go there, you should consider two more outstanding problems with the threaded code:</p><ul class="ul"><li class="li"><p>cancellation — In the above scenario you end up with thread A and B running simultaneously, with thread A's results destined to be discarded. It would be nice if we could stop thread A so that it doesn't waste CPU cycles, battery life, and memory.</p></li><li class="li"><p>thread-safe deallocation — If you run any threaded code within UIKit objects (such as a view controller), there's a chance that the object's <code>-dealloc</code> method will be called on a secondary thread. This is bad (in the Ghost Busters sense of that word), especially in something like a view controller, where the <code>-dealloc</code> method typically releases UIView objects, and hence might cause their <code>-dealloc</code> method to run on the secondary thread. You can learn more about this problem and its solutions in <span class="content_text"><!--a  -->The Deallocation Problem<!--/a--></span>.</p></li></ul><p>NSOperation provides the infrastructure for solving all of the problems discussed above. In the next section we'll look at how that works.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SECTION3" title="NSOperation To The Rescue!"></a><h2 class="jump">NSOperation To The Rescue!</h2><p>NSOperation is a class that allows you to model asynchronous operations in a structured fashion. It provides a way for the high-level parts of your application to start asynchronous operations without worrying about the details of how they are executed. An NSOperation could be run on a thread, or asynchronously via run loop callbacks, or via other, more exotic means. The important thing is that your application's high-level code does not care. It just starts the operation and gets notified when it's finished.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;NSOperation is commonly used to run CPU intensive code on a thread, but it's not just about threads. NSOperation can be used to model any asynchronous operation. For example, <span class="content_text"><a href="/samplecode/LinkedImageFetcher/index.html" class="urlLink" rel="external">Sample Code 'LinkedImageFetcher'</a></span> shows how to use NSOperation for networking operations.</p><p></p></aside></div><p>NSOperation encourages a programming model called <strong>thread confinement</strong>. In this model the resources used by the thread are owned by that thread, not shared between threads. This is a great way to write threaded code without tripping over the sorts of problems discussed in the <span class="content_text"><!--a  -->previous section<!--/a--></span>. A good way to use NSOperation is:</p><ol class="ol"><li class="li"><p>Initialize the operation with an immutable copy of the data it needs to do its work.</p></li><li class="li"><p>Execute the operation; while it's executing, it only operates on the data it was initialized with and on data that it creates for itself and does not share with other threads.</p></li><li class="li"><p>When the operation completes, it makes its results available to the rest of the application, at which point the operation itself no longer touches those results.</p></li></ol><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;If creating an immutable copy of your data in step 1 is too expensive, you can use some internal state management to mark the data as being owned by the NSOperation, and thus avoid having other threads operate on it. This technique, which is also used by the NSOperation to pass back its results in step 3, is known as <strong>serial thread confinement</strong>.</p><p></p></aside></div><p>Using a separate NSOperation object solves a number of problems with general threaded code:</p><ul class="ul"><li class="li"><p>you can store ancillary data associated with the operation as properties of the NSOperation object</p></li><li class="li"><p>you can use these properties, or even the NSOperation object itself, as a tag to decide whether the results of the operation are stale</p></li><li class="li"><p>the NSOperation object is a handle by which you can cancel the operation</p></li><li class="li"><p>you can guarantee that all threaded code runs within the operation, and hence avoid <span class="content_text"><!--a  -->deallocation problems<!--/a--></span></p></li></ul><p>NSOperation also has a number of other useful features:</p><ul class="ul"><li class="li"><p>Each operation is executed by an operation queue (NSOperationQueue). Each queue has a maximum number of operations that it will execute in parallel (<code>maxConcurrentOperationCount</code>), commonly known as the <strong>queue width</strong>. This width defaults to a value that's appropriate for the device on which you're running, but you can set it to a value that's appropriate for the task at hand. For example, you can guarantee that operations are serialized (executed one at a time) by setting the queue width to 1. Or, if your operations hit the network, you can use the queue width to limit the number of concurrent network operations.</p></li><li class="li"><p>You can create operation queues to model your problem space. For example, a file copying program could use one operation queue per disk to avoid thrashing the disk head.</p></li><li class="li"><p>You can make operations dependent on other operations, and thereby establish chains of operation execution and operation fan in.</p></li></ul><p>It's important to realize that NSOperation and NSOperationQueue don't do anything that you couldn't do yourself. If you really wanted to, you could replicate all of this structure with your own code. However, if you don't have an existing structure for managing asynchronous code, and you don't feel like reimplementing the wheel, NSOperation is for you.</p><p>The rest of this section describes how <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span> uses NSOperation to implement asynchronous recalculation.</p><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION3" title="Using NSOperation in ListAdder"></a><h3 class="jump">Using NSOperation in ListAdder</h3><p>The next few sections describe the minimum amount of work necessary to adopt NSOperation in <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span>.</p><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SUBSUBSECTION3" title="A Minimal Header"></a><h4 class="jump">A Minimal Header</h4><p>The first step in implementing asynchronous recalculation using NSOperation is to create a subclass of NSOperation that does the calculation. You should pay special attention to the operation's interface, as expressed in its header file. Most importantly, everything in that interface should have a well-defined thread safeness strategy. </p><p><span class="content_text"><!--a  -->Listing 6<!--/a--></span> is the absolute minimal interface required by the AdderOperation from <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span>.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE6" title="Listing 6Minimal operation interface"></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;Minimal operation interface</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface AdderOperation : NSOperation  - (id)initWithNumbers:(NSArray *)numbers;  // only meaningful after the operation is finished  @property (copy,   readonly ) NSString * formattedTotal;  @end<span></span></pre></td></tr></table></div><p>The operation's initialization method (in this example, <code>-initWithNumbers:</code>) should take, as parameters, all the information that's absolutely necessary for the operation to run. In this case, it simply takes the list of numbers to add.</p><p>The only other item in this minimal interface is the properties that the client can use to get at the operation's result. In this case the <code>formattedTotal</code> property is the string that's meant to be displayed in the total value of the list view.</p><p>An operation inherits various important properties from NSOperation. The most critical is the <code>isFinished</code> property. The client can observe this property (in the key-value observing (KVO) sense) to determine when the operation is done. Alternatively, if you're not a big fan of KVO, you can use other mechanisms for the operation to signal that it's done. For example, your operation might post a notification (using NSNotificationCenter) when it's done, or it might define a delegate protocol.</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_7" title="Warning"></a><p><strong>Warning:</strong>&nbsp;Regardless of how your operation signals that it's done, your client must be aware of the thread on which that signalling takes place. This issue is discussed in more detail <span class="content_text"><!--a  -->below<!--/a--></span>.</p><p></p><div class="clear"></div></aside></div><p>There's one other thing to note about the minimal header shown in <span class="content_text"><!--a  -->Listing 6<!--/a--></span>: the <code>formattedTotal</code> property is atomic. That's because there's a distinct possibility that this property will be accessed from multiple threads concurrently, and the property must be atomic for that to be safe. As a rule, all public properties of an operation should be atomic.</p></section><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SUBSUBSECTION4" title="Minimal Implementation"></a><h4 class="jump">Minimal Implementation</h4><p>Given this header, the operation must include an implementation for the following:</p><ul class="ul"><li class="li"><p><code>-initWithNumbers:</code> method — This is a little subtle, and is discussed in detail next.</p></li><li class="li"><p><code>formattedTotal</code> property — This property can just be synthesized.</p></li><li class="li"><p><code>-dealloc</code> method — There are no big surprises here; the only gotcha is that the method may be executed by any thread.</p></li><li class="li"><p><code>-main</code> method — This is where your operation does its computation, and is discussed in detail below.</p></li></ul><p><span class="content_text"><!--a  -->Listing 7<!--/a--></span> shows a minimal implementation of the <code>-initWithNumbers:</code> method.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE7" title="Listing 7A minimal initialization method"></a><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;A minimal initialization method</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (id)initWithNumbers:(NSArray *)numbers
+{
+    assert(numbers != nil);
+    self = [super init];
+    if (self != nil) {
+        self-&gt;_numbers = [numbers copy];
+        assert(self-&gt;_numbers != nil);
+    }
+    return self;
+}<span></span></pre></td></tr></table></div><p>There are two points to note here:</p><ul class="ul"><li class="li"><p>The method creates an immutable copy of the incoming <code>numbers</code> array. This prevents the problem discussed <span class="content_text"><!--a  -->earlier<!--/a--></span>, where the main thread might mutate the array while the secondary thread running the operation is working on it.</p></li><li class="li"><p>It's your decision as to whether to make your initialization method thread safe. Because you control the allocation of the operation, you can guarantee that it will be called on the main thread (or some other specific secondary thread, for that matter). However, if it's relatively easy to make your initialization method thread safe, you should do so.</p></li></ul><p>The operation's <code>-main</code> method does the actual computation. <span class="content_text"><!--a  -->Listing 8<!--/a--></span> shows a minimal implementation.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE8" title="Listing 8A minimal main method"></a><p class="codesample clear"><strong class="caption_number">Listing 8</strong>&nbsp;&nbsp;A minimal main method</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)main
+{
+    NSUInteger      numberCount;
+    NSUInteger      numberIndex;
+    NSInteger       total;
+
+    // This method is called by a thread that's set up for us by the NSOperationQueue.
+
+    assert( ! [NSThread isMainThread] );
+
+    // Do the heavy lifting (-:
+
+    total = 0;
+    numberCount = [self.numbers count];
+    for (numberIndex = 0; numberIndex &lt; numberCount; numberIndex++) {
+        NSNumber *  numberObj;
+
+        // Check for cancellation.
+
+        if ([self isCancelled]) {
+            break;
+        }
+
+        // Sleep for a second. This makes it easiest to test cancellation 
+        // and so on.
+
+        [NSThread sleepForTimeInterval:1.0];
+
+        // Do the mathematics.
+
+        numberObj = [self.numbers objectAtIndex:numberIndex];
+        assert([numberObj isKindOfClass:[NSNumber class]]);
+
+        total += [numberObj integerValue];
+    }
+
+    // Set our output properties base on the value we calculated. Our client 
+    // shouldn't look at these until -isFinished goes to YES (which happens when 
+    // we return from this method).
+
+    self.formattedTotal = [self.formatter stringFromNumber:[NSNumber numberWithInteger:total]];
+}<span></span></pre></td></tr></table></div><p>The critical points here include:</p><ul class="ul"><li class="li"><p>This method is expected to run on a secondary thread. Everything it touches must have some sort of thread safeness strategy. In this example:</p><ul class="nested"><li class="nested li"><p>The <code>numbers</code> property is thread safe because it can only be changed by the <code>-initWithNumbers:</code> method, which must necessarily have completed before this code can run.</p></li><li class="nested li"><p>The <code>numberCount</code>, <code>numberIndex</code>, <code>total</code> and <code>numberObj</code> variables are safe because they are local variables, and thus won't be shared between threads.</p></li><li class="nested li"><p>The <code>formattedTotal</code> property is safe because the client should not be looking at it until the operation finishes. Even if the client ignores this requirement, their access will be safe because the property is atomic: the client will either get the original value (that is, <code>nil</code>) or the correct value, never some weird mishmash.</p></li></ul></li><li class="li"><p>The operation tests for cancellation by calling <code>isCancelled</code> within its main computation loop.</p></li></ul><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_8" title="Important"></a><p><strong>Important:</strong>&nbsp;While it is not strictly necessary for a standard operation to check for cancellation, is it strongly recommended that you do this. If an operation does not periodically check for cancellation, it will waste resources computing results that are no longer needed.</p><p></p></aside></div><p>Supporting cancellation in concurrent operations is a bit trickier. If you're creating a concurrent operation, see <span class="content_text"><!--a  -->Concurrent Operations<!--/a--></span> for information on how to do this correctly.</p></section><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SUBSUBSECTION5" title="Using the Operation"></a><h4 class="jump">Using the Operation</h4><p>Once you have an operation that does the task at hand, you have to use it in your application. The first step is creating an NSOperationQueue on which to run the operation. In the case of <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span>, the main view controller declares a private property for the queue and then initializes it when the view controller is initialized. <span class="content_text"><!--a  -->Listing 9<!--/a--></span> shows the details.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE9" title="Listing 9Creating the NSOperation queue"></a><p class="codesample clear"><strong class="caption_number">Listing 9</strong>&nbsp;&nbsp;Creating the NSOperation queue</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface ListAdderViewController () [...]
+
+@property (nonatomic, retain, readonly ) NSOperationQueue * queue;
+@property (nonatomic, retain, readwrite) AdderOperation *   inProgressAdder;
+
+[...]
+
+@end
+
+@implementation ListAdderViewController
+
+[...]
+
+- (id)init
+{
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self != nil) {
+        [...] 
+
+        self-&gt;_queue = [[NSOperationQueue alloc] init];
+        assert(self-&gt;_queue != nil);
+
+        [...] 
+    }
+    return self;
+}
+
+[...]
+
+@end<span></span></pre></td></tr></table></div><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_9" title="Warning"></a><p><strong>Warning:</strong>&nbsp;Hosting an operation queue within a view controller is tricky if that view controller can ever be deallocated. In <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span> that's not possible because ListAdderViewController is the root view controller, and thus can't be deallocated. If your view controller might be deallocated, you must take steps to avoid its <code>-dealloc</code> method running on a secondary thread. See <span class="content_text"><!--a  -->The Deallocation Problem<!--/a--></span> for details.</p><p></p><div class="clear"></div></aside></div><p>Once you have an operation queue, you can start operations by simply adding them to the queue. <span class="content_text"><!--a  -->Listing 10<!--/a--></span> shows this process.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE10" title="Listing 10Queuing the operation"></a><p class="codesample clear"><strong class="caption_number">Listing 10</strong>&nbsp;&nbsp;Queuing the operation</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)recalculateTotalUsingOperation
+{
+    // If we're already calculating, cancel that operation.
+
+    if (self.inProgressAdder != nil) {
+        [self.inProgressAdder cancel];
+    }
+
+    // Start up a replacement operation.
+
+    self.inProgressAdder = [[[AdderOperation alloc] initWithNumbers:self.numbers] autorelease];
+    assert(self.inProgressAdder != nil);
+
+    [self.inProgressAdder addObserver:self 
+        forKeyPath:@"isFinished" 
+        options:0 
+        context:&amp;self-&gt;_formattedTotal
+    ];
+
+    [self.queue addOperation:self.inProgressAdder];
+
+    // The user interface is adjusted by a KVO observer on recalculating.
+
+    self.recalculating = YES;
+}<span></span></pre></td></tr></table></div><p>There are a couple of things to note here:</p><ul class="ul"><li class="li"><p>The code keeps track of the most recently queued operation in the <code>inProgressAdder</code> property. When it starts a new operation, it replaces that value with the operation it just started. This has two benefits:</p><ul class="nested"><li class="nested li"><p>When it starts an operation, it can cancel the previous one. This means that the new operation doesn't just keep executing, consuming valuable CPU cycles, battery life, and memory.</p></li><li class="nested li"><p>When an operation completes, it can determine if the operation's results are still meaningful. More on this below.</p></li></ul></li><li class="li"><p>Before queuing an operation, it adds an observation of the <code>isFinished</code> property. This lets it determine when the operation is complete.</p></li></ul><p>Finally, when the operation is complete, you must check and commit the results. <span class="content_text"><!--a  -->Listing 11<!--/a--></span> shows how <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span> does this.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE11" title="Listing 11Committing the operation results"></a><p class="codesample clear"><strong class="caption_number">Listing 11</strong>&nbsp;&nbsp;Committing the operation results</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)observeValueForKeyPath:(NSString *)keyPath 
+    ofObject:(id)object 
+    change:(NSDictionary *)change 
+    context:(void *)context
+{
+    if (context == &amp;self-&gt;_formattedTotal) {
+        AdderOperation *    op;
+
+        // If the operation has finished, call -adderOperationDone: on the main thread to deal 
+        // with the results.
+
+        // can be running on any thread
+        assert([keyPath isEqual:@"isFinished"]);
+        op = (AdderOperation *) object;
+        assert([op isKindOfClass:[AdderOperation class]]);
+        assert([op isFinished]);
+
+        [self performSelectorOnMainThread:@selector(adderOperationDone:)
+            withObject:op 
+            waitUntilDone:NO
+        ];
+    } [...]
+}
+
+- (void)adderOperationDone:(AdderOperation *)op
+{
+    assert([NSThread isMainThread]);
+
+    assert(self.recalculating);
+
+    // Always remove our observer, regardless of whether we care about 
+    // the results of this operation.
+
+    [op removeObserver:self forKeyPath:@"isFinished"];
+
+    // Check to see whether these are the results we're looking for. 
+    // If not, we just discard the results; later on we'll be notified 
+    // of the latest add operation completing.
+
+    if (op == self.inProgressAdder) {
+        assert( ! [op isCancelled] );
+
+        // Commit the value to our model.
+
+        self.formattedTotal = op.formattedTotal;
+
+        // Clear out our record of the operation. The user interface is adjusted 
+        // by a KVO observer on recalculating.
+
+        self.inProgressAdder = nil;
+        self.recalculating = NO;
+    }
+}<span></span></pre></td></tr></table></div><p>There are two parts to this process. First, when the operation's <code>isFinished</code> property changes, KVO calls the <code>-observeValueForKeyPath:ofObject:change:context:</code> method. This method runs on the same thread as the code that changed the <code>isFinished</code> property, which in this case means it's running on a secondary thread. It can't manipulate the user interface from a secondary thread, so it defers the work to the main thread by using <code>-performSelectorOnMainThread:withObject:waitUntilDone:</code> to call the <code>-adderOperationDone:</code> method.</p><p>The <code>-adderOperationDone:</code> method does three things:</p><ul class="ul"><li class="li"><p>It removes the observation of the <code>isFinished</code> property. This balances out the code that added the observation in <span class="content_text"><!--a  -->Listing 10<!--/a--></span>.</p></li><li class="li"><p>It checks to see whether the results of the operation are still meaningful by comparing the completed operation (<code>op</code>) against the most recently started operation (<code>inProgressAdder</code>). If these don't match, the operation's results don't matter, and are discarded.</p></li><li class="li"><p>If the operation's results are still meaningful, they are committed to the user interface.</p></li></ul><p>One non-obvious aspect of this whole process is that the <code>inProgressAdder</code> property is only ever accessed by the main thread. This means that it does not have to be atomic but, more importantly, it doesn't need any concurrency control. Code sequences like that shown in <span class="content_text"><!--a  -->Listing 12<!--/a--></span> would not be valid without this implicit serialization.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE12" title="Listing 12Valid without locking because of main thread serialization"></a><p class="codesample clear"><strong class="caption_number">Listing 12</strong>&nbsp;&nbsp;Valid without locking because of main thread serialization</p><div class="codesample clear"><table><tr><td scope="row"><pre>if (op == self.inProgressAdder) {     [... do something with inProgressAdder ...]     self.inProgressAdder = nil; }<span></span></pre></td></tr></table></div><p>This wraps up the basic process for using NSOperation to run long-running computations asynchronously. The next section is going to go beyond the minimal implementation shown earlier, and cover some more realistic situations.</p></section></section><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION7" title="AdderOperation: Beyond the Basics"></a><h3 class="jump">AdderOperation: Beyond the Basics</h3><p><span class="content_text"><!--a  -->Listing 6<!--/a--></span> showed the minimal interface to AdderOperation. This is a cut down version of the interface actually used by <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span>. The full interface is shown in <span class="content_text"><!--a  -->Listing 13<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE13" title="Listing 13Actual operation interface"></a><p class="codesample clear"><strong class="caption_number">Listing 13</strong>&nbsp;&nbsp;Actual operation interface</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface AdderOperation : NSOperation
+{
+    [... instance variables elided ...]
+}
+
+- (id)initWithNumbers:(NSArray *)numbers;
+
+// set up by the init method that can't be changed
+
+@property (copy,   readonly ) NSArray *         numbers;
+@property (assign, readonly ) NSUInteger        sequenceNumber;
+
+// must be configured before the operation is started
+
+@property (assign, readwrite) NSTimeInterval    interNumberDelay;
+
+// only meaningful after the operation is finished
+
+@property (assign, readonly ) NSInteger         total;
+@property (copy,   readonly ) NSString *        formattedTotal;
+
+@end<span></span></pre></td></tr></table></div><p>Moreover, this interface is extended with a bunch of internal properties declared in the class extension.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE14" title="Listing 14Operation class extension"></a><p class="codesample clear"><strong class="caption_number">Listing 14</strong>&nbsp;&nbsp;Operation class extension</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface AdderOperation ()
+
+// only accessed by the operation thread
+
+@property (retain, readwrite) NSNumberFormatter *   formatter;
+
+// read/write versions of public properties
+
+@property (assign, readwrite) NSInteger             total;
+@property (copy,   readwrite) NSString *            formattedTotal;
+
+@end<span></span></pre></td></tr></table></div><p>The thing to note here is that every property declared in these interfaces has a well-defined thread safeness strategy. The strategies include:</p><ul class="ul"><li class="li"><p><strong>immutability</strong> — Some properties are set up at initialization time and not modified thereafter. The <code>numbers</code> array is a good example of this.</p></li><li class="li"><p><strong>configuration time only</strong> — Some properties, like <code>interNumberDelay</code>, can be safely set between the point where the operation is created and the point where the operation is started. After that point it's either not safe or not effective to modify such properties.</p></li><li class="li"><p><strong>thread confinement</strong> — Some properties are thread safe by virtue of being accessed only by the thread running the operation. The <code>formatter</code> property is an example of this technique.</p></li><li class="li"><p><strong>serial thread confinement</strong> — Some properties, like <code>total</code> and <code>formattedTotal</code>, are initially only used by the operation and then, when the operation is finished, are available to other code.</p></li></ul><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_10" title="Important"></a><p><strong>Important:</strong>&nbsp;When implementing threaded code, is is critical to have a thread safeness strategy for every piece of data you touch from your threaded code. NSOperation makes it easier to develop such strategies.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION8" title="Thread Confinement"></a><h3 class="jump">Thread Confinement</h3><p>It's important to realize that the AdderOperation <code>formatter</code> property is a rather artificial example of thread confinement. This is necessary because of the very limited nature of <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span> itself. In a real application thread confinement is a much more powerful technique. For example, <span class="content_text"><a href="/samplecode/SeismicXML/index.html" class="urlLink" rel="external">Sample Code 'SeismicXML'</a></span> has an operation to parse XML asynchronously. Within this operation there is an NSXMLParser object, and within that object is a libxml2 XML parser object. Those objects can be called from an arbitrary thread, but they can only be called from one thread at a time. Thread confinement makes it possible to safely use objects like this from threaded code, and NSOperation is a great way of implementing thread confinement.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SECTION10" title="NSOperations Hints and Tips"></a><h2 class="jump">NSOperations Hints and Tips</h2><p>This section contains a bunch of general hints and tips for using NSOperation.</p><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION10" title="NSOperation and GCD"></a><h3 class="jump">NSOperation and GCD</h3><p>It's not immediately obvious how Grand Central Dispatch (GCD), introduced in iOS 4, relates to NSOperation. The short answer is that these two technologies complement each other nicely. GCD is a low-level API that gives you the flexibility to structure your code in a variety of different ways. In contrast, NSOperation provides you with a default structure that you can use for your asynchronous code. If you're looking for an existing, well-defined structure that's perfectly tailored for Cocoa applications, use NSOperation. If you're looking to create your own structure that exactly matches your problem space, use GCD.</p></section><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION11" title="The Deallocation Problem"></a><h3 class="jump">The Deallocation Problem</h3><p>One of the biggest problems with using secondary threads from a UIKit object, like a view controller, is ensuring that your object is deallocated safely. This section explains how this problem arises, and what you can do about it.</p><p>When you start a secondary thread, it's common for that thread to retain the target object. This happens in numerous circumstances, including:</p><ul class="ul"><li class="li"><p>when you start a secondary thread with any of the following methods:</p><ul class="nested"><li class="nested li"><p><code>-performSelectorInBackground:withObject:</code></p></li><li class="nested li"><p><code>-performSelector:onThread:withObject:waitUntilDone:</code></p></li><li class="nested li"><p><code>-performSelector:onThread:withObject:waitUntilDone:modes:</code></p></li></ul></li><li class="li"><p>when you start a secondary thread with NSThread</p></li><li class="li"><p>when you run a block asynchronously and the block references <code>self</code> or an instance variable</p></li></ul><p>When a secondary thread retains the target object, you have to ensure that the thread releases that reference before the main thread releases its last reference to the object. If you don't do this, the last reference to the object is released by the secondary thread, which means that the object's <code>-dealloc</code> method runs on that secondary thread. This is problematic if the object's <code>-dealloc</code> method does things that are not safe to do on a secondary thread, something that's common for UIKit objects like a view controller.</p><p>For a concrete example of this, consider the code in <span class="content_text"><!--a  -->Listing 15<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS40010274-CH1-SOURCECODE15" title="Listing 15An example of the deallocation problem"></a><p class="codesample clear"><strong class="caption_number">Listing 15</strong>&nbsp;&nbsp;An example of the deallocation problem</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (IBAction)buttonAction:(id)sender
+{
+    #pragma unused(sender)
+    [self performSelectorInBackground:@selector(recalculate) withObject:nil];
+}
+
+- (void)recalculate
+{
+    while ( ! self.cancelled ) {
+        [... calculate ...]
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.cancelled = YES;
+    // race starts here
+}<span></span></pre></td></tr></table></div><p>In <span class="content_text"><!--a  -->Listing 15<!--/a--></span> the <code>-viewWillDisappear:</code> method sets <code>cancelled</code> to stop the secondary thread executing its calculation. That starts a race between the main thread, which is busily tearing down the view controller, and the secondary thread, which is noticing the <code>cancelled</code> property being set and actually quitting. In most circumstances the secondary thread will win the race, release its reference first, and everything will be OK. However, if the main thread wins the race, and releases its reference before the secondary thread, then the secondary thread's release will be the last release, and the view controller's <code>-dealloc</code> method will run on a secondary thread.</p><p>You might think to get around this problem by polling the secondary thread's <code>isFinished</code> property to ensure that it finishes before returning from <code>-viewWillDisappear:</code>. However, due to obscure implementation details within NSThread, that's not guaranteed to fix the problem.</p><p>Similar problems can arise when you use key-value observing (KVO) to observe the <code>isFinished</code> property of an NSOperation. While KVO does not retain either the observer or the observee, it's still possible that, even if you remove the observer in your <code>-viewWillDisappear:</code> method, a KVO notification might already be in flight for your object. If that happens, the thread running the notification could end up calling a deallocated object!</p><p>Solving this problem in the general case is quite tricky. However, if you restrict yourself to using NSOperation, there are two relatively simple paths to a solution:</p><ul class="ul"><li class="li"><p>do all your key-value observing in a persistent object, one that's never deallocated</p></li><li class="li"><p>use the QWatchedOperationQueue class from <span class="content_text"><a href="/samplecode/LinkedImageFetcher/index.html" class="urlLink" rel="external">Sample Code 'LinkedImageFetcher'</a></span></p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION12" title="Concurrent Operations"></a><h3 class="jump">Concurrent Operations</h3><p>NSOperation supports two types of operations:</p><ul class="ul"><li class="li"><p><strong>standard operations</strong> — These operations, also known as <strong>non-concurrent operations</strong>, require the NSOperationQueue to provide concurrency on their behalf. NSOperationQueue organizes to run such operations on a thread.</p></li><li class="li"><p><strong>concurrent operations</strong> — These operations bring their own concurrency. NSOperationQueue does not have to dedicate a thread to running such operations.</p></li></ul><p>Standard operations are a great way to run tasks asynchronously when the underlying facilities are synchronous. They are typically used for long-running computations, but they can also be useful for fast, reliable I/O (like disk I/O).</p><p>In contrast, concurrent operations are great when the underlying facilities are asynchronous—there's no point tying up a thread to wait for an asynchronous API to finish. A good example of a concurrent operation is one that executes an HTTP request using the NSURLConnection API.</p><p>Implementing a concurrent operation correctly is a little tricky. You should look at <span class="content_text"><a href="/samplecode/LinkedImageFetcher/index.html" class="urlLink" rel="external">Sample Code 'LinkedImageFetcher'</a></span> for an example of how to do this.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_11" title="Important"></a><p><strong>Important:</strong>&nbsp;The beauty of NSOperation is that it allows you to model the asynchronous operation abstractly, regardless of the underlying implementation technique. Your high-level code just starts the operation and waits for it to complete; it doesn't care how the operation actually gets the work done. For example:</p><p></p></aside></div><ul class="ul"><li class="li"><p>the operation might run on a thread</p></li><li class="li"><p>the operation might run asynchronously, courtesy of some run loop based API</p></li><li class="li"><p>the operation might run asynchronously, courtesy of some GCD based API</p></li><li class="li"><p>the operation might run in a separate process</p></li></ul><p>Moreover, the operation can change how it runs without requiring the high-level code to change. For example, it would be very easy to change the <span class="content_text"><a href="/samplecode/ListAdder/index.html" class="urlLink" rel="external">Sample Code 'ListAdder'</a></span> to call a web service to perform the addition. Only the AdderOperation would need to change; the high-level code would be exactly the same.</p></section><section><a name="//apple_ref/doc/uid/DTS40010274-CH1-SUBSECTION13" title="Unfinished Operations"></a><h3 class="jump">Unfinished Operations</h3><p>Some poorly implemented operations trigger KVO notification of <code>isFinished</code> before they are actually finished. If you're using KVO to determine whether the operation is finished, it's a good idea to get the <code>isFinished</code> property and confirm that the operation is finished before you move on, even if it's only in a debug-time assertion. For an example of this, check out the code in <span class="content_text"><!--a  -->Listing 11<!--/a--></span>.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40010274-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40010274-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-08-27</td><td><p>New document that 
+					describes how Cocoa application developers can use NSOperation to solve many of the problems inherent in threaded code.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-08-27</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

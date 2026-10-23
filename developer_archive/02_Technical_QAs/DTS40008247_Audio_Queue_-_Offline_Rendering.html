@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1562: Audio Queue - Offline Rendering</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40008247">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40008247-CH1">
+    <meta id="date" name="date" content="2013-01-02">
+    <meta id="description" name="description" content="QA1562: Describes how to set up the Audio Queue for Offline Rendering">
+    <meta id="book-title" name="book-title" content="Audio Queue - Offline Rendering">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AudioToolbox}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1562">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Queue - Offline Rendering" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40008247" title="Technical Q&amp;A QA1562"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Queue - Offline Rendering</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40008247-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1562"></a><div class="dtsDocNumber">Technical Q&amp;A QA1562</div><h1 id="pageTitle">Audio Queue - Offline Rendering</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+Are there any guidelines I need to follow when attempting to render offline using Audio Queue?
+</h2><p><span>A: </span>Offline rendering with an audio queue output allows applications to render audio to a buffer instead of directly to an output device. This is especially useful with the iPhone OS, since the Audio Converter and Extended Audio File APIs do not currently (up to iPhone OS 2.2) support decompressing AAC, ALAC or MP3 encoded audio to LPCM if further processing is desired.</p><p>If you need to generate buffers of LPCM data from AAC, ALAC or MP3 encoded audio, using audio queue offline rendering is the recommended approach. </p><section><a name="//apple_ref/doc/uid/DTS40008247-CH1-SETUP" title="Setup"></a><h2 class="jump">Setup</h2><p>When setting up an audio queue output object for offline rendering,  follow these few simple guidelines for successful use of the <code>AudioQueueOfflineRender</code> function.</p><section><a name="//apple_ref/doc/uid/DTS40008247-CH1-SETUP-ALLOCATING_BUFFERS" title="Allocating Buffers"></a><h3 class="jump">Allocating Buffers</h3><p>When performing offline render an input buffer queue along with an output buffer is used. </p><p>The buffer queue used for input (pushing data into the audio queue), is the standard playback buffer queue as described in <span class="content_text"><a href="../../documentation/MusicAudio/Conceptual/AudioQueueProgrammingGuide/AboutAudioQueues/AboutAudioQueues.html#//apple_ref/doc/uid/TP40005343-CH5-SW3" data-renderer-version="1" target="_self">The Playback Process</a></span> section of the <span class="content_text"><a href="../../documentation/MusicAudio/Conceptual/AudioQueueProgrammingGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40005343-CH1" data-renderer-version="1" target="_self">Audio Queue Services Programming Guide</a></span>.</p><p>Your <code>AudioQueueOutputCallback</code> function will receive an <code>AudioQueueBufferRef</code> to a free buffer from this input buffer queue; this is how input data is supplied to the audio queue output object. Buffer allocation is performed by calling <code>AudioQueueAllocateBuffer</code> with a buffer size calculated to represent some amount of input audio data based on the source audio format, generally between 16k and 64k.</p><a name="//apple_ref/doc/uid/DTS40008247-CH1-SOURCECODE1" title="Listing 1Input buffer allocation."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Input buffer allocation.</p><div class="codesample clear"><table><tr><td scope="row"><pre>AudioQueueAllocateBuffer(myInfo.mQueue, bufferByteSize, &amp;myInfo.mBuffer);<span></span></pre></td></tr></table></div><p>The output buffer(s) is the destination buffer for the offline render operation (pulling data out of the audio queue). This is the <code>AudioQueueBufferRef</code> you pass to <code>AudioQueueOfflineRender</code>. Allocating one or more of these buffers is also done using <code>AudioQueueAllocateBuffer</code>.</p><p>The rule of thumb for output buffer size is to use a value which ensures you don't pull data out any faster than you push data in for render.</p><p>While you normally need multiple input buffers, one output buffer will almost always be sufficient.</p><a name="//apple_ref/doc/uid/DTS40008247-CH1-SOURCECODE2" title="Listing 2Output buffer allocation."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Output buffer allocation.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*<span></span></pre></td></tr><tr><td scope="row"><pre>    Allocate the output (capture) buffer keeping it at half the size of the enqueue (input) buffer.<span></span></pre></td></tr><tr><td scope="row"><pre>    This ensures we don't pull data out any faster than we can push data in for render,<span></span></pre></td></tr><tr><td scope="row"><pre>    and keeps the Audio Queue Offline Render happy.<span></span></pre></td></tr><tr><td scope="row"><pre>*/<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>const UInt32 captureBufferByteSize = bufferByteSize / 2;<span></span></pre></td></tr><tr><td scope="row"><pre>AudioQueueBufferRef captureBuffer;<span></span></pre></td></tr><tr><td scope="row"><pre>AudioBufferList captureABL;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AudioQueueAllocateBuffer(myInfo.mQueue, captureBufferByteSize, &amp;captureBuffer);<span></span></pre></td></tr><tr><td scope="row"><pre>captureABL.mNumberBuffers = 1;<span></span></pre></td></tr><tr><td scope="row"><pre>captureABL.mBuffers[0].mData = captureBuffer-&gt;mAudioData;<span></span></pre></td></tr><tr><td scope="row"><pre>captureABL.mBuffers[0].mNumberChannels = captureFormat.mChannelsPerFrame;<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008247-CH1-RENDERING_OUTPUT" title="Rendering Output"></a><h2 class="jump">Rendering Output</h2><section><a name="//apple_ref/doc/uid/DTS40008247-CH1-RENDERING_OUTPUT-ASK_FOR_ZERO_FRAMES_IMMEDIATELY_AFTER_AUDIO_QUEUE_START" title="Ask For Zero Frames Immediately After Audio Queue Start"></a><h3 class="jump">Ask For Zero Frames Immediately After Audio Queue Start</h3><p>One of the current requirements for the offline render mechanism is a single initial call to <code>AudioQueueOfflineRender</code> asking for <code>0</code> frames. This should be done as soon as the audio queue has been started, in other words, immediately after calling <code>AudioQueueStart</code>.</p><a name="//apple_ref/doc/uid/DTS40008247-CH1-SOURCECODE3" title="Listing 3Call AudioQueueOfflineRender once for 0 frames."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Call <code>AudioQueueOfflineRender</code> once for 0 frames.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*<span></span></pre></td></tr><tr><td scope="row"><pre>    Lets start the queue - stop is called in the input buffer callback when there is no more data to read.<span></span></pre></td></tr><tr><td scope="row"><pre>*/<span></span></pre></td></tr><tr><td scope="row"><pre>AudioQueueStart(myInfo.mQueue, NULL);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AudioTimeStamp theTimeStamp;<span></span></pre></td></tr><tr><td scope="row"><pre>theTimeStamp.mFlags = kAudioTimeStampSampleTimeValid;<span></span></pre></td></tr><tr><td scope="row"><pre>theTimeStamp.mSampleTime = 0;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>/*<span></span></pre></td></tr><tr><td scope="row"><pre>    Important - We need to call this once asking for 0 frames!<span></span></pre></td></tr><tr><td scope="row"><pre>*/<span></span></pre></td></tr><tr><td scope="row"><pre>AudioQueueOfflineRender(myInfo.mQueue, &amp;theTimeStamp, captureBuffer, 0);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40008247-CH1-RENDERING_OUTPUT-ENQUEUE_INPUT_BUFFERS_" title="Enqueue Input Buffers."></a><h3 class="jump">Enqueue Input Buffers.</h3><p>Once <code>AudioQueueOfflineRender</code> has been called initially, you may then enqueue one or more input buffers with relatively large numbers of frames, for example 16K or greater. This is usually done by directly calling your <code>AudioQueueOutputCallback</code> function.</p><a name="//apple_ref/doc/uid/DTS40008247-CH1-SOURCECODE4" title="Listing 4Initially enqueue input buffers"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Initially enqueue input buffers</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*<span></span></pre></td></tr><tr><td scope="row"><pre>    We need to enqueue a buffer after the queue has started.<span></span></pre></td></tr><tr><td scope="row"><pre>*/<span></span></pre></td></tr><tr><td scope="row"><pre>AQEnqueueBufferCallback(&amp;myInfo, myInfo.mQueue, myInfo.mBuffer);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40008247-CH1-RENDERING_OUTPUT-RENDER_OFFLINE" title="Render Offline"></a><h3 class="jump">Render Offline</h3><p>You can now call <code>AudioQueueOfflineRender</code> requesting a relatively small number of of output frames, generally between 4k and 8k.</p><p>Beyond the size of the input buffer pushes and the size of the output pulls, it matters how many input buffers are kept in the queue. In particular, you must take care not to pull (by calling <code>AudioQueueOfflineRender</code>) for more frames than you have pushed via the <code>AudioQueueEnqueueBuffer</code> function. You may also want to keep track of how many frames you expect to decode so that you know when to stop calling <code>AudioQueueOfflineRender</code>.</p><p>The rule is if at any given time you have pushed N number of frames, you <strong>must not</strong> pull for more than N number of frames.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40008247-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;There may be cases involving multichannel high bitrate formats where the input buffers are not going to be big enough even at 64K to produce 4K frames of output. These values are simply guidelines, each application will have their own unique requirements.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40008247-CH1-SOURCECODE5" title="Listing 5Rendering output."></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Rendering output.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/* Start Rendering Offline */<span></span></pre></td></tr><tr><td scope="row"><pre>while (true) {<span></span></pre></td></tr><tr><td scope="row"><pre>    UInt32 reqFrames = captureBufferByteSize / captureFormat.mBytesPerFrame;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    AudioQueueOfflineRender(myInfo.mQueue, &amp;theTimeStamp, captureBuffer, reqFrames);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    captureABL.mBuffers[0].mData = captureBuffer-&gt;mAudioData;<span></span></pre></td></tr><tr><td scope="row"><pre>    captureABL.mBuffers[0].mDataByteSize = captureBuffer-&gt;mAudioDataByteSize;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    UInt32 writeFrames = captureABL.mBuffers[0].mDataByteSize / captureFormat.mBytesPerFrame;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    /* We may not get any frames so check this here - are we done? */<span></span></pre></td></tr><tr><td scope="row"><pre>    if (writeFrames == 0) break;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    /* Do Something With The Returned Audio Data - Maybe Write it to a file, ok let's do that. */<span></span></pre></td></tr><tr><td scope="row"><pre>    ExtAudioFileWrite(captureFile, writeFrames, &amp;captureABL);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    /* This flag ensures that the Audio Queue was flushed by a call to AudioQueueFlush in the<span></span></pre></td></tr><tr><td scope="row"><pre>       AudioQueueOutputCallback just before the call to AudioQueueStop and ensures we get all the data out.<span></span></pre></td></tr><tr><td scope="row"><pre>       If the queue has been flushed we are done. */<span></span></pre></td></tr><tr><td scope="row"><pre>    if (myInfo.mFlushed) break;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    theTimeStamp.mSampleTime += writeFrames;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008247-CH1-SUMMARY" title="Summary"></a><h2 class="jump">Summary</h2><p>Setup for audio queue offline rendering is very similar to how you would normally set up an audio queue output object for playback. Keep buffer allocation in mind and make sure to call <code>AudioQueueOfflineRender</code> asking for <code>0</code> frames immediately after the call to <code>AudioQueueStart</code>. Never pull for more data than you have pushed into the queue and call <code>AudioQueueFlush</code> before <code>AudioQueueStop</code> to ensure you get all the data out.</p><a name="//apple_ref/doc/uid/DTS40008247-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>main:<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioQueueNewOutput<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioQueueSetProperty(kAudioQueueProperty_MagicCookie) // as required<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioQueueSetProperty(kAudioQueueProperty_ChannelLayout) // as required<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioQueueAllocateBuffer    // input buffer(s)<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioQueueSetOfflineRenderFormat<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioQueueAllocateBuffer    // output buffer<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioQueueStart<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioQueueOfflineRender(0) // mandatory call asking for 0 frames<span></span></pre></td></tr><tr><td scope="row"><pre>    myAQEnqueueBufferCallback  // enqueue some input buffers<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    loop:<span></span></pre></td></tr><tr><td scope="row"><pre>        AudioQueueOfflineRender(n)<span></span></pre></td></tr><tr><td scope="row"><pre>        ...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AudioQueueOutputCallback function:<span></span></pre></td></tr><tr><td scope="row"><pre>    myAQEnqueueBufferCallback<span></span></pre></td></tr></table></div><p>See the aqrender.cpp file for further reference.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008247-CH1-REFERENCE" title="Reference"></a><h2 class="jump">Reference</h2><p><span class="content_text"><a href="../../documentation/MusicAudio/Conceptual/AudioQueueProgrammingGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40005343-CH1" data-renderer-version="1" target="_self">Audio Queue Services Programming Guide</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008247-CH1-TNTAG6" title="Downloadables"></a><h2 class="jump">Downloadables</h2><ul class="ul"><li class="li"><p>aqrender.cpp ("qa1562_aqrender.zip", 6.2K)
+
+</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40008247-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40008247-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2013-01-02</td><td><p>Editorial</p></td></tr><tr><td scope="row">2009-02-13</td><td><p>New document that 
+					describes how to set up the Audio Queue for Offline Rendering</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-01-02</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

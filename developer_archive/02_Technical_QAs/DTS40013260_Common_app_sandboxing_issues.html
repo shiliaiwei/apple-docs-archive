@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1773: Common app sandboxing issues</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40013260">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40013260-CH1">
+    <meta id="date" name="date" content="2013-04-02">
+    <meta id="description" name="description" content="QA1773: highlights common app sandbox implementation issues.">
+    <meta id="book-title" name="book-title" content="Common app sandboxing issues">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Security}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1773">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Common app sandboxing issues" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40013260" title="Technical Q&amp;A QA1773"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Common app sandboxing issues</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40013260-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1773"></a><div class="dtsDocNumber">Technical Q&amp;A QA1773</div><h1 id="pageTitle">Common app sandboxing issues</h1><h2>Q:&nbsp;
+What are some things I should check before distributing my sandboxed application?
+</h2><p><span>A: </span>Before distributing a sandboxed application through the Mac App Store, or directly to end users, you should make sure its sandboxing configuration follows the best practices described in this list.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013260-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;This document assumes you are familiar with the concepts described in the <span class="content_text"><a href="https://developer.apple.com/library/etc/redirect/DTS/AboutAppSandbox" class="urlLink" rel="external">App Sandbox Design Guide</a></span>.</p><p></p></aside></div><ul class="ul"><li class="li"><p>Make sure that your app makes use of each entitlement in its entitlements file. If your application does not need an entitlement, it must not be present in the entitlements file.</p></li><li class="li"><p>Make sure you have enabled sandboxing on all Mach-O executables included in your application's bundle. Every Mach-O executable must have an entitlements file, and request the <code>com.apple.security.app-sandbox</code> entitlement. This includes XPC services and custom helper tools that request the <code>com.apple.security.inherit</code> entitlement. They must also request the <code>com.apple.security.app-sandbox</code> entitlement.</p><p>You can check if a binary is a Mach-O executable using the <code>file</code> command. If any slice of the binary identifies itself as <code>Mach-O executable</code> or <code>Mach-O 64-bit executable</code>, the binary must be sandboxed.</p><a name="//apple_ref/doc/uid/DTS40013260-CH1-SOURCECODE1" title="Listing 1Running the file command on a Mach-O binary that is executable."></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Running the file command on a Mach-O binary that is executable.</p><div class="codesample clear"><table><tr><td scope="row"><pre>$ file /Applications/Safari.app/Contents/MacOS/Safari<span></span></pre></td></tr><tr><td scope="row"><pre>/Applications/Safari.app/Contents/MacOS/Safari: Mach-O universal binary with 2 architectures<span></span></pre></td></tr><tr><td scope="row"><pre>/Applications/Safari.app/Contents/MacOS/Safari (for architecture i386): Mach-O executable i386<span></span></pre></td></tr><tr><td scope="row"><pre>/Applications/Safari.app/Contents/MacOS/Safari (for architecture x86_64): Mach-O 64-bit executable x86_64<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40013260-CH1-SOURCECODE2" title="Listing 2Running the file command on a Mach-O binary that is NOT executable."></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Running the file command on a Mach-O binary that is NOT executable.</p><div class="codesample clear"><table><tr><td scope="row"><pre>$ file /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation<span></span></pre></td></tr><tr><td scope="row"><pre>/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation: Mach-O universal binary with 2 architectures<span></span></pre></td></tr><tr><td scope="row"><pre>/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (for architecture x86_64): Mach-O 64-bit dynamically linked shared library x86_64<span></span></pre></td></tr><tr><td scope="row"><pre>/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (for architecture i386): Mach-O dynamically linked shared library i386<span></span></pre></td></tr></table></div><p>You can use the following command to find all the Mach-O executables in your compiled application bundle.</p><p><code>find -H YourAppBundle -print0 | xargs -0 file | grep "Mach-O .*executable"</code></p></li><li class="li"><p>Make sure that every file system path specified in your entitlements begins with a '/'. This includes both absolute paths and paths relative to the current user's home directory. Additionally, make sure that the '~' character does not appear anywhere in a path that is relative to the user's home directory.</p></li><li class="li"><p>Make sure your app is not requesting a file access exception for the purpose of allowing it to skip presenting an open or save dialog to read or write files on the user's behalf. For instance, access to the Desktop or Documents folders must always be initiated by the user. You must not request an exception for these locations.</p></li><li class="li"><p>Make sure your app is not requesting a file access exception for the purpose of granting it access to another app's data or the system's data. Sandboxed applications must not rely on read or write access to files they did not create, or have not been given explicit access to, for their operation.</p></li><li class="li"><p>Make sure your app is not requesting a file access exception for a location it already has access to. Every sandboxed application is implicitly granted access to various directories on the system outside their own container. These directories contain files common to the operation of all applications, for instance, /bin and /System/Library/Frameworks. Requesting exceptions to these locations is redundant. Before requesting an exception, you should be able to demonstrate a use case that will encounter a sandbox violation if the exception is not present.</p></li><li class="li"><p>If your app requests the <code>com.apple.security.temporary-exception.apple-events</code> or <code>com.apple.security.temporary-exception.mach-lookup.global-name</code> entitlements, make sure you have provided an array of strings for the value of the entitlement as detailed in the <span class="content_text"><a href="https://developer.apple.com/library/etc/redirect/DTS/AppSandboxTempExcpEntitlements" class="urlLink" rel="external">Entitlement Key Reference</a></span> for that entitlement. You must be specific when specifying values for these entitlements. There is no value that will grant your app access to every app installed on the user's system.</p></li><li class="li"><p>If you edit the entitlements file by hand as opposed to using the property list editor in Xcode, make sure you have not introduced any syntax errors. The entitlements file must contain a valid property list structure. You can use the plutil command to check your entitlements file for syntax errors. A common mistake is entering <code><!--a  -->YES<!--/a--></code>/<code><!--a  -->NO<!--/a--></code> instead of the syntactically-correct <code>true</code>/<code>false</code> when specifying the value of a Boolean.</p><a name="//apple_ref/doc/uid/DTS40013260-CH1-SOURCECODE3" title="Listing 3Running the plutil command on an entitlements file with a syntax error."></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Running the plutil command on an entitlements file with a syntax error.</p><div class="codesample clear"><table><tr><td scope="row"><pre>$ plutil Invalid-Entitlements.plist<span></span></pre></td></tr><tr><td scope="row"><pre>Invalid-Entitlements.plist: Encountered unknown tag YES on line 6<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40013260-CH1-SOURCECODE4" title="Listing 4Running the plutil command on a syntacticly correct entitlements file."></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Running the plutil command on a syntacticly correct entitlements file.</p><div class="codesample clear"><table><tr><td scope="row"><pre>$ plutil Valid-Entitlements.plist<span></span></pre></td></tr><tr><td scope="row"><pre>Valid-Entitlements.plist: OK<span></span></pre></td></tr></table></div></li></ul><br/><hr/><a name="//apple_ref/doc/uid/DTS40013260-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40013260-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2013-04-02</td><td><p>New document that 
+					highlights common app sandbox implementation issues.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-04-02</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

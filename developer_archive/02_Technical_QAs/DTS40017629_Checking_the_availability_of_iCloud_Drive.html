@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1935: Checking the availability of iCloud Drive</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017629">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017629-CH1">
+    <meta id="date" name="date" content="2017-04-11">
+    <meta id="description" name="description" content="QA1935: describes the iCloud Drive availability on Apple's platforms.">
+    <meta id="book-title" name="book-title" content="Checking the availability of iCloud Drive">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/CloudKit}, {Topic/Data Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1935">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Checking the availability of iCloud Drive" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017629" title="Technical Q&amp;A QA1935"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Checking the availability of iCloud Drive</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017629-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1935"></a><div class="dtsDocNumber">Technical Q&amp;A QA1935</div><h1 id="pageTitle">Checking the availability of iCloud Drive</h1><h2>Q:&nbsp;
+Why does FileManager.default.ubiquityIdentityToken always return nil in my app?
+</h2><p><span>A: </span><code>FileManager</code>’s <code>ubiquityIdentityToken</code> property is an API to check whether iCloud Drive is available for your app. Based on the iCloud Drive availability on different platforms, it may return a valid token or nil.</p><p>On iOS and macOS, iCloud Drive is available, so the API returns a valid token if iCloud is properly configured for your app and your testing device. The reasons you see it returning nil can be:</p><ol class="ol"><li class="li"><p>Your testing device doesn’t have an iCloud account signed in; or it has but iCloud Drive is off for your app. To turn on iCloud Drive, launch <code>Settings</code> on your iOS device or <code>System Preferences</code> on your Mac, sign in iCloud with your Apple ID, then navigate to the iCloud setting screen and make sure iCloud Drive is on. If your app is listed there, be sure to turn on its checkbox as well. (On a Mac, you could click the <code>Options...</code> button to show the app list.)</p></li><li class="li"><p>The iCloud capability is not added to your app. You can add it by opening your project with the latest version of Xcode, selecting your app target, then checking the iCloud box in the <code>Capabilities</code> pane and picking the service you need. See <span class="content_text"><a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/AddingCapabilities/AddingCapabilities.html#//apple_ref/doc/uid/TP40012582-CH26-SW2" class="urlLink" rel="external">Adding iCloud Support</a></span> for details. (Before doing that, be sure to let Xcode manage the provisioning for your app by turning on the <code>Automatically manage signing</code> option and specifying an appropriate team in the <code>General</code> pane, as described in <span class="content_text"><a href="https://developer.apple.com/library/content/qa/qa1814/_index.html#//apple_ref/doc/uid/DTS40014030" class="urlLink" rel="external">QA1814</a></span>.)</p></li></ol><p>On watchOS and tvOS, iCloud Drive is unavailable, <code>ubiquityIdentityToken</code> hence always returns nil for watchOS 2 WatchKit extensions and tvOS apps. When accessing the property for the first time, you might see an error (Code=4099) complaining that the connection to the system's token service was invalidated on your Xcode console, as shown in Listing 1.</p><a name="//apple_ref/doc/uid/DTS40017629-CH1-SOURCECODE1" title="Listing 1Error message generated when ubiquityIdentityToken is first-time accessed on watchOS or tvOS."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Error message generated when ubiquityIdentityToken is first-time accessed on watchOS or tvOS.</p><div class="codesample clear"><table><tr><td scope="row"><pre>[ERROR] error while getting ubiquityIdentityToken: Error Domain=NSCocoaErrorDomain Code=4099 "The connection to service named com.apple.bird.token was invalidated." UserInfo={NSDebugDescription=The connection to service named com.apple.bird.token was invalidated.}<span></span></pre></td></tr></table></div><p>Since iCloud Drive is unavailable on watchOS and tvOS (and iCloud Key-Value Store is unavailable on watchOS), you might consider <span class="content_text"><a href="https://developer.apple.com/library/content/documentation/DataManagement/Conceptual/CloudKitQuickStart/Introduction/Introduction.html" class="urlLink" rel="external">CloudKit</a></span> when an iCloud service is needed on those platforms, and use <code>CKContainer</code>'s <code>accountStatus(completionHandler:)</code> method for iCloud account availability checking.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS40017629-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017629-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-04-11</td><td><p>New document that 
+					describes the iCloud Drive availability on Apple's platforms.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-04-11</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

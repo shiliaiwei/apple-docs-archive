@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1501: Core Video - Available Pixel Formats</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004198">
+    <meta id="document-version" name="document-version" content="1.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004198-CH1">
+    <meta id="date" name="date" content="2010-05-26">
+    <meta id="description" name="description" content="QA1501: Discusses how to determine all the pixel format types and format descriptions known to Core Video.">
+    <meta id="book-title" name="book-title" content="Core Video - Available Pixel Formats">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/QuartzCore}, {Topic/Audio, Video, & Visual Effects/Video}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1501">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Core Video - Available Pixel Formats" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004198" title="Technical Q&amp;A QA1501"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Core Video - Available Pixel Formats</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004198-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1501"></a><div class="dtsDocNumber">Technical Q&amp;A QA1501</div><h1 id="pageTitle">Core Video - Available Pixel Formats</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+What pixel formats does Core Video currently support, and is there an API that can be used to retrieve this information programatically? 
+</h2><p><span>A: </span>What pixel formats does Core Video currently support, and is there an API that can be used to retrieve this information programatically? </p><p>A Core Video Pixel Buffer (represented by the opaque type <code>CVPixelBufferRef</code>) is an image buffer that holds pixels in main memory. Applications generating frames, compressing / decompressing video or using Core Image can all make use of Core Video Pixel Buffers.</p><p>Individual pixel buffers can be created and managed using APIs such as <code>CVPixelBufferCreate</code>, <code>CVPixelBufferCreateWithBytes</code>, <code>CVPixelBufferGetWidth,</code> <code>CVPixelBufferGetHeight</code> and so on (see <code>CVPixelBuffer.h</code>). A pool of pixel buffers can also be created for managing a set of <code>CVPixelBuffer</code> objects that are going to be recycled, for example, during a compression operation (see <code>CVPixelBufferPool.h</code>) and <code>CIImage</code> objects can be created from pixel buffers using methods such as <code>initWithCVImageBuffer:</code>.</p><p>At the time of this writing (Mac OS X 10.4.8 w/QuickTime 7.1.3), Core Video supports the pixel formats shown in Table 1. Note  that new pixel formats may be added over time:</p><a name="//apple_ref/doc/uid/DTS10004198-CH1-TABLE1" title="Table 1Core Video supported pixel formats."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Core Video supported pixel formats.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Pixel Format
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Description
+</p></th></tr><tr><td  scope="row"><p>
+k32ARGBPixelFormat
+</p></td><td ><p>
+32 - 8 bits per component Alpha, Red, Green, and Blue
+</p></td></tr><tr><td  scope="row"><p>
+k24RGBPixelFormat
+</p></td><td ><p>
+24 - 8 bits per component Red, Green, and Blue
+</p></td></tr><tr><td  scope="row"><p>
+k16BE555PixelFormat
+</p></td><td ><p>
+16 - MSB is unused, followed by 5 bits per component Red, Green and Blue
+</p></td></tr><tr><td  scope="row"><p>
+k32BGRAPixelFormat
+</p></td><td ><p>
+BGRA - 8 bits per component Blue, Green, Red, and Alpha
+</p></td></tr><tr><td  scope="row"><p>
+k16GrayPixelFormat
+</p></td><td ><p>
+b16g - 16-bit big-endian Grayscale
+</p></td></tr><tr><td  scope="row"><p>
+k32AlphaGrayPixelFormat
+</p></td><td ><p>
+b32a - 16-bit big-endian AlphaGray
+</p></td></tr><tr><td  scope="row"><p>
+k64ARGBPixelFormat
+</p></td><td ><p>
+b64a - 16 bits per component, big-endian Alpha, Red, Green and Blue
+</p></td></tr><tr><td  scope="row"><p>
+k48RGBPixelFormat
+</p></td><td ><p>
+b48r - 16 bits per component big-endian Red, Green and Blue
+</p></td></tr><tr><td  scope="row"><p>
+k422YpCbCr8PixelFormat
+</p></td><td ><p>
+2vuy - Component Y'CbCr 8-bit 4:2:2
+</p></td></tr><tr><td  scope="row"><p>
+kYUVSPixelFormat 
+</p></td><td ><p>
+yuvs - Component Y’CbCr 8-bit 4:2:2
+</p></td></tr><tr><td  scope="row"><p>
+k444YpCbCr8CodecType
+</p></td><td ><p>
+v308 - Component Y'CbCr 8-bit 4:4:4
+</p></td></tr><tr><td  scope="row"><p>
+k422YpCbCr16CodecType
+</p></td><td ><p>
+v216 - Component Y'CbCr 10,12,14,16-bit 4:2:2
+</p></td></tr><tr><td  scope="row"><p>
+k422YpCbCr10CodecType
+</p></td><td ><p>
+v210 - Component Y'CbCr 10-bit 4:2:2
+</p></td></tr><tr><td  scope="row"><p>
+k4444YpCbCrA8RPixelFormat
+</p></td><td ><p>
+r408 - Component Y'CbCrA 8-bit 4:4:4:4, rendering format, full range alpha, zero biased yuv
+</p></td></tr><tr><td  scope="row"><p>
+k4444YpCbCrA8PixelFormat
+</p></td><td ><p>
+v408 - Component Y'CbCrA 8-bit 4:4:4:4
+</p></td></tr><tr><td  scope="row"><p>
+k444YpCbCr10CodecType
+</p></td><td ><p>
+v410 - Component Y'CbCr 10-bit 4:4:4 
+</p></td></tr><tr><td  scope="row"><p>
+'r4fl'
+</p></td><td ><p>
+r4fl - Component Y'CbCr 32-bit floating point 4:4:4:4, superblack support
+</p></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004198-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;For information regarding the memory/file layout of pixel data defined by these pixel format types, see Ice Floe Dispatch 20 <span class="content_text"><a href="http://developer.apple.com/quicktime/icefloe/dispatch020.html" class="browserLink" >QuickTime Pixel Format FourCCs</a></span></p><p></p></aside></div><p>There are two APIs that can be used to dynamically retrieve all the pixel format OSTypes and Pixel Format Descriptions known to Core Video:</p><p>Use <code>CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes</code> to retrieve an array of OSTypes.</p><a name="//apple_ref/doc/uid/DTS10004198-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CFArrayRef CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes(CFAllocatorRef allocator)
+
+Description:
+    Returns a CFArrayRef containing a list of all supported pixel format types.
+
+allocator - The allocator used to allocate memory for the array and its storage for values.
+            Pass kCFAllocatorDefault to specify the default allocator.<span></span></pre></td></tr></table></div><p>Use <code>CVPixelFormatDescriptionCreateWithPixelFormatType</code> to retrieve a pixel format description dictionary.</p><a name="//apple_ref/doc/uid/DTS10004198-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CFDictionaryRef CVPixelFormatDescriptionCreateWithPixelFormatType(CFAllocatorRef allocator,
+                                                                  OSType pixelFormat)
+
+Description:
+    Returns a CFDictionaryRef containing the pixel format description for the passed in pixel format type.
+
+allocator - The allocator to use when creating the description. Pass kCFAllocatorDefault to specify the
+            default allocator.
+
+pixelFormat - A four-character code that identifies the pixel format description you want to obtain.
+
+Notes:
+    The returned Core Foundation dictionary contains the pixel format description. See “Pixel Format
+    Description Keys” for more detailed information regarding the keys relevant to the format description.
+
+Pixel Format Description Dictionary Keys:
+
+kCVPixelFormatName - The name of the pixel format (type CFString).
+
+kCVPixelFormatConstant - The pixel format constant for QuickTime.
+
+kCVPixelFormatCodecType - The codec type (type CFString). For example, '2vuy' or k422YpCbCr8CodecType.
+
+kCVPixelFormatFourCC - The Microsoft FourCC equivalent code for this pixel format (type CFString).
+
+kCVPixelFormatPlanes - The number of image planes associated with this format (type CFNumber).
+
+kCVPixelFormatBlockWidth - The width, in pixels, of the smallest byte-addressable group of pixels
+                           (type CFNumber). Assumed to be 1 if this key is not present.
+
+kCVPixelFormatBlockHeight - The height, in pixels, of the smallest byte-addressable group of pixels
+                            (type CFNumber). Assumed to be 1 if this key is not present.
+
+kCVPixelFormatBitsPerBlock - The number of bits per block (type CFNumber). For simple pixel formats,
+                             this value is the same as the traditional bits-per-pixel value. This key is
+                             mandatory in pixel format descriptions.
+
+kCVPixelFormatBlockHorizontalAlignment - The horizontal alignment requirements of this format
+                                          (type CFNumber). Assumed to be 1 if this key is not present.
+
+kCVPixelFormatBlockVerticalAlignment - The vertical alignment requirements of this format (type CFNumber).
+                                       Assumed to be 1 if this key is not present.
+
+kCVPixelFormatHorizontalSubsampling - Horizontal subsampling information for this plane
+                                      (type CFNumber). Assumed to be 1 if this key is not present.
+
+kCVPixelFormatVerticalSubsampling - Vertical subsampling information for this plane
+                                    (type CFNumber). Assumed to be 1 if this key is not present.
+
+kCVPixelFormatOpenGLFormat - The OpenGL format used to describe this image plane (if applicable)
+                             (type CFNumber). See the OpenGL specification for possible values.
+
+kCVPixelFormatOpenGLType - The OpenGL type to describe this image plane (if applicable)
+                           (type CFNumber). See the OpenGL specification for possible values.
+
+kCVPixelFormatOpenGLInternalFormat - The OpenGL internal format for this pixel format (if applicable).
+                                     (type CFNumber). See the OpenGL specification for possible values.
+
+kCVPixelFormatCGBitmapInfo - The Core Graphics bitmap information for this pixel format (if applicable).
+
+kCVPixelFormatQDCompatibility - Indicates whether this format is compatible with QuickDraw (type CFBoolean).
+
+kCVPixelFormatCGBitmapContextCompatibility - Indicates whether this format is compatible with Core Graphics
+                                             bitmap contexts(type CFBoolean).
+
+kCVPixelFormatCGImageCompatibility - Indicates whether this format is compatible with the CGImage type
+                                     (type CFBoolean).
+
+kCVPixelFormatOpenGLCompatibility - Indicates whether this format is compatible with OpenGL (type CFBoolean).
+
+kCVPixelFormatFillExtendedPixelsCallback - Specifies a custom extended pixel fill algorithm (type CFData).<span></span></pre></td></tr></table></div><p>Listing 1 demonstrates how to retrieve a list of supported Core Video pixel format types with the output produced shown in Listing 2.</p><a name="//apple_ref/doc/uid/DTS10004198-CH1-SOURCECODE3" title="Listing 1Retrieving pixel format types known to Core Video."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Retrieving pixel format types known to Core Video.</p><div class="codesample clear"><table><tr><td scope="row"><pre>{
+    CFArrayRef pixelFormatDescriptionsArray = NULL;
+    CFIndex i;
+
+    pixelFormatDescriptionsArray =
+    CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes(kCFAllocatorDefault);
+
+    printf("Core Video Supported Pixel Format Types:\n\n");
+
+    for (i = 0; i &lt; CFArrayGetCount(pixelFormatDescriptionsArray); i++) {
+        CFStringRef pixelFormat = NULL;
+
+        CFNumberRef pixelFormatFourCC = (CFNumberRef)CFArrayGetValueAtIndex(pixelFormatDescriptionsArray, i);
+
+        if (pixelFormatFourCC != NULL) {
+            UInt32 value;
+
+            CFNumberGetValue(pixelFormatFourCC, kCFNumberSInt32Type, &amp;value);
+
+            if (value &lt;= 0x28) {
+                pixelFormat = CFStringCreateWithFormat(kCFAllocatorDefault, NULL,
+                              CFSTR("Core Video Pixel Format Type: %d\n"), value);
+            } else {
+                pixelFormat = CFStringCreateWithFormat(kCFAllocatorDefault, NULL,
+                              CFSTR("Core Video Pixel Format Type (FourCC):
+                              %c%c%c%c\n"), (char)(value &gt;&gt; 24), (char)(value &gt;&gt; 16),
+                              (char)(value &gt;&gt; 8), (char)value);
+            }
+
+            CFShow(pixelFormat);
+            CFRelease(pixelFormat);
+        }
+    }
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10004198-CH1-SOURCECODE4" title="Listing 2Output produced by Listing 1."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Output produced by Listing 1.</p><div class="codesample clear"><table><tr><td scope="row"><pre>Core Video Pixel Format Type: 32
+Core Video Pixel Format Type: 24
+Core Video Pixel Format Type: 16
+Core Video Pixel Format Type (FourCC): 2vuy
+Core Video Pixel Format Type (FourCC): yuvs
+Core Video Pixel Format Type (FourCC): r408
+Core Video Pixel Format Type (FourCC): v408
+Core Video Pixel Format Type (FourCC): BGRA
+Core Video Pixel Format Type (FourCC): b64a
+Core Video Pixel Format Type (FourCC): b48r
+Core Video Pixel Format Type (FourCC): b32a
+Core Video Pixel Format Type (FourCC): b16g
+Core Video Pixel Format Type (FourCC): v308
+Core Video Pixel Format Type (FourCC): v216
+Core Video Pixel Format Type (FourCC): v210
+Core Video Pixel Format Type (FourCC): v410
+Core Video Pixel Format Type (FourCC): r4fl<span></span></pre></td></tr></table></div><p>Listing 3 shows an example of the Pixel Format Description dictionary values returned by calling <code>CVPixelFormatDescriptionCreateWithPixelFormatType</code> for <code>k32ARGBPixelFormat</code> and Listing 4 shows the Pixel Format Description values returned for <code>k422YpCbCr8PixelFormat</code>.</p><a name="//apple_ref/doc/uid/DTS10004198-CH1-SOURCECODE5" title="Listing 3Pixel Format Description values for k32ARGBPixelFormat."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Pixel Format Description values for k32ARGBPixelFormat.</p><div class="codesample clear"><table><tr><td scope="row"><pre>kCVPixelFormatConstant - 32
+kCVPixelFormatBitsPerBlock - 32
+kCVPixelFormatQDCompatibility - true
+kCVPixelFormatCGBitmapContextCompatibility - true
+kCVPixelFormatCGImageCompatibility - true
+kCVPixelFormatCGBitmapInfo - kCGImageAlphaFirst | kCGBitmapByteOrder32Big
+kCVPixelFormatFillExtendedPixelsCallback - Extended fill procedure for this pixel format
+
+Mac OS X:
+    kCVPixelFormatOpenGLFormat - GL_BGRA
+    kCVPixelFormatOpenGLInternalFormat - GL_RGBA8
+
+    PPC Based Mac (Big Endian):
+        kCVPixelFormatOpenGLCompatibility - true
+        kCVPixelFormatOpenGLType - GL_UNSIGNED_INT_8_8_8_8_REV
+
+    Intel Based Mac (Little Endian):
+        kCVPixelFormatOpenGLType - GL_UNSIGNED_INT_8_8_8_8<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10004198-CH1-SOURCECODE6" title="Listing 4Pixel Format Description values for k422YpCbCr8PixelFormat."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Pixel Format Description values for k422YpCbCr8PixelFormat.</p><div class="codesample clear"><table><tr><td scope="row"><pre>kCVPixelFormatConstant - k422YpCbCr8PixelFormat
+kCVPixelFormatBlockWidth - 2
+kCVPixelFormatBitsPerBlock - 32
+kCVPixelFormatFillExtendedPixelsCallback - Extended fill procedure for this pixel format
+
+Mac OS X:
+    kCVPixelFormatOpenGLCompatibility - true
+    kCVPixelFormatOpenGLFormat - GL_YCBCR_422_APPLE
+    kCVPixelFormatOpenGLInternalFormat - GL_RGB
+
+    PPC Based Mac (Big Endian):
+        kCVPixelFormatOpenGLType - GL_UNSIGNED_SHORT_8_8_REV_APPLE
+
+    Intel Based Mac (Little Endian):
+        kCVPixelFormatOpenGLType - GL_UNSIGNED_SHORT_8_8_APPLE
+
+Windows (if Direct3D supports the format):
+    kCVPixelFormatDirect3DCompatibility - true
+    kCVPixelFormatDirect3DFormat - D3DFMT_UYVY
+    kCVPixelFormatDirect3DType - D3DFMT_UYVY
+    kCVPixelFormatDirect3DInternalFormat - D3DFMT_UYVY<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004198-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;Rendering to a Pixel Buffer Visual Context is currently not available in QuickTime for Windows.</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS10004198-CH1-SECTION1" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/mac/library/technotes/tn2010/tn2273.html" class="browserLink" >QuickTime Pixel Format FourCCs</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/mac/library/documentation/GraphicsImaging/Reference/CoreVideoRef/Reference/reference.html#//apple_ref/doc/constant_group/Pixel_Format_Description_Keys" class="browserLink" >Pixel Format Description Keys</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/mac/library/documentation/GraphicsImaging/Conceptual/CoreVideo/CVProg_Intro/CVProg_Intro.html" class="browserLink" >Core Video Programming Guide</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/mac/library/documentation/GraphicsImaging/Reference/CoreVideoRef/Reference/reference.html" class="browserLink" >Core Video Reference</a></span></p></li><li class="li"><p><span class="content_text"><a href="/qa/qa2005/qa1443.html" class="urlLink" rel="external">Technical Q&amp;A QA1443, 'Using QTPixelBufferContextCreate with NewMovieFromProperties'</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004198-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004198-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-05-26</td><td><p>Updated reference URLs.</p></td></tr><tr><td scope="row">2007-01-23</td><td><p>New document that 
+					discusses how to determine all the pixel format types and format descriptions known to Core Video.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-05-26</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

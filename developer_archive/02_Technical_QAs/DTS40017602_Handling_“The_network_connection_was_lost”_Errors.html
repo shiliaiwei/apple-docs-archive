@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1941: Handling “The network connection was lost” Errors</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017602">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017602-CH1">
+    <meta id="date" name="date" content="2017-01-25">
+    <meta id="description" name="description" content="QA1941: Describes how to handle the NSURLErrorNetworkConnectionLost error.">
+    <meta id="book-title" name="book-title" content="Handling &ldquo;The network connection was lost&rdquo; Errors">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/Foundation}, {Topic/Networking, Internet, & Web}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1941">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Handling &ldquo;The network connection was lost&rdquo; Errors" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017602" title="Technical Q&amp;A QA1941"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Handling &ldquo;The network connection was lost&rdquo; Errors</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017602-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1941"></a><div class="dtsDocNumber">Technical Q&amp;A QA1941</div><h1 id="pageTitle">Handling “The network connection was lost” Errors</h1><h2>Q:&nbsp;
+My app is seeing <code>NSURLErrorNetworkConnectionLost</code> errors returned by NSURLSession. How should I handle these errors?
+</h2><p><span>A: </span><code>NSURLErrorNetworkConnectionLost</code> is error -1005 in the <code>NSURLErrorDomain</code> error domain, and is displayed to users as “The network connection was lost”. This error means that the underlying TCP connection that’s carrying the HTTP request disconnected while the HTTP request was in progress (see <span class="content_text"><!--a  -->below<!--/a--></span> for more information about this). In some circumstances NSURLSession may retry such requests automatically (specifically, if the request is idempotent) but in other circumstances that’s not allowed by the HTTP standards.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017602-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;An <strong>idempotent</strong> request is one that can safely be retried. This concept is defined in the HTTP specification, to wit, Section 4.2.2 of <span class="content_text"><a href="http://www.ietf.org/rfc/rfc7231.txt" class="urlLink" rel="external">RFC 7231</a></span>. Certain HTTP methods, like <code>GET</code> and <code>PUT</code>, are considered idempotent and others, like <code>POST</code>, are not.</p><p></p></aside></div><p>It’s easy to understand why this restriction is important. Consider a <code>POST</code> request that triggers a bank transfer. If NSURLSession has started transmitting the request and then the connection fails, it can’t distinguish between the following cases:</p><ul class="ul"><li class="li"><p>The request never made it to the server, and thus it’s safe to retry</p></li><li class="li"><p>The request made it to the server but the response never made it back to the client, and thus a retry would be bad</p></li></ul><p>Given the above, the correct way to handle <code>NSURLErrorNetworkConnectionLost</code> depends on the type of request:</p><ul class="ul"><li class="li"><p>Requests that are idempotent can simply be retried. You might attempt an immediate retry, just in case there was a transient failure, and then back off to using whatever general retry logic is appropriate for your app (time based, triggered by the user, triggered by a reachability query, and so on).</p></li><li class="li"><p>For non-idempotent requests, you’ll need request-specific retry logic.</p><p>To continue the example above, one approach would be for the app to associate a unique ID with each bank transfer. Then, if the request fails, the app can query the server to see if a transfer with that unique ID exists. If not, it can safely retry the request.</p></li></ul><p>For this to work you must make sure that you use the right HTTP method for each request. There are two ways this can go wrong:</p><ul class="ul"><li class="li"><p>If you use a non-idempotent HTTP method for an idempotent request, NSURLSession will not retry the request even though it could safely do so. This isn’t a serious problem; you can just retry the request yourself.</p></li><li class="li"><p>If you use an idempotent HTTP method for a non-idempotent request, that’s very bad. NSURLSession might retry the request even though doing so is unsafe. The only valid solution here is to change your request to use a different HTTP method, which may require server-side changes.</p></li></ul><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017602-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;You should not attempt to work around this last problem on the client. Even if you can convince NSURLSession to not retry your request, there could be an HTTP proxy between your client and the origin server and that might implement its own retry mechanism.</p><p></p></aside></div><p>Finally, as an app developer it’s reasonable to expect a small number of <code>NSURLErrorNetworkConnectionLost</code> errors caused by problems with the underlying network. However, if you’re seeing a large number of these errors, and especially if they are raised in environments with good network connectivity, there might be a problem with NSURLSession talking to your server. You can investigate that by looking at the on-the-wire traffic to see whether there’s an obvious underlying cause for these errors, for example, your server actually closing connections unexpectedly.</p><p>For information about how to look at the on-the-wire traffic, see <em><a href="../qa1176/_index.html#//apple_ref/doc/uid/DTS10001707" data-renderer-version="1" target="_self">Getting a Packet Trace</a></em>. You can also use the techniques described in <em><a href="../qa1887/_index.html#//apple_ref/doc/uid/DTS40015177" data-renderer-version="1" target="_self">CFNetwork Diagnostic Logging</a></em> to look at NSURLSession’s internal state.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS40017602-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017602-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-01-25</td><td><p>New document that 
+					describes how to handle the NSURLErrorNetworkConnectionLost error.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-01-25</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2035: ColorSync on Mac OS X</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003071">
+    <meta id="document-version" name="document-version" content="5.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003071-CH1">
+    <meta id="date" name="date" content="2005-08-10">
+    <meta id="description" name="description" content="TN2035: Describes ColorSync, which is fundamentally integrated into Mac OS X.">
+    <meta id="book-title" name="book-title" content="ColorSync on Mac OS X">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/ApplicationServices}, {Topic/Graphics & Animation/2D Drawing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2035">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="ColorSync on Mac OS X" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003071" title="Technical Note TN2035"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>ColorSync on Mac OS X</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003071-CH1-DontLinkElementID_2" title="Technical Note TN2035"></a><div class="dtsDocNumber">Technical Note TN2035</div><h1 id="pageTitle">ColorSync on Mac OS X</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>ColorSync has a new role in Mac OS X. ColorSync in Mac OS X is fundamentally integrated into the operating system, whereas on previous versions of the operating system it was an optional install. Color management is very important these days to the customer experience. The Mac OS X graphics environment Quartz takes advantage of ColorSync in great detail, plus ColorSync is used throughout the print-path to provide color matching services for printer drivers. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION1" data-renderer-version="1">Overview</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION1" data-renderer-version="1">ICC Profiles</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION2" data-renderer-version="1">CMM</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION4" data-renderer-version="1">ColorSync and Quartz</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION4" data-renderer-version="1">ColorSync And Quartz Color Management</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION5" data-renderer-version="1">PDF Color Model</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION8" data-renderer-version="1">ColorSync/ICC Color Model</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION12" data-renderer-version="1">Color Model in Quartz</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION12" data-renderer-version="1">Integration of PDF and ICC color models</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION15" data-renderer-version="1">Color in Quartz Drawing Model</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION16" data-renderer-version="1">Quartz Printing Front End</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION17" data-renderer-version="1">Quartz Raster Printing Back End</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION20" data-renderer-version="1">Quartz in PostScript Back End</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION21" data-renderer-version="1">Printing Untagged Data</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION28" data-renderer-version="1">Drawing to Multiple Screens</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION29" data-renderer-version="1">Profiles in Mac OS X</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION29" data-renderer-version="1">Profile prerequisites</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION30" data-renderer-version="1">New optional profile tags</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION31" data-renderer-version="1">ICC4 Profiles</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION33" data-renderer-version="1">CMMs in Mac OS X</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION33" data-renderer-version="1">Building CMMs</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION35" data-renderer-version="1">ColorSync Preferences and Supporting APIs</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION35" data-renderer-version="1">Profiles for Standard Color Spaces</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION36" data-renderer-version="1">ColorSync Preferences Tidbits</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION37" data-renderer-version="1">ColorSync Preferences Summary</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION39" data-renderer-version="1">ColorSync Device Support</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION39" data-renderer-version="1">Notifications</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION40" data-renderer-version="1">ColorSync Device Support Summary</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION42" data-renderer-version="1">Color Management in Printing</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION42" data-renderer-version="1">Color Matching On The Host by ColorSync</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION43" data-renderer-version="1">cupsICCProfile PPD Declaration Entry</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION45" data-renderer-version="1">Quartz Filters</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION45" data-renderer-version="1">Demos of Quartz filters</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION46" data-renderer-version="1">Soft-Proofing</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION47" data-renderer-version="1">Print dialog</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION49" data-renderer-version="1">ColorSync Utility</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION49" data-renderer-version="1">ColorSync Preferences</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION51" data-renderer-version="1">Administration Features</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION52" data-renderer-version="1">3D View Options for Profile Viewer</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION54" data-renderer-version="1">ColorSync and OpenGL</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION55" data-renderer-version="1">ColorSync And QuickTime</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION56" data-renderer-version="1">ColorSync And Image Capture</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION57" data-renderer-version="1">Display Calibration</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION57" data-renderer-version="1">Support for your calibrator</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION58" data-renderer-version="1">Apple Calibrator Expert Mode</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION60" data-renderer-version="1">SIPS</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION61" data-renderer-version="1">ColorSync changes for Mac OS X 10.4 Tiger</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION61" data-renderer-version="1">Floating Point Support</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION62" data-renderer-version="1">New structure: CMFloatBitmap</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION63" data-renderer-version="1">New APIs</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION68" data-renderer-version="1">Use of CFTypes</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION71" data-renderer-version="1">API Changes</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION73" data-renderer-version="1">Custom CMMs</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION77" data-renderer-version="1">Changes to ColorSync Utility</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-CH1-SECTION81" data-renderer-version="1">References</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003071-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION1" title="Overview"></a><h2 class="jump">Overview</h2><p>There are a wide variety of imaging devices in the market today, such as digital cameras, color scanners, color printers, etc., and each device represents colors in very different ways. They each have different color spaces and different gamuts (ranges of colors). This, of course, makes it very difficult for a document acquired on one device to be rendered correctly on another device. The solution to this problem is ColorSync, a complete color management system, designed to provide consistent color across devices.</p><p>The two key foundations upon which ColorSync is built are International Color Consortium (ICC) profiles and Color Management Modules (CMMs). </p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION1" title="ICC Profiles"></a><h3 class="jump">ICC Profiles</h3><p>ICC profiles use a cross-platform file format defined by the ICC. They are documents containing data that describe how to transform colors from device color space to an intermediate color space. This file format allows for the description of a wide variety of devices. The data format has been designed to be quite flexible, and can be extended by developers via optional tags. Furthermore, the format is an evolving format, with ongoing improvements. </p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION2" title="CMM"></a><h3 class="jump">CMM</h3><p>If you think of profiles as the data used for color management, CMMs are the code. CMMs provide the mathematical engine to perform the profile-to-profile transformations. Apple ships a default CMM, the Apple CMM, as part of ColorSync. This is the same default CMM Apple ships on Mac OS 9. However, we've designed the system to be open and expandable, so third parties can developer their own CMMs if they want to provide their own alternate methods for color transformations. </p><p>Here's a diagram showing how ColorSync fits into the Mac OS X architecture:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE1" title="Figure 1Mac OS X Architecture &amp; ColorSync."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Mac OS X Architecture &amp; ColorSync.</figcaption><img src="Art/tn2035_1.jpg" alt="" width="484" height="228"></figure><p>The ColorSync 2.0 and greater APIs are fully supported in Mac OS X. This means it should be very easy for developers to port their applications to Mac OS X. There are also some new APIs in ColorSync in Mac OS X which provide some enhancements you may want to take advantage of. Also, Quartz and the printing model in Mac OS X take full advantage of ColorSync. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION4" title="ColorSync and Quartz"></a><h2 class="jump">ColorSync and Quartz</h2><p>in Mac OS X, ColorSync has been assigned a new role encompassing more than just the standard application services. ColorSync is now used to provide color management to other system components. One of these components is Quartz, Apple's new graphics system based on the PDF imaging model. Quartz has created a new paradigm for color management, which offers alternative access to ColorSync functionality. </p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION4" title="ColorSync And Quartz Color Management"></a><h3 class="jump">ColorSync And Quartz Color Management</h3><p>Our goals here were to integrate graphics and color management services, satisfying some basic requirements. First, Quartz needed the ability to composite different color spaces and opacity. To meet this requirement, ColorSync is used to convert data from many different color spaces into the one space selected by Quartz as a working space for a compositer. </p><p>A second requirement focused on the needs of the developer, and is based on the fact all applications using Quartz will have to work with color management. This also needed to be a scalable solution, which would serve the needs of a wide range of applications. On the one hand, the involvement of an application in color management can be very minimal, limited to the use of some predefined default settings provided by Quartz. On the other hand, an application can have the same full control over color management as it does when accessing ColorSync directly. Other requirements include color accuracy, performance and compatablilty with PDF. </p><p>In simple terms, Quartz color management can be described as being built around ColorSync, which is used as an engine to process PDF color data produced by Quartz. </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE2" title="Figure 2Quartz Color Management."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Quartz Color Management.</figcaption><img src="Art/tn2035_2.jpg" alt="" width="466" height="170"></figure></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION5" title="PDF Color Model"></a><h3 class="jump">PDF Color Model</h3><p>To better understand its design, here's some of the basic concepts pertaining to color in PDF and ColorSync: </p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION5" title="PDF Color Definition"></a><h4 class="jump">PDF Color Definition</h4><p>In PDF, color is defined by one of the known color spaces - Device, Calibrated or ICC based: </p><a name="//apple_ref/doc/uid/DTS10003071-CH1-TABLE1" title="Table 1Color Spaces in PDF."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Color Spaces in PDF.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Color Spaces in PDF
+</p></th></tr><tr><td  scope="row"><p>
+/DeviceGray, /DeviceRGB, /DeviceCMYK
+</p></td></tr><tr><td  scope="row"><p>
+/CalGray, /CalRGB, /CalLab
+</p></td></tr><tr><td  scope="row"><p>
+/ICCBased
+</p></td></tr></table></div><p>This list essentially reflects the history of color management. Initially, only device color spaces were supported. Based on our perspective today, the device color spaces merely provided a specification for different process color models. Because the color appearance is device dependent, these spaces are actually the worst choice for faithful color reproduction across different devices. </p><p>Next, calibrated color was invented, along with the idea of color conversions through device independent color. The advantage of this method is a significant improvement in color matching across different devices. PDF follows by adding calibrated color spaces. Later on, calibrated color evolved into a standard form - the ICC profile. When color management based on ICC profiles gained its popularity and became the de-facto standard among color professionals, PDF added the ICC-based color space, which allows for embedding ICC profiles into PDF documents. </p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION6" title="PDF Color Conversion"></a><h4 class="jump">PDF Color Conversion</h4><p>PDF color coversion can be described as a function of source color space, destination color space, and rendering intent. Please take note of the rendering intent values: </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE3" title="Figure 3PDF Color Conversion."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;PDF Color Conversion.</figcaption><img src="Art/tn2035_3.jpg" alt="" width="628" height="126"></figure></section></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION8" title="ColorSync/ICC Color Model"></a><h3 class="jump">ColorSync/ICC Color Model</h3><p>Now let's take a look at how ICC and ColorSync define color and color conversion. </p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION8" title="ICC color definition"></a><h4 class="jump">ICC color definition</h4><p>Naturally, color is defined by an ICC profile. As mentioned previously, the ICC profile is the most general form of the color space description. </p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION9" title="ICC Color Conversions"></a><h4 class="jump">ICC Color Conversions</h4><p>ICC color conversions are very similar to those in PDF. The differences are an option to insert an intermediate profile between the source and destination profiles: </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE4" title="Figure 4ICC Color Conversions."></a><figcaption><strong class="caption_number">Figure 4</strong>&nbsp;&nbsp;ICC Color Conversions.</figcaption><img src="Art/tn2035_4.jpg" alt="" width="636" height="222"></figure><p>These additional profiles are used for soft-proofing, color device simulation, applying special affects, etc. As we can now see, the rendering intent values in ICC color conversions are the same as those in PDF: </p><p>Rendering intent = {perceptual, relative colorimetric, saturation, absolute colorimetric} </p></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION12" title="Color Model in Quartz"></a><h2 class="jump">Color Model in Quartz</h2><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION12" title="Integration of PDF and ICC color models"></a><h3 class="jump">Integration of PDF and ICC color models</h3><p>The color model in Quartz was created by integrating the ICC and PDF color models. Here're some of the interesting features of this model. All PDF color spaces are expressed in Quartz as ICC profiles. Device color spaces are assigned default profiles as follows: </p><ul class="ul"><li class="li"><p>/DeviceGray -&gt; Quartz Default Gray</p></li><li class="li"><p>/DeviceRGB -&gt; Quartz Default RGB</p></li><li class="li"><p>/DeviceCMYK -&gt; Quartz Default CMYK</p></li></ul><p>Calibrated color spaces contain the calibration record, which can be very easily re-packaged as the ICC profile. Finally, ICC-based color spaces provide their own ICC profiles. </p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION12" title="PDF color space equivalence"></a><h4 class="jump">PDF color space equivalence</h4><p>Another simple but very important concept that Quartz inherited from PDF is color space equivalence. An implied rule is that color conversions are necessary only if the source color space is different from the destination. Quartz takes advantage of this simple rule to properly organize the flow of color data through multiple rendering stages: </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE5" title="Figure 5Color space equivalence"></a><figcaption><strong class="caption_number">Figure 5</strong>&nbsp;&nbsp;Color space equivalence</figcaption><img src="Art/tn2035_5.jpg" alt="" width="543" height="249"></figure></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION13" title="Color space is one or more ICC profiles"></a><h4 class="jump">Color space is one or more ICC profiles</h4><p>As mentioned previously, all PDF color spaces are expressed in Quartz as an ICC profile in a manner which is seamless and transparent through all applications working in the PDF imaging model. But at the same time, we needed a provision in Quartz to create color transformations for more than two profiles. For that reason, we designed a color space which can consist of one or more ICC profiles. This way we are able to preserve the PDF concept of matching a single source to a single destination, but at the same time we are able to create those complex color transformations which are suitable for advanced color management. And if the need arises for such a color space to be embedded in PDF, the multiple profiles contained in such a color space can be concatenated by ColorSync into a single profile. </p></section></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION15" title="Color in Quartz Drawing Model"></a><h3 class="jump">Color in Quartz Drawing Model</h3><p>Let's now see how all the things just discussed come together to provide the desired color processing in the Quartz drawing model. From the top-level perspective, there are three main components involved in this model: </p><ul class="ul"><li class="li"><p>An application generating the graphic contents</p></li><li class="li"><p>Quartz providing the rendering services</p></li><li class="li"><p>The destination for the rasterized data</p></li></ul><p>In terms of color processing, the application can request Quartz to render data in any of the PDF color spaces. To accomplish that, Quartz will convert all these into ICC profiles. Default profiles are selected by Quartz, but can be overridden by the application. Quartz will do all compositing in the working space, and ColorSync will be invoked to perform color transformations from any of the source color spaces to the working space. Finally, when compositing is completed, the rasterized data will be sent to the desired destination. Naturally, if the color space of the destination doesn't match the working space, and additional conversion must be done. </p><p>Let's see how convenient Quartz color management can be for some color operations. For example, applying special effects to all data can be very easily achieved simply by adding the abstract profile to the working space. As shown in the following diagram, all conversions to the working space will include the transformation defining the abstract profile: </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE6" title="Figure 6Applying Special Effects with Abstract Profile."></a><figcaption><strong class="caption_number">Figure 6</strong>&nbsp;&nbsp;Applying Special Effects with Abstract Profile.</figcaption><img src="Art/tn2035_9.jpg" alt="" width="542" height="359"></figure><p>Soft proofing is another task that is particularly suited for color management, By adding a printer profile to the working space, all color corrections that define the printer profile are reflected in the working space, and thus will be shown on the primary display.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE7" title="Figure 7Soft-proofing Printout on Primary Display."></a><figcaption><strong class="caption_number">Figure 7</strong>&nbsp;&nbsp;Soft-proofing Printout on Primary Display.</figcaption><img src="Art/tn2035_10.jpg" alt="" width="548" height="363"></figure><p>The use of multi-profile color spaces is not limited to the Quartz internals. Applications can also use them. Here is an example of an application using a given color space to create a free-transform color space to produce certain color effects. </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE8" title="Figure 8Free-transform color space used to produce color effects."></a><figcaption><strong class="caption_number">Figure 8</strong>&nbsp;&nbsp;Free-transform color space used to produce color effects.</figcaption><img src="Art/tn2035_11.jpg" alt="" width="548" height="369"></figure></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION16" title="Quartz Printing Front End"></a><h3 class="jump">Quartz Printing Front End</h3><p>To complete our story about color management in Quartz, let's look at how color is handled in printing from Quartz. So far we've talked about the main flow of color data from the source to the destination. But one more step is also possible here. The contents can be spooled in PDF form for printing, which will be handled by the print center. There is one very important fact about the spooled data. As was pointed out, all color data is tagged in spooled PDF. And profiles are assigned to the data in exactly the same way they are for ColorSync processing: </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE9" title="Figure 9Color data is tagged in spooled PDF."></a><figcaption><strong class="caption_number">Figure 9</strong>&nbsp;&nbsp;Color data is tagged in spooled PDF.</figcaption><img src="Art/tn2035_12.jpg" alt="" width="543" height="363"></figure></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION17" title="Quartz Raster Printing Back End"></a><h3 class="jump">Quartz Raster Printing Back End</h3><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION17" title="ColorSync Color Matching"></a><h4 class="jump">ColorSync Color Matching</h4><p>Quartz is also used to rasterize this spooled PDF at the printing back end. From the color management perspective, we have two options here. The first option is to use ColorSync for color matching. In this case, all color data from the spooled PDF is converted to the printer profile (Note: there is no device data in the spooled PDF).</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE10" title="Figure 10Spooled PDF converted to printer profile."></a><figcaption><strong class="caption_number">Figure 10</strong>&nbsp;&nbsp;Spooled PDF converted to printer profile.</figcaption><img src="Art/tn2035_13.jpg" alt="" width="483" height="184"></figure></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION18" title="Custom Driver Color Matching"></a><h4 class="jump">Custom Driver Color Matching</h4><p>Another option is custom driver color matching.The color data, by design, is going to be handed off in the color space of the default profile provided by the system. As a result, all data which is tagged with the same default profile will remain untouched. And obviously all other color data will be converted by ColorSync to the system profile.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE11" title="Figure 11Custom driver color matching."></a><figcaption><strong class="caption_number">Figure 11</strong>&nbsp;&nbsp;Custom driver color matching.</figcaption><img src="Art/tn2035_14.jpg" alt="" width="527" height="364"></figure></section></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION20" title="Quartz in PostScript Back End"></a><h3 class="jump">Quartz in PostScript Back End</h3><p>ColorSync is also involved in the PostScript back end. From the color management perspective, our goal here is to convert the color spaces contained in the spooled PDF to PostScript color space arrays (CSAs). Quartz has the internal capability to convert PDF calibrated color spaces directly to PostScript CSAs. All ICC profiles will be converted to PostScript CSAs using ColorSync. </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE12" title="Figure 12ICC profiles converted to PostScript CSAs."></a><figcaption><strong class="caption_number">Figure 12</strong>&nbsp;&nbsp;ICC profiles converted to PostScript CSAs.</figcaption><img src="Art/tn2035_15.jpg" alt="" width="509" height="366"></figure></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION21" title="Printing Untagged Data"></a><h3 class="jump">Printing Untagged Data</h3><p>Here's some general notes about behaviors you can expect from the printing system when printing untagged data:</p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION21" title="PDF Display"></a><h4 class="jump">PDF Display</h4><p>Untagged RGB data in PDF will be tagged with the Generic RGB profile, and as a result it will be color-matched to the screen.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION22" title="Printing Front End"></a><h4 class="jump">Printing Front End</h4><p>When passing source data to the print system, the printing front end spools the print job in the PDF format, and as described in the section above Quartz Printing Front End, all color data is tagged in the spooled PDF. Therefore, when passing untagged RGB source data to the print system for printing, ColorSync will tag the data with the Generic RGB profile (just as is done when displaying PDF data). </p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION23" title="Printing Back End"></a><h4 class="jump">Printing Back End</h4><p>When printing in Mac OS X, ColorSync will match source data to whatever profile the printer driver provides. For this reason, printer drivers should register profiles for their devices using the Device APIs as discussed in this note.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION24" title="Raster Printing"></a><h4 class="jump">Raster Printing</h4><p>If a printer driver provides no profile, ColorSync will substitute the Generic RGB profile.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION25" title="PostScript Printing"></a><h4 class="jump">PostScript Printing</h4><p>Originally untagged RGB data is ultimately converted to a CIEBasedABC color space based on the Generic RGB profile.</p></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION28" title="Drawing to Multiple Screens"></a><h2 class="jump">Drawing to Multiple Screens</h2><p>As described in the section ColorSync and Quartz there is a wide variety of ICC-based color spaces provided by Quartz. This section focuses on those which allow you to access the ColorSync Device Integration database. </p><p>An example are the color spaces which allow for drawing directly to the screen. There's the Display RGB color space, which is essentially a wrapper around the primary display profile. Display Gray, composed of two profiles: a device-link profile converting Gray to RGB, which is then attached to the primary display profile. And for more advanced uses there's the Display with ID space, a wrapper for Display By AVID profiles:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE13" title="Figure 13Color spaces which allow for drawing directly to the screen."></a><figcaption><strong class="caption_number">Figure 13</strong>&nbsp;&nbsp;Color spaces which allow for drawing directly to the screen.</figcaption><img src="Art/tn2035_23.jpg" alt="" width="444" height="196"></figure><p>Quartz in Mac OS X v10.3 "Panther" helps solve the problem of drawing to multiple screens. There are three basic choices an application can make, one which can be defined as the "Simple model", another which can be defined as the "Complete model" or lastly an application can use a combination of these two techniques. </p><p>These can be characterized as follows:</p><p>Applications' choice </p><p>Simple model</p><ul class="ul"><li class="li"><p>color-matched only to the main display</p></li><li class="li"><p>application makes no updates on screen/profile change</p></li></ul><p>Complete model</p><ul class="ul"><li class="li"><p>color-matched to individual displays</p></li><li class="li"><p>application can register for device notifications on screen/profile change and make proper updates as necessary</p></li></ul><p>Some combination of the above</p><ul class="ul"><li class="li"><p>application can use a combination of the above two techniques</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION29" title="Profiles in Mac OS X"></a><h2 class="jump">Profiles in Mac OS X</h2><p>On Mac OS 9, profiles are traditionally stored in the Profiles folder within the System folder. An application wanting to gain access to this folder would use the <code>CMGetColorSyncFolderSpec</code> API, passing in <code>kSystemDisk</code> for the <code>vRefNum</code> parameter as follows: </p><p><code>CMGetColorSyncFolderSpec</code>(<code>kSystemDisk</code>, ...); </p><p>You could also use the Mac OS <code>FindFolder</code> API as an equivalent technique. However, one of the key features of Mac OS X is it is designed to be fully network and multi-user savvy. For this reason, there is no longer just one location where profiles can be stored, but several. There is a special location within the Mac OS X System folder for profiles: </p><p>/System/Library/ColorSync/Profiles/ </p><p>This is where ColorSync stores profiles it uses internally for critical operations, should others be mistakenly lost or damaged. This folder is locked and protected, but if you need to get access to this folder to be able to read these profiles you can again use the <code>CMGetColorSyncFolderSpec</code> API, passing the <code>kSystemDomain</code> constant for the <code>vRefNum</code> parameter as follows: </p><p><code>CMGetColorSyncFolderSpec</code>(<code>kSystemDomain</code>, ...); </p><p>ColorSync profiles are primary stored here: </p><p>/Library/ColorSync/Profiles/ </p><p>This is where ColorSync stores the majority of its profiles. This is a read/writable folder. If you need to get access to this folder to be able to read these profiles use the <code>CMGetColorSyncFolderSpec</code> API, passing the <code>kLocalDomain</code> constant for the <code>vRefNum</code> parameter as follows: </p><p><code>CMGetColorSyncFolderSpec</code>(<code>kLocalDomain</code>, ...); </p><p>If you are in a network environment, and your network administrator has stored profiles on the network for network devices, these can be stored in: </p><p>/Network/Library/ColorSync/Profiles/ </p><p>If you need to get access to this folder to be able to read these profiles use the <code>CMGetColorSyncFolderSpec</code> API, passing the <code>kNetworkDomain</code> constant for the <code>vRefNum</code> parameter as follows: </p><p><code>CMGetColorSyncFolderSpec</code>(<code>kNetworkDomain</code>, ...); </p><p>Lastly, users can store their own personal profiles in their home directory: </p><p>~/Library/ColorSync/Profiles/ </p><p>If you need to get access to this folder to be able to read these profiles use the <code>CMGetColorSyncFolderSpec</code> API, passing the <code>kUserDomain</code> constant for the <code>vRefNum</code> parameter as follows: </p><p><code>CMGetColorSyncFolderSpec</code>(<code>kUserDomain</code>, ...); </p><p>As on Mac OS 9, ColorSync in Mac OS X supports looking in subfolders of all the above directories (one level deep), or aliases to these folders or profiles. In summary, there are a great many locations where profiles can be stored in Mac OS X. If your application would like to present a list of profiles to the user, we suggest you use the <code>CMIterateColorSyncFolder</code> API. This API will greatly simplify your code, as it searches all the above locations for profiles. In addition, it offers great performance benefits because it caches frequently used information. </p><p>One important note with respect to this API - if you have a Mac OS Classic system folder setup in addition to the Mac OS X system folder, ColorSync by default will not search this Mac OS Classic system folder for profiles. However, if your application wishes to access profiles in this location, use the <code>CMIterateColorSyncFolder</code> API passing <code>kClassicDomain</code> for the <code>vRefNum</code> parameter: </p><p><code>CMGetColorSyncFolderSpec</code>(<code>kClassicDomain</code>, ...); </p><p>In summary, an application should install profiles in: </p><p>/Library/ColorSync/Profiles/ </p><p>or in a subfolder of it. Users can install personal profiles in: </p><p>~/Library/ColorSync/Profiles/ </p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION29" title="Profile prerequisites"></a><h3 class="jump">Profile prerequisites</h3><p>Traditionally, profiles were filtered based on their type and creator on Mac OS 9 (type '<code>prof</code>', creator '<code>sync</code>'). However, profiles may not have a type and creator, so ColorSync no longer checks the type and creator of profiles. Also, profiles need not have any suffix. However, if you do use one use '<code>.icc</code>'. By standardizing on one suffix it makes it easier for applications using the Cocoa <code>NSOpenPanel</code> APIs to filter profiles. Similarly, if you use a type and creator for your profile, use '<code>prof</code>' and ''<code>sync</code>'', as this will make it easier for the Carbon Navigation Services APIs to filter profiles. At its heart, ColorSync no longer cares about type, creator, or suffix. </p><p>What really distinguishes a ColorSync profile from any old file is if it is a valid ICC profile. ColorSync determines if a file is a valid ICC profile by looking for the signature bytes '<code>acsp</code>' (stands for "a ColorSync profile") at an appropriate offset in its header block. ColorSync also imposes the additional restriction that the profile contain a valid description tag. Many applications will present lists of profiles to the user, and if a profile has a bad name in the description tag, it will show as garbage or not at all. In order to avoid these problems, we suggest you use the ColorSync Profile First Aid utility to make sure your profiles are free of common errors. </p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION30" title="New optional profile tags"></a><h3 class="jump">New optional profile tags</h3><p>One of the key features of Mac OS X is it is a multilocalized operating system. ColorSync now provides this same functionality for ICC profiles. Currently, the ICC format defines a required tag 'desc' which stores ASCII, UniCode, and ScriptCode versions of the profile description for display purposes. However, this structure allows the profile to be localized for one language only through UniCode or ScriptCode. Profile vendors have to ship many localized versions to different countries. It also creates problems when a document with localized profiles embedded in it is shipped to a system using a different language. ColorSync has defined a new optional tag to remedy this situation: </p><p>- '<code>mluc</code>' multilocalized UniCode Tag </p><p>This tag contains a set of multilingual Unicode strings associated with a profile. We also provide a number of new APIs for easy access to this tag: </p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError CMCopyProfileLocalizedStringDictionary   (CMProfileRef prof, OSType tag, CFDictionaryRef* dict);<span></span></pre></td></tr></table></div><p>prof - profile to query</p><p>tag - tag type of profile to query</p><p>dict - returns dictionary</p><p>This API allows you to get a <code>CFDictionary</code> which contains the language locale and string for multiple localizations from a given tag. Similarly, there is a <code>CMSetProfileLocalizedStringDictionary</code> API to allow you to write a dictionary of localized strings to a given tag in a profile: </p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError CMSetProfileLocalizedStringDictionary   (CMProfileRef prof, OSType tag, CFDictionaryRef dict);<span></span></pre></td></tr></table></div><p>prof - profile to modify</p><p>tag - tag type of profile to modify</p><p>dict - dictionary to modify</p><p>However, most applications will simply want to get one specific string out of a profile. For this reason, we provide the <code>CMCopyProfileLocalizedString</code> function: </p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError CMCopyProfileLocalizedString (CMProfileRef  prof,
+                                      OSType        tag,
+                                      CFStringRef   reqLocale,
+                                      CFStringRef*  locale, 
+                                      CFStringRef*  str);<span></span></pre></td></tr></table></div><p>prof - profile to query </p><p>tag - tag type of profile to query</p><p><code>reqLocale</code> - requested locale (optional</p><p>locale - returns locale (optional) </p><p>dict - returns dictionary string (optional) </p><p>Here's a short example showing how to use this function. We pass in the optional tag '<code>dscm</code>' plus "<code>enUS</code>" for the <code>reqLocale</code> parameter, looking for a U.S. Enlish string. If a U.S. English string is not found, ColorSync will fall back to a reasonable default:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>err = CMCopyProfileLocalizedString (prof, 'dscm', CFSTR("enUS"), nil, &amp;theStr);<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION31" title="ICC4 Profiles"></a><h3 class="jump">ICC4 Profiles</h3><p>The ICC has been working on a new format for profiles to provide for more flexibility and power. This new format is the ICC 4.0 profile format specification. Some of the highlights include: </p><ul class="ul"><li class="li"><p>New version in header</p></li></ul><p>to distinguish from earlier versions </p><ul class="ul"><li class="li"><p>New MD5 (message digest) checksum in header</p></li></ul><p>to tell if two profiles are identical , or if a profile has changed over time. You can access this new MD5 checksum directly in the profile header, or alternately there is a new ColorSync API <code>CMGetProfileMD5</code>. The ColorSync API has the advantage that it works with both ICC 4 profiles and earlier profiles.</p><ul class="ul"><li class="li"><p>New tag data types ('<code>mluc</code>', '<code>mBA</code> ', '<code>mAB</code> ', '<code>para</code>')</p></li></ul><p>These new tags really demonstrate the new power and flexibility of the ICC 4 profiles. One important note is some of your existing tags may now contain these new data formats e.g., '<code>A2B0</code>' may contain '<code>mft1</code>' or '<code>mAB</code> ' data. The good news is ColorSync and the Apple CMM will be fully ICC4 savvy. This means if your application does not parse profiles, but simply uses profile references for color matching, everything will "just work". However, if your application creates of modifies profiles, you need to be aware of these new tag types to make sure you handle these cases correctly. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION33" title="CMMs in Mac OS X"></a><h2 class="jump">CMMs in Mac OS X</h2><p>As with profiles, CMMs can also be installed in multiple locations. Typically, applications would install CMMs in: </p><p>/Library/ColorSync/CMMs </p><p>Also, users may install personal CMMs (for example, for debugging) in: </p><p>~/Library/ColorSync/CMMs </p><p>If your application would like to present a list of CMMs to the user, use the <code>CMMIterateCMMInfo</code> API. See <span class="content_text"><a href="/technotes/tn/tn1160.html" class="urlLink" rel="external">Technical Note TN1160, 'What's New With ColorSync 2.6'</a></span> for more information. This will give you information about all the CMMs installed on the system, including the default CMM. </p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION33" title="Building CMMs"></a><h3 class="jump">Building CMMs</h3><p>CMMs in Mac OS X are <code>CFBundle</code> based, whereas on Mac OS 9 they are Component Manager based. See the <code>CFBundle</code> documentation for details on using these APIs to build your CMM as a <code>CFBundle</code>. </p><p>CMMs in Mac OS X still contain all the familiar entry points that exist for CMMs on Mac OS 9 such as <code>CMMOpen</code>, <code>CMMConcat</code>, <code>CMMMatchBitmap</code>, <code>CMMClose</code>, etc. However, Mac OS X CMMs now have a <code>CFBundle</code> wrapper around these entry points instead of a Component Manager wrapper.</p><p>The Apple CMM has undergone a lot of work to make sure it is finely tuned and integrated fully with Quartz to handle all the various profile types and image color spaces correctly. If you are writing your own CMM, make sure and test it thoroughly, and under a wide variety of cases to ensure it works in this environment. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION35" title="ColorSync Preferences and Supporting APIs"></a><h2 class="jump">ColorSync Preferences and Supporting APIs</h2><p>Under Classic Mac OS, applications performing color management generally do not have knowledge of the various devices on the system. Because of this, applications would find it necessary to present some kind of interface to obtain device color information from the user. Similarly, applications performing color management on data with no associated profile would need to understand what type of device the data originated from. Again, this would require the application present some kind of interface to allow the user to select a default profile for a color space or document. Over time, users were becoming confused by the great myriad of different interfaces being presented by applications performing color management. ColorSync in Mac OS X is now aware of system devices, and the ColorSync user interface has been redesigned to take advantage of this information. </p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION35" title="Profiles for Standard Color Spaces"></a><h3 class="jump">Profiles for Standard Color Spaces</h3><p>Documents can of course contain many different types of data. With this menu users can specify profiles for documents for different color spaces. Of course if the document does have a profile, this will take precedence, but often times documents don't have profiles associated with them. Users can retrieve this preference via the <code>CMGetDefaultProfileBySpace</code> API as follows: </p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre>enum {
+        cmXYZData = 'XYZ ',
+        cmLabData = 'Lab ',
+        cmRGBData = 'RGB ',
+        cmSRGBData = 'sRGB',
+        ... 
+    };
+
+CMGetDefaultProfileBySpace ( OSType space, CMProfileRef* prof );<span></span></pre></td></tr></table></div><p>space - the color space</p><p>prof - returns the default profile for the specified color space </p><p>Here's sample code demonstrating how an application might benefit from these APIs. The sample accepts an image reference as an input and attempts to obtain information or data from this reference. The first thing an application should do when managing color for a document is to determine whether or not any embedded profile exists for the document. Most of the modern image formats have containers for profiles, so there are known ways to get profiles for documents in these formats. However, if there is no profile associated with the document, we can conveniently use the <code>CMGetDefaultProfileBySpace</code> API (after first obtaining the image color space) to get a reasonable default source profile for the document. </p><p>Next, we obtain a destination profile for the document. We can use the <code>CMGetDefaultProfileByUse</code> to get a destination profile. With both a source and destination profile we are now able to perform our color management - in this example, we use <code>NCWNewColorWorld</code> and <code>CWMatchBitMap</code>. </p><p>One important note regarding this example is the code shown here is appropriate for a Mac OS Classic or Carbon application running on Mac OS 9. In Mac OS X, much of the destination color management is done for you, so you don't need this matching if your application uses Quartz. However, you need to at least be aware of where the data is coming from, and if no profile is associated with it you can tag it using the ColorSync APIs. </p><p>ColorSync Prefs Code Sample </p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError myMatchImage (myImageRef image)
+{
+    CMProfileRef source, dest;
+    CMWorldRef cw;
+    CMBitMap bm;
+
+    source = myGetEmbeddedProfile (image);
+    if (source == nil)
+    {
+        space = myGetColorImageSpace (image);
+        err = CMGetDefaultProfileBySpace (space, &amp;source);
+    }
+
+    err = CMGetDefaultProfileByUse (cmDisplayUse, &amp;dest);
+    err = NCWNewColorWorld (&amp;cw, source, dest);
+    bm = myGetImageBitMap (image);
+    err = CWMatchBitMap (cw, &amp;bm, ..., ..., ...);
+...<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION36" title="ColorSync Preferences Tidbits"></a><h3 class="jump">ColorSync Preferences Tidbits</h3><p>As with ColorSync 3.0 on Mac OS 9, ColorSync applications in Mac OS X can also launch the ColorSync control panel to solicit color choices, including default profiles for devices and documents, as well as the preferred CMM. Users can also switch between named collections of color settings called workflows. </p><p>To launch the ColorSync control panel from your application, simply call the following function: </p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE7"></a><div class="codesample clear"><table><tr><td scope="row"><pre>pascal CMError CMLaunchControlPanel (UInt32 flags);<span></span></pre></td></tr></table></div><p>flags - You must pass a value of 0 for this parameter. Future versions of ColorSync may define constants for the flags parameter to specify how the ColorSync control panel is launched. </p><p>function result - A result code of type CMError. </p><p>When your application calls the <code>CMLaunchControlPanel</code> routine, any changes made by the user will not be available (through calls such as <code>CMGetDefaultProfileBySpace</code>) until the user closes the ColorSync control panel. There is currently no ColorSync API for determining if the ColorSync control panel has been closed, though on Mac OS 9 you can use the Process Manager API for this purpose. </p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION37" title="ColorSync Preferences Summary"></a><h3 class="jump">ColorSync Preferences Summary</h3><p>Since all data is color managed by Quartz in Mac OS X, your application can participate simply by making sure your source and destination data is associated with a profile. Most applications can use the ColorSync Preferences APIs for color management, to get user's preferences. And these profile accessor APIs are extensible, a bridge to future device and color-space support. Lastly, the ColorSync Preferences APIs offer great flexibility in that applications can manage color from both document-centric and device-centric perspectives. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION39" title="ColorSync Device Support"></a><h2 class="jump">ColorSync Device Support</h2><p>Mac OS X contains new device managers for input, display, and printing. This provides an opportunity for developers to integrate with ColorSync and provide both awareness of devices and access to their profiles. This new device support has been implemented with the following services: </p><ul class="ul"><li class="li"><p>Device registration</p></li><li class="li"><p>Profile registration</p></li><li class="li"><p>Default Device and Default Profile accessors</p></li><li class="li"><p>Notification</p></li></ul><p>Device and Profile Registration: </p><p>ColorSync relies on the Device Managers to detect the presence of devices and to discover or build device profiles. The following are new ColorSync APIs which you can use to capture device and profile information: </p><p><strong>CMRegisterColorDevice</strong></p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE8"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError CMRegisterColorDevice(   CMDeviceClass          deviceClass,   CMDeviceID             deviceID,   CFDictionaryRef        deviceName,   const CMDeviceScope *  deviceScope);<span></span></pre></td></tr></table></div><p><strong>Parameters</strong></p><p>deviceClass </p><p>The class of the device (e.g., 'scnr', 'cmra', 'prtr', 'mntr')</p><p>deviceID </p><p>Unique identifier per class (Class + ID uniquely id's device)</p><p>deviceName </p><p>Name of the device.</p><p>deviceScope </p><p>Structure defining the user and host scope this device pertains to.</p><p>For a device to be recognized by ColorSync (and possibly other parts of MacOSX) it needs to register itself via this API. If the device has ColorSync profiles associated with it, it should identify those via the <code>CMSetFactoryDeviceProfiles</code> API, after registering with this API. Once a device is registered, it can appear as an input, output, or proofing device in ColorSync controls, as long as it has profiles associated with it. Registration need only happen once, when the device is installed. Device drivers need not register their device each time they are loaded. </p><p><strong>CMUnregisterColorDevice</strong></p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE9"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError CMUnregisterColorDevice (  CMDeviceClass    deviceClass,  CMDeviceID    deviceID );<span></span></pre></td></tr></table></div><p><strong>Parameters</strong></p><p>deviceClass </p><p>The class of the device (e.g., 'scnr', 'cmra', 'prtr', 'mntr')</p><p>deviceID </p><p>Unique identifier per class (Class + ID uniquely id's device)</p><p>When a device is no longer to be used on a system (as opposed to being offline), it should be unregistered. If a device is temporarily shut down or disconnected, it need not be un-registered unless the device driver: a) "knows" that it will not be used (being de-installed) b) cannot access the device profiles without the device. If either of these are true, the device should be un-registered. </p><p><strong>CMSetFactoryDeviceProfiles</strong></p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE10"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError CMSetFactoryDeviceProfiles (  CMDeviceClass        deviceClass,  CMDeviceID        deviceID,  CMDeviceProfileID    defaultID,  const CMDeviceProfileArray*    deviceProfiles );<span></span></pre></td></tr></table></div><p><strong>Parameters</strong></p><p>deviceClass </p><p>The class of the device (e.g., 'scnr', 'cmra', 'prtr', 'mntr')</p><p>deviceID </p><p>Unique identifier per class (Class + ID uniquely id's device)</p><p>defaultID </p><p>The id of the default profile for this device.</p><p>deviceProfiles </p><p>Ptr to caller's storage containing the profile array.</p><p>This API establishes the profiles used by a given device. It should be called after device registration to notify ColorSync of the device's profiles. Note that a distinction is made in the API between the "factory" device profiles and the current device profiles, since the latter may contain modifications to the factory set. </p><p>Default Devices and Default Profiles:</p><p>These new APIs for profiles and standard devices provide access to defaults, not just any device profile. When profiles are registered for a device, one is identified as the default for that device. However, over time, the user may change their settings. When a user changes settings, the default device or default profile may change, and ColorSync is made aware of such changes by the Device Managers. The Device Managers keep track of which device is default. </p><p>Here are some new APIs to manage default devices and profiles: </p><p><strong>CMSetDefaultDevice</strong></p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE11"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError CMSetDefaultDevice (  CMDeviceClass    deviceClass,  CMDeviceID    deviceID );<span></span></pre></td></tr></table></div><p><strong>Parameters</strong></p><p>deviceClass </p><p>The class of the device (e.g., 'scnr', 'cmra', 'prtr', 'mntr')</p><p>deviceID </p><p>Unique identifier per class (Class + ID uniquely id's device)</p><p>For each class of device, a device management layer may establish which of the registered devices is the default. This helps keep color management choices to a minimum and allows for some "automatic" features to be enabled, e.g., "Default printer" as an output profile selection. If no such device (as specified by deviceClass and deviceID) has been registered, an error is returned. </p><p><strong>CMSetDeviceDefaultProfileID </strong></p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE12"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError CMSetDeviceDefaultProfileID (  CMDeviceClass        deviceClass,  CMDeviceID        deviceID,  CMDeviceProfileID    defaultID );<span></span></pre></td></tr></table></div><p>The default profile ID for a given device is an important piece of information because of the <code>CMGetProfileByUse</code> API. This API will return the default profile for devices depending on the user's selection in the ColorSync Control Panel. Device drivers and host software can get and set the default profile for a given device with this API. </p><p><strong>Parameters</strong></p><p>deviceClass </p><p>The class of the device (e.g., 'scnr', 'cmra', 'prtr', 'mntr')</p><p>deviceID </p><p>Unique identifier per class (Class + ID uniquely id's device)</p><p>defaultID </p><p>The id of the default profile for this device.</p><p>Calibration Support:</p><p>These new Device Managers in Mac OS X now make if possible for ColorSync to provide support for calibration. This is made possible by the data ColorSync is given for a profile by the Device Managers. Profiles are registered with an ID and a "mode" name (e.g., "plain paper"). Profiles are referenced during processing by ID. Such profiles can be customized by an application. For example a calibration application can get the factory profile for a given calibration mode, and then set a new profile (by ID) to be used for that mode. </p><p>Here are some new APIs supporting profile customization: </p><p><strong>CMGetDeviceFactoryProfiles</strong></p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE13"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError CMGetDeviceFactoryProfiles
+(
+ CMDeviceClass        deviceClass,
+ CMDeviceID        deviceID,
+ CMDeviceProfileID*    defaultID,
+ UInt32*        arraySize,
+ CMDeviceProfileArray*    deviceProfiles
+);<span></span></pre></td></tr></table></div><p>This API allows the caller to retrieve the original profiles for a given device. These may differ from the actual profiles in use for that device, in the case where any factory profiles have been replaced (updated). To get the actual profiles in use, call <code>CMGetDeviceProfiles</code>. </p><p>Parameters</p><p>deviceClass </p><p>The class of the device (e.g., 'scnr', 'cmra', 'prtr', 'mntr')</p><p>deviceID </p><p>Unique identifier per class (Class + ID uniquely id's device)</p><p>defaultID </p><p>Ptr to storage for the id of the default profile for this device.</p><p>arraySize </p><p>Ptr to storage for the size of the array to be returned. The caller may first call this routine to get the size returned, then call it again with the size of the buffer to receive the array.</p><p>deviceProfiles</p><p>Ptr to callers storage to receive the profile array. The caller may first pass NIL in this parameter to receive the size of the array in the arraySize parameter. Then, once the appropriate amount of storage has been allocated, a pointer to it can be passed in this parameter to have the array copied to that storage.</p><p><strong>CMSetDeviceProfiles </strong></p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE14"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError
+CMSetDeviceProfiles(
+  CMDeviceClass                 deviceClass,
+  CMDeviceID                    deviceID,
+  const CMDeviceProfileScope *  profileScope,
+  const CMDeviceProfileArray *  deviceProfiles);<span></span></pre></td></tr></table></div><p>This API provides a way to change the profile(s) used by a given device. It can be called after device registration by calibration applications to reset a device's profile(s) from factory defaults to calibrated profiles. In order for this call to be made successfully, the caller must pass the <code>CMDeviceClass</code> and <code>CMDeviceID</code> device being calibrated. (Device selection and identification can be facilitated via the <code>CMIterateColorDevices</code>() API). If an invalid <code>CMDeviceClass</code> or <code>CMDeviceID</code> is passed, an error (<code>CMInvalidDeviceClass</code> or <code>CMInvalidDeviceID</code>) is returned. </p><p><strong>Parameters</strong></p><p>deviceClass </p><p>The class of the device (e.g., 'scnr', 'cmra', 'prtr', 'mntr')</p><p>deviceID </p><p>Unique identifier per class (Class + ID uniquely id's device)</p><p>profileScope </p><p>Structure defining the scope these profiles pertain to.</p><p>deviceProfiles </p><p>Ptr to caller's storage containing the profile array which contains replacements for the factory profiles. Not all the original profiles must be replaced with this call. Therefore the array can contain as few as 1 profile and as many as there were in the factory array if they are all to be replaced. Profiles are repaced by ID.</p><p><strong>CMSetDeviceProfile</strong></p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE15"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMError
+CMSetDeviceProfile(
+  CMDeviceClass                 deviceClass,
+  CMDeviceID                    deviceID,
+  const CMDeviceProfileScope *  profileScope,
+  CMDeviceProfileID             profileID,
+  const CMProfileLocation *     deviceProfLoc);<span></span></pre></td></tr></table></div><p>This API provides a way to change a profile used by a given device by ID. It can be called after device registration by calibration applications to reset a device's profile from factory defaults to calibrated profiles. In order for this call to be made successfully, the caller must pass the <code>CMDeviceClass</code> and <code>CMDeviceID</code> of the device being calibrated along with the CMDeviceProfileID of the profile to set. (Device selection and identification can be facilitated via the <code>CMIterateColorDevices</code>() API). If an invalid <code>CMDeviceClass</code> or <code>CMDeviceID</code> is passed, an error (<code>CMInvalidDeviceClass</code> or <code>CMInvalidDeviceID</code>() is returned. </p><p><strong>Parameters</strong></p><p>deviceClass </p><p>The class of the device (e.g., 'scnr', 'cmra', 'prtr', 'mntr')</p><p>deviceID </p><p>Unique identifier per class (Class + ID uniquely id's device)</p><p>profileScope </p><p>Structure defining the scope these profiles pertain to.</p><p>profileID </p><p>The id of the default profile for this device.</p><p>deviceProfLoc </p><p>Ptr to storage for the CMProfileLocation of the profile. Since this structure is a fixed length structure, the caller can simply pass a ptr to a stack-based structure or memory allocated for it.</p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION39" title="Notifications"></a><h3 class="jump">Notifications</h3><p>Applications now can be made aware of changes to devices on their system. ColorSync will post notifications to a distributed notification center (check the Cocoa and Core Foundation documentation for additional details on distributed notification centers). Any process on the system which registers with a distributed center will receive these notifications. Here's some of the available notifications: </p><ul class="ul"><li class="li"><p>Changes to the default device for a device class</p></li><li class="li"><p>Changes to a device's factory or custom profiles</p></li><li class="li"><p>Changes to a device's default profile</p></li><li class="li"><p>Device registration/un-registration</p></li><li class="li"><p>Changes to any of the settings in the ColorSync Preferences (for example, if the user changes the preferred CMM)</p></li></ul><p>There are no ColorSync APIs to register to receive the above notifications - ColorSync only posts these notifications to the distributed center. Instead, use the following Cocoa and Core Foundation APIs to receive the above notifications: </p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE16"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CFNotificationCenterAddObserver NSDistributedNotificationCenter<span></span></pre></td></tr></table></div><p>Here's the specific notification strings (from the ColorSync interface file CMDeviceIntegration.h) which you can use with the above functions: </p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE17"></a><div class="codesample clear"><table><tr><td scope="row"><pre>#define  kCMDeviceRegisteredNotification   CFSTR("CMDeviceRegisteredNotification")
+#define  kCMDeviceUnregisteredNotification  CFSTR("CMDeviceUnregisteredNotification")
+#define  kCMDeviceOnlineNotification  CFSTR("CMDeviceOnlineNotification")
+#define  kCMDeviceOfflineNotification  CFSTR("CMDeviceOfflineNotification")
+#define  kCMDeviceStateNotification   CFSTR("CMDeviceStateNotification")
+#define  kCMDefaultDeviceNotification  CFSTR("CMDefaultDeviceNotification")
+#define  kCMDeviceProfilesNotification  CFSTR("CMDeviceProfilesNotification")
+#define  kCMDefaultDeviceProfileNotification 
+                            CFSTR("CMDefaultDeviceProfileNotification")
+#define  kCMPrefsChangeDeviceNotification 
+                            CFSTR("AppleColorSyncPreferencesChangedNotification")<span></span></pre></td></tr></table></div><p>To demonstrate how the general notification mechanism works, here's a code snippet written in Cocoa showing how you can get notified when the display profile changes. First, register with the default distributed notification center to receive the necessary ColorSync device notifications. Then, when the notification is received, simply call <code>CMGetDefaultProfileByUse</code> to determine the current setting for the display profile:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE18"></a><div class="codesample clear"><table><tr><td scope="row"><pre>-(void)registerNotifications
+{
+    NSDistributedNotificationCenter *center;
+
+    center = [NSDistributedNotificationCenter defaultCenter];
+
+    [center addObserver:self
+               selector:@selector(notification:)
+                   name:kCMDeviceUnregisteredNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(notification:)
+                   name:kCMDefaultDeviceNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(notification:)
+                   name:kCMDeviceProfilesNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(notification:)
+                   name:kCMDefaultDeviceProfileNotification
+                 object:nil];
+}
+-(void)notification:(NSNotification *)note
+{
+   CMError err = CMGetDefaultProfileByUse(cmDisplayUse, &amp;gProfRef);
+}<span></span></pre></td></tr></table></div><p>Similar code to check for profile changes could be written using the Mac OS X Core Foundation distributed notifications (using NSDistributedNotificationCenter, etc.). Check the Mac OS X Core Foundation documentation for additional information.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION40" title="ColorSync Device Support Summary"></a><h3 class="jump">ColorSync Device Support Summary</h3><p>ColorSync is now integrated with Device Managers. Applications have access to the default profiles for standard devices (input, display, output) via the new ColorSync preferences APIs. Applications can get more specific profile information for registered devices from these APIs. Calibration is now supported in ColorSync plus new notification services are now provided. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION42" title="Color Management in Printing"></a><h2 class="jump">Color Management in Printing</h2><p>A very important aspect of color management in Mac OS X is color management in the printing system. Printing in Mac OS X consists of two main components: the front end and the back end. The main role of the front end is to choose the printer, get the necessary print options and spool the print job into PDF.</p><p>The main role of the back end is to convert the spooled PDF into an appropriate format for the printer. </p><p>If we take a closer look at the printing front end we notice all color data in the spooled PDF is tagged with profiles. By definition, no printer specific color conversions are done at the front end, but it's important to note the printing system will consult the ColorSync Device Integration database and extract the profile matching the current printing conditions.</p><p>What happens at the back end depends on the type of printer in use. </p><p>For raster printers, the spooled PDF is rasterized and the color data is converted into the printer profile. This is accomplished by extracting the printer profile from the print job. If none exist, the printing system will provide a default profile so matching can occur.</p><p>For PostScript printers, there are two options: the first is traditional color matching in the printer. For this option, all the profiles from the spooled PDF are converted into PostScript CSAs.</p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION42" title="Color Matching On The Host by ColorSync"></a><h3 class="jump">Color Matching On The Host by ColorSync</h3><p>There's an option for doing color matching on the computer using ColorSync. In this case, as with raster printing, profiles are retrieved from the print job. If none exist, the printing system will provide a default profile so color matching can occur.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION43" title="cupsICCProfile PPD Declaration Entry"></a><h3 class="jump">cupsICCProfile PPD Declaration Entry</h3><p>CUPS PostScript and raster drivers may use the <code>cupsICCProfile</code> keyword to specify the various modes for a device along with the profiles for each mode. The format for this entry is as follows:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE19" title="Listing 1New PPD declaration entry."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;New PPD declaration entry.</p><div class="codesample clear"><table><tr><td scope="row"><pre>*cupsICCProfile {mode specifier} {profile specifier}<span></span></pre></td></tr></table></div><p>where the mode specifier is the concatenation of three fields: color model, media type and resolution. Any of these fields can be omitted to signify any model/media/resolution. The profile specifier is the profile standard file path relative to /usr/share/cups/profiles/.</p><p>Here's an example showing a PostScript printer PPD file that is registering two modes: one for 600 X 600 dpi and one for 1200 X 1200 dpi, followed by the profile specifier:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE20" title="Listing 2Example PostScript PPD file registering two modes."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Example PostScript PPD file registering two modes.</p><div class="codesample clear"><table><tr><td scope="row"><pre>*%========================
+*% Device capabilities
+*%========================
+
+
+*ColorDevice: True
+
+
+*DefaultColorSpace: CMYK
+
+
+*cupsICCProfile ..600x600dpi "cmykProfile600dpi.icc"
+*cupsICCProfile ..1200x1200dpi "cmykProfile1200dpi.icc"<span></span></pre></td></tr></table></div><p><span class="content_text"><a href="/qa/qa2004/qa1352.html" class="urlLink" rel="external">Technical Q&amp;A QA1352, 'New PPD keywords available in Mac OS X version 10.3'</a></span> describes this new PPD keyword in detail as well.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION45" title="Quartz Filters"></a><h2 class="jump">Quartz Filters</h2><p>Quartz filters are an optional component in the Quartz imaging and color-matching pipeline which allow you to associate a sequence of imaging or color correction operations with a single drawing. Filters may act on all drawing operations or only on a specified set. They can be configured to perform specialized imaging or color operations. They may be defined and saved in XML.</p><p>Here's a diagram showing how the Quartz filter component fits into the overall Quartz architecture:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE14" title="Figure 14Quartz Filter Component in the Quartz Architecture."></a><figcaption><strong class="caption_number">Figure 14</strong>&nbsp;&nbsp;Quartz Filter Component in the Quartz Architecture.</figcaption><img src="Art/tn2035_27.jpg" alt="" width="420" height="316"></figure><p>Quartz filters are currently available only through the various Mac OS X system-built utilities and applications. However, a new set of API's will be forthcoming.</p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION45" title="Demos of Quartz filters"></a><h3 class="jump">Demos of Quartz filters</h3></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION46" title="Soft-Proofing"></a><h3 class="jump">Soft-Proofing</h3><p>Soft-proofing via Quartz filters is possible from the print dialog. Simply click the "Preview" button in the print dialog and in the Preview window you'll now see a check box titled "Soft Proof" in the lower-left corner of the window. Here's how it looks:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE15" title="Figure 15Soft-proofing feature."></a><figcaption><strong class="caption_number">Figure 15</strong>&nbsp;&nbsp;Soft-proofing feature.</figcaption><img src="Art/tn2035_28.jpg" class="wide-image" alt="" width="681" height="582"><img src="Art/tn2035_28.jpg" class="ipad-scaled-image" alt="" width="670" height="572"></figure></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION47" title="Print dialog"></a><h3 class="jump">Print dialog</h3><p>Notice the above image is very dark. This can be corrected using the ColorSync printer dialog extension (PDE). </p><p>To access the ColorSync PDE, open the print dialog, click the "Advanced" button, then in the resulting dialog look for the item "ColorSync" in the popup menu list:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE16" title="Figure 16ColorSync PDE."></a><figcaption><strong class="caption_number">Figure 16</strong>&nbsp;&nbsp;ColorSync PDE.</figcaption><img src="Art/tn2035_29.jpg" alt="" width="638" height="504"></figure><p>The ColorSync PDE allows PostScript printers to choose which color-matching option to use via the "Color Conversion" popup menu. Select either"Standard" or "In Printer": </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE17" title="Figure 17Color conversion selection."></a><figcaption><strong class="caption_number">Figure 17</strong>&nbsp;&nbsp;Color conversion selection.</figcaption><img src="Art/tn2035_30.jpg" alt="" width="637" height="502"></figure><p>Using the Color Conversion options it's possible to perform color-matching on the computer using the printer profile ("Standard"), or fall-back to traditional color matching in the printing path ("In Printer").</p><p>Finally, at the bottom of the "Quartz Filter" menu in the ColorSync PDE there is an option to add Quartz filters when printing,:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE18" title="Figure 18Quartz filters menu option."></a><figcaption><strong class="caption_number">Figure 18</strong>&nbsp;&nbsp;Quartz filters menu option.</figcaption><img src="Art/tn2035_31.jpg" alt="" width="638" height="500"></figure><p>Select this option and the document is spooled to PDF and sent along with the "open" ('<code>oapp</code>') AppleEvent to the ColorSync Utility, which opens the document with the filter inspector window as shown below:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE19" title="Figure 19Filter inspector window."></a><figcaption><strong class="caption_number">Figure 19</strong>&nbsp;&nbsp;Filter inspector window.</figcaption><img src="Art/tn2035_32.jpg" alt="" width="634" height="551"></figure><p>If you click any of the filters in the list and also click the "Preview" check box you can see the results of applying the selected filter. You can add and remove filters by clicking the "New" and "Delete" buttons.</p><p>For each filter there are a number of different options which you can manage. These are:</p><ul class="ul"><li class="li"><p>Color - options for converting color</p></li><li class="li"><p>Default profiles</p></li><li class="li"><p>Image sampling/compression/convolution</p></li><li class="li"><p>Filter domain</p></li><li class="li"><p>PDF parameters</p></li></ul></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION49" title="ColorSync Utility"></a><h2 class="jump">ColorSync Utility</h2><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION49" title="ColorSync Preferences"></a><h3 class="jump">ColorSync Preferences</h3><p>The ColorSync Preferences are part of ColorSync Utility (previously they were in the System Preferences). This makes ColorSync Utility the "one-stop shopping" center for all the ColorSync related settings.</p><p>It's well known many applications may provide a button in their program's user interface to send users to the ColorSync preferences. This is usually accomplished by calling the <code>CMLaunchColorSyncPreferences</code> function. Applications which use this function will continue to work. This function will simply launch the ColorSync Utility instead.</p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION49" title="Quartz Filter Support"></a><h4 class="jump">Quartz Filter Support</h4><p>Users can access Quartz filters from the ColorSync Utility. For more information on Quartz filters, see <span class="content_text"><!--a  -->Quartz Filters<!--/a--></span>.</p></section></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION51" title="Administration Features"></a><h3 class="jump">Administration Features</h3><p>ColorSync Utility contains administration features which allow the system administrator user to specify the default profiles for other users on the same machine.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION52" title="3D View Options for Profile Viewer"></a><h3 class="jump">3D View Options for Profile Viewer</h3><p>The 3D profile viewer in ColorSync Utility has a contextual menu to allow you to view the profile in a number of different color spaces such as Lab, Luv, Yxy and others. Here's how it looks:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE20" title="Figure 203D viewer contextual menu."></a><figcaption><strong class="caption_number">Figure 20</strong>&nbsp;&nbsp;3D viewer contextual menu.</figcaption><img src="Art/tn2035_33.jpg" alt="" width="599" height="503"></figure><p>You can also use the profile viewer to compare the gamut of two profiles. A contextual menu item "Hold for comparison" allows you to specify the first of a pair of profiles to use for comparison. Simply control-click on a profile in the viewer pane to bring up the contextual menu, then select "Hold for comparison". The profile will lighten in color to indicated it has been selected as shown here:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE21" title="Figure 21Hold for comparison menu item."></a><figcaption><strong class="caption_number">Figure 21</strong>&nbsp;&nbsp;Hold for comparison menu item.</figcaption><img src="Art/tn2035_34.jpg" alt="" width="600" height="502"></figure><p>Now select another profile from the list and the viewer pane will show both profiles together along with any overlap.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE22" title="Figure 22Comparing the gamut of two profiles."></a><figcaption><strong class="caption_number">Figure 22</strong>&nbsp;&nbsp;Comparing the gamut of two profiles.</figcaption><img src="Art/tn2035_35.jpg" alt="" width="599" height="503"></figure></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION54" title="ColorSync and OpenGL"></a><h2 class="jump">ColorSync and OpenGL</h2><p>ColorSync and OpenGL can be used to perform real-time color correction and enhancement of video. In the past, this was only possible on very high-end hardware, but now it can be done on desktop machines due to the availability of high performance video cards.</p><p>Many modern video cards have support for per-pixel 3d texture lookup. This is currently available on the following video cards:</p><ul class="ul"><li class="li"><p>nVidia GeoForce TI</p></li><li class="li"><p>ATI Radeon 9000 series</p></li></ul><p>By loading color correction transformations into these tables, you can accomplish real-time color correction. This is quite powerful, and it demonstrates the integration of all the graphics technologies available in Mac OS X. It combines the advantages and powers of ColorSync, OpenGL, QuickTime and Quartz.</p><p>The way this works is QuickTime content is played on a Quartz OpenGL surface, and attached to that surface is a 3D texture built from a ColorSync color world reference. </p><p>In order to make it easier for applications to do this, some APIs were added to ColorSync. The first is <code>CMMakeProfile</code>. This is a general purpose function which allows you to create a ColorSync profile given a <code>CFDictionary</code> of attributes. For example, you can use this API to create an abstract profile to perform hue rotation, set contrast, and so on. You can also use this API to create standard RGB profiles.</p><p>Here's the definition for the <code>CMMakeProfile</code> function:</p><p><strong>CMMakeProfile</strong></p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE21"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CMMakeProfile  CMError CMMakeProfile(CMProfileRef prof,                       CFDictionaryRef spec)<span></span></pre></td></tr></table></div><p><strong>Description</strong></p><p>Adds appropriate tags to a profile to make display or abstract profile based on an specification dictionary. </p><p><strong>Parameters</strong></p><p>prof(in/out)</p><p>the profile to modify</p><p>spec(in)</p><p>specification dictionary</p><p>One key in the specification dictionary must be "<code>profileType</code>" which must have a <code>CFString</code> value of "<code>abstractLab</code>", "<code>displayRGB</code>" or "<code>displayID</code>". It can also contain the keys/values:</p><p>"<code>description</code>" <code>CFString</code> (optional) </p><p>"<code>copyright</code>" <code>CFString</code> (optional) </p><p>For <code>profileType</code> of "<code>abstractLab</code>", the dictionary should also contain the keys/values:</p><p>"<code>gridPoints</code>" <code>CFNumber</code>(<code>SInt32</code>) (should be odd) </p><p>"<code>proc</code>" <code>CFNumber</code>(SInt64) </p><p>(coerced from a <code>LabToLabProcPtr</code>) </p><p>"<code>refcon</code>" <code>CFNumber</code>(SInt64) (optional) </p><p>(coerced from a void) </p><p>For <code>profileType</code> of "<code>displayRGB</code>", the dictionary should also contain the keys/values:</p><p>"<code>targetGamma</code>" <code>CFNumber</code>(<code>Float</code>) (e.g. 1.8) (optional) </p><p>"<code>targetWhite</code>" <code>CFNumber</code>(<code>SInt32</code>) (e.g. 6500) (optional) </p><p>"<code>gammaR</code>" <code>CFNumber</code>(<code>Float</code>) (e.g. 2.5) </p><p>"<code>gammaG</code>" <code>CFNumber</code>(<code>Float</code>) (e.g. 2.5) </p><p>"<code>gammaB</code>" <code>CFNumber</code>(<code>Float</code>) (e.g. 2.5) </p><p>"<code>tableChans</code>" <code>CFNumber</code>(<code>SInt32</code>) (1 or 3) (optional) </p><p>"<code>tableEntries</code>" <code>CFNumber</code>(<code>SInt32</code>) (e.g 16 or 255) (optional) </p><p>"<code>tableEntrySize</code>" <code>CFNumber</code>(<code>SInt32</code>) (1 or 2) (optional) </p><p>"<code>tableData</code>" <code>CFData</code> (lut in RRRGGGBBB order) (optional) </p><p>either </p><p>"<code>phosphorRx</code>" <code>CFNumber</code>(<code>Float</code>) </p><p>"<code>phosphorRy</code>" <code>CFNumber</code>(<code>Float</code>) </p><p>"<code>phosphorGx</code>" <code>CFNumber</code>(<code>Float</code>) </p><p>"<code>phosphorGy</code>" <code>CFNumber</code>(<code>Float</code>) </p><p>"<code>phosphorBx</code>" <code>CFNumber</code>(<code>Float</code>) </p><p>"<code>phosphorBy</code>" <code>CFNumber</code>(<code>Float</code>) </p><p>or </p><p>"<code>phosphorSet</code>" <code>CFString</code> ("<code>WideRGB</code>", "700/525/450nm", </p><p>"<code>P22-EBU</code>", "<code>HDTV</code>", "<code>CCIR709</code>", "<code>sRGB</code>", </p><p>"<code>AdobeRGB98</code>" or "<code>Trinitron</code>") </p><p>either </p><p>"<code>whitePointx</code>" <code>CFNumber</code>(<code>Float</code>) </p><p>"<code>whitePointy</code>" <code>CFNumber</code>(<code>Float</code>) </p><p>or </p><p>"<code>whiteTemp</code>" <code>CFNumber</code>(<code>SInt32</code>) (e.g. 5000, 6500, 9300) </p><p>For <code>profileType</code> of "<code>displayID</code>", the dictionary should also contain the keys/values:</p><p>"<code>targetGamma</code>" <code>CFNumber</code>(<code>Float</code>) (e.g. 1.8) (optional) </p><p>"<code>targetWhite</code>" <code>CFNumber</code>(<code>SInt32</code>) (e.g. 6500) (optional) </p><p>"<code>displayID</code> <code>CFNumber</code>(<code>SInt32</code>) </p><p>Optionally, the keys/values for "<code>displayRGB</code>" can be provided to override the values from the display.</p><p>Here's a short code snippet showing how to use <code>CMMakeProfile</code> to make an abstract profile:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE22"></a><div class="codesample clear"><table><tr><td scope="row"><pre>void myLabToLabProc(float* L, float* a, float* b, void* refcon)
+{
+    float angle = *(float*)refcon;
+    float aa = (*a), bb = (*b);
+    *a = aa*cos(angle) - bb*sin(angle);
+    *b = aa*sin(angle) + bb*cos(angle);
+}
+
+void makeAbstractWithAngle (CMProfileRef prof, float angle)
+{
+    CFDictionaryRef dict;
+    SInt64 cb64, rc64;
+    SInt32 gridPoints;
+    CFStringRef keys[4];
+    CFTypeRef vals[4];
+    CMError cmErr;
+
+    keys[0] = CFSTR("profileType");
+    vals[0]= CFSTR("abstractLab");
+
+    gridPoints = 33;
+    keys[1] = CFSTR("gridPoints");
+    vals[1]= CFNumberCreate(0, kCFNumberSInt32Type, &amp;gridPoints);
+
+    cb64 = (SInt64) myLabToLabProc;
+    keys[2] = CFSTR("proc");
+    vals[2]= CFNumberCreate(0, kCFNumberSInt64Type, &amp;cb64);
+
+    rc64 = (SInt64) &amp;angle;
+    keys[3] = CFSTR("refcon");
+    vals[3]= CFNumberCreate(0, kCFNumberSInt64Type, &amp;rc64);
+
+    dict = CFDictionaryCreate(nil, keys, vals, 4,
+                &amp;kCFTypeDictionaryKeyCallBacks,
+                &amp;kCFTypeDictionaryValueCallBacks);
+
+    cmErr = CMMakeProfile(prof, dict);
+
+    CFRelease(vals[1]); CFRelease(vals[2]); CFRelease(vals[3]);
+    CFRelease(dict);
+}<span></span></pre></td></tr></table></div><p>The second API added to support the real-time color correction of video is <code>CWFillLookupTexture</code>. This API fills a 3D lookup texture from a colorworld. The resulting table is suitable for use in OpenGL to accelerate color management in hardware.</p><p>Here's the formal definition for <code>CWFillLookupTexture</code>:</p><p><code>CWFillLookupTexture</code></p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE23"></a><div class="codesample clear"><table><tr><td scope="row"><pre>CWFillLookupTexture
+
+          CMError CWFillLookupTexture( CMWorldRef cw,
+                                       UInt32 gridPoints,
+                                       UInt32 format,
+                                       UInt32 dataSize,
+                                       void * data)<span></span></pre></td></tr></table></div><p><strong>Description</strong></p><p>This API fills a 3D lookup texture from a colorworld. The resulting table is suitable for use in OpenGL to accelerate color management in hardware.</p><p><strong>Parameters</strong></p><p>cw (in)</p><p>the colorworld to use</p><p><code>gridPoints</code> (in)</p><p>number of grid points per channel in the texture</p><p>format (in)</p><p>format of pixels in texture (e.g. <code>cmTextureRGBtoRGBX8</code>)</p><p>dataSize (in)</p><p>size in bytes of texture data to fill</p><p>data (in/out)</p><p>pointer to texture data to fill</p><p>Here's a short code snippet showing how to use <code>CWFillLookupTexture</code>:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE24"></a><div class="codesample clear"><table><tr><td scope="row"><pre>void* make_3d_texture(CMProfileRef src, CMProfileRef abs, CMProfileRef dst)
+{
+    UInt32 size, grid = 9, fmt = cmTextureRGBtoRGBX8;
+    CMWorldRef cw;
+    void* data;
+    CMError err;
+
+    cw = make_colorworld(src, abs, dst);
+    err = CWFillLookupTexture(cw, grid, fmt, &amp;size, nil);
+    data = malloc(size);
+    err = CWFillLookupTexture(cw, grid, fmt, &amp;size, &amp;data);
+
+    return data;
+}<span></span></pre></td></tr></table></div><p>Also, sample code is available in the Mac OS X Developer Tools which demonstrates the use of the above-mentioned APIs to perform real-time color correction. Download and install the Mac OS X Developer Tools and look for the "ColorWhirled" sample here :</p><p>/Developer/Examples/ColorSync/ColorWhirled</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION55" title="ColorSync And QuickTime"></a><h2 class="jump">ColorSync And QuickTime</h2><p>QuickTime 6.4 introduces new graphics importer functions such as <code>GraphicsImportSetDestinationColorSyncProfileRef</code> that provide support for ColorSync in Mac OS X. These functions make ColorSync matching the default behavior for native applications that use graphics importers, that is, for image files with embedded ColorSync profiles and for image files with CMYK image data, with or without embedded ColorSync profiles.</p><p>An opt-out flag is provided for applications that call ColorSync directly.</p><p>For a complete list of these new functions, see the <span class="content_text"><a href="http://developer.apple.com/documentation/QuickTime/WhatsNewQT6_4/index.html" class="browserLink" >What's New in QuickTime 6.4 document</a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION56" title="ColorSync And Image Capture"></a><h2 class="jump">ColorSync And Image Capture</h2><p>By default, Image Capture will register a Generic camera profile for all devices, so all downloaded images will be assigned a profile. Optionally, you may specify a profile to be embedded in images you download or scan. Use the <code>ICADownloadFile</code> function along with the <code>kEmbedColorSyncProfile</code> flag.</p><p>See the <span class="content_text"><a href="http://developer.apple.com/sdk/" class="browserLink" >Image Capture SDK</a></span> for more details.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION57" title="Display Calibration"></a><h2 class="jump">Display Calibration</h2><p>Display calibration gives the user the ability to automatically generate profiles for the display, and to calibrate the display in an easy to use fashion. Display calibration is performed by clicking the "Calibrate" button in the Display preferences (found in the System Preferences).</p><p>Normally, this button will simply launch the Apple calibrator. However, this architecture supports third-party calibrators as well.</p><p>There's a few simple modifications you'll need to make to your calibrator for it to be recognized by ColorSync. Here's a quick summary:</p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION57" title="Support for your calibrator"></a><h3 class="jump">Support for your calibrator</h3><ul class="ul"><li class="li"><p>Build your Carbon or Cocoa calibration application as you would normally</p></li><li class="li"><p>Add new <code>CSDisplayCalibrator</code> key to the Info.plist</p></li><li class="li"><p>Support a new optional property in the '<code>oapp</code>' AppleEvent</p></li><li class="li"><p>Install your calibrator (or a symlink to it) in /Library/ColorSync/Calibrators/</p></li></ul><p>To get you started, there's an example calibrator that's installed with the Developer Tools in:</p><p>/Developer/Examples/ColorSync/</p><p>Look for the project "DemoCalibrator". This sample code demonstrates how to make the above modifications to a calibrator. Use this sample as a starting point for your calibrator.</p><p>To see how this works, build the demo calibrator and install the built executable into /Library/ColorSync/Calibrators/. Now go to the Display Preferences (in the System Preferences), click the "Color" tab and click the "Calibrate" button. This will bring up a new dialog that allows the user to choose which of the installed calibrators to use. Here's how the dialog looks:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003071-CH1-FIGURE23" title="Figure 23Dialog for choosing a Calibrator."></a><figcaption><strong class="caption_number">Figure 23</strong>&nbsp;&nbsp;Dialog for choosing a Calibrator.</figcaption><img src="Art/tn2035_36.jpg" alt="" width="330" height="320"></figure></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION58" title="Apple Calibrator Expert Mode"></a><h3 class="jump">Apple Calibrator Expert Mode</h3><p>An expert mode is available for the Apple calibrator. To see this in action, go to the Display Preferences, click the "Color" tab, then click the "Calibrate" button and finally select the "Display Calibrator" (the Apple calibrator) in the list. Now click the "Calibrate" button and in the resulting window click the expert mode check box to turn on expert mode.</p><p>The Apple calibrator has the ability to show single-patch, and the ability to adjust the tint/brightness control, which allows for much finer control. This was necessary because it's very hard for users to adjust blue gamma as it is less visible to the human eye.</p><p>The Apple calibrator also allows for multiple steps. This means in addition to adjusting mid-tones, you can adjust highlights, shadows and dark shadows. This will result in good calibration on LCD displays, which have complex gamma curves.</p><p>The Apple calibrator also allows the calibration profile to be used by other users on the same machine.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION60" title="SIPS"></a><h2 class="jump">SIPS</h2><p>SIPS stands for: Scriptable Image Processing System. SIPS was created because it was determined there was a need for a tool which would perform many common operations on image files in a scriptable manner. </p><p>As it stands, there are a number of existing technologies which provide for manipulations of images. For example, ColorSync Scripting can perform many ColorSync operations such as color-matching of images, but it can't rotate, scale or convert formats. Image Capture Scripting can rotate and scale images, but it can't color match or convert formats. Finally, the Preview application can rotate, scale and covert formats, but it is not Apple-scriptable.</p><p>SIPS brings all these different technologies together to provide a single tool with which to perform common operations on images. The current feature set for SIPS includes:</p><ul class="ul"><li class="li"><p>Read, write or convert different raster image formats</p></li><li class="li"><p>jpeg (Jfif &amp; Xiff), TIFF, GIF, PNG</p></li><li class="li"><p>Basic image operations</p></li><li class="li"><p>Rotate, flip, crop, pad, resample, change dpi</p></li><li class="li"><p>Color management operations</p></li><li class="li"><p>Embed, extract or match to profiles</p></li><li class="li"><p>Read or write known metadata tags</p></li><li class="li"><p>Preserve original content whenever possible</p></li></ul><p>Possible features for future releases of SIPS include:</p><ul class="ul"><li class="li"><p>Support for complex formats</p></li><li class="li"><p>Multilayer, multipage or vector-based</p></li><li class="li"><p>Advanced image operations</p></li><li class="li"><p>Blur, sharpen, ehnance, etc.</p></li><li class="li"><p>Read or write any metadata tag (list of metadata tags is always increasing, contact dts@apple.com to suggest additional tags)</p></li></ul><p>SIPS is currently implemented as a simple compiled tool, which is installed in /usr/bin/sips. It links against CoreGraphics, QuickTime and ColorSync. It can operate on one or more file at a time. It can query or modify images or profiles. SIPS queries can return properties in simple text form or in XML form. Actions can modify files in-place or to an output directory.</p><p>Because SIPS is a simple command line tool there's lots of ways to use it. It can be invoked from the terminal shell, from AppleScript, from other scripting languages or from an application using C code (AppKit or Posix calls).</p><p>For example, open the Terminal and type <code>sips --help</code>. This will give the help page for SIPS (a standard man page will be forthcoming). Here's the output you'll see:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE25"></a><div class="codesample clear"><table><tr><td scope="row"><pre>$ sips --help
+
+sips 1.0 - scriptable image processing system.
+This tool is used to query or modify raster image files and ColorSync ICC profiles.
+Its functionality can also be used through the "Image Events" AppleScript suite.
+Usages:
+sips [-h, --help] 
+sips [-H, --helpProperties] 
+sips [image query functions] imagefile(s) 
+sips [profile query functions] profile(s) 
+sips [image modification functions] imagefile(s) 
+[--out outimage | --out outdir] 
+sips [profile modification functions] profile(s) 
+[--out outprofile | --out outdir] Profile query functions: 
+-g, --getProperty key 
+-X, --extractTag tag tagFile 
+-v, --verify 
+Image query functions: 
+-g, --getProperty key 
+-x, --extractProfile profile 
+Profile modification functions: 
+-s, --setProperty key value 
+-d, --deleteProperty key 
+--deleteTag tag 
+--copyTag srcTag dstTag 
+--loadTag tag tagFile 
+--repair 
+Image modification functions: 
+-s, --setProperty key value 
+-d, --deleteProperty key 
+-e, --embedProfile profile 
+-E, --embedProfileIfNone profile 
+-m, --matchTo profile 
+-M, --matchToWithIntent profile intent 
+-r, --rotate degreesCW 
+-f, --flip horizontal|vertical 
+-c, --cropToHeightWidth pixelsH pixelsW 
+-p, --padToHeightWidth pixelsH pixelsW 
+-z, --resampleHeightWidth pixelsH pixelsW 
+--resampleWidth pixelsW 
+--resampleHeight pixelsH 
+-Z, --resampleHeightWidthMax pixelsWH 
+-i, --addIcon<span></span></pre></td></tr></table></div><p>Here's an example of a simple SIPS command to rotate an image 30 degrees:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE26"></a><div class="codesample clear"><table><tr><td scope="row"><pre>$sips -r 30 /Users/steve/image.JPG<span></span></pre></td></tr></table></div><p>Here's an example of a simple SIPS command to get an image property (the image height). </p><p>First, get a list of the available image properties with the <code>--helpProperties</code> command:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE27"></a><div class="codesample clear"><table><tr><td scope="row"><pre>$sips --helpProperties
+
+  Special properties: 
+    all                  binary data
+    allxml               binary data
+  Image properties: 
+    dpiHeight            float 
+    dpiWidth             float 
+    pixelHeight          integer (read-only)
+    pixelWidth           integer (read-only)
+    format               string  jpeg | tiff | png | gif | jp2 | pict | bmp | qtif | psd
+    formatOptions        string  default | [low|normal|high] | packbits
+    space                string (read-only)
+    samplesPerPixel      integer (read-only)
+    bitsPerSample        integer (read-only)
+    creation             string (read-only)
+    make                 string 
+    model                string 
+    software             string (read-only)
+    description          string 
+    copyright            string 
+    artist               string 
+    profile              binary data
+  Profile properties: 
+    description          utf8 string
+    size                 integer (read-only)
+    cmm                  string 
+    version              string 
+    class                string (read-only)
+    space                string (read-only)
+    pcs                  string (read-only)
+    creation             string 
+    platform             string 
+    quality              string  normal | draft | best
+    deviceManufacturer   string 
+    deviceModel          integer
+    deviceAttributes0    integer
+    deviceAttributes1    integer
+    renderingIntent      string  perceptual | relative | satuation | absolute
+    creator              string 
+    copyright            string 
+    md5                  string (read-only)<span></span></pre></td></tr></table></div><p>Then, issue the command using the image property qualifier:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE28"></a><div class="codesample clear"><table><tr><td scope="row"><pre>$ sips -g dpiHeight image.JPG  image.JPG   dpiHeight: 216.000<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION61" title="ColorSync changes for Mac OS X 10.4 Tiger"></a><h2 class="jump">ColorSync changes for Mac OS X 10.4 Tiger</h2><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION61" title="Floating Point Support"></a><h3 class="jump">Floating Point Support</h3><p>One of the goals of Tiger was to provide a new high fidelity, cinematic graphical environment. In order to achieve this, full floating point support was needed throughout the entire operating system, with ColorSync as one of the key components. </p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION62" title="New structure: CMFloatBitmap"></a><h3 class="jump">New structure: CMFloatBitmap</h3><p>To provide for this new graphical environment, ColorSync has introduced a new bitmap structure <code>CMFloatBitmap</code> to support arbitrary bitmaps and floating point data. One of the design goals for this structure was to make it as flexible as possible so developers would not be required to re-pack the data before passing it to ColorSync.</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE29" title="Listing 3CMFloatBitmap structure."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;<code>CMFloatBitmap</code> structure.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*
+ *  CMFloatBitmap
+ * 
+ *  Summary:
+ *    A new structure that defines and arbitrary map of float color
+ *    values.
+ * 
+ *  Discussion:
+ *    The structure defines a pixel array of dimensions
+ * [height][width][chans] where 'chans' is the number of channels in
+ *    the colorspace plus an optional one for alpha. The actual memory
+ *    pointed to by the structure can contain a variety of possible
+ *    arrangements. The actual data values can be chunky or planar.
+ *    The channels can by in any order. 
+ * 
+ *    Examples: 
+ *    a) float* p contains a 640w by 480h bitmap of chunky RGB data 
+ *        CMFloatBitmap map = { 0,         // version 
+ *                    {p, p+1, p+2},       // base addrs of R,G,B 
+ *                    480, 640,            // height, width 
+ *                    640*3,               // rowStride 
+ *                    3,                   // colStride 
+ *                    cmRGBData, 
+ *                    kCMFloatBitmapFlagsNone}; 
+ *    b) float* p contains a 640w by 480h bitmap of chunky BGRA data 
+ *        CMFloatBitmap map = { 0,         // version 
+ *                    {p+2, p+1, p, p+3},  // base addrs of R,G,B,A 
+ *                    480, 640,            // height, width 
+ *                    640*4,               // rowStride 
+ *                    3,                   // colStride 
+ *                    cmRGBData, 
+ *                    kCMFloatBitmapFlagsAlpha}; 
+ *    c) float* p contains a 640w by 480h bitmap of planar CMYK data 
+ *        CMFloatBitmap map = { 0,        // version 
+ *                    {p, p+640*480 , p+2*640*480 , p+3*640*480}, 
+ *                    480, 640,           // height, width 
+ *                    640,                // rowStride 
+ *                    1,                  // colStride 
+ *                    cmCMYKData, 
+ *                    kCMFloatBitmapFlagsNone};
+ */
+struct CMFloatBitmap {
+
+  /*
+   * The version number of this structure to allow for future
+   * expansion. Should contain 0 for now.
+   */
+  unsigned long       version;
+
+  /*
+   * The base address for each channel in canonical order. The
+   * canonical order for RGB is R,G,B. CMYK is C,M,Y,K etc. A maximum
+   * of sixteen channels is supported. Another way to think of this is
+   * buffers[c] = &amp;(pixelArray[0][0][c])
+   */
+  float *             buffers[16];
+
+  /*
+   * The height (in pixels) of the bitmap.
+   */
+  size_t              height;
+
+  /*
+   * The width (in pixels) of the bitmap.
+   */
+  size_t              width;
+
+  /*
+   * The number of floats to skip to move from one row to the next.
+   * This is typically (width*chans) for chunky pixel buffers or
+   * (width) for planar. Can be negative if the image is vertically
+   * flipped.
+   */
+  ptrdiff_t           rowStride;
+
+  /*
+   * The number of floats to skip to move from one column to the next.
+   * This is typically (chans) for chunky pixel buffers or (1) for
+   * planar. Can be negative if the image is horizontally flipped.
+   */
+  ptrdiff_t           colStride;
+
+  /*
+   * The colorspace of the data (e.g cmRGBdata cmCMYKData)
+   */
+  OSType              space;
+
+  /*
+   * Holds bits to specify the alpha type of the data. The remaining
+   * bits are reserved for future use.
+   */
+  CMFloatBitmapFlags  flags;
+};
+typedef struct CMFloatBitmap            CMFloatBitmap;<span></span></pre></td></tr></table></div><p>This new <code>CMFloatBitmap</code> structure supports both planar and chunky arrangements of data. Each channel is permitted to have a different base address rather than a single base address for all pixel data. This allows channels to be in any arbitrary order. Also, if you require unusual packing between channels, or if your data needs to be scanned in reverse order the structure allows for both rowbytes and columnbytes to be specified.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION63" title="New APIs"></a><h3 class="jump">New APIs</h3><p>A number of new APIs have been introduced for working with the <code>CMFloatBitmap</code> structure. These are described below.</p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION63" title="CMFloatBitmapMakeChunky"></a><h4 class="jump">CMFloatBitmapMakeChunky</h4><p>Most developers will specify a buffer of chunky or interleaved data with the <code>CMFloatBitmap</code> structure, so there is a new utility function <code>CMFloatBitmapMakeChunky</code> which will fill in the structure appropriately. You simply supply a single base address. Here's how it looks:</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE30" title="Listing 4CMFloatBitmapMakeChunky function."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;<code>CMFloatBitmapMakeChunky</code> function.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*
+ *  CMFloatBitmapMakeChunky()
+ * 
+ *  Summary:
+ *    A handy funtion to fill in a CMFloatBitmap.
+ * 
+ *  Discussion:
+ *    Returns a filled in CMFloatBitmap structure given a single buffer
+ *    of chunky data with no alpha.
+ * 
+ *  Parameters:
+ * 
+ *    buffer:
+ * (in) address of interleaved data
+ * 
+ *    height:
+ * (in) height of bitmap in pixels
+ * 
+ *    width:
+ * (in) width of bitmap in pixels
+ * 
+ *    space:
+ * (in) colorsapce of the data
+ * 
+ *  Result:
+ *    a filled in CMFloatBitmap
+ * 
+ *  Availability:
+ *    Mac OS X: in version 10.4 and later in ApplicationServices.framework
+ *    CarbonLib: not available
+ *    Non-Carbon CFM: not available
+ */
+extern CMFloatBitmap 
+CMFloatBitmapMakeChunky(
+  float *  buffer,
+  size_t   height,
+  size_t   width,
+  OSType   space) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;<span></span></pre></td></tr></table></div><p>Regardless of whether you fill the structure by hand or call the helper API, you can then use ColorSync to match the data defined by any floating point bitmap. There are three new functions to do this: </p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION64" title="CMConvertXYZFloatBitmap"></a><h4 class="jump">CMConvertXYZFloatBitmap</h4><p><code>CMConvertXYZFloatBitmap</code> will convert <code>CMFloatBitmap</code> structures across all the CIE related color spaces : XYZ, Yxy, Lab and Luv.</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE31" title="Listing 5CMConvertXYZFloatBitmap function."></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;<code>CMConvertXYZFloatBitmap</code> function.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*
+ *  CMConvertXYZFloatBitmap()
+ * 
+ *  Summary:
+ *    Used to convert CMFloatBitmaps between the related colorspaces
+ *    XYZ, Yxy, Lab, and Luv.
+ * 
+ *  Discussion:
+ *    The buffer data from the source CMFloatBitmap is converted into
+ *    the buffer data specified the destination CMFloatBitmap. 
+ *    Converion "in-place" is allowed.
+ * 
+ *  Parameters:
+ * 
+ *    src:
+ * (in) description of source data buffer to convert from
+ * 
+ *    srcIlluminantXYZ:
+ * (in) required if src-&gt;space is XYZ or Yxy
+ * 
+ *    dst:
+ * (in,out) description of destination data buffer to convert to
+ * 
+ *    dstIlluminantXYZ:
+ * (in) required if dst-&gt;space is XYZ or Yxy
+ * 
+ *    method:
+ * (in) the chromatic adaptation method to use
+ * 
+ *  Availability:
+ *    Mac OS X: in version 10.4 and later in ApplicationServices.framework
+ *    CarbonLib: not available
+ *    Non-Carbon CFM: not available
+ */
+extern CMError 
+CMConvertXYZFloatBitmap(
+  const CMFloatBitmap *   src,
+  const float             srcIlluminantXYZ[3],
+  CMFloatBitmap *         dst,
+  const float             dstIlluminantXYZ[3],
+  CMChromaticAdaptation   method) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION65" title="CMConvertRGBFloatBitmap"></a><h4 class="jump">CMConvertRGBFloatBitmap</h4><p><code>CMConvertRGBFloatBitmap</code> will convert <code>CMFloatBitmap</code> structures across the RGB derived spaces : RGB, HSV and HLS. </p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE32" title="Listing 6CMConvertRGBFloatBitmap function."></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;<code>CMConvertRGBFloatBitmap</code> function.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*
+ *  CMConvertRGBFloatBitmap()
+ * 
+ *  Summary:
+ *    Used to convert CMFloatBitmaps between the related colorspaces
+ *    RGB, HSV, and HLS.
+ * 
+ *  Discussion:
+ *    The buffer data from the source CMFloatBitmap is converted into
+ *    the buffer data specified the destination CMFloatBitmap. 
+ *    Converion "in-place" is allowed.
+ * 
+ *  Parameters:
+ * 
+ *    src:
+ * (in) description of source data buffer to convert from
+ * 
+ *    dst:
+ * (in,out) description of destination data buffer to convert to
+ * 
+ *  Availability:
+ *    Mac OS X: in version 10.4 and later in ApplicationServices.framework
+ *    CarbonLib: not available
+ *    Non-Carbon CFM: not available
+ */
+extern CMError 
+CMConvertRGBFloatBitmap(
+  const CMFloatBitmap *  src,
+  CMFloatBitmap *        dst) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;<span></span></pre></td></tr></table></div><p>Both of these functions are based on well known textbook formulas, so there's no need to pass in a profile or colorworld to handle the transform. Instead, these functions will perform the mathematical calculations for you with floating point precision.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION66" title="CMMatchFloatBitmap"></a><h4 class="jump">CMMatchFloatBitmap</h4><p><code>CMMatchFloatBitmap</code> will color match floating point bitmaps. You may pass in a color world reference to perform the actual transformation. You can create the color world by concatenating one or more profiles. The data is then sent through the CMM, and if the CMM supports floating point data the transformation will be performed using full floating point precision.</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE33" title="Listing 7CMMatchFloatBitmap function."></a><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;<code>CMMatchFloatBitmap</code> function.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*
+ *  CMMatchFloatBitmap()
+ * 
+ *  Summary:
+ *    Used to convert CMFloatBitmaps using a CMWorldRef.
+ * 
+ *  Discussion:
+ *    The buffer data from the source CMFloatBitmap is converted into
+ *    the buffer data specified the destination CMFloatBitmap. 
+ *    Converion "in-place" is allowed.
+ * 
+ *  Parameters:
+ * 
+ *    cw:
+ * (in) the CMWorldRef to convert with
+ * 
+ *    src:
+ * (in) description of source data buffer to convert from
+ * 
+ *    dst:
+ * (in,out) description of destination data buffer to convert to
+ * 
+ *  Availability:
+ *    Mac OS X: in version 10.4 and later in ApplicationServices.framework
+ *    CarbonLib: not available
+ *    Non-Carbon CFM: not available
+ */
+extern CMError 
+CMMatchFloatBitmap(
+  CMWorldRef             cw,
+  const CMFloatBitmap *  src,
+  CMFloatBitmap *        dst) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;<span></span></pre></td></tr></table></div></section></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION68" title="Use of CFTypes"></a><h3 class="jump">Use of CFTypes</h3><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION68" title="CMProfileRef and CMWorldRef are now a CFType"></a><h4 class="jump">CMProfileRef and CMWorldRef are now a CFType</h4><p>ColorSync is now more closely integrated with the Core Foundation types (<code>CFType</code> objects). The two common opaque ColorSync data types, <code>CMProfileRef</code> and <code>CMWorldRef</code>, are now <code>CFType</code> objects. This is very convenient because you can now use the Core Foundation functions such as <code>CFRetained</code> and <code>CFRelease</code> with these data types, and you can also add profiles or color worlds to <code>CFDictionaries</code> and <code>CFArrays</code>. This is handy if you are passing <code>CFDictionaries</code> and color worlds around in various parts of your code.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION69" title="CMProfileCopyICCData"></a><h4 class="jump">CMProfileCopyICCData</h4><p>The <code>CMProfileCopyICCData</code> function lets you extract the data out of the profile. In the past, this was done by calling the <code>CMCopyProfile</code> or <code>CMFlattenProfile</code> functions and this was a bit more work. Now, the entire process is much easier. Just call <code>CMProfileCopyICCData</code> and it will return you all the data in the profile as one big <code>CFData</code> object.</p><a name="//apple_ref/doc/uid/DTS10003071-CH1-SOURCECODE34" title="Listing 8CMProfileCopyICCData function."></a><p class="codesample clear"><strong class="caption_number">Listing 8</strong>&nbsp;&nbsp;<code>CMProfileCopyICCData</code> function.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*
+ *  CMProfileCopyICCData()
+ * 
+ *  Summary:
+ *    Return a copy of the icc data specified by `prof'.
+ * 
+ *  Parameters:
+ * 
+ *    allocator:
+ * (in) The object to be used to allocate memory for the data
+ * 
+ *    prof:
+ * (in) The profile to query
+ * 
+ *  Availability:
+ *    Mac OS X: in version 10.4 and later in ApplicationServices.framework
+ *    CarbonLib: not available
+ *    Non-Carbon CFM: not available
+ */
+extern CFDataRef 
+CMProfileCopyICCData(
+  CFAllocatorRef   allocator,
+  CMProfileRef     prof) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;<span></span></pre></td></tr></table></div></section></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION71" title="API Changes"></a><h3 class="jump">API Changes</h3><p>Below is a discussion of APIs changes for ColorSync in Mac OS X 10.4 Tiger.</p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION71" title="Some of the ColorSync defaults/preferences APIs are to be deprecated"></a><h4 class="jump">Some of the ColorSync defaults/preferences APIs are to be deprecated</h4><p>Several years ago, one feature added to ColorSync at both the API and user-interface level was a set of <span class="content_text"><!--a  -->ColorSync Preferences and Supporting APIs<!--/a--></span> to enable applications to specify default profiles based on usage and color space. The goal of these APIs was to simplify the user interface across a wide variety of applications. In practice, very few applications have used these APIs. In addition, developers have indicated they are confused with the user interface in Colorsync Utility, because any changes made in the settings don't seem to have any kind of noticable effect.</p><p>As a result, these APIs are being deprecated along with the user interface. However, existing applications that are using these APIs need to function correctly, so the behavior of the following functions has been changed:</p><p><code>CMGetDefaultProfileBySpace</code>/<code>SetDefaultProfileBySpace</code></p><p><code>CMGetDefaultProfileByUse</code>/<code>SetDefaultProfileByUse</code></p><p><code>CMGetPreferredCMM</code></p><p>These functions will now store their preferences in the domain:</p><p>Current Application / Current Host / Current User</p><p>instead of storing them as a setting that is global across the machine.</p><p>Again, these APIs will continue to work, but are now deprecated.</p></section></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION73" title="Custom CMMs"></a><h3 class="jump">Custom CMMs</h3><p>Listed below are changes for Custom CMM's in Mac OS X 10.4 Tiger.</p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION73" title="Quartz and Printing Graphics Systems will now only use the Apple CMM"></a><h4 class="jump">Quartz and Printing Graphics Systems will now only use the Apple CMM</h4><p>New changes to Color Management in Mac OS X 10.4 Tiger have resulted in a tighter and more powerful integration between the Quartz and Printing graphics systems. However, in order for the Quartz and Printing graphics systems to work at peak performance and reliability it was necessary to restrict them to use only the Apple CMM. </p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION74" title="Applications can still request a custom CMM using NCWConcatColorWorld and explicitly match data"></a><h4 class="jump">Applications can still request a custom CMM using NCWConcatColorWorld and explicitly match data</h4><p>ColorSync has for a long time now allowed developers to build their own CMM's, and it has also allowed applications to use these third-party CMM's in their applications. With Mac OS X 10.4 Tiger, applications may still call third party CMMs and explicity create color worlds using these CMMs. This can be done with the recommended API <code>NCWConcatColorWorld</code> which lets you specify a CMM identifier in the <code>NCMConcatProfileSet</code> structure.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION75" title="New CMMMatchFloatMap entry point"></a><h4 class="jump">New CMMMatchFloatMap entry point</h4><p>Also, there's a new entry point for CMMs: <code>CMMMatchFloatMap</code>. If your CMM supports this it will give you full access to the new floating point support provided throughout the Quartz system. If you don't support this, your data will be truncated to 16-bit integer.</p></section></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSECTION77" title="Changes to ColorSync Utility"></a><h3 class="jump">Changes to ColorSync Utility</h3><p>This section discusses changes to ColorSync Utility.</p><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION77" title="Removal of Preferences Pane"></a><h4 class="jump">Removal of Preferences Pane</h4><p>As described in <span class="content_text"><!--a  -->API Changes<!--/a--></span>, we are deprecating the Preferences APIs for default profiles. As a result, we are removing the user interface for the Preferences pane in Colorsync Utility.</p></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SUBSUBSECTION78" title="New Color Calculator Pane"></a><h4 class="jump">New Color Calculator Pane</h4><p>We've added a new utility called Color Calculator. This utility lets you easily perform color space conversions with floating point precision. Here's a screenshot showing how it looks:</p><p><p><span class='error'>&lt;IMAGE&gt;</span></p></p></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003071-CH1-SECTION81" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/ColorSync_Manager/index.html" class="browserLink" >ColorSync Manager Reference</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/csintro/index.html" class="browserLink" >Introduction to Color and Color Management</a></span></p></li><li class="li"><p><span class="content_text"><a href="/technotes/tn/tn1160.html" class="urlLink" rel="external">Technical Note TN1160, 'What's New With ColorSync 2.6'</a></span></p></li><li class="li"><p><span class="content_text"><a href="/qa/qa2004/qa1352.html" class="urlLink" rel="external">Technical Q&amp;A QA1352, 'New PPD keywords available in Mac OS X version 10.3'</a></span></p></li><li class="li"><p>ColorWhirled sample code (installed with the <span class="content_text"><a href="http://developer.apple.com/tools/macosxtools.html" class="browserLink" >Xcode Tools</a></span>) at /Developer/Examples/ColorSync/ColorWhirled</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003071-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003071-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2005-08-10</td><td><p>Describes ColorSync changes for Mac OS X 10.4 "Tiger"</p></td></tr><tr><td scope="row">2004-06-25</td><td><p>Miscellaneous formatting changes.</p></td></tr><tr><td scope="row">2004-06-16</td><td><p>Describes ColorSync changes for Mac OS X 10.3</p></td></tr><tr><td scope="row">2003-02-10</td><td><p>New document that 
+					describes ColorSync, which is fundamentally integrated into Mac OS X.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2005 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2005-08-10</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

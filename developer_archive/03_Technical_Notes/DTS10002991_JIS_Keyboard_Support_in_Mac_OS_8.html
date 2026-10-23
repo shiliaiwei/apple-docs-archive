@@ -1,0 +1,910 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="JIS Keyboard Support in Mac OS 8">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002991">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1152.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+    <title>Technical Note TN1152: JIS Keyboard Support in Mac OS 8</title>
+    
+    <meta name="keywords" content="Mac OS 8 keyboard JIS  support KMAP key-map resources KBGetLayoutType">
+    <meta name="Description" content="Technical Note TN1152: This Technical Note describes the
+mechanism introduced in Mac OS 8 to support JIS (Japanese
+Industrial Standards) keyboards. This Note discusses keymap
+resources, KBGetLayoutType, the keyboard control panel, Kotoeri
+2.0 and compatibility guidelines for the JIS Keyboard.">
+
+
+<meta name="categories" content="System Releases and Text">
+
+
+<meta name="week-posted" content="Feb 1, 1999 - Feb 5, 1999">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002991" title="JIS Keyboard Support in Mac OS 8"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>JIS Keyboard Support in Mac OS 8</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxMacOS9Earlier-date.html">Mac OS 9 & Earlier</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/index.html" target="_blank">Reference Library</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1152</div>
+<div id="pageheadsub">JIS Keyboard Support in Mac OS 8</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+   
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+     <tr>
+<td width=300 valign="top" align=left scope="row">
+    <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+<td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+ <span id="menutitle">
+CONTENTS 
+  <br>
+  <br>
+ </span>
+   </td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+ <!-- begin_toc -->
+<P id = "menutext">
+        <a HREF = "#JISKeyboards">JIS Keyboards</a><BR><BR>
+        <a HREF = "#TheWorldBeforeMacOS8">The World Before Mac OS 8</a><BR><BR>
+        <a HREF = "#TheWorldAfterMacOS8">The World After Mac OS 8</a><BR><BR>
+        <a HREF = "#Kotoeri2.0">Kotoeri 2.0</a><BR><BR>
+        <a HREF = "#Summary">Summary</a><BR><BR>
+        <a HREF = "#References">References</a><BR><BR>
+        <a HREF = "#Changes">Change History</a><BR><BR>
+         <a href="#Downloads">Downloadables</a></p>
+       <!-- end_toc -->
+</td>
+  </tr>
+
+  <tr>
+   <td width=300 align=left scope="row">
+ <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+   </td>
+  </tr>
+    </table>
+</td>
+  <td width=300 valign="top" align=left>
+            
+<!-- begin_intro_text -->
+<P id = "introtext">This technote describes the mechanism introduced in Mac OS 8 to support JIS (Japanese Industrial Standards) keyboards. Developers designing input methods or applications that rely on keyboard layout information should read this technote.</P>
+     <!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Feb 22 1999]</h3>
+<!-- end_date -->
+</TD>
+ </TR>
+    </table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>      
+<!-- begin_content -->      
+
+        <a NAME="JISKeyboards"></a>
+        <H2>JIS Keyboards</H2>
+        <P>Macintosh keyboards sold in Japan come in two flavors: US and JIS. As the name suggests, US keyboards are identical in layout to keyboards sold in the United States. JIS keyboards are unique to Japan and feature additional key caps designed for input method functions. For example, the iMac keyboard has the following JIS layout in Japan.</P>
+
+<CENTER><img src="images/tn1152_001.gif" width=550 height=183 alt=""><BR>
+        <BR>
+        <b>Figure 1</b> - The iMac keyboard in Japan</CENTER>
+        
+        <BR>
+
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+                JIS (Japanese Industrial Standards) are developed by the Japan Industrial Standards Committee. JIS is a voluntary national standard, similar to ANSI in the United States.</p>
+</TD></TR></table></CENTER><BR><BR>
+
+        <a NAME="TheWorldBeforeMacOS8"></a>
+        <H2>The World Before Mac OS 8</H2>
+        <P>Japanese versions of the Mac OS contain additional resources to accommodate US and JIS keyboard layouts. Prior to Mac OS 8, this took the form of six extra keyboard-layout resources.</P>
+
+        <CENTER><table BORDER=1>
+            <TR>
+                <td valign="TOP" align=left><B>Name</B></TD>
+                <td valign="TOP" align=left><B>Script</B></TD>
+                <td valign="TOP" align=left><B>How Japanese characters<BR>are typed</B></TD>
+                <td valign="TOP" align=left><B>Keyboard layout</B></TD>
+            </TR>
+            <TR>
+                <td align="left">Kana</TD><td align="left">Japanese</TD><td align="left">Kana</TD><td align="left">US</TD>
+            </TR>
+            <TR>
+                <td align="left">Kana - JIS</TD><td align="left">Japanese</TD><td align="left">Kana</TD><td align="left">JIS</TD>
+            </TR>
+            <TR>
+                <td align="left">Romaji</TD><td align="left">Japanese</TD><td align="left">Romaji</TD><td align="left">US</TD>
+            </TR>
+            <TR>
+                <td align="left">Romaji - JIS</TD><td align="left">Japanese</TD><td align="left">Romaji</TD><td align="left">JIS</TD>
+            </TR>
+            <TR>
+                <td align="left">U.S.</TD><td align="left">Roman</TD><td align="left">N/A</TD><td align="left">US</TD>
+            </TR>
+            <TR>
+                <td align="left">Roman - JIS</TD><td align="left">Roman</TD><td align="left">N/A</TD><td align="left">JIS</TD>
+            </TR>
+        </table>
+        <BR>
+        Table 1: Keyboard-layout resources (resource type <CODE>'KCHR'</CODE>) in Mac OS 7.x</CENTER>
+        <BR>
+        <P>Users were required to configure the correct keyboard-layout resource for each installed script by selecting it in the Keyboard control panel. Since only keyboard-layout resources that belong to the current script are displayed in the control panel, and a Japanese system typically contains two scripts (Japanese and Roman), at least two operations were necessary to specify the type of keyboard attached to the computer.</P>
+        <P>For example, in the case of a JIS keyboard, the user would first select "Roman - JIS" in the Keyboard control panel.</P>
+        <CENTER><img src="images/tn1152_002.gif" width=235 height=208 alt=""><BR>
+        <BR>
+        <b>Figure 2</b> - Selecting "Roman - JIS" in the Keyboard control panel</CENTER>
+        <BR>
+        <P>Next, the user would switch the active script to Japanese (from the script menu), and select "Kana - JIS" or "Romaji -JIS" from the Keyboard control panel, depending on their preferred method of typing.</P>
+        <BR>
+        <CENTER><img src="images/tn1152_003.gif" width=209 height=106 alt=""><BR>
+        <BR>
+        <b>Figure 3</b> - Switching the active script to Japanese</CENTER>
+        <BR>
+        <CENTER><img src="images/tn1152_004.gif" width=235 height=208 alt=""><BR>
+        <BR>
+        <b>Figure 4</b> - Selecting "Kana - JIS" in the Keyboard control panel</CENTER>
+        <BR>
+
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+                While keyboard selections are persistent across restarts in all versions of the Mac OS, the active script is reset when the computer starts up.</p>
+</TD></TR></table></CENTER><BR><BR>
+        <P>Selecting an incorrect keyboard type for either Japanese or Roman scripts would cause strange behavior. For example, selecting a non-JIS layout from the Keyboard control panel when a JIS keyboard was in fact connected would result in certain keys not generating <CODE>keyDown</CODE> events. This is because JIS keyboards feature additional keys that are not present on standard US keyboards; in the standard US keyboard-layout resource, non-existent keys are mapped onto nil character codes which do not generate <CODE>keyDown</CODE> events. To make matters worse, some keys actually map onto different characters altogether.</P>
+        <P>Another problem prior to Mac OS 8 was the lack of a reliable method to determine whether a keyboard's layout was JIS or not. Input methods circumvented this by maintaining static tables of keyboard IDs that were known to be JIS. By comparing the <CODE>KbdType</CODE> low- memory global variable (<CODE>LMGetKbdType</CODE>) to keyboard IDs in their internal tables, input methods could determine if an arbitrary keyboard was JIS or not. Needless to say, every time Apple shipped a JIS keyboard with a new ID, these hard-coded input methods would break and require updating.</P>
+        <P>As if this weren't confusing enough, most input methods bypassed the Keyboard control panel altogether and implemented their own Kana and Romaji settings. So, in fact, it didn't make a difference whether "Romaji / Romaji-JIS" or "Kana / Kana-JIS" was selected in the Keyboard control panel.</P>
+   
+   
+<P><a HREF = "#top">Back to top</a></p>
+
+        <a NAME="TheWorldAfterMacOS8"></a>
+        <H2>The World After Mac OS 8</H2>
+         
+        <P>To remedy the above problems, Apple made the following improvements in Mac OS 8:</P>
+         
+        <UL>
+        <li><B>New Key-Remap Resources</B>
+        
+        <P>Instead of requiring users to adjust settings in the Keyboard control panel according to the type of keyboard attached, key-remap resources (resource type <CODE>'itlk'</CODE>) were added to support JIS keyboards in Mac OS 8.0. Since the keyboard type is handled at the key-remap resource level, keyboard layout settings no longer need to be visible to the user. As a result, JIS-specific keyboard layout resources became redundant and were removed.</P>
+
+        <CENTER><table BORDER=1>
+            <TR>
+                <td valign="TOP" align=left><B>Name</B></TD>
+                <td valign="TOP" align=left><B>Script</B></TD>
+                <td valign="TOP" align=left><B>How Japanese characters<BR>are typed</B></TD>
+                <td valign="TOP" align=left><B>Keyboard layout</B></TD>
+            </TR>
+            <TR>
+                <td align="left">Kana</TD><td align="left">Japanese</TD><td align="left">Kana</TD><td align="left">Any</TD>
+            </TR>
+            <TR>
+                <td align="left">Romaji</TD><td align="left">Japanese</TD><td align="left">Romaji</TD><td align="left">Any</TD>
+            </TR>
+            <TR>
+                <td align="left">U.S.</TD><td align="left">Roman</TD><td align="left">N/A</TD><td align="left">Any</TD>
+            </TR>
+        </table>
+        <BR>
+        Table 2: Keyboard-layout resources (resource type <CODE>'KCHR'</CODE>) in Mac OS 8</CENTER>
+
+        <P>By keeping keyboard-layout resources independent of the keyboard type, just three resources are required to support both JIS and non-JIS keyboards.</P></li>
+            
+        <li><B>KBGetLayoutType</B>
+
+        <P>A new API, <CODE>KBGetLayoutType</CODE>, was introduced in Mac OS 8.0 to return the layout type (ANSI, JIS, or ISO) of the current keyboard. By using this API, input methods no longer need to hard-code a list of JIS keyboard IDs, and they will remain compatible when Apple introduces new keyboards.
+
+Note: The KeyboardsLib library is required to use this API.</P></li>
+            
+        <li><B>A new Keyboard control panel</B>
+
+        <P>With Mac OS 8.0, Apple introduced a new Keyboard control panel. In addition to user interface consolidation and refinements, the new control panel hides keyboard-layout resources for two-byte scripts from the user. This is possible because keyboard layouts are now handled by key-remap resources and responsibility for specifying how Japanese characters are typed (Kana or Romaji) now lies with the input method.</P></li>
+        </UL>
+        
+        <P>The rest of this technote describes each of these improvements in detail.</P>
+
+        <H3>New Key-Remap Resources</H3>
+
+        <P>When a key is pressed, the keyboard generates a raw key code which is mapped onto a virtual key code using a key-map resource (resource type <CODE>'KMAP'</CODE>). The Event Manager uses the appropriate keyboard-layout resource to map this virtual key code onto a more useful character code, which is later passed on to the application in a <CODE>keyDown</CODE> event.
+
+The key-remap resource (resource type <CODE>'itlk'</CODE>) adds an extra conversion layer, mapping the virtual key code generated by the key-map resource onto another virtual key code when it is handled inside <CODE>KeyTranslate</CODE>. For details, see <a href="http://developer.apple.com/documentation/mac/Text/Text-2.html"><I>Inside Macintosh: Text</I>, Appendix C, C-16</a></P>
+        <BR>
+        <CENTER><img src="images/tn1152_005.gif" width=400 height=250 alt=""><BR>
+        <BR>
+        <b>Figure 5</b> - The general flow of a key event with intervention by a key-remap resource.</CENTER>
+        <BR>
+        <P><B>What happens without the key-remap resource?</B></P>
+
+        <P>When a key is pressed, the key-map resource (resource type <CODE>'KMAP'</CODE>) whose ID matches the keyboard's device ID is used to convert the raw key code into a virtual key code. For example, pressing the "@" key on an JIS Apple Keyboard II (ID = 22) will generate a virtual key code of <CODE>0x21</CODE>. If the currently selected keyboard-layout resource is "Roman - JIS", <CODE>KeyTranslate</CODE> will map <CODE>0x21</CODE> onto <CODE>0x40</CODE>, which is the correct character code for the "@" symbol.</P>
+        <BR>
+        <CENTER><img src="images/tn1152_006.gif" width=407 height=250 alt=""><BR>
+        <BR>
+        <b>Figure 6</b> - Pressing "@" on a JIS keyboard with "Roman - JIS" selected.</CENTER>
+        <BR>
+        <P>However, if the selected keyboard-layout resource is "U.S.", <CODE>KeyTranslate</CODE> will map <CODE>0x21</CODE> onto <CODE>0x5B</CODE>, which is the character code for the open bracket "[".</P>
+        <BR>
+        <CENTER><img src="images/tn1152_007.gif" width=407 height=250 alt=""><BR>
+        <BR>
+        <b>Figure 7</b> - Pressing "@" on a JIS keyboard with "U.S." selected.</CENTER>
+        <BR>
+        <P>In order to generate the correct character code for "@" (<CODE>0x40</CODE>) on a US keyboard with the "U.S." <CODE>'KCHR'</CODE> selected, a virtual key code of <CODE>0x13</CODE> needs to be generated with the Shift Key modifier flag set.</P>
+        <BR>
+        <CENTER><img src="images/tn1152_008.gif" width=407 height=250 alt=""><BR>
+        <BR>
+        <b>Figure 8</b> - Generating "@" on a US keyboard with "U.S." selected.</CENTER>
+        <BR>
+        <P>In order to generate the correct character code for "@" (<CODE>0x40</CODE>) on a JIS keyboard with the "U.S." <CODE>'KCHR'</CODE> selected, a key-remap resource is needed to map the virtual key code onto <CODE>0x13</CODE> and set the Shift Key modifier flag.</P>
+        <BR>
+        <CENTER><img src="images/tn1152_009.gif" width=407 height=250 alt=""><BR>
+        <BR>
+        <b>Figure 9</b> - Generating "@" on a JIS keyboard with "U.S." selected.</CENTER>
+        <BR>
+        <P>In other words, it is possible to generate the correct character on a JIS keyboard with the standard "U.S." <CODE>'KCHR'</CODE>, as long a key-remap resource substitutes the appropriate virtual key code and modifier flags.</P>
+
+        <P><B>JIS keyboards supported in Mac OS 8.5.1</B></P>
+
+        <P>As of Mac OS 8.5.1, support for the following JIS keyboards is integrated into the System file. As new keyboard IDs are issued, they will continue to be incorporated into later versions of the operating system.</P>
+
+        <CENTER><table BORDER=1>
+            <TR><td valign="TOP" align=left><B>Keyboard ID</B></TD>
+                <td valign="TOP" align=left><B>JIS Keyboard</B></TD>
+            </TR>
+            <TR>
+                <td align="left">18</TD><td align="left">Apple Adjustable Keyboard</TD>
+            </TR>
+            <TR>
+                <td align="left">21</TD><td align="left">PowerBook 500 Series<BR>
+                PowerBook 1400 Series<BR>
+                PowerBook 3400 Series<BR>
+                PowerBook G3 (Original)<BR></TD>
+            </TR>
+            <TR>
+                <td align="left">22</TD><td align="left">Apple Keyboard II</TD>
+            </TR>
+            <TR>
+                <td align="left">23</TD><td align="left">Reserved</TD>
+            </TR>
+            <TR>
+                <td align="left">26</TD><td align="left">Reserved</TD>
+            </TR>
+            <TR>
+                <td align="left">30</TD><td align="left">PowerBook 2400 Series</TD>
+            </TR>
+            <TR>
+                <td align="left">194</TD><td align="left">Reserved</TD>
+            </TR>
+            <TR>
+                <td align="left">197</TD><td align="left">PowerBook G3 Series</TD>
+            </TR>
+            <TR>
+                <td align="left">200</TD><td align="left">iMac<BR>
+                Power Macintosh G3 (Blue)</TD>
+            </TR>
+            <TR>
+                <td align="left">201</TD><td align="left">Reserved</TD>
+            </TR>
+        </table></CENTER>
+
+        <P><B>Key codes affected by key-remap resources</B></P>
+
+        <P>The following key codes may be altered by the key-remap resources in Mac OS 8.</P>
+
+        <CENTER><table BORDER=1>
+            <TR>
+                <td colspan=3 align=left>
+                <B>Keys that are remapped before being passed<BR>
+                to the following keyboard-layout resources</B>
+                </TD>
+            </TR>
+            <TR>
+                <TD ALIGN="CENTER" align="left"><B>Kana</B></TD>
+                <TD ALIGN="CENTER" align="left"><B>Romaji</B></TD>
+                <TD ALIGN="CENTER" align="left"><B>U.S.</B></TD>
+            </TR>
+            <TR>
+                <TD ALIGN="CENTER" valign=top align="left"> 0x18<BR>0x5D<BR>0x21<BR>0x1E<BR>0x27<BR>0x2A<BR>0x5E<BR>0x5F<BR>0x66<BR>0x68</TD>
+                <TD ALIGN="CENTER" align="left"> 0x13<BR>0x16<BR>0x1A<BR>0x1C<BR>0x19<BR>
+                0x1D<BR>0x1B<BR>0x18<BR>0x5D<BR>0x21<BR>
+                0x1E<BR>0x29<BR>0x27<BR>0x2A<BR>0x5E<BR>
+                0x5F<BR>0x66<BR>0x68</TD>
+                <TD ALIGN="CENTER" align="left"> 0x13<BR>0x16<BR>0x1A<BR>0x1C<BR>0x19<BR>
+                0x1D<BR>0x1B<BR>0x18<BR>0x5D<BR>0x21<BR>
+                0x1E<BR>0x29<BR>0x27<BR>0x2A<BR>0x5E<BR>
+                0x5F<BR>0x66<BR>0x68</TD>
+            </TR>
+        </table></CENTER>
+
+        <H3>KBGetLayoutType</H3>
+
+        <P>Input methods or applications that need to know the type of keyboard attached to the computer (JIS or non-JIS) should use the new <CODE>KBGetLayoutType</CODE> API.</P>
+
+        <P>Since the keyboard library is only present in Japanese versions of Mac OS 8.0 and above, and because of a bug in Mac OS 8.5 (see warning), it is essential to check for availability of the API first (see the following sample code):</P>
+
+        <P>Be sure to <a HREF = "#Downloads">download and link with the keyboard library</a>.</P>
+
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Warning:</B><BR>
+A bug in KeyboardsLib 1.1 that shipped with Mac OS 8.5 causes <CODE>KBGetLayoutType</CODE> to crash under certain circumstances.<BR><BR>
+In a twist of fate, the previously undocumented <CODE>'kbds'</CODE> Gestalt selector was removed from KeyboardsLib 1.1 in the transition to a PowerPC-only shared library. The <CODE>'kbds'</CODE> Gestalt selector has been reinstated in KeyboardsLib 1.1.1 (it is now installed and removed in the library's initialization and termination routines), providing a clean way to identify good versions of the library.<BR><BR>
+                To run safely on all versions of the Mac OS, Apple recommends that you check for known devices first. Then call <CODE>KBGetLayoutType</CODE>, but only if the <CODE>Gestalt</CODE> selector is present.</p>
+</TD></TR></table></CENTER><BR><BR>
+            
+                  
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>/*  KBLayout.h  */
+
+#ifndef __MACTYPES__
+#include &lt;MacTypes.h&gt;
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#if ! defined (__KEYBOARDS__)
+
+enum {
+    gestaltKeyboardsLib = FOUR_CHAR_CODE('kbds')     /* Keyboards library */
+};
+
+enum
+{
+    kKeyboardJIS     = 'JIS ',
+    kKeyboardANSI    = 'ANSI',
+    kKeyboardISO     = 'ISO ',
+    kKeyboardUnknown = '????'
+};
+
+enum
+{
+    _KeyboardDispatch = 0xAA7A
+};
+
+#pragma import on
+extern pascal OSType KBGetLayoutType (short deviceID)
+ THREEWORDINLINE(0x303C, 0x0007, _KeyboardDispatch);
+#pragma import off
+
+#endif
+
+OSType GetKeyboardLayoutType (short deviceID);
+
+#ifdef __cplusplus
+}
+#endif
+
+/*  KBLayout.c  */
+
+#include &lt;Gestalt.h&gt;
+#include &lt;OSUtils.h&gt;
+#include &lt;Traps.h&gt;
+#include "KBLayout.h"
+
+Boolean IsKBGetLayoutTypeAvailable (void);
+
+/*  Returns the keyboard layout type.  */
+
+OSType GetKeyboardLayoutType (short deviceID)
+{
+    OSType keyboardLayoutType;
+
+    switch (deviceID) {
+        case 0x01:
+        case 0x02:
+        case 0x03:
+        case 0x06:
+        case 0x08:
+        case 0x0C:
+        case 0x10:
+        case 0x18:
+        case 0x1B:
+        case 0x1C:
+        case 0xC0:
+        case 0xC3:
+        case 0xC6:
+            keyboardLayoutType = kKeyboardANSI;
+            break;
+        case 0x12:
+        case 0x15:
+        case 0x16:
+        case 0x17:
+        case 0x1A:
+        case 0x1E:
+        case 0xC2:
+        case 0xC5:
+        case 0xC8:
+        case 0xC9:
+            keyboardLayoutType = kKeyboardJIS;
+            break;
+        case 0x04:
+        case 0x05:
+        case 0x07:
+        case 0x09:
+        case 0x0D:
+        case 0x11:
+        case 0x14:
+        case 0x19:
+        case 0x1D:
+        case 0xC1:
+        case 0xC4:
+        case 0xC7:
+            keyboardLayoutType = kKeyboardISO;
+            break;
+        default:
+            if (IsKBGetLayoutTypeAvailable ())
+                keyboardLayoutType = KBGetLayoutType (deviceID);
+            else
+                keyboardLayoutType = kKeyboardUnknown;
+            break;
+    }
+    return keyboardLayoutType;
+}
+
+/*  Returns true if KBGetLayoutType is available.  */
+
+Boolean IsKBGetLayoutTypeAvailable (void)
+{
+    long response;
+
+    if (Gestalt (gestaltKeyboardsLib, &amp;response) == noErr)
+        return true;
+    else
+        return false;
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+                  
+
+        <H3>A new Keyboard control panel</H3>
+
+        <P>The new Keyboard control panel in Mac OS 8 does not list two-byte scripts such as Japanese in the "Script" pop-up menu. Functionality that was previously part of the Keyboard control panel has either been made obsolete or has been incorporated into input methods.</P>
+        <CENTER><img src="images/tn1152_010.gif" width=274 height=331 alt=""><BR>
+        <BR>
+        <b>Figure 10</b> - The Keyboard control panel in Mac OS 8.5</CENTER>
+
+        <H3>Compatibility Gotchas</H3>
+
+        <P>Most existing input methods contain keyboard-layout resources (resource type <CODE>'KCHR'</CODE>) that are switched in or out according to the type of keyboard attached to the computer. These input methods will still work with Mac OS 8, however, there are some compatibility issues to consider:</P>
+
+        <OL>
+            <li><P>With the new key-remap resources, the following keyboard-layout resources became redundant and were removed from the system file. Applications or input methods that depend on these resources need to be updated.</P>
+                <CENTER><table BORDER=1>
+                    <TR>
+                        <td valign="TOP" align=left><B>Name</B></TD>
+                        <td valign="TOP" align=left><B>Script</B></TD>
+                        <td valign="TOP" align=left><B>How Japanese characters<BR>are typed</B></TD>
+                        <td valign="TOP" align=left><B>Keyboard layout</B></TD>
+                    </TR>
+                    <TR>
+                        <td align="left">Kana - JIS</TD><td align="left">Japanese</TD><td align="left">Kana</TD><td align="left">JIS</TD>
+                    </TR>
+                    <TR>
+                        <td align="left">Romaji - JIS</TD><td align="left">Japanese</TD><td align="left">Romaji</TD><td align="left">JIS</TD>
+                    </TR>
+                    <TR>
+                        <td align="left">Roman</TD><td align="left">Roman</TD><td align="left">N/A</TD><td align="left">JIS</TD>
+                    </TR>
+                </table>
+                <BR>
+                Table 3: Keyboard-layout (resource type <CODE>'KCHR'</CODE>) resources removed in Mac OS 8</CENTER><BR>
+                <BR></li>
+            <li><P>Due to limitations in the structure of key-remap resources, some key combinations do not generate correct character codes. Developers should not use the following key combinations for keyboard shortcuts:</P>
+
+            <UL>
+                <li>Backslash + specific modifier keys<BR>
+                <BR>
+                Option + [\],<BR>
+                Option + Shift + [\],<BR>
+                Option + Shift + Command + [\],<BR>
+                Option + Shift + Caps lock + [\] and<BR>
+                Option + Shift + Command + Caps lock + [\]<BR>
+                do not generate a vertical bar (<CODE>0x7C</CODE>) character.<BR><BR></li>
+
+                <li>The "@" symbol + specific modifier keys<BR>
+                <BR>
+                Cmd + [@] ,<BR>
+                Cmd + Shift + [@],<BR>
+                Cmd + Caps + [@] ,<BR>
+                Cmd + Shift + Caps + [@],<BR>
+                Option + [@],<BR>
+                Option + Cmd + [@] ,<BR>
+                Option + Cmd + Caps Lock + [@] and<BR>
+                Control + any combination of modifier keys + [@]<BR>
+                do not generate an "@" (<CODE>0x40</CODE>) character.<BR><BR></li>
+
+                <li>Colon + specific modifier keys<BR>
+                <BR>
+                Cmd + [:] <BR>
+                Cmd + Shift + [:] ,<BR>
+                Cmd + Caps + [:] ,<BR>
+                Cmd + Shift + Caps + [:],<BR>
+                Option + Shift + [:] ,<BR>
+                Option + Shift + Cmd + [:] ,<BR>
+                Option + Shift + Caps + [:] ,<BR>
+                Option + Shift + Cmd + Caps + [:],<BR>
+                Option + [:] and<BR>
+                Ctrl + any combination of modifier keys + [:]<BR>
+                do not generate a colon (<CODE>0x3A</CODE>) character.<BR><BR></li>
+
+                <li>Underscore + specific modifier keys<BR>
+                <BR>
+                Cmd + [_] ,<BR>
+                Cmd + Caps + [_],<BR>
+                Cmd + Shift + [_] ,<BR>
+                Cmd + Shift + Caps Lock + [_],<BR>
+                Option + [_],<BR>
+                Option + Cmd + [_] ,<BR>
+                Option + Cmd + Caps lock + [_],<BR>
+                Option + Shift + [_] ,<BR>
+                Option + Shift + Cmd + [_] ,<BR>
+                Option + Shift + Caps + [_]  and<BR>
+                Option + Shift + Cmd + Caps + [_]<BR>
+                do not generate an underscore (<CODE>0x5F</CODE>) character.<BR><BR></li>
+            </UL></li>
+        </OL>
+
+
+<P><a HREF = "#top">Back to top</a></p>
+
+
+        <P><a NAME="Kotoeri2.0"></a></P>
+         
+        <H2>Kotoeri 2.0</H2>
+         
+        <P>The Japanese version of Mac OS 8.0 includes version 2.0 of Kotoeri (the standard input method that ships with Mac OS). Kotoeri 2.0 uses <CODE>KBGetKeyLayout</CODE> to support JIS keyboards, as illustrated in the sample code above. The following describes how Kotoeri 2.0 uses these mechanisms.</p>
+
+        <P>In principle, Kotoeri uses the character codes provided by the Text Services Manager. To change the typing method (Kana or Romaji), Kotoeri sets the active keyboard-layout resource by specifying its resource ID (<CODE>16384</CODE> for Kana or <CODE>16385</CODE> for Romaji). Likewise, when switching from kana entry mode to Roman entry mode, Kotoeri sets the active keyboard-layout resource to <CODE>16385</CODE>. The following code sample demonstrates how to change the active keyboard-layout resource. Unlike earlier versions of Kotoeri, Kotoeri 2.0 does not contain its own keyboard-layout resources. For details, see <a href="http://developer.apple.com/documentation/macos8/TextIntlSvcs/KeyboardIntlResources/keyboardintlresources.html"><I>Inside Macintosh: Text</I>, Appendix C, C-22</a>.</P>
+
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>OSErr SetSystemKCHR (short resourceID)
+{
+    OSErr error;
+
+    error = SetScriptVariable (smJapanese, smScriptKeys, resourceID);
+    if (error == noErr) {
+        error = SetScriptVariable (smJapanese, smScriptIcon, resourceID);
+        if (error == noErr)
+            KeyScript (smJapanese);
+    }
+    return error;
+}
+</pre>
+</TD></TR></table></CENTER>
+
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+By definition, Japanese input methods are only active within the Japanese script, so it may seem unnecessary to call <CODE>KeyScript</CODE>. However, <CODE>KeyScript</CODE> is required to  complete the SetScriptVariable call correctly.</p>
+</TD></TR></table></CENTER>
+
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Warning:</B><BR>
+Always use the above method to set the active keyboard-layout resource. If you simply load the keyboard-layout resource using <CODE>GetResource</CODE> and pass its pointer to <CODE>KeyTranslate</CODE>, the correct key-remap resource may not be used.</p>
+ </TD></TR></table></CENTER><BR><BR>
+ 
+        <P>Kotoeri also supports the Caps Lock key as a means of switching the input mode. To support this feature, Kotoeri clears the Caps Lock bit in the modifier flags. It then passes the updated modifier flags and the pointer obtained from <CODE>GetScriptManagerVariable</CODE> (<CODE>smKCHRCache</CODE>) to <CODE>KeyTranslate</CODE> to determine the character code without the effects of the Caps Lock key.</P>
+
+
+<P><a HREF = "#top">Back to top</a></p>
+
+
+        <a NAME="Summary"></a>
+        <H2>Summary</H2>
+
+        <P>Applications and input methods that require keyboard layout information and will be used in Japan need to be aware of JIS keyboards. <CODE>KBGetLayoutType</CODE> should be used to determine the type of keyboard attached to the computer (JIS or non-JIS) as demonstrated in the sample code above.</P>
+
+
+<a name="References"></a>
+<H2>References</H2>
+
+
+            <p><a href="http://developer.apple.com/documentation/macos8/OSSvcs/EventManager/eventmanager.html">
+            Event Manager</a><BR>
+            Information on the <CODE>KeyTranslate</CODE> function and keyboard event handling in general.</P>
+
+            <p><a href="http://developer.apple.com/documentation/macos8/TextIntlSvcs/KeyboardIntlResources/keyboardintlresources.html">
+            Keyboard and International Resources</a><BR>
+            Describes the various key-map, key-remap, and keyboard-layout resources (<CODE>'KMAP'</CODE>, <CODE>'itlk'</CODE>, <CODE>'KCHR'</CODE>) described in this technote.</P>
+
+            <p><a href="http://developer.apple.com/documentation/macos8/TextIntlSvcs/ScriptManager/scriptmanager.html">
+            Script Manager</a><BR>
+            Information on the Script Manager, including SetScriptVariable and GetScriptVariable.</P>
+        
+
+<P><a HREF = "#top">Back to top</a></p>
+  
+
+
+<a name="Changes"></a>
+<H2>Change History</H2>
+
+ <table BORDER=0 CELLPADDING=3 WIDTH=544>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-March-1997</P>
+               </TD>
+               <td align="left">
+                  <P>Originally written as DTS-Japan Technote 10009.</P>
+               </TD>
+            </TR>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-July-1997</P>
+               </TD>
+               <td align="left">
+                  <P>Revised.</P>
+               </TD>
+            </TR>
+             <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-October-1998</P>
+               </TD>
+               <td align="left">
+                  <P>Sample code revised to work around a bug in Mac OS 8.5.</P>
+               </TD>
+            </TR>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>22-February-1999</P>
+               </TD>
+               <td align="left">
+                  <P>Rewritten in English and updated to reflect changes in Mac OS 8.5.1.</P>
+               </TD>
+            </TR>
+         </table>
+
+
+
+
+
+<BR><p><a HREF = "#top">Back to top</a></p>
+
+<a NAME="Downloads"></a> 
+<h2>Downloadables</h2>
+
+<center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+ <TR> 
+<td width=50 align=left> 
+  <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" width=22 height=23></P>
+</TD>
+<td align="left"> 
+  <p>Acrobat version of this Note (512K).</P>
+</TD>
+<td width=60 align=left> 
+  <p><a href="pdf/tn1152.pdf">Download</a></P>
+</TD>
+  </TR> 
+  <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/bluebook.gif" width=22 height=23 align=bottom alt="Bluebook gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Binhexed KeyboardsLib (2K)</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="downloads/tn1152.1.hqx">Download</a></P>
+               </TD>
+            </TR>
+</table></center>
+
+
+<BR><p><a href="#top">Back to top</a></p>
+
+
+</TD></TR></table></CENTER>
+
+<!-- end_content -->
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>
+

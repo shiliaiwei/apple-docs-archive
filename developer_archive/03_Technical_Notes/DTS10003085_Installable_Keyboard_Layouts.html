@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2056: Installable Keyboard Layouts</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003085">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003085-CH1">
+    <meta id="date" name="date" content="2009-10-02">
+    <meta id="description" name="description" content="TN2056: Explains how to define a Unicode keyboard via an XML text file.">
+    <meta id="book-title" name="book-title" content="Installable Keyboard Layouts">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/User Experience}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2056">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Installable Keyboard Layouts" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003085" title="Technical Note TN2056"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Installable Keyboard Layouts</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003085-CH1-DontLinkElementID_2" title="Technical Note TN2056"></a><div class="dtsDocNumber">Technical Note TN2056</div><h1 id="pageTitle">Installable Keyboard Layouts</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Mac OS X 10.2 adds the ability to install a new keyboard layout by putting a file or bundle in a standard folder. </p><p>It is also now possible to define a Unicode keyboard via an XML text file. These keyboards have the same set of capabilities as the <code>'uchr'</code> resource keyboards defined in the document "Supporting Unicode Input." In fact, the XML file is translated to the uchr format and then handled in exactly the same way.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SECTION1" data-renderer-version="1">Installation</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SECTION2" data-renderer-version="1">Supported Keyboard Data Formats</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SECTION3" data-renderer-version="1">XML DTD</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SECTION4" data-renderer-version="1">XML File Structure</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION4" data-renderer-version="1">&lt;keyboard&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION5" data-renderer-version="1">&lt;layouts&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION6" data-renderer-version="1">&lt;layout&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION7" data-renderer-version="1">&lt;modifierMap&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION8" data-renderer-version="1">&lt;keyMapSelect&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION9" data-renderer-version="1">&lt;modifier&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION10" data-renderer-version="1">&lt;keyMapSet&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION11" data-renderer-version="1">&lt;keyMap&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION12" data-renderer-version="1">&lt;key&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION13" data-renderer-version="1">&lt;actions&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION14" data-renderer-version="1">&lt;action&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION15" data-renderer-version="1">&lt;when&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION16" data-renderer-version="1">&lt;terminators&gt; Element</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SECTION18" data-renderer-version="1">A Complete Dead Key Example</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003085-CH1-SECTION19" data-renderer-version="1">References</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003085-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SECTION1" title="Installation"></a><h2 class="jump">Installation</h2><p>Keyboard layouts can be installed in one of the following locations:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>/Library/Keyboard Layouts/  ~/Library/Keyboard Layouts/  /Network/Library/Keyboard Layouts/<span></span></pre></td></tr></table></div><p>Resources in <code>/Library/</code> are shared among all users on a given machine. Resources in <code>~/Library/</code> are visible only to that user. Resources in <code>/Network/Library/</code> are shared among all users on a network.</p><p>Keyboards have ID numbers which uniquely identify them; these are not shown to the end user. If the system detects two or more keyboards with the same ID number, it will renumber keyboards as necessary to eliminate the conflict.</p><p>After installing a new keyboard, the user must log out and then log in again to make the keyboard available.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SECTION2" title="Supported Keyboard Data Formats"></a><h2 class="jump">Supported Keyboard Data Formats</h2><p>There are several different formats that are supported:</p><ol class="ol"><li class="li"><p>Old-style Keyboard Suitcase (resource file)</p><p>Keyboard.rsrc (resource file containing <code>KCHR</code>, <code>uchr</code>, <code>itlk</code>, <code>kcns</code>, <code>kcs#</code>, <code>kcs4</code>, <code>kcs8</code> resources)</p><p>The name of the keyboard comes from the resource name of the <code>KCHR/uchr,</code> and cannot be localized. The encoding used is that of the script to which the keyboard belongs, or UTF-8 for Unicode keyboards (negative IDs). The resource file may have one or more keyboards in it. The resources may be in either the resource fork or the data fork (not both); the file extension must be <code>.rsrc</code>.</p><p>Icons may be in the kcns resource format, which is new for Mac OS X and is the same as the icns icon format, or in the older <code>kcs#/kcs4/kcs8</code> format used on Mac OS 9. If no icon resources are present, the keyboard will have a generic icon in the input menu and in International Preferences.</p><p>To use a Mac OS 9 keyboard suitcase, append the file extension <code>.rsrc</code>.</p></li><li class="li"><p>Localized Keyboard Suitcase Bundle </p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre> Roman.bundle/
+        Contents/
+            Info.plist
+            Resources/
+                MyLayouts.rsrc
+                English.lproj/
+                    InfoPlist.strings
+            version.plist<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre> InfoPlist.strings file contents:         "U.S." = "U.S.";         "Australian" = "Australian";         "Austrian" = "Austrian";         ...<span></span></pre></td></tr></table></div><p>The <code>Info.plist</code> and <code>version.plist</code> files follow standard bundle conventions. The bundle identifier must take the form <code>com.apple.keyboardlayout.name</code>.</p><p>The <code>MyLayouts.rsrc</code> file (which may have any name but must have the extension <code>.rsrc</code>) contains sets of <code>KCHR</code>, <code>uchr</code>, <code>itlk</code>, <code>kcns</code>, <code>kcs#</code>, <code>kcs4</code>, and <code>kcs8</code> resources.</p><p>The resource file may have one or more keyboards in it; icons are as for format 1. The keyboard layout names may be localized via the <code>InfoPlist.strings</code> file within the various <code>.lproj</code> folders. The unlocalized key (left hand side) will be the same as the keyboard resource name, in Unicode rather than its native encoding. For example, a Roman <code>KCHR</code> resource would have its resource name in MacRoman, but the key in the <code>InfoPlist.strings</code> file must be the Unicode equivalent.</p><p>This format supports resources in the data fork only.</p></li><li class="li"><p>XML Keyboard Definition</p><p>This must be a valid text XML file following the specification later in this document, and must have the extension <code>.keylayout</code>. As discussed below, the name is always in Unicode, but it cannot be localized.</p><p><code>Mykeyboard.keylayout</code></p><p>After installation, an XML keyboard will become available in the Input Menu pane of International Preferences if no errors were encountered in compiling it. If there is an error in the file, an error message will be written to <code>console.log</code>, prefixed by "uchr XML compiler." If the error is an XML syntax error, the line in the file where the error occurred is given. Usually, only the first error encountered is diagnosed, and parsing is aborted.</p><p>Since <code>console.log</code> is erased when you log out and log in, to see error messages, force the keyboard to compile by opening International Preferences and switching to the Input Menu pane. Launching an application and typing will also force all keyboards to compile if the modification date of the directory has changed. If the keyboard does not appear in International Preferences, you can then check in <code>console.log</code> for error messages. To force the modification date on the directory to change, you can use the Unix <code>touch</code> command.</p><p>Keyboards in this format can have an optional associated icon file, in the standard <code>icns</code> format; it has the same name as the keyboard file with the extension <code>.icns</code>:</p><p><code>Mykeyboard.icns</code></p><p>If this file is absent, the keyboard will have a generic icon in the input menu and in International Preferences.</p></li><li class="li"><p>Localized XML Keyboard Bundle </p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre> MyKeyboards.bundle/
+        Contents/
+            Info.plist
+            Resources/
+                MyKeyboard1.keylayout
+                MyKeyboard1.icns
+                MyKeyboard2.keylayout
+                MyKeyboard2.icns
+                English.lproj/
+                    InfoPlist.strings
+                version.plist<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre> InfoPlist.strings file contents:         "MyKeyboard1" = "MyKeyboard1";         "MyKeyboard2" = "MyKeyboard2";<span></span></pre></td></tr></table></div><p>This format supports localized names for XML keyboards. The bundle may contain multiple XML files ending in <code>.keylayout</code>. Localization is as for format 2 above. The <code>.icns</code> file is optional for each keyboard; if it is absent, the keyboard has a generic icon in the input menu and in International Preferences.</p></li></ol><p>The rest of this document discusses the new XML keyboard data format.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SECTION3" title="XML DTD"></a><h2 class="jump">XML DTD</h2><p>XML keyboards must follow the XML DTD (Document Type Definition) below:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;!-- Overall structure --&gt;
+&lt;!ELEMENT keyboard (layouts+, modifierMap+, keyMapSet+, actions*, terminators*)&gt;
+&lt;!ATTLIST keyboard group NMTOKEN #REQUIRED &gt;
+&lt;!ATTLIST keyboard id NMTOKEN #REQUIRED &gt;
+&lt;!ATTLIST keyboard name CDATA #REQUIRED &gt;
+&lt;!ATTLIST keyboard maxout NMTOKEN #IMPLIED &gt;
+
+&lt;!-- Hardware layout elements --&gt;
+&lt;!ELEMENT layouts (layout+) &gt;
+&lt;!ELEMENT layout EMPTY &gt;
+&lt;!ATTLIST layout first NMTOKEN #REQUIRED &gt;
+&lt;!ATTLIST layout last NMTOKEN #REQUIRED &gt;
+&lt;!ATTLIST layout modifiers IDREF #REQUIRED &gt;
+&lt;!ATTLIST layout mapSet IDREF #REQUIRED &gt;
+
+&lt;!-- Modifier descriptions --&gt;
+&lt;!ELEMENT modifierMap (keyMapSelect+) &gt;
+&lt;!ATTLIST modifierMap id ID #REQUIRED &gt;
+&lt;!ATTLIST modifierMap defaultIndex NMTOKEN #REQUIRED &gt;
+
+&lt;!ELEMENT keyMapSelect (modifier+) &gt;
+&lt;!ATTLIST keyMapSelect mapIndex NMTOKEN #REQUIRED &gt;
+
+&lt;!ELEMENT modifier EMPTY &gt;
+&lt;!ATTLIST modifier keys CDATA #REQUIRED &gt;
+
+&lt;!-- Keyboard mapping --&gt;
+&lt;!ELEMENT keyMapSet (keyMap+) &gt;
+&lt;!ATTLIST keyMapSet id ID #REQUIRED &gt;
+
+&lt;!ELEMENT keyMap (key+) &gt;
+&lt;!ATTLIST keyMap index NMTOKEN #REQUIRED &gt;
+&lt;!ATTLIST keyMap baseMapSet IDREF #IMPLIED &gt;
+&lt;!ATTLIST keyMap baseIndex NMTOKEN #IMPLIED &gt;
+
+&lt;!ELEMENT key (action*) &gt;
+&lt;!ATTLIST key code NMTOKEN #REQUIRED &gt;
+&lt;!ATTLIST key output CDATA #IMPLIED &gt;
+&lt;!ATTLIST key action IDREF #IMPLIED &gt;
+
+&lt;!-- Actions (state records) --&gt;
+&lt;!ELEMENT actions (action+) &gt;
+&lt;!ELEMENT action (when+) &gt;
+&lt;!ATTLIST action id ID #IMPLIED &gt;
+
+&lt;!ELEMENT when EMPTY &gt;
+&lt;!ATTLIST when state NMTOKEN #REQUIRED &gt;
+&lt;!ATTLIST when through NMTOKEN #IMPLIED &gt;
+&lt;!ATTLIST when output CDATA #IMPLIED &gt;
+&lt;!ATTLIST when multiplier NMTOKEN #IMPLIED &gt;
+&lt;!ATTLIST when next NMTOKEN #IMPLIED &gt;
+
+&lt;!-- Terminators --&gt;
+&lt;!ELEMENT terminators (when+) &gt;<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SECTION4" title="XML File Structure"></a><h2 class="jump">XML File Structure</h2><p>A keyboard layout description is a standard XML file, and so follows the XML specification. The text file encoding should be Unicode, either UTF-8 or UTF-16. It's a good idea to have both <code>xml</code> and <code>DOCTYPE</code> directives at the beginning of the file, to clearly identify it:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE7"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt; &lt;!DOCTYPE keyboard SYSTEM "file://localhost/System/Library/DTDs/KeyboardLayout.dtd"&gt;<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION4" title="&lt;keyboard&gt; Element"></a><h3 class="jump">&lt;keyboard&gt; Element</h3><p>The top level element is <code>&lt;keyboard&gt;</code>. <code>&lt;keyboard&gt;</code> has the following attributes, all of which are required:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-TABLE1" title="Table 1keyboard element attributes"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;keyboard element attributes</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+group
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+The section of the keyboard menu in which this layout should appear. Right now, this is the script code. Unicode keyboards have a script code of 126.
+</p></th></tr><tr><td  scope="row"><p>
+id
+</p></td><td ><p>
+The unique ID for the keyboard. Right now, this is numeric, and must match the script bundle specified in "group". Unicode keyboards have negative IDs. If this ID collides with that of another keyboard, the system will assign a new ID. See further discussion below.
+</p></td></tr><tr><td  scope="row"><p>
+name
+</p></td><td ><p>
+The name of the keyboard, to appear in the Keyboard Menu. This is in whatever encoding the keyboard file itself is in (e.g., UTF-8 or UTF-16), not the encoding corresponding to the script of the keyboard. Note that this name cannot be localized, but it is possible to localize the names of keyboards using the bundle mechanism.
+</p></td></tr><tr><td  scope="row"><p>
+</p></td><td ><p>
+The following attribute is optional:
+</p></td></tr><tr><td  scope="row"><p>
+maxout
+</p></td><td ><p>
+The maximum number of UTF-16 values that can be generated from one keypress.
+</p></td></tr></table></div><p>The keyboard element must contain exactly one <code>&lt;layouts&gt;</code> element, one or more <code>&lt;modifierMap&gt;</code> elements, one or more <code>&lt;keyMapSet&gt;</code> elements, an optional <code>&lt;actions&gt;</code> element, and an optional <code>&lt;terminators&gt;</code> element.</p><p>Unicode Keyboards (uchr or XML) can be divided into two classes. The first are those associated with a particular Mac OS script code. These keyboards should normally only generate Unicode strings that can be converted to the encoding associated with the script. The scripts (and associated codes) supported in Mac OS X are Roman (0), Japanese (1), Simplified Chinese (25), Traditional Chinese(2), Korean (3), Cyrillic (7), and Central European (29); there are no plans to support any other scripts. This type of keyboard is available to both Unicode and non-Unicode (WorldScript) applications.</p><p>It is possible for a keyboard associated with a script to generate Unicode strings that cannot be converted to the associated encoding. This has the disadvantage that such strings will cause question marks (?) to appear in non-Unicode applications. For example, the Kotoeri Japanese input method can generate any Unicode character, but characters outside MacJapanese are only supported in Unicode applications.</p><p>The second class of keyboards generate Unicode characters not associated with any of the scripts listed above. Such keyboards are only available to Unicode applications, and have negative id values. They should be assigned to group 126.</p><p>A good rule of thumb in deciding whether to associate a keyboard with a script code or not is whether "typical" text typed with the keyboard fits entirely within the script's character encoding. It is best to be conservative as users will have trouble understanding why they are getting ?'s in their WorldScript applications.</p></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION5" title="&lt;layouts&gt; Element"></a><h3 class="jump">&lt;layouts&gt; Element</h3><p>The <code>&lt;layouts&gt;</code> element has no attributes, and contains one or more <code>&lt;layout&gt;</code> elements. Collectively, these elements define which <code>&lt;modifierMap&gt;</code> and <code>&lt;keyMapSet&gt;</code> elements control the mapping of keys for particular hardware keyboards.</p><p>The <code>&lt;layout&gt;</code> element which is physically first controls the mapping of keyboards whose IDs are not contained within the range of IDs for any <code>&lt;layout&gt;</code> element.</p><p>Apple will map new keyboard hardware IDs to one of the existing ones, so it is usually sufficient to copy and paste the entire <code>&lt;layouts&gt;</code> element from an existing keyboard layout.</p></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION6" title="&lt;layout&gt; Element"></a><h3 class="jump">&lt;layout&gt; Element</h3><p>The <code>&lt;layout&gt;</code> element is an empty element (i.e., it has no subelements and is written in the empty form: <code>&lt;layout /&gt;</code>). It defines which <code>&lt;modifierMap&gt;</code> and <code>&lt;keyMapSet&gt;</code> to use for a particular range of hardware keyboard IDs. It has the following attributes, all of which are required:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-TABLE2" title="Table 2layout element attributes"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;layout element attributes</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+first
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+The hardware ID of the first keyboard type controlled by this element.
+</p></th></tr><tr><td  scope="row"><p>
+last
+</p></td><td ><p>
+The hardware ID of the last keyboard type controlled by this element
+</p></td></tr><tr><td  scope="row"><p>
+modifiers
+</p></td><td ><p>
+The identifier of the &lt;modifierMap&gt; element to use for this range of hardware keyboard types.
+</p></td></tr><tr><td  scope="row"><p>
+mapSet
+</p></td><td ><p>
+The identifier of the &lt;mapSet&gt; element to use for this range of hardware keyboard types.
+</p></td></tr></table></div><p>Example:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE8"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;layouts&gt;
+ &lt;layout first="0" last="17" modifiers="commonModifiers" mapSet="ANSI" /&gt;
+ &lt;layout first="18" last="18" modifiers="commonModifiers" mapSet="JIS" /&gt;
+ &lt;layout first="21" last="23" modifiers="commonModifiers" mapSet="JIS" /&gt;
+ &lt;layout first="30" last="30" modifiers="commonModifiers" mapSet="JIS" /&gt;
+ &lt;layout first="194" last="194" modifiers="commonModifiers" mapSet="JIS" /&gt;
+ &lt;layout first="197" last="197" modifiers="commonModifiers" mapSet="JIS" /&gt;
+ &lt;layout first="200" last="201" modifiers="commonModifiers" mapSet="JIS" /&gt;
+ &lt;layout first="206" last="207" modifiers="commonModifiers" mapSet="JIS" /&gt;
+&lt;/layouts&gt;<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION7" title="&lt;modifierMap&gt; Element"></a><h3 class="jump">&lt;modifierMap&gt; Element</h3><p>The <code>&lt;modifierMap&gt;</code> element defines the mapping of modifier key combinations to <code>&lt;keyMap&gt;</code> table numbers. The element contains one or more <code>&lt;keyMapSelect&gt;</code> elements, each of which correspond to one <code>&lt;keyMap&gt;</code> table.</p><p>There are two required attributes:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-TABLE3" title="Table 3Required modifierMap attributes"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 3</strong>&nbsp;&nbsp;Required modifierMap attributes</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+id
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+An arbitrary string, used to identify this &lt;modifierMap&gt; elsewhere (currently, only in the &lt;layout&gt; element). This identifier must be unique across all &lt;modifierMap&gt; elements. 
+</p></th></tr><tr><td  scope="row"><p>
+defaultIndex
+</p></td><td ><p>
+The table number to use for modifier key combinations which are not explicitly specified by any &lt;modifier&gt; element within the &lt;modifierMap&gt;. 
+</p></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION8" title="&lt;keyMapSelect&gt; Element"></a><h3 class="jump">&lt;keyMapSelect&gt; Element</h3><p>This element defines the set(s) of modifier keys which cause a particular key mapping table to be selected. It contains one or more <code>&lt;modifier&gt;</code> elements, each of which specifies modifer key combinations. Every entry in the modifier mapping table which matches one of the specified modifier key combinations is filled in with this table number. The <code>&lt;keyMapSelect&gt;</code> elements are processed in sequence, so if two or more <code>&lt;keyMapSelect&gt;</code> elements specify the same combination(s) of modifier keys, the later ones will overwrite the earlier ones.</p><p>There is one required attribute:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-TABLE4" title="Table 4Required keyMapSelect attribute"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 4</strong>&nbsp;&nbsp;Required keyMapSelect attribute</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+mapIndex
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+A table number, starting from 0, to which modifier key combinations specified by &lt;modifier&gt; elements within this &lt;keyMapSelect&gt; element should be mapped. The table numbers should be contiguous and compact as the underlying implementation uses an array. 
+</p></th></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION9" title="&lt;modifier&gt; Element"></a><h3 class="jump">&lt;modifier&gt; Element</h3><p>This element specifies one or more sets of modifier key combinations which should map to the table number specified in the enclosing <code>&lt;keyMapSelect&gt;</code> element. This element is empty in the XML sense (it's written as <code>&lt;modifier /&gt;</code>). There is one required attribute:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-TABLE5" title="Table 5Required modifier element attribute"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 5</strong>&nbsp;&nbsp;Required modifier element attribute</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+keys
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+A string specifying one or more combinations of modifier keys. The string consists of one or more of the following separated by whitespace: 
+
+
+shift - The left Shift key
+
+
+rightShift - The right Shift key
+
+
+anyShift - Matches either the left or right Shift key
+
+
+option - The left Option key
+
+
+rightOption - The right Option key
+
+
+anyOption - Matches either the left or right Option key
+
+
+control - The left Control key
+
+
+rightControl - The right Control key
+
+
+anyControl - Any Control key
+
+
+command - The Command key
+
+
+caps - the Caps Lock key
+
+
+</p></th></tr></table></div><p>The presence of a word means that the corresponding modifier must be pressed. The absence of a word means that the corresponding modifier must not be pressed. A word followed by <code>?</code> indicates that the state of the modifier is irrelevant (it may be either pressed or not pressed). For example, <code>command?</code> means that this modifier element selects modifier key combinations with the command key either pressed or not pressed (i.e., the state of the command key is irrelevant).</p><p>An "any" modifier matches modifier key combinations where either or both of the left and right keys are pressed. For example, "<code>anyShift</code>" will match modifier key combinations where the left Shift key, the right Shift key, or both are pressed; it will not match combinations where neither is pressed. "<code>anyShift</code>?" will match all combinations of modifier keys where either or both of the Shift keys are either pressed or not.</p><p>Note that many hardware keyboards do not have both left and right versions of a modifier key. It is usually safest to specify modifers in terms of the "any" variants (<code>anyShift</code>, <code>anyOption</code>, <code>anyControl</code>).</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE9"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;modifier keys="anyShift? anyOption caps?" /&gt;<span></span></pre></td></tr></table></div><p>This specification will match all modifier key combinations where either the left or right Option key is pressed (or both are pressed), and the command key and left and right Control keys are not pressed. The state of the Shift and Caps Lock keys are irrelevant.</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE10"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;modifier keys="caps" /&gt; &lt;modifier keys="command" /&gt;<span></span></pre></td></tr></table></div><p>This specification will match all modifier key combinations where either caps lock key is down with no other modifiers, or the command key is down with no other modifiers.</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE11"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;modifier keys="" /&gt; &lt;modifier keys="anyShift command caps?" &gt; &lt;modifier keys="anyShift? command caps" /&gt;<span></span></pre></td></tr></table></div><p>This specification will match modifier key combinations where</p><ul class="ul"><li class="li"><p>No modifier keys are down</p></li><li class="li"><p>Either shift key and the command key are down, and control and option are up. </p></li><li class="li"><p>The caps lock key and the command key are down, and control and option are up. </p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION10" title="&lt;keyMapSet&gt; Element"></a><h3 class="jump">&lt;keyMapSet&gt; Element</h3><p>This element collects a set of tables that are used to map from key presses to results. Typically there is one set for each class of hardware keyboard. Since the ISO keyboard used in Europe can be handled with the same layout as the ANSI keyboard used in the US, that leaves ANSI and JIS (used in Japan) as the two classes that need to be handled.</p><p>This element contains one or more <code>&lt;keyMap&gt;</code> elements, each of which specifies a particular mapping from virtual key codes to results. Typically there will be one such table for each relevant combination of modifier keys.</p><p>There is one required attribute:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-TABLE6" title="Table 6Required keyMapSet element attribute"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 6</strong>&nbsp;&nbsp;Required keyMapSet element attribute</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+id
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+A string which serves as an identifier for this keyMapSet when referenced from elsewhere in the XML file. This identifier must be unique across all keyMapSet elements. 
+</p></th></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION11" title="&lt;keyMap&gt; Element"></a><h3 class="jump">&lt;keyMap&gt; Element</h3><p>This element specifies a particular mapping from virtual key codes to results. It contains one or more <code>&lt;key&gt;</code> elements which specify what to do when a particular virtual key code is received. The size of the resulting mapping table is determined by the largest virtual key code specified by any table in the <code>keyMapSet</code>; unspecified entries are filled with null results (they don't do anything, in other words). There are one required and two optional attributes:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-TABLE7" title="Table 7Required keyMap element attributes"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 7</strong>&nbsp;&nbsp;Required keyMap element attributes</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+index
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+The table number. This is referenced from the &lt;keyMapSelect&gt; element. 
+</p></th></tr><tr><td  scope="row"><p>
+baseMapSet
+</p></td><td ><p>
+The identifier of a base map set containing a &lt;keyMap&gt; element of which this element is a modification. &lt;key&gt; entries within the current element override entries from the specified base &lt;keyMap&gt; element. Virtual key codes not overridden are copied from the base element. If this attribute is present then the baseIndex attribute must also be present.
+</p></td></tr><tr><td  scope="row"><p>
+baseIndex
+</p></td><td ><p>
+The table number of a &lt;keyMap&gt; element within the &lt;keyMapSet&gt; specified by baseMapSet. &lt;key&gt; entries within the current element override entries from the specified base &lt;keyMap&gt; element. Virtual key codes not overridden are copied from the base element. If this attribute is present then the baseMapSet attribute must also be present.
+</p></td></tr></table></div><p>Typically the <code>baseMapSet</code> and <code>baseIndex</code> are used to provide overrides for a kind of hardware keyboard. The most frequent usage is to provide differences between the ANSI keyboard layout and the JIS keyboard layout, e.g.:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE12"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;keyMapSet id="JIS"&gt;     &lt;keyMap index="0" baseMapSet="ANSI" baseIndex="0"&gt;     (overrides of ANSI layout for JIS keyboards)<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION12" title="&lt;key&gt; Element"></a><h3 class="jump">&lt;key&gt; Element</h3><p>This element specifies what to do when a particular virtual key code is received. The element may be empty or non-empty; it is only non-empty if an action is specified inline.</p><p>The following attribute is required:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-TABLE8" title="Table 8Required key element attribute"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 8</strong>&nbsp;&nbsp;Required key element attribute</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+code
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+The decimal number of the virtual key code which this &lt;key&gt; element maps. This number must be unique across all &lt;key&gt; elements within a particular &lt;keyMap&gt; element. (You can't map the same key in two different ways.)
+</p></th></tr></table></div><p>It is intended that at some point named entities will be available to specify the key codes, but this is not yet implemented.</p><p>The <code>&lt;key&gt;</code> element takes one of three different forms:</p><ol class="ol"><li class="li"><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE13"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key code="virtualkeycode" output="string" /&gt;<span></span></pre></td></tr></table></div><p>When the given virtual key code is received, the specified string of UTF-16 values is unconditionally output. The string must have at least one UTF-16 code point, and may contain any character legal in an XML attribute value. Literal characters are not limited to ASCII, and since XML files are themselves encoded in Unicode, many characters can be typed directly.</p><p>Unicode scalar values may be specified using an XML numeric character entity, either in decimal or hexadecimal. Unicode scalar values outside Plane 0 are specified by a single numeric character entity, not two; this is converted to two UTF-16 values (a surrogate pair). Characters which are illegal in XML (<code> &lt; </code> and <code>"</code>, and C0 control values among others) must be specified via a numeric character entity. Named entities are not supported.</p><p><strong>Example:</strong></p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE14"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key code="0" output="“Wow!&amp;#8594;&amp;#x2000B;”" /&gt;<span></span></pre></td></tr></table></div><p>This &lt;key&gt; element specifies that when virtual key 0 ("a" on the US keyboard layout) is struck, the Unicode string:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE15"></a><div class="codesample clear"><table><tr><td scope="row"><pre>“Wow!<span></span></pre></td></tr></table></div><p>followed by <code>U+2192 RIGHTWARDS ARROW</code> followed by <code>U+2000B</code> (a plane 2 ideograph, represented by a surrogate pair) followed by</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE16"></a><div class="codesample clear"><table><tr><td scope="row"><pre>”<span></span></pre></td></tr></table></div><p>is output. The entire UTF-16 string in hex is:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE17"></a><div class="codesample clear"><table><tr><td scope="row"><pre>201C 0057 006F 0077 0021 2192 D840 DC0B 201D<span></span></pre></td></tr></table></div></li><li class="li"><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE18"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key code="virtualkeycode" action="name" /&gt;<span></span></pre></td></tr></table></div><p>When the given virtual key code is received, the named action is executed. Actions are specified via the <code>&lt;actions&gt;</code> element; see below.</p></li><li class="li"><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE19"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key code="virtualkeycode"&gt;     &lt;action&gt;         (an anonymous action)     &lt;/action&gt; &lt;/key&gt;<span></span></pre></td></tr></table></div><p>When the given virtual key code is received, the single <code>&lt;action&gt;</code> element within the <code>&lt;key&gt;</code> element is executed. The result is the same as if the <code>&lt;action&gt;</code> element were specified within the <code>&lt;actions&gt;</code> element and referred to by name as in the second form, above. Note that anonymous actions specified in this way cannot be referenced by multiple <code>&lt;keyMap&gt;</code> tables, except through the copying mechanism (<code>baseMapSet</code> and <code>baseIndex</code>).</p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION13" title="&lt;actions&gt; Element"></a><h3 class="jump">&lt;actions&gt; Element</h3><p>The <code>&lt;actions&gt;</code> element is optional. There may be at most one per XML document. It contains one or more <code>&lt;action&gt;</code> elements, specifying named actions which may be referred to from the <code>&lt;key&gt;</code> elements.</p></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION14" title="&lt;action&gt; Element"></a><h3 class="jump">&lt;action&gt; Element</h3><p>The <code>&lt;action&gt;</code> element specifies a set of actions to take based on the current state of the state machine. This is specified by one or more <code>&lt;when&gt;</code> elements, each of which specifies one or more states, and an action to take when the action is executed and the current state matches. There is one attribute:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-TABLE9" title="Table 9action element attribute"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 9</strong>&nbsp;&nbsp;action element attribute</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+id
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+An arbitrary string identifying this action. It must be unique across all &lt;action&gt; elements.
+</p></th></tr></table></div><p>The id attribute must be present if the <code>&lt;action&gt;</code> occurs within an <code>&lt;actions&gt;</code> element, and must not be present if the <code>&lt;action&gt;</code> is inside a <code>&lt;key&gt;</code> element.</p></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION15" title="&lt;when&gt; Element"></a><h3 class="jump">&lt;when&gt; Element</h3><p>This element specifies a particular result when the state machine is in a particlar state or set of states. There are several variants of this element; all are empty. The attributes are:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-TABLE10" title="Table 10when element attributes"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 10</strong>&nbsp;&nbsp;when element attributes</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+state
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Required. This specifies the state the state machine must be in for the &lt;when&gt; element to apply. The state may be an arbitrary string, a decimal number, or the special string "none", indicating the base (initial) state. If the &lt;when&gt; element specifies a range, this is the beginning of the range, in which case it must be a number. A &lt;when&gt; element specifying state "none" must be the first in the enclosing &lt;action&gt;.
+</p></th></tr><tr><td  scope="row"><p>
+through
+</p></td><td ><p>
+Optional. The &lt;when&gt; element specifies a range of states rather than a single state. Must be a decimal number. If omitted, a single state is specified.
+</p></td></tr><tr><td  scope="row"><p>
+next
+</p></td><td ><p>
+Optional. If present, specifies the next state to enter. If the &lt;when&gt; element specifies a range, must be a decimal number. Defaults to state none (i.e., return to the default, base state).
+</p></td></tr><tr><td  scope="row"><p>
+output
+</p></td><td ><p>
+Optional. If present, the string to emit. If the &lt;when&gt; element specifies a range, must be a single UTF-16 code point. Defaults to no output.
+</p></td></tr><tr><td  scope="row"><p>
+multiplier
+</p></td><td ><p>
+Optional. A decimal number between 1 and 255. The &lt;when&gt; element must specify a range. The difference between the input state and the start of the range (specified by the state attribute) is multiplied by this number, then added to the next state number and/or the output UTF-16 value.
+</p></td></tr></table></div><p>The compiler will automatically assign numbers to named states; state numbers may also be referenced directly. The numbers assigned by the compiler to named states will be larger than any number referenced directly, so named states and numbered states are always distinct. If the highest state number referenced directly is large enough that there are not enough valid state numbers left to assign to the named states, an error occurs.</p><p>It's best to think about the <code>&lt;when&gt;</code> element in terms of two distinct forms:</p><ol class="ol"><li class="li"><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE20"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;when state="id" [next="id"] [output="string"] /&gt;<span></span></pre></td></tr></table></div><p>This form specifies an optional next state and an optional output string. One of them must be present. This is by far the most frequent form.</p><p>See the example after the description of the <code>&lt;terminators&gt;</code> element to better understand this form.</p></li><li class="li"><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE21"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;when state="first" [through="last"] [multiplier="number"] [output="char"] [next="next"] /&gt;<span></span></pre></td></tr></table></div><p>This form specifies that when the input state is between first and last (inclusive), that the next state should be (input-first)*multiplier+next, and/or the output character should be (input-first)*multiplier+char.</p><p>This form is used for keyboards that generate a large range of characters with sequential values. Examples include the Unicode Hex keyboard, or a keyboard that generates Korean hangul.</p><p>See "Supporting Unicode Input" and the Unicode Hex keyboard layout XML file to better understand this form.</p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SUBSECTION16" title="&lt;terminators&gt; Element"></a><h3 class="jump">&lt;terminators&gt; Element</h3><p>This element is optional, and may appear at most once in a file. It contains a series of <code>&lt;when&gt;</code> elements, which specify what to do when no action matches the current state. Each <code>&lt;when&gt;</code> element may specify only a single state and an output string. A next state may not be specified. If there is no <code>&lt;when&gt;</code> element for a particular state, the default is to return to the base (default) state.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SECTION18" title="A Complete Dead Key Example"></a><h2 class="jump">A Complete Dead Key Example</h2><p>Here is an excerpt from a keyboard layout that shows how to specify a dead key combination that handles e acute (é). This assumes a US keyboard layout.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003085-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;A dead key is a key or key combination that does not map to a character, and instead is used to modify the character output of another key. Dead keys are often used for generating accented characters. </p><p></p></aside></div><p>In the <code>&lt;keyMap&gt;</code> for the unshifted keyboard, we have: </p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE22"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key code="14" action="e" /&gt;<span></span></pre></td></tr></table></div><p>This specifies that when key code 14 is received, we take the action named <code>"e"</code>.</p><p>In the <code>&lt;keyMap&gt;</code> for the option key, we have:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE23"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key code="14" action="acute" /&gt;<span></span></pre></td></tr></table></div><p>This specifies that when key code 14 is received with the option key held down, we take the action named <code>"acute"</code>.</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE24"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;actions&gt;
+    &lt;action id="acute"&gt;
+        &lt;when state="none" next="acute" /&gt;
+    &lt;/action&gt;
+    &lt;action id="e"&gt;
+        &lt;when state="none" output="e" /&gt;
+        &lt;when state="acute" output="é" /&gt;
+    &lt;/action&gt;
+&lt;/actions&gt;
+&lt;terminators&gt;
+    &lt;when state="acute" output="´" /&gt;
+&lt;/terminators&gt;<span></span></pre></td></tr></table></div><p>If e is typed alone, we get <code>e</code>. If option-e is typed followed by e, we get <code>é</code>. If option-e is typed followed by any other key, we get <code>´</code> alone, followed by whatever that second key generates.</p><p>Note that we also could have specified the actions via:</p><p>Unshifted:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE25"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key code="14"&gt;     &lt;action&gt;         &lt;when state="none" output="e" /&gt;         &lt;when state="acute" output="é" /&gt;     &lt;/action&gt; &lt;/key&gt;<span></span></pre></td></tr></table></div><p>Option key:</p><a name="//apple_ref/doc/uid/DTS10003085-CH1-SOURCECODE26"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key code="14"&gt;     &lt;action&gt;         &lt;when state="none" next="acute" /&gt;     &lt;/action&gt; &lt;/key&gt;<span></span></pre></td></tr></table></div><p>However, this approach can get cumbersome if the same actions need to appear in more than one place. Having all the actions collected in one place can help make the file more readable, too.</p><p>A complete example of a keyboard layout would be too lengthy for this tech note. See the Unicode Hex Input keyboard and other keyboards in <code>/System/Library/Keyboard\ Layouts/Unicode.bundle/Contents/Resources/</code> for complete examples. </p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003085-CH1-DontLinkElementID_4" title="Warning"></a><p><strong>Warning:</strong>&nbsp;Please note that in Mac OS X 10.5 and onward, /System/Library/Keyboard Layouts/Unicode.bundle has been replaced by AppleKeyboardLayouts.bundle, which does not contain any user-readable XML keyboard layouts.</p><p></p><div class="clear"></div></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003085-CH1-SECTION19" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p>The Unicode Standard, Version 3.0. Addison-Wesley 2000, ISBN 0-201-61633-5. </p></li><li class="li"><p><span class="content_text"><a href="http://www.unicode.org/" class="urlLink" rel="external">The Unicode Consortium web site.</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/Carbon/Reference/Unicode_Utilities_Ref/Reference/reference.html" class="browserLink" >Supporting Unicode Input.</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003085-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003085-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2009-10-02</td><td><p>Corrected broken link, updated to reflect changes to system keyboard layouts in 10.5</p></td></tr><tr><td scope="row">2002-09-27</td><td><p>New document that 
+					explains how to define a Unicode keyboard via an XML text file.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-10-02</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

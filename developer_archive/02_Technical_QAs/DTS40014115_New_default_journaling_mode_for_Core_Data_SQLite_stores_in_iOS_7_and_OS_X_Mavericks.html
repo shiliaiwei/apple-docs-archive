@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1809: New default journaling mode for Core Data SQLite stores in iOS 7 and OS X Mavericks</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014115">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014115-CH1">
+    <meta id="date" name="date" content="2014-01-29">
+    <meta id="description" name="description" content="QA1809: Describes the change to the default journaling mode for Core Data SQLite stores and the potential impacts.">
+    <meta id="book-title" name="book-title" content="New default journaling mode for Core Data SQLite stores in iOS 7 and OS X Mavericks">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/CoreData}, {Topic/Data Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1809">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="New default journaling mode for Core Data SQLite stores in iOS 7 and OS X Mavericks" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014115" title="Technical Q&amp;A QA1809"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>New default journaling mode for Core Data SQLite stores in iOS 7 and OS X Mavericks</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014115-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1809"></a><div class="dtsDocNumber">Technical Q&amp;A QA1809</div><h1 id="pageTitle">New default journaling mode for Core Data SQLite stores in iOS 7 and OS X Mavericks</h1><h2>Q:&nbsp;
+My app backs up and restores a Core Data SQLite store by copying the store file. This works well on iOS 6.x and OS X Mountain Lion, but fails on iOS 7 and OS X Mavericks after updating to the latest SDK. Why is that?
+</h2><p><span>A: </span>The failure occurs because the default journaling mode for Core Data SQLite stores was changed to Write-Ahead Logging (WAL) in iOS 7 and OS X Mavericks. With the WAL mode, Core Data keeps the main store file untouched and appends transactions to a <code>-wal</code> file in the same location. After the Core Data context is saved, the <code>-wal</code> file is not deleted, and the data in that file is not merged to the store file either. Therefore, simply making copies of the store file will likely cause data loss and inconsistency.</p><p>If you create a Core Data stack from a store file which is generated by copying the main store file but not the corresponding <code>-wal</code> file, your app can fail in a number of ways, including:</p><ul class="ul"><li class="li"><p>Store data inconsistent with the existing cache. This happens when you use a <code>NSFetchedResultsController</code> with caching mechanism on. The inconsistency can trigger exceptions like <code>NSObjectInaccessibleException</code>, or output messages complaining that the persistent cache does not match the current configuration.</p></li><li class="li"><p>Failure to retrieve the meta data of the Core Data store using the following method of <code>NSPersistentStoreCoordinator</code> class:</p><p><code> + (NSDictionary *)metadataForPersistentStoreOfType:(NSString *)storeType URL:(NSURL *)url error:(NSError **)error </code></p><p>Calling this method will cause a SQLite error of "unable to open database file".</p></li></ul><p>To safely back up and restore a Core Data SQLite store, you can do the following:</p><ul class="ul"><li class="li"><p>Use the following method of <code>NSPersistentStoreCoordinator</code> class, rather than file system APIs, to back up and restore the Core Data store:</p><p><code> - (NSPersistentStore *)migratePersistentStore:(NSPersistentStore *)store toURL:(NSURL *)URL options:(NSDictionary *)options withType:(NSString *)storeType error:(NSError **)error </code></p><p>Note that this is the option we recommend.</p></li><li class="li"><p>Change to rollback journaling mode when adding the store to a persistent store coordinator if you have to copy the store file. Listing 1 is the code showing how to do this:</p><a name="//apple_ref/doc/uid/DTS40014115-CH1-SOURCECODE1" title="Listing 1Use rollback journaling mode when adding a persistent store"></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Use rollback journaling mode when adding a persistent store</p><div class="codesample clear"><table><tr><td scope="row"><pre>NSDictionary *options = @{NSSQLitePragmasOption:@{@"journal_mode":@"DELETE"}};<span></span></pre></td></tr><tr><td scope="row"><pre>if (! [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType<span></span></pre></td></tr><tr><td scope="row"><pre>                                            configuration:nil<span></span></pre></td></tr><tr><td scope="row"><pre>                                            URL:storeURL<span></span></pre></td></tr><tr><td scope="row"><pre>                                            options:options<span></span></pre></td></tr><tr><td scope="row"><pre>                                            error:&amp;error]) {<span></span></pre></td></tr><tr><td scope="row"><pre>    // error handling.<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>For a store that was loaded with the WAL mode, if both the main store file and the corresponding <code>-wal</code> file exist, using rollback journaling mode to add the store to a persistent store coordinator will force Core Data to perform a checkpoint operation, which merges the data in the <code>-wal</code> file to the store file. This is actually the Core Data way to perform a checkpoint operation. On the other hand, if the <code>-wal</code> file is not present, using this approach to add the store won't cause any exceptions, but the transactions recorded in the missing <code>-wal</code> file will be lost. </p></li><li class="li"><p>Bundle the main store file and the <code>-wal</code> file into a document package and manipulate them as a single item. </p></li></ul><p>For more information about the default journaling mode change, please see WWDC 2013 session 207 <span class="content_text"><a href="https://developer.apple.com/wwdc/videos/" class="urlLink" rel="external">What's New in Core Data and iCloud</a></span>.</p><p>NOTE: In iOS 6.x and Mountain Lion, the default is rollback journaling mode, in which Core Data creates a <code>-journal</code> file to temporarily store transactions, updates the main store file in place and deletes the <code>-journal</code> file after saving the context. The store file therefore contains the up-to-date database. </p><br/><hr/><a name="//apple_ref/doc/uid/DTS40014115-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014115-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-01-29</td><td><p>New document that 
+					describes the change to the default journaling mode for Core Data SQLite stores and the potential impacts.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-01-29</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

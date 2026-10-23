@@ -1,0 +1,314 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+"http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+            <meta id="book-title" name="book-title" content="Customizing Component Border Colors">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Cross Platform/Java}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002308">
+            <meta id="document-version" name="document-version" content="2.0.0">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="QA1272: Retaining Aqua background for JComboBox menus with custom control borders.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="Java">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<title>Technical Q&amp;A QA1272: Customizing Component Border Colors</title>
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="keywords" content="java JComboBox menu backgroud border">
+<meta name="Description" content="Retaining Aqua background for JComboBox menus in spite of custom control borders.">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+
+<BODY BGCOLOR=WHITE id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002308" title="Customizing Component Border Colors"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Customizing Component Border Colors</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technicalQA">
+
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalqas/index.html">Technical Q&As</a> &gt; <a href="../../technicalqas/Java/index.html">Java</a> &gt; <a href="../../technicalqas/Java/idxUserExperience-date.html">User Experience</a> &gt; </p><!-- end_header_information -->
+
+<!-- begin_titles_information --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Q&amp;A QA1272</div>
+<div id="pageheadsub">Customizing Component Border Colors</div>
+</h1>
+</td></tr></table></CENTER><!-- end_titles_information -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600> <TR> <TD align="left">
+
+
+<hr width=500 align=center>
+
+<!-- begin_document_contents --><P id=p2> Q: I have changed the background color of a JFrame, and noticed that certain JComponents still paint their borders with the standard Aqua striped background.  How do I make them match the JFrame containing them?</P><P id=p4> A: In Java 1.4.1, various JComponents need to paint a minimal border to fill the square bounds that are left over by the control.  For example, a JButton under Aqua has rounded edges, but square bounds need to be filled when adding any Component to a Container.  The extraneous space is drawn in the Aqua striped pattern.</P>
+
+<P id=p4>To change this, you simply set the component's background to the desired color:
+<P>&nbsp;&nbsp;&nbsp;&nbsp;<CODE>JButton jb =  new JButton("Push Me!");</CODE>
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;<CODE>jb.setBackground(Color.red);</CODE></P>
+ The result should be an aqua button that appears to have no square border, blending with the background color of its container.</P>
+
+<P id=p4>The problem that arises is with components that produce secondary components, such as a JComboBox.  Embedded in a container, JComboBoxes appear as special buttons and have the same border problem that can be solved using the simple technique above.  However, when clicked, JComboBoxes show a menu which will also conform to the background color set for the JComboBox.  This is typically not in line with what developers wanted when trying to eliminate the borders on their controls in Aqua.  </P>
+
+<P id=p4>The code listing below demonstrates how one can work around this problem with JComboBoxes in particular.  The simple solution involves use of a custom ListCellRenderer that fortifies the default renderer's behavior to replace the custom border background with the default Aqua striped background.  The TestRenderer class does the dirty work of overriding the custom background color for cells in the JComboBox menu; the ComboBoxOverride class is the test harness to demonstrate the functionality.</P><BR><BR>
+<!-- listing starts here -->
+<CENTER><table BORDER=0 CELLPADDING=0 WIDTH=550><TR><TD>
+<P><B>Listing 1</B>. TestRenderer.java</P>
+</TD></TR><TR><TD BGCOLOR="#E6E6E6"><PRE>
+
+// TestRenderer class allows you to paste Aqua striped background 
+// over whatever had been set as a border background
+
+import javax.swing.*;
+import java.awt.*;
+
+public class TestRenderer implements ListCellRenderer {
+    // The original ListCellRenderer we want to override
+    ListCellRenderer std;
+    
+    public TestRenderer (ListCellRenderer override) {
+        if (override == null) {
+            throw new NullPointerException(
+                &quot;TestRenderer constructor: default renderer is null&quot;);
+        }
+        std = override;   
+    }
+    
+    // Override of getListCellRendererComponent.  
+    // This is called by the AWT event thread to paint components. 
+    public Component getListCellRendererComponent(JList list,
+            Object value,
+            int index,
+            boolean isSelected,
+            boolean cellHasFocus) {
+        // Ask the standard renderer for what it thinks is right
+        Component c = std.getListCellRendererComponent(list,
+                        value,
+                        index,
+                        isSelected,
+                        cellHasFocus);
+        if (!isSelected) {
+                // Set the background of the returned component to Aqua
+                // striped background, but only for unselected cells;
+                // The standard renderer functions as desired for 
+                // highlighted cells.
+            c.setBackground((Color)UIManager.get(&quot;ComboBox.background&quot;));
+        }
+        return c;
+    }
+}
+
+</PRE></TD></TR></table></CENTER>
+<!-- listing ends here -->
+<BR><BR>  
+<BR><BR>
+<!-- listing starts here -->
+<CENTER><table BORDER=0 CELLPADDING=0 WIDTH=550><TR><TD>
+<P><B>Listing 2</B>. ComboBoxOverride.java</P>
+</TD></TR><TR><TD BGCOLOR="#E6E6E6"><PRE>
+
+// Test case to demonstrate TestRenderer functionality
+
+import java.awt.*;
+import javax.swing.*;
+
+
+public class ComboBoxOverride extends JFrame {
+
+    public ComboBoxOverride)( {    
+        Color bgColor = Color.red;
+        this.getContentPane().setLayout(new BorderLayout());
+
+        this.getContentPane().setBackground(bgColor);
+        JButton b = new JButton(&quot;Hello&quot;);
+        JComboBox line = new JComboBox( new Object []{
+            &quot;Option One&quot;,
+            &quot;Option Two&quot;,
+            &quot;Option Three&quot;});             
+        // Replace the JComboBox's renderer
+        // Our TestRenderer holds onto the original renderer 
+        line.setRenderer(new TestRenderer(line.getRenderer()));
+        b.setBackground(bgColor);
+        line.setBackground(bgColor);
+        this.getContentPane().add(b, BorderLayout.SOUTH);
+        this.getContentPane().add(line, BorderLayout.NORTH);
+        
+        setSize(320, 240);
+        setLocation(500, 500);
+        setVisible(true);
+    }
+
+     public static void main(String args[]) {
+         new ComboBoxOverride(true);
+     }
+
+}
+
+</PRE></TD></TR></table></CENTER>
+<!-- listing ends here -->
+<BR><BR>  
+<hr width=500 align=center><!-- begin_date --><H4 ALIGN=center>[Jul 31, 2003]</H4><!-- end_date --><!-- end_document_contents -->
+
+
+</TD></TR></table></CENTER>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

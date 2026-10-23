@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Static Analysis in Xcode</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Article">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40008926">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40008926-CH1">
+    <meta id="date" name="date" content="2012-07-23">
+    <meta id="description" name="description" content="Describes how to use Xcode's static analysis feature to detect and correct bugs at build time.">
+    <meta id="book-title" name="book-title" content="Static Analysis in Xcode 3.2">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Article}, {Topic/Xcode/IDEs}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Static Analysis in Xcode 3.2 (Legacy): Static Analysis in Xcode">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Static Analysis in Xcode 3.2" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="Xcode Developer Tools">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40008926-CH1" title="Static Analysis in Xcode"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Static Analysis in Xcode 3.2</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/TP40008926" title="Static Analysis in Xcode"></a><a name="//apple_ref/doc/uid/TP40008926-CH1-DontLinkElementID_4" title="Static Analysis in Xcode"></a><h1 id="pageTitle">Static Analysis in Xcode</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/TP40008926-CH1-DontLinkElementID_5" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>New for Mac OS X v10.6, Xcode 3.2 introduces a revolutionary feature known as static analysis. You can think of static analysis as advanced warnings, identifying bugs in your code before it is run—hence the term “static.” Unlike traditional compiler warnings, the Xcode 3.2 static analyzer has a much deeper understanding of your code. The static analyzer travels down each possible code path, identifying logical errors such as unreleased memory—well beyond simple syntax errors normally found at compile time.</p><p>Xcode's static analyzer runs as part of the build process, but when a coding mistake is identified, Xcode integrates the analysis report in a truly innovative manner. Message bubbles appear beside the suspect code, and upon clicking the message bubble, the editor walks you through the logical steps in your code using graphical arrows. These arrows step you through the code that leads to the identified bug.</p><p>By following the arrows through your code, it becomes clear why your objects may be leaking, where coding conventions may be misused, or why your case statements never return the values you expect. These bugs would otherwise have been found at runtime, perhaps after your application was already in production.</p><p>This article discusses how to get started with the static analyzer to evaluate your source code for potential problems. Note that the static analyzer only works within individual functions and methods. And static analysis can only catch bugs that it’s designed to spot, so you still need to follow good programming practices.</p><p>You can run the analyzer on demand or as part of your regular builds. This article illustrates both approaches.</p><section><a name="//apple_ref/doc/uid/TP40008926-CH1-DontLinkElementID_1" title="Performing Static Analysis in Xcode"></a><h2 class="jump">Performing Static Analysis in Xcode</h2><p>This section shows several examples of using the static analyzer. Although the examples are fairly simple, the analyzer is capable of detecting far more complicated bugs, so try it with your own projects.</p><p>Running the static analyzer on demand is easily accomplished using the Build > Build and Analyze menu item, as shown in <span class="content_text"><a href="#//apple_ref/doc/uid/TP40008926-CH1-SW1" data-renderer-version="1">Figure 1-1</a></span>.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40008926-CH1-SW1" title="Figure 1-1Build and Analyze Menu Item"></a><figcaption><strong class="caption_number">Figure 1-1</strong>&nbsp;&nbsp;Build and Analyze Menu Item</figcaption><img src="Art/menuItem.jpg" alt="Build and Analyze Menu Item" width="345" height="344"></figure><p>Memory leaks are a very serious type of bug that the static analyzer can help you discover. In the following example, the analyzer has detected a potential memory leak for the instance of <code>MyClass</code>. If your project does not have garbage collection enabled or cannot support garbage collection, tracking down memory leaks is critical. Even if you are using garbage collection, you can still be vulnerable to memory leaks if you use Core Foundation objects, which are not automatically managed and need special handling. The static analyzer is highly effective at discovering these types of leaks as well.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40008926-CH1-DontLinkElementID_6" title="Figure 1-2Potential Memory Leak"></a><figcaption><strong class="caption_number">Figure 1-2</strong>&nbsp;&nbsp;Potential Memory Leak</figcaption><img src="Art/objLeak.jpg" alt="Object Leak" width="550" height="311"></figure><p>In the following example, the variable <code>everythingIsFine</code> gets assigned a value, but is never read, resulting in a “dead store.” A dead store is an example of dead code, and can reflect a potentially serious logic bug or a potential optimization opportunity. In this case, it is a serious logic bug.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40008926-CH1-DontLinkElementID_7" title="Figure 1-3Dead Store"></a><figcaption><strong class="caption_number">Figure 1-3</strong>&nbsp;&nbsp;Dead Store</figcaption><img src="Art/deadStore.jpg" alt="Dead Store Results" width="594" height="489"></figure><p>The static analyzer can also catch initialization bugs. In the following example, the static analyzer flags the variable <code>retval</code> as possibly being uninitialized at return time. Because <code>retval</code> was not initialized at declaration time, if the if-else clause does not trigger (in the case where <code>x</code> is negative), <code>retval</code> will remain unassigned, resulting in potentially undesired behavior.</p><p>Note that the analyzer provides additional detail when you click on the message bubble. This analyzer mode shows the control-flow (blue arrows) and a set of "events" that give a full diagnosis of the bug. Most issues reported by the analyzer have this information, making analysis and subsequent fixing of the error much easier.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40008926-CH1-DontLinkElementID_8" title="Figure 1-4Uninitialized Variable"></a><figcaption><strong class="caption_number">Figure 1-4</strong>&nbsp;&nbsp;Uninitialized Variable</figcaption><img src="Art/uninitialized.jpg" alt="Unintialized Variable" width="630" height="465"></figure><p>Another type of problem is data type size differences between 32- and 64-bit build architectures. In the following example, using the unsigned int <code>i</code> to initialize the <code>CFNumberRef</code> <code>x</code> is not a problem when building a 32-bit application. However, if you build a 64-bit binary, the type difference becomes an error. The full text of the analyzer message is, “A 32 bit integer is used to initialize a CFNumber object that represents a 64 bit integer. 32 bits of the CFNumber value will be garbage.” Because <code>CFNumberCreate</code> expects a pointer to long when told to expect a <code>kCFNumberLongType</code>, the unsigned variable i is not the correct type. While unsigned int and long are both 32 bits on the 32 bit architecture, on the 64 bit architecture unsigned int is 32 bits and long is 64 bits. Because <code>CFNumberCreate</code> expects a long, running on the 64-bit architecture the program reads 64 bits from a 32 bit wide quantity, causing the initialized CFNumber object to have a garbage value. The program then has completely undefined behavior based on how the created CFNumber object is used.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40008926-CH1-DontLinkElementID_9" title="Figure 1-5Type Size Mismatch"></a><figcaption><strong class="caption_number">Figure 1-5</strong>&nbsp;&nbsp;Type Size Mismatch</figcaption><img src="Art/sizeMismatch.jpg" alt="Size Mismatch" width="640" height="335"></figure></section><section><a name="//apple_ref/doc/uid/TP40008926-CH1-DontLinkElementID_2" title="Automatic Analysis: Creating a Static Analysis Build Configuration"></a><h2 class="jump">Automatic Analysis: Creating a Static Analysis Build Configuration</h2><p>In addition to 'Build and Analyze', Xcode gives you the option to automatically analyze your code whenever your project is built. You can create a custom build configuration that runs the static analyzer, similar to the Debug and Release configurations that Xcode creates automatically. Open the project information window and select the Configurations tab. Choose the Debug configuration, then click on the button labeled Duplicate at the bottom of the window. See <span class="content_text"><a href="#//apple_ref/doc/uid/TP40008926-CH1-SW2" data-renderer-version="1">Figure 1-6</a></span>. This creates a copy of the configuration.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40008926-CH1-SW2" title="Figure 1-6Duplicate an Existing Build Configuration"></a><figcaption><strong class="caption_number">Figure 1-6</strong>&nbsp;&nbsp;Duplicate an Existing Build Configuration</figcaption><img src="Art/duplicateConfig.jpg" alt="Duplicate an Existing Build Configuration" width="469" height="672"></figure><p>Rename the new configuration to Analyzer. Then edit the configuration settings to run the static analyzer, as shown in <span class="content_text"><a href="#//apple_ref/doc/uid/TP40008926-CH1-SW3" data-renderer-version="1">Figure 1-7</a></span>.</p><figure class="figure"><a name="//apple_ref/doc/uid/TP40008926-CH1-SW3" title="Figure 1-7Enable Static Analysis for this Build Configuration"></a><figcaption><strong class="caption_number">Figure 1-7</strong>&nbsp;&nbsp;Enable Static Analysis for this Build Configuration</figcaption><img src="Art/configSetting.jpg" alt="Enable Static Analysis for this Build Configuration" width="504" height="673"></figure><p>You now have a build configuration that automatically runs the static analyzer.</p></section><section><a name="//apple_ref/doc/uid/TP40008926-CH1-DontLinkElementID_3" title="For More Information"></a><h2 class="jump">For More Information</h2><p>The technology that powers the Xcode static analyzer is part of the Clang open source project. Developers who are interested in getting involved should investigate the <span class="content_text"><a href="http://clang.llvm.org/" class="urlLink" rel="external">Clang home page.</a></span></p></section>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-07-23</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

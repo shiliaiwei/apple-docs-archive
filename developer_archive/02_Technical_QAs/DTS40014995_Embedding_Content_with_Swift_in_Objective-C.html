@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1881: Embedding Content with Swift in Objective-C</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014995">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014995-CH1">
+    <meta id="date" name="date" content="2014-10-07">
+    <meta id="description" name="description" content="QA1881: Describes how to embed content with Swift in an Objective-C app.">
+    <meta id="book-title" name="book-title" content="Embedding Content with Swift in Objective-C">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Xcode}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1881">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Embedding Content with Swift in Objective-C" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014995" title="Technical Q&amp;A QA1881"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Embedding Content with Swift in Objective-C</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014995-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1881"></a><div class="dtsDocNumber">Technical Q&amp;A QA1881</div><h1 id="pageTitle">Embedding Content with Swift in Objective-C</h1><h2>Q:&nbsp;
+How do I embed content with Swift in an Objective-C app?
+</h2><p><span>A: </span>Swift standard libraries are copied into a bundle if and only if you are building an application and this application contains Swift source files by itself. You can check whether a product such as a framework includes Swift source files by running <code>otool -L</code> on its executable in the Terminal. This command displays all shared libraries and frameworks that your product dynamically links against. Your product uses Swift if any of the Swift libraries appear among the result of <code>otool -L</code> as shown in <span class="content_text"><!--a  -->Figure 1<!--/a--></span>. </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40014995-CH1-FIGURE1" title="Figure 1Running otool -L on MyFramework that contains Swift source files"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Running otool -L on MyFramework that contains Swift source files</figcaption><img src="Art/QA1881_ContentHasSwift.png" class="wide-image" alt="" width="947" height="209"><img src="Art/QA1881_ContentHasSwift.png" class="ipad-scaled-image" alt="" width="670" height="147"></figure><p>If you are building an app that does not use Swift but embeds content such as a framework that does, Xcode will not include these libraries in your app. As a result, your app will crash upon launching with an error message looking as follows:</p><a name="//apple_ref/doc/uid/DTS40014995-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>dyld: Library not loaded: @rpath/libswiftCoreGraphics.dylib<span></span></pre></td></tr><tr><td scope="row"><pre>  Referenced from: /private/var/mobile/Containers/Bundle/Application/696F0EAD-E2A6-4C83-876F-07E3D015D167/&lt;Your_App&gt;.app/Frameworks/&lt;Framework_Name&gt;.framework/&lt;Framework_Name&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  Reason: image not found<span></span></pre></td></tr></table></div><p>where &lt;Your_App&gt; and &lt;Framework_Name&gt; are respectively your app and the framework being embedded in your app.</p><p>To workaround this issue, set the <code>Embedded Content Contains Swift Code (EMBEDDED_CONTENT_CONTAINS_SWIFT)</code> build setting to YES in your app as shown in <span class="content_text"><!--a  -->Figure 2<!--/a--></span>. This build setting, which specifies whether a target's product has embedded content with Swift code, tells Xcode to embed Swift standard libraries in your app when set to <code><!--a  -->YES<!--/a--></code>.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40014995-CH1-FIGURE2" title="Figure 2Setting Embedded Content Contains Swift Code to YES"></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Setting Embedded Content Contains Swift Code to YES</figcaption><img src="Art/QA1881_BuildSettings.png" class="wide-image" alt="" width="1168" height="562"><img src="Art/QA1881_BuildSettings.png" class="ipad-scaled-image" alt="" width="670" height="322"></figure><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40014995-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;To prevent having multiple copies of Swift libraries in your app, make sure that <code>Embedded Content Contains Swift Code</code> is set to <code><!--a  -->NO<!--/a--></code> in your embedded content.</p><p></p></aside></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40014995-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014995-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-10-07</td><td><p>New document that 
+					describes how to embed content with Swift in an Objective-C app.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-10-07</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

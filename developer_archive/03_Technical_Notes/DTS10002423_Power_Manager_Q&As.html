@@ -1,0 +1,516 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-August-01 -->
+<!-- Includes revisions to graphics tags -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Power Manager Q&amp;As">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002423">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="DV545.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+<title>Technical Note DV545: Power Manager Q&amp;As</title>
+
+
+    
+<meta name="keywords" content="Macintosh Portable PowerBook Power Manager SetWUTime sleep voltage charging">
+<meta name="Description" content="Technical Note DV545: This Technical Note contains a collection
+of archived Q&amp;As relating to the Power Manager--questions
+sent the Developer Support Center (DSC) along with answers
+from the DSC engineers. Archived Q&amp;As include: Think C SetWUTime
+glue problem and workaround, Reasons for a networked PowerBook
+not sleeping, how to check if a Macintosh Portable is charging,
+and How to notify a Device Driver when Macintosh Portable
+sleeps.">                                      
+
+
+
+
+<meta name="categories" content="Devices">
+
+
+<meta name="week-posted" content="Oct 1, 1990 - Oct 5, 1990">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002423" title="Power Manager Q&As"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Power Manager Q&As</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxHardwareDrivers-date.html">Hardware & Drivers</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/HardwareDrivers/index.html" target="_blank">Reference Library > Hardware & Drivers</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note DV545</div>
+<div id="pageheadsub">Power Manager Q&amp;As</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                 
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+					<!-- begin_toc -->
+<p id="menutext">
+<a href="#Section1">Think C SetWUTime glue problem and workaround</a><BR><BR>
+<a href="#Section2">Conditions for networked PowerBook not going to sleep</a><BR><BR>
+<a href="#Section3">SetWUTime documentation fix</a><BR><BR>
+<a href="#Section4">Power Manager BatteryStatus returns voltage &amp; charger details</a><BR><BR>
+<a href="#Section5">How to notify a device driver when Macintosh Portable sleeps</a><BR><BR>
+<a href="#downloads">Downloadables</a></P>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+<!-- begin_intro_text -->
+<p id = "introtext">
+This Technical Note contains a collection of archived Q&amp;As relating to a specific topic--questions sent the Developer Support Center (DSC) along with 
+answers from the DSC engineers. Current Q&amp;As can be found on the <a href="../../qa/index.html">Macintosh Technical Q&amp;As web site</a>.</p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3 align=center>[Oct 01 1990]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+
+          <!-- begin_content -->
+<a NAME="Section1"></a>
+<h2>Think C SetWUTime glue problem and workaround</h2>
+
+<p>Date Written:  2/1/93</p>
+
+<p>Last reviewed:  6/14/93</p>
+
+<p>Does the wakeup timer work on PowerBooks? At first accRun time in my driver, as
+a test, I do the following using Think C:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>        {
+        unsigned long       currentSecs;
+        OSErr               err;
+
+        GetDateTime(&amp;currentSecs);
+        err = SetWUTime(currentSecs + 60);
+        }</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<p>I then manually sleep my PowerBook and wait for it to awake after a minute. It
+doesn't. Am I doing something wrong?</p>
+
+<p>___</p>
+
+<p>There's an error in the Think glue for this routine. It works as documented in
+MPW, but fails when you use it with Think C. After a little digging we found
+that the Think C glue is expecting the value to be passed by reference. So the
+following code fragment should be correct for Think C.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>        {
+        unsigned long       currentSecs;
+        OSErr               err;
+
+        GetDateTime(&amp;currentSecs);
+        currentSecs = currentSecs +60L;
+        err = SetWUTime((long)&amp;currentSecs);
+
+        }
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></P>
+<a name="Section2"></a>
+<h2>Conditions for networked PowerBook not going to sleep</h2>
+
+<p>Date Written:  1/20/93</p>
+<p>Last reviewed:  5/14/93</p>
+
+<p>When my PowerBook is connected to a network, it never goes to sleep. Why?</p>
+
+<p>___</p>
+
+<p>There are two situations in which the PowerBook won't go to sleep, as
+contrasted to simply dimming the screen. For reference, screen dimming is based
+on user activity, and sleep is based on system activity. One reason for the
+PowerBook to remain awake is that AppleTalk is active and the PowerBook has the
+recharger cord plugged in. This was a design decision made on the assumption
+that if the recharger is plugged in and AppleTalk is active, then you're at
+your office and it's likely you'd want the PowerBook to be as responsive as
+possible. Note that the PowerBook only detects whether the recharger cord is
+plugged in, not whether there's actual current flowing through the recharger.</p>
+
+<p>The second reason for the PowerBook not going to sleep is that AppleTalk is
+active and the user has activated some network service such as AppleShare or
+some e-mail service. The Power Manager detects that there is periodic activity
+at the AppleTalk port and will not allow the unit to go to sleep. Simply having
+AppleTalk active and plugged into a LocalTalk network will not keep the unit
+awake when the power cable isn't connected.</p>
+<P><a href="#top">Back to top</a></P>
+<a name="Section3"></a>
+<h2>SetWUTime documentation fix</h2>
+
+<p>Date Written:  5/18/92</p>
+
+<p>Last reviewed:  7/13/92</p>
+
+<p>I'm trying to use SetWUTime to wake the PowerBook in one minute from the
+current time, as follows:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    long time;
+    GetDateTime( &amp;time);
+    SetWUTime( time + 60);
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+    
+    
+<p>I run this code and then sleep the PowerBook but it never wakes up as it
+should. This seems very simple. Am I missing something?</p>
+
+<p>___</p>
+
+<p>Earlier documentation for SetWUTime is in error in that the time parameter
+takes a pointer to the long time, not the long itself, as shown below:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    long time;
+    GetDateTime( &amp;time);
+    time = time + 60;
+    SetWUTime( &amp;time);
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></P>
+<a name="Section4"></a>
+<h2>Power Manager BatteryStatus returns voltage &amp; charger details</h2>
+
+<p>Date Written:  10/15/91</p>
+
+<p>Last reviewed:  8/1/92</p>
+
+<p>How can we check if a Macintosh Portable is charging?</p>
+
+<p>___</p>
+
+<p>The Power Manager chapter of <i>Inside Macintosh</i> Volume VI (pages 31-23 and
+31-24) describes the BatteryStatus call, which provides you with the following information:</p>
+
+<p>* Whether the charger is connected (status bit 0)</p>
+
+<p>* Whether the charger is in High or Normal charge</p>
+
+<p>* If the battery voltage is below the warning threshold</p>
+
+<p>* A power value from which you can calculate the battery's current voltage</p>
+
+<p>To calculate a battery's current voltage, you'll need to average the voltage
+over an extended time period (tens of seconds to several minutes for good
+accuracy). The power load within the Portable is a dynamic environment, so the
+current draw of the various subsystems on the battery will affect the voltage
+that you read.</p>
+<P><a href="#top">Back to top</a></P>
+<a name="Section5"></a>
+<h2>How to notify a device driver when Macintosh Portable sleeps</h2>
+
+<p>Date Written:  10/30/90</p>
+
+<p>Last reviewed:  8/1/92</p>
+
+<p>Is there any way for a device driver to be notified when the Macintosh Portable
+goes to sleep or shuts down the disk?</p>
+
+<p>___</p>
+
+<p>Yes, there is. You can install a queue element in the Sleep Queue, and that
+routine will be called during a sleep or wakeup request or demand. This is
+described in the Power Manager chapter of <i>Inside Macintosh</i> Volume VI.
+The routines you'll want are</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    struct SleepQRec {
+        struct SleepQRec *sleepQLink;
+        short sleepQType;            /*type = 16*/
+        ProcPtr sleepQProc;          /*Pointer to sleep routine*/
+        short sleepQFlags;
+    };
+
+    typedef struct SleepQRec SleepQRec;
+    typedef SleepQRec *SleepQRecPtr;
+
+    void SleepQInstall(SleepQRecPtr qRecPtr)
+        = {0x205F,0xA28A};
+    void SleepQRemove(SleepQRecPtr qRecPtr)
+        = {0x205F,0xA48A};
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+        
+<p>The type of request (sleep request [1] sleep demand [2] wake [3] sleep request
+cancelled [4]) is passed in D0, and a pointer to your queue entry is passed in
+A0, if you need them. Most of the time you won't. You can deny a sleep request,
+but you <i>cannot </i>deny a sleep demand, since this could be caused by a
+seriously low battery, and your denying it could damage the user's hardware. As
+a general rule, you should allow both requests and demands. You accept the
+request by clearing D0 to 0, and deny it by storing a non-zero number in D0.</p>
+
+<p>That's a brief overview. You should look at the beta Inside Macintosh chapter to get 
+the complete story.</p>
+
+<P><a href="#top">Back to top</a></P>
+
+         <a name="downloads"></a>
+         <H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center>
+                  
+                  <img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (48K)</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/dv_545.pdf">Download</a></P>
+               </TD>
+            </TR>
+
+         </table>
+         <BR>
+
+<P><a href="#top">Back to top</a></P>
+</TD></TR></table></CENTER>
+<!-- end_content -->
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

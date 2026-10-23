@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2315: Introducing the Apple AppleUSBFTDI kernel driver</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014014">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014014-CH1">
+    <meta id="date" name="date" content="2013-11-20">
+    <meta id="description" name="description" content="TN2315: discusses the AppleUSBFTDI driver in OS X Mavericks and the compatibility issues which arise with applications communicating with FTDI D2XX based hardware.">
+    <meta id="book-title" name="book-title" content="Introducing the Apple AppleUSBFTDI kernel driver">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Kernel & Driver Layer/IOKit}, {Topic/Drivers, Kernel, & Hardware}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2315">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Introducing the Apple AppleUSBFTDI kernel driver" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014014" title="Technical Note TN2315"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Introducing the Apple AppleUSBFTDI kernel driver</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014014-CH1-DontLinkElementID_2" title="Technical Note TN2315"></a><div class="dtsDocNumber">Technical Note TN2315</div><h1 id="pageTitle">Introducing the Apple AppleUSBFTDI kernel driver</h1><p>With the release of OS X Mavericks, the AppleUSBFTDI kernel driver is included. This driver will affect existing applications that under OS X 10.8 and earlier, use the Future Technology Devices International (FTDI) D2XX libraries to communicate with hardware devices that are based on the FTDI USB-to-serial chipset. This Technical Note discusses the new Apple driver, how it affects these FTDI D2XX based applications and what alternatives such applications can implement as solutions for OS X Mavericks and beyond.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014014-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014014-CH1-TNTAG2" data-renderer-version="1">FTDI Applications Requiring the FTDI Kext</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014014-CH1-TNTAG3" data-renderer-version="1">FTDI Applications That Implement a User Client Driver (D2XX Driver)</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014014-CH1-REFERENCES" data-renderer-version="1">References</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014014-CH1-TNTAG4" data-renderer-version="1">Downloadables</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014014-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40014014-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>The AppleUSBFTDI kernel extension is provided with OS X Mavericks to formally support application communications with hardware using the Future Technology Devices International (FTDI) chipset. Prior to OS X Mavericks, as OS X was updated, compatibility issues occurred as a result of issues between the FTDIUSBSerialDriver.kext and OS X updates. To eliminate these compatibility issues, Apple has implemented the AppleUSBFTDI for applications to use for communication with FTDI chipset based hardware accessories. </p><p>There are two categories of FTDI applications that are affected by the presence of the AppleUSBFTDI kernel extension. This Technical Note discusses these types of applications, how they are affected and the compatability solutions available for OS X Mavericks.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014014-CH1-TNTAG2" title="FTDI Applications Requiring the FTDI Kext"></a><h2 class="jump">FTDI Applications Requiring the FTDI Kext</h2><p>One group of applications that communicate with FTDI based hardware requires the presence of the FTDI kernel extension. FTDI chipset based hardware presents itself as a USB Composite class device with a vendor specific interface. The interface is matched to the FTDI kext, that in turn creates a BSD serial port for use at the application layer. The application opens the serial port to communicate with the hardware. </p><p>Under OS X Mavericks, the AppleUSBFTDI kext will perform the same function as does the FTDI kext. When the hardware is attached, the AppleUSBFTDI kext is matched, and it will create a BSD serial port for applications to open. The Apple kext provides a BSD device name similar to the name provided by the FTDI driver. However, device name differences may occur and functionality may be slightly different. If the application fails to work with the hardware using the Apple driver, the preferred solution is update the application to work with the Apple driver. An application should use the IOKit framework APIs to detect the presence of the attached hardware and to identify the device name as demonstrated in the <span class="content_text"><a href="https://developer.apple.com/library/mac/samplecode/SerialPortSample" class="urlLink" rel="external">SerialSample code</a></span>. If after opening the serial port there are driver options that fail with the Apple driver, please submit a bug report. </p><p>An alternative solution is for the original FTDI driver to be installed. Both drivers define vendor specific USB Interface match criteria, however, the Apple driver intentionally sets a lesser probe score match to ensure that the FTDI Interface driver matches, when present. It is important to verify the compatibility of the FTDI driver with OS X Mavericks as kernel panics have been observed.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014014-CH1-TNTAG3" title="FTDI Applications That Implement a User Client Driver (D2XX Driver)"></a><h2 class="jump">FTDI Applications That Implement a User Client Driver (D2XX Driver)</h2><p>The second group of applications that are affected by the presence of the AppleUSBFTDI kext, are those applications that implement user client drivers to communicate directly with the device from user space. Such applications will fail to open a connection with the hardware, because IOKit will already have matched the AppleUSBFTDI driver to the device. The application will see the exclusive access error 0xE00002C5 when attempting to open a connection with the device.</p><p>The recommended long term solution is to modify the application to open the BSD layer serial port for communication with the FTDI hardware. A short term solution is to implement a codeless kext, that will have a higher match priority than the AppleUSBFTDI kext to prevent IOKit from matching the AppleUSBFTDI kernel level driver to the hardware. An important ramification of the codeless kext solution is that an Installer process will be required to install the codeless kext. Under OS X Mavericks, the codeless kext must be signed.</p><p>Enclosed is a sample codeless kext project. The project includes a readme file describing the steps to modify that sample to match to your device. There are also instructions for installing the codeless kext to the <code>/System/Library/Extensions/</code> folder for test purposes only. Under OS X Mavericks, the official location for third party Extension files, is in <code>/Library/Extensions/</code>. OS X Mavericks requires that the kext be signed using a special Developer ID. See the readme file for instructions on requesting this special Developer ID.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014014-CH1-REFERENCES" title="References"></a><h2 class="jump">References</h2><p><span class="content_text"><a href="https://developer.apple.com/wwdc/videos/?id=707" class="urlLink" rel="external">WWDC 2013 Video - What's New in Kext Development</a></span></p><p><span class="content_text"><a href="https://developer.apple.com/contact/kext/" class="urlLink" rel="external">Requesting a Developer ID Certificate for Signing Kexts</a></span></p><p><span class="content_text"><a href="https://developer.apple.com/library/mac/samplecode/SerialPortSample/" class="urlLink" rel="external">Performing Serial IO Sample Code</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014014-CH1-TNTAG4" title="Downloadables"></a><h2 class="jump">Downloadables</h2><ul class="ul"><li class="li"><p>Sample USB FTDI Codeless Kext project ("tn2315_SampleUSBFTDICodelessKext.zip", 55.4K)
+
+</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40014014-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014014-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2013-11-20</td><td><p>New document that 
+					discusses the AppleUSBFTDI driver in OS X Mavericks and the compatibility issues which arise with applications communicating with FTDI D2XX based hardware.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-11-20</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

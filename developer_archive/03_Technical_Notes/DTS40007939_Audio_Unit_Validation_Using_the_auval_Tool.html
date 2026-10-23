@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2204: Audio Unit Validation Using the auval Tool</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40007939">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40007939-CH1">
+    <meta id="date" name="date" content="2008-09-08">
+    <meta id="description" name="description" content="TN2204: Test the conformance of audio units to Audio Unit Services.">
+    <meta id="book-title" name="book-title" content="Audio Unit Validation Using the auval Tool">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2204">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Unit Validation Using the auval Tool" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40007939" title="Technical Note TN2204"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Unit Validation Using the auval Tool</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40007939-CH1-DontLinkElementID_2" title="Technical Note TN2204"></a><div class="dtsDocNumber">Technical Note TN2204</div><h1 id="pageTitle">Audio Unit Validation Using the auval Tool</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>The <code>auval</code> command-line tool enables you to test the conformance of an audio unit to the behavior expected by applications that use Audio Unit Services.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40007939-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;The <code>auval</code> tool validates audio unit operational correctness and interface semantics. It does not assess audio unit implementation quality, nor does it test views (user interfaces).</p><p></p></aside></div>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40007939-CH1-SECTION1" data-renderer-version="1">Usage</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40007939-CH1-SECTION2" data-renderer-version="1">The Validation Process</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40007939-CH1-SECTION3" data-renderer-version="1">Debugging Options</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40007939-CH1-SUBSECTION3" data-renderer-version="1">Testing for Memory Leaks</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40007939-CH1-SUBSECTION4" data-renderer-version="1">Testing for Memory Smashers: Memory Scribble Test</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40007939-CH1-SUBSECTION5" data-renderer-version="1">Testing for Memory Smashers: Guard Malloc Test</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40007939-CH1-SECTION7" data-renderer-version="1">Tips</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40007939-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40007939-CH1-SECTION1" title="Usage"></a><h2 class="jump">Usage</h2><p>You can run the <code>auval</code> tool from the command line as shown in listing 1.</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE1" title="Listing 1Validating an audio unit"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Validating an audio unit</p><div class="codesample clear"><table><tr><td scope="row"><pre> [~] % auval -v TYPE SUBT MNFR<span></span></pre></td></tr></table></div><p>In listing 1, TYPE, SUBT, and MNFR represent four-character codes that uniquely identify an audio unit.</p><ul class="ul"><li class="li"><p>TYPE - The component type, such as <code>aufx</code></p></li><li class="li"><p>SUBT - The component subtype, such as <code>hpas</code></p></li><li class="li"><p>MNFR - The manufacturer code, unique to a company. For example, the manufacturer code for Apple audio units is <code>appl</code></p></li></ul><p>For more information on audio unit identification, see <span class="content_text"><a href="../../documentation/MusicAudio/Conceptual/AudioUnitProgrammingGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40003278-CH1" data-renderer-version="1" target="_self">Audio Unit Programming Guide</a></span>.</p><p>Listing 2 shows the command to get a list of all audio units on a system that match a given component type.</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE2" title="Listing 2Listing all audio units of a given type"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Listing all audio units of a given type</p><div class="codesample clear"><table><tr><td scope="row"><pre> [~] % auval -s TYPE<span></span></pre></td></tr></table></div><p>To get a list of all installed audio units, enter the command shown in listing 3.</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE3" title="Listing 3Listing all installed audio units"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Listing all installed audio units</p><div class="codesample clear"><table><tr><td scope="row"><pre> [~] % auval -a<span></span></pre></td></tr></table></div><p>The <code>auval</code> tool has built-in help available. You access it as shown in listing 4.</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE4" title="Listing 4Obtaining auval help"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Obtaining auval help</p><div class="codesample clear"><table><tr><td scope="row"><pre> [~] % auval -h<span></span></pre></td></tr></table></div><p>While executing, the <code>auval</code> tool may indicate one of two possible failure modes.</p><ul class="ul"><li class="li"><p>ERROR - Indicates a condition that must be fixed</p></li><li class="li"><p>WARNING - Indicates a condition that should be fixed</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40007939-CH1-SECTION2" title="The Validation Process"></a><h2 class="jump">The Validation Process</h2><p>Audio unit validation proceeds in multiple phases, with each phase given a <code>* *PASS</code> or <code>* *FAIL</code> grade. A passing grade for a phase indicates no errors. After running the <code>auval</code> tool you can look for the following strings in the output:</p><ol class="ol"><li class="li"><p>VALIDATING AUDIO UNIT</p><ul class="ul"><li class="li"><p>Tests whether the component type matches one of Apple's specified audio unit types.</p></li><li class="li"><p>Tests whether the component manufacturer code has at least one uppercase letter, as is required.</p></li></ul></li><li class="li"><p>TESTING OPEN TIMES</p><ul class="ul"><li class="li"><p>Tests both the cold and warm time to open the audio unit. Opening time should be kept to a minimum because it impacts the launch time and, therefore, the usability of host applications.</p></li></ul></li><li class="li"><p>VERIFYING DEFAULT SCOPE FORMATS</p><ul class="ul"><li class="li"><p>Verifies the exported audio data formats of input and output buses. The default format for an audio unit should have a sample rate of 44100Hz and a channel configuration that the audio unit in fact supports.</p></li></ul></li><li class="li"><p>VERIFYING REQUIRED PROPERTIES</p><ul class="ul"><li class="li"><p>Verifies that the audio unit implements all required properties, some of which can vary according to the type of audio unit.</p></li></ul></li><li class="li"><p>VERIFYING RECOMMENDED PROPERTIES</p><ul class="ul"><li class="li"><p>Warns if the audio unit does not implement a property that is recommended for that type of audio unit.</p></li></ul></li><li class="li"><p>VERIFYING OPTIONAL PROPERTIES</p><ul class="ul"><li class="li"><p>Verifies optional, Apple-defined properties of an audio unit, according to its type. Reports only on properties that are implemented and checks that they are implemented correctly.</p></li></ul></li><li class="li"><p>VERIFYING SPECIAL PROPERTIES</p><ul class="ul"><li class="li"><p>Verifies the Class Information (persistence) property, checking that the audio unit specifies an appropriate data format for persistence.</p></li><li class="li"><p>If the audio unit indicates that it has a view, verifies that the view can be found and opened.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40007939-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;The <code>auval</code> tool does not display an audio unit's user interface or perform any UI verification</p><p></p></aside></div></li><li class="li"><p>Verifies that factory presets, if implemented, are handled and reported correctly.</p></li></ul></li><li class="li"><p>PUBLISHED PARAMETER INFO</p><ul class="ul"><li class="li"><p>Verifies any parameter information exported by an audio unit.</p></li></ul></li><li class="li"><p>FORMAT TESTS</p><ul class="ul"><li class="li"><p>Verifies that the audio unit can be set to the channel configurations it indicates it supports.</p></li><li class="li"><p>Verifies that the audio unit cannot be set to channel configurations it does not indicate support for.</p></li></ul></li><li class="li"><p>RENDER TESTS</p><ul class="ul"><li class="li"><p>Performs rendering tests at various numbers of maximum frames-per-slice. This test sets the <code>MaxFramesPerSlice</code> property between rendering calls to verify that the audio unit correctly responds.</p></li><li class="li"><p>Tests the audio unit's response to an <code>AudioUnitReset</code> function call, and tests the audio unit's connection semantics.</p></li><li class="li"><p>Test the setting of both atomic and ramped parameters during rendering.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40007939-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;This test validates rendering using the audio unit's default channel configuration. If the audio unit supports mono-to-mono rendering, this test validates rendering using that configuration as well.</p><p></p></aside></div></li></ul></li></ol><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40007939-CH1-SECTION3" title="Debugging Options"></a><h2 class="jump">Debugging Options</h2><p>You can use the <code>auval</code> tool to test your audio unit for memory leaks and potential memory smashers. Apple recommends three memory tests. Each requires you to define some environment variables. For more information on Malloc environment variables, see <em><a href="../../releasenotes/DeveloperTools/RN-MallocOptions/index.html#//apple_ref/doc/uid/TP40001026" data-renderer-version="2" target="_self">Malloc Debug Environment Variables Release Notes</a></em>.</p><section><a name="//apple_ref/doc/uid/DTS40007939-CH1-SUBSECTION3" title="Testing for Memory Leaks"></a><h3 class="jump">Testing for Memory Leaks</h3><p>Audio units should not leak memory. This section describes how to test for memory leaks.</p><ol class="ol"><li class="li"><p>To test for memory leaks in an audio unit, set the following environment variable:</p><p><code> export MallocStackLogging=1</code></p></li><li class="li"><p>Execute the <code>auval</code> tool using the <code>w</code> and <code>q</code> switches. The <code>w</code> switch prevents <code>auval</code> from terminating. The <code>q</code> switch suppresses diagnostic output. You will see output similar to that shown in listing 5.</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE5" title="Listing 5Preparing to test for memory leaks"></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Preparing to test for memory leaks</p><div class="codesample clear"><table><tr><td scope="row"><pre>[~] % auval -v aufx bpas appl -w -q
+sh(6261) malloc: recording malloc stacks to disk using standard recorder
+sh(6261) malloc: stack logs being written into /tmp/stack-logs.6261.sh.8jZkMX
+arch(6262) malloc: recording malloc stacks to disk using standard recorder
+arch(6262) malloc: stack logs being written into /tmp/stack-logs.6262.arch.0SVUSw
+auvaltool(6262) malloc: recording malloc stacks to disk using standard recorder
+auvaltool(6262) malloc: stack logs deleted from /tmp/stack-logs.6262.arch.0SVUSw
+auvaltool(6262) malloc: stack logs being written into /tmp/stack-logs.6262.auvaltool.ahETKI
+
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+         AU Validation Tool
+         Version: 1.2.1b3 
+          Copyright 2003-2007, Apple, Inc. All Rights Reserved.
+
+         Specify -h (-help) for command options
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+--------------------------------------------------
+VALIDATING AUDIO UNIT: 'aufx' - 'bpas' - 'appl'
+--------------------------------------------------
+AU VALIDATION SUCCEEDED.<span></span></pre></td></tr></table></div></li><li class="li"><p>With the <code>-w</code> switch, <code>auval</code> does not terminate. In another shell, you then execute the <code>leaks</code> command (using the pid (process identifier) of the <code>auval</code> process you are testing. In the example you see in listing 6, the pid is <code>13425</code>. The <code>-q</code> switch suppresses printout from <code>auval</code>.</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE6" title="Listing 6Testing for memory leaks"></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;Testing for memory leaks</p><div class="codesample clear"><table><tr><td scope="row"><pre>[~] % leaks 13425 Process 13425: 2780 nodes malloced for 471 KB Process 13425: 0 leaks for 0 total leaked bytes.<span></span></pre></td></tr></table></div></li><li class="li"><p>If your audio unit has memory leaks, the <code>leaks</code> tool prints out a stack log for each leak it detects.</p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS40007939-CH1-SUBSECTION4" title="Testing for Memory Smashers: Memory Scribble Test"></a><h3 class="jump">Testing for Memory Smashers: Memory Scribble Test</h3><p>Audio units should not attempt to use memory that is not theirs. This section and the next describe how to test for out-of-bounds memory usage.</p><ol class="ol"><li class="li"><p>To perform memory scribble test on an audio unit, define the following two environment variables:</p><p><code> export MallocScribble=1</code></p><p><code> export MallocGuardEdges=1</code></p></li><li class="li"><p>Execute the <code>auval</code> tool using the <code>q</code> switch. You'll see something like the output shown in listing 7.</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE7" title="Listing 7Performing a memory scribble test"></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;Performing a memory scribble test</p><div class="codesample clear"><table><tr><td scope="row"><pre>[~] % auval -v aufx bpas appl -q
+sh(1294) malloc: protecting edges
+sh(1294) malloc: enabling scribbling to detect mods to free blocks
+arch(1295) malloc: protecting edges
+arch(1295) malloc: enabling scribbling to detect mods to free blocks
+auvaltool(1295) malloc: protecting edges
+auvaltool(1295) malloc: enabling scribbling to detect mods to free blocks
+
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+         AU Validation Tool
+         Version: 1.2.1b3 
+          Copyright 2003-2007, Apple, Inc. All Rights Reserved.
+
+         Specify -h (-help) for command options
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+--------------------------------------------------
+VALIDATING AUDIO UNIT: 'aufx' - 'bpas' - 'appl'
+--------------------------------------------------
+AU VALIDATION SUCCEEDED.<span></span></pre></td></tr></table></div><p>In this case we don't need to specify the <code>-w</code> option. We're using the <code>-q</code> option to suppress <code>auval</code> printing.</p></li><li class="li"><p>If your audio unit writes to memory beyond its bounds, it will crash. The stack trace of the crash will be located to the position where the the problem exists. The objective here of course is not to crash! </p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS40007939-CH1-SUBSECTION5" title="Testing for Memory Smashers: Guard Malloc Test"></a><h3 class="jump">Testing for Memory Smashers: Guard Malloc Test</h3><ol class="ol"><li class="li"><p>To perform a Guard Malloc test on an audio unit, define the following three environment variables:</p><p><code> export DYLD_FORCE_FLAT_NAMESPACE=1</code></p><p><code> export DYLD_INSERT_LIBRARIES=/usr/lib/libgmalloc.dylib</code></p><p><code> export MALLOC_VECTOR_SIZE=1</code></p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40007939-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;In Mac OS X versions prior to 10.5, the MALLOC_ALTIVEC_SIZE variable was used instead of the MALLOC_VECTOR_SIZE variable. </p><p></p></aside></div></li><li class="li"><p>Execute the <code>auval</code> tool using the <code>q</code> switch. You'll see something like the output shown in listing 8.</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE8" title="Listing 8Performing a Guard Malloc test"></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 8</strong>&nbsp;&nbsp;Performing a Guard Malloc test</p><div class="codesample clear"><table><tr><td scope="row"><pre>[~] % auval -v aufx bpas appl -q
+GuardMalloc: Allocations will be placed on 16 byte boundaries.
+GuardMalloc: - Some buffer overruns may not be noticed.
+GuardMalloc: - Applications using vector instructions (e.g., SSE or Altivec) should work.
+GuardMalloc: GuardMalloc version 18
+GuardMalloc: Allocations will be placed on 16 byte boundaries.
+GuardMalloc: - Some buffer overruns may not be noticed.
+GuardMalloc: - Applications using vector instructions (e.g., SSE or Altivec) should work.
+GuardMalloc: GuardMalloc version 18
+GuardMalloc: Allocations will be placed on 16 byte boundaries.
+GuardMalloc: - Some buffer overruns may not be noticed.
+GuardMalloc: - Applications using vector instructions (e.g., SSE or Altivec) should work.
+GuardMalloc: GuardMalloc version 18
+
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+         AU Validation Tool
+         Version: 1.2.1b3 
+          Copyright 2003-2007, Apple, Inc. All Rights Reserved.
+
+         Specify -h (-help) for command options
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+--------------------------------------------------
+VALIDATING AUDIO UNIT: 'aufx' - 'bpas' - 'appl'
+--------------------------------------------------
+AU VALIDATION SUCCEEDED.<span></span></pre></td></tr></table></div></li><li class="li"><p>If your audio unit fails the Guard Malloc test, it will crash. The stack trace of the crash will be located to the position where the the problem exists. The objective here of course is not to crash! </p></li></ol></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40007939-CH1-SECTION7" title="Tips"></a><h2 class="jump">Tips</h2><ol class="ol"><li class="li"><p>For convenience, you can define these sets of debugging options as aliases for your shell. For the standard Mac OS X Bash shell, enter the lines shown in listing 9 in the <code>.profile</code> file in your home directory. Once in that file, these aliases are available to each Bash session you open.</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE9" title="Listing 9Defining shell aliases for memory tests"></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 9</strong>&nbsp;&nbsp;Defining shell aliases for memory tests</p><div class="codesample clear"><table><tr><td scope="row"><pre>alias	leaktest="export export MallocStackLogging=1"
+
+alias 	scribbletest="export MallocScribble=1; export MallocGuardEdges=1;"
+
+alias 	guardtest="export DYLD_FORCE_FLAT_NAMESPACE=1;
+export DYLD_INSERT_LIBRARIES=/usr/lib/libgmalloc.dylib;export MALLOC_VECTOR_SIZE=1;"<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40007939-CH1-DontLinkElementID_7" title="Note"></a><p><strong>Note:</strong>&nbsp;In Mac OS X versions prior to 10.5, the MALLOC_ALTIVEC_SIZE variable was used instead of the MALLOC_VECTOR_SIZE variable. </p><p></p></aside></div><p>You then set the environment variables by entering the alias names. For example, before testing for leaks, you would enter the following command:</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE10"></a><div class="codesample clear"><table><tr><td scope="row"><pre>[~] % leaktest<span></span></pre></td></tr></table></div></li><li class="li"><p>You can also perform these memory tests in a gdb session. To do this, first launch gdb. Then before executing the <code>auval</code> tool, on the gdb command line define these environment variables using the gdb <code>set env</code> command, as shown in listing 10.</p><a name="//apple_ref/doc/uid/DTS40007939-CH1-SOURCECODE11" title="Listing 10Using gdb to perform audio unit memory tests"></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 10</strong>&nbsp;&nbsp;Using gdb to perform audio unit memory tests</p><div class="codesample clear"><table><tr><td scope="row"><pre>(gdb) set env MallocScribble 1
+(gdb) r 
+Starting program: /usr/bin/auval 
+malloc[13448]: enabling scribbling to detect mods to free blocks
+Reading symbols for shared libraries +............... done
+malloc[13448]: enabling scribbling to detect mods to free blocks
+
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+         AU Validation Tool
+         Version: 1.1.0b9 
+         Copyright 2003-4, Apple Computer, Inc.
+
+         Specify -h (-help) for command options
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+Program exited normally.
+(gdb)<span></span></pre></td></tr></table></div></li></ol><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40007939-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40007939-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2008-09-08</td><td><p></p></td></tr><tr><td scope="row">2008-08-21</td><td><p>New document that 
+					test the conformance of audio units to Audio Unit Services.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2008 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2008-09-08</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

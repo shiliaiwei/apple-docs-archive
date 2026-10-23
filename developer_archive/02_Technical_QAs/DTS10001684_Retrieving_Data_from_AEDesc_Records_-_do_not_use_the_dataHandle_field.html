@@ -1,0 +1,411 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+            <meta id="book-title" name="book-title" content="Retrieving Data from AEDesc Records - do not use the dataHandle field">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/ApplicationServices}, {Topic/Interapplication Communication}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001684">
+            <meta id="document-version" name="document-version" content="2.0.0">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="QA1139: Describes the correct way to access data stored in AEDesc records.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+
+
+
+<title>Technical Q&amp;A QA1139: Retrieving Data from AEDesc Records - do not use the dataHandle field</title>
+
+<meta name="keywords" content="AEDesc data retrieval">
+
+<meta name="Description" content="Technical Q&amp;A QA1139: A description of the correct way to
+access data stored in AEDesc records.">
+
+
+
+<meta name="categories" content="Overview, Interapplication Communication and AppleScript">
+
+
+<meta name="week-posted" content="Apr 8, 2002 - Apr 12, 2002">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10001684" title="Retrieving Data from AEDesc Records - do not use the dataHandle field"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Retrieving Data from AEDesc Records - do not use the dataHandle field</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technicalQA">
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalqas/index.html">Technical Q&As</a> &gt; <a href="../../technicalqas/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalqas/Carbon/idxInterapplicationCommunication-date.html">Interapplication Communication</a> &gt; </p><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Q&amp;A QA1139</div>
+<div id="pageheadsub">Retrieving Data from AEDesc Records - do not use the dataHandle field</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+
+
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600> <TR> <td align="left">
+
+<!-- begin_content -->
+
+<hr width=500 align=center>
+         
+
+<P id=p2>Q: How should I retrieve the data stored in an Apple event descriptor
+record?</p>
+
+<P id=p4>A: You cannot use direct memory access to retrieve the data
+associated with an Apple event descriptor record using the Carbon Apple Event Manager
+APIs.  Apple provides two Carbon accessor APIs (<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Operating_On_d_146_s_Data.html#//apple_ref/C/func/AEGetDescDataSize">AEGetDescDataSize</a></CODE> and
+<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Operating_On_d_146_s_Data.html#//apple_ref/C/func/AEGetDescData">AEGetDescData</a></CODE>) that allow you to retrieve a copy of the data
+stored in an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> structure.  Appropriate use of these two APIs
+is illustrated in <a href="#howto">Listing 1</a>.  
+     </p>
+      
+      
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td align="left">
+<P><B><a NAME="howto" kind = "Listing">Listing 1</a></B>. Using <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Operating_On_d_146_s_Data.html#//apple_ref/C/func/AEGetDescDataSize">AEGetDescDataSize</a></CODE> 
+and <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Operating_On_d_146_s_Data.html#//apple_ref/C/func/AEGetDescData">AEGetDescData</a></CODE> to retrieve a copy of the data stored in an 
+<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> record.</P>
+</TD></TR>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+Ptr theData;
+Size theLength;
+<a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a> theDesc;
+<a href="../ov/ov02.html">OSStatus</a> err;
+
+    ....
+
+    /* find out the length of the data stored
+    in the descriptor record */
+theLength = <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Operating_On_d_146_s_Data.html#//apple_ref/C/func/AEGetDescDataSize">AEGetDescDataSize</a>(&theDesc);
+
+    /* allocate a buffer to hold a copy
+    of the data */
+theData = malloc(theLength);
+if (theData != NULL) {
+
+        /* copy the data to the buffer */
+    err = <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Operating_On_d_146_s_Data.html#//apple_ref/C/func/AEGetDescData">AEGetDescData</a>(theDesc, theData, theLength);
+    if ( err == noErr) {
+
+        /* perform some operation with the
+        extracted data */
+
+        ....
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+     
+     
+<P id=p4>
+To change the data stored in an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> record, applications can use the routine
+<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Operating_On_d_146_s_Data.html#//apple_ref/C/func/AEReplaceDescData">AEReplaceDescData</a></CODE>.  
+</p>
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>IMPORTANT:</B><BR>
+The <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Operating_On_d_146_s_Data.html#//apple_ref/C/func/AEGetDescData">AEGetDescData</a></CODE>, <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Operating_On_d_146_s_Data.html#//apple_ref/C/func/AEGetDescDataSize">AEGetDescDataSize</a></CODE>, and
+<CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/Functions/Operating_On_d_146_s_Data.html#//apple_ref/C/func/AEReplaceDescData">AEReplaceDescData</a></CODE> routines can only be used with descriptors that
+store simple values - they cannot be used with compound descriptor record types
+such as <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AppleEvent.html">AppleEvent</a></CODE> records, <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AERecord.html">AERecord</a></CODE> records,
+and <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDescList.html">AEDescList</a></CODE> records.  Attempting to use these routines
+with compound descriptor record types may produce unexpected results or
+even application crashes.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+                    
+
+      
+      
+      
+<H2>Background</H2>
+
+<P id=p4><CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> structures contain two components: a descriptor type
+field and a data field.  The descriptor type field contains a thirty-two bit
+code (often four ASCII letters) identifying the type of data stored in the
+descriptor record.   The data field is used internally by the Apple Event Manager
+to store a reference to the data associated with the descriptor record.
+<a href="#declrat">Listing 2</a> shows the declaration for an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE>
+structure.</p>
+     
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td align="left">
+<P><B><a NAME="declrat" kind = "Listing">Listing 2</a></B>. <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> structure declaration.</P>
+</TD></TR>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+typedef AEDataStorageType *AEDataStorage;
+
+struct <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a> {
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/DescType.html">DescType</a>       descriptorType; /* the data type field */
+    AEDataStorage  dataHandle;     /* the data field */
+};
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+
+<P id=p4>Implementations of the Apple Event Manager in versions of the
+Mac OS prior to Mac OS X used the <CODE>dataHandle</CODE> field to store the information
+associated with an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> record in a block of memory referred to
+by a Carbon Memory Manager <CODE>Handle</CODE>.  But, with the advent of the Carbon
+APIs and Mac OS X, the <CODE>dataHandle</CODE> field in the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE>
+structure was changed to an opaque pointer type.  With that change, it became
+inappropriate for software to make assumptions about the meaning of the contents
+of this field.</p>
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>WARNING:</B><BR>
+Code that uses the value stored in the <CODE>dataHandle</CODE> field in an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE>
+structure or assumes that the <CODE>dataHandle</CODE> field contains a Carbon
+Memory Manager <CODE>Handle</CODE> is not supported and may not work in future
+implementations of the Apple Event Manager in Mac OS X.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+                    
+
+
+<P id=p4>The <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> structure itself is not opaque.  As such, it is
+possible for application software to access the <CODE>descriptorType</CODE> field
+to determine the type of data stored in the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> record.  
+Applications should not make any assumptions about the meaning of the value stored in
+the <CODE>dataHandle</CODE> field.  For best results, developers should structure
+their code so that it does not depend on, or make any assumptions about, the contents
+of the <CODE>dataHandle</CODE> field (as shown in <a href="#vartwo">Listing 3</a>).  
+</p>
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td align="left">
+<P><B><a NAME="vartwo" kind = "Listing">Listing 3</a></B>. Sample of structuring code so it 
+does not use the value stored in the <CODE>dataHandle</CODE> field of
+an <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> record.</P>
+</TD></TR>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+    <a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a> theDesc;
+    char* p = "Hello World";
+
+        /* create the descriptor */
+    err = <a href="http://developer.apple.com/documentation/mac/IAC/IAC-209.html">AECreateDesc</a>(typeChar, p, strlen(p), &theDesc);
+    if (err == noErr) {
+
+        /* perform some operations using
+        the descriptor */
+
+            /* delete the descriptor */
+        <a href="http://developer.apple.com/documentation/mac/IAC/IAC-176.html">AEDisposeDesc</a>(&theDesc);
+    }
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+
+<H2>The Exception to the Rule</H2>
+
+<P id=p4>
+It is okay for code to compare the <CODE>dataHandle</CODE> field to 
+<CODE>NULL</CODE> to determine whether the <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> record has any data 
+associated with it, as shown in <a href="#exeptor">Listing 4</a>. However, it does 
+not make sense to use the <CODE>dataHandle</CODE> field in any other way.</p>
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td align="left">
+<P><B><a NAME="exeptor" kind = "Listing">Listing 4</a></B>. Examples of code that makes
+safe assumptions about the <CODE>dataHandle</CODE> field in and <CODE><a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a></CODE> record.</P>
+</TD></TR>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+<a href="http://developer.apple.com/documentation/Carbon/interapplicationcomm/AppleEventManager/Apple_Event_Manager/DataTypes/AEDesc.html">AEDesc</a> d = { typeNull, NULL };  // Initialize a new empty descriptor
+
+if (d.dataHandle != NULL)  // A cheap check for a non-empty descriptor
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                    
+
+
+<hr width=500 align=center>
+ 
+<!-- begin_date --><H4 ALIGN=center>[Apr 10 2002]</H4><!-- end_date -->
+
+</TD> </TR> </table></CENTER>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

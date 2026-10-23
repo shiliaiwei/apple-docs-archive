@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Introduction to Core Foundation Design Concepts</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/10000122i">
+    <meta id="document-version" name="document-version" content="2.9.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="10000122">
+    <meta id="date" name="date" content="2013-12-16">
+    <meta id="description" name="description" content="Explains the fundamental design concepts that underlie all Core Foundation programming interfaces.">
+    <meta id="book-title" name="book-title" content="Core Foundation Design Concepts">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Technologies/Core Services Layer/CoreFoundation}, {Topic/General}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Core Foundation Design Concepts: Introduction to Core Foundation Design Concepts">
+    <meta id="resources-uri" name="resources-uri" content="../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Core Foundation Design Concepts" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="Articles/OpaqueTypes.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X,iOS,tvOS,watchOS">
+</head>    
+<body><a name="//apple_ref/doc/uid/10000122" title="Introduction to Core Foundation Design Concepts"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Core Foundation Design Concepts</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Articles/OpaqueTypes.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/10000122i" title="Introduction to Core Foundation Design Concepts"></a><a name="//apple_ref/doc/uid/10000122-SW1" title="Introduction to Core Foundation Design Concepts"></a><h1 id="pageTitle">Introduction to Core Foundation Design Concepts</h1><a name="//apple_ref/doc/uid/10000122-DontLinkElementID_1"></a><p>Core Foundation is a library with a set of programming interfaces conceptually derived from the <span class="pediaLink" data-header="Objective-C" data-contents="Objective-C defines a small but powerful set of extensions to the ANSI  C programming language that enables sophisticated object-oriented programming. "><a href="../../../General/Conceptual/DevPedia-CocoaCore/ObjectiveC.html#//apple_ref/doc/uid/TP40008195-CH43" data-renderer-version="1" target="_self">Objective-C</a></span>-based Foundation <span class="pediaLink" data-header="Framework" data-contents="A framework is a bundle (a structured directory) that contains a dynamic shared library along with associated resources, such as nib files, image files, and header files. "><a href="../../../General/Conceptual/DevPedia-CocoaCore/Framework.html#//apple_ref/doc/uid/TP40008195-CH56" data-renderer-version="1" target="_self">framework</a></span> but implemented in the C language. To do this, Core Foundation implements a limited object model in C. Core Foundation defines opaque types that encapsulate data and functions, hereafter referred to as “objects.”</p><p>The programming interfaces of Core Foundation objects have been designed for ease of use and reuse. At a general level, Core Foundation:</p><ul class="ul"><li class="li"><p>Enables sharing of code and data among various frameworks and libraries</p></li><li class="li"><p>Makes some degree of operating-system independence possible </p></li><li class="li"><p>Supports internationalization with Unicode strings</p></li><li class="li"><p>Provides common API and other useful capabilities, including a plug-in architecture, XML property lists, and preferences</p></li></ul><p>Core Foundation makes it possible for the different frameworks and libraries on OS X to share code and data. Applications, libraries, and frameworks can define C routines that incorporate Core Foundation types in their external interfaces; they can thus communicate data—as Core Foundation objects—to each other through these interfaces.</p><p>Core Foundation also provides “toll-free bridging” between certain services and the Cocoa’s Foundation framework. Toll-free bridging enables you to substitute Cocoa objects for Core Foundation objects in function parameters and vice versa.</p><p>Some Core Foundation types and functions are abstractions of things that have specific implementations on different operating systems. Code that makes use of these APIs is thus easier to port to different platforms.</p><p>Date and number types abstract time utilities and offers facilities for converting between absolute and Gregorian measures of time. It also abstracts numeric values and provides facilities for converting between different internal representations of those values.</p><p>One of the major benefits Core Foundation brings to application development is internationalization support. Through its String objects, Core Foundation facilitates easy, robust, and consistent internationalization across all OS X and Cocoa programming interfaces and implementations. The essential part of this support is a type, CFString, instances of which represent an array of 16-bit Unicode characters. A CFString object is flexible enough to hold megabytes worth of characters and yet simple and low-level enough for use in all programming interfaces communicating character data. It accomplishes this with performance not much different than that associated with standard C strings.</p><a name="//apple_ref/doc/uid/10000122-DontLinkElementID_2"></a><p>You should read this document to learn about the fundamental design principles that underly Core Foundation, and how Core Foundation objects interact with <span class="pediaLink" data-header="Cocoa (Touch)" data-contents="Cocoa and Cocoa Touch are the application development environments for OS X and iOS, respectively. "><a href="../../../General/Conceptual/DevPedia-CocoaCore/Cocoa.html#//apple_ref/doc/uid/TP40008195-CH9" data-renderer-version="1" target="_self">Cocoa (Touch)</a></span> objects.</p><a name="//apple_ref/doc/uid/10000122-DontLinkElementID_3" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2><p>These concepts and tasks discuss the object model used in Core Foundation:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="Articles/OpaqueTypes.html#//apple_ref/doc/uid/20001106-CJBEJBHH" data-renderer-version="1">Opaque Types</a></span></p></li><li class="li"><p><span class="content_text"><a href="Articles/ObjectReferences.html#//apple_ref/doc/uid/20001107-CJBEJBHH" data-renderer-version="1">Object References</a></span></p></li><li class="li"><p><span class="content_text"><a href="Articles/PolymorphicFunctions.html#//apple_ref/doc/uid/20001108-CJBEJBHH" data-renderer-version="1">Polymorphic Functions</a></span></p></li><li class="li"><p><span class="content_text"><a href="Articles/VarietyOfObjects.html#//apple_ref/doc/uid/20001109-CJBEJBHH" data-renderer-version="1">Varieties of Objects</a></span></p></li><li class="li"><p><span class="content_text"><a href="Articles/Comparing.html#//apple_ref/doc/uid/20001112-CJBEHAAG" data-renderer-version="1">Comparing Objects</a></span></p></li><li class="li"><p><span class="content_text"><a href="Articles/Inspecting.html#//apple_ref/doc/uid/20001113-CJBEHAAG" data-renderer-version="1">Inspecting Objects</a></span></p></li></ul><p>In addition, there are other non-object types, and API conventions that you should be familiar with before using Core Foundation:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="Articles/NamingConventions.html#//apple_ref/doc/uid/20001110-CJBEJBHH" data-renderer-version="1">Naming Conventions</a></span></p></li><li class="li"><p><span class="content_text"><a href="Articles/OtherTypes.html#//apple_ref/doc/uid/20001111-CJBEJBHH" data-renderer-version="1">Other Types</a></span></p></li><li class="li"><p><span class="content_text"><a href="Articles/tollFreeBridgedTypes.html#//apple_ref/doc/uid/TP40010677-SW1" data-renderer-version="1">Toll-Free Bridged Types</a></span></p></li></ul>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Articles/OpaqueTypes.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2003, 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-12-16</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

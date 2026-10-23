@@ -1,0 +1,477 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+            <meta id="book-title" name="book-title" content="Decompressing IMA WAVE files">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/QuickTime}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001954">
+            <meta id="document-version" name="document-version" content="1.0.3">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="QTMCC11.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+
+<title>Technical Q&amp;A QTMCC11: Decompressing IMA WAVE files</title>
+
+
+
+<meta name="keywords" content="Mac OS 8 QuickTime Decompressing IMA WAVE files">
+<meta name="Description" content="Technical Q&amp;A QTMCC11: Q&amp;A details, with sample code, how
+you would use the QuickTime IMA sound decompressor components
+that come with QuickTime 3.0 with the Sound Manager's API
+so that you can decompress and play Window's Microsoft ADPCM-compressed
+WAVE files.">
+
+
+
+
+<meta name="categories" content="QuickTime Components">
+
+
+<meta name="week-posted" content="Oct 19, 1998 - Oct 23, 1998">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10001954" title="Decompressing IMA WAVE files"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Decompressing IMA WAVE files</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technicalQA"> 
+
+<!-- white background -->
+
+
+
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalqas/index.html">Technical Q&As</a> &gt; <a href="../../technicalqas/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalqas/LegacyTechnologies/idxQuickTime-date.html">QuickTime</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/QuickTime/idxImportExport-date.html" target="_blank">QuickTime > Import & Export</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+
+
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Q&amp;A QTMCC11</div>
+<div id="pageheadsub">Decompressing IMA WAVE files</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+<CENTER>
+
+
+
+
+
+			<!-- -->
+			
+			<!-- Document Body -->
+
+<table cellspacing="0" cellpadding="0" border="0" WIDTH="600">
+<tr>
+<td align="left" scope="row">
+
+<hr width=500 align=center>
+
+<p id=p2>Q: I want to decompress and play Window's Microsoft ADPCM-compressed WAVE files on 
+the Mac, but I want to use the Sound Manager, not QuickTime. Is this possible?</p>
+
+
+<p id=p4>A: Yes, this is possible, for the most part. However,
+you must still use QuickTime, at least partially, unless you want to
+write your own sound decompressor component to handle the ADPCM
+sounds. You won't need to use the QuickTime API to play the sound:
+you will use the Sound Manager's API, but you will still need to 
+ensure that QuickTime 3.0 or later is installed.</p>
+
+
+<p id=p4>This Q&amp;A details how you would use the QuickTime IMA sound
+decompressor components that come with QuickTime 3.0 (along with the
+Sound Manager's APIs) so that you can decompress and play the sound
+yourself.</p>
+
+<p id=p4>QuickTime supplies two sound decompressor components: one for
+Microsoft ADPCM compressed WAVE files, and one for Intel IMA-DVI
+compressed WAVE files, whose signatures are
+<CODE>kMicrosoftADPCMFormat</CODE> and
+<CODE>kDVIIntelIMAFormat</CODE>, respectively.</p>
+
+<p id=p4>However, playing a IMA-compressed WAVE file via the Sound Manager
+is not as simple as merely specifying one of these sound
+decompressors. Due to the file format variances allowed in IMA-compressed 
+WAVE files, the decompressor component has to be
+configured so that it can correctly decompress the sound.</p>
+
+<p id=p4>You configure the decompressor component by reading the <CODE>'fmt
+'</CODE> chunk out of the WAVE file and passing it, as a QuickTime
+atom, to the appropriate decompressor component. You do not need to
+do any endian conversion on the <CODE>'fmt '</CODE> chunk before you
+place it in the atom, because the IMA decompressor components expect
+the data to be in little endian format, exactly as it comes out of
+the WAVE file.</p>
+
+<p id=p4>Once the atom has been constructed, send it to the decompressor
+component via <CODE>SoundConverterSetInfo</CODE> with the
+<CODE>siDecompressionParams</CODE> selector.</p>
+
+<p id=p4>Once this has been done, you can use the Sound Manager's
+<CODE>SoundConvert</CODE> routines to decompress the sound into a
+buffer so that you can play the uncompressed sound (because you
+cannot directly play the compressed sound), or do anything else to
+the uncompressed sound that you want to.</p>
+
+<table BORDER=1>
+   <TR>
+      <td bgcolor="#FFFFCC" width=500 align=left>
+         <P>Note: Make sure that you make your buffers of compressed
+         data large enough; 8K is a good starting point, but you may
+         need to make it larger to handle every possible WAVE. If the
+         buffer is not large enough, the call to
+         <CODE>SoundConverterGetBufferSizes</CODE> will fail with an
+         the error code <CODE>notEnoughBufferSpace</CODE> (-207). If
+         you get this error you should increase the size of the
+         buffer and call <CODE>SoundConverterGetBufferSizes</CODE>
+         again, repeating the process until it does not return an
+         error (or returns an error other than
+         <CODE>notEnoughBufferSpace</CODE>).</P>
+      </TD>
+   </TR>
+</table>
+<BR>
+
+<table>
+	<TR>
+	<td width=500 align=left>
+	<P>Here is sample code showing how to create the atom and pass it to
+the decompressor component. You will need to supply your own code to
+parse the WAVE file's header and extract the <CODE>'fmt '</CODE>
+chunk.</P>
+	</TD>
+	</TR>
+</table>
+<BR>
+
+<table BORDER=0 CELLPADDING=1>
+ <TR>
+		<td bgcolor="#CCCC99" align=left>
+                  
+  <pre>typedef struct adpcmcoef_tag {
+    short   iCoef1;
+    short   iCoef2;
+} ADPCMCOEFSET;
+
+typedef struct waveformat_extended_tag {
+    short       wFormatTag;         /* format type */
+    short       nChannels;          /* number of channels (i.e. mono, stereo...) */
+    long        nSamplesPerSec;     /* sample rate */
+    long        nAvgBytesPerSec;    /* for buffer estimation */
+    short       nBlockAlign;        /* block size of data */
+    short       wBitsPerSample;     /* Number of bits per sample of mono data */
+    short       cbSize;             /* The count in bytes of the extra size */
+} WAVEFORMATEX;
+
+typedef struct adpcmwaveformat_tag {
+    WAVEFORMATEX    wfx;
+    short           wSamplesPerBlock;
+    short           wNumCoef;
+    ADPCMCOEFSET    aCoef[32];
+} ADPCMWAVEFORMAT;
+
+typedef struct {
+    long            atomSize;           // how big this structure is (big endian)
+    long            atomType;           // atom type - always kMicrosoftADPCMFormat
+                                        // (big endian)
+                                        // everything below here is little endian -
+                                        // right out of the wave header
+    ADPCMWAVEFORMAT adpcm;
+} AtomMSADPCMWaveFormatEx;
+
+typedef struct {
+    AudioFormatAtom             formatData;
+    AtomMSADPCMWaveFormatEx     endianData;
+    AudioTerminatorAtom         terminatorData;
+} AudioCompressionAtom, *AudioCompressionAtomPtr, **AudioCompressionAtomHandle;
+
+OSErr ASoundGetWAVEHeader (...) {
+    ...
+    case FormatID:
+        format = EndianU16_LtoN (WAVETemplate-&gt;fmt.wFormatTag);
+        switch (format) {
+            case 2:     // MS ADPCM
+            case 17:    // IMA ADPCM
+                BlockMoveData (&amp;(WAVETemplate-&gt;fmt.wFormatTag), formatChunk,
+                EndianU32_LtoN (WAVETemplate-&gt;fmt.ckSize));
+        ...
+        }
+    ...
+}
+
+OSErr DecompressWave (...) {
+    AudioCompressionAtom    decomAtom;
+
+    if (err == noErr) {
+        // Parse the WAVE file and get the 'fmt ' atom.
+        err = ASoundGetWAVEHeader (&amp;theSoundInfo, &amp;length,
+        (fmtChunk*)&amp;(decomAtom.endianData.adpcm));
+    }
+
+    if (err == noErr) {
+        // Figure out which type of ADPCM file we have.
+        switch (EndianU16_LtoN (decomAtom.endianData.adpcm.wfx.wFormatTag)) {
+            case 0x0002:
+                waveFormat = kMicrosoftADPCMFormat;
+                break;
+            case 0x0011:
+                waveFormat = kDVIIntelIMAFormat;
+                break;
+            default:
+                err = badFormat;
+        }
+    }
+
+    if (err == noErr) {
+        inputFormat.flags = 0;
+        inputFormat.format = waveFormat;
+        inputFormat.numChannels = EndianU16_LtoN
+          (decomAtom.endianData.adpcm.wfx.nChannels);
+        inputFormat.sampleSize = EndianU16_LtoN
+          (decomAtom.endianData.adpcm.wfx.wBitsPerSample);
+        inputFormat.sampleRate = (EndianU32_LtoN
+          (decomAtom.endianData.adpcm.wfx.nSamplesPerSec)) &lt;&lt; 16;
+        inputFormat.sampleCount = 0;
+        inputFormat.buffer = nil;
+        inputFormat.reserved = 0;
+
+        outputFormat.flags = 0;
+        outputFormat.format = kSoundNotCompressed;
+        outputFormat.numChannels = EndianU16_LtoN
+          (decomAtom.endianData.adpcm.wfx.nChannels);
+        outputFormat.sampleSize = 16;
+        outputFormat.sampleRate = (EndianU32_LtoN
+          (decomAtom.endianData.adpcm.wfx.nSamplesPerSec)) &lt;&lt; 16;
+        outputFormat.sampleCount = 0;
+        outputFormat.buffer = nil;
+        outputFormat.reserved = 0;
+
+        err = SoundConverterOpen (&amp;inputFormat, &amp;outputFormat, &amp;sc);
+    }
+
+    if (err == noErr) {
+        // Make atom to send to ADPCM decompressor so it knows how to
+        // decompress the data.
+        decomAtom.formatData.size = sizeof (AudioFormatAtom);
+        decomAtom.formatData.atomType = kAudioFormatAtomType;
+        decomAtom.formatData.format = waveFormat;
+
+        decomAtom.endianData.atomSize = sizeof (AtomMSADPCMWaveFormatEx);
+        decomAtom.endianData.atomType = waveFormat;
+
+        decomAtom.terminatorData.size = sizeof (AudioTerminatorAtom);
+        decomAtom.terminatorData.atomType = kAudioTerminatorAtomType;
+
+        err = SoundConverterSetInfo (sc, siDecompressionParams, &amp;decomAtom);
+    }
+
+    if (err == noErr) {
+        targetBytes = 4096;
+        do {
+            targetBytes *= 2;
+            err = SoundConverterGetBufferSizes
+              (sc, targetBytes, &amp;inputFrames, &amp;inputBytes, &amp;outputBytes);
+        } while (err == notEnoughBufferSpace &amp;&amp; targetBytes &lt; (MaxBlock () / 4));
+    }
+}</pre>
+
+ </TD>
+ </TR>
+ </table>
+<BR>
+
+<P>From this point on, use standard sound conversion code to uncompress the sound.</P>
+
+<!-- begin_date --><H4 ALIGN=center>[Oct 19 1998]</H4><!-- end_date -->
+
+
+</td>
+</tr>
+</table>
+
+</CENTER>
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

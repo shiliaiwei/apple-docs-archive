@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Q&amp;A QA1410: Using language-tagged QuickTime UserData text APIs with CFStrings</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40008020">
+    <meta id="document-version" name="document-version" content="1.1.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40008020-CH1">
+    <meta id="date" name="date" content="2005-02-11">
+    <meta id="description" name="description" content="QA1410.">
+    <meta id="book-title" name="book-title" content="Using language-tagged QuickTime UserData text APIs with CFStrings">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/QuickTime}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1410">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Using language-tagged QuickTime UserData text APIs with CFStrings" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40008020" title="Technical Q&amp;A QA1410"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Using language-tagged QuickTime UserData text APIs with CFStrings</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS40008020-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1410"></a><div class="dtsDocNumber">Technical Q&amp;A QA1410</div><h1 id="pageTitle">Using language-tagged QuickTime UserData text APIs with CFStrings</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40008020-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40008020-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;<strong>Legacy Document</strong></p><p>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p><p></p></aside></div><h2>Q:&nbsp;
+When using <code>AddUserDataText</code> I keep getting strange results when adding <code>UTF-8</code> text that is intended for a Japanese OS. This API is documented as taking a text string with a language code (<code>itlRegionTag</code>), how do I map <code>UTF-8</code> strings to the correct language? It would be ideal to just work with <code>CFStrings</code>.
+</h2><p><span>A: </span><code>AddUserDataText</code>, <code>GetUserDataText</code> and many other QuickTime APIs that take or return text strings assume that the text string is in one of the Traditional Mac OS language specific encodings, for example <code>kTextEncodingMacJapanese</code>. Therefore, the value of the <code>itlRegionTag</code> parameter passed to these APIs should be the language code, for example <code>langJapanese</code>.</p><p>If the string you have is <code>UTF-8</code> ( or <code>UTF-16</code> ), when using <code>AddUserDataText</code> you will have to convert it to the appropriate Traditional Mac OS language specific encoding.</p><p><code>CFString</code> has the ability to do this conversion by calling <code>CFStringGetBytes</code> and passing in the appropriate <code>CFStringEncoding</code>.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40008020-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;<code>CFStringEncoding</code> is an integer type for constants used to specify supported string encodings in various <code>CFString</code> functions; the values are exactly the same as the Text Encoding Converter's <code>TextEncoding</code> type and can be found in <code>TextCommon.h</code>.</p><p></p></aside></div><p>You can map a Traditional Mac OS language code to the appropriate <code>TextEncoding</code> for <code>CFStringGetBytes</code> by calling <code>GetTextEncodingFromScriptInfo</code> which converts any combination of Traditional Mac OS script code, language code and region code to a <code>TextEncoding</code>.</p><p>Listing 1 demonstrates how to add a user data text item from a <code>CFString</code> using the above technique, while Listing 2 demonstrates retrieving a text user data item as a <code>CFString</code>. Because QuickTime requires language-tagged text, you will always need to use the Traditional Mac OS language codes found in <code>Script.h</code> with these UserData APIs.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40008020-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;It is important to note that a conversion isn't always possible. For example, if you have a <code>CFString</code> containing a mixture of Japanese and Arabic you can't convert it to any single Traditional Mac OS encoding. The conversion will fail unless you're doing lossy conversion. <code>CFStringGetBytes</code> allows for lossy conversion by passing a "loss byte" to the function. If a character cannot be converted, <code>CFStringGetBytes</code> substitutes the "loss character" and conversion proceeds.</p><p></p></aside></div><p>See <span class="content_text"><a href="http://developer.apple.com/documentation/CoreFoundation/Conceptual/CFStrings/Tasks/Converting.html" class="browserLink" >Converting Between String Encodings</a></span> for more information.</p><a name="//apple_ref/doc/uid/DTS40008020-CH1-SOURCECODE1" title="Listing 1Adding a UserData item as text using a language code."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Adding a UserData item as text using a language code.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/* AddUserDataTextFromCFString
+ *
+    Description:
+        Add a user data item as text to a user data list from a CFString
+        performing character conversion to a specified language implemented
+        using a Traditional Mac OS encoding if possible
+
+    Parameters:
+    inUserData - the user data list for this operation
+    inUDType - the type that is to be assigned to the new item
+    inIndex - the item to which the text is to be added
+    inLanguageCode - a language code implemented using a particular Mac OS
+                     encoding (eg. langEnglish, langJapanese etc.)
+    inCFString - a CFString containing the user data text to be added
+
+    Returns:
+        noErr or appropriate error code on failure
+ *
+ */
+OSStatus AddUserDataTextFromCFString(UserData inUserData, SInt32 inUDType, SInt32 inIndex,
+                                     SInt16 inLanguageCode, CFStringRef inCFString)
+{
+    // the string encoding of the characters to copy, the values are the same
+    // as Text Encoding Converter TextEncoding
+    CFStringEncoding encoding = 0;
+    CFIndex numberOfCharsConverted = 0, usedBufferLength = 0;
+    CFRange range = { 0, CFStringGetLength(inCFString)};
+    OSStatus status;
+
+    // convert any combination of a Mac OS script code, a language code, a region code 
+    // to a text encoding
+    // the CFString passed in should be in this encoding
+    status = GetTextEncodingFromScriptInfo(kTextScriptDontCare, inLanguageCode,
+                                           kTextRegionDontCare, &amp;encoding);
+    if (noErr == status) {
+        // grab the characters from a CFString object into a byte buffer after
+        // converting the characters to a specified encoding
+        // we initially pass NULL for the destination buffer to make sure the
+        // conversion will succeed then we check to make sure the entire string can be
+        // converted as we are not using lossy conversion
+        numberOfCharsConverted = CFStringGetBytes(inCFString, range, encoding, 0, false,
+                                                  NULL, 0, &amp;usedBufferLength);
+        if ((numberOfCharsConverted == CFStringGetLength(inCFString)) &amp;&amp; (usedBufferLength &gt; 0)) {
+            // conversion will work so do it for real this time
+            Handle hData = NewHandleClear(usedBufferLength);
+            if (NULL != hData) {
+                HLock(hData);
+
+                numberOfCharsConverted = CFStringGetBytes(inCFString, range, encoding, 0,
+                                                          false, *hData, usedBufferLength,
+                                                          &amp;usedBufferLength);
+                status = AddUserDataText(inUserData, hData, inUDType, inIndex,
+                                         inLanguageCode);
+
+                DisposeHandle(hData);
+            } else {
+                status = MemError();
+            }
+        } else {
+            // conversion did not work
+            status = kTextUnsupportedEncodingErr;
+        }
+    }
+
+    return status;
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40008020-CH1-SOURCECODE2" title="Listing 2Retrieving language-tagged UserData text as a CFString."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Retrieving language-tagged UserData text as a <code>CFString</code>.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/* GetUserDataTextAsCFString
+ *
+    Description:
+        Retrieves language code tagged text from an item in a user data list
+        as a CFString performing character conversion to the appropriate text
+        encoding if possible
+
+    Parameters:
+    inUserData - the user data list for this operation
+    inUDType - the type that is to be assigned to the new item
+    inIndex - the item to which the text is to be added
+    inLanguageCode - a language code implemented using a particular
+                     Mac OS encoding (langEnglish, langJapanese etc.)
+
+    Returns:
+        a CFString containing the text or NULL on failure
+
+    Note:
+        it is the responsibility of the caller to release the returned CFString
+ *
+ */
+CFStringRef GetUserDataTextAsCFString(UserData inUserData, SInt32 inUDType, SInt32 inIndex,
+                                      SInt16 inLanguageCode)
+{
+    TextEncoding encoding = 0; // the encoding of the characters in the buffer
+    CFStringRef string = NULL;
+    Handle hData = NULL;
+    OSStatus status;
+
+    hData = NewHandle(0);
+    if (NULL == hData || noErr != MemError()) return NULL;
+
+    status = GetUserDataText(inUserData, hData, inUDType, inIndex, inLanguageCode);
+    if (noErr == status &amp;&amp; (GetHandleSize(hData) &gt; 0)) {
+        // convert any combination of a Mac OS script code, a language code, a region
+        // code to a text encoding
+        status = GetTextEncodingFromScriptInfo(kTextScriptDontCare, inLanguageCode,
+                                               kTextRegionDontCare, &amp;encoding);
+        if (noErr == status) {
+            // create a CFString object from a buffer containing characters in a
+            // specified encoding
+            HLock(hData);
+            string = CFStringCreateWithBytes(kCFAllocatorDefault, (const char *)*hData,
+                                             GetHandleSize(hData), encoding, false);
+        }
+    }
+
+    DisposeHandle(hData);
+
+    return string;
+}<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS40008020-CH1-SECTION1" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/Reference/function_group_4.html#//apple_ref/doc/uid/20001211/F11133" class="browserLink" ><codeVoice>CFStringGetBytes</codeVoice></a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/Reference/function_group_1.html#//apple_ref/doc/uid/20001211/F11121" class="browserLink" ><codeVoice>CFStringCreateWithBytes</codeVoice></a></span></p></li><li class="li"><p><code>GetTextEncodingFromScriptInfo</code> - This function is almost identical to <span class="content_text"><a href="http://developer.apple.com/documentation/Carbon/Reference/Text_Encodin_sion_Manager/tec_refchap/function_group_3.html#//apple_ref/doc/uid/TP30000123/F08036" class="browserLink" >UpgradeScriptInfoToTextEncoding</a></span> except it doesn't take a font name and it is available in CoreServices. See <code>TextCommon.h</code></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/QuickTime/APIREF/adduserdatatext.htm" class="browserLink" ><codeVoice>AddUserDataText</codeVoice></a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/QuickTime/APIREF/getuserdatatext.htm" class="browserLink" ><codeVoice>GetUserDataText</codeVoice></a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/Reference/DataTypeIndex.html#//apple_ref/doc/uid/20001211/C007989" class="browserLink" ><codeVoice>CFStringEncoding</codeVoice></a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/Carbon/Reference/Text_Encodin_sion_Manager/tec_refchap/data_type_21.html" class="browserLink" ><codeVoice>TextEncoding</codeVoice></a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008020-CH1-SECTION2" title="Downloadables"></a><h2 class="jump">Downloadables</h2><ul class="ul"><li class="li"><p>Penguins are among the most social of all birds. ("qa1410_UserDataTextUtils.sit", 2.8K)
+
+</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40008020-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40008020-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2005-02-11</td><td><p>New document that 
+					describes how to use language-tagged QuickTime UserData text APIs with CFStrings and TextEncodings.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2005 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2005-02-11</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

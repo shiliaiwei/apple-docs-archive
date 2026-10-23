@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2050: Observing Process Lifetimes Without Polling</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003081">
+    <meta id="document-version" name="document-version" content="2.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003081-CH1">
+    <meta id="date" name="date" content="2008-09-10">
+    <meta id="description" name="description" content="TN2050: Shows a variety of methods to observe process lifetimes without polling.">
+    <meta id="book-title" name="book-title" content="Observing Process Lifetimes Without Polling">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Data Management/Event Handling}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2050">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Observing Process Lifetimes Without Polling" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003081" title="Technical Note TN2050"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Observing Process Lifetimes Without Polling</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003081-CH1-DontLinkElementID_2" title="Technical Note TN2050"></a><div class="dtsDocNumber">Technical Note TN2050</div><h1 id="pageTitle">Observing Process Lifetimes Without Polling</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>This technote describes how to track the lifetime of a process on the system. There are a variety of different ways to do this, and the best approach depends on your specific circumstances. This technote describes the common approaches and the situations in which they are appropriate.</p><p>You should read this technote if you are developing Mac OS X software that uses one or more cooperating processes. Specifically, the technote covers all levels of the Mac OS X software stack (from BSD to Cocoa).</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SECTION2" data-renderer-version="1">The Service-Oriented Alternative</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SECTION3" data-renderer-version="1">Observing Processes That You Started</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION3" data-renderer-version="1">NSTask</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION4" data-renderer-version="1">Application Died Events</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION5" data-renderer-version="1">The UNIX Way</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION6" data-renderer-version="1">UNIX Alternatives</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SECTION8" data-renderer-version="1">Observing Arbitrary Processes</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION8" data-renderer-version="1">NSWorkspace</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION9" data-renderer-version="1">Carbon Event Manager</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION10" data-renderer-version="1">kqueues</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SECTION12" data-renderer-version="1">On Process Serial Numbers</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003081-CH1-SECTION13" data-renderer-version="1">Further Reading</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003081-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>After programming Mac OS X for a while, you will inevitably come across situations where it's necessary to create a suite of cooperating processes. For example:</p><ul class="ul"><li class="li"><p>If you're writing an application, you may want to factor some code out into a separate helper process. Perhaps you want to put some unreliable code in a separate process so that, if it crashes, it doesn't crash your main application. Or perhaps you want to access certain APIs that aren't thread safe without locking up your application's user interface.</p></li><li class="li"><p>You may be writing a suite of cooperating applications. Perhaps you're writing a word processor and want to call on the services of a separate equation editor.</p></li><li class="li"><p>If you're writing a daemon, you may need to interface with a variety of agent programs that have access to per-user state.</p></li></ul><p>Once you have multiple processes you inevitably run into the issue of process lifetime: that is, one process needs to know whether another process is running. This technote explains various techniques that you can use to be notified when a process launches or terminates. It is split into two main sections. <span class="content_text"><!--a  -->Observing Processes That You Started<!--/a--></span> shows how to monitor a process that you launched, while <span class="content_text"><!--a  -->Observing Arbitrary Processes<!--/a--></span> shows how to monitor a process that you didn't launch. Finally, <span class="content_text"><!--a  -->On Process Serial Numbers<!--/a--></span> contains some important information about the process serial number based APIs discussed in this technote.</p><p>But first, let's start with a discussion of an <span class="content_text"><!--a  -->alternative approach<!--/a--></span> that offers a number of key advantages.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003081-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;All of the techniques discussed here notify you when things change. It is possible to get the same information by polling the process list, but polling is generally a bad idea (it consumes CPU time, reduces battery life, increase the working set of your process, and increases your latency in responding to an event).</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SECTION2" title="The Service-Oriented Alternative"></a><h2 class="jump">The Service-Oriented Alternative</h2><p>One of the most common reasons for monitoring the lifecycle of a process is that the process provides some service to you. For example, consider a movie transcoding application that sublaunches a worker process to do the actual transcoding. The main application needs to monitor the state of the worker process so that it can relaunch it if it quits unexpectedly.</p><p>You can avoid this requirement by rethinking your approach. Rather than explicitly managing the state of your helper process, reimagine it as a service that your application calls upon. You can then use <span class="content_text"><a href="x-man-page://8/launchd" class="urlLink" rel="external">launchd</a></span> to manage that service; it will take care of all the nitty-gritty details of launching and terminating the process that provides that service.</p><p>A full discussion of this service-oriented approach is outside the scope of this technote. For more information you should read up on <code>launchd</code>. A good place to start is the <span class="content_text"><a href="http://launchd.macosforge.org/" class="urlLink" rel="external">launchd page</a></span> on <span class="content_text"><a href="http://www.macosforge.org/" class="urlLink" rel="external">Mac OS Forge</a></span>. I specifically recommend that you watch the Google TechTalk that's referenced by that page.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SECTION3" title="Observing Processes That You Started"></a><h2 class="jump">Observing Processes That You Started</h2><p>There are many different techniques for monitoring the lifetime of a process that you started. Each technique has a number of pros and cons. Read the following sections to determine which is most appropriate for your circumstances.</p><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION3" title="NSTask"></a><h3 class="jump">NSTask</h3><p><span class="content_text"><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSTask_Class/Reference/Reference.html" class="browserLink" >NSTask</a></span> makes it easy to launch a helper process and wait for it to terminate. You can wait synchronously (using <code>-[NSTask waitUntilExit]</code>) or install a notification callback for the <code>NSTaskDidTerminateNotification</code> notification. <span class="content_text"><!--a  -->Listing 1<!--/a--></span> shows the synchronous approach and <span class="content_text"><!--a  -->Listing 2<!--/a--></span> show the asynchronous one.</p><a name="//apple_ref/doc/uid/DTS10003081-CH1-SOURCECODE1" title="Listing 1Using NSTask synchronously"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Using NSTask synchronously</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (IBAction)testNSTaskSync:(id)sender
+{
+    NSTask *    syncTask;
+
+    syncTask = [NSTask 
+        launchedTaskWithLaunchPath:@"/bin/sleep" 
+        arguments:[NSArray arrayWithObject:@"1"]
+    ];
+    [syncTask waitUntilExit];
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003081-CH1-SOURCECODE2" title="Listing 2Using NSTask asynchronously"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Using NSTask asynchronously</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (IBAction)testNSTaskAsync:(id)sender
+{
+    task = [[NSTask alloc] init]; 
+    [task setLaunchPath:@"/bin/sleep"];
+    [task setArguments:[NSArray arrayWithObject:@"1"]];
+
+    [[NSNotificationCenter defaultCenter] 
+        addObserver:self 
+        selector:@selector(taskExited:) 
+        name:NSTaskDidTerminateNotification 
+        object:task
+    ];
+
+    [task launch];
+
+    // Execution continues in -taskExited:, below.
+}
+
+- (void)taskExited:(NSNotification *)note
+{
+    // You've been notified!
+
+    [[NSNotificationCenter defaultCenter] 
+        removeObserver:self 
+        name:NSTaskDidTerminateNotification 
+        object:task
+    ];
+    [task release];
+    task = nil;
+}<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION4" title="Application Died Events"></a><h3 class="jump">Application Died Events</h3><p>If you launch an application using a <span class="content_text"><!--a  -->process serial number based API<!--/a--></span>, you can learn about its termination by registering for the <code>kAEApplicationDied</code> Apple event.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003081-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;This event is only delivered for applications that you launched.</p><p></p></aside></div><p><span class="content_text"><!--a  -->Listing 3<!--/a--></span> shows how to register for and handle an application died event.</p><a name="//apple_ref/doc/uid/DTS10003081-CH1-SOURCECODE3" title="Listing 3Using application died events"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Using application died events</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (IBAction)testApplicationDied:(id)sender
+{
+    NSURL *     url;
+    static BOOL sHaveInstalledAppDiedHandler;
+
+    if ( ! sHaveInstalledAppDiedHandler ) {
+        (void) AEInstallEventHandler(
+            kCoreEventClass, 
+            kAEApplicationDied, 
+            (AEEventHandlerUPP) AppDiedHandler, 
+            (SRefCon) self, 
+            false
+        );
+        sHaveInstalledAppDiedHandler = YES;
+    }
+
+    url = [NSURL fileURLWithPath:@"/Applications/TextEdit.app"];
+    (void) LSOpenCFURLRef( (CFURLRef) url, NULL);
+
+    // Execution continues in AppDiedHandler, below.
+}
+
+static OSErr AppDiedHandler(
+    const AppleEvent *  theAppleEvent, 
+    AppleEvent *        reply, 
+    SRefCon             handlerRefcon
+)
+{
+    SInt32              errFromEvent;
+    ProcessSerialNumber psn;
+    DescType            junkType;
+    Size                junkSize;
+
+    (void) AEGetParamPtr(
+        theAppleEvent, 
+        keyErrorNumber, 
+        typeSInt32, 
+        &amp;junkType, 
+        &amp;errFromEvent, 
+        sizeof(errFromEvent), 
+        &amp;junkSize
+    );
+    (void) AEGetParamPtr(
+        theAppleEvent, 
+        keyProcessSerialNumber, 
+        typeProcessSerialNumber, 
+        &amp;junkType, 
+        &amp;psn, 
+        sizeof(psn), 
+        &amp;junkSize
+    );
+
+    // You've been notified!
+
+    NSLog(
+        @"died %lu.%lu %d", 
+        (unsigned long) psn.highLongOfPSN, 
+        (unsigned long) psn.lowLongOfPSN, 
+        (int) errFromEvent
+    );
+
+    return noErr;
+}<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003081-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;Application died events are based on serial numbers, a fact which has a number of important consequences. See <span class="content_text"><!--a  -->On Process Serial Numbers<!--/a--></span> for details.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION5" title="The UNIX Way"></a><h3 class="jump">The UNIX Way</h3><p>Mac OS X's BSD subsystem has two fundamental APIs for starting new processes:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="x-man-page://2/fork" class="urlLink" rel="external">fork</a></span> and <span class="content_text"><a href="x-man-page://2/execve" class="urlLink" rel="external">exec</a></span> — This technique has its origins in the first UNIX systems. The <code>fork</code> routine creates a new process that is an exact clone of the current process, and the exec routine (which is actually a <span class="content_text"><a href="x-man-page://3/exec" class="urlLink" rel="external">family of routines</a></span>, all based on the <span class="content_text"><a href="x-man-page://2/execve" class="urlLink" rel="external">execve</a></span> routine) causes the current process to start running a new executable.</p></li><li class="li"><p><span class="content_text"><a href="x-man-page://2/posix_spawn" class="urlLink" rel="external">posix_spawn</a></span> — This API acts like a combination of <code>fork</code> and <code>exec</code>. It was introduced in Mac OS X 10.5.</p></li></ul><p>In both cases the resulting process is a child of the current process. There are two traditional UNIX ways to learn about the death of a child process:</p><ul class="ul"><li class="li"><p>synchronously, using one of the family of <span class="content_text"><a href="x-man-page://2/wait" class="urlLink" rel="external">wait routines</a></span> (typically <code>waitpid</code>)</p></li><li class="li"><p>asynchronously, by way of the <code>SIGCHLD</code> signal</p></li></ul><p>Waiting synchronously is appropriate in many situations. For example, if the parent process can make no progress until the child is done, it's reasonable to wait synchronously. <span class="content_text"><!--a  -->Listing 4<!--/a--></span> shows an example of how to fork, then exec, then wait.</p><a name="//apple_ref/doc/uid/DTS10003081-CH1-SOURCECODE4" title="Listing 4Fork, exec, wait"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Fork, exec, wait</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern char **environ;
+
+- (IBAction)testWaitPID:(id)sender
+{
+    pid_t       pid;
+    char *      args[3] = { "/bin/sleep", "1", NULL };
+    pid_t       waitResult;
+    int         status;
+
+    // I used fork/exec rather than posix_spawn because I would like this 
+    // code to be compatible with 10.4.x.
+
+    pid = fork();
+    switch (pid) {
+        case 0:
+            // child
+            (void) execve(args[0], args, environ);
+            _exit(EXIT_FAILURE);
+            break;
+        case -1:
+            // error
+            break;
+        default:
+            // parent
+            break;
+    }
+    if (pid &gt;= 0) {
+        do {
+            waitResult = waitpid(pid, &amp;status, 0);
+        } while ( (waitResult == -1) &amp;&amp; (errno == EINTR) );
+    }
+}<span></span></pre></td></tr></table></div><p>On the other hand there are circumstances where waiting synchronously is a really bad idea. For example, if you're running on the main thread of an application and the child process might operate for an extended period of time, you don't want to lock up your application's user interface waiting for the child to quit. In cases like this, you can wait asynchronously by listening for the <code>SIGCHLD</code> signal.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003081-CH1-DontLinkElementID_6" title="Important"></a><p><strong>Important:</strong>&nbsp;If you use the <code>SIGCHLD</code> technique you must still reap the child by calling a <span class="content_text"><a href="x-man-page://2/wait" class="urlLink" rel="external">wait routine</a></span>. Failure to do so will result in a <span class="content_text"><a href="http://en.wikipedia.org/wiki/Zombie_process" class="urlLink" rel="external">zombie process</a></span>.</p><p></p></aside></div><p>Listening for a signal can be tricky because of the wacky execution environment associated with signal handlers. Specifically, if you install a signal handler (using <span class="content_text"><a href="x-man-page://3/signal" class="urlLink" rel="external">signal</a></span> or <span class="content_text"><a href="x-man-page://2/sigaction" class="urlLink" rel="external">sigaction</a></span>), you must be very careful about what you do in that handler. Very few functions are safe to call from a signal handler. For example, it is not safe to allocate memory using <code>malloc</code>!</p><p>The functions that are safe from a signal handler (the <strong>async-signal safe</strong> functions) are listed on the <span class="content_text"><a href="x-man-page://2/sigaction" class="urlLink" rel="external">sigaction man page</a></span>.</p><p>In most cases you must take extra steps to redirect incoming signals to a more sensible environment. There are two standard techniques for doing this:</p><ul class="ul"><li class="li"><p>sockets — In this technique you create a UNIX domain socket pair and add one end to your runloop using CFSocket. When a signal arrives, the signal handler writes a dummy message to the socket. This wakes up the runloop and allows you to process the signal in a safe environment.</p><p>To see this technique in action, look at the <code>InstallSignalToSocket</code> routine in <span class="content_text"><a href="/samplecode/CFLocalServer/index.html" class="urlLink" rel="external">Sample Code 'CFLocalServer'</a></span>.</p></li><li class="li"><p>kqueues — The kqueue mechanism allows you to listen for a signal without installing any signal handlers. So you can create a kqueue, instruct it to listen for <code>SIGCHLD</code> signals, and then wrap it up in a CFFileDescriptor and add it to your runloop. When a signal arrives, the callback routine associated with the CFFileDescriptor runs and you can process the signal in a safe environment.</p><p>To see this technique in action, look at the <code>InstallHandleSIGTERMFromRunLoop</code> routine in <span class="content_text"><a href="/samplecode/PreLoginAgents/index.html" class="urlLink" rel="external">Sample Code 'PreLoginAgents'</a></span>.</p></li></ul><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003081-CH1-DontLinkElementID_7" title="Important"></a><p><strong>Important:</strong>&nbsp;The kqueue technique requires Mac OS X 10.5 or later because it uses CFFileDescriptor.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION6" title="UNIX Alternatives"></a><h3 class="jump">UNIX Alternatives</h3><p>There are numerous pitfalls associated with handing the <code>SIGCHLD</code> signal. The previous section described the deepest one, but there are others. Using <code>SIGCHLD</code> is particularly tricky when you're writing library code, because the disposition of <code>SIGCHLD</code> is controlled by the main program itself and your library code can't require that it be set one way or another.</p><p>There are various techniques to avoid all of this messing around with <code>SIGCHLD</code>. One such technique is to create a UNIX domain socket pair, and organize for the child to have the only descriptor that references one end, and for the parent to have a descriptor for the other end. When the child terminates, the system closes the child's descriptor and that causes the other end of the socket to indicate an end of file (that is, it becomes readable but, when you read from it, the <code>read</code> routine returns 0). When the parent detects this end of file condition it can reap the child.</p><p><span class="content_text"><!--a  -->Listing 5<!--/a--></span> shows an example of this technique.</p><a name="//apple_ref/doc/uid/DTS10003081-CH1-SOURCECODE5" title="Listing 5Using a socket to detect child termination"></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Using a socket to detect child termination</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (IBAction)testSocketPair:(id)sender
+{
+    int                 fds[2];
+    int                 remoteSocket;
+    int                 localSocket;
+    CFSocketContext     context = { 0, self, NULL, NULL, NULL };
+    CFRunLoopSourceRef  rls;
+    char *              args[3] = { "/bin/sleep", "1", NULL } ;
+
+    // Create a socket pair and wrap the local end up in a CFSocket.
+
+    (void) socketpair(AF_UNIX, SOCK_STREAM, 0, fds);
+
+    remoteSocket = fds[0];
+    localSocket  = fds[1];
+    socket = CFSocketCreateWithNative(
+        NULL, 
+        localSocket, 
+        kCFSocketDataCallBack, 
+        SocketClosedSocketCallBack, 
+        &amp;context
+    );
+    CFSocketSetSocketFlags(
+        socket, 
+        kCFSocketAutomaticallyReenableReadCallBack | kCFSocketCloseOnInvalidate
+    );
+
+    // Add the CFSocket to our runloop.
+
+    rls = CFSocketCreateRunLoopSource(NULL, socket, 0);
+    CFRunLoopAddSource(CFRunLoopGetCurrent(), rls, kCFRunLoopDefaultMode);
+    CFRelease(rls);
+
+    // fork and exec the child process.
+
+    childPID = fork();
+    switch (childPID) {
+        case 0:
+            // child
+            (void) execve(args[0], args, environ);
+            _exit(EXIT_FAILURE);
+            break;
+        case -1:
+            // error
+            break;
+        default:
+            // parent
+            break;
+    }
+
+    // Close our reference to the remote socket. The only reference remaining 
+    // is the one in the child. When that dies, the socket will become readable.
+
+    (void) close(remoteSocket);
+
+    // Execution continues in SocketClosedSocketCallBack, below.
+}
+
+static void SocketClosedSocketCallBack(
+    CFSocketRef             s, 
+    CFSocketCallBackType    type, 
+    CFDataRef               address, 
+    const void *            data, 
+    void *                  info
+)
+{
+    int             waitResult;
+    int             status;
+
+    // Reap the child.
+
+    do {
+        waitResult = waitpid( ((AppDelegate *) info)-&gt;childPID, &amp;status, 0);
+    } while ( (waitResult == -1) &amp;&amp; (errno == EINTR) );
+
+    // You've been notified!
+}<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SECTION8" title="Observing Arbitrary Processes"></a><h2 class="jump">Observing Arbitrary Processes</h2><p>There are fewer options available if you want monitor the status of a process that you did not launch. However, the facilities that are available should be enough to meet most needs. Again, the right choice of API depends on your circumstances. Read the following sections to understand which API is appropriate and when.</p><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION8" title="NSWorkspace"></a><h3 class="jump">NSWorkspace</h3><p><span class="content_text"><a href="http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSWorkspace_Class/Reference/Reference.html" class="browserLink" >NSWorkspace</a></span> provides a very easy way for you to learn about applications being launched and quit. To register for these notifications you must:</p><ol class="ol"><li class="li"><p>get NSWorkspace's custom notification center by calling <code>-[NSWorkspace notificationCenter]</code></p></li><li class="li"><p>add observers for the <code>NSWorkspaceDidLaunchApplicationNotification</code> and <code>NSWorkspaceDidTerminateApplicationNotification</code> events</p></li></ol><p>When you get a notification, the user info dictionary contains information about the affected process. The keys for that dictionary are listed in <code>NSWorkspace.h</code>, starting with "NSApplicationPath".</p><p><span class="content_text"><!--a  -->Listing 6<!--/a--></span> shows an example of how to use NSWorkspace to learn application launch and termination.</p><a name="//apple_ref/doc/uid/DTS10003081-CH1-SOURCECODE6" title="Listing 6Using NSWorkspace to learn about application launch and termination"></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;Using NSWorkspace to learn about application launch and termination</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (IBAction)testNSWorkspace:(id)sender
+{
+    NSNotificationCenter *  center;
+
+    NSLog(@"-[AppDelegate testNSWorkspace:]");
+
+    // Get the custom notification center.
+
+    center = [[NSWorkspace sharedWorkspace] notificationCenter];
+
+    // Install the notifications.
+
+    [center addObserver:self 
+        selector:@selector(appLaunched:) 
+        name:NSWorkspaceDidLaunchApplicationNotification 
+        object:nil
+    ];
+    [center addObserver:self 
+        selector:@selector(appTerminated:) 
+        name:NSWorkspaceDidTerminateApplicationNotification 
+        object:nil
+    ];
+
+    // Execution continues in -appLaunched: and -appTerminated:, below.
+}
+
+- (void)appLaunched:(NSNotification *)note
+{
+    NSLog(@"launched %@\n", [[note userInfo] objectForKey:@"NSApplicationName"]);
+
+    // You've been notified!
+}
+
+- (void)appTerminated:(NSNotification *)note
+{
+    NSLog(@"terminated %@\n", [[note userInfo] objectForKey:@"NSApplicationName"]);
+
+    // You've been notified!
+}<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003081-CH1-DontLinkElementID_8" title="Important"></a><p><strong>Important:</strong>&nbsp;NSWorkspace is a process serial number based API, a fact which has a number of important consequences. See <span class="content_text"><!--a  -->On Process Serial Numbers<!--/a--></span> for details.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION9" title="Carbon Event Manager"></a><h3 class="jump">Carbon Event Manager</h3><p><span class="content_text"><a href="http://developer.apple.com/documentation/Carbon/Conceptual/Carbon_Event_Manager/index.html" class="browserLink" >Carbon Event Manager</a></span> sends a number of events related to process management. Specifically, the <code>kEventAppLaunched</code> event is sent when an application is launched and the <code>kEventAppTerminated</code> when an application terminates. You register for these events as you would any other Carbon event. <span class="content_text"><!--a  -->Listing 7<!--/a--></span> shows an example of this.</p><p>When your event handler is called the <code>kEventParamProcessID</code> parameter will contain the <code>ProcesSerialNumber</code> of the affected process. You can call Process Manager to get more information about the process.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003081-CH1-DontLinkElementID_9" title="Important"></a><p><strong>Important:</strong>&nbsp;By the time your application has received the <code>kEventAppTerminated</code> event, the terminating application has probably quit. Thus you can't get information about that application using <code>GetProcessInformation</code>. If you need information about terminating applications, you will have to cache it in advance.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS10003081-CH1-SOURCECODE7" title="Listing 7Using Carbon events to learn about application launch and termination"></a><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;Using Carbon events to learn about application launch and termination</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (IBAction)testCarbonEvents:(id)sender
+{
+    static EventHandlerRef sCarbonEventsRef = NULL;
+    static const EventTypeSpec kEvents[] = {
+        { kEventClassApplication, kEventAppLaunched },
+        { kEventClassApplication, kEventAppTerminated }
+    };
+
+    if (sCarbonEventsRef == NULL) {
+        (void) InstallEventHandler(
+            GetApplicationEventTarget(),
+            (EventHandlerUPP) CarbonEventHandler,
+            GetEventTypeCount(kEvents),
+            kEvents,
+            self,
+            &amp;sCarbonEventsRef
+        );
+    }
+
+    // Execution continues in CarbonEventHandler, below.
+}
+
+static OSStatus CarbonEventHandler(
+    EventHandlerCallRef inHandlerCallRef, 
+    EventRef            inEvent, 
+    void *              inUserData
+)
+{
+    ProcessSerialNumber psn;
+
+    (void) GetEventParameter(
+        inEvent, 
+        kEventParamProcessID, 
+        typeProcessSerialNumber, 
+        NULL, 
+        sizeof(psn), 
+        NULL, 
+        &amp;psn
+    );
+    switch ( GetEventKind(inEvent) ) {
+        case kEventAppLaunched:
+            NSLog(
+                @"launched %u.%u", 
+                (unsigned int) psn.highLongOfPSN, 
+                (unsigned int) psn.lowLongOfPSN
+            );
+            // You've been notified!
+            break;
+        case kEventAppTerminated:
+            NSLog(
+                @"terminated %u.%u", 
+                (unsigned int) psn.highLongOfPSN, 
+                (unsigned int) psn.lowLongOfPSN
+            );
+            // You've been notified!
+            break;
+        default:
+            assert(false);
+    }
+    return noErr;
+}<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003081-CH1-DontLinkElementID_10" title="Important"></a><p><strong>Important:</strong>&nbsp;These Carbon events are based on process serial numbers, a fact which has a number of important consequences. See <span class="content_text"><!--a  -->On Process Serial Numbers<!--/a--></span> for details.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SUBSECTION10" title="kqueues"></a><h3 class="jump">kqueues</h3><p>Both NSWorkspace and Carbon events only work within a single GUI login context. If you're writing a program that does not run within a GUI login context (a daemon perhaps), or you need to monitor a process in a different context from the one in which you're running, you will need to consider alternatives.</p><p>One such alternative is the <span class="content_text"><a href="x-man-page://2/kqueue" class="urlLink" rel="external">kqueue</a></span> <code>NOTE_EXIT</code> event. You can use this to detect when a process quits, regardless of what context it's running in. Unlike NSWorkspace and Carbon events, you must specify exactly which process to monitor; there is no way to be notified when any process terminates.</p><p><span class="content_text"><!--a  -->Listing 8<!--/a--></span> is a simplistic example of how you can use kqueues to watch for the termination of a specific process.</p><a name="//apple_ref/doc/uid/DTS10003081-CH1-SOURCECODE8" title="Listing 8Using kqueues to monitor a specific process"></a><p class="codesample clear"><strong class="caption_number">Listing 8</strong>&nbsp;&nbsp;Using kqueues to monitor a specific process</p><div class="codesample clear"><table><tr><td scope="row"><pre>static pid_t gTargetPID = -1;
+    // We assume that some other code sets up gTargetPID.
+
+- (IBAction)testNoteExit:(id)sender
+{
+    FILE *                  f;
+    int                     kq;
+    struct kevent           changes;
+    CFFileDescriptorContext context = { 0, self, NULL, NULL, NULL };
+    CFRunLoopSourceRef      rls;
+
+    // Create the kqueue and set it up to watch for SIGCHLD. Use the 
+    // new-in-10.5 EV_RECEIPT flag to ensure that we get what we expect.
+
+    kq = kqueue();
+
+    EV_SET(&amp;changes, gTargetPID, EVFILT_PROC, EV_ADD | EV_RECEIPT, NOTE_EXIT, 0, NULL);
+    (void) kevent(kq, &amp;changes, 1, &amp;changes, 1, NULL);
+
+    // Wrap the kqueue in a CFFileDescriptor (new in Mac OS X 10.5!). Then 
+    // create a run-loop source from the CFFileDescriptor and add that to the 
+    // runloop.
+
+    noteExitKQueueRef = CFFileDescriptorCreate(NULL, kq, true, NoteExitKQueueCallback, &amp;context);
+    rls = CFFileDescriptorCreateRunLoopSource(NULL, noteExitKQueueRef, 0);
+    CFRunLoopAddSource(CFRunLoopGetCurrent(), rls, kCFRunLoopDefaultMode);
+    CFRelease(rls);
+
+    CFFileDescriptorEnableCallBacks(noteExitKQueueRef, kCFFileDescriptorReadCallBack);
+
+    // Execution continues in NoteExitKQueueCallback, below.
+}
+
+static void NoteExitKQueueCallback(
+    CFFileDescriptorRef f, 
+    CFOptionFlags       callBackTypes, 
+    void *              info
+)
+{
+    struct kevent   event;
+
+    (void) kevent( CFFileDescriptorGetNativeDescriptor(f), NULL, 0, &amp;event, 1, NULL);
+
+    NSLog(@"terminated %d", (int) (pid_t) event.ident);
+
+    // You've been notified!
+}<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SECTION12" title="On Process Serial Numbers"></a><h2 class="jump">On Process Serial Numbers</h2><p>Mac OS X has a number of high-level APIs for process management that work in terms of process serial numbers (of type <code>ProcessSerialNumber</code>). These include Launch Services, Process Manager, and NSWorkspace. These APIs all share three important features:</p><ul class="ul"><li class="li"><p>They work in the context of a single GUI login session. For example, if you use NSWorkspace to observe applications being launched and terminated, you will only be notified about applications running in the same GUI login session.</p></li><li class="li"><p>They only see processes that connect to the window server. For example, if you use NSTask to run a BSD command line tool like <span class="content_text"><a href="&lt;x-man-page://1/find&gt;" class="urlLink" rel="external">find</a></span>, an NSWorkspace-based observer will not be notified of the tool's launch or termination.</p></li><li class="li"><p>They are, in general, not usable by processes that run outside of a GUI login context (for example, daemons).</p></li></ul><p>See <span class="content_text"><a href="/technotes/tn2005/tn2083.html" class="urlLink" rel="external">Technical Note TN2083, 'Daemons and Agents'</a></span> for more information about execution contexts and their effect on high-level APIs.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003081-CH1-SECTION13" title="Further Reading"></a><h2 class="jump">Further Reading</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://www.apuebook.com/" class="urlLink" rel="external">Advanced Programming in the UNIX® Environment</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://www.unpbook.com/" class="urlLink" rel="external">UNIX Network Programming</a></span></p></li><li class="li"><p><span class="content_text"><a href="/technotes/tn2005/tn2083.html" class="urlLink" rel="external">Technical Note TN2083, 'Daemons and Agents'</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://launchd.macosforge.org/" class="urlLink" rel="external">launchd page</a></span> on <span class="content_text"><a href="http://www.macosforge.org/" class="urlLink" rel="external">Mac OS Forge</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSTask_Class/Reference/Reference.html" class="browserLink" >NSTask Class Reference</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Classes/NSWorkspace_Class/Reference/Reference.html" class="browserLink" >NSWorkspace Class Reference</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/Carbon/Conceptual/Carbon_Event_Manager/index.html" class="browserLink" >Carbon Event Manager Programming Guide</a></span></p></li><li class="li"><p><span class="content_text"><a href="/samplecode/CFLocalServer/index.html" class="urlLink" rel="external">Sample Code 'CFLocalServer'</a></span></p></li><li class="li"><p><span class="content_text"><a href="/samplecode/PreLoginAgents/index.html" class="urlLink" rel="external">Sample Code 'PreLoginAgents'</a></span></p></li><li class="li"><p><span class="content_text"><a href="x-man-page://8/launchd" class="urlLink" rel="external">launchd man page</a></span></p></li><li class="li"><p><span class="content_text"><a href="x-man-page://2/fork" class="urlLink" rel="external">fork man page</a></span></p></li><li class="li"><p><span class="content_text"><a href="x-man-page://2/execve" class="urlLink" rel="external">execve man page</a></span></p></li><li class="li"><p><span class="content_text"><a href="x-man-page://3/exec" class="urlLink" rel="external">exec family man page</a></span></p></li><li class="li"><p><span class="content_text"><a href="x-man-page://2/posix_spawn" class="urlLink" rel="external">posix_spawn man page</a></span></p></li><li class="li"><p><span class="content_text"><a href="x-man-page://2/wait" class="urlLink" rel="external">wait family man page</a></span></p></li><li class="li"><p><span class="content_text"><a href="x-man-page://3/signal" class="urlLink" rel="external">signal man page</a></span></p></li><li class="li"><p><span class="content_text"><a href="x-man-page://2/sigaction" class="urlLink" rel="external">sigaction man page</a></span></p></li><li class="li"><p><span class="content_text"><a href="x-man-page://2/kqueue" class="urlLink" rel="external">kqueue man page</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003081-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003081-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2008-09-10</td><td><p>A major rewrite to eliminate use of deprecated APIs and to update the technote to reference the latest techniques.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>A major rewrite to eliminate use of deprecated APIs and to update the technote to reference the latest techniques.</p></td></tr><tr><td scope="row">2008-09-08</td><td><p>A major rewrite to eliminate use of deprecated APIs and to update the technote to reference the latest techniques.</p></td></tr><tr><td scope="row">2002-07-01</td><td><p>New document that 
+					shows a variety of methods to observe process lifetimes without polling.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2008 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2008-09-10</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

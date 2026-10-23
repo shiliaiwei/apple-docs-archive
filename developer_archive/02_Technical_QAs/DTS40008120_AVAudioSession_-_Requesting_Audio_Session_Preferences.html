@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1631: AVAudioSession - Requesting Audio Session Preferences</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40008120">
+    <meta id="document-version" name="document-version" content="3.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40008120-CH1">
+    <meta id="date" name="date" content="2015-10-14">
+    <meta id="description" name="description" content="QA1631: Describes when to request session preferences such as Preferred Hardware I/O Buffer Duration.">
+    <meta id="book-title" name="book-title" content="AVAudioSession - Requesting Audio Session Preferences">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AudioToolbox}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1631">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="AVAudioSession - Requesting Audio Session Preferences" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40008120" title="Technical Q&amp;A QA1631"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>AVAudioSession - Requesting Audio Session Preferences</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40008120-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1631"></a><div class="dtsDocNumber">Technical Q&amp;A QA1631</div><h1 id="pageTitle">AVAudioSession - Requesting Audio Session Preferences</h1><h2>Q:&nbsp;
+Can I set a preferred value for an <code>AVAudioSession</code>'s buffer duration or sample rate at any time?
+</h2><p><span>A: </span>While it is safe to set the <code>AVAudioSession</code> audio category (<code>setCategory:error:</code>) or notification listeners like <code>AVAudioSessionRouteChangeNotification</code> for example, regardless of activation state, it is generally better to make preference requests such as preferred hardware buffer duration (<code>setPreferredIOBufferDuration:error:</code>) or preferred hardware sample rate (<code>setPreferredSampleRate:error:</code>) when the <code>AVAudioSession</code> is <strong>NOT</strong> active.</p><p>These preferred values are simply hints to the operating system, the actual buffer duration or sample rate <strong>may be different</strong> once the <code>AVAudioSession</code> has been activated. Therefore, asking for the current hardware buffer duration or sample rate before <code>AVAudioSession</code> activation could return incorrect values.</p><section><a name="//apple_ref/doc/uid/DTS40008120-CH1-SETTING_PREFERRED_VALUES_PRIOR_TO_ACTIVATION" title="Setting preferred values prior to activation"></a><h2 class="jump">Setting preferred values prior to activation</h2><p>Follow these guidelines:</p><ul class="ul"><li class="li"><p>Set "preferred" values when the audio session is not active.</p></li><li class="li"><p>Get "current" values once the audio session has been activated.</p></li></ul><a name="//apple_ref/doc/uid/DTS40008120-CH1-SOURCECODE1" title="Listing 1"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;</p><div class="codesample clear"><table><tr><td scope="row"><pre>// Configure the audio session for playback and recording<span></span></pre></td></tr><tr><td scope="row"><pre>NSError *audioSessionError = nil;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AVAudioSession *session = [AVAudioSession sharedInstance];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>[session setCategory:AVAudioSessionCategoryPlayback error:&amp;audioSessionError];<span></span></pre></td></tr><tr><td scope="row"><pre>if (audioSessionError) {<span></span></pre></td></tr><tr><td scope="row"><pre>    NSLog(@"Error %ld, %@",<span></span></pre></td></tr><tr><td scope="row"><pre>          (long)audioSessionError.code, audioSessionError.localizedDescription);<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// Set some preferred values<span></span></pre></td></tr><tr><td scope="row"><pre>NSTimeInterval bufferDuration = .005; // I would prefer a 5ms buffer duration<span></span></pre></td></tr><tr><td scope="row"><pre>[session setPreferredIOBufferDuration:bufferDuration error:&amp;audioSessionError];<span></span></pre></td></tr><tr><td scope="row"><pre>if (audioSessionError) {<span></span></pre></td></tr><tr><td scope="row"><pre>    NSLog(@"Error %ld, %@",<span></span></pre></td></tr><tr><td scope="row"><pre>          (long)audioSessionError.code, audioSessionError.localizedDescription);<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>double sampleRate = 44100.0; // I would prefer a sample rate of 44.1kHz<span></span></pre></td></tr><tr><td scope="row"><pre>[session setPreferredSampleRate:sampleRate error:&amp;audioSessionError];<span></span></pre></td></tr><tr><td scope="row"><pre>if (audioSessionError) {<span></span></pre></td></tr><tr><td scope="row"><pre>    NSLog(@"Error %ld, %@",<span></span></pre></td></tr><tr><td scope="row"><pre>          (long)audioSessionError.code, audioSessionError.localizedDescription);<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// Register for Route Change notifications<span></span></pre></td></tr><tr><td scope="row"><pre>[[NSNotificationCenter defaultCenter] addObserver: self<span></span></pre></td></tr><tr><td scope="row"><pre>                                         selector: @selector(handleRouteChange:)<span></span></pre></td></tr><tr><td scope="row"><pre>                                             name: AVAudioSessionRouteChangeNotification<span></span></pre></td></tr><tr><td scope="row"><pre>                                           object: session];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// *** Activate the audio session before asking for the "Current" values ***<span></span></pre></td></tr><tr><td scope="row"><pre>[session setActive:YES error:&amp;audioSessionError];<span></span></pre></td></tr><tr><td scope="row"><pre>if (audioSessionError) {<span></span></pre></td></tr><tr><td scope="row"><pre>    NSLog(@"Error %ld, %@",<span></span></pre></td></tr><tr><td scope="row"><pre>          (long)audioSessionError.code, audioSessionError.localizedDescription);<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// Get current values<span></span></pre></td></tr><tr><td scope="row"><pre>sampleRate = session.sampleRate;<span></span></pre></td></tr><tr><td scope="row"><pre>bufferDuration = session.IOBufferDuration;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>NSLog(@"Sample Rate:%0.0fHz I/O Buffer Duration:%f", sampleRate, bufferDuration);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div><p>In Listing 1 the <code>AVAudioSession</code> has been activated prior to asking for the current hardware sample rate and current hardware buffer duration. These returned values will accurately reflect what the hardware will present to the client. As previously stated, these values <strong>may</strong> be different then what was asked for using the "Preferred" APIs.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40008120-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Different hardware can have different capabilities. For example, the internal speaker on the iPhone 6S models only support a sample rate of 48kHz while previous iPhone models supported a collection of sample rates. If you assume current values will always be your preferred values and for example fill our your client format using the hardware format expecting 44.1kHz when the actual sample rate is 48kHz, your application can suffer problems like audio distortion with the further possibility of other failures.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008120-CH1-CHANGING_PREFERRED_VALUES_AFTER_ACTIVATION" title="Changing preferred values after activation"></a><h2 class="jump">Changing preferred values after activation</h2><p>When an application sets a preferred value, it will not take effect until the audio session has been activated. In most cases where setting a preferred value causes some sort of audio system reconfiguration with an active audio session, audio data I/O will be stopped and then restarted. Therefore, if an application plans to set multiple preferred values, it is generally advisable to deactivate the session first, set the preferences, reactivate the session and then check the actual values.</p><p>There are several cases however where an application must first activate the audio session (after setting the appropriate category, category options and mode), in order to lean about the capabilities of the current configuration before being able to set a "preferred" value.</p><p>For example:</p><ul class="ul"><li class="li"><p>In order to call <code>setPreferredInput:error:</code>, an active audio session is required before querying the <code>availableInputs</code> property.</p></li><li class="li"><p>Prior to calling <code>setPreferredOutputNumberOfChannels:error:</code>, an active audio session is required before asking for <code>maximumOutputNumberOfChannels</code>.</p></li></ul><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40008120-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;Keep in mind the side effects of an audio session going inactive:</p><p></p></aside></div><ul class="ul"><li class="li"><p>If <code>AVAudioSessionCategoryOptionDuckOthers</code> has been set, going inactive will end ducking. Once your audio session reactivates, ducking of other audio will resume. When ducking has been set, your session is always mixable. This is because setting <code>AVAudioSessionCategoryOptionDuckOthers</code> to <code>true</code> will automatically also set <code>AVAudioSessionCategoryOptionMixWithOthers</code> to <code>true</code>.</p></li><li class="li"><p>Using the <code>AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation</code> option when deactivating will reactivate other non-mixable applications.</p></li></ul><p>It is recommended to <strong>NOT</strong> use the <code>AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation</code> option when going inactive for the purpose of changing some preferred values.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40008120-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;Applications configured to be the main non-mixable application (e.g., uses the <code>AVAudioSessionCategoryPlayAndRecord</code> category and does <strong>NOT</strong> set the <code>AVAudioSessionCategoryOptionMixWithOthers</code> option), gain a greater priority in iOS for the honoring of any preferred settings they may have asked for.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008120-CH1-REFERENCE" title="Reference"></a><h2 class="jump">Reference</h2><p><span class="content_text"><a href="http://developer.apple.com/library/ios/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/Introduction/Introduction.html" class="browserLink" >Audio Session Programming Guide</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40008120-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40008120-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2015-10-14</td><td><p>Added note for iPhone 6s and 6s Plus</p></td></tr><tr><td scope="row">2013-10-29</td><td><p>Updated for AVAudioSession</p></td></tr><tr><td scope="row">2013-02-07</td><td><p>Added "Note" section</p></td></tr><tr><td scope="row">2008-12-08</td><td><p>New document that 
+					describes when to request session preferences such as Preferred Hardware I/O Buffer Duration.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-10-14</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

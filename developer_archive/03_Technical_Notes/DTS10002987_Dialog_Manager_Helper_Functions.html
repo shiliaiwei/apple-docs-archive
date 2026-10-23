@@ -1,0 +1,523 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Dialog Manager Helper Functions">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002987">
+            <meta id="document-version" name="document-version" content="1.0.2">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1148: Discusses Dialog Manager calls available since System 7.0 that minimize work in managing dialogs.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+   <title>Technical Note TN1148: Dialog Manager Helper Functions</title>
+
+    <meta name="keywords" content="Mac OS 8 Dialog Manager helper functions GetStdFilterProc StdFilterProc 
+ SetDialogTracksCursor ">
+    <meta name="Description" content="Technical Note TN1148: This Technical Note discusses Dialog
+Manager calls available since System 7.0 which can ease the
+work of managing dialogs. They allow you to call on the services
+of the System to track the mouse cursor (i.e., change to
+and from the I-beam cursor) and handle the standard keystrokes
+for accept and cancel in your dialog. The calls discussed
+are   SetDialogDefaultItem, SetDialogCancelItem,  SetDialogTracksCursor,GetStdFilterProc
+and StdFilterProc.">
+
+
+<meta name="categories" content="Human Interface Toolbox">
+
+
+<meta name="week-posted" content="Dec 28, 1998 - Jan 1, 1999">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002987" title="Dialog Manager Helper Functions"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Dialog Manager Helper Functions</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalnotes/Carbon/idxHumanInterfaceToolbox-date.html">Human Interface Toolbox</a> &gt; </p><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1148</div>
+<div id="pageheadsub">Dialog Manager Helper Functions</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+         
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+     <tr>
+<td width=300 valign="top" align=left scope="row">
+    <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+        </tr>
+        <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+       <span id="menutitle">
+CONTENTS 
+  <br>
+  <br>
+       </span>
+   </td>
+        </tr>
+        <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+       <!-- begin_toc -->
+<p id="menutext"><a HREF = "#Section1">Introduction</a><BR><BR>
+<a HREF = "#Section2">System 7 Dialog Manager Call Interfaces</a><BR><BR>
+<a HREF = "#Section3">Using the calls</a><BR><BR>
+<a HREF = "#Summary">Summary</a><BR><BR>
+<a href="#References">References</a><BR><BR>
+<a href="#Downloads">Downloadables</a></p>
+  <!-- end_toc -->
+</td>
+        </tr>
+
+        <tr>
+   <td width=300 align=left scope="row">
+       <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+   </td>
+        </tr>
+    </table>
+</td>
+        <td width=300 valign="top" align=left>
+            
+<!-- begin_intro_text -->
+<P id = "introtext">This Technote
+         discusses Dialog Manager calls available since System 7.0
+         which can ease the work of managing dialogs. They allow you
+         to call on the services of the System to track the mouse
+         cursor (i.e., change to and from the I-beam cursor) and
+         handle the standard keystrokes for accept and cancel in your
+         dialog.</P>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Jan 11 1999]</h3>
+<!-- end_date -->
+</TD>
+             </TR>
+          </table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+<!-- begin_content -->
+
+<a NAME=Section1></a>
+         
+         <H2>Introduction</H2>
+         
+         <P>With the introduction of System 7.0 some new Dialog
+         Manager calls were added to make creating standard dialog
+         functionality simpler for the developer.</P>
+         
+         <P>The functionality that has been simplified is:</P>
+         
+         <UL>
+            <li>Setting the default button (aliases the return and
+            enter keys and draws the default ring around it)</li>
+            
+            <li>Setting the cancel button (aliases to the esc and
+            command-. keys)</li>
+            
+            <li>Tracking the cursor for changes to and from the
+            cursor and I-beam</li>
+         </UL>
+
+<BR>
+<a HREF = "#top">Back to top</a>
+<BR>
+
+<a NAME=Section2></a>
+         
+         <H2>System 7 Dialog Manager Call
+         Interfaces</H2>
+         
+         <P>The new calls are:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>/* These are copied from Universal Headers 3.1 */
+
+EXTERN_API( Boolean )
+StdFilterProc                   (DialogPtr              theDialog,
+                                 EventRecord *          event,
+                                 DialogItemIndex *      itemHit);
+
+EXTERN_API( OSErr )
+GetStdFilterProc                (ModalFilterUPP *       theProc);
+
+EXTERN_API( OSErr )
+SetDialogDefaultItem            (DialogPtr              theDialog,
+                                 DialogItemIndex        newItem);
+
+EXTERN_API( OSErr )
+SetDialogCancelItem             (DialogPtr              theDialog,
+                                 DialogItemIndex        newItem);
+
+EXTERN_API( OSErr )
+SetDialogTracksCursor           (DialogPtr              theDialog,
+                                 Boolean                tracks);</pre>
+</TD></TR></table></CENTER><BR><BR>
+              
+              
+         <P><CODE>SetDialogDefaultItem</CODE> sets the default
+         button, the one that responds to the Return and Enter key.
+         It also puts the default ring around the button.</P>
+         
+         <P><CODE>SetDialogCancelItem</CODE> sets the cancel button,
+         which can be the same as the default button. The cancel
+         button responds to the esc key and the command-period (or
+         sequence-that-produces-the-period).</P>
+         
+         <P><CODE>SetDialogTracksCursor</CODE> tells the Dialog
+         Manager if it should track the cursor to change it from the
+         arrow cursor to the I-beam cursor (or vice-versa) when it
+         goes into (or out of) a text edit field.</P>
+         
+         <P>The <CODE>GetStdFilterProc</CODE> and
+         <CODE>StdFilterProc</CODE> calls work together allowing you
+         to delegate most of the work of managing a dialog back to
+         the Dialog Manager. You call the <CODE>StdFilterProc</CODE>
+         function whenever you want the default behavior of the
+         Dialog Manager.</P>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+You <U>must</U> call the standard
+filter proc for these calls to work properly.
+Automatic cursor tracking, default button
+bordering, and keystroke aliasing for <B>OK</B> and <B>Cancel</B>
+will only be active if you call the standard filter
+procedure. Also, these calls are System 7 specific.
+You cannot use them in previous system
+versions.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<BR>
+<a HREF = "#top">Back to top</a>
+<BR>
+
+<a NAME=Section3></a>
+         
+         <H2>Using the calls</H2>
+         
+         <P>Using these calls requires a little preparation on your
+         part. After you create your dialog, you need to tell the
+         Dialog Manager which items you want as the default and
+         cancel items. The button selected as the cancel item will be
+         toggled by the Escape key or by a Command-. keypress. The
+         button specified as the default will be toggled by the
+         Return or Enter key, and <U>also</U> will have the standard
+         heavy black border drawn around it. The buttons will also be
+         hilited when the correct key is hit.</P>
+         
+         <P><code>SetDialogTracksCursor</code> tells the Dialog Manager
+         that it should set the cursor on behalf of your application
+         according to what part of the dialog the mouse is hovering
+         over. When you pass a '<CODE>true</CODE>' value to the
+         <code>SetDialogTracksCursor</code> call the Dialog Manager will
+         constantly check cursor position in your dialog, and change
+         the cursor to an I-Beam when the cursor is over an edit
+         line. Otherwise, Dialog Manager sets the cursor to the
+         standard arrow.</P>
+         
+         <P>Here is a snippet of code showing how to call the
+         functions described in this Technote:</P>
+
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+/* Before we go into a ModalDialog loop, do a little preparation */
+    ModalFilterUPP              filterProcUPP;
+
+    myDialogPtr = GetNewDialog (kMyDialogID, nil, (WindowPtr)-1);
+
+    /* Tell the Dialog Manager that the OK button is the default */
+    myErr = SetDialogDefaultItem (myDialogPtr, ok);
+
+    /* Tell the Dialog Manager the cancel button is the cancel item*/
+    myErr = SetDialogCancelItem (myDialogPtr, cancel);
+
+    /* We have an edit item in our dialog, so tell the Dialog Manager
+       to change the cursor to an I-Beam when it's over the edit line */
+    myErr = SetDialogTracksCursor (myDialogPtr, true);
+
+    filterProcUPP = NewModalFilterProc (ModalDialogFilter);
+
+    do {
+        ModalDialog (filterProcUPP, &amp;hitItem);
+        switch (hitItem) {
+            case ...:
+                break;
+            case ...:
+                break;
+            default:
+        }
+    } while (hitItem != ok &amp;&amp; hitItem != cancel);
+
+    DisposeRoutineDescriptor (filterProcUPP);</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+         <P>Your modal dialog filter will look something like
+         this:</P>
+         
+
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>Boolean ModalDialogFilter (DialogPtr theDialog,
+     EventRecord *theEvent, short *itemHit) {
+          Boolean                     result          = false;
+          OSErr                       err             = noErr;
+          ModalFilterUPP              standardProc;
+
+    if ((theEvent-&gt;what == updateEvt) &amp;&amp;
+       (WindowPtr)theEvent-&gt;message != theDialog) {
+        err = DispatchWindowUpdate ((WindowPtr)theEvent-&gt;message);
+    } else if ((theEvent-&gt;what == activateEvt) &amp;&amp;
+       (WindowPtr)theEvent-&gt;message != theDialog) {
+        DoActivate (theEvent, true);
+    } else {
+        err = GetStdFilterProc (&amp;standardProc);
+        if (err == noErr) {
+            result = CallModalFilterProc (standardProc, theDialog, theEvent, itemHit);
+        }
+    }
+
+    return result;
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<BR>
+<a HREF = "#top">Back to top</a>
+<BR>
+
+<a NAME=Summary></a>
+         
+         <H2>Summary</H2>
+         
+         <P>By using these Dialog Manager calls (even when you're not
+         using a filter) you give your dialog a more consistent user
+         interface and can save yourself a fair amount of work over
+         doing it all yourself.</P>
+
+<BR>
+<a HREF = "#top">Back to top</a>
+<BR>
+
+<a name="References"></a>
+<H2>References</H2>
+
+
+<p><a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-28.html#HEADING28-0">Inside
+Macintosh:Macintosh Toolbox Essentials, Chapter 2 - Event
+Manager</a></p>
+            
+<p><a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-188.html#HEADING188-0">Inside
+Macintosh:Macintosh Toolbox Essentials, Chapter 4 -
+Window Manager</a></p>
+            
+<p><a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-370.html#HEADING370-0">Inside
+Macintosh:Macintosh Toolbox Essentials, Chapter 6 -
+Dialog Manager</a></p>
+        
+<BR><P><a href="#top">Back to top</a></P>
+
+<a NAME="Downloads"></a> 
+<h2>Downloadables</h2>
+
+        <center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+         <TR> 
+            <td width=50 align=left> 
+              <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" width=22 height=23></P>
+            </TD>
+            <td align="left"> 
+              <p>Acrobat version of this Note (56K).</P>
+            </TD>
+            <td width=60 align=left> 
+              <p><a href="pdf/tn1148.pdf">Download</a></P>
+            </TD>
+          </TR> 
+</table></center><BR><BR>
+
+<BR><P><a href="#top">Back to top</a></P>
+</TD></TR></table></CENTER>
+
+<!-- end_content -->
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2336: Handling version conflicts in the iCloud environment</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017116">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017116-CH1">
+    <meta id="date" name="date" content="2016-05-16">
+    <meta id="description" name="description" content="TN2336: helps you understand version conflicts in the iCloud environment and how to handle them in your apps">
+    <meta id="book-title" name="book-title" content="Handling version conflicts in the iCloud environment">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/Foundation}, {Topic/Data Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2336">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Handling version conflicts in the iCloud environment" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017116" title="Technical Note TN2336"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Handling version conflicts in the iCloud environment</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017116-CH1-DontLinkElementID_2" title="Technical Note TN2336"></a><div class="dtsDocNumber">Technical Note TN2336</div><h1 id="pageTitle">Handling version conflicts in the iCloud environment</h1><p>This technical note first introduces two scenarios that can lead to conflicts in the iCloud environment, then describes the different behaviors of iCloud Drive when the conflicts occurs on different iCloud container areas, and finally discusses how to handle version conflicts from within your apps.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017116-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017116-CH1-TNTAG2" data-renderer-version="1">Understanding the conflicts in the iCloud environment</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017116-CH1-TNTAG3" data-renderer-version="1">The document scope and data scope in an iCloud container</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017116-CH1-TNTAG4" data-renderer-version="1">Handling version conflicts in document-based apps</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017116-CH1-TNTAG5" data-renderer-version="1">Handling version conflicts in non-document-based apps</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017116-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40017116-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>In the iCloud environment, it is possible that a user, accidentally or not, saves changes to the same file, or creates files with the same name, from multiple devices. Depending on the networking condition and the timing of synchronization, these actions likely, or even inevitably, lead to conflicts. Understanding and handling the conflicts are important for iCloud apps.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017116-CH1-TNTAG2" title="Understanding the conflicts in the iCloud environment"></a><h2 class="jump">Understanding the conflicts in the iCloud environment</h2><p>In the real world, users may not see many conflicts when using apps. The reason is that the conflicts almost always happen randomly and most of them are invisible if the apps don't present them intentionally, or the apps have silently handled the conflicts without any user interaction. However, app developers can easily trigger a conflict by changing an existing file simultaneously from two peers. Here is how:</p><ol class="ol"><li class="li"><p>Prepare two Macs running the latest OS X, log in with a same Apple ID, and make iCloud Drive ready for use. Then connect the Macs to the Internet and make sure the network condition is good.</p></li><li class="li"><p>On one Mac, use TextEdit to create a file and save it to iCloud Drive. The file will soon synchronize to the other Mac.</p></li><li class="li"><p>On both Macs, open the file, make changes on the contents, and save the file at the same time.</p></li></ol><p>After the save is synchronized, TextEdit should detect a version conflict and present a sheet for you to pick a winning version, as shown in Figure 1:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40017116-CH1-FIGURE1" title="Figure 1A version conflict in TextEdit."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;A version conflict in TextEdit.</figcaption><img src="Art/tn2336_Conflict_TextEdit.jpg" class="wide-image" alt="" width="1000" height="518"><img src="Art/tn2336_Conflict_TextEdit.jpg" class="ipad-scaled-image" alt="" width="670" height="347"></figure><p>Creating a file with the same name from two peers can trigger a conflict as well. Here are the steps to see that on iOS:</p><ol class="ol"><li class="li"><p>Prepare two devices running the latest iOS, log in with a same Apple ID, and make iCloud Drive ready for use.</p></li><li class="li"><p>Connect one device to the Internet and make sure the network condition is good, then turn on airplane mode on the other device so that nothing can synchronize through iCloud.</p></li><li class="li"><p>On the first device, create a file named “abc.txt”, add some text, and save it in the <code>Documents</code> folder of your iCloud container. (You may want to write a test app for this experiment as this needs to be done with code.) The file should soon synchronize through iCloud. </p></li><li class="li"><p>Do the same thing as step 3 on the second device, making sure the file on this device has different contents.</p></li><li class="li"><p>Now turn off airplane mode on the second device and connect it to the Internet. The device should soon synchronize through iCloud.</p></li></ol><p>After the devices are synchronized, you should be able to see two files, “abc.txt” and “abc 2.txt”, appearing in your iCloud container. What happens here is that, when getting a new file from a different peer that has the same name as an existing file, iCloud Drive detects a new-file conflict and automatically handles it by giving the new file a bounced file name, which is generated by appending a number suffix to original file name. (The number suffix is bounced based on the existing file name, such as "abc 2.txt" based on "abc.txt", or "abc 3.txt" based on "abc 2.txt".)</p><p>To stably trigger the conflict in this case, we turn on airplane mode to ensure that the file created in the first device doesn’t synchronize to the second device before the second file is created. In the real world, the devices may not be in airplane mode, yet conflicts can still happen when the network condition is bad, thus are subtle and hard to reproduce. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017116-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;When handling a new-file conflict, iCloud Drive looks into the contents of the files. If they are the same, iCloud Drive will determine that there is no conflict, thus won’t create a bounced file (a new file with a bounced file name).</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017116-CH1-TNTAG3" title="The document scope and data scope in an iCloud container"></a><h2 class="jump">The document scope and data scope in an iCloud container</h2><p>Creating a bounced file when a new-file conflict occurs is only applied to iCloud documents (including files and file packages) locating in the <code>Documents</code> folder. In an iCloud container, the <code>Documents</code> folder, also known as the "document scope", is for storing user-manageable documents, which users can see and delete individually when visiting <code>System</code> <code>Preferences</code> (OS X) or <code>Settings</code> (iOS). The <code>Documents</code> folder can also be exposed to iCloud Drive (see <span class="content_text"><a href="https://developer.apple.com/library/mac/documentation/General/Conceptual/iCloudDesignGuide/Chapters/DesigningForDocumentsIniCloud.html#//apple_ref/doc/uid/TP40012094-CH2-SW20" class="urlLink" rel="external">Enabling Document Storage in iCloud Drive</a></span> for details), thus can be managed by users using <code>Finder</code> (OS X) or iCloud Drive app (iOS). When we duplicate a file with <code>Finder</code>, a bounced file is created under the same folder. Similarly, when a new-file conflict happens in the document scope, iCloud Drive creates a bounced file.</p><p>Files and file packages that are not managed by users should normally be stored outside of the <code>Documents</code> folder, where it is known as the "data scope", in an iCloud container. In <code>System</code> <code>Preferences</code> or <code>Settings</code>, the data-scoped files and file packages are grouped together as “data” and can be deleted by users only as a monolithic group. When conflicts happen in the data scope, iCloud Drive won’t create bounced files – it instead resolves them automatically by picking up a winning version and keeping the other changes in a losing version. So except for the new-file conflicts happening in the document scope causing bounced files to be generated, iCloud Drive automatically creates new versions for all other conflicts. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017116-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;If you do not explicitly remove the versions that are no longer useful, they will continue to synchronize to all iCloud peers and consume the user's iCloud quota. So apps working heavily with iCloud files or file packages should observe the version conflicts and remove the useless versions, even though they don’t have to do a custom merge.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017116-CH1-TNTAG4" title="Handling version conflicts in document-based apps"></a><h2 class="jump">Handling version conflicts in document-based apps</h2><p>Handling version conflicts in document-based apps is straightforward because <code>UIDocument</code> (iOS) or <code>NSDocument</code> (OS X) has done most of the heavy lifting. If possible, app developers should always use <code>UIDocument</code> or <code>NSDocument</code> to manage their data in the iCloud environment.</p><p>On iOS, <code>UIDocument</code> posts a <code>UIDocumentStateChangedNotification</code> notification when a version conflict occurs in the document. You can observe the notification and implement your conflict-resolution strategies in the handler. For details on this topic, please see <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/DocumentBasedAppPGiOS/ResolveVersionConflicts/ResolveVersionConflicts.html#//apple_ref/doc/uid/TP40011149-CH6-SW1" class="urlLink" rel="external">Resolving Document Version Conflicts</a></span> section in Document-Based App Programming Guide for iOS.</p><p>On OS X, <code>NSDocument</code> resolves conflicts automatically, including presenting a sheet for the user to pick the winner when a version conflict is detected (see Figure 1) and allowing the user to manage the document versions. The details are covered in <span class="content_text"><a href="https://developer.apple.com/library/mac/documentation/DataManagement/Conceptual/DocBasedAppProgrammingGuideForOSX/ManagingLifecycle/ManagingLifecycle.html#//apple_ref/doc/uid/TP40011179-CH4-SW20" class="urlLink" rel="external"><codeVoice>NSDocument</codeVoice> Handles Conflict Resolution Among Document Versions</a></span> section in Document-Based App Programming Guide for Mac.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017116-CH1-TNTAG5" title="Handling version conflicts in non-document-based apps"></a><h2 class="jump">Handling version conflicts in non-document-based apps</h2><p>There are some scenarios where you are unable to use document objects. For example, if you want to handle version conflicts in a custom way in OS X, you can’t use <code>NSDocument</code> because it doesn’t provide interfaces for the customization. </p><p>To handle version conflicts in non-document-based apps, you can implement the <code>NSFilePresenter</code> protocol to get notified of version changes, then use the <code>NSFileVersion</code> class to get the versions of an URL and implement your own conflict-resolution strategies. When a version change occurs, one of the methods shown in Listing 1, if implemented, should be called:</p><a name="//apple_ref/doc/uid/DTS40017116-CH1-SOURCECODE1" title="Listing 1Version-related methods in the NSFilePresenter protocol."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Version-related methods in the <code>NSFilePresenter</code> protocol.</p><div class="codesample clear"><table><tr><td scope="row"><pre>// For a file or file package<span></span></pre></td></tr><tr><td scope="row"><pre>public func presentedItemDidGainVersion(version: NSFileVersion)<span></span></pre></td></tr><tr><td scope="row"><pre>public func presentedItemDidLoseVersion(version: NSFileVersion)<span></span></pre></td></tr><tr><td scope="row"><pre>public func presentedItemDidResolveConflictVersion(version: NSFileVersion)<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// For a folder<span></span></pre></td></tr><tr><td scope="row"><pre>public func presentedSubitemAtURL(url: NSURL, didGainVersion version: NSFileVersion)<span></span></pre></td></tr><tr><td scope="row"><pre>public func presentedSubitemAtURL(url: NSURL, didLoseVersion version: NSFileVersion)<span></span></pre></td></tr><tr><td scope="row"><pre>public func presentedSubitemAtURL(url: NSURL, didResolveConflictVersion version: NSFileVersion)<span></span></pre></td></tr></table></div><p>You can also choose to implement the <code>relinquishPresentedItemToWriter</code> method and check the version changes in the closure passed to the <code>writer</code>, as shown in Listing 2:</p><a name="//apple_ref/doc/uid/DTS40017116-CH1-SOURCECODE2" title="Listing 2Check version changes after the presented item has been changed."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Check version changes after the presented item has been changed.</p><div class="codesample clear"><table><tr><td scope="row"><pre>public func relinquishPresentedItemToWriter(writer: ((() -&gt; Void)?) -&gt; Void) {<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;Prepare for another object to write to the file&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    // Now let the writer know that it can have the file.<span></span></pre></td></tr><tr><td scope="row"><pre>    // But pass a reacquisition block so that this object<span></span></pre></td></tr><tr><td scope="row"><pre>    // can update itself when the writer is done.<span></span></pre></td></tr><tr><td scope="row"><pre>    writer(){<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;Checking and handling the version changes here.&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>After resolving the version conflicts, you can use <code>NSFileVersion</code>'s <code>removeOtherVersionsOfItemAtURL</code> method to remove the useless versions. See <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/DataManagement/Conceptual/DocumentBasedAppPGiOS/ResolveVersionConflicts/ResolveVersionConflicts.html#//apple_ref/doc/uid/TP40011149-CH6-SW2" class="urlLink" rel="external">An Example: Letting the User Pick the Version</a></span> for an example.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017116-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;In the iCloud environment, every file access in your app, unless it is in the context of the reading or writing methods of <code>UIDocument</code> or <code>NSDocument</code>, should go through <code>NSFileCoordinator</code> so that it can be queued up and coordinated.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017116-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017116-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-05-16</td><td><p>New document that 
+					helps you understand version conflicts in the iCloud environment and how to handle them in your apps</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-05-16</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

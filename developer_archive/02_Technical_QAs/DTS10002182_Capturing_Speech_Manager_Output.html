@@ -1,0 +1,389 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+            <meta id="book-title" name="book-title" content="Capturing Speech Manager Output">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002182">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="SND15: Capturing the output from the Speech Synthesis Manager to a file.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+
+<title>Technical Q&amp;A SND15: Capturing Speech Manager Output</title>
+
+ 
+ 
+<meta name="keywords" content="Mac OS 8 capturing speech synthesis manager output component">
+<meta name="Description" content="Technical Q&amp;A SND15: Q&amp;A details how to capture the output
+from the Speech Synthesis Manager so that it can be saved
+to a file. Q&amp;A does this by giving the url to a sample sound
+output component, telling you how the Component Manager handles
+component registration and by giving some sample code that
+shows how to install and use a component with the Speech
+Synthesis Manager.">
+
+
+
+
+<meta name="categories" content="Sound">
+
+
+<meta name="week-posted" content="May 18, 1998 - May 22, 1998">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002182" title="Capturing Speech Manager Output"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Capturing Speech Manager Output</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technicalQA"> 
+
+<!-- white background -->
+
+
+
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalqas/index.html">Technical Q&As</a> &gt; <a href="../../technicalqas/MusicAudio/index.html">Audio</a> &gt; <a href="../../technicalqas/MusicAudio/idxCarbon-date.html">Carbon</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Not Recommended Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>The information in this document is <strong>Not Recommended</strong> and should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/MusicAudio/idxCarbon-date.html" target="_blank">Audio > Carbon</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+
+
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Q&amp;A SND15</div>
+<div id="pageheadsub">Capturing Speech Manager Output</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+<CENTER>
+
+
+
+
+
+			<!-- -->
+			
+			<!-- Document Body -->
+
+<table cellspacing="0" cellpadding="0" border="0" WIDTH="600">
+<tr>
+<td align="left" scope="row">
+
+<FONT SIZE="+4">Q</FONT> Is it possible to capture the output from
+the Speech Synthesis Manager so I can save it to a file or modify
+it?<BR><BR>
+
+<FONT SIZE="+4">A</FONT> There is no direct provision in the Speech
+Synthesis Manager for doing this; however, it is possible if you are
+willing to do it in a roundabout fashion.
+
+<P>The Speech Synthesis Manager, via the <CODE>soSoundOutput</CODE>
+selector, has the ability to direct speech to any arbitrary sound
+output device. Because the Speech Synthesis Manager speaks by
+creating buffers of speech and then playing those buffers via the
+Sound Manager, it can use the Sound Manager's ability to 
+<a href="http://developer.apple.com/documentation/mac/Sound/Sound-97.html#HEADING97-0" target="_blank">direct
+sounds to a specific sound output component.</a></P>
+
+<P>This feature was designed so that the Speech Synthesis Manager
+could speak over the phone, but it is not limited to just talking
+over the phone. If you create a sound output component that saves the
+sounds played to it (either to memory or to a file), you can have the
+Speech Synthesis Manager speak to this sound output component and use
+it to capture the Speech Synthesis Manager's output.  From here, you can
+do whatever you want with the captured sound.</P>
+
+<P>A DTS sample called <a href="http://developer.apple.com/samplecode/Sample_Code/Sound.htm" target="_blank">AIFF-Writer</a>
+is a sample sound output component that saves whatever sound is
+played through it to an AIFF file, so this is a good starting point
+for the sound output component.</P>
+
+<P>The <a href="http://developer.apple.com/documentation/mac/MoreToolbox/MoreToolbox-333.html#HEADING333-0" target="_blank">Component
+Manager</a> allows you to register a component from any resource
+file. Normally components are in separate files placed in the
+Extensions folder, but this is not a requirement. For instance, your
+component can reside in your application's resource fork rather than
+in a separate file. Furthermore, the Component Manager allows you to
+register a component locally so that it is available only to your
+application and the Mac OS. This ability allows for the stealthy use
+of the AIFF-Writer component (or any other component). The user does
+not ever have to know that you have installed your custom version of
+the AIFF-Writer component. You can install it, select it, use it, and
+unregister it--all without the user ever knowing that anything
+interesting happened.</P>
+
+<table BORDER=0>
+   <TR>
+      <td bgcolor="#FFFF99" align=left>
+         <P>Note: The installation of your custom sound output
+         component does not affect the normal playing of sounds from
+         your application or any other application. Only sounds that
+         are specifically directed to your custom sound output
+         component will play through it.</P>
+      </TD>
+   </TR>
+</table>
+<BR>
+<table BORDER=0>
+   <TR>
+      <td bgcolor="#FFFF99" align=left>
+         <P>Note: When sounds are being played to your custom sound
+         output device component, they are not heard (because they are
+         not going to the default sound output component). If you
+         want them to be heard, you will have to play the sound
+         twice, once to the default sound output device (so it can be
+         heard), and once to your custom output device (so it can be
+         captured). The Sound Manager will allow you to play a sound
+         simultaneously to multiple different output components, so
+         playing the sound twice does not require any extra time.</P>
+      </TD>
+   </TR>
+</table>
+
+<P>Here is some sample code that shows how to install and use your
+custom sound output component with the Speech Synthesis Manager:</P>
+
+<table BORDER=0>
+   <TR>
+      <td bgcolor="#CCCCCC" align=left>
+         <pre>    OSErr                   theErr              = noErr;
+    ComponentDescription    writerOutputDev;
+    Component               theWriterComponent  = 0;
+    SpeechChannel           theWriterSpeechChan = nil;
+
+    // Load the AIFF-Writer component resources from our resource fork
+    numCompsReg = RegisterComponentResourceFile (CurResFile(), 0);
+
+    writerOutputDev.componentType = kSoundOutputDeviceType;
+    writerOutputDev.componentSubType = 'AIFW';
+    writerOutputDev.componentManufacturer = kAppleManufacturer;
+    writerOutputDev.componentFlags = 0;
+    writerOutputDev.componentFlagsMask = 0;
+
+    // Find AIFF-Writer's component instance
+    theWriterComponent = FindNextComponent (0, &amp;writerOutputDev);
+
+    theErr = NewSpeechChannel (nil, &amp;theWriterSpeechChan);
+    if (theErr != noErr)
+        return theErr;
+
+    // Change output device to talk through AIFF-Writer
+    theErr = SetSpeechInfo (theWriterSpeechChan, soSoundOutput, &amp;theWriterComponent);</pre>
+      </TD>
+   </TR>
+</table>
+
+<H2><FONT COLOR="#AF0000">Further References</FONT></H2>
+
+<table BORDER=0 WIDTH=498>
+   <TR>
+      <td bgcolor="#FFFF99" align=left>
+         <UL>
+            <li><a href="http://developer.apple.com/documentation/mac/Sound/Sound-2.html" target="_blank">Inside
+            Macintosh: Sound</a></li>
+            
+            <li><a href="http://developer.apple.com/documentation/mac/Sound/Sound-187.html#HEADING187-0" target="_blank">Inside
+            Macintosh: Sound, Chapter 4 - Speech Manager</a></li>
+            
+            <li><a href="http://developer.apple.com/documentation/mac/MoreToolbox/MoreToolbox-333.html#HEADING333-0" target="_blank">Inside
+            Macintosh: More Macintosh Toolbox, Chapter 6 - Component
+            Manager</a></li>
+            
+            <li><a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/RM/frameset.htm" target="_blank">QuickTime
+            3.0 Documentation</a></li>
+         </UL>
+      </TD>
+   </TR>
+</table>
+<BR>
+
+
+<!-- begin_date --><H4 ALIGN=center>[May 18 1998]</H4><!-- end_date -->
+
+</td>
+</tr>
+</table>
+
+</CENTER>
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+  <title>Time Machine Over SMB Specification</title>
+
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/release-notes-1.6.3.css" />
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback-1.6.3.css" />
+  <meta charset='utf-8'> 
+<meta id="j-version" name="j-version" content="" />
+<meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+<meta id="document-version" name="document-version" content="1.0.6" />
+<meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Topic/Networking, Internet, &amp; Web}" />
+<meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40017496" />
+<meta id="chapterId" name="chapterId" content="TP40017496-CH1">
+<meta id="book-title" name="book-title" content="Time Machine Over SMB Specification" />
+<meta id="book-resource-type" name="book-resource-type" content="Release Note" />
+<meta id="book-root" name="book-root" content="./" />
+<meta id="book-json" name="book-json" content="book.json">
+<meta id="date" name="date" content="2016-09-13" />
+<meta id="description" name="description" content="Describes the requirements necessary for an SMB server to support Time Machine backups. " />
+<meta id="IndexTitle" name="IndexTitle" content="" />
+<meta id="resources-uri" name="resources-uri" content="../../../Resources/1282">
+<link id="book-index-page" rel="Start" title="" type="text/html" href="./index.html">
+<!-- , next_chapter: next_chapter, previous_chapter: previous_chapter -->
+<link id="next-page" rel="Next" type="text/html" href="">
+<link id="previous-page" rel="Prev" type="text/html" href="">
+<meta id="devcenter" name="devcenter" content="<!-- DEVCENTER_NAME -->" />
+<meta id="devcenter-url" name="devcenter-url" content="<!-- DEVCENTER_URL -->" />
+<meta id="reflib" name="reflib" content="<!-- REFLIB_NAME -->" />
+
+<meta id="xcode-display" name="xcode-display" content="render" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta id="platforms" name="platforms" content="OS X">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta id="platforms" name="platforms" content="OS X">
+</head>
+
+  <body class="release-notes">
+    <a name="//apple_ref/doc/uid/TP40017496" title="Time Machine Over SMB Specification"></a>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+    <div id='ssi_Header' class="hideInXcode <!-- library -->">
+        <a id="ssi_LibraryTitle" href="../../../navigation/">Documentation Archive
+      </a>
+        <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+        <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+    </div>
+    <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+        <label for='adcsearch'>Search Documentation Archive</label>
+        <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+    </form>
+</div>
+ 
+<header id="header">
+    <div id="title" role="banner">
+        <h1>Time Machine Over SMB Specification</h1>
+        <span id="file_links">
+            <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+            <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+        </span>
+    </div>
+    <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+        <li id="toc_button" style="display:none">
+            <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+        </li>
+        <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top"><<Jump To&#133;>></option></select></li>
+        <li id="downloadSample_button" style="display:none">
+            <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+        </li>
+    </ul>
+</header>
+<nav id="tocContainer" tabindex="7">
+    <ul id="toc" role="tree"></ul>
+</nav>
+<article id="contents" class="chapter" role="main">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1"></a><a name="//apple_ref/doc/uid/TP40017496-CH1-DontLinkElementID_5"></a>
+  <h1>Time Machine over SMB Specification</h1>
+
+	<div class="importantbox clear">
+  <section class="important">  
+    <aside>
+      <p>
+        <strong>Important:</strong>
+        <p class="para">
+  This document is no longer being updated. For the latest information about Apple SDKs, visit the <a href="https://developer.apple.com/documentation">documentation website</a>.
+</p>
+
+      </p>
+    </aside>   
+  </section>
+</div>
+  <section class="table-of-contents">
+  <h4>Contents:</h4>
+  <ul>
+      <li><a href="#//apple_ref/doc/uid/TP40017496-CH1-DontLinkElementID_1">Introduction</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40017496-CH1-SW5">Supporting the Timeout Field in SMB2_CREATE_DURABLE_HANDLE_REQUEST_V2 Requests</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40017496-CH1-SW1">Advertising Time Machine Availability Through Bonjour</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40017496-CH1-DontLinkElementID_2">Validating the Time Machine Backup Destination</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40017496-CH1-SW2">Supporting the F_FULLFSYNC Extension</a></li>
+  </ul>
+</section>
+
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-DontLinkElementID_1"></a>
+  <h3 class="section-name" tabindex="0">Introduction</h3>
+  <p class="para">
+  Time Machine is a technology for backing up computers to local and network volumes. This document describes the requirements  for SMB servers to support Time Machine backups. These requirements are as follows:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  SMB protocol version 3.x, including SMB 3.x signing
+</p>
+</li><li class="item"><p class="para">
+  Handling of <code class="code-voice">SMB2_CREATE_DURABLE_HANDLE_REQUEST_V2</code> requests, including the <code class="code-voice">Timeout</code> field. For more information, see the <span class="x-name"><a href="#//apple_ref/doc/uid/TP40017496-CH1-SW5" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40017496-CH1-SW5">Supporting the Timeout Field in SMB2_CREATE_DURABLE_HANDLE_REQUEST_V2 Requests</a></span> section below.
+</p>
+</li><li class="item"><p class="para">
+  Handling of <code class="code-voice">SMB2_CREATE_REQUEST_LEASE_V2</code> requests
+</p>
+</li><li class="item"><p class="para">
+  Handling of <code class="code-voice">SMB2_CREATE_DURABLE_HANDLE_RECONNECT_V2</code> requests
+</p>
+</li><li class="item"><p class="para">
+  Support for Bonjour discovery. For more information, see the <span class="x-name"><a href="#//apple_ref/doc/uid/TP40017496-CH1-SW1" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40017496-CH1-SW1">Advertising Time Machine Availabilty Through Bonjour</a></span> section below.
+</p>
+</li><li class="item"><p class="para">
+  Support for Apple’s <code class="code-voice">F_FULLFSYNC</code> extension to the <code class="code-voice">SMB2 FLUSH</code> command. For more information, see the <span class="x-name"><a href="#//apple_ref/doc/uid/TP40017496-CH1-SW2" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40017496-CH1-SW2">Supporting the F_FULLFSYNC Extension</a></span> section below.
+</p>
+</li>
+</ul>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-SW5"></a>
+  <h3 class="section-name" tabindex="0">Supporting the Timeout Field in SMB2_CREATE_DURABLE_HANDLE_REQUEST_V2 Requests</h3>
+  <p class="para">
+  The server must correctly honor the <code class="code-voice">Timeout</code> field of SMB2_CREATE_DURABLE_HANDLE_REQUEST_V2 requests. Time Machine clients may set timeouts as short as 30 seconds or less. The <code class="code-voice">Timeout</code> field in the server’s response must be set to indicate the amount of time the server will wait for a reconnect after a failover for this particular file. 
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-SW1"></a>
+  <h3 class="section-name" tabindex="0">Advertising Time Machine Availability Through Bonjour</h3>
+  <p class="para">
+  Bonjour, also known as zero-configuration networking, enables automatic discovery of devices and services on a local network using industry-standard IP protocols. SMB servers with a Time Machine share point must advertise themselves through Bonjour as supporting Time Machine backups over SMB. This is required for the server to show up automatically in Time Machine’s preference pane when a user clicks the Select Disk button.
+</p><p class="para">
+  Each network storage server must indicate that SMB share points are available on the server by registering and publishing an mDNS server record with type <code class="code-voice">_smb._tcp</code> and port 445. Each network storage server must also advertise that these SMB share points are available to clients for Time Machine backups by registering and publishing an mDNS service record with a type <code class="code-voice">_adisk._tcp</code>. The <code class="code-voice">_smb._tcp</code> and <code class="code-voice">_adisk._tcp</code> services must be advertised using the same service name.
+</p><p class="para">
+  The <code class="code-voice">_adisk._tcp</code> service includes a <code class="code-voice">TXT</code> record with entries that correspond to an exported volume available for sharing. The name portion of each entry is a unique key string. The value portion of each entry is a comma-separated list of subkey–subvalue pairs with the subkey and subvalue separated by an equal sign (<code class="code-voice">=</code>). Each subkey is a 4-character property code (for example, <code class="code-voice">adVN</code> for the name of the volume). The subvalue is the UTF-8 text associated with the specified property. Commas (<code class="code-voice">,</code>) and backslashes (<code class="code-voice">\</code>) are escaped with a backslash (for example, <code class="code-voice">\,</code> for a literal comma character).
+</p><p class="para">
+  The adVN and adVF property codes are required to advertise Time Machine availability through Bonjour. 
+</p><div class="tableholder">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-DontLinkElementID_6"></a>
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"><strong class="caption-number">Table 1-1</strong> Property codes to advertise Time Machine availability</caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Property code
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Associated text
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">adVN</code>
+</p></td>
+            <td><p class="para">
+  UTF-8 name for the volume.  This is also the share name used for mounting the volume.
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">adVF</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">AirDiskVolumeFlags</code> as a hex value string.
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div><p class="para">
+  Set the <code class="code-voice">AirDiskVolumeFlags</code> subvalue to 0x82 to indicate that Time Machine is supported on this SMB volume.
+</p><div class="tableholder">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-DontLinkElementID_7"></a>
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"><strong class="caption-number">Table 1-2</strong> AirDiskVolumeFlags for Time Machine support</caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  adVF value
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Meaning
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  0x0002
+</p></td>
+            <td><p class="para">
+  SMB is supported on this volume.
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  0x0080
+</p></td>
+            <td><p class="para">
+  Time Machine should allow this SMB volume as a backup destination.
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div><p class="para">
+  The following is an example of a <code class="code-voice">TXT</code> record for a volume called Backups:<code class="code-voice"> dk0=adVN=Backups,adVF=0x82</code>
+
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-DontLinkElementID_2"></a>
+  <h3 class="section-name" tabindex="0">Validating the Time Machine Backup Destination</h3>
+  <p class="para">
+  When a Time Machine client is configured to use an SMB share as a backup destination, it performs the following sequence of operations to ensure that the user has the appropriate access permissions to the share point as well as to ensure that the server has the necessary protocol support for Time Machine to function correctly.
+</p><ol class="list-number">
+  <li class="item"><p class="para">
+  An <code class="code-voice">SMB2 CREATE</code>  request with an <code class="code-voice">“AAPL” Create Context</code> extension for the root of the share point is sent to validate that the <code class="code-voice">F_FULLFSYNC</code> extension is supported.
+</p>
+</li><li class="item"><p class="para">
+  An <code class="code-voice">SMB2 CREATE</code>  request for a file named <code class="code-voice">.com.apple.timemachine.supported</code> is attempted on the root of the selected share. This operation has the Create Contexts for <code class="code-voice">SMB2_CREATE_DURABLE_HANDLE_REQUEST_V2</code> and <code class="code-voice">SMB2_CREATE_REQUEST_LEASE_V2</code> to verify that the server supports these protocol features. This operation also verifies that the server supports SMB protocol version 3.x.
+</p>
+</li><li class="item"><p class="para">
+  In the <code class="code-voice">SMB2_CREATE_DURABLE_HANDLE_REQUEST_V2</code> request, the <code class="code-voice">Timeout</code> field is set to 0 to enable discovery of the server’s default durable handle timeout in the response.
+</p>
+</li><li class="item"><p class="para">
+  An <code class="code-voice">SMB2 CLOSE</code> request is sent to close the file.
+</p>
+</li><li class="item"><p class="para">
+  An SMB2 compound request of <code class="code-voice">CREATE/SET_INFO/CLOSE</code> is sent to delete the file.
+</p>
+</li><li class="item"><p class="para">
+  The client repeats steps 1-4 with a <code class="code-voice">Timeout</code> value of 30 seconds, and compares this value against the server’s response. If the values do not match, the client  uses a series of timeout values ranging from 30-180 seconds to try to discover a value that is acceptable to the server, and validates that the server responded with the correct timeout.
+</p>
+</li>
+</ol>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-SW2"></a>
+  <h3 class="section-name" tabindex="0">Supporting the F_FULLFSYNC Extension</h3>
+  <p class="para">
+  The <code class="code-voice">F_FULLFSYNC </code>command is similar to a standard <code class="code-voice">SMB2 FLUSH</code> command, but ensures that all data is flushed to stable storage (which usually involves flushing the physical disk’s track cache) so that the data is not lost in the event of a power failure. This command is issued by the Time Machine client at periodic checkpoints to ensure that data corruption does not occur in the backup.
+</p><p class="para">
+  When the client needs to flush a file to stable storage, it issues an <code class="code-voice">SMB2 FLUSH</code> request with the <code class="code-voice">Reserved1</code> (16-bit) field set to <code class="code-voice">0xFFFF</code>. In response, the server must first process the <code class="code-voice">SMB2 FLUSH</code> command in the usual manner, and then must flush the data to stable storage (that is, flush the physical disk’s track cache) before responding to the client.
+</p><p class="para">
+  The server advertises this capability to the client by implementing the <code class="code-voice">“AAPL” Create Context</code> extension. The <code class="code-voice">“AAPL” Create Context </code>exchange is done early in the file system mount process, initiated by the client sending an <code class="code-voice">SMB2 CREATE</code> request containing an <code class="code-voice">“AAPL” Create Context</code> extension.
+</p>
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-DontLinkElementID_3"></a>
+  <h3 class="section-name" tabindex="0">Example Client Request</h3>
+  <p class="para">
+  The following example shows an <code class="code-voice">SMB2 CREATE</code> request containing an <code class="code-voice">&quot;AAPL&quot; Create Context</code> extension, sent by the client to query server capabilities. The <code class="code-voice">CommandCode</code> value in this example is <code class="code-voice">kAAPL_SERVER_QUERY</code>.
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+      </tbody>
+    </table>  
+  </div>
+</section><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>---- SMB2 CREATE Request ---</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>StructureSize:           0x0039</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>SecurityFlags:           0x00</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>RequestedOplockLevel:    0x00</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>ImpersonationLevel:      0x00000002</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CreateFlags:             0x0000000000000000</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Reserved:                0x0000000000000000</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>DesiredAccess:           0x00100080</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>FileAttributes:          0x00000010</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>ShareAccess:             0x00000007</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CreateDisposition:       0x00000001</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CreateOptions            0x00000001</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>NameOffset:              0x00078</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>NameLength:              0x0000    // No filename provided</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CreateContextsOffset:    0x00000080</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CreateContextsLength:    0x00000030</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>--- AAPL Create Context (request) ---</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Next:                    0x00000030</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>NameOffset:              0x0010</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>NameLength:              0x0004</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Reserved:                0x0000</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>DataOffset:              0x0018</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>DataLength:              0x00000018</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Name:                    0x4141504c  // &quot;AAPL&quot;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Padding:                 0x00000000  // pad to 8-byte boundary</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CommandCode:             0x00000001  // 1 = kAAPL_SERVER_QUERY</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Reserved:                0x00000000</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>RequestBitmap:           0x0000000000000007 // defined below</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>ClientCapabilities:      0x000000000000000f // defined below</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  The <code class="code-voice">AAPL Create Context</code> fields in a client request are defined in <span class="x-name"><a href="#//apple_ref/doc/uid/TP40017496-CH1-SW3" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40017496-CH1-SW3">Table 1-3</a></span>.
+</p><div class="tableholder">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-SW3"></a>
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"><strong class="caption-number">Table 1-3</strong> Client Request AAPL Create Context fields</caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  AAPL Create Context field
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Meaning
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">CommandCode</code>
+</p></td>
+            <td><p class="para">
+  This 32-bit field specifies the type of information the client is requesting. Possible values are:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  <code class="code-voice">kAAPL_SERVER_QUERY</code>
+</p>
+<p class="para">
+  The client is requesting server information specified in the RequestBitmap field.
+</p>
+</li><li class="item"><p class="para">
+  Other <code class="code-voice">CommandCode</code> values
+</p>
+<p class="para">
+  These values are not required for support of the <code class="code-voice">F_FULLFSYNC</code> extension.
+</p>
+</li>
+</ul></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">RequestBitmap</code>
+</p></td>
+            <td><p class="para">
+  This 64-bit field allows the client to specify the type of information being requested. This field is present only in <code class="code-voice">kAAPL_SERVER_QUERY</code> requests. Possible values are:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  <code class="code-voice">kAAPL_SERVER_CAPS = 0x0000000000000001</code>
+</p>
+<p class="para">
+  The client is requesting a bitmap of server capabilities. It is not necessary to respond with server capabilities to support the <code class="code-voice">F_FULLFSYNC</code> extension.
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">kAAPL_VOLUME_CAPS = 0x0000000000000002 </code>
+</p>
+<p class="para">
+  The client is requesting a bitmap of the capabilities of the volume on which the share point is located (described in the <code class="code-voice">VolumeCapabilities</code> row of <span class="x-name"><a href="#//apple_ref/doc/uid/TP40017496-CH1-SW4" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40017496-CH1-SW4">Table 1-4</a></span>).
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">kAAPL_MODEL_INFO  = 0x0000000000000004</code>
+</p>
+<p class="para">
+  This value is used to identify the specific Mac model. For non-Mac systems, there is no model information defined. The server should <em>not</em> set the <code class="code-voice">kAAPL_MODEL_INFO</code> bit in the reply.
+</p>
+</li>
+</ul></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-DontLinkElementID_4"></a>
+  <h3 class="section-name" tabindex="0">Example Server Response</h3>
+  <section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>---- SMB2 CREATE Response ----</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>StructureSize:           0x0059</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>OplockLevel:             0x00</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Flags:                   0x00</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CreateAction:            0x0000000000000001</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CreateTime:              &lt;64-bit timestamp&gt;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>LastAccessTime:          &lt;64-bit timestamp&gt;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>LastWriteTime:           &lt;64-bit timestamp&gt;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>ChangeTime:              &lt;64-bit timestamp&gt;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Allocation Size:         0x0000000000000000</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>End of File:             0x0000000000000000</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>FileAttributes:          0x00000010</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Reserved:                0x00000000</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>File Id:                 &lt;128-bit file id&gt;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CreateContextsOffset:    0x00000098</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CreateContextsLength:    0x00000080</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>--- AAPL Create Context (response) ---</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Next:                    0x00000038</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>NameOffset:              0x0010</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>NameLength:              0x0004</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Reserved:                0x0000</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>DataOffset:              0x0018</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>DataLength:              0x00000020</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Name:                    0x4141504c  // &quot;AAPL&quot;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Pad1:                    0x00000000  // pad to 8-byte boundary</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>CommandCode:             0x00000001  // 1 = kAAPL_SERVER_QUERY</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>Reserved:                0x00000000</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>ReplyBitmap:             0x0000000000000003 // kAAPL_SERVER_CAPS | kAAPL_VOLUME_CAPS</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>ServerCapabilities:      0x0000000000000000 // No OS X specific capabilities reported by this server</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>VolumeCapabilities:      0x0000000000000004 // defined below</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  The <code class="code-voice">AAPL Create Context</code> fields in a server response are defined in <span class="x-name"><a href="#//apple_ref/doc/uid/TP40017496-CH1-SW4" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40017496-CH1-SW4">Table 1-4</a></span>.
+</p><div class="tableholder">
+  <a name="//apple_ref/doc/uid/TP40017496-CH1-SW4"></a>
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"><strong class="caption-number">Table 1-4</strong> Server Response AAPL Create Context fields</caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  AAPL Create Context field
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Meaning
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">CommandCode</code>
+</p></td>
+            <td><p class="para">
+  The code that is defined in the client request.
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">ReplyBitmap</code>
+</p></td>
+            <td><p class="para">
+  The bits are defined in the client request. Set the bits corresponding to the information being returned to the client. The server should <em>not</em> include information that is not requested by the client.
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">ServerCapabilities</code>
+</p></td>
+            <td><p class="para">
+  It is not necessary to implement this 64-bit field to support the <code class="code-voice">F_FULLFSYNC</code> extension. If the client requests it, respond with a <code class="code-voice">0</code> in this field. If the client does not request it, omit this field in the response.
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">VolumeCapabilities</code>
+</p></td>
+            <td><p class="para">
+  This 64-bit field indicates the capabilities of the volume backing the share. Only one bit is required for support of the <code class="code-voice">F_FULLFSYNC</code> extension:
+</p><p class="para">
+  <code class="code-voice">kAAPL_SUPPORTS_FULL_SYNC = 0x0000000000000004</code>
+</p><p class="para">
+  When set, this value indicates that the volume supports <code class="code-voice">SMB2 FLUSH</code> with <code class="code-voice">F_FULLFSYNC</code>.
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+
+</section>
+
+  <div id="copyright" class='copyright'>
+    <br><hr><div align="center"><p class="content_text" lang="en" dir="ltr">Copyright &#x00a9; 2018 Apple Inc. All rights reserved. <a class="link" href="http://www.apple.com/legal/terms/site.html" target="_blank">Terms of Use</a>   |  <a class="link" href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |   Updated: 2016-09-13
+</div>
+  <div id="pediaWindow">
+    <div id="pediaHeader"></div>
+    <div id="pediaBody"></div>
+  </div>
+</article>
+
+
+
+    <footer id="footer">
+  <script src="../../../Resources/1282/JavaScript/lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/release-notes-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/feedback-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+</footer>
+
+  	<div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+  </body>
+</html>

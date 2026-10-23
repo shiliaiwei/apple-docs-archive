@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2085: Enabling multi-threaded execution of the OpenGL framework</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004075">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004075-CH1">
+    <meta id="date" name="date" content="2006-11-07">
+    <meta id="description" name="description" content="TN2085: OpenGL on Intel-based Macintosh systems can use multi-threading to increase the performance of CPU-bound OpenGL-based applications.">
+    <meta id="book-title" name="book-title" content="Enabling multi-threaded execution of the OpenGL framework">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/OpenGL}, {Topic/Graphics & Animation/3D Drawing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2085">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Enabling multi-threaded execution of the OpenGL framework" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004075" title="Technical Note TN2085"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Enabling multi-threaded execution of the OpenGL framework</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004075-CH1-DontLinkElementID_2" title="Technical Note TN2085"></a><div class="dtsDocNumber">Technical Note TN2085</div><h1 id="pageTitle">Enabling multi-threaded execution of the OpenGL framework</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>OpenGL on Intel-based Macintosh systems can use multi-threading to increase the performance of CPU-bound OpenGL-based applications. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004075-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004075-CH1-SECTION2" data-renderer-version="1">How it Works</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004075-CH1-SECTION3" data-renderer-version="1">Availability</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004075-CH1-SECTION4" data-renderer-version="1">To Enable Multi-threaded OpenGL Execution:</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10004075-CH1-SUBSECTION4" data-renderer-version="1">Is OpenGL Multi-threaded Execution Right for my Application?</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004075-CH1-SECTION6" data-renderer-version="1">Getting the best performance with OpenGL Multi-threaded execution:</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004075-CH1-SECTION7" data-renderer-version="1">See Also</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004075-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10004075-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Maximizing your application’s OpenGL performance by threading your graphics code is technically challenging. OpenGL on Intel-based Macintosh systems can take advantage of Mac OS X’s multi-threading capabilities to execute parts of the OpenGL framework on a second thread. When used appropriately, this multi-threaded approach can increase the performance of CPU-bound OpenGL applications. This Tech Note describes requirements for multi-threaded OpenGL execution and how to enable it in your application.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004075-CH1-SECTION2" title="How it Works"></a><h2 class="jump">How it Works</h2><p>When your application calls an OpenGL API, the underlying OpenGL framework spends cycles managing state and building instructions for the GPU. Normally this work shows up as time spent on your application’s main thread. As such, your application will be blocked waiting for the OpenGL framework to return.</p><p>If you enable multi-threaded OpenGL execution in your application, some of the execution time spent in the OpenGL framework is transferred to a second thread. The second thread will optimally run on one of the available CPU cores. Since part of the OpenGL framework’s workload has been parallelized, OpenGL calls will return control to your application sooner and more CPU cycles will be available for its main thread.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004075-CH1-FIGURE1" title="Figure 1Default vs. multi-threaded execution of OpenGL"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Default vs. multi-threaded execution of OpenGL</figcaption><img src="Art/tn2085_diagram.jpg" alt="" width="425" height="686"></figure><p>In the execution scenario shown in Figure 1, the main thread is left primarily with command submission duties, while the second thread is handling the more heavyweight task of the actual OpenGL command processing which involves the management of the GPU. This second thread has the advantage of having its own CPU core to execute on.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004075-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Many, but not all, applications will see a performance gain with multi-threaded execution enabled. Whether your application benefits depends on how you've written your OpenGL-based graphics code. Testing your application with the multi-threaded functionality enabled is the only accurate way to see what the performance benefit is, if any.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004075-CH1-SECTION3" title="Availability"></a><h2 class="jump">Availability</h2><p>Mac OS X 10.4.7 or later on Mac Pro Macintosh systems &amp; 10.4.8-or later for other Intel-based Macintosh computers. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004075-CH1-SECTION4" title="To Enable Multi-threaded OpenGL Execution:"></a><h2 class="jump">To Enable Multi-threaded OpenGL Execution:</h2><p>The CGL context parameter <code>kCGLCEMPEngine</code> is the constant you use to enable and disable multi-threaded execution. To enable it, pass the current CGL context along with this parameter to the function <code>CGLEnable</code>. To disable it, pass the current CGL context along with this parameter to the function <code>CGLDisable</code>. Listing 1 shows how to enable the multi-threaded execution.</p><p>The code calls the CGL function <code>CGLEnable</code> passing the current context and the context parameter <code>kCGLCEMPEngine</code>. Note the error checking. This is an important step because the OpenGL multi-threaded execution is not necessarily available on all computers that have multiple cores. </p><a name="//apple_ref/doc/uid/DTS10004075-CH1-SOURCECODE1" title="Listing 1Enabling multi-threaded execution of OpenGL"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Enabling multi-threaded execution of OpenGL</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;OpenGL/OpenGL.h&gt;
+
+CGLError err = 0;
+CGLContextObj ctx = CGLGetCurrentContext();
+        
+// Enable the multi-threading
+err =  CGLEnable( ctx, kCGLCEMPEngine);
+        
+if (err != kCGLNoError )
+{
+     // Multi-threaded execution is possibly not available
+     // Insert your code to take appropriate action
+}    <span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004075-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;Enabling or disabling multi-threaded execution causes OpenGL to flush the  entire pipeline  as well as incurring  the overhead for setting up for the additional thread. As a result, you should enable or disable the multi-threaded OpenGL execution in an initialization or configuration function rather than in a drawing loop. </p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS10004075-CH1-SUBSECTION4" title="Is OpenGL Multi-threaded Execution Right for my Application?"></a><h3 class="jump">Is OpenGL Multi-threaded Execution Right for my Application?</h3><p>Enabling multi-threaded execution does not guarantee a performance increase for all applications. Your application most likely will not benefit if it:</p><ul class="ul"><li class="li"><p>Is not limited by the speed or processing power of a single CPU</p></li><li class="li"><p>Has plenty of time for all OpenGL operations</p></li><li class="li"><p>Is fill limited by the GPU</p></li><li class="li"><p>Frequently calls OpenGL functions that require synchronization. See section entitled “Getting the best performance with OpenGL multi-threaded execution”</p></li></ul><p>Your application is likely to benefit if it:</p><ul class="ul"><li class="li"><p>Is limited by the speed or processing power of a single CPU</p></li><li class="li"><p>Doesn't require a lot of data  synchronization or retrieval from OpenGL (<code>glGet</code>*, <code>glPopAttrib</code>, <code>glFinish</code>, etc).</p></li></ul><p>If your application is a candidate for using the OpenGL multi-threaded execution, please be aware of the following issues:</p><ul class="ul"><li class="li"><p>Increased overhead during synchronization between the CPU and the GPU </p></li><li class="li"><p>Increased memory usage, which might be significant for applications that use several OpenGL contexts</p></li></ul><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004075-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;Enabling multi-threaded OpenGL execution does not make the OpenGL API thread safe. If you are drawing to a single OpenGL context from multiple threads, then your application code will need to manage locks and flushes to ensure correct visual results.</p><p></p></aside></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004075-CH1-SECTION6" title="Getting the best performance with OpenGL Multi-threaded execution:"></a><h2 class="jump">Getting the best performance with OpenGL Multi-threaded execution:</h2><p>To obtain the maximum performance with OpenGL multi-threaded execution, follow these guidelines:</p><ul class="ul"><li class="li"><p>Avoid the use of <code>glGet</code> type calls, or any call that will cause a round trip to and from the GPU. (shadow OpenGL state, check errors only on debug builds, and so forth) </p></li><li class="li"><p>Double buffer data to avoid stalls </p></li><li class="li"><p>Use Vertex Buffer Objects (VBO) for vertex data. </p></li><li class="li"><p>Use Pixel Bufffer Objects (PBO) for pixel data. </p></li></ul><p>See OpenGL Programming Guide for Mac OS X for more details.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004075-CH1-SECTION7" title="See Also"></a><h2 class="jump">See Also</h2><p>For additional information, see "Improving Performance"  in <span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/OpenGL-MacProgGuide/" class="browserLink" >OpenGL Programming Guide for Mac OS X</a></span>. Although all the best practices tips in that chapter will help tune your application, the tips regarding asynchronous use of the CPU and GPU are especially relevant for any application using OpenGL multi-threaded execution.</p><p>The <code>CGLEnable</code> and <code>CGLDisable</code> calls are part of Core OpenGL or CGL for short. Please refer to the <span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Reference/CGL_OpenGL/index.html" class="browserLink" >CGL Reference Documentation</a></span> for a more details.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004075-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004075-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2006-11-07</td><td><p>New document that 
+					openGL on Intel-based Macintosh systems can use multi-threading to increase the performance of CPU-bound OpenGL-based applications. </p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2006 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2006-11-07</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

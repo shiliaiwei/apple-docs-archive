@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Note TN2163: Building Universal IOKit Drivers</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003874">
+    <meta id="document-version" name="document-version" content="1.3.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003874-CH1">
+    <meta id="date" name="date" content="2018-06-04">
+    <meta id="description" name="description" content="TN2163: How to build a universal I/O Kit kernel driver while avoiding common pitfalls.">
+    <meta id="book-title" name="book-title" content="Building Universal IOKit Drivers">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Kernel & Driver Layer/Kernel}, {Topic/Drivers, Kernel, & Hardware/Kernel Device Drivers}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2163">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Building Universal IOKit Drivers" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003874" title="Technical Note TN2163"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Building Universal IOKit Drivers</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+Retired Document: This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003874-CH1-DontLinkElementID_2" title="Technical Note TN2163"></a><div class="dtsDocNumber">Technical Note TN2163</div><h1 id="pageTitle">Building Universal I/O Kit Drivers</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003874-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;Retired Document: This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>Describes the steps for configuring an Xcode I/O Kit kernel driver project to produce a universal driver. Also discusses common problems when loading universal drivers.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003874-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003874-CH1-SECTION2" data-renderer-version="1">Which Xcode and Mac OS X SDK Versions to Use</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003874-CH1-SUBSECTION2" data-renderer-version="1">Building for Intel-based Mac computers</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003874-CH1-SUBSECTION3" data-renderer-version="1">Building for PowerPC-based Mac computers</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003874-CH1-SECTION8" data-renderer-version="1">Preparing Your Project to Build an Universal Driver</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003874-CH1-SUBSECTION8" data-renderer-version="1">Xcode 2.x Build Settings</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003874-CH1-SUBSECTION9" data-renderer-version="1">Xcode 3.0 Build Settings</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003874-CH1-SUBSECTION10" data-renderer-version="1">Xcode 3.1 Build Settings</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003874-CH1-SECTION12" data-renderer-version="1">Common Problems with Universal I/O Kit Drivers</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003874-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Building universal I/O Kit drivers is very similar to building universal applications, but there are critical differences that can affect a driver's binary compatibility. This technical note describes the steps for configuring an Xcode I/O Kit kernel driver project to produce a universal driver and discusses common binary compatibility problems with universal drivers.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SECTION2" title="Which Xcode and Mac OS X SDK Versions to Use"></a><h2 class="jump">Which Xcode and Mac OS X SDK Versions to Use</h2><p>Xcode 2.2.1 is the oldest version of Xcode that can be used to build universal I/O Kit drivers.</p><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SUBSECTION2" title="Building for Intel-based Mac computers"></a><h3 class="jump">Building for Intel-based Mac computers</h3><p>The Intel side of your I/O Kit KEXT must be built using GCC 4.0 and the Mac OS X 10.4u (Universal) SDK or later. Use the SDK representing the oldest version of Mac OS X you wish to support, keeping in mind that the first version of Mac OS X to be shipped on Intel-based systems was Mac OS X 10.4.4.</p></section><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SUBSECTION3" title="Building for PowerPC-based Mac computers"></a><h3 class="jump">Building for PowerPC-based Mac computers</h3><p>The PowerPC side of your KEXT should be built using the Mac OS X SDK representing the oldest version of Mac OS X you wish to support. </p><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SUBSUBSECTION3" title="Building for PowerPC-based Mac computers: Targeting Versions of Mac OS X Earlier than 10.4"></a><h4 class="jump">Building for PowerPC-based Mac computers: Targeting Versions of Mac OS X Earlier than 10.4</h4><p>Building for versions of Mac OS X prior to 10.4 also requires you to build using GCC 3.3.</p></section><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SUBSUBSECTION4" title="Building for PowerPC-based Mac computers: Targeting Mac OS X 10.4.x Using Xcode 2.2.x or Xcode 2.3"></a><h4 class="jump">Building for PowerPC-based Mac computers: Targeting Mac OS X 10.4.x Using Xcode 2.2.x or Xcode 2.3</h4><p>When using Xcode 2.2.x or 2.3, I/O Kit drivers targeting Mac OS X 10.4.x on PowerPC-based systems must be built using the Mac OS X 10.4.0 (not Universal) SDK. This is different from universal applications where the 10.4u (Universal) SDK can be used on both architectures.</p><p>The 10.4.0 SDK is available as a stand-alone installer from the <span class="content_text"><a href="http://connect.apple.com/cgi-bin/WebObjects/MemberSite.woa/wa/getSoftware?fileID=20243" class="urlLink" rel="external">Apple Developer Connection web site</a></span>. A <span class="content_text"><a href="http://connect.apple.com/cgi-bin/WebObjects/MemberSite.woa/wa/getSoftware?fileID=20244" class="urlLink" rel="external">read me</a></span> file is available for the SDK installer.</p><p>The 10.4.0 SDK can also be installed from the Xcode 2.0 installer, located on the Mac OS X 10.4 install DVD. It can be found in the Xcode custom installs under Cross Development. </p></section><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SUBSUBSECTION5" title="Building for PowerPC-based Mac computers: Targeting Mac OS X 10.4.x Using Xcode 2.4 or Later"></a><h4 class="jump">Building for PowerPC-based Mac computers: Targeting Mac OS X 10.4.x Using Xcode 2.4 or Later</h4><p>Beginning with Xcode 2.4 there is another option, which is to define the preprocessor symbol <code>KPI_10_4_0_PPC_COMPAT</code> when building for the PowerPC architecture. When this preprocessor symbol is defined, the 10.4u (Universal) SDK will give the same results as using the 10.4.0 SDK. The same SDK can then be used for both PowerPC and Intel architectures.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003874-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;If you are using the class <code>IOSCSIParallelInterfaceController</code> in your driver and you are targeting Mac OS X 10.4.x on PowerPC-based Macs, using <code>KPI_10_4_0_PPC_COMPAT</code> will not work in Xcode 2.x (r. 4802457). You will have to use the 10.4.0 SDK as described earlier in <span class="content_text"><!--a  -->Building for PowerPC-based Mac computers: Targeting Mac OS X 10.4.x Using Xcode 2.2.x or Xcode 2.3<!--/a--></span>. This problem was fixed in Xcode 3.0.</p><p></p></aside></div><p>If your project is not configured properly you will see the error described later in <span class="content_text"><!--a  -->Common Problems with Universal I/O Kit Drivers<!--/a--></span> when you try to load your driver.</p></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SECTION8" title="Preparing Your Project to Build an Universal Driver"></a><h2 class="jump">Preparing Your Project to Build an Universal Driver</h2><p>To convert a PowerPC-only Xcode I/O Kit driver project to a universal project, first make sure that all targets in your project are native Xcode targets. You can check this by opening your project in Xcode, then select the <code>Project</code> menu and see if the command <code>Upgrade All Targets in Project to Native</code> is enabled. If it is, make a backup copy of your project, then use that command to convert all of your legacy targets to native.</p><p>Then, make the following changes to the Project or Target Build settings depending on which version of Xcode you're using. Modify the Project settings if you want the settings to apply to all targets in the project. Modify the Target settings if you want just a particular target to produce a universal KEXT.</p><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SUBSECTION8" title="Xcode 2.x Build Settings"></a><h3 class="jump">Xcode 2.x Build Settings</h3><p>Using the proper SDK and compiler versions is easily accomplished using Xcode's per-architecture build settings. </p><ol class="ol"><li class="li"><p>Set <code>Architectures</code> to <code>ppc i386</code>. This can be done by double-clicking the word <code>Architectures</code> and then selecting both the <code>PowerPC</code> and <code>Intel</code> checkboxes.</p></li><li class="li"><p>Remove any setting for <code>SDK Path</code> and <code>VALID_ARCHS</code> by selecting the option and then clicking the <code>-</code> button at the bottom of the window.</p></li><li class="li"><p>Add the custom settings <code>SDKROOT_i386</code> and <code>SDKROOT_ppc</code>. Set the value of each to the path of the SDK to use to build on each architecture. <code>SDKROOT_i386</code> should be set to <code>/Developer/SDKs/MacOSX10.4u.sdk</code> and <code>SDKROOT_ppc</code> should point to the SDK matching the oldest major Mac OS X release you wish to support, such as <code>/Developer/SDKs/MacOSX10.2.8.sdk</code>.</p></li><li class="li"><p>Add the settings <code>GCC_VERSION_i386</code> and <code>GCC_VERSION_ppc</code> that specify the compiler version to use when building for each architecture. <code>GCC_VERSION_i386</code> must be set to <code>4.0</code> or greater. If you want to support versions of Mac OS X prior to 10.4, <code>GCC_VERSION_ppc</code> must be set to <code>3.3</code>.</p></li><li class="li"><p>If you are using Xcode 2.4, 2.4.1, or 2.5, and the PowerPC side of your KEXT is targeting Mac OS X 10.4.x, add the setting <code>PER_ARCH_CFLAGS_ppc</code> that specifies compiler flags to pass to GCC only when building for the PowerPC architecture. Set the value of <code>PER_ARCH_CFLAGS_ppc</code> to <code>-DKPI_10_4_0_PPC_COMPAT</code>.</p></li><li class="li"><p>Set <code>Mac OS X Deployment Target</code> to <code>Compiler Default</code>.</p></li><li class="li"><p>Add the settings <code>MACOSX_DEPLOYMENT_TARGET_i386</code> and <code>MACOSX_DEPLOYMENT_TARGET_ppc</code>. These settings must have the value of a major Mac OS X release version number such as <code>10.2</code> or <code>10.4</code>. Do not specify software update versions such as 10.3.9. <code>MACOSX_DEPLOYMENT_TARGET_i386</code> must be set to <code>10.4</code> or later, and <code>MACOSX_DEPLOYMENT_TARGET_ppc</code> should be set to the oldest major Mac OS X release you wish to support.</p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SUBSECTION9" title="Xcode 3.0 Build Settings"></a><h3 class="jump">Xcode 3.0 Build Settings</h3><p>Xcode 3.0 provides an improved user interface for per-architecture build settings over Xcode 2.x. </p><ol class="ol"><li class="li"><p>Set the <code>Configuration</code> menu at the top of the window to <code>All Configurations</code>.</p></li><li class="li"><p>Single click the value of the build setting <code>Architectures</code> and change it to <code>i386 ppc</code>.</p></li><li class="li"><p>Set <code>Base SDK</code> to <code>/Developer/SDKs/MacOSX10.4u.sdk</code> if the Intel side of your KEXT is targeting Mac OS X 10.4 or <code>/Developer/SDKs/MacOSX10.5.sdk</code> if targeting Mac OS X 10.5.</p><p>If you want to use a different SDK when building for the PowerPC architecture, select the <code>Base SDK</code> build setting, then select <code>Add Per-Architecture Setting For</code> from the action menu at the lower left corner of the window and select <code>PowerPC</code> from the submenu. Change the value of the <code>PowerPC</code> setting just added to the path of the desired SDK for the PowerPC architecture, such as <code>/Developer/SDKs/MacOSX10.3.9.sdk</code>.</p></li><li class="li"><p>Set <code>Debug Information Format</code> to <code>DWARF with dSYM File</code>.</p><p>If you need to use GCC 3.3 when building for the PowerPC architecture, select the <code>Debug Information Format</code> build setting, then select <code>Add Per-Architecture Setting For</code> from the action menu at the lower left corner of the window and select <code>PowerPC</code> from the submenu. Change the <code>PowerPC</code> setting just added to <code>Stabs</code> using the popup menu to the right.</p></li><li class="li"><p>Add the user-defined setting <code>GCC_VERSION</code> and set its value to <code>4.0</code>.</p><p>If you want to support versions of Mac OS X prior to 10.4 when building for the PowerPC architecture, select the <code>GCC_VERSION</code> build setting, then select <code>Add Per-Architecture Setting For</code> from the action menu at the lower left corner of the window and select <code>PowerPC</code> from the submenu. Change the value of the <code>PowerPC</code> setting just added to <code>3.3</code>.</p></li><li class="li"><p>Set <code>Mac OS X Deployment Target</code> to <code>Mac OS X 10.4</code> or later.</p><p>If you want to support versions of Mac OS X prior to 10.4 when building for the PowerPC architecture, select the <code>Mac OS X  Deployment Target</code> build setting, then select <code>Add Per-Architecture Setting For</code> from the action menu at the lower left corner of the window and select <code>PowerPC</code> from the submenu. Change the value of the <code>PowerPC</code> setting just added to the oldest major Mac OS X release you wish to support using the popup menu to the right.</p></li><li class="li"><p>If the PowerPC side of your KEXT is targeting Mac OS X 10.4.x, select the <code>Other C Flags</code> build setting, then select <code>Add Per-Architecture Setting For</code> from the action menu at the lower left corner of the window and select <code>PowerPC</code> from the submenu. Change the value of the <code>PowerPC</code> setting just added to <code>-DKPI_10_4_0_PPC_COMPAT</code>.</p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SUBSECTION10" title="Xcode 3.1 Build Settings"></a><h3 class="jump">Xcode 3.1 Build Settings</h3><p>Xcode 3.1 uses conditional build settings in place of the per-architecture build settings used by Xcode 2.x and 3.0.</p><p>To convert a PowerPC-only Xcode I/O Kit driver project to a universal project, first make sure that all targets in your project are native Xcode targets. You can check this by opening your project in Xcode, then select the <code>Project</code> menu and see if the command <code>Upgrade All Targets in Project to Native</code> is enabled. If it is, make a backup copy of your project, then use that command to convert all of your legacy targets to native.</p><p>Then, make the following changes to the Project or Target Build settings. Modify the Project settings if you want the settings to apply to all targets in the project. Modify the Target settings if you want just a particular target to produce a universal KEXT.</p><ol class="ol"><li class="li"><p>Set the <code>Configuration</code> menu at the top of the window to <code>All Configurations</code>.</p></li><li class="li"><p>Set <code>Architectures</code> to <code>Standard (32-bit Universal)</code>.</p></li><li class="li"><p>Set <code>Base SDK</code> to <code>10.4</code> or later.</p><p>If you want to use a different SDK when building for the PowerPC architecture, select the <code>Base SDK</code> build setting, then select <code>Add Build Setting Condition</code> from the action menu at the lower left corner of the window. Change the <code>Any Architecture</code> setting to <code>PowerPC</code> and select the desired SDK for the PowerPC architecture from the popup menu to the right.</p></li><li class="li"><p>Uncheck the <code>Build Active Architecture Only</code> checkbox.</p></li><li class="li"><p>Set <code>Debug Information Format</code> to <code>DWARF with dSYM File</code>.</p><p>If you need to use GCC 3.3 when building for the PowerPC architecture, select the <code>Debug Information Format</code> build setting, then select <code>Add Build Setting Condition</code> from the action menu at the lower left corner of the window. Change the <code>Any Architecture</code> setting to <code>PowerPC</code> and select <code>Stabs</code> from the popup menu to the right.</p></li><li class="li"><p>Set <code>C/C++ Compiler Version</code> to <code>GCC System Version (4.0)</code>.</p><p>If you want to support versions of Mac OS X prior to 10.4 when building for the PowerPC architecture, select the <code>C/C++ Compiler Version</code> build setting, then select <code>Add Build Setting Condition</code> from the action menu at the lower left corner of the window. Change the <code>Any Architecture</code> setting to <code>PowerPC</code> and select <code>GCC 3.3</code> from the popup menu to the right.</p></li><li class="li"><p>Set <code>Deployment Target</code> to <code>Mac OS X 10.4</code> or later.</p><p>If you want to support versions of Mac OS X prior to 10.4 when building for the PowerPC architecture, select the <code>Deployment Target</code> build setting, then select <code>Add Build Setting Condition</code> from the action menu at the lower left corner of the window. Change the <code>Any Architecture</code> setting to <code>PowerPC</code> and select the oldest major Mac OS X release you wish to support from the popup menu to the right.</p></li><li class="li"><p>Check the <code>Kernel Development Mode</code> checkbox.</p></li><li class="li"><p>If the PowerPC side of your KEXT is targeting Mac OS X 10.4.x, select the <code>Other C Flags</code> build setting, then select <code>Add Build Setting Condition</code> from the action menu at the lower left corner of the window. Change the <code>Any Architecture</code> setting to <code>PowerPC</code> and set the value to the right to <code>-DKPI_10_4_0_PPC_COMPAT</code>.</p></li></ol></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003874-CH1-SECTION12" title="Common Problems with Universal I/O Kit Drivers"></a><h2 class="jump">Common Problems with Universal I/O Kit Drivers</h2><p>Most problems you'll encounter after building a universal driver will appear when loading it. For example, <code>kextload</code> might report the error</p><a name="//apple_ref/doc/uid/DTS10003874-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>com.mycompany.driver.MyDriverClass is not compatible with its superclass, &lt;superclass name&gt; superclass changed?<span></span></pre></td></tr></table></div><p>The reason for most load-time errors is that the wrong SDK was used when building the driver. For example, the PowerPC side of the driver is targeting Mac OS X 10.3.x but was built using the 10.4u SDK. Refer to the SDK version information shown earlier in <span class="content_text"><!--a  -->Which Xcode and Mac OS X SDK Versions to Use<!--/a--></span>. Then verify that your Xcode project is set up as described earlier in <span class="content_text"><!--a  -->Xcode 2.x Build Settings<!--/a--></span>, <span class="content_text"><!--a  -->Xcode 3.0 Build Settings<!--/a--></span>, or <span class="content_text"><!--a  -->Xcode 3.1 Build Settings<!--/a--></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003874-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003874-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2018-05-17</td><td><p>Moved to Retired Documents Library.</p></td></tr><tr><td scope="row">2008-08-18</td><td><p>Updated for Xcode 3.x.</p></td></tr><tr><td scope="row">2006-11-10</td><td><p>Added note about binary compatibility of IOSCSIParallelInterfaceController.</p></td></tr><tr><td scope="row">2006-08-25</td><td><p>Updated for Xcode 2.4.</p></td></tr><tr><td scope="row">2006-02-02</td><td><p>New document that 
+					how to build a universal I/O Kit kernel driver while avoiding common pitfalls.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2018 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2018-06-04</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

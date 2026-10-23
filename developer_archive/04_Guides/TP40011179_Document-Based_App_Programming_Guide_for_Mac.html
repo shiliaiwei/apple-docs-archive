@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>About the Cocoa Document Architecture</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40011179">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40011179-CH1">
+    <meta id="date" name="date" content="2012-12-13">
+    <meta id="description" name="description" content="Explains how to create document-based applications using the Cocoa document architecture on OS X.">
+    <meta id="book-title" name="book-title" content="Document-Based App Programming Guide for Mac">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Technologies/Cocoa Layer/AppKit}, {Topic/Data Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Document-Based App Programming Guide for Mac: About the Cocoa Document Architecture">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Document-Based App Programming Guide for Mac" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../Designing/Designing.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40011179-CH1" title="About the Cocoa Document Architecture"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Document-Based App Programming Guide for Mac</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../Designing/Designing.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40011179" title="About the Cocoa Document Architecture"></a><a name="//apple_ref/doc/uid/TP40011179-CH1-SW1" title="About the Cocoa Document Architecture"></a><h1 id="pageTitle">About the Cocoa Document Architecture</h1><a name="//apple_ref/doc/uid/TP40011179-CH1-DontLinkElementID_1"></a><p>In OS X, a Cocoa subsystem called the <em>document architecture</em> provides support for apps that manage documents, which are containers for user data that can be stored in files locally and in iCloud.</p><figure class="figure"><img src="../Art/syncing_overview_2x.png" alt="../Art/syncing_overview_2x.png" width="483" height="549"></figure><a name="//apple_ref/doc/uid/TP40011179-CH1-DontLinkElementID_2" title="At a Glance"></a><h2 class="jump">At a Glance</h2><p>Document-based apps handle multiple documents, each in its own window, and often display more than one document at a time. Although these apps embody many complex behaviors, the <span class="pediaLink" data-header="Document architecture" data-contents="The document architecture defines the roles and communication paths of objects in document-based applications. "><a href="../../../../General/Devpedia-CocoaApp-MOSX/DocArchitecture.html#//apple_ref/doc/uid/TP40009448-CH17" data-renderer-version="1" target="_self">document architecture</a></span> provides many of their capabilities “for free,” requiring little additional effort in design and implementation.</p><section><a name="//apple_ref/doc/uid/TP40011179-CH1-SW2" title="The Model-View-Controller Pattern Is Basic to a Document-Based App"></a><h3>The Model-View-Controller Pattern Is Basic to a Document-Based App</h3><p>The Cocoa document architecture uses the <span class="pediaLink" data-header="Model-View-Controller" data-contents="The Model-View-Controller (MVC) design pattern assigns objects in an application one of three roles: model, view, or controller. "><a href="../../../../General/Conceptual/DevPedia-CocoaCore/MVC.html#//apple_ref/doc/uid/TP40008195-CH32" data-renderer-version="1" target="_self">Model-View-Controller</a></span> (MVC) design pattern in which model objects encapsulate the app’s data, view objects display the data, and controller objects act as intermediaries between the view and model objects. A document, an instance of an <code>NSDocument</code> subclass, is a controller that manages the app’s data model. Adhering to the MVC design pattern enables your app to fit seamlessly into the document architecture.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40011179-CH1-SW3" title="Relevant Chapters"></a><p><strong>Relevant Chapters:</strong>&nbsp;<span class="content_text"><a href="../Designing/Designing.html#//apple_ref/doc/uid/TP40011179-CH2-SW3" data-renderer-version="1">Designing a Document-Based App</a></span> and <span class="content_text"><a href="../KeyObjects/KeyObjects.html#//apple_ref/doc/uid/TP40011179-CH3-SW2" data-renderer-version="1">The Classes That Support Document-Based Apps</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40011179-CH1-SW4" title="Xcode Supports Coding and Configuring Your App"></a><h3>Xcode Supports Coding and Configuring Your App</h3><p>Taking advantage of the support provided by Xcode, including a document-based application template and interfaces for configuring app data, you can create a document-based app without having to write much code. In Xcode you design your app’s user interface in a graphical editor, specify entitlements for resources such as the App Sandbox and iCloud, and configure the app’s property list, which specifies global app keys and other information, such as document types.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40011179-CH1-SW5" title="Relevant Chapter"></a><p><strong>Relevant Chapter:</strong>&nbsp;<span class="content_text"><a href="../ApplicationCreationProcess/ApplicationCreationProcess.html#//apple_ref/doc/uid/TP40011179-CH6-SW5" data-renderer-version="1">App Creation Process Overview</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40011179-CH1-SW6" title="You Must Subclass NSDocument"></a><h3>You Must Subclass NSDocument</h3><p>Document-based apps in Cocoa are built around a subclass of <code>NSDocument</code> that you implement. In particular, you must override one document reading method and one document writing method. You must design and implement your app’s data model, whether it is simply a single text-storage object or a complex object graph containing disparate data types. When your reading method receives a request, it takes data provided by the framework and loads it appropriately into your object model. Conversely, your writing method takes your app’s model data and provides it to the framework’s machinery for writing to a document file, whether it is located only in your local file system or in iCloud.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40011179-CH1-SW7" title="Relevant Chapters"></a><p><strong>Relevant Chapters:</strong>&nbsp;<span class="content_text"><a href="../ManagingLifecycle/ManagingLifecycle.html#//apple_ref/doc/uid/TP40011179-CH4-SW1" data-renderer-version="1">Creating the Subclass of NSDocument</a></span> and <span class="content_text"><a href="../KeyObjects/KeyObjects.html#//apple_ref/doc/uid/TP40011179-CH3-SW2" data-renderer-version="1">The Classes That Support Document-Based Apps</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40011179-CH1-SW8" title="NSDocument Provides Core Behavior and Customization Opportunities"></a><h3>NSDocument Provides Core Behavior and Customization Opportunities</h3><p>The Cocoa document architecture provides your app with many built-in features, such as autosaving, asynchronous document reading and writing, file coordination, and multilevel undo support. In most cases, it is trivial to opt-in to these behaviors. If your app has particular requirements beyond the defaults, the document architecture provides many opportunities for extending and customizing your app’s capabilities through mechanisms such as delegation, subclassing and overriding existing methods with custom implementations, and integration of custom objects.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40011179-CH1-SW9" title="Relevant Chapters"></a><p><strong>Relevant Chapters:</strong>&nbsp;<span class="content_text"><a href="../StandardBehaviors/StandardBehaviors.html#//apple_ref/doc/uid/TP40011179-CH5-SW3" data-renderer-version="1">Core App Behaviors</a></span> and <span class="content_text"><a href="../AdvancedTopics/AdvancedTopics.html#//apple_ref/doc/uid/TP40011179-CH7-SW6" data-renderer-version="1">Alternative Design Considerations</a></span></p><p></p></aside></div></section><a name="//apple_ref/doc/uid/TP40011179-CH1-DontLinkElementID_4" title="Prerequisites"></a><h2 class="jump">Prerequisites</h2><p>Before you read this document, you should be familiar with the information presented in <em><a href="../../../../General/Conceptual/MOSXAppProgrammingGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010543" data-renderer-version="1" target="_self">Mac App Programming Guide</a></em>.</p><div id="introSeeAlsoSection"><a name="//apple_ref/doc/uid/TP40011179-CH1-DontLinkElementID_3" title="See Also"></a><h2 class="jump">See Also</h2><p>See <em><a href="../../DocumentBasedAppPGiOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011149" data-renderer-version="1" target="_self">Document-Based App Programming Guide for iOS</a></em> for information about how to develop a document-based app for iOS using the <code>UIDocument</code> class.</p><p>For information about iCloud, see <em><a href="../../../../General/Conceptual/iCloudDesignGuide/Chapters/Introduction.html#//apple_ref/doc/uid/TP40012094" data-renderer-version="1" target="_self">iCloud Design Guide</a></em>.</p><p><em><a href="../../../../Carbon/Conceptual/SpotlightQuery/Concepts/Introduction.html#//apple_ref/doc/uid/TP40001841" data-renderer-version="1" target="_self">File Metadata Search Programming Guide</a></em> describes how to conduct searches using the <code>NSMetadataQuery</code> class and related classes. You use metadata queries to locate an app’s documents stored in iCloud.</p><p>For information about how to publish your app in the App Store, see <em><!--a target="_self" -->App Distribution Guide<!--/a--></em>.</p></div>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../Designing/Designing.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-12-13</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

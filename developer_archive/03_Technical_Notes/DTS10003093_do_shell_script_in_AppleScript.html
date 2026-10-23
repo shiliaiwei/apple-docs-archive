@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2065: do shell script in AppleScript</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003093">
+    <meta id="document-version" name="document-version" content="1.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003093-CH1">
+    <meta id="date" name="date" content="2018-05-11">
+    <meta id="description" name="description" content="TN2065: Frequently Asked Questions about the AppleScript "do shell script" command.">
+    <meta id="book-title" name="book-title" content="do shell script in AppleScript">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Interapplication Communication}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2065">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="do shell script in AppleScript" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003093" title="Technical Note TN2065"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>do shell script in AppleScript</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003093-CH1-DontLinkElementID_2" title="Technical Note TN2065"></a><div class="dtsDocNumber">Technical Note TN2065</div><h1 id="pageTitle">do shell script in AppleScript</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>This Technote answers frequently asked questions about AppleScript’s do shell script command.</p><p>This technical note addresses common questions about how to use <code>do shell script</code>. It does not attempt to explain what you can do with a Unix shell script or how to write one; for that, find an appropriate text or consult a local expert. It is structured as question-and-answer, so you can either skip right to your problem, or read through from beginning to end.</p><p>Some answers refer to specific commands in the form <code>echo</code>(1) or to a “man page”; these are reference documents included in macOS. (The “man” is short for "manual.”) To see the man page for a command, search for the command in Terminal’s Help menu, or open a Terminal window and type <code>man</code> followed by the command name, for example, <code>man echo</code>.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1" data-renderer-version="1">Issuing Commands</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-HOW_DO_I_PASS_AN_APPLESCRIPT_VARIABLE_TO_MY_SHELL_COMMAND_" data-renderer-version="1">How do I pass an AppleScript variable to my shell command?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-MY_COMMAND_WORKS_FINE_IN_TERMINAL__BUT_WHEN_I_TRY_TO_USE_IT_IN_DO_SHELL_SCRIPT__I_GET_AN_ERROR_ABOUT____COMMAND_NOT_FOUND______WHAT___S_GOING_ON_" data-renderer-version="1">My command works fine in Terminal, but when I try to use it in do shell script, I get an error about “command not found.”  What’s going on?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-WHY_DOESN___T_DO_SHELL_SCRIPT_WORK_EXACTLY_LIKE_TERMINAL_" data-renderer-version="1">Why doesn’t do shell script work exactly like Terminal?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-HOW_DO_I_RUN_MY_COMMAND_WITH_A_SHELL_OTHER_THAN_SH_" data-renderer-version="1">How do I run my command with a shell other than sh?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-DOES_CHANGING_THE_ENVIRONMENT_IN_ONE_DO_SHELL_SCRIPT_AFFECT_THE_ENVIRONMENT_OF_OTHER_ONES_" data-renderer-version="1">Does changing the environment in one do shell script affect the environment of other ones?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-HOW_LONG_CAN_MY_COMMAND_BE_" data-renderer-version="1">How long can my command be?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-HOW_DO_I_GET_ADMINISTRATOR_PRIVILEGES_FOR_A_COMMAND_" data-renderer-version="1">How do I get administrator privileges for a command?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-HOW_DO_I_GET_ADMINISTRATOR_PRIVILEGES_WITHOUT_PROMPTING_" data-renderer-version="1">How do I get administrator privileges without prompting?</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG2" data-renderer-version="1">Getting an Answer</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG2-HOW_DOES_DO_SHELL_SCRIPT_GET_THE_RESULT___HOW_DO_I_RETURN_A_SHELL_VARIABLE_TO_MY_APPLESCRIPT_" data-renderer-version="1">How does do shell script get the result?  How do I return a shell variable to my AppleScript?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG2-HOW_DOES_DO_SHELL_SCRIPT_REPORT_ERRORS_" data-renderer-version="1">How does do shell script report errors?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG2-WHEN_I_RUN_MY_COMMAND_IN_TERMINAL__I_GET_A_BUNCH_OF_OUTPUT__BUT_WHEN_USING_DO_SHELL_SCRIPT__SOME_OF_IT_IS_MISSING_" data-renderer-version="1">When I run my command in Terminal, I get a bunch of output, but when using do shell script, some of it is missing.</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG2-HOW_MUCH_OUTPUT_CAN_A_COMMAND_RETURN_" data-renderer-version="1">How much output can a command return?</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3" data-renderer-version="1">Dealing with Text</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3-MY_COMMAND_DOESN___T_WORK_RIGHT_WHEN_A_PARAMETER_HAS_SPACES_OR_CERTAIN_PUNCTUATION_____PARENTHESES________ETC_" data-renderer-version="1">My command doesn’t work right when a parameter has spaces or certain punctuation — parentheses, $, *, etc.</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3-I_NEED_TO_PUT_DOUBLE_QUOTES_AND_BACKSLASHES_IN_MY_SHELL_COMMAND__BUT_APPLESCRIPT_GIVES_ME_A_SYNTAX_ERROR_WHEN_I_TRY_" data-renderer-version="1">I need to put double quotes and backslashes in my shell command, but AppleScript gives me a syntax error when I try.</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3-WHENEVER_MY_SHELL_SCRIPT_RETURNS_A_DOUBLE_QUOTE_OR_BACKSLASH__IT_COMES_OUT_WITH_AN_EXTRA_BACKSLASH_IN_FRONT_OF_IT_" data-renderer-version="1">Whenever my shell script returns a double quote or backslash, it comes out with an extra backslash in front of it.</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3-WHAT_DOES_DO_SHELL_SCRIPT_DO_WITH_NON_ASCII_TEXT__ACCENTED_CHARACTERS__JAPANESE__ETC___" data-renderer-version="1">What does do shell script do with non-ASCII text (accented characters, Japanese, etc.)?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3-WHAT_ARE_THE_RULES_FOR_LINE_ENDINGS_" data-renderer-version="1">What are the rules for line endings?</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG4" data-renderer-version="1">Dealing with Files</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG4-I_HAVE_AN_APPLESCRIPT_FILE_OR_ALIAS_OBJECT__HOW_DO_I_PASS_IT_TO_A_SHELL_COMMAND_" data-renderer-version="1">I have an AppleScript file or alias object; how do I pass it to a shell command?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG4-POSIX_PATH_DOESN___T_WORK_RIGHT_IF_THE_FILE_HAS_CERTAIN_CHARACTERS_IN_ITS_NAME_____SPACES__PARENTHESES________ETC_" data-renderer-version="1">POSIX path doesn’t work right if the file has certain characters in its name — spaces, parentheses, $, *, etc.</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG4-WHY_DOESN___T_POSIX_PATH_JUST_QUOTE_EVERYTHING_FOR_ME_" data-renderer-version="1">Why doesn’t POSIX path just quote everything for me?</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5" data-renderer-version="1">Other Concerns</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-HOW_DO_I_CONTROL_AN_INTERACTIVE_TOOL_LIKE_FTP_OR_TELNET_WITH_DO_SHELL_SCRIPT_" data-renderer-version="1">How do I control an interactive tool like ftp or telnet with do shell script?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-MY_SCRIPT_WILL_PRODUCE_OUTPUT_OVER_A_LONG_TIME__HOW_DO_I_READ_THE_RESULTS_AS_THEY_COME_IN_" data-renderer-version="1">My script will produce output over a long time. How do I read the results as they come in?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-I_WANT_TO_START_A_BACKGROUND_SERVER_PROCESS__HOW_DO_I_MAKE_DO_SHELL_SCRIPT_NOT_WAIT_UNTIL_THE_COMMAND_COMPLETES_" data-renderer-version="1">I want to start a background server process; how do I make do shell script not wait until the command completes?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-I_HAVE_STARTED_A_BACKGROUND_PROCESS__HOW_DO_I_GET_ITS_PROCESS_ID_SO_I_CAN_CONTROL_IT_WITH_OTHER_SHELL_COMMANDS_" data-renderer-version="1">I have started a background process; how do I get its process ID so I can control it with other shell commands?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-I___M_TRYING_TO_USE_TOP__BUT_IT_FAILS_SAYING____CAN___T_GET_TERMINAL_ATTRIBUTES____OR____ERROR_OPENING_TERMINAL__UNKNOWN____" data-renderer-version="1">I’m trying to use top, but it fails saying “can’t get terminal attributes” or “error opening terminal: unknown.”</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-WHAT___S_THE_DEFAULT_WORKING_DIRECTORY_FOR_DO_SHELL_SCRIPT_COMMANDS_" data-renderer-version="1">What’s the default working directory for do shell script commands?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-DOES_IT_MAKE_A_DIFFERENCE_WHICH_APPLICATION_I_TELL_TO_DO_SHELL_SCRIPT_" data-renderer-version="1">Does it make a difference which application I tell to do shell script?</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG6" data-renderer-version="1">Gory Details</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG6-WHAT_SHELL_DOES_DO_SHELL_SCRIPT_USE__REALLY_" data-renderer-version="1">What shell does do shell script use, really?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG6-HOW_LONG_CAN_MY_COMMAND_BE__REALLY_" data-renderer-version="1">How long can my command be, really?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG6-WHERE_DOES_THE_SHELL_ENVIRONMENT_COME_FROM_____ENVIRONMENT_VARIABLES__WORKING_DIRECTORY__AND_SO_ON_" data-renderer-version="1">Where does the shell environment come from — environment variables, working directory, and so on?</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG7" data-renderer-version="1">Historical Notes</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003093-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1" title="Issuing Commands"></a><h2 class="jump">Issuing Commands</h2><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-HOW_DO_I_PASS_AN_APPLESCRIPT_VARIABLE_TO_MY_SHELL_COMMAND_" title="How do I pass an AppleScript variable to my shell command?"></a><h3 class="jump">How do I pass an AppleScript variable to my shell command?</h3><p>Since the command argument to <code>do shell script</code> is really just a string, you can build the string at run time using the AppleScript concatenation operator <code>&amp;</code>. For example, to pass the variable as a command parameter, you would do this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>set hostname to "www.apple.com"<span></span></pre></td></tr><tr><td scope="row"><pre>do shell script "ping -c1 " &amp; hostname<span></span></pre></td></tr></table></div><p>Some commands require data to be fed to standard input. <code>do shell script</code> does not directly support this, but you can fake it using <code>echo</code> and a pipe:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>set input to "hello"<span></span></pre></td></tr><tr><td scope="row"><pre>do shell script "echo " &amp; input &amp; " | tr a-z A-Z"<span></span></pre></td></tr><tr><td scope="row"><pre>-- "HELLO"<span></span></pre></td></tr></table></div><p>In general, you should quote any variables using <code>quoted form of</code>; see <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3" data-renderer-version="1">Dealing with Text</a></span> for details.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-MY_COMMAND_WORKS_FINE_IN_TERMINAL__BUT_WHEN_I_TRY_TO_USE_IT_IN_DO_SHELL_SCRIPT__I_GET_AN_ERROR_ABOUT____COMMAND_NOT_FOUND______WHAT___S_GOING_ON_" title="My command works fine in Terminal, but when I try to use it in do shell script, I get an error about “command not found.”  What’s going on?"></a><h3 class="jump">My command works fine in Terminal, but when I try to use it in do shell script, I get an error about “command not found.”  What’s going on?</h3><p>There are two possibilities. First, <code>do shell script</code> always uses /bin/sh to interpret your command, not your default shell, which Terminal uses. (To find out what your default shell is, say <code>echo $SHELL</code> in Terminal.) While some commands are the same between shells, others are not, and you may have used one of them. If you write your <code>do shell script</code> scripts in Terminal first, always use sh. You can start sh by typing <code>/bin/sh</code>; type <code>exit</code> to get back to your normal shell.</p><p>Second, when you use just a command name instead of a complete path, the shell uses a list of directories (known as your PATH) to try and find the complete path to the command. For security and portability reasons, <code>do shell script</code> ignores the configuration files that an interactive shell would read, so you don’t get the customizations you would have in Terminal. Use the full path to the command, for example, <code>/sbin/ifconfig</code> instead of just <code>ifconfig</code>. To find the full path in Terminal, say <code>which command-name</code>, for example, <code>which ifconfig</code>; to see the list of places <code>do shell script</code> will search, say <code>do shell script "echo $PATH"</code>.</p><p>(This answer glosses over a few details — see <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG6" data-renderer-version="1">Gory Details</a></span> if you care.)</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-WHY_DOESN___T_DO_SHELL_SCRIPT_WORK_EXACTLY_LIKE_TERMINAL_" title="Why doesn’t do shell script work exactly like Terminal?"></a><h3 class="jump">Why doesn’t do shell script work exactly like Terminal?</h3><p>For two reasons: first, it helps guarantee that scripts will run on different systems without modification. If <code>do shell script</code> used your default shell or PATH, your script would probably break if you gave it to someone else. Second, it matches shell escape mechanisms in other languages, such as Perl.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-HOW_DO_I_RUN_MY_COMMAND_WITH_A_SHELL_OTHER_THAN_SH_" title="How do I run my command with a shell other than sh?"></a><h3 class="jump">How do I run my command with a shell other than sh?</h3><p>Include the shell you want to use explicitly in the command. There are a variety of ways to pass commands to your shell of choice. You could write the command to a file and then execute the file like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "/bin/tcsh my-command-file-path"<span></span></pre></td></tr></table></div><p>Some shells will accept a script as a parameter, like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "/bin/tcsh -c 'my-command'"<span></span></pre></td></tr></table></div><p>And most will accept a script from standard input, like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "echo my-command | /bin/tcsh"<span></span></pre></td></tr></table></div><p>When in doubt, read the documentation for your preferred shell. When you put the command in the <code>do shell script</code> string, you will probably have to quote the command as described below, or the shell will interpret special characters in the command.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-DOES_CHANGING_THE_ENVIRONMENT_IN_ONE_DO_SHELL_SCRIPT_AFFECT_THE_ENVIRONMENT_OF_OTHER_ONES_" title="Does changing the environment in one do shell script affect the environment of other ones?"></a><h3 class="jump">Does changing the environment in one do shell script affect the environment of other ones?</h3><p>No. Each invocation of <code>do shell script</code> uses a new shell process, so state such as changes to variables and the working directory is not saved from one to the next. For example, the <code>pwd</code> here is not affected by the <code>cd</code> in the previous command:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "cd ~/Documents"<span></span></pre></td></tr><tr><td scope="row"><pre>do shell script "pwd"<span></span></pre></td></tr><tr><td scope="row"><pre>-- result: "/"<span></span></pre></td></tr></table></div><p>To share state between shell scripts, combine the scripts into one, separating the commands with either semicolons or linefeeds, like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE7"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "cd ~/Documents ; pwd"<span></span></pre></td></tr><tr><td scope="row"><pre>-- result: "/Users/me/Documents"<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-HOW_LONG_CAN_MY_COMMAND_BE_" title="How long can my command be?"></a><h3 class="jump">How long can my command be?</h3><p>There is no precise answer to this question. (See <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG6" data-renderer-version="1">Gory Details</a></span> for the reasons why.) However, the approximate answer is that a single command can be up to about 262,000 characters long — technically, 262,000 bytes, assuming one byte per character. Non-ASCII characters will use at least two bytes per character — see <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3" data-renderer-version="1">Dealing with Text</a></span> for more details.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003093-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;This limit is subject to change. The shell command <code>sysctl kern.argmax</code> will give you the current limit in bytes.</p><p></p></aside></div><p>Overrunning the limit will cause <code>do shell script</code> to return an error of type 255. Most people who hit the limit are trying to feed inline data to their command. Consider writing the data to a file and reading it from there instead.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-HOW_DO_I_GET_ADMINISTRATOR_PRIVILEGES_FOR_A_COMMAND_" title="How do I get administrator privileges for a command?"></a><h3 class="jump">How do I get administrator privileges for a command?</h3><p>Use the <code>administrator privileges</code> parameter like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE8"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "command" with administrator privileges<span></span></pre></td></tr></table></div><p>This runs the command as the root user, giving it additional privileges. Once a script is correctly authenticated, it will not ask for authentication again for five minutes. The authentication only applies to that specific script: a different script, or a modified version of the same one, will ask for its own authentication.</p><p>Bear in mind that administrator privileges allow you to make potentially catastrophic changes, so exercise caution. Better yet, don’t use administrator privileges unless you absolutely have to. Unless you are doing system-level development, you should never need to change anything in /System — changing /Library should suffice.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003093-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;Using <code>sudo</code>(8) with <code>with administrator privileges</code> is generally unnecessary and creates security holes; simply remove the <code>sudo</code>.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1-HOW_DO_I_GET_ADMINISTRATOR_PRIVILEGES_WITHOUT_PROMPTING_" title="How do I get administrator privileges without prompting?"></a><h3 class="jump">How do I get administrator privileges without prompting?</h3><p>There are two ways to effectively pre-supply the administrator password for a particular machine. One is to  supply an explicit user and password to <code>do shell script</code> like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE9"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "command" user name "me" password "mypassword" with administrator privileges<span></span></pre></td></tr></table></div><p>However, doing this means putting the plaintext password in your script, which is a security risk. The other way is to modify the sudo security policy to allow the relevant command without a password: you can then say <code>do shell script "sudo command"</code> (without <code>with administrator privileges</code>) and the command will run without prompting. See <code>sudoers</code>(5) for details.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG2" title="Getting an Answer"></a><h2 class="jump">Getting an Answer</h2><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG2-HOW_DOES_DO_SHELL_SCRIPT_GET_THE_RESULT___HOW_DO_I_RETURN_A_SHELL_VARIABLE_TO_MY_APPLESCRIPT_" title="How does do shell script get the result?  How do I return a shell variable to my AppleScript?"></a><h3 class="jump">How does do shell script get the result?  How do I return a shell variable to my AppleScript?</h3><p>Shell commands can write their results to one of two output streams: standard output and standard error. Standard output is for normal output, while standard error is for error messages and diagnostics. Assuming your script completes successfully — if it doesn’t, see the next question — the result is whatever text was printed to standard output, possibly with some modifications. Most commands print their results to standard output automatically, so you don’t need to do anything extra. If your answer is in a variable, you will need to print it yourself using <code>echo</code> (most shells) or <code>print</code> (many languages, such as Perl and Awk). For example:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE10" title="Listing 1Set the AppleScript variable mySlug to a date slug in yyyy-mm-dd format."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Set the AppleScript variable mySlug to a date slug in yyyy-mm-dd format.</p><div class="codesample clear"><table><tr><td scope="row"><pre>set mySlug to do shell script "date +%Y-%m-%d"<span></span></pre></td></tr><tr><td scope="row"><pre>-- see date(1) for details on the format string.<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE11" title="Listing 2The same thing, but as a Perl script."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;The same thing, but as a Perl script.</p><div class="codesample clear"><table><tr><td scope="row"><pre>set mySlug to do shell script ¬<span></span></pre></td></tr><tr><td scope="row"><pre>    "perl -e 'my (undef, undef, undef, $d, $m, $y) = localtime;<span></span></pre></td></tr><tr><td scope="row"><pre>              my $date = sprintf("%4d-%02d-%02d", $y+1900, $m+1, $d);<span></span></pre></td></tr><tr><td scope="row"><pre>              print $date'"<span></span></pre></td></tr></table></div><p>By default, <code>do shell script</code> transforms all the line endings in the result to classic Mac OS-style carriage returns ("\r" or ASCII character 13), and removes a single trailing line ending, if one exists. This means, for example, that the result of <code>do shell script "echo foo; echo bar"</code> is <code>"foo\rbar"</code>, not the <code>"foo\nbar\n"</code> that echo actually returned. You can suppress both of these behaviors by adding the <code>without altering line endings</code> parameter. For dealing with non-ASCII data, see <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3" data-renderer-version="1">Dealing with Text</a></span>.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG2-HOW_DOES_DO_SHELL_SCRIPT_REPORT_ERRORS_" title="How does do shell script report errors?"></a><h3 class="jump">How does do shell script report errors?</h3><p>All shell commands return an integer status when they finish: zero means success; anything else means failure. If the script exits with a non-zero status, <code>do shell script</code> throws an AppleScript error with the status as the error number. (The man page for a command should tell you what status codes it can return. Most commands simply use 1 for all errors.) If the script printed something to the standard error stream, that text becomes the error message in AppleScript. If there was no error text, the normal output (if any) is used as the error message.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG2-WHEN_I_RUN_MY_COMMAND_IN_TERMINAL__I_GET_A_BUNCH_OF_OUTPUT__BUT_WHEN_USING_DO_SHELL_SCRIPT__SOME_OF_IT_IS_MISSING_" title="When I run my command in Terminal, I get a bunch of output, but when using do shell script, some of it is missing."></a><h3 class="jump">When I run my command in Terminal, I get a bunch of output, but when using do shell script, some of it is missing.</h3><p>When running in Terminal, standard output and standard error are both sent to the same place, so it is difficult to tell them apart. <code>do shell script</code>, on the other hand, keeps the two streams separate. If you want to combine them, follow the command with <code>2&gt;&amp;1</code> like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE12"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "command 2&gt;&amp;1"<span></span></pre></td></tr></table></div><p>See the <code>sh</code> man page under "Redirection" for more details.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG2-HOW_MUCH_OUTPUT_CAN_A_COMMAND_RETURN_" title="How much output can a command return?"></a><h3 class="jump">How much output can a command return?</h3><p>A single command can return up to 2 GiB of data on a 32-bit system, or up to 4 TiB on a 64-bit system.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3" title="Dealing with Text"></a><h2 class="jump">Dealing with Text</h2><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3-MY_COMMAND_DOESN___T_WORK_RIGHT_WHEN_A_PARAMETER_HAS_SPACES_OR_CERTAIN_PUNCTUATION_____PARENTHESES________ETC_" title="My command doesn’t work right when a parameter has spaces or certain punctuation — parentheses, $, *, etc."></a><h3 class="jump">My command doesn’t work right when a parameter has spaces or certain punctuation — parentheses, $, *, etc.</h3><p>Because the shell separates parameters with spaces, and some punctuation marks have special meanings, you must take special steps to make the shell treat your string as one parameter with literal spaces, parentheses, etc. This is called "quoting," and there are several ways to do it, but the simplest and most effective is to use the <code>quoted form</code> property of strings.</p><p>For example, consider this (buggy) handler, which takes a string and appends it to a file named "stuff" in your home directory:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE13"></a><div class="codesample clear"><table><tr><td scope="row"><pre>to append_message(s)<span></span></pre></td></tr><tr><td scope="row"><pre>    do shell script "echo " &amp; s &amp; " &gt;&gt; ~/stuff"<span></span></pre></td></tr><tr><td scope="row"><pre>end append_message<span></span></pre></td></tr></table></div><p>It works fine for most strings, but if we call it with a string like "$100", the string that ends up in the file is "00", because the shell thinks that "$1" is a variable whose value is an empty string. (Variables in <code>sh</code> begin with a dollar sign.) To fix the script, change it like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE14"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "echo " &amp; quoted form of s &amp; " &gt;&gt; ~/stuff"<span></span></pre></td></tr></table></div><p>The <code>quoted form</code> property gives the string in a form that is safe from further interpretation by the shell, no matter what its contents are. For more details on quoting, see the <code>sh</code> man page under “Quoting.”</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3-I_NEED_TO_PUT_DOUBLE_QUOTES_AND_BACKSLASHES_IN_MY_SHELL_COMMAND__BUT_APPLESCRIPT_GIVES_ME_A_SYNTAX_ERROR_WHEN_I_TRY_" title="I need to put double quotes and backslashes in my shell command, but AppleScript gives me a syntax error when I try."></a><h3 class="jump">I need to put double quotes and backslashes in my shell command, but AppleScript gives me a syntax error when I try.</h3><p>Strings in AppleScript go from an opening double quote to a closing double quote. To put a literal double quote in your string you must "escape" it with a backslash character, like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE15"></a><div class="codesample clear"><table><tr><td scope="row"><pre>"a \"quote\" mark"<span></span></pre></td></tr></table></div><p>The backslash means "treat the next character specially." This means that getting a literal backslash requires two backslashes, like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE16"></a><div class="codesample clear"><table><tr><td scope="row"><pre>"a back\\slash"<span></span></pre></td></tr></table></div><p>Putting this all together, you might have something like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE17"></a><div class="codesample clear"><table><tr><td scope="row"><pre>set s to "this is a test."<span></span></pre></td></tr><tr><td scope="row"><pre>do shell script "echo " &amp; quoted form of s &amp; " | perl -n -e 'print \"\\U$_\"'"<span></span></pre></td></tr><tr><td scope="row"><pre>-- result: "THIS IS A TEST."<span></span></pre></td></tr></table></div><p>Despite all the extra backslashes in the script, the actual string passed to perl’s -e option is</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE18"></a><div class="codesample clear"><table><tr><td scope="row"><pre>print "\U$_"<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3-WHENEVER_MY_SHELL_SCRIPT_RETURNS_A_DOUBLE_QUOTE_OR_BACKSLASH__IT_COMES_OUT_WITH_AN_EXTRA_BACKSLASH_IN_FRONT_OF_IT_" title="Whenever my shell script returns a double quote or backslash, it comes out with an extra backslash in front of it."></a><h3 class="jump">Whenever my shell script returns a double quote or backslash, it comes out with an extra backslash in front of it.</h3><p>The result window in Script Editor shows you the result in “source” form, such that you could paste it into a script and compile it. This means that string results have quotes around them, and special characters such as double quotes and backslashes are escaped as described above. The extra backslash is not really part of the string, it’s merely how it’s displayed. If you pass the string to <code>display dialog</code> or write it to a file, you will see it without the extra backslashes.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3-WHAT_DOES_DO_SHELL_SCRIPT_DO_WITH_NON_ASCII_TEXT__ACCENTED_CHARACTERS__JAPANESE__ETC___" title="What does do shell script do with non-ASCII text (accented characters, Japanese, etc.)?"></a><h3 class="jump">What does do shell script do with non-ASCII text (accented characters, Japanese, etc.)?</h3><p>From AppleScript’s point of view, <code>do shell script</code> accepts and produces Unicode text. <code>do shell script</code> passes the commands to the shell and interprets their output using UTF-8. If a command produces bytes that are not valid UTF-8, <code>do shell script</code> will interpret them using the primary system encoding.</p><p>Realize that most shell commands are completely ignorant of Unicode and UTF-8. UTF-8 looks like ASCII for ASCII characters — for example, <code>A</code> is the byte 0x41 in both ASCII and UTF-8 — but any non-ASCII character is represented as a sequence of bytes. As far as the shell commands are concerned, however, one byte equals one character, and they make no attempt to interpret anything outside the ASCII range. This means that they will preserve UTF-8 sequences and can do exact byte-for-byte matches: for example, <code>echo ™</code> will produce a trademark symbol, and <code>grep ©</code> will find every line with a copyright symbol. However, they cannot intelligently sort, alter, or compare UTF-8 sequences: for example, character-set matching commands like <code>tr</code>(1) or the [] construct in <code>sed</code>(1) will attempt to match each byte of the sequence independently, <code>sort</code>(1) will sort accented characters out of order, and <code>grep -i</code> or <code>find -iname</code> will not match “é” against “É”. Perl is a notable exception to this; see <code>perlunicode</code>(1) for more details.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG3-WHAT_ARE_THE_RULES_FOR_LINE_ENDINGS_" title="What are the rules for line endings?"></a><h3 class="jump">What are the rules for line endings?</h3><p>In general, macOS uses the Unix-style line ending of linefeed (“\n” or <code>character id 10</code>), which matches what Unix-based shell commands expect. However, older applications and files may use the classic Mac OS-style line ending of return (“\r” or <code>character id 13</code>), which shell commands may interpret in less-than-useful ways. For example, <code>grep</code>(1) would consider the entire input to have only one line, so you would get at most one match. </p><p>If your classic Mac OS-style data is coming from AppleScript, you can transform the line endings there or generate line feeds in the first place — <code>"\n"</code>, <code>linefeed</code>, or <code>character id 10</code> all yield a line feed. If the data is coming from a file, you can make the shell script transform the line endings by using <code>tr</code>(1). For example, the following will find lines that contain “something” in any plain text file, regardless of line-ending style. (The “quoted form of POSIX path of f” idiom is discussed under <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG4" data-renderer-version="1">Dealing with Files</a></span>.)</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE19"></a><div class="codesample clear"><table><tr><td scope="row"><pre>set f to choose file<span></span></pre></td></tr><tr><td scope="row"><pre>do shell script "tr '\r' '\n' &lt; " &amp; quoted form of POSIX path of f &amp; " | grep something"<span></span></pre></td></tr></table></div><p>AppleScript itself is line ending-agnostic — the <code>paragraph</code> element of string objects considers classic Mac OS- and Unix-style line endings to be equivalent, along with Windows-style (“\r\n”) and the Unicode paragraph separator and line separator characters. There is generally no need to use <code>text item delimiters</code> to get lines of text; <code>paragraph n</code> or <code>every paragraph</code> will work just as well. (However, if you wanted to consider only a particular line ending style, <code>text item delimiters</code> would be the proper solution.)</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG4" title="Dealing with Files"></a><h2 class="jump">Dealing with Files</h2><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG4-I_HAVE_AN_APPLESCRIPT_FILE_OR_ALIAS_OBJECT__HOW_DO_I_PASS_IT_TO_A_SHELL_COMMAND_" title="I have an AppleScript file or alias object; how do I pass it to a shell command?"></a><h3 class="jump">I have an AppleScript file or alias object; how do I pass it to a shell command?</h3><p>The shell specifies files using POSIX path names, which are strings with slashes separating the path components (for example, <code>/folder1/folder2/file</code>). To get the POSIX path of an AppleScript file or alias object, use the <code>POSIX path</code> property. (However, see the following question.) For example:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE20"></a><div class="codesample clear"><table><tr><td scope="row"><pre>POSIX path of file "HD:Users:me:Documents:Welcome.txt"<span></span></pre></td></tr><tr><td scope="row"><pre>-- result: "/Users/me/Documents/Welcome.txt"<span></span></pre></td></tr></table></div><p>To go the other way — say your shell command returns a POSIX path as a result — use the <code>POSIX file</code> class. <code>POSIX file</code> with a path name evaluates to a normal file object that you can then pass to other AppleScript commands. For example:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE21"></a><div class="codesample clear"><table><tr><td scope="row"><pre>set p to do shell script "echo ~"<span></span></pre></td></tr><tr><td scope="row"><pre>POSIX file p<span></span></pre></td></tr><tr><td scope="row"><pre>-- result: file "HD:Users:me:"<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG4-POSIX_PATH_DOESN___T_WORK_RIGHT_IF_THE_FILE_HAS_CERTAIN_CHARACTERS_IN_ITS_NAME_____SPACES__PARENTHESES________ETC_" title="POSIX path doesn’t work right if the file has certain characters in its name — spaces, parentheses, $, *, etc."></a><h3 class="jump">POSIX path doesn’t work right if the file has certain characters in its name — spaces, parentheses, $, *, etc.</h3><p>This is a special case of quoting: you must quote the path to make the shell interpret all the punctuation literally. To do this, use the quoted form of the path. For example, this will work with any file, no matter what its name is:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE22"></a><div class="codesample clear"><table><tr><td scope="row"><pre>choose file<span></span></pre></td></tr><tr><td scope="row"><pre>do shell script "ls -l " &amp; quoted form of the POSIX path of the result<span></span></pre></td></tr><tr><td scope="row"><pre>-- result: "-rw-r--r-- 1 me unknown 1 Oct 25 17:48 Look! a file!"<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG4-WHY_DOESN___T_POSIX_PATH_JUST_QUOTE_EVERYTHING_FOR_ME_" title="Why doesn’t POSIX path just quote everything for me?"></a><h3 class="jump">Why doesn’t POSIX path just quote everything for me?</h3><p>For two reasons: first, there are uses for POSIX paths that have nothing to do with shell parameters, and quoting the path would be wrong in such cases. Second, quoted form is useful for things other than file paths. Therefore, there are two orthogonal operations instead of one combined one.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5" title="Other Concerns"></a><h2 class="jump">Other Concerns</h2><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-HOW_DO_I_CONTROL_AN_INTERACTIVE_TOOL_LIKE_FTP_OR_TELNET_WITH_DO_SHELL_SCRIPT_" title="How do I control an interactive tool like ftp or telnet with do shell script?"></a><h3 class="jump">How do I control an interactive tool like ftp or telnet with do shell script?</h3><p>The short answer is that you don’t. <code>do shell script</code> is designed to start the command and then let it run with no interaction until it completes, much like the backquote operator in Perl and most Unix shells.</p><p>However, there are ways around this. You can script Terminal and send a series of commands to the same window, or you could use a Unix package designed for scripting interactive tools, such as <span class="content_text"><a href="http://expect.nist.gov/" class="urlLink" rel="external">expect</a></span>. Also, many interactive commands have non-interactive equivalents. For example, <code>curl</code> can substitute for <code>ftp</code> in most cases.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-MY_SCRIPT_WILL_PRODUCE_OUTPUT_OVER_A_LONG_TIME__HOW_DO_I_READ_THE_RESULTS_AS_THEY_COME_IN_" title="My script will produce output over a long time. How do I read the results as they come in?"></a><h3 class="jump">My script will produce output over a long time. How do I read the results as they come in?</h3><p>Again, the short answer is that you don’t — <code>do shell script</code> will not return until the command is done. In Unix terms, it cannot be used to create a pipe. What you can do, however, is to put the command into the background (see the next question), send its output to a file, and then read the file as it fills up.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-I_WANT_TO_START_A_BACKGROUND_SERVER_PROCESS__HOW_DO_I_MAKE_DO_SHELL_SCRIPT_NOT_WAIT_UNTIL_THE_COMMAND_COMPLETES_" title="I want to start a background server process; how do I make do shell script not wait until the command completes?"></a><h3 class="jump">I want to start a background server process; how do I make do shell script not wait until the command completes?</h3><p>Use <code>do shell script "command &amp;&gt; file_path &amp;"</code>. <code>do shell script</code> will return immediately with no result and your AppleScript script will be running in parallel with your shell script. The shell script’s output will go into file_path; if you don’t care about the output, use <code>/dev/null</code>. There is no direct support for getting or manipulating the background process from AppleScript, but see the next question.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003093-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;Saying <code>&amp;&gt; file_path</code> is semantically equivalent to <code>&gt; file_path 2&gt;&amp;1</code>, and will direct both standard output and standard error to <code>file_path</code>. If you need them to go to different places, direct standard output using <code>&gt;</code> and standard error using <code>2&gt;</code>. For example, to send standard error to a file but ignore standard output, do this:</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE23"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "command &gt; /dev/null 2&gt; file_path<span></span></pre></td></tr></table></div><p>See the <code>sh</code>(1) man page under “Redirection” for more details.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-I_HAVE_STARTED_A_BACKGROUND_PROCESS__HOW_DO_I_GET_ITS_PROCESS_ID_SO_I_CAN_CONTROL_IT_WITH_OTHER_SHELL_COMMANDS_" title="I have started a background process; how do I get its process ID so I can control it with other shell commands?"></a><h3 class="jump">I have started a background process; how do I get its process ID so I can control it with other shell commands?</h3><p>You can use a feature of <code>sh</code> to do this: the special variable <code>$!</code> is the ID of the most recent background command, so you can echo it as the last command in your shell script, like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE24"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "my_command &amp;&gt; /dev/null &amp; echo $!"<span></span></pre></td></tr><tr><td scope="row"><pre>-- result: 621<span></span></pre></td></tr><tr><td scope="row"><pre>set pid to the result<span></span></pre></td></tr><tr><td scope="row"><pre>do shell script "renice +20 -p " &amp; pid<span></span></pre></td></tr><tr><td scope="row"><pre>-- change my_command's scheduling priority.<span></span></pre></td></tr><tr><td scope="row"><pre>do shell script "kill " &amp; pid<span></span></pre></td></tr><tr><td scope="row"><pre>-- my_command is terminated.<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-I___M_TRYING_TO_USE_TOP__BUT_IT_FAILS_SAYING____CAN___T_GET_TERMINAL_ATTRIBUTES____OR____ERROR_OPENING_TERMINAL__UNKNOWN____" title="I’m trying to use top, but it fails saying “can’t get terminal attributes” or “error opening terminal: unknown.”"></a><h3 class="jump">I’m trying to use top, but it fails saying “can’t get terminal attributes” or “error opening terminal: unknown.”</h3><p><code>top</code>(1) in its default mode does all sorts of clever things to create a dynamically updating display, none of which work if the output device does not support cursor control, as <code>do shell script</code> does not. However, <code>top</code> has an option that makes it run in logging mode, which works with file-like devices like <code>do shell script</code>. Use <code>top -l1</code> instead, or see the <code>top</code>(1) man page for more options.</p><p>This same problem will apply to any other command that assumes the presence of a terminal. Fortunately, most of them are interactive front ends to more primitive commands that do not assume a terminal.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-WHAT___S_THE_DEFAULT_WORKING_DIRECTORY_FOR_DO_SHELL_SCRIPT_COMMANDS_" title="What’s the default working directory for do shell script commands?"></a><h3 class="jump">What’s the default working directory for do shell script commands?</h3><p><code>do shell script</code> inherits the working directory of its parent process. For most applications, such as Script Editor, this is /. For <code>osascript</code>(1), it is the working directory of the shell when you launched <code>osascript</code>. You should not rely on the default working directory being anything in particular; if you need the working directory to be someplace specific, set it to that yourself.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG5-DOES_IT_MAKE_A_DIFFERENCE_WHICH_APPLICATION_I_TELL_TO_DO_SHELL_SCRIPT_" title="Does it make a difference which application I tell to do shell script?"></a><h3 class="jump">Does it make a difference which application I tell to do shell script?</h3><p>For the most part, no. For security reasons, <code>do shell script</code> always runs as a child of the process running the script, regardless of what application is the current “tell” target. However, AppleScript must perform some extra work to redirect <code>do shell script</code> commands sent to other applications, so for optimal results always put <code>do shell script</code> calls outside of any <code>tell</code> block, or use <code>tell me</code>.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG6" title="Gory Details"></a><h2 class="jump">Gory Details</h2><p>This section is for those who want to know all the niggling details of how <code>do shell script</code> works. If you just want to make your script work right, you probably don’t need to read it.</p><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG6-WHAT_SHELL_DOES_DO_SHELL_SCRIPT_USE__REALLY_" title="What shell does do shell script use, really?"></a><h3 class="jump">What shell does do shell script use, really?</h3><p><code>do shell script</code> always calls /bin/sh. However, in macOS, /bin/sh is really <code>bash</code> emulating <code>sh</code>.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG6-HOW_LONG_CAN_MY_COMMAND_BE__REALLY_" title="How long can my command be, really?"></a><h3 class="jump">How long can my command be, really?</h3><p>Calling <code>do shell script</code> creates a new <code>sh</code> process, and is therefore subject to the system’s normal limits on passing data to new processes: the arguments (in this case, the text of your command plus about 40 bytes of overhead) and any environment variables may not be larger than kern.argmax, which is currently 262,144 bytes. Because <code>do shell script</code> inherits its parent’s environment (see the next question), the exact amount of space available for command text depends on the calling environment. In practical terms, this comes out to somewhat more than 261,000 bytes, but unusual environment settings might reduce that substantially.</p></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG6-WHERE_DOES_THE_SHELL_ENVIRONMENT_COME_FROM_____ENVIRONMENT_VARIABLES__WORKING_DIRECTORY__AND_SO_ON_" title="Where does the shell environment come from — environment variables, working directory, and so on?"></a><h3 class="jump">Where does the shell environment come from — environment variables, working directory, and so on?</h3><p><code>do shell script</code> inherits the environment of its parent process, which is always the process running the script. The environment covers the working directory, any environment variables, and several other attributes — see <code>execve</code>(2) for a complete list. As mentioned in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10003093-CH1-TNTAG1" data-renderer-version="1">Issuing Commands</a></span>, <code>do shell script</code> does not read the configuration files that an interactive shell running in Terminal would.</p><p>Any application launched from the Finder gets the same default environment: a working directory of / and the environment variables HOME, LANG, PATH, SHELL, and USER. Most applications do not change their environment, but relying on this is a maintenance risk.</p><p><code>osascript</code>(1) inherits its environment from the shell it is run from: the working directory is the working directory of the shell; any environment variables defined in the shell will also be defined in <code>osascript</code>, and therefore in <code>do shell script</code>. For example:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE25"></a><div class="codesample clear"><table><tr><td scope="row"><pre>$ export VAR=something<span></span></pre></td></tr><tr><td scope="row"><pre>$ osascript -e 'do shell script "echo $VAR"'<span></span></pre></td></tr><tr><td scope="row"><pre>something<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003093-CH1-TNTAG7" title="Historical Notes"></a><h2 class="jump">Historical Notes</h2><p>The above documents <code>do shell script</code> as it behaves on versions of macOS since Mac OS X 10.6 Snow Leopard. Prior to that, some differences applied:</p><p>10.1: <code>do shell script</code> introduced. Input and output are interpreted using the primary system encoding. <code>sh</code> emulation is provided by <code>zsh</code>(1). <code>with administrator privileges</code> is implemented using <code>sudo</code>(8) and has some issues:</p><ul class="ul"><li class="li"><p>Successful authentication of a script caches the credentials, allowing use of <code>sudo</code>(8) anywhere else in the system for a period of time (normally five minutes). Scripts can use <code>sudo -k</code> to manually invalidate the cached credentials.</p></li><li class="li"><p>Scripts with multiple commands will not work correctly with <code>with administrator privileges</code>. Scripts can work around this by turning the script into a single invocation of <code>sh</code>(1): <code>do shell script "sh -c " &amp; quoted form of my script</code></p></li></ul><p>10.1 update (AppleScript 1.8.3): Input and output are now interpreted using UTF-8, and only UTF-8. Output that is not valid UTF-8 will produce the error “can’t make some data into the expected type.” Workarounds include writing the output to a file and then reading it using AppleScript’s <code>read</code> command or piping through <code>vis</code>(1).</p><p>10.2: <code>sh</code> emulation is now provided by <code>bash</code>(1).</p><p>10.4: Output that is not valid UTF-8 will be interpreted using the primary encoding. Telling another application to <code>do shell script with administrator privileges</code> will result in an error. <code>with administrator privileges</code> is re-implemented using the system Authentication framework, fixing the issues described in 10.1. However:</p><p>In Mac OS X 10.4.0 and 10.4.1 <code>with administrator privileges</code> executes the command with only the effective user id set to root. This causes trouble for some commands that rely on the real user id — for example, Perl will turn on its “taint mode” security checks, and <code>sudo</code>(8) will hang. To work around the problem (assuming you cannot simply remove a use of <code>sudo</code>), preface your command with a small Perl script to set the real user id, like this:</p><a name="//apple_ref/doc/uid/DTS10003093-CH1-SOURCECODE26"></a><div class="codesample clear"><table><tr><td scope="row"><pre>do shell script "/usr/bin/perl -Ue '$&lt; = $&gt;; system(@ARGV)' my_command" with administrator privileges<span></span></pre></td></tr></table></div><p>Mac OS X 10.4.2 and later sets both the real and effective user ids; the above workaround is unnecessary, but harmless.</p><p>10.6: <code>do shell script</code> may no longer be sent to other applications. AppleScript silently redirects commands to other applications back to the process running the script, so existing scripts run without an error.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003093-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003093-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2018-05-11</td><td><p>Move antiquated information to its own section.</p></td></tr><tr><td scope="row">2006-03-23</td><td><p>Document security restriction on telling other applications with administrator privileges.</p></td></tr><tr><td scope="row">2005-07-20</td><td><p>Updated "administrator privileges" question to reflect changes in 10.4.2.</p></td></tr><tr><td scope="row">2005-05-06</td><td><p>Changes for Mac OS X 10.4 (Tiger).</p></td></tr><tr><td scope="row">2003-01-27</td><td><p>New document that 
+					frequently Asked Questions about the AppleScript "do shell script" command.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2018 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2018-05-11</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

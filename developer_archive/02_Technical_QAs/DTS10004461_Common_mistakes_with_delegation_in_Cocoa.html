@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1554: Common mistakes with delegation in Cocoa</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004461">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004461-CH1">
+    <meta id="date" name="date" content="2008-02-27">
+    <meta id="description" name="description" content="QA1554: The two most common errors that lead to a delegate method not being received.">
+    <meta id="book-title" name="book-title" content="Common mistakes with delegation in Cocoa">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/General}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1554">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Common mistakes with delegation in Cocoa" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004461" title="Technical Q&amp;A QA1554"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Common mistakes with delegation in Cocoa</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004461-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1554"></a><div class="dtsDocNumber">Technical Q&amp;A QA1554</div><h1 id="pageTitle">Common mistakes with delegation in Cocoa</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+One of the delegate methods in my Cocoa application isn't being invoked. What is probably wrong?
+</h2><p><span>A: </span>One of the delegate methods in my Cocoa application isn't being invoked. What is probably wrong?</p><p>When a delegate message isn't being received as you intended, it is usually a sign of one of two things, either: </p><ol class="ol"><li class="li"><p>the method selectors don't match, often because of capitialization or a missing colon, or</p></li><li class="li"><p>the delegate outlet has not been set or is simply set to the wrong object.</p></li></ol><p>To illustrate further, let's say that you want to handle attempts by the user to close the window <code>myWindow</code> in your application. When the user clicks on the close box, the window object will send the equivalent of <code> [delegate respondsToSelector:@selector(windowShouldClose:)]</code> to see if it should even send the delegate message. If the receiver is <code>nil</code>, or the <code>respondsToSelector:</code> test returns <code><!--a  -->NO<!--/a--></code>, the delegate message will not be sent. </p><p><strong> Verify that the method signatures match </strong></p><p>Be sure you've implemented the right method. It is not uncommon for a method selector like -<code>windowShouldClose:</code> to either be misspelled (e.g. -<code>windowShoulfClose:</code>), miscapitalized (e.g. -<code>windowShouldclose</code>:) or be missing the colon (-<code>windowShouldClose</code>). These all describe a different method, and the runtime test will fail. </p><p>Perhaps the safest habit to develop is to simply always cut and paste the method selector. In earlier releases of Mac OS X you can find the delegate methods on the Class Reference page. In more recent releases, you'll also find delegate methods grouped together as an informal protocol (a category on NSObject). For example, the window delegate methods are declared in <code>NSWindow.h</code> in the <code>NSObject(NSWindowDelegate)</code> category.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004461-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Capitalization errors are often the hardest to catch. Any of the methods of the NSTableDataSource informal protocol are likely candidates for subtle miscapitalization. For example,  <code>numberOfRowsInTableView:</code> is often mistakenly entered as <code>numberOfRowsInTableview:</code>.</p><p></p></aside></div><p><strong> Ensure that the delegate is set properly</strong></p><p>Even if you've implemented the correct method, it can be easy to overlook assigning the delegate object. Sometimes a connection may have become disconnected in the nib file or be made to the wrong object. So be sure to check and make sure that the instance variable (most often an <code>IBOutlet</code> named <code>delegate</code>) is connected correctly in Interface Builder, or alternatively, that the appropriate accessor method is being used to set the instance variable at runtime.</p><a name="//apple_ref/doc/uid/DTS10004461-CH1-SOURCECODE1" title="Listing 1If you don't, or can't, assign a delegate in Interface Builder, you can set it in code."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;If you don't, or can't, assign a delegate in Interface Builder, you can set it in code.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void) awakeFromNib {     [[NSFontManager sharedManager] setDelegate:self]; }<span></span></pre></td></tr></table></div><p>Prior to release, consider the use of assertions to ensure connections were established correctly.</p><a name="//apple_ref/doc/uid/DTS10004461-CH1-SOURCECODE2" title="Listing 2Use of NSAssert() during debugging to test for a delegate connection."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Use of NSAssert() during debugging to test for a delegate connection.</p><div class="codesample clear"><table><tr><td scope="row"><pre>#if ! defined(NDEBUG)  
+
+- (void) awakeFromNib {
+    // let's make sure that connection in Interface Builder was made, and made to us
+    NSAssert([myWindow delegate] == self, @"You forgot to connect the window delegate.!"); 
+   // ...
+}
+
+#endif<span></span></pre></td></tr></table></div><p><strong> Delegates and memory management </strong></p><p>Note that delegating objects keep a weak reference to their delegates. In other words, delegates are not retained by the objects they respond to: they are free to come and go at any time. When using garbage collection, this weak reference means you don't need to do anything about this relationship when the delegate is collected. However, when using retain counting it is essential to explicitly clear this relationship when the object is deallocated.</p><a name="//apple_ref/doc/uid/DTS10004461-CH1-SOURCECODE3" title="Listing 3When not under garbage-collection, a delegate must clear itself before deallocation."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;When not under garbage-collection, a delegate must clear itself before deallocation.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void) dealloc {     // unhook ourselves so the window won't try to message us in the future     [myWindow setDelegate:nil];     [super dealloc]; }<span></span></pre></td></tr></table></div><p><strong> For More Information</strong></p><p>See the <span class="content_text"><a href="http://developer.apple.com/documentation/Cocoa/index.html#//apple_ref/doc/uid/TP30000440-TP30000416" class="browserLink" >Cocoa documentation</a></span> for more on <span class="content_text"><a href="http://developer.apple.com/documentation/Cocoa/Conceptual/CocoaFundamentals/CommunicatingWithObjects/chapter_6_section_4.html" class="browserLink" >Delegates and Data Sources</a></span>. </p><br/><hr/><a name="//apple_ref/doc/uid/DTS10004461-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004461-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2008-02-27</td><td><p>New document that 
+					the two most common errors that lead to a delegate method not being received.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2008 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2008-02-27</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

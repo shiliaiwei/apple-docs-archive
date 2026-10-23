@@ -1,0 +1,545 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Extending the Print Record for LaserWriter 8">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003000">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1161.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+   <title>Technical Note TN1161: Extending the Print Record for LaserWriter 8</title>
+ 
+    <meta name="keywords" content="Mac OS 8 LaserWriter 8 extended print record applications PrJobMerge">
+    <meta name="Description" content="Technical Note TN1161: This Technical Note describes what
+changes need to be made in your application to support drivers
+that use extended print records in LaserWriter 8. Included
+are the new routines that applications should use to support
+the extended print record.">
+
+
+<meta name="categories" content="Printing">
+
+
+<meta name="week-posted" content="Jun 28, 1999 - Jul 2, 1999">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10003000" title="Extending the Print Record for LaserWriter 8"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Extending the Print Record for LaserWriter 8</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxCarbon-date.html">Carbon</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Carbon/idxPrinting-date.html" target="_blank">Carbon > Printing</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1161</div>
+<div id="pageheadsub">Extending the Print Record for LaserWriter 8</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+   
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+     <tr>
+<td width=300 valign="top" align=left scope="row">
+    <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+<td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+ <span id="menutitle">
+CONTENTS 
+  <br>
+  <br>
+ </span>
+   </td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+ <!-- begin_toc -->
+<P id = "menutext">
+         <a HREF = "#Overview">Overview</a><BR><BR>
+         
+         <a HREF = "#Applications">Applications</a><BR><BR>
+         
+         <a HREF = "#Implementation">Driver Implementation</a><BR><BR>
+         <a HREF = "#PrJobMerge">PrJobMerge</a><BR><BR>                
+         <a HREF = "#Summary">Summary</a><BR><BR>  
+         <a HREF = "#Changes">Change History</a> <BR><BR>
+        <a HREF = "#References">References</a><BR><BR>
+        <a HREF = "#Downloads">Downloadables</a></p>
+        	 <!-- end_toc -->
+</td>
+  </tr>
+
+  <tr>
+   <td width=300 align=left scope="row">
+ <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+   </td>
+  </tr>
+    </table>
+</td>
+  <td width=300 valign="top" align=left>
+            
+<!-- begin_intro_text -->
+<P id = "introtext">This Technote describes what changes need to be made in your application to support drivers that use extended print records in LaserWriter 8.</p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Jul 5 1999]</h3>
+<!-- end_date -->
+</TD>
+ </TR>
+    </table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>      
+<!-- begin_content -->    
+
+         <a NAME="Overview"></a>
+         
+         <H2>Overview</H2>
+<P>
+With each release of LaserWriter 8, there are several new feature requests that cannot be fulfilled due to the restrictions of the 120-byte print record. These requests usually take the form of "Can't we make 'X' sticky to the document?" Due to the small number of free bits in the print record, the answer to this request has always been "no." Other features--such as custom paper sizes and even multiple paper sizes with the same physical size--have also been restricted due to the print record constraints.  
+</P>
+         
+<P>This method of extending the print record applies only to LaserWriter 8. You should also read the <a href="http://developer.apple.com/macosx/carbon/pdf/CarbonPrinting.pdf">Carbon Printing API</a> to learn how the print record is extended in Carbon. (It's been split into two structures, among other changes.) Using the Carbon APIs is the recommended way to support extended print records. You should use the method described in this Technote for versions of your application that do not support Carbon, since drivers which use 
+the extended print record are available on MacOS 7.6 and later.</P>
+
+<P>By supporting extended print records, applications can/may profit in many/several ways. The first benefit is that the <CODE>PrJobMerge</CODE> function  actually works. This is a significant advantage, since it allows your application to print multiple documents (in response to a <CODE>'pdoc'</CODE> Apple Event, for example) with a single print dialog, even if the documents use different Page Setups. Secondly, when you use the Extended Print Record, the driver can better support custom paper sizes, or different page sizes that use the same physical paper size. This offers a significant benefit to your users since it allows them to do things like set up a custom paper size for corporate letterhead and save it with their documents in your application.</P>
+      
+      
+<BR><P><a HREF = "#top">Back to top</a></p><BR>
+
+
+         <a NAME="Applications"></a>
+         
+<H2>Applications</H2>
+<H3>Applications Need to Change</H3>
+       
+<P>Many existing applications expect the print record (size) to be 120 bytes. To maintain compatibility with existing applications, printer drivers cannot grow the print record unless the application indicates that it can handle larger print records. As an application writer, you need to first ensure that you don't require the print record 
+size to be exactly <CODE>sizeof(TPrint)</CODE>. Second, to allow a driver to use an extended print record, you must tell it that you are compatible. The new <CODE>PrGeneral</CODE> opcode, <CODE>'kExtendPrintRecOp' (18)</CODE> is implemented in drivers that support the extensible print record. Applications call this new <CODE>PrGeneral</CODE> routine passing in a print record that the driver 
+will mark as extensible. If a printer driver returns the error from the new <CODE>PrGeneral</CODE> routine that it doesn't support extensible print records (<CODE>OpNotImpl</CODE>), the application 
+must ensure that the print record is exactly 120 bytes long.</P>
+
+<P>The easiest way to revise an application to work with the new extensible print record is to change calls from <CODE>PrDefault()</CODE> to <CODE>extendPrDefault()</CODE> and the calls from <CODE>PrValidate() </CODE> to <CODE>extendPrValidate()</CODE>. These new extend routines are listed below and should be linked in by the application. In order to make these extend calls, the application must meet the following conditions:</P>
+
+<OL TYPE="1" START="1">
+    <li>The application must make no assumptions about the size of the print record. This means that when writing a print record to a document, the application must be prepared for a print record that is larger than 120 bytes. Similarly, when reading a saved print record, the application must read the entire record, even if it is longer than 120 bytes. The application's internal handling of print records must avoid the use 
+of the constant <CODE>sizeof(TPrint)</CODE>, except for drivers which do not support <CODE>kExtendPrintRecOp</CODE>. Applications can still access fields in the first 120 bytes of the print record, but should be aware that the data within the first 120 bytes may be replicated in 
+an extension to the print record.</li>
+
+    <li>The applicationcannot pass the printer driver a fake handle for a print record. To grow print records, the extensible drivers call <CODE>SetHandleSize()</CODE>. If the application is using fake handles,  <CODE>SetHandleSize()</CODE> will cause a crash.</li>
+
+    <li>The application must call <CODE>extendPrDefault()</CODE> or <CODE>extendPrValidate()</CODE> before passing a print record to <CODE>PrStlDialog()</CODE>, <CODE>PrStlInit()</CODE>, <CODE>PrJobDialog()</CODE>, <CODE>PrJobInit()</CODE>, <CODE>PrOpenDoc()</CODE>,  or <CODE>PrGeneral()</CODE>. Applications should already be validating print records before making any of these calls. In addition, applications must call <CODE>extendPrValidate()</CODE> with both print records before calling <CODE>PrJobMerge()</CODE>.</li>
+</OL>
+
+
+<H3>An Application's New Extend Routines</H3>
+
+
+<P>Here are the new routines that applications should use to support the extended print record:</P>
+
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+#define kExtendPrintRecordOp 18
+
+/*
+Use this structure when making the 'kExtendPrintRecOp' PrGeneral call.
+On entry, 'hPrint' is the handle for a standard or extended print
+record. If 'hPrint' is an extended print record, then nothing is
+done. If 'hPrint' is a standard print record, then it is extended.
+*/
+
+typedef struct{
+short iOpCode;
+short iError;
+long lReserved;
+TPrintH hPrint;
+}TExtendPrintRecord;
+
+TExtendPrintRecord extend;
+
+
+Boolean extendPrValidate(THPrint hPrint)
+/*
+The current driver is asked to extend the print record.
+If this fails, the print record handle is sized to the standard
+size print record (120 bytes).
+The current printer driver's PrValidate() routine is called to
+validate the print record whether it has been successfully
+extended or not.
+*/
+{
+
+/*
+In case 'hPrint' is extended and the current printer driver doesn't
+support the extensible print record, we let extendPrintRecord()
+truncate the print record. The print record won't be truncated
+if the print record is already the standard size or if the current
+driver supports the extensible print record.
+*/
+extendPrintRecord(hPrint);
+
+/*
+Call the real PrValidate with a correctly sized print record.
+*/
+return PrValidate(hPrint);
+}
+
+
+void extendPrDefault(THPrint hPrint)
+{
+
+/*
+The default print record is the standard size for all drivers.
+So default the 120-byte record.
+*/
+SetHandleSize((Handle)hPrint, sizeof(TPrint));
+PrDefault(hPrint);
+
+/*
+Tell the printer driver it is okay to extend this print record.
+*/
+extendPrintRecord(hPrint);
+
+}
+
+
+void extendPrintRecord(THPrint hPrint)
+{
+TExtendPrintRec extend;
+
+/*
+Call the new PrGeneral opcode to see if the current printer driver
+supports extended print records. If the driver does support extended
+print records, it returns noErr. It marks the print record as
+extensible and may also extend it at this time.
+If the driver does not support extended print records,
+it returns 'OpNotImpl'.
+*/
+extend.iOpCode = kExtendPrintRecordOp;
+extend.lReserved = 0;
+extend.hPrint = hPrint;
+PrGeneral(&amp;extend);
+
+/*
+If the driver fails to make the print record extensible,
+we make sure the print record is the standard 120 bytes.
+*/
+if(extend.iError) SetHandleSize((Handle)hPrint, sizeof(TPrint));
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+         <a NAME="Implementation"></a>
+         
+         <H2>Driver Implementation</H2>
+         
+         <P>In LaserWriter 8's implementation of extended print records, the standard 120 bytes of a <CODE>TPrint</CODE> structure are followed by a four-byte signature field with the value <CODE>'grow'</CODE>. This signature is then followed by a flattened Collection as described in <a href="http://developer.apple.com/documentation/macos8/Utilities/CollectionManager/collectionmanager.html"><I>Inside Macintosh</I>: Collection Manager</a>.</P>
+      
+      
+<BR><P><a HREF = "#top">Back to top</a></p><BR>
+
+
+
+         <a NAME="PrJobMerge"></a>
+         
+         <H2>PrJobMerge</H2>
+         
+         <P>The LaserWriter 8 series of drivers has always offered users more options in the Print Dialog than can be stored in the 120 byte print record. With the introduction of the extended print record, all of the user's print features can now be stored in the larger print record. If an application uses extended print records, <CODE>PrJobMerge</CODE> can be used to copy all of a user's feature requests into a new print record. In other words, <CODE>PrJobMerge</CODE> finally works with all of the options from the Print Dialog, beginning with LaserWriter 8.6. </P>
+
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+You must extend both the source and destination print records for <CODE>PrJobMerge</CODE> 
+to work correctly with extended print records.</p>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<BR><P><a HREF = "#top">Back to top</a></p><BR>
+
+<a NAME="Summary"></a>
+<H2>Summary</H2>
+         
+<P>There is now a mechanism for print records larger than 120 bytes. Applications need to change to take advantage of this larger print record, but the changes are small. With more extensive changes, applications can control more aspects of printing, such as page orientation, layout, error handling, etc., in a clean manner. That information will be presented in a separate document describing the extended print record data used by LaserWriter 8.</P>
+
+      <BR><p><a href="#top">Back to top</a></p>
+      
+      
+<a name="References"></a>
+<H2>References</H2>
+
+<P><a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-2.html"><I>Inside Macintosh</I>, Imaging With QuickDraw, chapter 9.</a></p> 
+
+<p><a href="http://developer.apple.com/dev/techsupport/develop/issue27/printhints.html">Print Hints: The All-New LaserWriter Driver Version 8.4, <I>develop</I> 27</a>.</p> 
+<p><a HREF = "tn1112.html">Technote 1112: "Introducing the LaserWriter Driver Version 8.5.1" </a></p> 
+<p><a href="http://developer.apple.com/documentation/macos8/Utilities/CollectionManager/collectionmanager.html"><I>Inside Macintosh</I>, The Collection Manager</a></p>
+
+      
+
+<P><a HREF = "#top">Back to top</a></p><BR>
+
+<a name="Changes"></a>
+<H2>Change History</H2>
+
+   
+         <table BORDER=0 CELLPADDING=3 WIDTH=544>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-May-1996</P>
+               </TD>
+               <td align="left">
+                  <P>Originally written.</P>
+               </TD>
+            </TR>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-April-1999</P>
+               </TD>
+               <td align="left">
+                  <P>Updated to comply with Technote format, and to include the latest information available.</P>
+               </TD>
+            </TR>
+           <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>05-July-1999</P>
+               </TD>
+               <td align="left">
+                  <P>Updated to include sample code.</P>
+               </TD>
+            </TR>
+            </table>
+    
+
+
+<P><a HREF = "#top">Back to top</a></p><BR>
+
+
+<a NAME="Downloads"></a> 
+<h2>Downloadables</h2>
+
+<center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+ <TR> 
+<td width=50 align=left> 
+  <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" width=22 height=23></P>
+</TD>
+<td align="left"> 
+  <p>Acrobat version of this Note (64K).</P>
+</TD>
+<td width=60 align=left> 
+  <p><a href="pdf/tn1161.pdf">Download</a></P>
+</TD>
+  </TR> 
+  <TR> 
+<td width=50 align=left> 
+  <P ALIGN=center><img src="images/bluebook.gif" width=22 height=23 align=bottom alt="Bluebook"></P>
+</TD>
+<td align="left"> 
+  <p>Binhexed Header Files (147K).</P>
+</TD>
+<td width=60 align=left> 
+  <p><a href="downloads/tn1161.1.hqx">Download</a></P>
+</TD>
+  </TR> 
+</table></center>
+
+
+
+<BR><p><a href="#top">Back to top</a></p>
+
+
+</TD></TR></table></CENTER>
+
+<!-- end_content -->
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

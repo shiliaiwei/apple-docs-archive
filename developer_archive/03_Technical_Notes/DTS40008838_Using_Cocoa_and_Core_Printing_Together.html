@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2248: Using Cocoa and Core Printing Together</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40008838">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40008838-CH1">
+    <meta id="date" name="date" content="2009-05-27">
+    <meta id="description" name="description" content="TN2248: Describes how to modify print settings and allow programmatic paper selection.">
+    <meta id="book-title" name="book-title" content="Using Cocoa and Core Printing Together">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Cocoa Layer/AppKit}, {Topic/Graphics & Animation/Printing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2248">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Using Cocoa and Core Printing Together" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40008838" title="Technical Note TN2248"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Using Cocoa and Core Printing Together</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40008838-CH1-DontLinkElementID_2" title="Technical Note TN2248"></a><div class="dtsDocNumber">Technical Note TN2248</div><h1 id="pageTitle">Using Cocoa and Core Printing Together</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Illustrates how to use core printing objects together with Cocoa.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008838-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008838-CH1-TNTAG2" data-renderer-version="1">Modifying Print Settings</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008838-CH1-TNTAG6" data-renderer-version="1">Programmatic Paper Selection</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008838-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40008838-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Cocoa provides a solid default implementation of printing that meets most needs. When you want to customize things that can't be directly accessed from Cocoa printing objects, you can call through to the Core Printing functionality as needed. This note illustrates how to use the Core Printing APIs together with Cocoa. As examples, it demonstrates how to access and modify general print settings, and how to programmatically change paper size while keeping the Cocoa printInfo object synchronized with your changes.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008838-CH1-TNTAG2" title="Modifying Print Settings"></a><h2 class="jump">Modifying Print Settings</h2><p>This code snippet illustrates how to obtain print settings from a printInfo object, change them, and then notify Cocoa that the settings have been changed. The code shows changing the number of copies and turning on collation, but the same technique works for other print settings.</p><a name="//apple_ref/doc/uid/DTS40008838-CH1-SOURCECODE1" title="Listing 1Modifying print settings with Core Printing."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Modifying print settings with Core Printing.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*
+        This is a short code snippet to demonstrate how to modify 
+        print settings information that is stored in an NSPrintInfo.
+
+        This code performs no error handling for simplicity of presentation in a sample.
+
+        The Cocoa methods used here are available only on Mac OS X 10.5 and later.
+*/
+
+        // Obtain the printInfo you want to modify.
+        // This code assumes the variable myPrintInfo holds
+        // an object of class NSPrintInfo.
+        // Where myPrintInfo comes from is up to your application.
+
+        // Get the PMPrintSettings object from the printInfo.
+        PMPrintSettings settings = [myPrintInfo PMPrintSettings];
+
+        // Modify/Set the settings of interest.
+        // This code sets the number of copies requested to 10.
+        (void)PMSetCopies(settings, 10, false);
+
+        // Turn on collation so that the copies are collated.
+        (void)PMSetCollate(settings, true);
+
+        // Tell Cocoa that the print settings have been changed. This allows
+        // Cocoa to perform necessary housekeeping.
+        [myPrintInfo updateFromPMPrintSettings];<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008838-CH1-TNTAG6" title="Programmatic Paper Selection"></a><h2 class="jump">Programmatic Paper Selection</h2><p>This code snippet illustrates how to replace one of the low level Core Printing objects stored in an NSPrintInfo with a custom object you obtain or create, in this case an object that customizes the page format.</p><a name="//apple_ref/doc/uid/DTS40008838-CH1-SOURCECODE2" title="Listing 2Replacing the PageFormat object."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Replacing the PageFormat object.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*
+        This is a short code snippet to demonstrate how to replace
+        the PMPageFormat stored in an NSPrintInfo with one you obtain
+        or create. 
+
+        The purpose of this code is to demonstrate how to completely replace
+        one of the low level CorePrinting objects stored in an NSPrintInfo
+        with one you obtain or create. Programmatic paper selection as
+        demonstrated here may be appropriate for an application that is performing
+        automated printing of data.
+        This code performs no error handling for simplicity of presentation in a sample. 
+        The Cocoa methods used here are available only on Mac OS X 10.5 and later.
+
+        Here are the steps this code takes:
+
+        1) Obtain a PMPaper object from those available for the currently selected printer. To do this:
+                1a) Obtain the currently selected printer.
+                1b) Get an array of the pre-defined papers for that printer.
+                1c) Choose a paper from that list that meets your criteria.
+        2) Make that paper the current paper for your Cocoa print job. To do this:
+                2a) Create a PMPageFormat from the chosen paper.
+                2b) Copy that page format into the page format stored in the NSPrintInfo you want to modify.
+                2c) Tell Cocoa you have made a change to the PageFormat in the NSPrintInfo.
+
+*/
+
+        // Obtain the printInfo you want to modify.
+        // This code assumes the variable myPrintInfo holds
+        // an object of class NSPrintInfo.
+        // Where myPrintInfo comes from is up to your application.
+
+        // Get the PMPrintSession from the printInfo.
+        PMPrintSession session = [myPrintInfo PMPrintSession];
+
+        PMPrinter currentPrinter = NULL;
+        // Get the current printer from the session.
+        (void)PMSessionGetCurrentPrinter(session, &amp;currentPrinter);
+
+        // Get the array of pre-defined PMPapers this printer supports.
+        CFArrayRef paperList = NULL;
+        (void)PMPrinterGetPaperList(currentPrinter, &amp;paperList);
+
+        // Pick a paper from the list, using the appropriate criteria for your application.
+        // This code simply chooses the first paper in the list. More likely you would use
+        // information from your data (perhaps obtained from a database) to determine
+        // which paper in the paperList best meets the current need.
+        // Of course randomly choosing from the list is NOT appropriate criteria but
+        // is done for purposes of simplifying this sample.
+        PMPaper theChosenPaper = (PMPaper)[(NSArray *)paperList objectAtIndex: 0];
+
+        // Create a PMPageFormat from that paper.
+        PMPageFormat theChosenPageFormat = NULL;
+        (void)PMCreatePageFormatWithPMPaper(&amp;theChosenPageFormat, theChosenPaper);
+
+        // Get the PMPageFormat contained in the printInfo.
+        PMPageFormat originalFormat = [myPrintInfo PMPageFormat];
+
+        // Copy over the original format with the new format you want to use.
+        (void)PMCopyPageFormat(theChosenPageFormat, originalFormat);
+
+        // Tell Cocoa you that changed the page format. This allows Cocoa
+        // to perform the necessary housekeeping.
+        [myPrintInfo updateFromPMPageFormat];
+
+        // Release the PMPageFormat this code created.
+        PMRelease(theChosenPageFormat);<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40008838-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40008838-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2009-05-27</td><td><p>New document that 
+					describes how to modify print settings and allow programmatic paper selection.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-05-27</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

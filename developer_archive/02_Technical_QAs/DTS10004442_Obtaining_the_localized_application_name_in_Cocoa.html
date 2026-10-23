@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1544: Obtaining the localized application name in Cocoa</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004442">
+    <meta id="document-version" name="document-version" content="3.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004442-CH1">
+    <meta id="date" name="date" content="2017-06-14">
+    <meta id="description" name="description" content="QA1544: Describes how to obtain several versions of the application name in Cocoa.">
+    <meta id="book-title" name="book-title" content="Obtaining the localized application name in Cocoa">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/Foundation}, {Topic/User Experience}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1544">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Obtaining the localized application name in Cocoa" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004442" title="Technical Q&amp;A QA1544"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Obtaining the localized application name in Cocoa</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004442-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1544"></a><div class="dtsDocNumber">Technical Q&amp;A QA1544</div><h1 id="pageTitle">Obtaining the localized application name in Cocoa</h1><h2>Q:&nbsp;
+How can I get the localized name of my Cocoa application?
+</h2><p><span>A: </span>There are several different versions of the application name, all of which are readily available as an <code>NSString</code>. Depending on what you need, you can use one of the following approaches.</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004442-CH1-DontLinkElementID_3" title="Warning"></a><p><strong>Warning:</strong>&nbsp;Please note that application packages can be renamed by users in the Finder. If you need to get the user-modified application name, you should use the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10004442-CH1-NSF" data-renderer-version="1">Using NSFileManager</a></span> approach.</p><p></p><div class="clear"></div></aside></div><section><a name="//apple_ref/doc/uid/DTS10004442-CH1-NAM" title="Using kCFBundleNameKey "></a><h2 class="jump">Using kCFBundleNameKey </h2><p>Use the <span class="content_text"><a href="https://developer.apple.com/reference/corefoundation/kcfbundlenamekey" class="urlLink" rel="external">kCFBundleNameKey</a></span> key, which specifies your application's bundle name. It is your app's canonical short name and is used by the About window and main menu. Add this key to your <code>InfoPlist.strings</code> file before attempting to use it as shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>. See <span class="content_text"><a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html#//apple_ref/doc/uid/TP40009254-102276" class="urlLink" rel="external">Localizing Property List Values</a></span> for more information about <code>InfoPlist.strings</code> files.</p><a name="//apple_ref/doc/uid/DTS10004442-CH1-SOURCECODE1" title="Listing 1Obtaining the application's bundle name using kCFBundleNameKey."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Obtaining the application's bundle name using kCFBundleNameKey.</p><div class="codesample clear"><table><tr><td scope="row"><pre>NSString *name = [NSBundle mainBundle].localizedInfoDictionary[(NSString *)kCFBundleNameKey];<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004442-CH1-DISP" title="CFBundleDisplayName"></a><h2 class="jump">CFBundleDisplayName</h2><p>Use the <span class="content_text"><a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-110725" class="urlLink" rel="external">CFBundleDisplayName</a></span> key, which specifies your app's display name. It is typically longer and is used by the Finder to display the bundle. Add this key to your <code>InfoPlist.strings</code> file before attempting to use it as shown in <span class="content_text"><!--a  -->Listing 2<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS10004442-CH1-SOURCECODE2" title="Listing 2Obtaining the application's bundle display name using CFBundleDisplayName."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Obtaining the application's bundle display name using CFBundleDisplayName.</p><div class="codesample clear"><table><tr><td scope="row"><pre>NSString *name = [NSBundle mainBundle].localizedInfoDictionary[@"CFBundleDisplayName"];<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004442-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;it is possible for both of the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10004442-CH1-NAM" data-renderer-version="1">Using kCFBundleNameKey </a></span> and <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10004442-CH1-DISP" data-renderer-version="1">CFBundleDisplayName</a></span> methods to return nil. If they do, a viable approach is to do what the default About window does and simply use the process name itself as described in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10004442-CH1-PRO" data-renderer-version="1">Using NSProcessInfo</a></span>.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004442-CH1-PRO" title="Using NSProcessInfo"></a><h2 class="jump">Using NSProcessInfo</h2><p>Use <code>NSProcessInfo</code>' s <span class="content_text"><a href="https://developer.apple.com/reference/foundation/nsprocessinfo/1416428-processname?language=objc" class="urlLink" rel="external">processName</a></span> to fetch the name of your process. </p><a name="//apple_ref/doc/uid/DTS10004442-CH1-SOURCECODE3" title="Listing 3 Acquiring the process name using NSProcessInfo."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp; Acquiring the process name using NSProcessInfo.</p><div class="codesample clear"><table><tr><td scope="row"><pre> NSString *name = [NSProcessInfo processInfo].processName;<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004442-CH1-USING_NSRUNNINGAPPLICATION" title="Using NSRunningApplication"></a><h2 class="jump">Using NSRunningApplication</h2><p>Use <code>NSRunningApplication</code>'s <span class="content_text"><a href="https://developer.apple.com/reference/appkit/nsrunningapplication/1526751-localizedname?language=objc" class="urlLink" rel="external">localizedName</a></span> to fetch your app's localized name. This approach returns the localized value of <code>CFBundleDisplayName</code> if it exists, falls back on the value of <code>CFBundleName</code> otherwise.</p><a name="//apple_ref/doc/uid/DTS10004442-CH1-SOURCECODE4" title="Listing 4Obtaining the localized app name using NSRunningApplication."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Obtaining the localized app name using NSRunningApplication.</p><div class="codesample clear"><table><tr><td scope="row"><pre>NSString *name = [NSRunningApplication currentApplication].localizedName;<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004442-CH1-NSF" title="Using NSFileManager"></a><h2 class="jump">Using NSFileManager</h2><p>The better approach is to use <code>NSFileManager</code>'s <span class="content_text"><a href="https://developer.apple.com/reference/foundation/nsfilemanager/1409751-displaynameatpath?language=objc" class="urlLink" rel="external">displayNameAtPath:</a></span> method that will return the localized display name if it exists, fall back on the bundle name if it does not, and will even reflect a renaming of the application by the user. See <span class="content_text"><a href="https://developer.apple.com/library/content/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/FileSystemOverview/FileSystemOverview.html#//apple_ref/doc/uid/TP40010672-CH2-SW10" class="urlLink" rel="external">Files and Directories Can Have Alternate Names</a></span> for more information.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004442-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004442-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-06-14</td><td><p>Editorial update.</p></td></tr><tr><td scope="row">2009-10-27</td><td><p>Fixed typo in code listing 5.  Added information about NSRunningApplication for Snow Leopard (code listing 4)</p></td></tr><tr><td scope="row">2007-09-21</td><td><p>New document that 
+					describes how to obtain several versions of the application name in Cocoa.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-06-14</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

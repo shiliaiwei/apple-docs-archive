@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1527: AUSampler - Adding Instrument Information and Loop Points to Core Audio Files</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40013358">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40013358-CH1">
+    <meta id="date" name="date" content="2013-05-29">
+    <meta id="description" name="description" content="QA1527: discusses how to add Music Instrument Information and Sample Loop Points to Core Audio (.caf) files so they can be used with the AUSampler.">
+    <meta id="book-title" name="book-title" content="AUSampler - Adding Instrument Information and Loop Points to Core Audio Files">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AudioToolbox}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1527">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="AUSampler - Adding Instrument Information and Loop Points to Core Audio Files" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40013358" title="Technical Q&amp;A QA1527"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>AUSampler - Adding Instrument Information and Loop Points to Core Audio Files</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40013358-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1527"></a><div class="dtsDocNumber">Technical Q&amp;A QA1527</div><h1 id="pageTitle">AUSampler - Adding Instrument Information and Loop Points to Core Audio Files</h1><h2>Q:&nbsp;
+How can I add Music Instrument Information and Sample Loop Points to Core Audio (.caf) files so I can use them with the AUSampler Audio Unit?
+</h2><p><span>A: </span>The Core Audio File Format Specification provides two chunk types to specify instrument data including looping Information to a .caf file. The Instrument chunk type and the Region chunks work together allowing you to build a list of Region descriptions containing markers annotating position(s) in an audio file which are then referred to by the Instrument chunk to define an instrument.</p><p>For more information see the <span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/MusicAudio/Reference/CAFSpec/CAF_intro/CAF_intro.html#//apple_ref/doc/uid/TP40001862-CH203-TPXREF101" class="browserLink" >Apple Core Audio Format Specification</a></span> and <code>AudioFile.h</code> which is part of the <code>AudioToolbox.framework</code>.</p><p>Listing 1 demonstrates how to add an Instrument chunk with a single sustain loop region as well as specifying a bass, low and high pitch range when provided with an open Core Audio File (.caf) file.</p><a name="//apple_ref/doc/uid/DTS40013358-CH1-SOURCECODE1" title="Listing 1"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;</p><div class="codesample clear"><table><tr><td scope="row"><pre>OSStatus SetupInstrument(AudioFileID inFileID,<span></span></pre></td></tr><tr><td scope="row"><pre>                         UInt64 inFileLength,   // length in frames (samples)<span></span></pre></td></tr><tr><td scope="row"><pre>                         UInt8 inBaseNote,      // MIDI note (0-127)<span></span></pre></td></tr><tr><td scope="row"><pre>                         UInt8 inLowNote,       // MIDI note (0-127, &lt;= inBaseNote)<span></span></pre></td></tr><tr><td scope="row"><pre>                         UInt8 inHighNote) // MIDI note (0-127, &gt;= inBaseNote)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    const UInt32 numRegionChunks = 1; // For our sustain loop, one region<span></span></pre></td></tr><tr><td scope="row"><pre>    const UInt32 numMarkers = 2; // Two markers - One for loop start, one for loop end<span></span></pre></td></tr><tr><td scope="row"><pre>    UInt32 totalChunkSize = 0;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    /**** Region Chunk ****/<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Add up the total memory size we need to allocate for the variable-size AudioFileRegionList<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    totalChunkSize += offsetof(AudioFileRegionList, mRegions);<span></span></pre></td></tr><tr><td scope="row"><pre>    totalChunkSize += numRegionChunks * offsetof(AudioFileRegion, mMarkers);<span></span></pre></td></tr><tr><td scope="row"><pre>    totalChunkSize += numRegionChunks * numMarkers * sizeof(AudioFileMarker);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Allocate the region chunk<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    AudioFileRegionList *pRegionList = (AudioFileRegionList *) malloc(totalChunkSize);<span></span></pre></td></tr><tr><td scope="row"><pre>    pRegionList-&gt;mNumberRegions = numRegionChunks;<span></span></pre></td></tr><tr><td scope="row"><pre>    pRegionList-&gt;mSMPTE_TimeType = kCAF_SMPTE_TimeTypeNone; // Not used<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Access the region<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    AudioFileRegion *pRegion = &amp;pRegionList-&gt;mRegions[0];<span></span></pre></td></tr><tr><td scope="row"><pre>    pRegion-&gt;mRegionID = 6789; // Arbitrary, but must match the values used<span></span></pre></td></tr><tr><td scope="row"><pre>                               // in the Instrument Chunk below<span></span></pre></td></tr><tr><td scope="row"><pre>    pRegion-&gt;mName = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>    pRegion-&gt;mNumberMarkers = numMarkers; // From above<span></span></pre></td></tr><tr><td scope="row"><pre>    pRegion-&gt;mFlags = kAudioFileRegionFlag_LoopEnable |<span></span></pre></td></tr><tr><td scope="row"><pre>                      kAudioFileRegionFlag_PlayForward; // enable forward looping for this region<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Access the marker array<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    AudioFileMarker *pMarkers = &amp;pRegion-&gt;mMarkers[0];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Set up loop start<span></span></pre></td></tr><tr><td scope="row"><pre>    pMarkers[0].mType = kCAFMarkerType_SustainLoopStart;<span></span></pre></td></tr><tr><td scope="row"><pre>    memset(&amp;pMarkers[0].mSMPTETime, 0, sizeof(pMarkers[0].mSMPTETime)); // zero out; not used<span></span></pre></td></tr><tr><td scope="row"><pre>    pMarkers[0].mFramePosition = 0; // Loop from first sample<span></span></pre></td></tr><tr><td scope="row"><pre>    pMarkers[0].mMarkerID = 1;<span></span></pre></td></tr><tr><td scope="row"><pre>    pMarkers[0].mName = NULL; // Unused<span></span></pre></td></tr><tr><td scope="row"><pre>    pMarkers[0].mChannel = 0; // Unused<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Set up loop end<span></span></pre></td></tr><tr><td scope="row"><pre>    pMarkers[1].mType = kCAFMarkerType_SustainLoopEnd;<span></span></pre></td></tr><tr><td scope="row"><pre>    memset(&amp;pMarkers[1].mSMPTETime, 0, sizeof(pMarkers[0].mSMPTETime)); // zero out; not used<span></span></pre></td></tr><tr><td scope="row"><pre>    pMarkers[1].mFramePosition = inFileLength - 1; // Loop to the last sample<span></span></pre></td></tr><tr><td scope="row"><pre>    pMarkers[1].mMarkerID = 2;<span></span></pre></td></tr><tr><td scope="row"><pre>    pMarkers[1].mName = NULL; // Unused<span></span></pre></td></tr><tr><td scope="row"><pre>    pMarkers[1].mChannel = 0; // Unused<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Write out entire AudioFileRegionList into the file<span></span></pre></td></tr><tr><td scope="row"><pre>    // Note that we use the full allocated size<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    OSStatus err = AudioFileSetProperty(inFileID, kAudioFilePropertyRegionList, totalChunkSize, pRegionList);<span></span></pre></td></tr><tr><td scope="row"><pre>     if (err) { free(pRegionList); return err; }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Set up Instrument Chunk, referencing the ID for the region chunk that we just wrote to the file<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    CAFInstrumentChunk instChunk;<span></span></pre></td></tr><tr><td scope="row"><pre>    instChunk.mBaseNote = (Float32) inBaseNote;<span></span></pre></td></tr><tr><td scope="row"><pre>    instChunk.mMIDILowNote = inLowNote;<span></span></pre></td></tr><tr><td scope="row"><pre>    instChunk.mMIDIHighNote = inHighNote;<span></span></pre></td></tr><tr><td scope="row"><pre>    instChunk.mMIDILowVelocity = 0; // For this example, just setting full velocity range<span></span></pre></td></tr><tr><td scope="row"><pre>    instChunk.mMIDIHighVelocity = 127;<span></span></pre></td></tr><tr><td scope="row"><pre>    instChunk.mdBGain = 0.0f; // 0.0 dB means unity gain<span></span></pre></td></tr><tr><td scope="row"><pre>    instChunk.mStartRegionID = 0; // Unused<span></span></pre></td></tr><tr><td scope="row"><pre>    instChunk.mSustainRegionID = pRegion-&gt;mRegionID; // Set up above<span></span></pre></td></tr><tr><td scope="row"><pre>    instChunk.mReleaseRegionID = 0; // Unused<span></span></pre></td></tr><tr><td scope="row"><pre>    instChunk.mInstrumentID = 0;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // CAF Specification requires all chunks to be BigEndian<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    MakeCAFInstrumentBigEndian(&amp;instChunk);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Write out CAFInstrumentChunk into the file<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    err = AudioFileSetUserData(inFileID, kCAF_InstrumentChunkID, 0, sizeof(instChunk), &amp;instChunk);<span></span></pre></td></tr><tr><td scope="row"><pre>    free(pRegionList);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    return err;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40013358-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;stddef.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>#include "CAByteOrder.h" // from Core Audio public utilities<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>// CAF Files are big-endian, so the chunks contents need to be swapped<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>static void MakeCAFInstrumentBigEndian(CAFInstrumentChunk *chunk)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    chunk-&gt;mBaseNote = CASwapFloat32HostToBig(chunk-&gt;mBaseNote);<span></span></pre></td></tr><tr><td scope="row"><pre>    chunk-&gt;mdBGain = CASwapFloat32HostToBig(chunk-&gt;mdBGain);<span></span></pre></td></tr><tr><td scope="row"><pre>    chunk-&gt;mStartRegionID = CFSwapInt32HostToBig(chunk-&gt;mStartRegionID);<span></span></pre></td></tr><tr><td scope="row"><pre>    chunk-&gt;mSustainRegionID = CFSwapInt32HostToBig(chunk-&gt;mSustainRegionID);<span></span></pre></td></tr><tr><td scope="row"><pre>    chunk-&gt;mReleaseRegionID = CFSwapInt32HostToBig(chunk-&gt;mReleaseRegionID);<span></span></pre></td></tr><tr><td scope="row"><pre>    chunk-&gt;mInstrumentID = CFSwapInt32HostToBig(chunk-&gt;mInstrumentID);<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013358-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;<code>MakeCAFInstrumentBigEndian</code> uses inline helper functions found in <code>CAByteOrder.h</code> which is part of the Core Audio Utility files found here: <span class="content_text"><a href="https://developer.apple.com/library/mac/#samplecode/CoreAudioUtilityClasses/Introduction/Intro.html" class="urlLink" rel="external">Core Audio Utility Classes</a></span>.</p><p></p></aside></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40013358-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40013358-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2013-05-29</td><td><p>New document that 
+					discusses how to add Music Instrument Information and Sample Loop Points to Core Audio (.caf) files so they can be used with the AUSampler.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-05-29</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

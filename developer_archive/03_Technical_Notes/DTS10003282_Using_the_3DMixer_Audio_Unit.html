@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2112: Using the 3DMixer Audio Unit</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003282">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003282-CH1">
+    <meta id="date" name="date" content="2004-06-14">
+    <meta id="description" name="description" content="TN2112: Discusses how to use Core Audio's 3DMixer version 2.0">
+    <meta id="book-title" name="book-title" content="Using the 3DMixer Audio Unit">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2112">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Using the 3DMixer Audio Unit" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003282" title="Technical Note TN2112"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Using the 3DMixer Audio Unit</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003282-CH1-DontLinkElementID_2" title="Technical Note TN2112"></a><div class="dtsDocNumber">Technical Note TN2112</div><h1 id="pageTitle">Using the 3DMixer Audio Unit</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>This technote illustrates the usage of Core Audio's 3DMixer Audio Unit version 2.0. </p><p>The 3DMixer Audio Unit can mix audio from several different sources and then localize the sound in 3D space. This is very useful in games and in many other interactive applications that need to manage several audio sources simply and efficiently. This technote is intended for present and new users of the v2.0 3DMixer Audio Unit.</p><p>The v2.0 3DMixer Audio Unit has the ability to localize sound in 3-dimensional space, that is, position multiple sound sources by distance, elevation, and azimuth around a listener. The 3DMixer can render to multiple channel layouts (discussed below in the Speaker Configuration section). In addition, the quality of sound rendered during playback can be adjusted to meet CPU performance demands.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION1" data-renderer-version="1">Creating an AUGraph for the 3DMixer</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION2" data-renderer-version="1">Setting the Bus count</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION3" data-renderer-version="1">Using the Internal Reverb</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION4" data-renderer-version="1">Speaker Configurations</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION5" data-renderer-version="1">Localizing sound in 3D space</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION6" data-renderer-version="1">Spatialization Rendering Algorithims</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION7" data-renderer-version="1">Setting the volume</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION8" data-renderer-version="1">Bus Stream Formats and the FormatConverterAU</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION9" data-renderer-version="1">Connecting, Initializing &amp; Starting the AUGraph</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION10" data-renderer-version="1">Disposing of the AUGraph</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION11" data-renderer-version="1">Conclusion</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-CH1-SECTION12" data-renderer-version="1">References and Notes</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003282-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION1" title="Creating an AUGraph for the 3DMixer"></a><h2 class="jump">Creating an AUGraph for the 3DMixer</h2><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003282-CH1-FIGURE1" title="Figure 1The 3D Mixer"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;The 3D Mixer</figcaption><img src="Art/tn2112_3Dmixer.jpg" alt="" width="300" height="300"></figure><p>3DMixers are typically inserted into an Audio Unit Graph (<code>AUGraph</code>) to help manage data flow. An <code>AUGraph</code> is a high-level representation of a set of AudioUnits, along with the connections between them. You can use the <code>AUGraph</code> APIs to construct arbitrary signal paths through which audio may be processed, i.e., a modular routing system. The APIs deal with large numbers of AudioUnits and their relationships. </p><p>The head of a graph is always an output unit, which may save the processed audio stream to disk, into memory, or as sound out. Starting a graph entails 'pulling' on the head audio unit (where data will exit the graph), which will, in turn, pull data from the connected audio units in the graph. For this technote, we will use default output audio unit as the head of the graph. The default output unit will represent the output device (speakers, in most cases) selected by the user in Audio MIDI Setup application or the System Prefrences Output Panel. For more information about using Audio Unit Graphs, please read <span class="content_text"><a href="http://developer.apple.com/documentation/MusicAudio/Reference/CoreAudio/audio_toolbox/chapter_4_section_3.html" class="browserLink" >Using the Audio Toolbox</a></span>.</p><p>To begin setting up our graph, we must add nodes for the 3DMixer and a Default Output <code>AudioUnit</code> with the method <code>AUGraphNewNode()</code>. After creating the nodes, we can open the graph and obtain the <code>AudioUnit</code> instances from the nodes within the graph by using the method <code>AUGraphGetNodeInfo()</code>.</p><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE1" title="Listing 1Creating an AUGraph and adding nodes"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Creating an AUGraph and adding nodes</p><div class="codesample clear"><table><tr><td scope="row"><pre>void MyCreateAUGraph( AUGraph  mAUGraph,AudioUnit mOutputUnit,
+ AudioUnit mMixerUnit)
+{
+    AUNode mMixerNode, mOutputNode;
+
+    NewAUGraph(&amp;mAUGraph); 
+
+    ComponentDescription    mixerCD;
+
+    mixerCD.componentFlags = 0; 
+    mixerCD.componentFlagsMask = 0; 
+    mixerCD.componentType = kAudioUnitType_Mixer; 
+    mixerCD.componentSubType = kAudioUnitSubType_3DMixer; 
+    mixerCD.componentManufacturer = kAudioUnitManufacturer_Apple; 
+
+    AUGraphNewNode (mAUGraph, &amp;mixerCD, 0, NULL, &amp;mMixerNode); 
+
+    ComponentDescription    cd;
+    cd.componentFlags = 0; 
+    cd.componentFlagsMask = 0; 
+
+    cd.componentType = kAudioUnitType_Output; 
+    cd.componentSubType = kAudioUnitSubType_DefaultOutput; 
+    cd.componentManufacturer = kAudioUnitManufacturer_Apple; 
+
+    AUGraphNewNode (mAUGraph, &amp;cd, 0, NULL, &amp;mOutputNode);
+
+      //Open the Graph
+     AUGraphOpen (mAUGraph);
+
+     //Get Audio Units from graph
+    AUGraphGetNodeInfo (mAUGraph, mMixerNode, 0, 0, 0, &amp;mMixerUnit);
+    AUGraphGetNodeInfo (mAUGraph, mOutputNode, 0, 0, 0, &amp;mOutputUnit);
+
+}<span></span></pre></td></tr></table></div><p>Now that the graph has been created we must setup the 3DMixer appprioprately before initializing and starting the graph.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION2" title="Setting the Bus count"></a><h2 class="jump">Setting the Bus count</h2><p>The number of inputs (or busses) of the 3Dmixer is a settable property. By default, the 3DMixer has 64  busses. Since busses incur memory usage, the bus count should not be set higher than necessary for the application's needs. Setting this property should be done prior to initializing the mixer unit.</p><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE2" title="Listing 2Setting the mixer bus count"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Setting the mixer bus count</p><div class="codesample clear"><table><tr><td scope="row"><pre>OSStatus    SetMixerBusCount (UInt32    inBusCount)
+{
+
+        UInt32  size        = sizeof(UInt32);
+        UInt32  busCount    = inBusCount; 
+
+        return (AudioUnitSetProperty ( mMixerUnit, 
+                            kAudioUnitProperty_BusCount,
+                            kAudioUnitScope_Input, 
+                            0, 
+                            &amp;busCount,
+                            size));
+
+}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION3" title="Using the Internal Reverb"></a><h2 class="jump">Using the Internal Reverb</h2><p>The 3Dmixer has a built-in reverb. Once turned on, reverb is applied on a per input bus basis (as described below). Reverb is off by default and can be turned on with the <code>AudioUnitSetProperty()</code> method and the <code>kAudioUnitProperty_UsesInternalReverb</code> property, before initializing the graph.</p><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE3" title="Listing 3Enabling the internal reverb"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Enabling the internal reverb</p><div class="codesample clear"><table><tr><td scope="row"><pre> UInt32        reverbSetting    = 1 // turn it on;
+    result = AudioUnitSetProperty(mMixerUnit, 
+                          kAudioUnitProperty_UsesInternalReverb, 
+                          kAudioUnitScope_Global, 
+                          0,
+                          &amp;reverbSetting, 
+                          sizeof(reverbSetting));<span></span></pre></td></tr></table></div><p>Now that reverb has been turned ON for the 3DMixer, reverb can be enabled per bus by setting the <code>k3DMixerRenderingFlags_DistanceDiffusion</code> flag. Use the method <code>AudioUnitSetProperty()</code> and the <code>kAudioUnitProperty_3DMixerRenderingFlags</code> property to set the flag. This property can be set at anytime.</p><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE4" title="Listing 4Turning reverb on for a bus"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Turning reverb on for a bus</p><div class="codesample clear"><table><tr><td scope="row"><pre> UInt32    render_flags_3d;
+    UInt32    outSize = sizeof(render_flags_3d);
+
+    // get the current render flags for this bus
+    result = AudioUnitGetProperty (mMixerUnit, 
+            kAudioUnitProperty_3DMixerRenderingFlags, 
+            kAudioUnitScope_Input,
+            busIndex, 
+            &amp;render_flags_3d, 
+            &amp;outSize);
+
+    // turn on this render flag and then set the bus
+    render_flags_3d |= k3DMixerRenderingFlags_DistanceDiffusion;
+    result = AudioUnitSetProperty( mMixerUnit,
+             kAudioUnitProperty_3DMixerRenderingFlags,
+             kAudioUnitScope_Input, busIndex, 
+             &amp;render_flags_3d, 
+             sizeof(render_flags_3d));<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION4" title="Speaker Configurations"></a><h2 class="jump">Speaker Configurations</h2><p>The v2.0 3DMixer can render audio to stereo, quad, and 5.0 channel layouts. Although the v2.0 3DMixer appropriately sets its channel layout when the output stream format is set, it is recommended that the channel layout be explicitly set. Therefore no changes are required to your code, should a future version of the mixer be released that supports multiple channel layouts that use the same number of channels (i.e. 5.1 and 6.0). When explicitly setting the channel layout be sure to pick a layout that matches the channel count of the stream format or an error will be returned (setting the channel layout to quad for example, if the stream format has 5 channels will return an error). In order to take full advantage of the mixer's ability to render to multiple channel layouts, it is necessary to determine what the user has set for the Speaker Configuration in the Audio MIDI Setup application (see example below) by querying the current device for it's output channel layout.</p><p>By querying the output unit of the graph, the following code determines an appropriate channel count to be used when setting the stream format (output scope) of the mixer.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003282-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Be aware that there could also be a situation when a Speaker Configuration (channel layout) has been set by the user in Audio MIDI Setup for a multi-channel hardware device. However, there may not be speakers connected to all the hardware channels (i.e. 2 speakers connected to an 8 channel device). In this case, it may be desirable to let the user specify stereo rendering, allowing the application to clamp to stereo to prevent audio data being rendered to a device channel with no speaker connected.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE5" title="Listing 5Determining the correct number of channels to render to"></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Determining the correct number of channels to render to</p><div class="codesample clear"><table><tr><td scope="row"><pre>UInt32 GetDesiredRenderChannelCount ()
+{
+    OSStatus result = noErr;
+
+    // get the HAL device id form the output AU 
+    AudioDeviceID    deviceID;
+    UInt32    returnValue = 2; // return stereo by default
+
+    UInt32 outSize =  sizeof(deviceID);
+
+    //get the current device
+    AudioUnitGetProperty(mOutputUnit, 
+                        kAudioOutputUnitProperty_CurrentDevice,
+                        kAudioUnitScope_Output, 
+                        1,
+                        &amp;deviceID, 
+                        &amp;outSize);
+
+    //Get the users speaker configuration
+    result = AudioDeviceGetPropertyInfo(deviceID, 
+                        0, 
+                        false, 
+                        kAudioDevicePropertyPreferredChannelLayout, 
+                        &amp;outSize,
+                        NULL);
+
+    if (result != noErr)
+        return (returnValue); // return default (stereo) 
+
+    AudioChannelLayout    *layout = NULL;
+    layout = (AudioChannelLayout *) calloc(1, outSize);
+    if (layout != NULL)
+    {
+        result = AudioDeviceGetProperty(deviceID, 
+                       0, 
+                       false, 
+                       kAudioDevicePropertyPreferredChannelLayout, 
+                       &amp;outSize,
+                       layout);
+        if (layout-&gt;mChannelLayoutTag 
+                       == kAudioChannelLayoutTag_UseChannelDescriptions)
+        {
+        // no channel layout tag is returned, 
+                //so walk through the channel descriptions and count
+                // the channels that are associated with a speaker
+        if (layout-&gt;mNumberChannelDescriptions == 2)
+        { 
+                returnValue = 2; // there is no channel info for stereo
+        }
+        else
+        {
+            returnValue = 0;
+            for (UInt32 i = 0; i &lt; layout-&gt;mNumberChannelDescriptions; i++)
+            {
+                if (layout-&gt;mChannelDescriptions[i].mChannelLabel !=
+                                             kAudioChannelLabel_Unknown) 
+                    returnValue++;
+                }
+            }
+        }
+        else
+        {
+            switch (layout-&gt;mChannelLayoutTag)
+            {
+                case kAudioChannelLayoutTag_AudioUnit_5_0:
+                case kAudioChannelLayoutTag_AudioUnit_5_1:
+                case kAudioChannelLayoutTag_AudioUnit_6:
+                    returnValue = 5;
+                    break;
+                case kAudioChannelLayoutTag_AudioUnit_4:
+                    returnValue = 4;
+                default:
+                    returnValue = 2;
+            }
+        }
+
+        free(layout);
+    }
+  return returnValue;
+}<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003282-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;The mixer's output stream format must be set before connecting it to the output unit. After connecting the mixer to the output unit, the channel layout must be explicitly set to match the input scope layout of the output unit. </p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE6" title="Listing 6Configuring the AUGraph For Channel Layout"></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;Configuring the AUGraph For Channel Layout</p><div class="codesample clear"><table><tr><td scope="row"><pre>void ConfigureGraphForChannelLayout()
+{
+    OSStatus    result = noErr;
+
+    // get the channel count that should be set
+        // for the mixer's output stream format
+    mCurrentMixerChannelCount = GetDesiredRenderChannelCount();
+
+    // set the stream format
+    CAStreamBasicDescription format; //CoreAudio SDK class
+    UInt32 outSize = sizeof(format);
+    result = AudioUnitGetProperty(mOutputUnit, 
+                               kAudioUnitProperty_StreamFormat,
+                               kAudioUnitScope_Output,
+                               0, 
+                               &amp;format,
+                               &amp;outSize);
+
+        // not interleaved
+    format.SetCanonical (mCurrentMixerChannelCount, false); 
+    format.mSampleRate = mMixerOutputRate;
+    outSize = sizeof(format);
+    result = AudioUnitSetProperty (mOutputUnit,
+                               kAudioUnitProperty_StreamFormat, 
+                               kAudioUnitScope_Input, 
+                               0, 
+                               &amp;format, 
+                               outSize);
+
+    result = AudioUnitSetProperty (mMixerUnit, 
+                               kAudioUnitProperty_StreamFormat, 
+                               kAudioUnitScope_Output, 
+                               0, 
+                               &amp;format, 
+                               outSize);
+
+    return;
+}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION5" title="Localizing sound in 3D space"></a><h2 class="jump">Localizing sound in 3D space</h2><p>Setting the distance, elevation and azimuth of a bus causes the listener to perceive the audio from a specific point in a 3-dimensional space.</p><p>The pitch and gain of the audio sources can be changed per bus within the 3DMixer. The pitch can be changed by modifying the value of the parameter <code>k3DMixerParam_PlaybackRate</code>. The gain can be changed by modifying the value of the parameter <code>k3DMixerParam_Gain</code> (example shown in "Setting the Volume").</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003282-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;The gain referred to here is for scaling the volume of the actual audio data. All spatial attenuation of the audio is done by setting the distance parameter on the mixer bus.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS10003282-CH1-TABLE1" title="Table 13-Dimensional Parameters (Location)"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;3-Dimensional Parameters (Location)</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Direction 
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Unit 
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Range 
+</p></th></tr><tr><td  scope="row"><p>
+Azimuth 
+</p></td><td ><p>
+Degrees 
+</p></td><td ><p>
+-180 to 180
+</p></td></tr><tr><td  scope="row"><p>
+Elevation 
+</p></td><td ><p>
+Degrees 
+</p></td><td ><p>
+-90 to 90
+</p></td></tr><tr><td  scope="row"><p>
+Distance 
+</p></td><td ><p>
+Meters 
+</p></td><td ><p>
+0 to 10000
+</p></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003282-CH1-TABLE2" title="Table 23-Dimensional Parameters ( Volume and Pitch)"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;3-Dimensional Parameters ( Volume and Pitch)</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Direction 
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Unit 
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Range 
+</p></th></tr><tr><td  scope="row"><p>
+Gain 
+</p></td><td ><p>
+dB 
+</p></td><td ><p>
+-120 to 20
+</p></td></tr><tr><td  scope="row"><p>
+Playback Rate (Pitch) 
+</p></td><td ><p>
+rate 
+</p></td><td ><p>
+0.5 to 4.0
+</p></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE7" title="Listing 7Setting the distance and azimuth"></a><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;Setting the distance and azimuth</p><div class="codesample clear"><table><tr><td scope="row"><pre>void    SetObjectCoordinates(UInt32     inMixerInputBus, Float32,
+inAzimuth, Float32 inDistance)
+{
+    AudioUnitSetParameter(mMixerUnit, 
+                                            k3DMixerParam_Azimuth, 
+                                            kAudioUnitScope_Input, 
+                                            inMixerInputBus, 
+                                            inAzimuth, 
+                                            0);
+
+    AudioUnitSetParameter(mMixerUnit,
+                                            k3DMixerParam_Distance, 
+                                            kAudioUnitScope_Input,
+                                            inMixerInputBus, 
+                                            inDistance, 
+                                            0);
+}<span></span></pre></td></tr></table></div><p>Starting with the v2.0 3DMixer, it is possible to have the mixer do all the work necessary to clamp the bus volume based on specified ReferenceDistance, MaximumDistance and Attenuation settings. This feature allows an application to specify how close/far away an object in 3D space can actually get to/from the listener. The following method demonstrates how to properly set/get a mixer bus's DistanceParams with the <code>AudioUnitSetProperty()</code> method and the <code>kAudioUnitProperty_3DMixerDistanceParams</code> property.</p><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE8" title="Listing 8Mixer Distance Parameters struct defined in AudioUnitProperties.h"></a><p class="codesample clear"><strong class="caption_number">Listing 8</strong>&nbsp;&nbsp;Mixer Distance Parameters struct defined in AudioUnitProperties.h</p><div class="codesample clear"><table><tr><td scope="row"><pre>typedef struct MixerDistanceParams {     Float32            mReferenceDistance;     Float32            mMaxDistance;     Float32            mMaxAttenuation; // in decibels } MixerDistanceParams;<span></span></pre></td></tr></table></div><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003282-CH1-FIGURE2" title="Figure 2Distance Parameters Graph"></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Distance Parameters Graph</figcaption><img src="Art/tn2112_AttenuationGraph.jpg" alt="" width="567" height="363"></figure><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE9" title="Listing 9Setting the Distance Parameters for a bus"></a><p class="codesample clear"><strong class="caption_number">Listing 9</strong>&nbsp;&nbsp;Setting the Distance Parameters for a bus</p><div class="codesample clear"><table><tr><td scope="row"><pre>void    SetDistanceParamsForBus (UInt32     inMixerInputBus)
+{ 
+         MixerDistanceParams    distanceParams;
+
+    // Get the desired minimum distance an object 
+    // can get to the listener (float value in meters)
+    // The mixer will play audio on the bus with 0db 
+    // of attenuation (no attenuation) for all distance coordinates
+    // between 0.0 and this reference distance. This 
+    //value must be less than the maximum distance setting.
+    distanceParams.mReferenceDistance = GetMyMinimumDistance();
+
+    // Get the desired maximum distance an object 
+    // can get from the listener (float value in meters)
+    // The mixer will stop attenuating audio on the bus 
+    // for all distance coordinates at this maximum 
+    // distance or greater. This value must be greater 
+    // than the reference distance setting.
+    distanceParams.mMaxDistance = GetMyMaximumDistance();
+
+    // Get desired attenuation (in db) for an object when it's 
+    // coordinates are at or beyond the maximum distance 
+    // (positive float value in dB).
+    // The mixer will not attenuate the audio further than 
+    // this db setting when the distance coordinates are beyond the 
+    // maximum distance setting. 
+
+    distanceParams.mMaxAttenuation = GetMyMinimumAttenuation();
+
+    OSStatus result = AudioUnitSetProperty(mMixerUnit, 
+                                kAudioUnitProperty_3DMixerDistanceParams,
+                                kAudioUnitScope_Input,
+                                inMixerInputBus, 
+                                &amp;distanceParams, 
+                                sizeof(distanceParams));
+
+
+}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION6" title="Spatialization Rendering Algorithims"></a><h2 class="jump">Spatialization Rendering Algorithims</h2><p>Spatialization settings are on a per bus (mixer input) basis and set with <code>AudioUnitSetProperty()</code> method and the <code>kAudioUnitProperty_SpatializationAlgorithm</code> constant. The type of the spatialization rendering used is determined by factors such as source audio channels (mono/stereo), output hardware channels (stereo, multichannel), and cpu capability. Setting a bus spatialization algorithm may also change some of the bus rendering flags (<code>kAudioUnitProperty_3DMixerRenderingFlags</code>) so it is recommended to reset any desired render flags after setting the spatialization algorithm.</p><a name="//apple_ref/doc/uid/DTS10003282-CH1-TABLE3" title="Table 3Spatailization Algorithims appropriate for Stereo Output (from AudioUnitProperies.h)"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 3</strong>&nbsp;&nbsp;Spatailization Algorithims appropriate for Stereo Output (from AudioUnitProperies.h)</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Algorithims 
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Description 
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Output 
+</p></th></tr><tr><td  scope="row"><p>
+kSpatializationAlgorithm_StereoPassThrough 
+</p></td><td ><p>
+StereoPassThrough should be used when no localization is desired for stereo source data. Setting this algorithm tells the mixer to take stereo input and pass it directly to channels 1 &amp; 2 (Front L/R if rendering is for multichannel) without localization. 
+</p></td><td ><p>
+Stereo , Multi-Channel 
+</p></td></tr><tr><td  scope="row"><p>
+kSpatializationAlgorithm_EqualPowerPanning 
+</p></td><td ><p>
+EqualPowerPanning merely pans the data of the mixer bus into a stereo field. This algorithm is analogous to the pan knob found on a mixing board channel strip. When this algorithm is used while the mixer is rendering to multichannel hardware audio data will only be rendered to channels 1 &amp; 2 (Front L/R). 
+</p></td><td ><p>
+Stereo 
+</p></td></tr><tr><td  scope="row"><p>
+kSpatializationAlgorithm_HRTF 
+</p></td><td ><p>
+HRTF (Head Related Transfer Function) is a high quality algorithm using filtering to emulate 3 dimensional space in headphones or stereo speakers. If turned on while rendering to multi channel hardware, HRTF will render the input data only to channels 1 &amp; 2 (Front L/R). HRTF is a cpu intensive algorithm. 
+</p></td><td ><p>
+Stereo 
+</p></td></tr><tr><td  scope="row"><p>
+kSpatializationAlgorithm_SphericalHead 
+</p></td><td ><p>
+Like HRTF, the SpericalHead algorithm is designed to emulate 3 dimensional space in headphones or stereo speakers. Using simplified algorithms, SpericalHead provides a lesser quality rendering experience than HRTF and is slightly less cpu intensive. 
+</p></td><td ><p>
+Stereo 
+</p></td></tr><tr><td  scope="row"><p>
+kSpatializationAlgorithm_VectorBasedPanning 
+</p></td><td ><p>
+VectorBasedPanning pans data from the bus, based on it's location in 3 dimensional space, between two channels of the multichannel rendering (i.e. between channels 3 &amp; 4 for a quad rendering if the location of the data was directly behind the listener). When this algorithm is used while the mixer is rendering to stereo hardware, it effectively becomes EqualPowerPanning (see EqualPowerPanning for more info.) This algorithm does not pan moving sources as smoothly as the Sound Field (kSpatializationAlgorithm_SoundField) algorithm and is better suited for localizing fixed sources. 
+</p></td><td ><p>
+Multi-Channel 
+</p></td></tr><tr><td  scope="row"><p>
+kSpatializationAlgorithm_SoundField (Ambisonics) 
+</p></td><td ><p>
+SoundField is designed for rendering to multi channel hardware. The mixer takes data being rendered with SoundField and distributes it amongst all the output channels with a weighting toward the location in which the sound derives. It is very effective for ambient sounds, which may derive from a specific location in space, yet should be heard through the listener's entire space. 
+</p></td><td ><p>
+Multi-Channel 
+</p></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE10" title="Listing 10Setting the 3DMixer to a Spatialization Algorithims"></a><p class="codesample clear"><strong class="caption_number">Listing 10</strong>&nbsp;&nbsp;Setting the 3DMixer to a Spatialization Algorithims</p><div class="codesample clear"><table><tr><td scope="row"><pre>SetSpatializationAlgorithm( UInt32 BusNumber)
+{
+          UInt32 spatialSetting = GetMySpatializationSetting(); 
+
+          result = AudioUnitSetProperty(mMixerUnit, 
+                             kAudioUnitProperty_SpatializationAlgorithm, 
+                             kAudioUnitScope_Input,
+                             BusNumber,
+                             &amp;spatialSetting,
+                             sizeof(spatialSetting));
+}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION7" title="Setting the volume"></a><h2 class="jump">Setting the volume</h2><p>The volume can be explicitly set for each bus on the input scope of the 3DMixer, providing a gain before the sound is mixed. Use the <code>k3DMixerParam_Gain</code> constant and <code>AudioUnitSetParameter()</code> method to set the volume of each mixer bus (input scope). The parameter is a float value representing dB (see below).</p><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE11" title="Listing 11Setting the volume on input"></a><p class="codesample clear"><strong class="caption_number">Listing 11</strong>&nbsp;&nbsp;Setting the volume on input</p><div class="codesample clear"><table><tr><td scope="row"><pre>// busGain represents a range of 0.0 to 1.0 (full volume) 
+SetInputBusGain(UInt32 mCurrentPlayBus, Float32 busGain)
+{
+   Float32    db = 20.0 * log10(busGain); // convert to db
+   if (db &lt; -120.0)
+      db = -120.0; // clamp minimum audible level at -120db
+
+   AudioUnitSetParameter(mMixerUnit, 
+                                       k3DMixerParam_Gain,
+                                       kAudioUnitScope_Input,
+                                       mCurrentPlayBus, 
+                                       db, 
+                                       0);
+}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION8" title="Bus Stream Formats and the FormatConverterAU"></a><h2 class="jump">Bus Stream Formats and the FormatConverterAU</h2><p>If a <code>FormatConverterAU</code> is supplying the data to the mixer bus, then the stream format on the input scope of the mixer is automatically set when the nodes are connected. However, if the data is being supplied to the mixer directly in the render proc of the bus, it is necessary to properly set the stream format on the input scope of a mixer's bus before 'pulling' for data.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003282-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;When setting the stream format of a mixer's bus, remember that the mixer expects to receive stereo data as de-interleaved.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION9" title="Connecting, Initializing &amp; Starting the AUGraph"></a><h2 class="jump">Connecting, Initializing &amp; Starting the AUGraph</h2><p>Setup is now complete and we can connect the 3DMixer to the default output audio unit. When all connections are made and nodes are setup up correctly, you must initialize the <code>AUGraph</code>. The graph is now complete and the 3Dmixer is ready for use. A call to <code>AUGraphStart</code> will start processing the audio data.</p><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE12" title="Listing 12Connecting, Initializing &amp; Starting the AUGraph"></a><p class="codesample clear"><strong class="caption_number">Listing 12</strong>&nbsp;&nbsp;Connecting, Initializing &amp; Starting the AUGraph</p><div class="codesample clear"><table><tr><td scope="row"><pre> AUGraphConnectNodeInput (mAUGraph, mMixerNode, 0, mOutputNode, 0);         AUGraphInitialize (mAUGraph);         AUGraphStart(mAUGraph);<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION10" title="Disposing of the AUGraph"></a><h2 class="jump">Disposing of the AUGraph</h2><p>The method <code>AUGraphStop</code> will stop all rendering throughout a graph. <code>DisposeAUGraph</code> will deallocate the graph.</p><a name="//apple_ref/doc/uid/DTS10003282-CH1-SOURCECODE13" title="Listing 13Stopping and disposing the graph"></a><p class="codesample clear"><strong class="caption_number">Listing 13</strong>&nbsp;&nbsp;Stopping and disposing the graph</p><div class="codesample clear"><table><tr><td scope="row"><pre> AUGraphStop (mAUGraph);          DisposeAUGraph (mAUGraph);         mAUGraph = 0;<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION11" title="Conclusion"></a><h2 class="jump">Conclusion</h2><p>CoreAudio's 3DMixer is very a useful audio tool. The mixers ability to handle audio from multiple sources and localize the sounds in 3D space is a necessity in games and can be amazing in countless other applications.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003282-CH1-SECTION12" title="References and Notes"></a><h2 class="jump">References and Notes</h2><p><span class="content_text"><a href="http://developer.apple.com/documentation/MusicAudio/Reference/CoreAudio/index.html" class="browserLink" >Core Audio Preliminary doc</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003282-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003282-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2004-06-14</td><td><p>Updated Reference Library Location</p></td></tr><tr><td scope="row">2004-05-26</td><td><p>New document that 
+					discusses how to use Core Audio's 3DMixer version 2.0</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2004 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2004-06-14</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

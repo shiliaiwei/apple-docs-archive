@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Adopting Modern Objective-C</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40014150">
+    <meta id="document-version" name="document-version" content="1.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40014150-CH1">
+    <meta id="date" name="date" content="2014-10-16">
+    <meta id="description" name="description" content="Shows developers how to modernize their Objective-C codebase and explains the benefits of doing so.">
+    <meta id="book-title" name="book-title" content="Adopting Modern Objective-C">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Topic/Languages & Utilities/Objective-C}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Adopting Modern Objective-C">
+    <meta id="resources-uri" name="resources-uri" content="../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Adopting Modern Objective-C" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../RevisionHistory.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="Xcode Developer Tools,watchOS">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40014150-CH1" title="Adopting Modern Objective-C"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Adopting Modern Objective-C</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../RevisionHistory.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40014150" title="Adopting Modern Objective-C"></a><a name="//apple_ref/doc/uid/TP40014150-CH1-SW1" title="Adopting Modern Objective-C"></a><h1 id="pageTitle">Adopting Modern Objective-C</h1><p>Over the years, the Objective-C language has grown and evolved. Although the core concepts and practices remain the same, parts of the language have been through significant changes and improvements. These modernizations improve type safety, memory management, performance, and other aspects of Objective-C, making it easier for you to write correct code. It’s important to adopt these changes in your existing and future code to help it become more consistent, readable, and resilient.</p><p>Xcode provides a tool to help make some of these structural changes for you. But before you use this tool, you want to understand what changes it will offer to make to your code, and why. This document highlights some of the most significant and useful modernizations to adopt in your codebase.</p><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW2" title="instancetype"></a><h2 class="jump">instancetype</h2><p>Use the <code>instancetype</code> keyword as the return type of methods that return an instance of the class they are called on (or a subclass of that class). These methods include <code>alloc</code>, <code>init</code>, and class factory methods.</p><p>Using <code>instancetype</code> instead of <code>id</code> in appropriate places improves type safety in your Objective-C code. For example, consider the following code:</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface MyObject : NSObject<span></span></pre></td></tr><tr><td scope="row"><pre>+ (instancetype)factoryMethodA;<span></span></pre></td></tr><tr><td scope="row"><pre>+ (id)factoryMethodB;<span></span></pre></td></tr><tr><td scope="row"><pre>@end<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>@implementation MyObject<span></span></pre></td></tr><tr><td scope="row"><pre>+ (instancetype)factoryMethodA { return [[[self class] alloc] init]; }<span></span></pre></td></tr><tr><td scope="row"><pre>+ (id)factoryMethodB { return [[[self class] alloc] init]; }<span></span></pre></td></tr><tr><td scope="row"><pre>@end<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>void doSomething() {<span></span></pre></td></tr><tr><td scope="row"><pre>    NSUInteger x, y;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    x = [[MyObject factoryMethodA] count]; // Return type of +factoryMethodA is taken to be "MyObject *"<span></span></pre></td></tr><tr><td scope="row"><pre>    y = [[MyObject factoryMethodB] count]; // Return type of +factoryMethodB is "id"<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>Because of the <code>instancetype</code> return type of <code>+factoryMethodA</code>, the type of that message expression is <code>MyObject *</code>. Since <code>MyObject</code> doesn’t have a <code>-count</code> method, the compiler gives a warning about the <code>x</code> line:</p><div class="codesample clear"><table><tr><td scope="row"><pre>main.m: ’MyObject’ may not respond to ‘count’<span></span></pre></td></tr></table></div><p>However, because of the <code>id</code> return type in <code>+factoryMethodB</code>, the compiler can give no warning about the <code>y</code> line. Since an object of type <code>id</code> can be any class, and since a method called <code>-count</code> exists somewhere on some class, to the compiler it’s possible that the return value of <code>+factoryMethodB</code> implements the method.</p><p>To make sure <code>instancetype</code> factory methods have the right subclassing behavior, be sure to use <code>[self class]</code> when allocating the class rather than referring directly to the class name. Following this convention ensures that the compiler will infer subclass types correctly. For example, consider trying to do this with a subclass of <code>MyObject</code> from the previous example:</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface MyObjectSubclass : MyObject<span></span></pre></td></tr><tr><td scope="row"><pre>@end<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>void doSomethingElse() {<span></span></pre></td></tr><tr><td scope="row"><pre>        NSString *aString = [MyObjectSubclass factoryMethodA];<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>The compiler gives the following warning about this code:</p><div class="codesample clear"><table><tr><td scope="row"><pre>main.m: Incompatible pointer types initializing ’NSString *’ with an expression of type ’MyObjectSubclass *’<span></span></pre></td></tr></table></div><p>In the example, the <code>+factoryMethodA</code> message send returns an object of type <code>MyObjectSubclass</code>, which is the type of the receiver. The compiler appropriately determines that the return type of <code>+factoryMethodA</code> should be of the subclass <code>MyObjectSubclass</code>, not of the superclass in which the factory method was declared.</p><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW3" title="How to Adopt"></a><h3 class="jump">How to Adopt</h3><p>In your code, replace occurrences of <code>id</code> as a return value with <code>instancetype</code> where appropriate. This is typically the case for <code>init</code> methods and class factory methods. Even though the compiler automatically converts methods that begin with “alloc,” “init,” or “new” and have a return type of <code>id</code> to return <code>instancetype</code>, it doesn’t convert other methods. Objective-C convention is to write <code>instancetype</code> explicitly for all methods.</p><p>Note that you should replace <code>id</code> with <code>instancetype</code> for return values only, not elsewhere in your code. Unlike <code>id</code>, the <code>instancetype</code> keyword can be used only as the result type in a method declaration.</p><p>For example:</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface MyObject<span></span></pre></td></tr><tr><td scope="row"><pre>- (id)myFactoryMethod;<span></span></pre></td></tr><tr><td scope="row"><pre>@end<span></span></pre></td></tr></table></div><p>should become:</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface MyObject<span></span></pre></td></tr><tr><td scope="row"><pre>- (instancetype)myFactoryMethod;<span></span></pre></td></tr><tr><td scope="row"><pre>@end<span></span></pre></td></tr></table></div><p>Alternatively, you can use the modern Objective-C converter in Xcode to make this change to your code automatically. For more information, see <span class="content_text"><a href="#//apple_ref/doc/uid/TP40014150-CH1-SW13" data-renderer-version="1">Refactoring Your Code Using Xcode</a></span>.</p></section></section><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW4" title="Properties"></a><h2 class="jump">Properties</h2><p>An Objective-C <em>property</em> is a public or private method declared with the <code>@property</code> syntax.</p><div class="codesample clear"><table><tr><td scope="row"><pre>@property (readonly, getter=isBlue) BOOL blue;<span></span></pre></td></tr></table></div><p>Properties capture the state of an object. They reflect the object’s intrinsic attributes and relationships to other objects. Properties provide a safe, convenient way to interact with these attributes without having to write a set of custom accessor methods (although properties do allow custom getters and setters, if desired).</p><p>Using properties instead of instance variables in as many places as possible provides many benefits:</p><ul class="ul"><li class="li"><p><strong>Autosynthesized getters and setters.</strong> When you declare a property, by default getter and setter methods are created for you.</p></li><li class="li"><p><strong>Better declaration of intent of a set of methods.</strong> Because of accessor method naming conventions, it’s clear exactly what the getter and setter are doing.</p></li><li class="li"><p><strong>Property keywords that express additional information about behavior.</strong> Properties provide the potential for declaration of attributes like <code>assign</code> (vs <code>copy</code>), <code>weak</code>, <code>atomic</code> (vs <code>nonatomic</code>), and so on.</p></li></ul><p>Property methods follow a simple naming convention. The <em>getter</em> is the name of the property (for example, <code>date</code>), and the <em>setter</em> is the name of the property with the <em>set</em> prefix, written in camel case (for example, <code>setDate</code>). The naming convention for Boolean properties is to declare them with a named getter starting with the word “is”:</p><div class="codesample clear"><table><tr><td scope="row"><pre>@property (readonly, getter=isBlue) BOOL blue;<span></span></pre></td></tr></table></div><p>As a result, all of the following work:</p><div class="codesample clear"><table><tr><td scope="row"><pre>if (color.blue) { }<span></span></pre></td></tr><tr><td scope="row"><pre>if (color.isBlue) { }<span></span></pre></td></tr><tr><td scope="row"><pre>if ([color isBlue]) { }<span></span></pre></td></tr></table></div><p></p><p>When deciding what can be a property, keep in mind that the following are not properties:</p><ul class="ul"><li class="li"><p><code>init</code> method</p></li><li class="li"><p><code>copy</code> method, <code>mutableCopy</code> method</p></li><li class="li"><p>A class factory method</p></li><li class="li"><p>A method that initiates an action and returns a <code>BOOL</code> result</p></li><li class="li"><p>A method that explicitly changes internal state as a side effect of a getter</p></li></ul><p>Additionally, consider the following set of rules when identifying potential properties in your code:</p><ul class="ul"><li class="li"><p>A read/write property has two accessor methods. The setter takes one argument and returns nothing, and the getter takes no arguments and returns one value. If you convert this set of methods into a property, tag it with the <code>readwrite</code> keyword.</p></li><li class="li"><p>A read-only property has a single accessor method, the getter, which takes no arguments and returns one value. If you convert this method into a property, tag it with the <code>readonly</code> keyword.</p></li><li class="li"><p>The getter should be <em>idempotent</em> (if a getter is called twice, the second call results in the same result as the first). However, it is acceptable for a getter to compute the result each time it’s called.</p></li></ul><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW5" title="How to Adopt"></a><h3 class="jump">How to Adopt</h3><p>Identify a set of methods that qualify to be converted into a property, such as these:</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (NSColor *)backgroundColor;<span></span></pre></td></tr><tr><td scope="row"><pre>- (void)setBackgroundColor:(NSColor *)color;<span></span></pre></td></tr></table></div><p>and declare them using the <code>@property</code> syntax with the appropriate keyword(s):</p><div class="codesample clear"><table><tr><td scope="row"><pre>@property (copy) NSColor *backgroundColor;<span></span></pre></td></tr></table></div><p>For information about property keywords and other considerations, see <span class="content_text"><a href="../../../../documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/EncapsulatingData/EncapsulatingData.html#//apple_ref/doc/uid/TP40011210-CH5" data-renderer-version="1" target="_self">Encapsulating Data</a></span>. </p><p>Alternatively, you can use the modern Objective-C converter in Xcode to make this change to your code automatically. For more information, see <span class="content_text"><a href="#//apple_ref/doc/uid/TP40014150-CH1-SW13" data-renderer-version="1">Refactoring Your Code Using Xcode</a></span>.</p></section></section><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW6" title="Enumeration Macros"></a><h2 class="jump">Enumeration Macros</h2><p>The <code>NS_ENUM</code> and <code>NS_OPTIONS</code> macros provide a concise, simple way of defining enumerations and options in C-based languages. These macros improve code completion in Xcode and explicitly specify the type and size of your enumerations and options. Additionally, this syntax declares enums in a way that is evaluated correctly by older compilers, and by newer ones that can interpret the underlying type information.</p><p>Use the <code>NS_ENUM</code> macro to define <em>enumerations</em>, a set of values that are mutually exclusive:</p><div class="codesample clear"><table><tr><td scope="row"><pre>typedef NS_ENUM(NSInteger, UITableViewCellStyle) {<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleDefault,<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleValue1,<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleValue2,<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleSubtitle<span></span></pre></td></tr><tr><td scope="row"><pre>};<span></span></pre></td></tr></table></div><p>The <code>NS_ENUM</code> macro helps define both the name and type of the enumeration, in this case named <code>UITableViewCellStyle</code> of type <code>NSInteger</code>. The type for enumerations should be <code>NSInteger</code>.</p><p>Use the <code>NS_OPTIONS</code> macro to define <em>options</em>, a set of bitmasked values that may be combined together:</p><div class="codesample clear"><table><tr><td scope="row"><pre>typedef NS_OPTIONS(NSUInteger, UIViewAutoresizing) {<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingNone                 = 0,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleLeftMargin   = 1 &lt;&lt; 0,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleWidth        = 1 &lt;&lt; 1,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleRightMargin  = 1 &lt;&lt; 2,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleTopMargin    = 1 &lt;&lt; 3,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleHeight       = 1 &lt;&lt; 4,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleBottomMargin = 1 &lt;&lt; 5<span></span></pre></td></tr><tr><td scope="row"><pre>};<span></span></pre></td></tr></table></div><p>Like enumerations, the <code>NS_OPTIONS</code> macro defines both a name and a type. However, the type for options should usually be <code>NSUInteger</code>.</p><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW7" title="How to Adopt"></a><h3 class="jump">How to Adopt</h3><p>Replace your <code>enum</code> declarations, such as this one:</p><div class="codesample clear"><table><tr><td scope="row"><pre>enum {<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleDefault,<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleValue1,<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleValue2,<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleSubtitle<span></span></pre></td></tr><tr><td scope="row"><pre>};<span></span></pre></td></tr><tr><td scope="row"><pre>typedef NSInteger UITableViewCellStyle;<span></span></pre></td></tr></table></div><p>with the <code>NS_ENUM</code> syntax:</p><div class="codesample clear"><table><tr><td scope="row"><pre>typedef NS_ENUM(NSInteger, UITableViewCellStyle) {<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleDefault,<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleValue1,<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleValue2,<span></span></pre></td></tr><tr><td scope="row"><pre>        UITableViewCellStyleSubtitle<span></span></pre></td></tr><tr><td scope="row"><pre>};<span></span></pre></td></tr></table></div><p>But when you use <code>enum</code> to define a bitmask, such as here:</p><div class="codesample clear"><table><tr><td scope="row"><pre>enum {<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingNone                 = 0,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleLeftMargin   = 1 &lt;&lt; 0,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleWidth        = 1 &lt;&lt; 1,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleRightMargin  = 1 &lt;&lt; 2,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleTopMargin    = 1 &lt;&lt; 3,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleHeight       = 1 &lt;&lt; 4,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleBottomMargin = 1 &lt;&lt; 5<span></span></pre></td></tr><tr><td scope="row"><pre>};<span></span></pre></td></tr><tr><td scope="row"><pre>typedef NSUInteger UIViewAutoresizing;<span></span></pre></td></tr></table></div><p>use the <code>NS_OPTIONS</code> macro.</p><div class="codesample clear"><table><tr><td scope="row"><pre>typedef NS_OPTIONS(NSUInteger, UIViewAutoresizing) {<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingNone                 = 0,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleLeftMargin   = 1 &lt;&lt; 0,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleWidth        = 1 &lt;&lt; 1,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleRightMargin  = 1 &lt;&lt; 2,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleTopMargin    = 1 &lt;&lt; 3,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleHeight       = 1 &lt;&lt; 4,<span></span></pre></td></tr><tr><td scope="row"><pre>        UIViewAutoresizingFlexibleBottomMargin = 1 &lt;&lt; 5<span></span></pre></td></tr><tr><td scope="row"><pre>};<span></span></pre></td></tr></table></div><p>Alternatively, you can use the modern Objective-C converter in Xcode to make this change to your code automatically. For more information, see <span class="content_text"><a href="#//apple_ref/doc/uid/TP40014150-CH1-SW13" data-renderer-version="1">Refactoring Your Code Using Xcode</a></span>.</p></section></section><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW8" title="Object Initialization"></a><h2 class="jump">Object Initialization</h2><p>In Objective-C, object initialization is based on the notion of a <em>designated initializer</em>, an initializer method that is responsible for calling one of its superclass’s initializers and then initializing its own instance variables. Initializers that are not designated initializers are known as <em>convenience initializers</em>. Convenience initializers typically delegate to another initializer—eventually terminating the chain at a designated initializer—rather than performing initialization themselves.</p><p>The designated initializer pattern helps ensure that inherited initializers properly initialize all instance variables. A subclass that needs to perform nontrivial initialization should override all of its superclass’s designated initializers, but it does not need to override the convenience initializers. For more information about initializers, see <span class="content_text"><a href="../../../../documentation/General/Conceptual/CocoaEncyclopedia/Initialization/Initialization.html#//apple_ref/doc/uid/TP40010810-CH6" data-renderer-version="1" target="_self">Object Initialization</a></span>.</p><p>To clarify the distinction between designated and designated initializers clear, you can add the <code>NS_DESIGNATED_INITIALIZER</code> macro to any method in the <code>init</code> family, denoting it a designated initializer. Using this macro introduces a few restrictions:</p><ul class="ul"><li class="li"><p>The implementation of a designated initializer must chain to a superclass <code>init</code> method (with <code>[super init...]</code>) that is a designated initializer for the superclass.</p></li><li class="li"><p>The implementation of a convenience initializer (an initializer not marked as a designated initializer within a class that has at least one initializer marked as a designated initializer) must delegate to another initializer (with <code>[self init...]</code>).</p></li><li class="li"><p>If a class provides one or more designated initializers, it must implement all of the designated initializers of its superclass.</p></li></ul><p>If any of these restrictions are violated, you receive warnings from the compiler.</p><p>If you use the <code>NS_DESIGNATED_INITIALIZER</code> macro in your class, you need to mark all of your designated initializers with this macro. All other initializers will be considered to be convenience initializers.</p><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW9" title="How to Adopt"></a><h3 class="jump">How to Adopt</h3><p>Identify designated initializers in your classes, and tag them with the <code>NS_DESIGNATED_INITIALIZER</code> macro. For example:</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (instancetype)init NS_DESIGNATED_INITIALIZER;<span></span></pre></td></tr></table></div></section></section><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW10" title="Automatic Reference Counting (ARC)"></a><h2 class="jump">Automatic Reference Counting (ARC)</h2><p>Automatic Reference Counting (ARC) is a compiler feature that provides automatic memory management of Objective-C objects. Instead of your having to remember when to use <code>retain</code>, <code>release</code>, and <code>autorelease</code>, ARC evaluates the lifetime requirements of your objects and automatically inserts appropriate memory management calls for you at compile time. The compiler also generates appropriate <code>dealloc</code> methods for you.</p><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW11" title="How to Adopt"></a><h3 class="jump">How to Adopt</h3><p>Xcode provides a tool that automates the mechanical parts of the ARC conversion (such as removing <code>retain</code> and <code>release</code> calls) and helps you to fix issues that the migrator can’t handle automatically. To use the ARC migration tool, choose Edit &gt; Refactor &gt; Convert to Objective-C ARC. The migration tool converts all files in a project to use ARC.</p><p>For more information, see <em><a href="../../RN-TransitioningToARC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226" data-renderer-version="1" target="_self">Transitioning to ARC Release Notes</a></em>.</p></section></section><section><a name="//apple_ref/doc/uid/TP40014150-CH1-SW13" title="Refactoring Your Code Using Xcode"></a><h2 class="jump">Refactoring Your Code Using Xcode</h2><p>Xcode provides a modern Objective-C converter that can assist you during the modernization process. Although the converter helps with the mechanics of identifying and applying potential modernizations, it doesn’t interpret the semantics of your code. For example, it won’t detect that your <code>-toggle</code> method is an action that affects your object’s state, and it will erroneously offer to modernize this action to be a property. Make sure to manually review and confirm any changes the converter offers to make to your code.</p><dl class="termdef">	<dt>Of the previously described modernizations, the converter offers to:</dt><dd><ul class="termdef"><li class="termdef"><p>Change <code>id</code> to <code>instancetype</code> in appropriate places</p></li><li class="termdef"><p>Change <code>enum</code> to <code>NS_ENUM</code> or <code>NS_OPTIONS</code></p></li><li class="termdef"><p>Update to the <code>@property</code> syntax</p></li></ul></dd><dt>Besides these modernizations, this converter recommends additional changes to your code, including:</dt><dd><ul class="termdef"><li class="termdef"><p>Converting to literals, so a statement like <code>[NSNumber numberWithInt:3]</code> becomes <code>@3</code>.</p></li><li class="termdef"><p>Using subscripting, so a statement like <code>[dictionary setObject:@3 forKey:key]</code> becomes <code>dictionary[key] = @3</code>.</p></li></ul></dd></dl><p>To use the modern Objective-C converter, choose Edit &gt; Refactor &gt; Convert to Modern Objective-C Syntax.</p></section>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../RevisionHistory.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-10-16</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

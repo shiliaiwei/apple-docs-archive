@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1173: Text Encodings in VFS</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001705">
+    <meta id="document-version" name="document-version" content="3.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10001705-CH1">
+    <meta id="date" name="date" content="2011-09-30">
+    <meta id="description" name="description" content="QA1173: Explains how to handle text encodings correctly when writing a file system (VFS) plug-in for Mac OS X.">
+    <meta id="book-title" name="book-title" content="Text Encodings in VFS">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core OS Layer/System}, {Topic/Data Management/File Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1173">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Text Encodings in VFS" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10001705" title="Technical Q&amp;A QA1173"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Text Encodings in VFS</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10001705-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1173"></a><div class="dtsDocNumber">Technical Q&amp;A QA1173</div><h1 id="pageTitle">Text Encodings in VFS</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I'm writing a file system (VFS) plug-in for Mac OS X. How do I handle text encodings correctly?
+</h2><p><span>A: </span>The lowest levels of Mac OS X—which includes both the POSIX-level API and the VFS plug-in KPI—treat file names as UTF-8 encoded Unicode strings. This raises a number of interesting issues.</p><section><a name="//apple_ref/doc/uid/DTS10001705-CH1-SECCOMPOSED" title="Precomposed versus Decomposed"></a><h2 class="jump">Precomposed versus Decomposed</h2><p>This Q&amp;A assumes that you're familiar with the terms <strong>precomposed</strong> and <strong>decomposed</strong> Unicode. If that's not the case, there's a short explanation in <span class="content_text"><a href="/qa/qa2001/qa1235.html" class="urlLink" rel="external">Technical Q&amp;A QA1235, 'Converting to Precomposed Unicode'</a></span>.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10001705-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;The terms used in this Q&amp;A, precomposed and decomposed, roughly correspond to Unicode Normal Forms C and D, respectively. However, most volume formats do not follow the exact specification for these normal forms. For example, HFS Plus (Mac OS Extended) uses a variant of Normal Form D in which U+2000 through U+2FFF, U+F900 through U+FAFF, and U+2F800 through U+2FAFF are not decomposed (this avoids problems with round trip conversions from old Mac text encodings). It's likely that your volume format has similar oddities.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10001705-CH1-SECVOLUMEFORMAT" title="Volume Format"></a><h2 class="jump">Volume Format</h2><p>Your target volume format should define whether it uses precomposed or decomposed Unicode. For example, HFS Plus uses decomposed Unicode whereas UDF and SMB use precomposed Unicode.</p><p>Unfortunately, some volume formats (for example, NFS) have no accepted standard. This presents  additional challenges, which are covered below.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10001705-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;This Q&amp;A uses the term <strong>volume format</strong> to indicate either an on-disk volume format or a network protocol.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10001705-CH1-SECRETURN" title="Returning Names"></a><h2 class="jump">Returning Names</h2><p>When returning names to higher layers (for example, from your <code>readdir</code> vnode operation), you should return decomposed names. If your underlying volume format uses precomposed names, you should convert any precomposed characters to their decomposed equivalents before returning them to the system.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10001705-CH1-SECACCEPT" title="Accepting Names"></a><h2 class="jump">Accepting Names</h2><p>In most cases, high-level software will pass decomposed names to your file system. However, this is not guaranteed. There are a variety of circumstances (some discussed below) where your file system is passed precomposed names. Regardless of their incoming state, you should always convert names to the encoding scheme required by your underlying volume format. Thus, if your underlying volume format requires precomposed names, you should convert names to their precomposed variant before writing them to disk. Similarly, if your volume format requires decomposed names, you should decompose any precomposed characters.</p><p>This raises the question of what to do if your underlying volume format does not define a standard. There is no good solution here. You can choose to pass through names unchanged, which is what Apple's NFS implementation does, or provide some user interface for the user to choose (similar to the Encoding popup in the Finder's Get Info window for an original HFS (Mac OS Standard) volume). Either way the user experience will not be ideal.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10001705-CH1-SECIMPLEMENTATION" title="Implementation"></a><h2 class="jump">Implementation</h2><p>In user space it is easy to convert between precomposed and decomposed Unicode; see <span class="content_text"><a href="/qa/qa2001/qa1235.html" class="urlLink" rel="external">Technical Q&amp;A QA1235, 'Converting to Precomposed Unicode'</a></span> for more details on doing this. However, these APIs are not callable from inside the kernel, where your VFS plug-in resides. Fortunately, starting with Mac OS X 10.5 the kernel provides a KPI for manipulating Unicode. For details, see the various routines defined in <code>&lt;sys/utfconv.h&gt;</code>, including <code>utf8_normalizestr</code>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10001705-CH1-SECCOMPATIBILITYNOTES" title="Compatibility Notes"></a><h2 class="jump">Compatibility Notes</h2><p>In theory the techniques described above can cause compatibility problems for applications. For example, if an application creates a file using a precomposed name and then iterates through the directory looking for that file using a simple binary string comparison, it won't find the file. In practice this is rarely a problem. Don't forget that the primary file system, HFS Plus, works this way, so any program that's incompatible with your file system will also be incompatible with HFS Plus.</p><p>Most of Apple's built-in file systems use the techniques described above. Two notable exceptions are NFS and UFS. Of these, NFS is the most troublesome because NFS volumes can be shared with non-Mac clients that create files with precomposed characters in their names, and the Mac OS X NFS client does not decompose them before returning them to applications. If the user copies files from an NFS volume to your volume using a naive copy program (like the <code>cp</code> command line tool), the copy program will copy the files without decomposing the names. Thus your file system will by asked to create files with precomposed names. Your file system must be prepared to handle this, as described above.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10001705-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10001705-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2011-09-30</td><td><p>Updated to describe the latest techniques and, specifically, to recommend the use of the &lt;sys/utfconv.h&gt; KPIs.</p></td></tr><tr><td scope="row">2003-02-10</td><td><p>New document that 
+					explains how to handle text encodings correctly when writing a file system (VFS) plug-in for Mac OS X.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2011 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2011-09-30</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2307: QuickTime - Rendering in Y'CbCr</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40013083">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40013083-CH1">
+    <meta id="date" name="date" content="2012-07-01">
+    <meta id="description" name="description" content="TN2307: was originally published as Ice Floe Dispatch 27, "Letters from the Ice Floe" engineering documents.">
+    <meta id="book-title" name="book-title" content="QuickTime - Rendering in Y&#39;CbCr">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AVFoundation}, {Topic/Audio, Video, & Visual Effects/Video}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2307">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="QuickTime - Rendering in Y&#39;CbCr" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40013083" title="Technical Note TN2307"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>QuickTime - Rendering in Y&#39;CbCr</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40013083-CH1-DontLinkElementID_2" title="Technical Note TN2307"></a><div class="dtsDocNumber">Technical Note TN2307</div><h1 id="pageTitle">QuickTime - Rendering in Y'CbCr</h1><p>Originally published August 20th, 2000 as Ice Floe Dispatch 27, part of the "Letters from the Ice Floe" group of QuickTime engineering documents.</p><p>This note addresses improvements in performance and quality when rendering video (i.e., applying effects or processing the video) by using Y'CbCr color spaces as opposed to traditional use of RGB.</p><p>RGB is the native color space of QuickTime, so historically most video compressors and decompressors convert from their compressed format to and from RGB. However, many compression algorithms for video use an internal data format where the intensity (luma) and color (chroma) values are stored separately. Converting from these YUV color spaces to RGB on decompression and back on compression impacts performance and precision, and as well, can clip values that can be represented only in one of the two color spaces.</p><p>One of the most common formats of YUV color space used in the video domain is specified by Rec. ITU-R BT.601-4, often referred to as "Rec. 601.", which defines the Y'CbCr color space. This is the format used by standard television signals, and compressed material such as DV, MPEG or Motion-JPEG.</p><p>The range of the values in a channel for a Y'CbCr image is generally as follows:</p><a name="//apple_ref/doc/uid/DTS40013083-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Y': 16 to 235 recommended range.<span></span></pre></td></tr><tr><td scope="row"><pre>        (Values 0 and 255 are reserved by Rec. 601 for synchronization<span></span></pre></td></tr><tr><td scope="row"><pre>        purposes.)<span></span></pre></td></tr><tr><td scope="row"><pre>Cb: -112 to +112, offset by 128, for a recommended range of 16 to 240<span></span></pre></td></tr><tr><td scope="row"><pre>Cr: -112 to +112, offset by 128, for a recommended range of 16 to 240<span></span></pre></td></tr></table></div><p>However, note that the extremes of the coding range provide signal headroom (Poynton, p. 174). Also note that in some cases, cameras will generate values outside of the recommended range (DV camcorders generate out of range values particularly often). - more on this later.</p><p>Y'CbCr is most commonly referred to as having a 4:2:2 subsampling - this designation refers to the sampling rates of luma and chroma in the signal. It can also refer to the way the pixels are packed in a given pixel format. Note that a subsampled signal may be packed in a pixmap than can store more resolution. A signal subsampled at 4:1:1 (such as NTSC DV) could be stored in a 4:2:2 packed pixmap. Similarly, it might be stored in a 4:4:4 pixmap as well.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB" data-renderer-version="1">Conversion Errors between Y'CbCr and RGB</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB-ALIASING" data-renderer-version="1">Aliasing</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB-LUMA_CLAMPING" data-renderer-version="1">Luma Clamping</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB-CHROMA_CLAMPING" data-renderer-version="1">Chroma Clamping</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB-GAMMA_CORRECTION" data-renderer-version="1">Gamma Correction</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB-PREFERRED_Y_CBCR_PIXEL_FORMATS" data-renderer-version="1">Preferred Y'CbCr pixel formats</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013083-CH1-KNOWN_IMPLEMENTATION_ISSUES" data-renderer-version="1">Known Implementation Issues</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013083-CH1-REFERENCES" data-renderer-version="1">References</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013083-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB" title="Conversion Errors between Y'CbCr and RGB"></a><h2 class="jump">Conversion Errors between Y'CbCr and RGB</h2><section><a name="//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB-ALIASING" title="Aliasing"></a><h3 class="jump">Aliasing</h3><p>When converting between two different color spaces, even though the conversion process is designed to be symmetrical (repeated conversions cause no drift), aliasing occurs because the color spaces don't align for every pixel value. Therefore, there is an inherent loss converting from Y'CbCr to RGB and back.</p></section><section><a name="//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB-LUMA_CLAMPING" title="Luma Clamping"></a><h3 class="jump">Luma Clamping</h3><p>Computers define RGB black as 0 (per component) and white as 255. In order to maintain full black to white range in the RGB space, the color space conversion equations map the luma values that range from 16 to 235 to RGB values of 0 to 255 (C. Poynton, Eq. 9.11, pg. 177 or <span class="content_text"><a href="http://www.poynton.com/notes/colour_and_gamma/ColorFAQ.html" class="urlLink" rel="external">Poynton Color FAQ</a></span>).</p><p>Normally this is appropriate, but there are times when the luma value in a source image can be higher than the 'recommended' maximum value of 235. This is especially true of many DV camcorders, which routinely generate luma values in the range 236-254. In these cases, all of the values over 235 will be mapped to 255 in RGB, which causes a change in the actual intensity value. This is commonly known as 'luma clamping'.</p><p>An example of this would be a white chair in the sunlight, where the DV camcorder's Y'CbCr values might be (Y'=250,Cb=128,Cr=128). Using <span class="content_text"><a href="http://www.poynton.com/PDFs/coloureq.pdf" class="urlLink" rel="external">color space equations</a></span> to go to RGB, we get RGB values which are clamped to 255,255,255 (272,272,272 before clamping). When going back to Y'CbCr, the result would be (Y'=235,Cb=128,Cr=128), which would be noticeably darker than the original.</p></section><section><a name="//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB-CHROMA_CLAMPING" title="Chroma Clamping"></a><h3 class="jump">Chroma Clamping</h3><p>There are many Y'CbCr color values that map to RGB values greater than 255 or less than 0. This means that there are colors in YCbCr that cannot be represented in an RGB GWorld. These colors will be clamped to RGB values that are in the range 0-255, causing 'chroma clamping'.</p><p>An example of this would be a highly saturated color, such as (Y'=155,Cb=174,Cr=220). If this were mapped into RGB(255 [309 before clamping],69,255), and then back into Y'CbCr (Y'=141, Cb=182, Cr=196), a noticeable colorshift and darkening would be visible.</p><p>Both luma clamping and chroma clamping are due to the fact that the RGB color space is smaller than the Y'CbCr color space when using the formulas for converting between Y'CbCr and computer RGB.</p></section><section><a name="//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB-GAMMA_CORRECTION" title="Gamma Correction"></a><h3 class="jump">Gamma Correction</h3><p>GWorlds on the Macintosh are traditionally represented as gamma 1.8 RGB buffers. Standard video systems are represented as having an effective gamma of 2.2. Codecs converting to and from RGB generally gamma correct to account for the different effective gammas. This conversion is a lossy process, however, so preserving the rendered buffers at gamma 2.2 is desired.</p></section><section><a name="//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB-PREFERRED_Y_CBCR_PIXEL_FORMATS" title="Preferred Y'CbCr pixel formats"></a><h3 class="jump">Preferred Y'CbCr pixel formats</h3><p>By processing the render buffers in Y'CbCr, the above aliasing and clamping problems are avoided, and additionally, since the compressed format is natively Y'CbCr, the expensive conversions to and from RGB can be avoided.</p><section><a name="//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB_PREFERRED_Y_CBCR_PIXEL_FORMATS-2VUY" title="2vuy"></a><h4 class="jump">2vuy</h4><p>The pixel format '2vuy' (k2vuyPixelFormat) is the standard recommended format for interchange in the Y'CbCr domain. '2vuy' follows the Rec. 601 component ranges. It does have certain restrictions: '2vuy' is a 4:2:2 format, which means that a pair of luma values share the same chroma values. This has the advantage that storage is smaller, but it is difficult for video processing, since pixel pairs share the same chroma values, so the processing of each individual pixel is no longer independent. Additionally, the pixel format stores two luma for every chroma pair, so it isn't a good format if the data is not also subsampled (e.g., 4:2:2 or 4:1:1 would be good, 4:4:4 would be bad). This is recommended as a storage format.</p></section><section><a name="//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB_PREFERRED_Y_CBCR_PIXEL_FORMATS-_V308__AND__V408_" title="'v308' and 'v408'"></a><h4 class="jump">'v308' and 'v408'</h4><p>These pixel formats (k444YpCbCr8CodecType and k4444YpCbCrA8CodecType) use the same color space as '2vuy', so they also have the same Y'CbCr advantages. However, they are both 4:4:4 sampling, so they are more appropriate for video processing. 'v408' is similar to 'v308' except that it has an additional Alpha channel, with the same range as the Y' component: "maximum alpha" corresponds to "white" in the Y channel, and is therefore at value 235; "minimum alpha" corresponds to "black" in the Y channel, and is therefore at value 16. These are recommended as storage formats as well.</p></section><section><a name="//apple_ref/doc/uid/DTS40013083-CH1-CONVERSION_ERRORS_BETWEEN_Y_CBCR_AND_RGB_PREFERRED_Y_CBCR_PIXEL_FORMATS-_R408_" title="'r408'"></a><h4 class="jump">'r408'</h4><p>Apple has defined a new pixel format, 'r408' (k4444YpCbCrA8RCodecType), which is friendly to applications that render in ARGB formats, but want to take advantage of the Y'CbCr color space. Its advantages over the other Y'CbCr color spaces are as follows:</p><ul class="ul"><li class="li"><p>It is 4:4:4:4, which means that components are NOT shared across pixels.</p></li><li class="li"><p>Alpha ranges from 0-255, the same range as in ARGB.</p></li><li class="li"><p>It is packed AY'CbCr. This allows many image processing routines to be run unaltered on Y'CbCr data. This includes any image processing which does pixel sampling, and most algorithms which do not perform color specific processing.</p></li><li class="li"><p>The luma value (Y') is biased so that black is 0, rather than 16. Recommended ranges for luma are therefore 0 to 219 rather than 16-235. The headroom above 235 is preserved, but the footroom is lost. This compromise is worth it because now operations on luma only can be done easily without having to offset the black point for each pixel. This is again for performance and for easier porting of existing ARGB rendering code.</p></li></ul><p>'r408' is intended as a rendering format, not a storage format. Some additional notes: 1) When decompressing material to the 'r408' format, codecs are required to fill in the alpha channel during decompression, filling with 255 (opaque) if no specific value is available. 2) Compressors must clamp input 'r408' luma values, since the stored ranges may exceed the allowable Y'CbCr luma range (1-254). Following the mapping equations, 'r408' Y' values over 238 must be clamped. 3) The gamma of an 'r408' buffer is normally 2.2. Recommendations It is recommended that all codecs that operate on Y'CbCr data be updated to support 'r408' in order to allow applications to perform the most accurate image processing.</p><p>Some codecs may also want to support the 'v408' color space because 'v408' allows for the proper encoding of images with 'super-black' values (i.e. color bars). Codecs that support 'v408' will allow applications to generate a true pluge for their color bars.</p><p>Codec writers will want to add the new pixel formats to their 'wanted pixel format list', detect them in BeginBand and implement the proper storage in DrawBand. Codecs should also advertise the supported formats in the 'cpix' resource.</p><p>Applications will likely want to present user interfaces which allow selection of the desired 'white level' for graphics. "White" would equate to a Y' value of 235, and "Super White" would equate to a Y' value of 254. The application would use this information to determine whether to map an imported RGB graphic's RGB(255,255,255) into a Y'CbCr "white" (235 [or 219 in 'r408']) or "super white" (254 [or 238 in 'r408']).</p><p>Applications can determine the capabilities for compressing to and from Y'CbCr by querying the component for its 'cpix' resource and examining the contents for the desired fourCC.</p></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013083-CH1-KNOWN_IMPLEMENTATION_ISSUES" title="Known Implementation Issues"></a><h2 class="jump">Known Implementation Issues</h2><ul class="ul"><li class="li"><p>The Apple software DV compressor shipped in QuickTime 4.1.2 does not clamp r408 luma values to 238.</p></li><li class="li"><p>The Apple software DV compressor can gamma correct RGB input images to 2.2, but not Y'CbCr input images. No error is returned for Y'CbCr images which are not gamma 2.2</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013083-CH1-REFERENCES" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p>Poynton, Charles. A Technical Introduction to Digital Video, (John Wiley &amp; Sons, New York, 1996).</p></li><li class="li"><p>Poynton, Charles. <span class="content_text"><a href="http://www.poynton.com/notes/colour_and_gamma/ColorFAQ.html" class="urlLink" rel="external">The Color FAQ</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40013083-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40013083-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2013-02-04</td><td><p>New document that 
+					was originally published as Ice Floe Dispatch 27, "Letters from the Ice Floe" engineering documents.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-07-01</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

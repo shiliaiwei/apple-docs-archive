@@ -1,0 +1,556 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Setting and Restoring A5">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002608">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="OV10.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+
+
+
+
+
+
+<title>Technical Note OV10: Setting and Restoring A5</title>
+
+
+
+<meta name="keywords" content="Mac OS 8 SetCurrentA5 SetA5 SetupA5 RestoreA5 glue routines">
+<meta name="Description" content="Technical Note OV10: This Technical Note describes a pair
+of in-line glue routines (SetCurrentA5, SetA5) which have
+more functionality than SetupA5 and RestoreA5, without making
+assumptions about a compiler's stack handling. These routines
+are provided as a standard part of the MPW Pascal 3.0 and
+MPW C 3.0 packages, in the files OSUtils.p and OSUtils.h,
+respectively.">                                       
+
+
+
+
+<meta name="categories" content="Overview">
+
+
+<meta name="week-posted" content="Aug 1, 1988 - Aug 5, 1988">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002608" title="Setting and Restoring A5"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Setting and Restoring A5</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxMacOS9Earlier-date.html">Mac OS 9 & Earlier</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/index.html" target="_blank">Reference Library</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note OV10</div>
+<div id="pageheadsub">Setting and Restoring A5</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                 
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+					<!-- begin_toc -->
+					
+					<p id="menutext">
+<a href="#Section1">Introduction</a><br><br>
+<a href="#Section2">The Old Way</a><br><br>
+<a href="#Section3">The New, Totally Cool Way</a><br><br>
+<a href="#Section4">The Interfaces</a><br><br>
+<a href="#Section5">A Special Note</a><br><br>
+<a href="#References">References</a><br><br>	
+ <a href="#Downloads">Downloadables</a></P>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+<!-- begin_intro_text -->
+<P id = "introtext">The routines <code>SetupA5</code> and <code>RestoreA5</code> do not work properly when
+used with some optimizing Pascal and C compilers.  Two new routines, <code>SetCurrentA5</code> 
+and <code>SetA5</code>, are available in MPW 3.0, and they should work with any compiler.</p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3 align=center>[Aug 01 1988]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+
+          <!-- begin_content -->
+        <a NAME=Section1></a>
+<h2>Introduction</h2>
+
+
+<p>The in-line glue routines <code>SetupA5</code> and <code>RestoreA5</code> are often
+used by completion routines, VBL tasks, and interrupt handlers written in C and
+Pascal to gain access to an application's global variables.  Unfortunately,
+these routines play fast and loose with the stack pointer.</p>
+
+<p>Newer, more sophisticated, optimizing compilers (e.g., MPW C 3.0) will often
+leave function parameters on the stack across multiple function calls, removing
+the arguments for several functions with a single instruction.  This significantly 
+reduces code size and execution time, at the expense of a small amount of additional 
+stack usage.  As a side effect, this optimization breaks the <code>SetupA5</code> 
+and <code>RestoreA5</code> glue.</p>
+
+<p>This Technical Note describes a pair of in-line glue routines which have more
+functionality than <code>SetupA5</code> and <code>RestoreA5</code>, without making
+assumptions about a compiler's stack handling.  These routines are provided as
+a standard part of the MPW Pascal 3.0 and MPW C 3.0 packages, in the files
+OSUtils.p and OSUtils.h, respectively.</p>
+ <P><a href="#top">Back to top</a></P>
+<a name="Section2"></a><h2>The Old Way</h2>
+
+<p>The in-line code for <code>SetupA5</code> was:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    MOVE.L    A5,-(A7)    ; leave old A5 on stack: Danger Will Robinson!
+    MOVE.L    CurrentA5,A5    ; set current A5
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<p>The in-line code for <code>RestoreA5</code> was:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre></pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<p>The problem is that <code>SetupA5</code> leaves the old value of <code>A5</code> on the
+stack, and <code>RestoreA5</code> assumes that the stack pointer is still valid. If the programmer 
+mistakenly calls <code>RestoreA5</code> within a called subroutine, the value that is popped 
+off the stack and stored in <code>A5</code> will be garbage.  Of course, the "garbage" 
+could be something moderately useful, like a return address.</p>
+ <P><a href="#top">Back to top</a></P>
+ 
+<a name="Section3"></a>
+<h2>The New, Totally Cool Way</h2>
+
+<p>The solution to this distressing problem is provided by two new functions in
+the MPW 3.0 libraries, <code>SetCurrentA5</code> and <code>SetA5</code>.  The idea behind using 
+these two routines is to get the application's <code>A5</code>, pass it to some interrupt routine, 
+which will use some globals, and then restore it to the original <code>A5</code>.  Before you can call 
+<code>SetA5</code>, you'll have to have the application's real <code>A5</code>.  This is obtained 
+by calling <code>SetCurrentA5</code> at non-interrupt time.  Here's how it should work.</p>
+
+<p>An application is about to create an interrupt routine such as a VBL task, or a
+completion routine to be called from some asynchronous operation.  To get the
+current <code>A5</code>, the application will use:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre></pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<p>This call performs two functions.  It will get the application's <code>A5</code>,
+save it in a variable, and set <code>A5</code> to the application's low memory global, 
+<code>CurrentA5</code>. The application will pass the result of <code>SetCurrentA5</code> 
+to the interrupt routine.</p>
+
+<p>The first instruction that the interrupt routine executes is to set 
+<code>A5</code> to the application's <code>A5</code>.  To do this the interrupt routine calls:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    oldA5:= SetA5(ourA5);        {set A5 to the app's real A5}
+                        {perform the interrupt task}
+    ignoreResult:= SetA5(oldA5);    {restore A5 to the original A5}
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<p>The call to <code>SetA5</code> performs two tasks.  It will set <code>A5</code> to the
+address specified and return the actual address in <code>A5</code>.  You'll use the original <code>A5</code> 
+address to call <code>SetA5</code> when the interrupt routine is about to exit. This action will restore 
+<code>A5</code>.  It's also a good idea to read M.TB.MultifinderMisc, which demonstrates 
+this technique in detail.</p>
+
+ <P><a href="#top">Back to top</a></P>
+ <a name="Section4"></a>
+<h2>The Interfaces</h2>
+
+<p>The interfaces for <code>SetCurrentA5</code> and <code>SetA5</code>, along with their
+corresponding implementation as subroutine calls is:</p>
+
+<h3>MPW Pascal</h3>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    FUNCTION SetCurrentA5 : LongInt;
+        INLINE $2E8D, $2A78, $0904;
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    FUNCTION SetA5 (newA5 : LongInt) : LongInt;
+        INLINE $2F4D, $0004, $2A5F;
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h3>MPW C</h3>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    pascal long SetCurrentA5(void);
+        { 0x2E8D, 0x2A78, 0x0904 };
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    pascal long SetA5 (long newA5) =
+        { 0x2F4D, 0x0004, 0x2A5F };
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<h3>Assembly Language</h3>
+
+<p>The following assembly-language version is for those of you who are not using a
+compiler capable of handling multiple word in-line functions, such as MPW C 2.0.2.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>SetCurrentA5    MOVE.L    A5,4(A7)    ; store old A5 as function result
+    MOVE.L    currentA5,A5    ; set A5 to low memory global
+    RTS
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>SetA5    MOVE.L    (A7)+,A0    ; save return address
+    MOVE.L    A5,4(A7)    ; store old A5 as function result
+    MOVE.L    (A7)+,A5    ; set A5 to passed value
+    JMP    (A0)
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+ <P><a href="#top">Back to top</a></P>
+ <a name="Section5"></a>
+<h2>A Special Note</h2>
+
+<p>Many optimizing compilers, including the MPW C and Pascal compilers, may put the address 
+of a global variable (i.e., a large array or record) into a register <b>before</b> your call to 
+<code>SetCurrentA5</code> or <code>SetA5</code>. If this happens, incorrect references to your global 
+data may be generated. To avoid this problem, you can divide your completion routine into 
+two separate routines:  one to set up and restore <code>A5</code> and one to do the actual
+completion work.  Refer to M.TB.MultifinderMisc and the following code sample for 
+getting the application's <code>A5</code> while in an interrupt routine. 
+The routines below will be called at interrupt time and must all 
+be in the same code segment; otherwise, jump table references, 
+which use <code>A5,</code> are required.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    void DoCompletionRoutine(ParmBlkPtr pb, OSErr result)
+    {
+        aGlobal = -1;                    /* do some work        */
+    }
+
+    pascal void MyCompletionRoutine
+    /* This is the actual completion routine that will be called.            */
+    /* There are two assembly routines not shown, GetOurA5 and            */
+    /* GetPBPtr.  The application's A5 had been saved in front of            */
+    /* the ParmBlk, which is pointed to in A0.  The assembly                */
+    /* routine GetOurA5 obtains A5 that was stored in front of the pb        */
+    /* by the application.  This technique is used in M.TB.MultifinderMisc.        */
+    /* All of these routines must be within the same code segment.            */
+    {
+        long oldA5;
+
+        oldA5 = SetA5(GetOurA5);            /* set to our A5         */
+        DoCompletionRoutine(GetPBPtr,result);    /* pbPtr is in A0        */
+        (void) SetA5(oldA5);                /* restore previous A5    */
+    }
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<p>We recommend that you switch over to the new routines as soon as possible, no
+matter what development system you use.</p>
+ <P><a href="#top">Back to top</a></P>
+<a name="References"></a>
+<h2>References</h2>
+
+
+<p><i>Inside Macintosh</i>, Volume V-1, Compatibility Guidelines</p>
+<p><a HREF = "../pt/pt_13.html">M.PT.Customs</a></p>
+<p><a HREF = "../tb/tb_35.html">M.TB.MultifinderMisc</a></p>
+
+
+
+ <P><a href="#top">Back to top</a></P>
+         <P><a NAME=Downloads></a></P>
+         
+         <H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (48K).</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/ov_10.pdf">Download</a></P>
+               </TD>
+            </TR>
+           
+         </table>
+         <BR>
+</TD></TR></table></center>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

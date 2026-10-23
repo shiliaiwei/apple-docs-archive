@@ -1,0 +1,656 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<HTML>
+<!-- Template 03-24-01 -->
+<!--Includes revisions to code listings-->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="On Multiple Inheritance &amp; HandleObjects">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002851">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1009.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="Xcode Developer Tools">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+<title>Technical Note TN1009: On Multiple Inheritance &amp; HandleObjects</title>
+
+    <meta name="keywords" content="Mac OS 8 MPW C++ multiple inheritance handle objects vtables">
+    <meta name="Description" content="Technical Note TN1009: This Technical Note  provides a brief
+overview of how multiple inheritance is implemented in MPW
+C++. Included is an explanation of HandleObjects, how they
+are used, and the restrictions for use of a HandleObject
+in a program.">
+
+
+<meta name="categories" content="Platforms and Tools">
+
+
+<meta name="week-posted" content="Sep 25, 1995 - Oct 6, 1995">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002851" title="On Multiple Inheritance & HandleObjects"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>On Multiple Inheritance & HandleObjects</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxTools-date.html">Tools</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Java/idxTools-date.html" target="_blank">Reference Library > Tools</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1009</div>
+<div id="pageheadsub">On Multiple Inheritance &amp; HandleObjects</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+         
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                        <span id="menutitle">
+                            CONTENTS 
+                            <BR>
+                            <BR>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+					<!-- begin_toc -->
+<p id="menutext">
+<a HREF = "#RTFToC1">About HandleObjects</a><br><br>
+<a HREF = "#RTFToC2">Using HandleObjects</a><br><br>
+<a HREF = "#RTFToC3">Managing Many Handles</a><br><br>
+<a HREF = "#Summary">Summary</a><br><br>
+ <a href="#References">References</a><br><br>
+<a href="#Downloads">Downloadables</a></P>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+ 
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+<!-- begin_intro_text -->
+
+
+<P id = "introtext">
+This Technote answers a common question about MPW C++: 
+Why doesn't <code>HandleObject</code> support multiple inheritance? 
+To answer that question, this Note provides a brief overview of how multiple 
+inheritance is implemented in MPW C++.</p>
+
+<P id = "introtext">
+This Technote is addressed primarily to C++ developers who are concerned about memory fragmentation.</p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3 align=center>&nbsp;[Oct 1 1995]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+                  
+ <!-- begin_content -->
+
+<a name="RTFToC1"></a>
+<h2>About HandleObjects</h2>
+
+<P>
+Beginning with Version 3.0, MacApp switched the focus of its object memory management from a handle-based system to a pointer-based system. This change substantially improved execution speed, specifically because pointer-based objects avoid compaction delays.</p>
+
+<P>
+Accordingly, Apple recommends using <code>malloc</code> or the standard <code>operator new</code> for allocating small objects.</p>
+
+<P>
+For large objects, handles have some significant advantages. For one thing, they minimize RAM usage by avoiding fragmentation. Also, some developers need to continue using handles in their existing code.</p>
+
+<h3>Handles under Future Versions of Mac OS</h3>
+
+<P>
+Plans for future versions of Mac OS call for handles to become less
+important. An improved implementation of virtual memory (VM) will 
+alleviate the effects of fragmentation for objects larger than the size 
+of a VM page (4K bytes) while increasing the duration of heap compaction 
+due to page-swapping between disk and RAM.</p>
+
+
+<BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+The items called "vtable" in this Technote are actually pointers to the vtable, which resides elsewhere in memory. 
+The more recent reference <cite>The Annotated C++ Reference Manual</cite> uses the term "vptr".</P>
+</TD></TR></table></CENTER><BR>
+
+
+<a name="RTFToC2"></a>
+<h2>Using HandleObjects </h2>
+
+<P>
+MPW C++ contains several extensions to standard C++ for supporting Macintosh programming. One such extension is the built-in class <code>HandleObject</code>. Objects of any class descended from <code>HandleObject</code> are allocated as handles in the heap. Your program may refer to one of these objects as if it were a simple pointer; the compiler takes care of the extra dereference required.</p>
+
+<P>
+A <code>HandleObject</code> is useful in Macintosh programming for the same reason that a handle is useful. The use of handles helps prevent heap fragmentation, which is critical on Macintosh computers that use small amounts of memory. If you need to write an app that is small -- i.e., less than 100K -- you need to consider using <code>HandleObjects</code>.</p>
+
+<P>
+The nature of <code>HandleObject</code> imposes some restrictions, however, on how you can use it in a program. These restrictions include:</p>
+
+<ul>
+
+<li>heap allocation</li>
+
+<li>handle manipulation </li>
+
+<li>multiple inheritance.</li>
+</ul>
+
+<h3>Heap Allocation</h3>
+
+
+<P>Because each object is allocated as a handle, all objects must be allocated on the heap. ("Native" C++ objects can be allocated on the stack or in the static space as well.) Consequently, you always declare variables and parameters as pointers to an object of the class. For example:</p>
+
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>class TSample: public HandleObject {
+public:
+    ...
+    long  fData;
+};
+
+TSample  *aSampleObject; // Legal
+TSample anotherSample; // Results in a compile-time error
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<P>
+The error message the compiler generates in this case is:</p>
+
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+Can't declare a handle/pascal object: anotherSample
+
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<P>
+At first, this message might seem strange because the last two lines seem to both declare objects. Actually, the first declaration is of a pointer to an object, not of the object itself.</p>
+
+
+<h3>Handle Manipulation</h3>
+
+<P>
+The second restriction is that you must follow the usual rules for manipulating handles. In particular, you have to be careful about creating pointers to <code>HandleObject</code> data members, since the object might move if the heap is compacted. If you write:</p>
+
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>long *x = &amp; (aSampleObject -&gt; fData);
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<P>
+then x becomes "stale," i.e., it has a valid address but doesn't point to where the programmer intends, if the object moves. The solution is to lock the object if there is a possibility that the heap may be compacted. Objects of <code>HandleObject</code> are allocated with a call to <code>NewHandle</code>, so you can use <code>HLock</code> and <code>HUnlock</code> (along with an appropriate type cast) to lock and unlock the object.</p>
+
+
+<h3>Multiple Inheritance</h3>
+<P>
+The third restriction is that you cannot use multiple inheritance with a <code>HandleObject</code>. The reason behind this restriction is not obvious. To understand the reason, you must look at the implementation of multiple inheritance.</p>
+
+
+<h4>Implementing Multiple Inheritance</h4>
+
+
+<P>To understand how multiple inheritance is implemented, one needs a simple example. Suppose you define two classes as follows:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>class TBaseA {
+public:
+    virtual void SetVarA(long newValue);
+            long fVarA;
+    ...
+};
+
+class TBaseB {
+public:
+    virtual void SetVarB(long newValue);
+            long fVarB;
+    ...
+};
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+
+<P>If you were to look at objects of these classes (see Figure 1), you would find that in each case the object storage would contain four bytes for the C++ virtual table (<code>vtable</code>) and four bytes for the data member. Any code that accesses the data members (for example, <code>TBaseB::SetVarB</code>) would do so using a fixed offset from the start of the object. (In the particular version of C++, this offset was 0; your offset may vary.) Figure 1 shows the layout of <code>TBaseA</code> and <code>TBaseB</code> objects.</p>
+
+
+<CENTER><table BORDER=0 ALIGN=CENTER CELLPADDING=0>
+<TR>
+<td width=200 valign=top align=left>
+<img src="images/tn1009_003.gif" alt="" width=127 height=100>
+</td>
+<td width=200 valign=top align=left>
+<img src="images/tn1009_004.gif" alt="" width=127 height=100> </td>
+</tr>
+</table>
+</center>
+
+<CENTER><P><B>
+Figure 1.</b> Layout of TBaseA and TBaseB objects</p>
+</center>
+
+
+<P>Now suppose you define another class:</p>
+
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>class TDerived: public TBaseA, public TBaseB {
+public:
+    virtual void SetDerivedVar(long newValue);
+            long fDerivedVar;
+    ...
+};
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+
+<P>In this case, an object of <code>TDerived</code> has the following layout, as shown in Figure 2:</p>
+
+<CENTER><img src="images/tn1009_005.gif" alt="" width=148 height=208><br>
+<P><b>Figure 2.</b> Layout of TDerived object</p></center>
+
+
+<P>This is what you would expect. <code>TDerived</code> inherits from both <code>TBaseA</code> and <code>TBaseB</code>, and therefore objects of <code>TDerived</code> contain a part that is a <code>TBaseA</code> and a part that is a <code>TBaseB</code>. In addition, the virtual table <code>vtableDerived</code> includes the tables for both <code>TBaseA</code> and <code>TDerived</code>.</p>
+
+
+<P><code>TDerived</code> also inherits the virtual member functions defined in <code>TBaseA</code> and <code>TBaseB</code>. Suppose you wanted to call <code>SetVarB</code>, using a <code>TDerived</code> object. The code for <code>SetVarB</code> expects to be passed a pointer to a <code>TBaseB</code> object (all member functions are passed a pointer to an appropriate object as an implicit parameter), and refers to <code>fVarB</code> by a fixed offset from that pointer. Therefore, to call <code>SetVarB</code> using a <code>TDerived</code> object, C++ passes a pointer to the middle of the object; specifically it passes a pointer to the part of the object that represents a <code>TBaseB</code>.</p>
+
+
+<P>This gives you a very basic idea of how C++ implements multiple inheritance. For more details, read "Multiple Inheritance for C++" by Bjarne 
+Stroustrup in <cite>Proceedings EUUG Spring 1987 Conference</cite>, Helsinki.</p>
+
+
+<h4>Impact on HandleObjects</h4>
+
+
+<P>Each member function of a <code>HandleObject</code> class expects to be passed a handle to the object, instead of a pointer; when multiple inheritance is used, the compiler sometimes has to pass a pointer to the middle of the object.</p>
+
+
+<P>Pointers into the middle of an object, even though (and especially because) they are implicit in this case, nevertheless present the same problem as pointers to object data members (as described earlier). The object's handle could be moved during heap compaction, rendering the pointer "stale."</p>
+
+
+<P>Designing a new implementation of multiple inheritance that is compatible with a <code>HandleObject</code>, as well as the rest of C++, is a big undertaking. For that reason, it is unlikely this restriction will disappear in the future. There are, however, two alternatives to consider:</p>
+
+
+<h5>Ignore Fragmentation</h5>
+
+
+<P>For the majority of today's machines and applications, the main reason to use <code>HandleObject</code> is for purposes of compatibility with code that expects handle objects. However, another valid reason is to reduce the chance of fragmentation that would result from using non-relocatable blocks.</p>
+
+
+<P>But even in applications for which fragmentation would otherwise be a critical concern, memory allocation patterns may be very predictable; fragmentation is less of an issue when all allocated blocks are of similar sizes.</p>
+
+
+<h5>Abandoning Multiple Inheritance</h5>
+
+
+<P>The other alternative is to give up multiple inheritance. In most cases, this isn't as difficult as it sounds. The typical way you would do this is with a form of delegation. For example, you could rewrite the class <code>TDerived</code> as:</p>
+
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>class TSingleDerived: public TBaseA {
+public:
+    virtual void SetDerivedVar(long newValue);
+            void SetBaseB(long newValue);
+            long fDerivedVar;
+            TBaseB fBaseBPart;
+    ...
+};
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+
+<P>In this case <code>TSingleDerived</code> inherits only from <code>TBaseA</code>, but includes an object of <code>TBaseB</code> as an data member. It also implements the virtual member function <code>SetBaseB</code> to call the function by the same name in the <code>TBaseB</code> class. (In effect, <code>TSingleDerived</code> delegates part of its implementation to <code>TBaseB</code>.) </p>
+
+
+<P>There are advantages and disadvantages to this approach. The advantage is that it requires only single inheritance, yet you can still reuse the implementation of <code>TBaseB</code>. The disadvantage is that <code>TSingleDerived</code> is not a sub-class of <code>TBaseB</code>, which means that an object of <code>TSingleDerived</code> cannot be used in a situation that requires a <code>TBaseB</code>. Also, <code>TSingleDerived</code> has to define a member function that corresponds to each function in <code>TBaseB</code>. (You can, however, define these functions as inline and non-virtual, which eliminates any run-time overhead.)</p>
+
+
+<h4>Caveat</h4>
+
+<p>You should realize that the multiple inheritance implementation described here costs some extra space, compared to a simpler implementation that does not support multiple inheritance (e.g., the implementation used for a <code>HandleObject</code>). Each <code>vtable</code> is twice as large, and each virtual member function takes about 24 bytes, compared to 14. This is true even if you do not take advantage of multiple inheritance. For this reason, MPW C++ also contains a built-in class called <code>SingleObject</code>, whose objects can be allocated in the same way as normal C++ objects, but which only supports single inheritance.</p>
+
+<BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+The third class built into MPW C++, <code>PascalObject</code>, uses Object Pascal's run-time implementation, which 
+takes the least amount of space, but the most execution time.</P>
+</TD></TR></table></CENTER><BR>
+
+<a name="RTFToC3"></a>
+<h2>Managing Many Handles</h2>
+
+
+<p>If you're writing large, high-end applications, you may need to manage thousands of objects. The Macintosh Memory Managers slow down when required to deal with so many handles. If you're dealing with many handles, here are some important points to keep in mind:</p>
+
+<ul>
+<li>Keep the objects locked except just after calling <code>WaitNextEvent</code>. Then, if some predetermined amount of time (perhaps one minute, for example) has elapsed since the user interacted with the application, unlock everything and compact the heap.</li>
+
+
+<li>When you compact the heap, do it incrementally, i.e., do a little bit of compaction, then check to see if you have used up more than 50,000 microseconds in the process. When you have used up that much time, call <code>EventAvail</code> to check if there is now an event that needs processing. If such an event has arrived, return to your main event loop to process it.</li>
+
+<li>Because the Modern Memory Manager's <code>CompactMem</code> routine really compacts the entire application heap even if you ask it to compact just a little bit of it, use <code>NewPtr</code> instead. Ask for a moderate-sized block (e.g. "<code>NewPtr(40000)</code>"), and check the time to see if you need to call <code>EventAvail</code>. Then ask for another block.</li>
+
+
+
+<li>After compacting memory with <code>NewPtr</code>, dispose of the compaction pointers, and lock your handles. </li>
+
+
+
+<li>When you can't allocate a pointer, you're done.</li>
+
+
+</ul>
+
+
+<P>This approach will cause purgeable handles to get purged, so if you don't want that to happen, create and manage a list of purgeable handles. Call <code>HNoPurge</code> on this list prior to a <code>NewPtr</code>-based compaction, then call <code>HPurge</code> on it after the compaction.</p>
+
+<a name="Summary"></a>
+<h2>Summary</h2>
+
+<P>
+You cannot use a <code>HandleObject</code> with multiple inheritance because of the way multiple inheritance is implemented in MPW C++. Your alternatives are to give up one or the other: You can either use native C++ objects and let the objects fall where they may, or give up multiple inheritance and use a form of delegation.</p>
+
+<a NAME="References"></a>
+<H2>References</h2>
+
+<p>MPW C++ Reference Manual</p>
+
+<p>"Multiple Inheritance for C++," Bjarne Stroustrup, <cite>Proceedings EUUG Spring 1987 Conference</cite>, Helsinki.</p>
+
+<p>Ellis, Margaret A. and Bjarne Stroustrup, <cite>The Annotated C++ Reference Manual</cite>, (a.k.a "<cite>ARM</cite>"), Addison-Wesley, 1990, ISBN 0-201-51459-1, pp.217-237</p>
+
+
+<a name="Changes"></a>
+<H2>Change History</h2>
+
+<table BORDER=0 CELLPADDING=3 WIDTH=544>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-August-1990</P>
+               </TD>
+               <td align="left">
+                  <P>Originally written.</P>
+               </TD>
+            </TR>
+<TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-July-1995</P>
+               </TD>
+               <td align="left">
+                  <P>Revised to include information on managing multiple handles.</P>
+               </TD>
+            </TR>
+<TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-October-1995</P>
+               </TD>
+               <td align="left">
+                  <P>Updated with new information, then retired.</P>
+               </TD>
+            </TR>
+</table><BR>
+
+
+
+<P><a href="#top">Back to top</a></P>
+         
+         
+         <a NAME=Downloads></a>
+         
+         <H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (92K)</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/tn1009.pdf">Download</a></P>
+               </TD>
+            </TR>
+         </table>
+         <BR><BR>
+<P><a href="#top">Back to top</a></P>
+</TD></TR></table></CENTER>
+<!-- end_content -->
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

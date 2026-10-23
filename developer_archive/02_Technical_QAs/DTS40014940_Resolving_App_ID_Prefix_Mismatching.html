@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1879: Resolving App ID Prefix Mismatching</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014940">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014940-CH1">
+    <meta id="date" name="date" content="2014-09-10">
+    <meta id="description" name="description" content="QA1879: walks through the process of diagnosing and resolving an App ID Prefix mismatch.">
+    <meta id="book-title" name="book-title" content="Resolving App ID Prefix Mismatching">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/Security}, {Topic/Languages & Utilities/Distribution Tools}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1879">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Resolving App ID Prefix Mismatching" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014940" title="Technical Q&amp;A QA1879"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Resolving App ID Prefix Mismatching</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014940-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1879"></a><div class="dtsDocNumber">Technical Q&amp;A QA1879</div><h1 id="pageTitle">Resolving App ID Prefix Mismatching</h1><h2>Q:&nbsp;
+How do I diagnose and resolve an App ID Prefix mismatch? 
+</h2><p><span>A: </span>The App ID Prefix on an app's signature must match the App ID Prefix in the app's embedded provisioning profile. An app whose prefix does not match across its signature and embedded profile will fail validation for submission and will also fail to install on testing or enterprise iOS devices. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40014940-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;App ID Prefix mismatches occur because the App ID Prefix is the only portion of the app's entitlements Xcode will not update while re-signing for distribution.</p><p></p></aside></div><p>This document shows how to diagnose and resolve an App ID Prefix mismatch. </p><section><a name="//apple_ref/doc/uid/DTS40014940-CH1-DIAGNOSIS" title="Diagnosis"></a><h2 class="jump">Diagnosis</h2><p>There are two code signing phases involved in distributing an app and the App ID Prefix of the Provisioning Profiles used in both phases must match. If they don't, it'll cause an App ID Prefix mismatch. The easiest way to satisfy the requirement is to make sure that the same profile is used in both phases. </p><p>An example App ID Prefix is shown below. It's the 10-character prefix of the App ID associated with the Provisioning Profile. So for App ID: </p><a name="//apple_ref/doc/uid/DTS40014940-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>A1B2C3D4E5.com.myCompany.myApp1<span></span></pre></td></tr></table></div><p>The App ID Prefix is:</p><a name="//apple_ref/doc/uid/DTS40014940-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>A1B2C3D4E5<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40014940-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;The App ID Prefix is sometimes equal to the Team ID, but it isn't always the case. See Cocoa Core Competancies &gt; <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/general/conceptual/DevPedia-CocoaCore/AppID.html" class="urlLink" rel="external">App ID</a></span> for more information about App IDs.</p><p></p></aside></div><p>To diagnose an App ID Prefix mismatch, you'll be comparing prefixes across two locations within the built app. Those locations are numbered below. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40014940-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;Diagnostics below must be performed on the .app file. Find your .app file located within an Xcode app archive using the steps in <span class="content_text"><a href="https://developer.apple.com/library/ios/technotes/tn2318/_index.html#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG68" class="urlLink" rel="external">How do I locate the .app file signed for distribution from within an application archive?</a></span></p><p></p></aside></div><ol class="ol"><li class="li"><p>Check the App ID Prefix on the app's signature using the steps in <span class="content_text"><a href="https://developer.apple.com/library/ios/technotes/tn2318/_index.html#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG33" class="urlLink" rel="external">How do I check the entitlements on my Application's Signature?</a></span>.</p><a name="//apple_ref/doc/uid/DTS40014940-CH1-SOURCECODE3" title="Listing 1Example entitlements on an app's signature."></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Example entitlements on an app's signature.</p><div class="codesample clear"><table><tr><td scope="row"><pre>$ codesign -d --entitlements :- ./Payload/myApp.app<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>Executable=./Payload/myApp.app/myApp<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;plist version="1.0"&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;application-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;string&gt;5E4D3C2B1A.com.myCompany.myApp1&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;com.apple.developer.team-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;string&gt;5E4D3C2B1A&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;get-task-allow&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;false/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;keychain-access-groups&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;string&gt;5E4D3C2B1A.com.myCompany.myApp1&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/plist&gt;<span></span></pre></td></tr></table></div></li><li class="li"><p>Check the App ID Prefix in the app’s embedded profile using the steps in: <span class="content_text"><a href="https://developer.apple.com/library/ios/technotes/tn2318/_index.html#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG65" class="urlLink" rel="external">How do I check the entitlements associated to my Provisioning Profile?</a></span> Use the steps in the second half of the section that talk about the app's embedded profile. </p><a name="//apple_ref/doc/uid/DTS40014940-CH1-SOURCECODE4" title="Listing 2Example entitlements associated to an app's embedded provisioning profile."></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Example entitlements associated to an app's embedded provisioning profile.</p><div class="codesample clear"><table><tr><td scope="row"><pre>$ security cms -D -i "./Payload/myApp.app/embedded.mobileprovision"<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;plist version="1.0"&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>   ...<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;key&gt;Entitlements&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;com.apple.developer.team-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;string&gt;5E4D3C2B1A&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;keychain-access-groups&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>      &lt;string&gt;A1B2C3D4E5.com.myCompany.*&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;application-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;string&gt;A1B2C3D4E5.com.myCompany.*&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;get-task-allow&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;false/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;/dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;key&gt;ExpirationDate&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;date&gt;2015-08-13T14:59:38Z&lt;/date&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;key&gt;Name&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;string&gt;Distribution Provisioning Profile&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;key&gt;TeamIdentifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;string&gt;5E4D3C2B1A&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;key&gt;TeamName&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;string&gt;Appleseed Corp.&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;key&gt;TimeToLive&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;integer&gt;364&lt;/integer&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;key&gt;UUID&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;string&gt;7156a539-3c66-41f5-a0b5-49c3456659d7&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;key&gt;Version&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>  &lt;integer&gt;1&lt;/integer&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/dict&gt;<span></span></pre></td></tr></table></div></li></ol><p>The mismatch in the above example can be seen by comparing the 10-character prefix of the <code>application-identifier</code> entitlement. This is the App ID Prefix. The prefix on the app's signature <code>5E4D3C2B1A</code> doesn't match the prefix on the app's embedded profile <code>A1B2C3D4E5</code>. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40014940-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;The “*” in the profile's <code>application-identifier</code> just indicates that the profile is associated to a Wildcard App ID. That means this profile is compatible with any Bundle ID suffix of an <code>application-identifier</code>. However, the prefix must match.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014940-CH1-RESOLUTION" title="Resolution"></a><h2 class="jump">Resolution</h2><p>There are two code signing phases involved in distributing an app and the App ID Prefix of both profiles used in those phases must match. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40014940-CH1-DontLinkElementID_7" title="Important"></a><p><strong>Important:</strong>&nbsp;If not, a mismatch occurs because the App ID Prefix is the only portion of the entitlements Xcode will not update while re-signing for distribution. </p><p></p></aside></div><p>The easiest way to satisfy this requirement is to use the same profile in both signing phases: </p><ol class="ol"><li class="li"><p>Open the Xcode project Target &gt; Build Settings, and expand the Code Signing Identity and Provisioning Profile build settings. Set “Any iOS SDK” to “iOS Distribution” for Release. </p></li><li class="li"><p>Set the Provisioning Profile build setting to your distribution provisioning profile. </p></li><li class="li"><p>Re-archive the app (via Xcode &gt; Product menu &gt; Archive). </p></li><li class="li"><p>Re-submit the app through the Xcode Organizer, and be sure to pick the same distribution profile to sign the submission. </p></li></ol><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40014940-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014940-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-09-10</td><td><p>New document that 
+					walks through the process of diagnosing and resolving an App ID Prefix mismatch. </p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-09-10</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

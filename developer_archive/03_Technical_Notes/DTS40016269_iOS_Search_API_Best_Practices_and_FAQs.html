@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2416: iOS Search API Best Practices and FAQs</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40016269">
+    <meta id="document-version" name="document-version" content="1.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40016269-CH1">
+    <meta id="date" name="date" content="2015-08-03">
+    <meta id="description" name="description" content="TN2416: Frequently asked questions and best practices related to iOS 9 Search APIs, including NSUserActivity additions, CoreSpotlight, and web markup.">
+    <meta id="book-title" name="book-title" content="iOS Search API Best Practices and FAQs">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Data Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2416">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="iOS Search API Best Practices and FAQs" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40016269" title="Technical Note TN2416"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>iOS Search API Best Practices and FAQs</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40016269-CH1-DontLinkElementID_2" title="Technical Note TN2416"></a><div class="dtsDocNumber">Technical Note TN2416</div><h1 id="pageTitle">iOS Search API Best Practices and FAQs</h1><p>Guidance for best practices, and answers to common questions related to integrating iOS Search APIs into apps and websites. </p><p>iOS 9 introduces a variety of APIs to enable indexing of user-generated content, features in your app, and public website content. This indexed content is then accessible to people in iOS 9 Search as well as from Safari. Content generally falls into one of two categories:</p><a name="//apple_ref/doc/uid/DTS40016269-CH1-TABLE1" title="Table 1Public versus Private"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Public versus Private</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Category
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Description
+</p></th></tr><tr><td  scope="row"><p>
+Private
+</p></td><td ><p>
+Private content is indexed directly by your app using the NSUserActivity or CoreSpotlight APIs. Your app can index content that the user has created (e.g. documents or messages), or points of interest in your app such as main views (e.g. Steps in the Health app). This content remains on the user's device and is only searchable locally.
+</p></td></tr><tr><td  scope="row"><p>
+Public
+</p></td><td ><p>
+Public content comes from your website. Apple uses a web crawler, called Applebot, to gather publicly available content that has been marked up using standard web markup techniques. This information is then presented to users when they use Search in iOS 9 or from Safari suggestions.
+</p></td></tr></table></div><p>We encourage all apps to implement NSUserActivity since it’s the best way to surface what users truly care about the most and improve your search result ranking. We also recommend marking activities as public whenever applicable since it will help you reach new users. Furthermore, implementing Web Markup is strongly recommended for any app with at least some mirrored content from the web. Finally, use CoreSpotlight to index any private information or user-generated content.</p><p>The following sections discuss various best practices for getting the best results from iOS Search, along with some frequently asked questions about integrating the APIs into your app. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_BEST_PRACTICES" data-renderer-version="1">Search Best Practices</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_BEST_PRACTICES-NSUSERACTIVITY_API" data-renderer-version="1">NSUserActivity API</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_BEST_PRACTICES-CORESPOTLIGHT_API" data-renderer-version="1">CoreSpotlight API</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_BEST_PRACTICES-WEB_MARKUP_API" data-renderer-version="1">Web Markup API</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ" data-renderer-version="1">Search API FAQ</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHAT_ARE_THE_BENEFITS_OF_USING_THE_VARIOUS_SEARCH_APIS_" data-renderer-version="1">What are the benefits of using the various search APIs?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHICH_IS_THE_RIGHT_API_FOR_ME_TO_USE_" data-renderer-version="1">Which is the right API for me to use?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHAT_CONTENT_SHOULD_I_INDEX_" data-renderer-version="1">What content should I index?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-I_DON___T_HAVE_A_PUBLICLY_ACCESSIBLE_WEBSITE__AND_MY_APP_HAS_THOUSANDS_OF_PUBLIC_ITEMS_THAT_USERS_CAN_BROWSE____HOW_SHOULD_I_GET_THEM_TO_BE_SEARCHABLE_" data-renderer-version="1">I don’t have a publicly accessible website, and my app has thousands of public items that users can browse.  How should I get them to be searchable?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-I_ADDED_CODE_TO_USE_THESE_APIS_BUT_MY_APP_IS_NOT_SHOWING_IN_THE_SEARCH_RESULTS___WHAT_SHOULD_I_DO_" data-renderer-version="1">I added code to use these APIs but my app is not showing in the search results.  What should I do?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-HOW_CAN_I_IMPROVE_MY_RANKING_" data-renderer-version="1">How can I improve my ranking?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-HOW_CAN_I_DEEP_LINK_FROM_MY_WEB_SITE_TO_MY_APP_" data-renderer-version="1">How can I deep link from my web site to my app?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHICH_OF_THE_SCHEMAS_ARE_SUPPORTED_FOR_WEB_MARKUP_" data-renderer-version="1">Which of the schemas are supported for Web Markup?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-HOW_CAN_I_ADD_ACTIONS_TO_MY_SEARCH_RESULTS_SUCH_AS_CALLING_OR_GETTING_DIRECTIONS_" data-renderer-version="1">How can I add actions to my search results such as calling or getting directions?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-HOW_IS_THE_PRIVACY_OF_MY_APP___S_USERS_PROTECTED_" data-renderer-version="1">How is the privacy of my app’s users protected?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHICH_DEVICES_ARE_THESE_APIS_SUPPORTED_ON_" data-renderer-version="1">Which devices are these APIs supported on?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-ARE_THESE_NEW_SEARCH_APIS_AVAILABLE_ON_OS_X_" data-renderer-version="1">Are these new Search APIs available on OS X?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHEN_DO_SEARCH_RESULTS_SHOW_UP_IN_SAFARI_" data-renderer-version="1">When do search results show up in Safari?</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40016269-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_BEST_PRACTICES" title="Search Best Practices"></a><h2 class="jump">Search Best Practices</h2><ul class="ul"><li class="li"><p>Drive interactions with your search result to improve ranking. Having rich search results is the best way to foster engagement. Include images, reviews, ratings and actions whenever possible. </p></li><li class="li"><p>When responding to search result engagement, go straight to the content in your app, avoid any mid-steps, splash-screens or interstitial views.</p></li><li class="li"><p>Speed matters. Time from tapping a search result to the content in your app is measured and used in ranking.</p></li><li class="li"><p>Always index user-generated content.</p></li><li class="li"><p>Use the same identifier when indexing the same item with multiple APIs in order to avoid duplicates and help your app rank higher. For example, if using all 3 APIs we recommend using the URL as the NSUserActivity’s <code>relatedUniqueIdentifier</code> and <code>webPageURL</code>, and the CoreSpotlight’s <code>uniqueIdentifier</code> on CSSearchableItem.</p></li></ul><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_BEST_PRACTICES-NSUSERACTIVITY_API" title="NSUserActivity API"></a><h3 class="jump">NSUserActivity API</h3><ul class="ul"><li class="li"><p>Use public activities if your app has public content to increase discoverability of your app.</p></li><li class="li"><p>Use the <code>contentAttributeSet</code> (defined in <span class="content_text"><a href="https://developer.apple.com/library/prerelease/ios/documentation/CoreSpotlight/Reference/CSSearchableItemAttributeSet_Class/index.html#//apple_ref/occ/cl/CSSearchableItemAttributeSet" class="urlLink" rel="external">CSSearchableItemAttributeSet</a></span>) to include images and descriptions in order to make your search results stand out.</p></li><li class="li"><p>Use NSUserActivity to leverage Handoff, App Search, and Siri suggestions and reminders.</p></li><li class="li"><p>Include keywords to associate your results with different queries. Each item should have 3 to 5 keywords, including synonyms, abbreviations, and category terms.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_BEST_PRACTICES-CORESPOTLIGHT_API" title="CoreSpotlight API"></a><h3 class="jump">CoreSpotlight API</h3><ul class="ul"><li class="li"><p>Use <span class="content_text"><a href="https://developer.apple.com/library/prerelease/ios/documentation/CoreSpotlight/Reference/CSSearchableItemAttributeSet_Class/index.html#//apple_ref/occ/cl/CSSearchableItemAttributeSet" class="urlLink" rel="external">CSSearchableItemAttributeSet</a></span> to include images and descriptions in order to make your search results stand out. See the various CSSearchableItemAttributeSet categories listed in CSSearchableItemAttributeSet_Categories.h for more details on the types of attributes available.</p></li><li class="li"><p>Update and remove items on the index to keep your search results relevant over time.</p></li><li class="li"><p>Pay attention to the appropriate data protection level for your user's content. Use the corresponding CSSearchableIndex API to control the data protection level indexed items are stored using.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_BEST_PRACTICES-WEB_MARKUP_API" title="Web Markup API"></a><h3 class="jump">Web Markup API</h3><ul class="ul"><li class="li"><p>Use the support and marketing URL field in iTunesConnect to ensure that Apple's crawler notices your website. Be sure that the crawler can get to the content you want to index from those URLs.</p></li><li class="li"><p>Use Universal Links instead of a custom URL scheme. They are unique, more secure, flexible and they work seamlessly across your app and website. See <span class="content_text"><a href="https://developer.apple.com/library/prerelease/ios/releasenotes/General/WhatsNewIniOS/Articles/iOS9.html#//apple_ref/doc/uid/TP40016198-DontLinkElementID_2" class="urlLink" rel="external">What's New in iOS</a></span> for details on how to use Universal Links.</p></li><li class="li"><p>Use Smart App Banners to drive installs of your app. Do this even if you implement Universal Links. See <span class="content_text"><a href="https://developer.apple.com/library/mac/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html" class="urlLink" rel="external">Promoting Apps with Smart App Banners</a></span> for more details.</p></li><li class="li"><p>Implement structured data markup and schemas in order to make your search results richer. Specifically if you have phone numbers or addresses that the user can engage with directly from search results.</p></li></ul></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ" title="Search API FAQ"></a><h2 class="jump">Search API FAQ</h2><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHAT_ARE_THE_BENEFITS_OF_USING_THE_VARIOUS_SEARCH_APIS_" title="What are the benefits of using the various search APIs?"></a><h3 class="jump">What are the benefits of using the various search APIs?</h3><p>Using the various search APIs will increase the engagement and discovery of your app and content your users care about by showing results in Spotlight and Safari. Even if your app is not installed, search results can be displayed for your app, enabling people to install your app. If you have already integrated Handoff, the work required to make activities your app generates searchable is minimal and can enable users to search their history of using your app along with finding features and points of interest in your app's UI. </p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHICH_IS_THE_RIGHT_API_FOR_ME_TO_USE_" title="Which is the right API for me to use?"></a><h3 class="jump">Which is the right API for me to use?</h3><p>There are 3 different points of integration that you can consider:</p><a name="//apple_ref/doc/uid/DTS40016269-CH1-TABLE2" title="Table 2"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Category
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Usage
+</p></th></tr><tr><td  scope="row"><p>
+NSUserActivity
+</p></td><td ><p>
+New methods and properties in the NSUserActivity class help you to index items from your app as a user does an activity in the app. This could include creating or visiting a piece of content, viewing a set of items (such as a results list) or visiting a navigation point. As users do these activities in your app, you index the activity by submitting it to NSUserActivity for indexing in the private on-device’ index. By default activities that are marked as searchable are kept private to people's devices, but If the activity being indexed is public and viewable by all users, then mark the activity as public. For example, the Health app can add activities that let users search for "Steps" and be taken directly to that pane in the Health app.
+</p></td></tr><tr><td  scope="row"><p>
+CoreSpotlight
+</p></td><td ><p>
+This framework enables indexing of app content that is searchable privately on a person's device. You can add, update, and delete items in the CoreSpotlight index and that information will be searchable for easy access. Using a search extension, you can index content in the background even if your app is not running. This allows you to keep the index up to date as content changes even if the user isn't actively using your app. This is great for things like messages and conversations stored on your server but accessed through your app, or for locally generated user content.
+</p></td></tr><tr><td  scope="row"><p>
+Web Markup
+</p></td><td ><p>
+This is useful for apps that have mirrored content from the web. Applebot crawls your website and show its content on search results. By implementing Web Markup you can make your results look richer, increase engagement and seamless redirect users to that specific content in your App.
+</p></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHAT_CONTENT_SHOULD_I_INDEX_" title="What content should I index?"></a><h3 class="jump">What content should I index?</h3><p>Index any content viewed, created, or curated by the user. Important navigation points and features of your app. Messages, content, or items arriving on people's devices (even if your app isn't frontmost). </p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-I_DON___T_HAVE_A_PUBLICLY_ACCESSIBLE_WEBSITE__AND_MY_APP_HAS_THOUSANDS_OF_PUBLIC_ITEMS_THAT_USERS_CAN_BROWSE____HOW_SHOULD_I_GET_THEM_TO_BE_SEARCHABLE_" title="I don’t have a publicly accessible website, and my app has thousands of public items that users can browse.  How should I get them to be searchable?"></a><h3 class="jump">I don’t have a publicly accessible website, and my app has thousands of public items that users can browse.  How should I get them to be searchable?</h3><p>Use NSUserActivity public indexing and CoreSpotlight to index a subset of content that is most relevant for the user, such as the most popular items or the ones in the geographic location. You should not blindly add thousands of items using NSUserActivity and CoreSpotlight. Instead, focus on adding items that users actually interact with or have identified as meaningful in some way to people.</p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-I_ADDED_CODE_TO_USE_THESE_APIS_BUT_MY_APP_IS_NOT_SHOWING_IN_THE_SEARCH_RESULTS___WHAT_SHOULD_I_DO_" title="I added code to use these APIs but my app is not showing in the search results.  What should I do?"></a><h3 class="jump">I added code to use these APIs but my app is not showing in the search results.  What should I do?</h3><p>Results should show up immediately on the device if NSUserActivity and CoreSpotlight are implemented. Try using different keywords. In the case of Web Markup, results will only show up after the page has been crawled by Applebot, and once a certain level of relevance has been attained.</p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-HOW_CAN_I_IMPROVE_MY_RANKING_" title="How can I improve my ranking?"></a><h3 class="jump">How can I improve my ranking?</h3><p>Providing rich results to drive engagement is the best way to improve your ranking. Always include a relevant thumbnail, title and a unique description. When possible, add metadata for ratings and actions such as dialing a phone number, or getting directions to an address. Since your engagement-to-shown ratio will be an important factor, only showing results when your app has a compelling answer is crucial.  When using keywords, only include terms related to the items such as synonyms or abbreviations.   Providing users with a great experience, minimizing time from result to content and avoiding any interstitials or multi-steps are very important. When handling results in your app, get the user to the relevant content as quickly as possible. </p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-HOW_CAN_I_DEEP_LINK_FROM_MY_WEB_SITE_TO_MY_APP_" title="How can I deep link from my web site to my app?"></a><h3 class="jump">How can I deep link from my web site to my app?</h3><p>The best way is to use Universal Links and <span class="content_text"><a href="https://developer.apple.com/library/mac/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html" class="urlLink" rel="external">Smart App Banners</a></span>. You can also use Twitter Cards and Facebook App Links.</p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHICH_OF_THE_SCHEMAS_ARE_SUPPORTED_FOR_WEB_MARKUP_" title="Which of the schemas are supported for Web Markup?"></a><h3 class="jump">Which of the schemas are supported for Web Markup?</h3><p>We support <span class="content_text"><a href="http://ogp.me" class="urlLink" rel="external">Open Graph</a></span> and AggregateRating, Offers, PriceRange. InteractionCount, Organization, Recipe, SearchAction and ImageObject from <span class="content_text"><a href="http://schema.org" class="urlLink" rel="external">Schema.org</a></span>.</p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-HOW_CAN_I_ADD_ACTIONS_TO_MY_SEARCH_RESULTS_SUCH_AS_CALLING_OR_GETTING_DIRECTIONS_" title="How can I add actions to my search results such as calling or getting directions?"></a><h3 class="jump">How can I add actions to my search results such as calling or getting directions?</h3><p>Two actions are currently supported: calling a phone number and getting directions to an address. In order to enable these actions you must implement either the telephone item from the Organization schema or the Postal Address schema from Schema.org.</p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-HOW_IS_THE_PRIVACY_OF_MY_APP___S_USERS_PROTECTED_" title="How is the privacy of my app’s users protected?"></a><h3 class="jump">How is the privacy of my app’s users protected?</h3><p>The CoreSpotlight index is stored in the private on-device index. Each device contains a private index whose information is never shared with Apple or synced between devices. Items crawled by Applebot are indexed in Apple’s server-side index, since they are already publicly available on the web. Items indexed with NSUserActivity will be added to the private on-device index. Activities marked as eligibleForPublicIndexing are kept on the private on-device index in iOS 9.0, however, they may be eligible for crowd-sourcing to Apple’s server-side index in a future release.</p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHICH_DEVICES_ARE_THESE_APIS_SUPPORTED_ON_" title="Which devices are these APIs supported on?"></a><h3 class="jump">Which devices are these APIs supported on?</h3><p>App Search comes with iOS9, available as a free software update for iPhone 4s and later, iPod touch (5th generation), iPad 2 and later, iPad mini and later. However, the search functionality of NSUserActivity and CoreSpotlight are not supported on the iPhone 4s, iPad 2, iPad (3rd generation), iPad mini, and iPod touch (5th generation).</p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-ARE_THESE_NEW_SEARCH_APIS_AVAILABLE_ON_OS_X_" title="Are these new Search APIs available on OS X?"></a><h3 class="jump">Are these new Search APIs available on OS X?</h3><p>CoreSpotlight and the search functionality of NSUserActivity are not supported on OS X.  However, web search results may be shown on OS X.</p></section><section><a name="//apple_ref/doc/uid/DTS40016269-CH1-SEARCH_API_FAQ-WHEN_DO_SEARCH_RESULTS_SHOW_UP_IN_SAFARI_" title="When do search results show up in Safari?"></a><h3 class="jump">When do search results show up in Safari?</h3><p>Only items indexed using web markup are eligible to show in Safari. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40016269-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40016269-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2015-08-03</td><td><p>Editorial changes.</p></td></tr><tr><td scope="row">2015-07-13</td><td><p>Minor additions and clarifications. </p></td></tr><tr><td scope="row">2015-06-29</td><td><p>New document that 
+					frequently asked questions and best practices related to iOS 9 Search APIs, including NSUserActivity additions, CoreSpotlight, and web markup.  </p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-08-03</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

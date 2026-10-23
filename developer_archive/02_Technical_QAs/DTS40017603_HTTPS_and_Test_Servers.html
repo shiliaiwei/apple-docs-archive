@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1948: HTTPS and Test Servers</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017603">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017603-CH1">
+    <meta id="date" name="date" content="2017-11-02">
+    <meta id="description" name="description" content="QA1948: Describes how to work with HTTPS test servers.">
+    <meta id="book-title" name="book-title" content="HTTPS and Test Servers">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Networking, Internet, & Web}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1948">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="HTTPS and Test Servers" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017603" title="Technical Q&amp;A QA1948"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>HTTPS and Test Servers</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017603-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1948"></a><div class="dtsDocNumber">Technical Q&amp;A QA1948</div><h1 id="pageTitle">HTTPS and Test Servers</h1><h2>Q:&nbsp;
+My app talks to a server over HTTPS. The production server uses a certificate issued by a trusted certificate authority, so everything works just fine. However, when my app talks to my test server, which uses a self-signed certificate, things fail. How can I test my app against my test server?
+</h2><p><span>A: </span>There are two approaches you can take here, discussed in the sections below.</p><section><a name="//apple_ref/doc/uid/DTS40017603-CH1-SECTESTCERTIFICATEAUTHORITY" title="Test Certificate Authority"></a><h2 class="jump">Test Certificate Authority</h2><p>Our recommended approach is that you do this by setting up a test certificate authority (CA). The basic idea is:</p><ol class="ol"><li class="li"><p>Create your own CA for testing</p></li><li class="li"><p>Use that CA to create a digital identity for your server</p></li><li class="li"><p>Install that CA’s root certificate on your test devices</p></li></ol><p>This approach has some important benefits:</p><ul class="ul"><li class="li"><p>It works with all OS subsystems, whereas the alternative, <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017603-CH1-SECCUSTOMISINGHTTPSSERVERTRUSTEVALUATION" data-renderer-version="1">customising HTTPS server trust evaluation</a></span>, relies on specific hooks that aren’t supported by all subsystems</p></li><li class="li"><p>It does not require you to write any code</p></li><li class="li"><p>Because there’s no test code in your app, there’s no chance of you accidentally shipping an app to customers with that test code enabled</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017603-CH1-DontLinkElementID_3" title="Warning"></a><p><strong>Warning:</strong>&nbsp;Do not discount this risk. A number of developers, including some household names, have had to publish an emergency update to their app because they accidentally shipped it with server trust evaluation disabled. In some cases this problem was not found for years, exposing their customers’ data for all that time.</p><p></p><div class="clear"></div></aside></div></li><li class="li"><p>Your testing is more realistic because it uses exactly the same code path as your production app</p></li></ul><p>With regards step 1, if you don’t have experience running a CA you can take advantage of the facilities built in to macOS; see <em><a href="../../technotes/tn2326/_index.html#//apple_ref/doc/uid/DTS40014136" data-renderer-version="1" target="_self">Creating Certificates for TLS Testing</a></em> for the details.</p><p>With regards step 3, there are various ways to install your test CA’s root certificate on your test device. For detailed instructions on how to do this, see <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017603-CH1-SECINSTALLING" data-renderer-version="1">Installing a CA’s Root Certificate on Your Test Device</a></span>, below.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017603-CH1-SECCUSTOMISINGHTTPSSERVERTRUSTEVALUATION" title="Customising HTTPS Server Trust Evaluation"></a><h2 class="jump">Customising HTTPS Server Trust Evaluation</h2><p>If you’re unable to use a test CA, your only alternative is to customise HTTPS server trust evaluation to ignore the fact that you’re connecting to an insecure server. There are two basic steps here:</p><ol class="ol"><li class="li"><p>You must override the default HTTPS server trust evaluation. Techniques for doing this are described in <em><a href="../../technotes/tn2232/_index.html#//apple_ref/doc/uid/DTS40012884" data-renderer-version="1" target="_self">HTTPS Server Trust Evaluation</a></em>.</p></li><li class="li"><p>If your app uses a high-level HTTPS API — NSURLSession, NSURLConnection, or anything layered on top of those — you must disable App Transport Security (ATS) for your server. See the “NSAppTransportSecurity” section of the <span class="content_text"><a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33" class="urlLink" rel="external">Information Property List Key Reference</a></span> for details.</p></li></ol><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017603-CH1-DontLinkElementID_4" title="Warning"></a><p><strong>Warning:</strong>&nbsp;You must remove these changes in the production build you ship to users. Failure to do so could compromise the security of your app.</p><p></p><div class="clear"></div></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017603-CH1-SECINSTALLING" title="Installing a CA’s Root Certificate on Your Test Device"></a><h2 class="jump">Installing a CA’s Root Certificate on Your Test Device</h2><p>The process for installing a CA’s root certificate on your test device varies by device type. The following sections cover the most common cases.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017603-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;The focus here is on testing during app development. If you want to install a custom CA for other reasons — for example, if you’re managing devices for a large enterprise — there are other, better approaches you can take (configuration profiles, MDM and so on). These approaches are supported by AppleCare and described on <span class="content_text"><a href="https://www.apple.com/support/" class="urlLink" rel="external">their site</a></span>.</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS40017603-CH1-SECMACOS" title="macOS"></a><h3 class="jump">macOS</h3><p>To install a CA’s root certificate on macOS, use the Keychain Access utility to add the root certificate to the System keychain and then explicitly mark it as trusted.</p></section><section><a name="//apple_ref/doc/uid/DTS40017603-CH1-SECIOSDEVICE" title="iOS Device"></a><h3 class="jump">iOS Device</h3><p>There are three common ways to install a CA’s root certificate on an iOS device for testing purposes:</p><ul class="ul"><li class="li"><p>Put the <code>.cer</code> file on a web server and navigate to it in Safari. iOS will then ask you whether you want to install and trust that root certificate.</p></li><li class="li"><p>Attach the root certificate to an email and then email it to yourself; when you open the attachment, iOS will ask you whether you want to install and trust that root certificate.</p></li><li class="li"><p>Use <span class="content_text"><a href="https://itunes.apple.com/us/app/apple-configurator-2/id1037126344?mt=12" class="urlLink" rel="external">Apple Configurator</a></span> to create a configuration profile that includes the root certificate and then drag that configuration profile to the device in the main Apple Configurator window. In most cases you’ll need to complete the install process on the iOS device itself.</p></li></ul><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017603-CH1-DontLinkElementID_6" title="Important"></a><p><strong>Important:</strong>&nbsp;Regardless of how you install the root certificate you must specifically enable it in Settings &gt; General &gt; About &gt; Certificate Trust Settings.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40017603-CH1-SECIOSSIMULATOR" title="iOS Simulator"></a><h3 class="jump">iOS Simulator</h3><p>The quickest way to install a CA’s root certificate on the simulator is to drag the root certificate to the main simulator window. This will kick off the same install process that you see on the device.</p><p>Alternatively, you can put the root certificate on a web server and then navigate to it in Safari, as you would on a real device.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017603-CH1-DontLinkElementID_7" title="Important"></a><p><strong>Important:</strong>&nbsp;As in the on-device case, you must specifically enable the root certificate in Settings &gt; General &gt; About &gt; Certificate Trust Settings.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40017603-CH1-SECWATCHOSDEVICE" title="watchOS Device"></a><h3 class="jump">watchOS Device</h3><p>watchOS can run network requests via the paired iPhone or directly on the Apple Watch. For your CA’s root certificate to be effective in all circumstances it must be installed on both devices.</p><p>When you install a root certificate on your iPhone (using one of the processes <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017603-CH1-SECIOSDEVICE" data-renderer-version="1">described above</a></span>), iOS will ask you whether you want to install it on iPhone or Apple Watch. You must run through this process twice, once to install the certificate on your iPhone and again to install it on your Apple Watch.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017603-CH1-DontLinkElementID_8" title="Important"></a><p><strong>Important:</strong>&nbsp;iOS 10.3 and later have a bug that causes them not to display this alert 
+			(r. <span class="content_text"><a href="rdar://problem/34652068" class="urlLink" rel="external">34652068</a></span>)
+		. Until that bug is resolved you will not be able to install your root certificate on the Apple Watch. You can still test on Apple Watch as long as the paired iPhone is available to run network requests.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40017603-CH1-SECWATCHOSSIMULATOR" title="watchOS Simulator"></a><h3 class="jump">watchOS Simulator</h3><p>The watchOS simulator always runs network requests via the paired iPhone simulator, so installing a CA’s root certificate on that paired simulator is sufficient to support watchOS testing.</p></section><section><a name="//apple_ref/doc/uid/DTS40017603-CH1-SECTVOS" title="tvOS Device and Simulator"></a><h3 class="jump">tvOS Device and Simulator</h3><p>To install a CA’s root certificate on a tvOS device or simulator, do the following:</p><ol class="ol"><li class="li"><p>Put the <code>.cer</code> file containing the root certificate on a web server</p></li><li class="li"><p>Navigate to Settings &gt; General &gt; Privacy and select Share Apple TV Analytics</p></li><li class="li"><p>Press the Play/Pause button on the remote; this brings up a screen that lists the installed profiles along with an Add Profile option at the top</p></li><li class="li"><p>Choose Add Profile</p></li><li class="li"><p>Enter the URL of the profile and follow the on-screen instructions to complete the install process</p></li></ol><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017603-CH1-DontLinkElementID_9" title="Important"></a><p><strong>Important:</strong>&nbsp;As with iOS, you must specifically enable the root certificate in Settings &gt; General &gt; About &gt; Certificate Trust Settings.</p><p></p></aside></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017603-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017603-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-11-02</td><td><p>Updated for iOS 11, mac OS 10.13, tvOS 11, and watchOS 4. Added a reference to Apple Configurator.</p></td></tr><tr><td scope="row">2017-01-25</td><td><p>New document that 
+					describes how to work with HTTPS test servers.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-11-02</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

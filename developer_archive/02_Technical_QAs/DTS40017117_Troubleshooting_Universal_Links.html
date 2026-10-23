@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1916: Troubleshooting Universal Links</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017117">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017117-CH1">
+    <meta id="date" name="date" content="2016-05-16">
+    <meta id="description" name="description" content="QA1916: gives a diagnostic procedure and troubleshooting steps to discover and fix issues in implementing Universal Links.">
+    <meta id="book-title" name="book-title" content="Troubleshooting Universal Links">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Cocoa Layer/UIKit}, {Topic/Networking, Internet, & Web}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1916">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Troubleshooting Universal Links" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017117" title="Technical Q&amp;A QA1916"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Troubleshooting Universal Links</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017117-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1916"></a><div class="dtsDocNumber">Technical Q&amp;A QA1916</div><h1 id="pageTitle">Troubleshooting Universal Links</h1><h2>Q:&nbsp;
+Why do Universal Links not work for my iOS app?
+</h2><p><span>A: </span>This Q&amp;A assumes that you have an implementation of the Universal Links technology, described at <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html#//apple_ref/doc/uid/TP40016308-CH12-SW1" class="urlLink" rel="external">Support Universal Links</a></span> in the <span class="content_text"><a href="https://developer.apple.com/library/ios/navigation/" class="urlLink" rel="external">iOS Developer Library</a></span>, but when you tap on a link in the Mail or Notes app on your device, the link opens in Safari, and not in your app.</p><p>This is caused either by an issue in your web server configuration, where you host your <code>apple-app-site-association</code> (AASA) file, or by an issue in your app.</p><section><a name="//apple_ref/doc/uid/DTS40017117-CH1-QATAG1" title="Diagnostic Procedure"></a><h2 class="jump">Diagnostic Procedure</h2><p>The below procedure will help diagnose the issue:</p><ol class="ol"><li class="li"><p>Use the <span class="content_text"><a href="https://search.developer.apple.com/appsearch-validation-tool" class="urlLink" rel="external">App Search API Validation Tool</a></span> to test your website. The Universal Links section should show "Passed" status.</p></li><li class="li"><p>Make sure your app is not installed on your test device. Delete it from the device if necessary.</p></li><li class="li"><p>Install your app from Xcode or from TestFlight.</p></li><li class="li"><p>Confirm in your web server’s HTTPS logs that the AASA file was downloaded when the app was installed.</p></li><li class="li"><p>Email yourself the link that you are interested in testing.</p></li><li class="li"><p>On the device, after receiving the email, long press on the link in the email. Pick "Open in &lt;your app&gt;".</p></li><li class="li"><p>Observe if your app opens.</p></li><li class="li"><p>Observe if your app displays the expected information.</p></li></ol><p>If the procedure was completed successfully, then Universal Links is working as expected.</p><p>If one of the steps did not give the expected result, do not continue with the procedure, but proceed to the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017117-CH1-QATAG2" data-renderer-version="1">Troubleshooting</a></span> section. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017117-CH1-QATAG2" title="Troubleshooting"></a><h2 class="jump">Troubleshooting</h2><p>If the Diagnostic Procedure produced a failure in one of the steps, then something was not set up correctly. Please correct the issues as described below, and re-try the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017117-CH1-QATAG1" data-renderer-version="1">Diagnostic Procedure</a></span>.</p><section><a name="//apple_ref/doc/uid/DTS40017117-CH1-QATAG2-STEP_1_FAILED" title="Step 1 Failed"></a><h3 class="jump">Step 1 Failed</h3><p>The App Search API Validation Tool should give you a reason for the failure. Here are some of the common causes:</p><ul class="ul"><li class="li"><p>The JSON schema does not match the one in the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html#//apple_ref/doc/uid/TP40016308-CH12-SW1" class="urlLink" rel="external">documentation</a></span>. Correct the schema in the AASA file.</p></li><li class="li"><p>The AASA file is served through a 3xx redirect. Make sure this file is served without any redirects.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40017117-CH1-QATAG2-STEP_4_FAILED" title="Step 4 Failed"></a><h3 class="jump">Step 4 Failed</h3><p>The web server's HTTPS logs indicate that the AASA file was not requested by the device. This can happen if the associated domains entitlement contains the incorrect <code>applinks</code> domain. Make sure the <code>applinks</code> domain is the same one where the AASA file resides.</p><p>If the logs indicate that the AASA file was requested, but not returned by your web server, then the file is either in the wrong location, or is not named <code>apple-app-site-association</code>.</p></section><section><a name="//apple_ref/doc/uid/DTS40017117-CH1-QATAG2-STEPS_6_OR_7_FAILED" title="Steps 6 or 7 Failed"></a><h3 class="jump">Steps 6 or 7 Failed</h3><p>When you long-pressed on the link that you emailed, the "Open in &lt;your app&gt;" option was not presented. There are multiple reasons why this might happen:</p><ul class="ul"><li class="li"><p>It is possible that Universal Links has become disabled for your link on your device. To see if this is the case, let iOS open Safari when you tap on the link, and observe if pulling down on the webpage reveals a small Smart App Banner. If this is the case, then Universal Links were indeed disabled on this device for this link. To re-enable, tap on OPEN in the Smart App Banner, and start the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017117-CH1-QATAG1" data-renderer-version="1">Diagnostic Procedure</a></span> again.</p></li><li class="li"><p>If your AASA file is signed, the signing certificate or the intermediate certificate may have expired. The App Search API Validation Tool may give a "Passed" status when the AASA file is signed, even if there is an issue with the certificates used to sign the file. Please check on the certificates embedded in the signed AASA file. If necessary, upload a newly signed file to the root of your web server. The signing procedure is detailed in Listing 2 of the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Security/Reference/SharedWebCredentialsRef/index.html#//apple_ref/doc/uid/TP40014989" class="urlLink" rel="external">Shared Web Credentials Reference</a></span></p></li><li class="li"><p>The <code>appID</code> given in the AASA file does not match the App ID of your app. The correct <code>appID</code> string is the same as the <code>application-identifier</code> entitlement in your exported app archive. The App ID might be different than what you expect if you are not using team-based code signing, or if the app was transferred between developer accounts.</p></li><li class="li"><p>None of the paths listed in the AASA file, for the <code>appID</code> that corresponds to your app, match the path component of the link you long-pressed on. You can fix this by specifying a link with a path that matches one of those in the AASA file.</p></li><li class="li"><p>Your app returned <code>false</code> from one of the following <code>UIApplicationDelegate</code> protocol methods: <code>application(_:continueUserActivity:restorationHandler:)</code>, <code>application(_:willFinishLaunchingWithOptions:)</code>, <code>application(_:didFInishLaunchingWithOptions:)</code>. </p><p>This can happen if you parsed the URL that is passed into these methods, and you implemented logic to determine that your app can not use this URL.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40017117-CH1-QATAG2-STEP_8_FAILED" title="Step 8 Failed"></a><h3 class="jump">Step 8 Failed</h3><p>Your app returned <code>true</code> from the <code>UIApplicationDelegate</code> methods mentioned above, but was not able to fetch the expected information from your backend, or it misinterpreted the URL that the link represented. These are issues that you need to debug yourself, since they are specific to your code.</p><p>If you have completed the troubleshooting procedure, and verified that your app responds as described in the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html#//apple_ref/doc/uid/TP40016308-CH12-SW1" class="urlLink" rel="external">documentation</a></span>, but would like a different behavior, please submit an enhancement request, accompanied by a compelling use-case, via Apple's <span class="content_text"><a href="https://developer.apple.com/bug-reporting/" class="urlLink" rel="external">bug reporting tool</a></span>.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017117-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017117-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-05-16</td><td><p>New document that 
+					gives a diagnostic procedure and troubleshooting steps to discover and fix issues in implementing Universal Links.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-05-16</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

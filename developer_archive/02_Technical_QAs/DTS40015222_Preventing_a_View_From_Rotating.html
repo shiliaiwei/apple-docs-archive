@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1890: Preventing a View From Rotating</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40015222">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40015222-CH1">
+    <meta id="date" name="date" content="2015-03-27">
+    <meta id="description" name="description" content="QA1890: describes how to 'lock' the orientation of a view while allowing the rest of the interface to rotate.">
+    <meta id="book-title" name="book-title" content="Preventing a View From Rotating">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/User Experience/Windows & Views}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1890">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Preventing a View From Rotating" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40015222" title="Technical Q&amp;A QA1890"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Preventing a View From Rotating</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40015222-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1890"></a><div class="dtsDocNumber">Technical Q&amp;A QA1890</div><h1 id="pageTitle">Preventing a View From Rotating</h1><h2>Q:&nbsp;
+My view controller supports auto-rotation but I need to lock the orientation of a specific subview. How can I prevent a view from rotating?
+</h2><p><span>A: </span>Autorotation is implemented by applying a rotation transform to the application's window when the system determines that the interface must rotate. The window then adjusts its bounds for the new orientation and propagates this change down through the view controller hierarchy via calls to each view controller's and presentation controller's <code>-viewWillTransitionToSize:withTransitionCoordinator:</code> method. Invocations of this method are provided a transition coordinator object containing the delta of the window's current transform and new transform, which can be retrieved by sending a <code>-targetTransform</code> message to the transition coordinator. Your view controller or presentation controller can derive the appropriate inverse transform and apply it to the target view. This nullifies the effect of the window transform on that particular view and gives the appearance that the view has remained fixed in its current orientation as the rest of the interface rotates normally.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40015222-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;In previous iOS versions, it was possible to opt a view out of auto-rotation by adding it as a subview of the application's window. Due to changes in the underlying implementation of autorotation, this technique no longer works in iOS 8 and later.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40015222-CH1-SOURCECODE1" title="Listing 1Excerpt of a view controller which uses the technique described above to lock the orientation of a view referenced by an instance variable named notRotatingView."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Excerpt of a view controller which uses the technique described above to lock the orientation of a view referenced by an instance variable named notRotatingView.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (void)viewWillLayoutSubviews<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    [super viewWillLayoutSubviews];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    self.notRotatingView.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id&lt;UIViewControllerTransitionCoordinator&gt;)coordinator<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    [coordinator animateAlongsideTransition:^(id&lt;UIViewControllerTransitionCoordinatorContext&gt; context) {<span></span></pre></td></tr><tr><td scope="row"><pre>        CGAffineTransform deltaTransform = coordinator.targetTransform;<span></span></pre></td></tr><tr><td scope="row"><pre>        CGFloat deltaAngle = atan2f(deltaTransform.b, deltaTransform.a);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        CGFloat currentRotation = [[self.notRotatingView.layer valueForKeyPath:@"transform.rotation.z"] floatValue];<span></span></pre></td></tr><tr><td scope="row"><pre>        // Adding a small value to the rotation angle forces the animation to occur in a the desired direction, preventing an issue where the view would appear to rotate 2PI radians during a rotation from LandscapeRight -&gt; LandscapeLeft.<span></span></pre></td></tr><tr><td scope="row"><pre>        currentRotation += -1 * deltaAngle + 0.0001;<span></span></pre></td></tr><tr><td scope="row"><pre>        [self.notRotatingView.layer setValue:@(currentRotation) forKeyPath:@"transform.rotation.z"];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    } completion:^(id&lt;UIViewControllerTransitionCoordinatorContext&gt; context) {<span></span></pre></td></tr><tr><td scope="row"><pre>        // Integralize the transform to undo the extra 0.0001 added to the rotation angle.<span></span></pre></td></tr><tr><td scope="row"><pre>        CGAffineTransform currentTransform = self.notRotatingView.transform;<span></span></pre></td></tr><tr><td scope="row"><pre>        currentTransform.a = round(currentTransform.a);<span></span></pre></td></tr><tr><td scope="row"><pre>        currentTransform.b = round(currentTransform.b);<span></span></pre></td></tr><tr><td scope="row"><pre>        currentTransform.c = round(currentTransform.c);<span></span></pre></td></tr><tr><td scope="row"><pre>        currentTransform.d = round(currentTransform.d);<span></span></pre></td></tr><tr><td scope="row"><pre>        self.notRotatingView.transform = currentTransform;<span></span></pre></td></tr><tr><td scope="row"><pre>    }];<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS40015222-CH1-CONSIDERATIONS" title="Considerations"></a><h2 class="jump">Considerations</h2><p>The above technique should only be applied to views which your view controller is directly responsible for the layout of (i.e. descendants of your view controller's view). A view controller should never modify the transform or other geometric properties of its own view, these are managed by the parent view controller or presentation controller. If you need to prevent a view controller from rotating, see <span class="content_text"><a href="https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/RespondingtoDeviceOrientationChanges/RespondingtoDeviceOrientationChanges.html" class="urlLink" rel="external">Controlling What Interface Orientations Are Supported</a></span> in the View Controller Programming Guide for iOS.</p><section><a name="//apple_ref/doc/uid/DTS40015222-CH1-CONSIDERATIONS-AUTOLAYOUT" title="Autolayout"></a><h3 class="jump">Autolayout</h3><p>Modifying the transform of a view which has opted into Autolayout is not recommended. If you are using Autolayout, factor the view to which the transform will be applied into a separate xib file with Autolayout disabled. Then at runtime, load the xib file and programmatically add the view to the view hierarchy.</p><a name="//apple_ref/doc/uid/DTS40015222-CH1-SOURCECODE2" title="Listing 2Loading notRotatingView from a xib file."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Loading notRotatingView from a xib file.</p><div class="codesample clear"><table><tr><td scope="row"><pre>// Connected to the root view in the xib.<span></span></pre></td></tr><tr><td scope="row"><pre>@property (nonatomic, strong) IBOutlet UIView *notRotatingView;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>- (void)viewDidLoad<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    [super viewDidLoad];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Load the notRotatingView from a xib, which has Autolayout disabled.<span></span></pre></td></tr><tr><td scope="row"><pre>    [[UINib nibWithNibName:@"NotRotatingView" bundle:[NSBundle bundleForClass:self.class]] instantiateWithOwner:self options:nil];<span></span></pre></td></tr><tr><td scope="row"><pre>    [self.view addSubview:self.notRotatingView];<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40015222-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40015222-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2015-03-27</td><td><p>New document that 
+					describes how to 'lock' the orientation of a view while allowing the rest of the interface to rotate.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-03-27</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

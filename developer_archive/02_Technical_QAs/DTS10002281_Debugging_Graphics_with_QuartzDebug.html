@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Q&amp;A QA1236: Debugging Graphics with QuartzDebug</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002281">
+    <meta id="document-version" name="document-version" content="1.3.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10002281-CH1">
+    <meta id="date" name="date" content="2014-03-20">
+    <meta id="description" name="description" content="QA1236.">
+    <meta id="book-title" name="book-title" content="Debugging Graphics with QuartzDebug">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Languages & Utilities/Graphics Tools}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1236">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Debugging Graphics with QuartzDebug" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10002281" title="Technical Q&amp;A QA1236"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Debugging Graphics with QuartzDebug</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10002281-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1236"></a><div class="dtsDocNumber">Technical Q&amp;A QA1236</div><h1 id="pageTitle">Debugging Graphics with QuartzDebug</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10002281-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10002281-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;<strong>Legacy Document</strong></p><p>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p><p>Current information on this Reference Library topic can be found here:</p><p><span class="content_text"><a href="http://developer.apple.com/referencelibrary/Carbon/idxGraphicsImaging-date.html" class="browserLink" >Carbon &gt; Graphics &amp; Imaging</a></span></p><p></p></aside></div><h2>Q:&nbsp;
+Q: How do I use QuartzDebug to debug graphics issues?
+</h2><p><span>A: </span>QuartzDebug is a debugging interface for the Quartz graphics system with several powerful tools to help you identify a number of graphics display and performance problems. </p><p>The Quartz Debug application is located in: /Developer/Applications/Performance Tools/ </p><section><a name="//apple_ref/doc/uid/DTS10002281-CH1-TNTAG2" title="Main Quartz Debug options window"></a><h2 class="jump">Main Quartz Debug options window</h2><figure class="figure"><a name="//apple_ref/doc/uid/DTS10002281-CH1-FIGURE1" title="Figure 1Quartz Debug main window."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Quartz Debug main window.</figcaption><img src="Art/qa1236_chkbx.jpg" alt="" width="202" height="157"></figure><p>Upon launch, the QuartzDebug options window <span class="content_text"><!--a  -->Figure 1<!--/a--></span> appears. It contains four debugging checkboxes (all initially deselected).</p><ul class="ul"><li class="li"><p>The "Autoflush drawing" checkbox flushes the contents of a CoreGraphics graphics context after each drawing operation, rather than wait for the CGContextFlush(). This is useful for examining every single drawing operation.</p></li><li class="li"><p>When "Flash screen updates" is selected, regions of the screen that are about to be updated are painted yellow,  followed by a brief pause, followed by the actual screen update. This allows you to see screen updates as they occur. The pause allows you to see the region in yellow; without it, the screen would be updated immediately, possibly faster than you can perceive it. To turn off the pause, select the "No delay after flash option."</p></li><li class="li"><p>When "Flash identical updates (red)" is selected, regions of the screen that are about to be updated, but are the same as the content already present in the window backing store, are painted red. The red is followed by a brief pause, followed by the actual screen update. This allows you to see which regions of the window are being drawing redundantly as the content is already present in the window backing store. To turn off the pause, select the "No delay after flash option."</p></li><li class="li"><p>When "No delay after flash option." is selected, "Flash identical updates", and "Flash screen updates" will not pause after the flashes.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10002281-CH1-TNTAG4" title="Tools Menu Options"></a><h2 class="jump">Tools Menu Options</h2><section><a name="//apple_ref/doc/uid/DTS10002281-CH1-TNTAG10" title="Quartz Extreme"></a><h3 class="jump">Quartz Extreme</h3><p>The "Disable/Enable Quartz Extreme" menu option allows you to disable or re-enable Quartz Extreme in the system. See the <span class="content_text"><a href="http://www.apple.com/macosx/features/quartzextreme/ " class="urlLink" rel="external">Quartz Extreme</a></span> page for more information. If grey, hardware does not support Quartz Extreme. If green, Quartz Extreme is enabled. If red, Quartz Extreme is disabled. This setting takes effect immediately. This setting is not sticky across reboots.</p></section><section><a name="//apple_ref/doc/uid/DTS10002281-CH1-TNTAG7" title="The Frame Meter"></a><h3 class="jump">The Frame Meter</h3><figure class="figure"><a name="//apple_ref/doc/uid/DTS10002281-CH1-FIGURE2" title="Figure 2The Frame Meter"></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;The Frame Meter</figcaption><img src="Art/qa1236_meter.jpg" alt="" width="266" height="227"></figure><p>The "Show/Hide Frame Meter" (shown in <span class="content_text"><!--a  -->Figure 2<!--/a--></span>) menu option displays or hides the performance frame meter as shown in Figure 3. The frame meter displays the number of screen updates per second. It also includes a mini cpu frame meter that displays the cpu usage. It is a transparent window, that can moved around by click-dragging from any part of the window.</p></section><section><a name="//apple_ref/doc/uid/DTS10002281-CH1-TNTAG12" title="User Interface Resolution"></a><h3 class="jump">User Interface Resolution</h3><p>"Show User Interface Resolution" Allows the user to set the user interface scale factor. Applications have to be restarted. Setting is sticky across reboots. </p></section><section><a name="//apple_ref/doc/uid/DTS10002281-CH1-TNTAG9" title="Beam Sync Tools"></a><h3 class="jump">Beam Sync Tools</h3><p>"Show Beam Sync Tools" Allows the user to see the affects of <span class="content_text"><a href="http://developer.apple.com/technotes/tn2005/tn2133.html" class="browserLink" >Coalesced Updates</a></span> on their application.</p><ul class="ul"><li class="li"><p>Disable Beam Synchronization: Disables all beam syncing in the system, including the Coalesced Update feature. You may see visual tearing, and you may see increased performance because your drawing calls will no longer block waiting for the previous flush to complete. Use this mode for benchmark testing to see what the total throughput of your code is (disregarding the the display flushing). There is currently no way to disable just the Coalesced Update feature only.</p></li><li class="li"><p>Automatic Beam Synchronization: This is the default for 10.4. In this mode, beam syncing is enabled for window geometry changes (also true in 10.3) and the Coalesced Update feature is also enabled. The latter is new to 10.4 and will result in the window server coalescing display updates across applications into a single update to the display waiting for a vertical blank of the display. This is tied to the display refresh rate and is also applicable to LCD monitors (which really update at 60Hz). This results in better system performance, but can have side-effects to applications that attempt to flush faster than the refresh of the display. Note that only mach-o applications linked on 10.4 will initiate coalesced updates. CFM and apps built pre-Tiger will not initiate a coalesced update, but if another application has initiated a coalesced update for a VBL, then the original app's update will also be coalesced.</p></li><li class="li"><p>Force Beam Synchronization: This will force coalescing of updates across all applications. Developers can use this to check the performance impact of the feature without waiting to link their application on Tiger. Right now, the first time the app tries to flush faster than the display refresh rate or ends up spending more that 50% of it's time waiting for the vbl will have a message logged to /var/log/windowserver.log. The message is of the format : "Application "SuchAndSuch" is being throttled by update coalescing." This message will only be output once per application. Developers should monitor this log to check to see if their application is being impacted by coalesced updates or not.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS10002281-CH1-TNTAG6" title="The Window List"></a><h3 class="jump">The Window List</h3><p>To understand the impact of buffered windows on the memory footprint of your application, you can examine the window list. When you Choose Tools &gt; Show Window List, a window (similar to that shown in <span class="content_text"><!--a  -->Figure 3<!--/a--></span>) that contains a list the systemwide windows appears. The list identifies the owner of each window and the memory the window occupies. The list automatically updates as windows are added and removed. Table <span class="content_text"><!--a  -->Table 1<!--/a--></span> describes the data in each column of the window list. Windows colored in green are hardware accelerated using Quartz 2D Extreme. Windows colored in grey are compressed because they are inactive. The list is updated every second. This can be modified in the Preferences.</p><p>The "Refresh Windows List Now" refreshes the window list available from the Options Window.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10002281-CH1-FIGURE3" title="Figure 3A Snapshot of the system-wide window list."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;A Snapshot of the system-wide window list.</figcaption><img src="Art/qa1236_window.jpg" alt="" width="649" height="199"></figure><a name="//apple_ref/doc/uid/DTS10002281-CH1-TABLE1" title="Table 1Description of the columns in the Window List"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Description of the columns in the Window List</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+QuartzDebug window list columns
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Column Description
+</p></th></tr><tr><td  scope="row"><p>
+CID
+</p></td><td ><p>
+The connection ID of the window. Used internally by the window server. Typically, the connection ID is the same for all windows owned by a process.
+</p></td></tr><tr><td  scope="row"><p>
+Application
+</p></td><td ><p>
+The name of the application that owns the window.
+</p></td></tr><tr><td  scope="row"><p>
+WID
+</p></td><td ><p>
+The ID of the window itself. Used internally by the  window server.
+</p></td></tr><tr><td  scope="row"><p>
+kBytes
+</p></td><td ><p>
+The amount of memory occupied by the window buffer and other large data structures. Specified in kilobytes. The letter I is appended to the size if the buffer is invalid (in need of an update). The letter C is appended if the window has been automatically been compressed by the window server.
+</p></td></tr><tr><td  scope="row"><p>
+Origin
+</p></td><td ><p>
+Screen-relative origin of the window (in pixels).
+</p></td></tr><tr><td  scope="row"><p>
+Size
+</p></td><td ><p>
+Size of the window (in pixels).
+</p></td></tr><tr><td  scope="row"><p>
+Type
+</p></td><td ><p>
+Buffered windows are buffered in shared memory. All graphics operations are recorded in the backing buffer and drawn to screen by the window server as necessary. Only the portions of a Retained window that are obscured by other windows are saved in the buffer. This results in some memory savings, but disables translucency. Graphics operations in Non-Retained windows are not recorded at all.
+</p></td></tr><tr><td  scope="row"><p>
+Encoding
+</p></td><td ><p>
+Depth of the window's buffer (the number of bits per pixel). The letters -A are appended if the window buffer has an alpha channel. Note that the window buffer includes  the window's title bar and frame (or, in Carbon terms, "structure  region").
+</p></td></tr><tr><td  scope="row"><p>
+On Screen
+</p></td><td ><p>
+Whether the window is visible and on screen or offscreen and hidden from view.
+</p></td></tr><tr><td  scope="row"><p>
+Shared
+</p></td><td ><p>
+Whether the window is shared or not. Shared windows can be manipulated by multiple applications. Non-shared windows are only modifiable by the application specified in the Application column.
+</p></td></tr><tr><td  scope="row"><p>
+Fade
+</p></td><td ><p>
+Opacity of the window. Opacity is separate from the window's alpha channel. Ranges from 0% to 100%, where 0% indicates a completely transparent window; 100% indicates a completely opaque window.
+</p></td></tr><tr><td  scope="row"><p>
+Level
+</p></td><td ><p>
+The window level. Windows at higher levels can never be placed visually below windows at lower levels. Values from LONG_MIN + 1 to LONG_MAX - 16 are supported.
+</p></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10002281-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10002281-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-03-05</td><td><p>Updated for 10.4</p></td></tr><tr><td scope="row">2006-01-12</td><td><p>Updated for 10.4</p></td></tr><tr><td scope="row">2003-02-25</td><td><p>New document that 
+					explains how to use QuartzDebug to debug graphics issues.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-03-20</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

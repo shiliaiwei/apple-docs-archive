@@ -1,0 +1,775 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Modifying the Standard String Comparison">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002815">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TE07.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+<title>Technical Note TE07: Modifying the Standard String Comparison</title>
+
+                                       
+
+
+
+<meta name="categories" content="Text">
+
+
+<meta name="week-posted" content="Oct 26, 1987 - Nov 6, 1987">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002815" title="Modifying the Standard String Comparison"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Modifying the Standard String Comparison</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a name="top"></a>
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxTextFonts-date.html">Text & Fonts</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/TextFonts/index.html" target="_blank">Reference Library > Text & Fonts</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TE07</div>
+<div id="pageheadsub">Modifying the Standard String Comparison</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                 
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+					<!-- begin_toc -->
+					
+					<p id="menutext">
+<a href="#Section1">General Structure</a><BR><BR>
+<a href="#Section2">The Init Procedure</a><BR><BR>
+<a href="#Section3">The Fetch Procedure</a><BR><BR>
+<a href="#Section4">The Project Procedure</a><BR><BR>
+<a href="#Section5">The Vernier Procedure</a><BR><BR>
+<a href="#Section6">Installing an itl2 resource</a><BR><BR>
+<a href="#References">References</a><BR><BR>
+<a href="#Downloads">Downloadables</a></P>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+<!-- begin_intro_text -->
+<P id = "introtext">This technical note describes how to modify the standard string comparison by
+constructing an <code>itl2</code> resource. Developers may want to modify the
+standard string comparison if Apple's comparison doesn't meet their needs or if
+Apple has not written a string comparison routine for the language that
+concerns them.</p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3 align=center>[Mar 01 1988]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+
+          <!-- begin_content -->
+<a name=Section1></a>
+<h2>General Structure</h2>
+<p>
+The <code>itl2</code> resource contains a number of procedures that are used for
+accurate comparison of text by the International Utilities Package. Refer to
+<i>Inside Macintosh</i>, volume V for an explanation of the algorithm used. The
+default <code>itl2</code> for standard English text, which does no special
+processing, has the following form:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    ; normal Include/Load statements
+    Include 'hd:mpw:aincludes:ScriptEqu.a'
+    Print    On,NoMDir
+
+    String    AsIs
+
+;------------------------------------------------------------------------
+;     dispatch table at the front of the code.
+;------------------------------------------------------------------------
+Intl1        Proc
+    With    IUSortFrame,IUStrData
+HookDispatch
+    dc.w    ReturnEQ-HookDispatch    ; InitProc = 0
+    dc.w    ReturnEQ-HookDispatch    ; FetchHook = 2
+    dc.w    ReturnEQ-HookDispatch    ; VernierHook = 4
+    dc.w    ReturnEQ-HookDispatch    ; ProjectHook = 6
+    dc.w    ReturnEQ-HookDispatch    ; ReservedHook1 = 8
+    dc.w    ReturnEQ-HookDispatch    ; ReservedHook2 = 10
+
+;------------------------------------------------------------------------
+; Some common exit points
+;------------------------------------------------------------------------
+ReturnNE
+    tst.w     MinusOne        ; set cc NE
+    rts
+ReturnEQ
+    cmp.w    d0,d0        ; set cc EQ
+    rts
+;------------------------------------------------------------------------
+    EndWith
+    EndWith
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<p>
+If modifications need to be made to the comparison process, then one or more of
+the dispatches will be modified to point to different routines:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    dc.w    InitProc-HookDispatch        ; InitProc = 0
+    dc.w    FetchProc-HookDispatch        ; FetchHook = 2
+    dc.w    VernierProc-HookDispatch    ; VernierHook = 4
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<p>
+There are a number of different changes that can be made to the comparison
+routines. Some of the common modifications include:</p>
+
+<ol type="1" start="1">
+	<li>Comparing two bytes as one character
+	Yugoslavian "l" &lt; "lj" &lt; "m"; Japanese...    [InitProc, FetchProc]</li>
+    
+	<li>Comparing characters in different order
+	Norwegian "z" &lt; "&aring;"                [ProjectProc]</li>
+
+	<li>Comparing one character as twoh
+	German "&auml;" ~ "ae"                [ProjectProc]</li>
+
+	<li>Ignoring characters unless strings are otherwise equal:
+	"blackbird" &lt; "black-bird" &lt; "blackbirds"    [ProjectProc]</li>
+
+	<li>Changing the secondary orderingh
+	Bibliographic "a" &lt; "A"            [VernierProc]</li>
+</ol>
+
+<P>
+The comparison hook procedures are all assembly language based, with arguments
+described below. Since the routines may be called once per character in both
+strings, the routines should be as fast as possible.</p>
+<p>
+The condition codes are used to return information about the status of the hook
+routine. Typically the normal processing of characters will be skipped if the
+<code>CCR</code> is set to <code>NE</code>, so the default return should always have
+<code>EQ</code> set. Each of these routines has access to the stack frame
+<code>(A6)</code> used in the comparison routine, which has the following form:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>IUSortFrame    Record    {oldA6},Decrement
+result        ds.w    1
+argTop        equ    *
+aStrText    ds.l    1
+bStrText    ds.l    1
+aStrLen    ds.w    1
+bStrLen    ds.w    1
+argSize    equ    argTop-*
+return        ds.l    1
+oldA6        ds.l    1
+aInfo        ds    IUStrData
+bInfo        ds    IUStrData
+wantMag     ds.b    1    ; 1-MagStrig 0-MagIdString.
+weakEq        ds.b    1    ; Signals at&nbsp;most weak equality
+msLock        ds.b    1    ; high byte of master ptr.
+weakMag     ds.b    1    ; -1 weak, 1 strong compare
+supStorage    ds.b    18    ; extra storage.
+localSize    equ    *    ; frame size.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<p>
+There are three fields in this frame that are of interest for altering text
+comparison. The <code>supStorage</code> field is an area reserved for use by the
+comparison hook procedures as they see fit. The <code>aInfo</code> and
+<code>bInfo</code> records contain information about the current byte positions in
+the two compared strings A and B, and information about the status of current
+characters in those string. The <code>IUStrData</code> record has the following
+form:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>IUStrData    Record        0
+curChar    ds.w        1    ; current character.
+mapChar     ds.w        1    ; projected character.
+decChar     ds.w        1    ; decision char for weak equality
+bufChar     ds.b        1    ; buffer for expansion.
+justAfter    ds.b        1    ; boolean for AE vs ligature-AE.
+ignChar    ds.b        1    ; flag: ignore char.
+noFetch    ds.b        1    ; flag: no fetch of next.
+strCnt        ds.w        1    ; length word.
+strPtr        ds.l        1    ; current ptr to string.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></p>
+<a name="Section2"></a>
+<h2>The Init Procedure</h2>
+<p>
+The Init Procedure is used to initialize the comparison process. The main use
+for this procedure is for double-byte scripts. As an optimization, the
+International Utilities will perform an initial check on the two strings,
+comparing for simple byte-to-byte equality. Thus any common initial substrings
+are checked before the Init procedure is called. The string pointers and
+lengths in the <code>IUStrData</code> records have been updated to point just past
+the common substrings.</p>
+<p>
+Languages such as Japanese or Yugoslavian, which may consider two bytes to be
+one character, may have to back up one byte, as shown below.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>;------------------------------------------------------------------------
+; Routine    InitProc
+; Input    A6          Local Frame
+; Output    CCR         NE to skip entire sort (usually set EQ)
+; Trashes    Standard regs:    A0/A1/D0-D2
+; Function    Initialize any special international hooks.
+;        Double-byte scripts must synchronize AInfo.StrPtr &amp;
+;                  BInfo.StrPtr here!
+;------------------------------------------------------------------------
+; Note: this should also check for single-byte nigori or maru, as below
+
+InitProc
+    move.w        AStrLen(a6), d0    ; A length
+    sub.w        AInfo.StrCnt(a6),d0    ; see if its changed
+    beq.s        @FixB            ; A is done if not
+    sub.l        #2,sp            ; return param
+    move.l        AStrText(a6),-(sp)    ; textBuf
+    move.w        d0,-(sp)        ; textOffset
+    _CharByte
+    tst.w        (sp)+            ; on character boundary?
+    ble.s        @FixB            ; yes, continue
+    sub.l        #1,AInfo.StrPtr(A6)    ; adjust pointer
+    add.w        #1,AInfo.StrCnt(A6)    ; adjust count
+@FixB
+    move.w        BStrLen(a6), d0    ; B length
+    sub.w        BInfo.StrCnt(a6),d0    ; see if its changed
+    beq.s        Quit Init        ; B is done if not
+    sub.l        #2,sp            ; return param
+    move.l        BStrText(a6), -(sp)    ; textBuf
+    move.w        d0, -(sp)        ; textOffset
+    _CharByte
+    tst.w        (sp)+            ; on character boundary?
+    ble.w        @QuitInit        ; yes, continue
+    sub.l        #1,BInfo.StrPtr(A6)    ; adjust pointer
+    add.w        #1,BInfo.StrCnt(A6)    ; adjust count
+@QuitInit
+    bra.s        ReturnEQ        ; return to the caller.
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></p>
+<a name="Section3"></a><h2>The Fetch Procedure</h2>
+<p>
+The Fetch Procedure is used to fetch a character from a string, updating the
+pointer and length to reflect the remainder of the string. For example, the
+following code changes the  text comparison for Yugoslavian:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>;------------------------------------------------------------------------
+; Routine    FetchProc
+; Input    A2          String Data Structure
+;        A3          String pointer (one past fetched char)
+;         A6          Local Frame
+;        D4.W        Character: top byte is fetched character, bottom
+;                              is zero
+;        D5.B        1 if string is empty, otherwise 0
+; Output    D4.W        Character: top byte set to character, bottom to
+;                    extension
+;        D5.B        1 if string is empty, otherwise 0
+; Trashes    Standard regs:    A0/A1/D0-D2
+; Function    This routine returns the characters that are fetched from
+;        the string, if they are not just a sequence of single bytes.
+;------------------------------------------------------------------------
+
+FetchProc
+    tst.b        d5            ; more characters in string?
+    bne.s        ReturnEq        ; no -&gt; bail out.
+
+    move.w        d4,d0            ; load high byte.
+    move.b        (a3),d0        ; load low byte.
+
+    lea        pairTable,a1        ; load table address
+
+@compareChar
+    move.w        (a1)+,d1        ; pair = 0?
+    beq.s        ReturnEq        ; yes -&gt; end of table.
+    cmp.w        d0,d1            ; legal character pair?
+    bne.s        @compareChar        ; no -&gt; try the next one.
+    add.w        #1,a3            ; increment pointer.
+    sub.w        #1,StrCnt(a2)        ; decrement length.
+    addx.w        d5,d5            ; empty -&gt; set the flag.
+    move.w        d0,d4            ; copy character pair.
+    rts                    ; return to caller with CCR=NE
+
+pairTable
+    dc.b    'Lj'            ; Lj
+    dc.b    'LJ'            ; LJ
+    dc.b    'lJ'             ; lJ
+    dc.b    'lj'            ; lj
+
+    dc.b    'Nj'            ; Nj
+    dc.b    'NJ'            ; NJ
+    dc.b    'nJ'            ; nJ
+    dc.b    'nj'            ; nj
+
+    dc.b    'D', $be        ; Dz-hat
+    dc.b    'D', $ae        ; DZ-hat
+    dc.b    'd', $ae        ; dZ-hat
+    dc.b    'd', $be        ; dz-hat
+
+    DC.B    $00, $00        ; table end
+
+FetchProc
+    with        IUStrData
+    tst.b        d5            ; empty string?
+    bne.s        ReturnEq        ; exit if length = 0
+
+; if we have a double-byte char, add the second byte
+    lea        CurChar(a2),a0    ; pass pointer
+    move.w        d4,(a0)        ; set value at ptr
+    clr.w        d0            ; pass length
+
+    sub.l        #2,SP            ; allocate return
+    move.l        a0,-(sp)        ; pointer
+    move.w        d0,-(sp)        ; offset
+    _CharByte
+    tst.w        (sp)+            ; test return
+    bmi.s        @DoubleByte        ; skip if high byte (first two)
+
+; we don't have a double byte, but two special cases combine second bytes
+    move.b        (a3),d0         ; get next byte
+    cmp.b        #$DE,d0        ; nigori?
+    beq.s        @DoubleByte        ; add in
+    cmp.b        #$DF,d0        ; maru?
+    bne.s        ReturnEq        ; exit: single byte
+
+@DoubleByte
+    move.b        (a3)+,d4        ; get next byte
+    subq.w        #1,StrCnt(A2)        ; dec string length
+    addx.w        d5,d5            ; set x=1 if string len = 0
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></p>
+<a name="Section4"></a><h2>The Project Procedure</h2>
+<p>
+The Project Procedure is used to find the primary ordering for a character.
+This routine will map characters that differ only in the secondary ordering
+onto a single character, typically the unmodified, uppercase character. For
+example, the following changes the comparison order for some Norwegian
+characters, so that they occur after 'Z.'</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>;------------------------------------------------------------------------
+; Routine    ProjectProc
+; Input    A2          String Data Structure
+;        D4.W        Character (top byte is char, bottom is extension
+;                    (the extension is zero unless set by FetchProc))
+; Output    D4.W        Projected Character
+;        CCR         NE to skip normal Project
+; Trashes    Standard regs:    A0/A1/D0-D2
+; Function    This routine projects the secondary characters onto primary
+;                  characters.
+;        Example: a,&Auml;,&Auml; -&gt; A
+;------------------------------------------------------------------------
+
+ProjectProc
+    lea        ProjTable,A1    ; load table address.
+@findChar
+    move.l        (a1)+,D0        ; get entry
+    cmp.w        d0,d4            ; original &gt;= entry?
+    bhi.s        @findChar        ; no, try the next entry.
+    bne.s        ReturnEq        ; not equal, process normally
+
+@replaceChar
+    swap        d0            ; get replacement
+    move.w        d0,d4            ; set new character word.
+@doneChar
+    rts                    ; CCR is NE to skip project.
+
+ProjTable
+;    Table contains entries of the form  r1, r2, o1, o2,
+;    where r1,r2 are the replacement word, and
+;    o1, o2 are the original character.
+;    The entries are sorted by o1,o2 for use in the above algorithm
+
+    DC.B    'Z', 3, '&Aring;', 0    ; &Aring; after &Oslash;
+    DC.B    'Z', 3, '&Aring;', 0    ; &Aring; after &Oslash;
+    DC.B    'Z', 1, '&AElig;', 0    ; &AElig; after Z
+    DC.B    'Z', 2, '&Oslash;', 0    ; &Oslash; after &AElig;
+    DC.B    'Z', 1, '&AElig;', 0    ; &AElig; after Z
+    DC.B    'Z', 2, '&Oslash;', 0    ; &Oslash; after &AElig;
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<p>
+The Project procedure can also be used to undo the effects of the normal
+projection. For example, suppose that "oe" is not to be expanded into "oe": in
+that case, a simple test can be made against 'oe',0, returning <code>NE</code> if
+there is a match, so that the normal processing is not done. To expand one
+character into two, the routine should return the first replacement character
+in <code>D4.W</code>, and modify two fields in the <code>IUStrData</code> field. For
+example, given that <code>A1</code> points to a table entry of the form
+<code>(primaryCharacter: Word; secondaryCharacters: Word)</code>, the following code could
+be used:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    ...
+    move.w        (a1)+,d4        ; return first, primary character
+    move.w        (a1)+,CurChar(A2)    ; original =&gt; first, modified char.
+    addq.b        #1,JustAfter(A2)    ; set to one (otherwise zero)
+    move.b        (a1),BufChar(A2)    ; store second character (BYTE!)
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<p><code>
+CurChar</code> is where the original character returned by <code>FetchChar</code> is
+stored. If characters are different even after being projected onto their
+respective primary characters, then the <code>CurChar</code> values for each string
+will be compared. <code>JustAfter</code> indicates that the expanded character
+should sort after the corresponding unexpanded form. This field must be set
+whenever <code>CurChar</code> is modified in order for the comparison to be fully
+ordered. <code>BufChar</code> stores the next byte to be retrieved from the string
+by <code>FetchChar</code>.</p>
+<p>
+To handle the case where characters are ignored unless the two compared strings
+are otherwise equal, the <code>IgnChar</code> flag can be set. This can be used to
+handle characters such as the hyphen in English, or vowels in Arabic.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>    ...
+    cmp.w    #hyphen,d0        ; is it a ignorable?
+    seq    IgnChar(a2)        ; set whether or not
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></p>
+<a name="Section5"></a><h2>The Vernier Procedure</h2>
+<p>
+The Vernier Procedure is used to make a final comparison among characters that
+have the same primary ordering. It is only needed if the <code>CurChar</code>
+values are not ordered properly. For example, according to the binary encoding,
+&aring; &lt; &Atilde;. To change this ordering so that uppercase letters are
+before lowercase letters, &amp;Atilde; is mapped to $7F in normal comparison. Notice
+that only the characters in the secondary ordering are affected: &amp;Atilde can be
+mapped onto Z, but not onto &amp;Auml;, since that would cause a collision.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>;------------------------------------------------------------------------
+; Routine    VernierProc
+; Input    D4.B               High byte of character
+;        D5.B               Low byte of character
+; Output    D4.B               High byte of character
+;        D5.B               Low byte of character
+;        CCR                NE if to skip standard Vernier
+; Trashes    Standard regs:    A0/A1/D0-D2
+; Function    The Vernier routine compares characters within the secondary
+;                      ordering if two strings are otherwise equal.
+;                      Example: (a,A,&Auml;,&Auml;)
+;------------------------------------------------------------------------
+
+VernierProc
+    not.b        d4        ; invert secondary ordering
+    not.b        d5        ; ditto for lower byte
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<P><a href="#top">Back to top</a></p>
+<a name="Section6"></a><h2>Installing an itl2 resource </h2>
+<p>
+To write an <code>itl2</code> resource, follow the guidelines in
+<a HREF = "../pt/pt_35.html">M.PT.StandAloneCode</a> for writing standalone code in MPW. The code should be
+written in assembly language, and it must follow the specifications given in
+this technical note or serious system errors could occur whenever string
+comparisons are made.</p>
+<p>
+The default comparison routine is in the <code>itl2</code> resource of the System
+file. In order to use a comparison routine other than the standard one, you
+should include an <code>itl2</code> resource in your application with the same name
+and resource ID as the one in the System file that you wish to change. The
+Resource Manager will look for the resource in the application resource file
+before it looks in the System resource file, so your string comparison routine
+will be used instead of the default one.</p>
+<p>
+It is generally a dangerous practice to change a system resource since other
+applications may depend on it, but if you have good reasons to permanently
+change the system <code>itl2</code> resource so that all applications use a
+different comparison routine, then you should write an installer script to
+change the <code>itl2</code> resource in the System resource file. Writing an
+installer script is documented in <a HREF = "../pt/pt_520.html">M.PT.Installer.</a> You are required to write an
+installer script if you are planning to ship your application on a licensed
+system software disk and your application makes a permanent change to any
+resources in the System file. We strongly discourage changing the System
+<code>itl2</code> as that would change the behavior of string comparison and
+sorting for all applications. If that is your intent, then you should write an
+installer script. However, if you are changing the <code>itl2</code> resource in
+the System file for academic or internal use, then you can use a resource
+editor such as ResEdit to copy your <code>itl2</code> resource into the System
+file.</p>
+<P><a href="#top">Back to top</a></p>
+<a name = "References"></a><h2>References</h2>
+<P>The International Utilities</p>
+<P><a HREF = "../pt/pt_520.html">M.TP.Installer</a></p>
+<P><a HREF = "../pt/pt_35.html">M.PT.StandAloneCode</a></p>
+
+
+
+         <a name="Downloads"></a>
+       <P><a href="#top">Back to top</a></p>
+<h2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (64K).</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/te_07.pdf">Download</a></P>
+               </TD>
+            </TR>
+           
+         </table>
+         <BR>
+</TD></TR></table></center>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

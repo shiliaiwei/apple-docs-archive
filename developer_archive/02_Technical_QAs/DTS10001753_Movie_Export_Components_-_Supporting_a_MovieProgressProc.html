@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+            <meta id="book-title" name="book-title" content="Movie Export Components - Supporting a MovieProgressProc">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/QuickTime}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001753">
+            <meta id="document-version" name="document-version" content="2.0.0">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="QA1230: Explains the steps needed to support a movie progress proc in a movie export component.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+
+
+
+<title>Technical Q&amp;A QA1230: Movie Export Components - Supporting a MovieProgressProc</title>
+
+<meta name="keywords" content="MovieProgressProc, Movie Export Component">
+
+<meta name="Description" content="Technical Q&amp;A QA1230: This Q&amp;A explains the steps needed
+to support a Movie Progress Proc in a Movie Export Component.">
+
+
+
+<meta name="categories" content="QuickTime Components">
+
+
+<meta name="week-posted" content="Dec 30, 2002 - Jan 3, 2003">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10001753" title="Movie Export Components - Supporting a MovieProgressProc"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Movie Export Components - Supporting a MovieProgressProc</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technicalQA">
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalqas/index.html">Technical Q&As</a> &gt; <a href="../../technicalqas/QuickTime/index.html">QuickTime</a> &gt; <a href="../../technicalqas/QuickTime/idxQuickTimeComponentCreation-date.html">QuickTime Component Creation</a> &gt; </p><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Q&amp;A QA1230</div>
+<div id="pageheadsub">Movie Export Components - Supporting a MovieProgressProc</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+
+
+
+
+<CENTER>
+			<table BORDER=0 CELLSPACING=1 WIDTH=600> <TR> <TD align="left">
+
+<!-- begin_content -->
+
+<hr width=500 align=center>
+         
+
+<P id=p2>Q: I'm working on a Movie Export Component which encodes and writes data to a file. This process takes some time and I'd like to support a progress procedure. I've read about the MovieProgressProc but it seems to only apply to functions like <code>ConvertMovieToFile</code> and <code>PutMovieIntoTypedHandle</code>. How do I support a ProgressProc in my Export Component?</p>
+						<P id=p4>A: Supporting a Progress Procedure in your Export Component is quite straightforward.</p>
+						<p id=p4>The application will supply a <code>MovieProgressProc</code> conforming to the prototype in Listing 1. This is the user function you will call from your component.</p>
+						<div align="center">
+							<table border=0 cellpadding=4 width=550>
+								<tr>
+									<td bgcolor="#E6E6E6" align=left scope="row">
+										<pre>OSErr MyMovieProgressProc(Movie theMovie,
+                          short message,
+                          short whatOperation,
+                          Fixed percentDone,
+                          long  refcon);</pre>
+									</td>
+								</tr>
+								<tr>
+									<td align="left" scope="row">
+										<p><b>Listing 1</b>. Prototype for an application defined MovieProgressProc.</p>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<p id=p4>You will need to support the <code>SetProgressProc</code> selector and implement the <code>SetProgressProc</code> function in your Export Component. This allows your component to be called with the <code>MovieExportSetProgressProc</code> API.</p>
+						<div align="center">
+							<table border=0 cellpadding=4 width=550>
+								<tr>
+									<td bgcolor="#E6E6E6" align=left scope="row">
+										<pre>ComponentCall (SetProgressProc)</pre>
+									</td>
+								</tr>
+								<tr>
+									<td align="left" scope="row">
+										<p><b>Listing 2</b>. Supporting the SetProgressProc selector.</p>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<p id=p4>QuickTime will then call your Export Component with the <code>ProgressProc</code> (a <code>MovieProgressUPP</code>) and <code>refcon</code>. Store this <code>MovieProgressUPP</code> and <code>refcon</code> in your component globals for later use.</p>
+						<div align="center">
+							<table border=0 cellpadding=4 width=550>
+								<tr>
+									<td bgcolor="#E6E6E6" align=left scope="row">
+										<pre>pascal ComponentResult MyExport_SetProgressProc(
+                                myExportGlobals  glob,
+                                MovieProgressUPP proc,
+                                long             refcon)
+{
+    if ((NULL == proc) || (-1 == proc)) return paramErr;
+
+    glob-&gt;progressProc = proc;
+    glob-&gt;progressProcRefCon = refCon;
+
+    return noErr;
+}</pre>
+									</td>
+								</tr>
+								<tr>
+									<td align="left" scope="row">
+										<p><b>Listing 3</b>. Export component SetProgressProc implementation.</p>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<p id=p4>During the export process (when your component is doing its work), call the progress procedure using <code>InvokeMovieProgressUPP</code> making sure to supply the appropriate messages and updated percentage values to indicate your progress.</p>
+						<p id=p4>The <code>message</code> parameter should be set to one of the following values:</p>
+						<ul>
+							<li id=p4><code>movieProgressOpen</code> - your exporter is starting long operation, this <b>must</b> always be the first message.
+							<li id=p4><code>movieProgressUpdatePercent</code> - relative completion of the operation.
+							<li id=p4><code>movieProgressClose</code> - export operation done, this <b>must</b> be the last message.
+						</ul>
+						<p id=p4>The <code>whatOperation</code> parameter should be set to reflect the export operation:</p>
+						<ul>
+							<li id=p4><code>progressOpExportMovie</code> - export operation.
+						</ul>
+						<CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>InvokeMovieProgressUPP(
+        NULL,                  // movie
+        movieProgress...,      // movieProgressOpen,
+                               // movieProgressUpdatePercent
+                               // or movieProgressClose
+        progressOpExportMovie, // exporting
+        myPercentDone,         // a fixed value 1.0 == 100% done
+        store-&gt;progressProcRefCon,
+        glob-&gt;progressProc);</pre>
+</TD></TR>
+								<TR><TD align="left">
+<P><B>Listing 4</B>. Calling the MovieProgressProc from an Export Component</P>
+</TD></TR>
+							</table></CENTER>
+						<p id=p4>Application developers should note that the &quot;Default Progress Proc&quot; value of -1 cannot be used with <code>MovieExportSetProgressProc</code>. This API requires that you supply a valid callback function.</p>
+						<h4 id=p4>References:</h4>
+						<ul>
+							<li id=p4><a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/APIREF/SOURCESII/movieexportsetprogressproc.htm" target="_blank">MovieExportSetProgressProc</a>
+							<li id=p4><a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/APIREF/SOURCESIII/movieprogressproc.htm" target="_blank">MovieProgressProc</a>
+							<li id=p4><a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/INMAC/QT/iqMovieToolbox.53.htm" target="_blank">Progress Functions</a>
+							<li id=p4><a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/APIREF/SOURCESV/wwpgcoverfs.htm" target="_blank">Working with Progress and Cover Functions</a>
+							<li id=p4><a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/APIREF/SOURCESIII/setmovieprogressproc.htm" target="_blank">SetMovieProgressProc</a>
+							<li id=p4><a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/APIREF/SOURCESII/newmovieprogressupp.htm" target="_blank">NewMovieProgressUPP</a>
+							<li id=p4><a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/APIREF/SOURCESI/disposemovieprogressupp.htm" target="_blank">DisposeMovieProgressUPP</a>
+						</ul>
+						<hr width=500 align=center>
+						<!-- begin_date --><H4 ALIGN=center>[Jan 31 2003]</H4><!-- end_date -->
+
+</TD> </TR> </table>
+		</CENTER>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

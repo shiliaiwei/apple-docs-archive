@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2335: Selecting a GPU for OpenCL on the Mac Pro (Late 2013)</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014355">
+    <meta id="document-version" name="document-version" content="1.0.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014355-CH1">
+    <meta id="date" name="date" content="2014-04-18">
+    <meta id="description" name="description" content="TN2335: describes how to select a GPU in CL-only or CL/GL apps on the Mac Pro (Late 2013)">
+    <meta id="book-title" name="book-title" content="Selecting a GPU for OpenCL on the Mac Pro (Late 2013)">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core OS Layer/OpenCL}, {Topic/Drivers, Kernel, & Hardware/Hardware}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2335">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Selecting a GPU for OpenCL on the Mac Pro (Late 2013)" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014355" title="Technical Note TN2335"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Selecting a GPU for OpenCL on the Mac Pro (Late 2013)</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014355-CH1-DontLinkElementID_2" title="Technical Note TN2335"></a><div class="dtsDocNumber">Technical Note TN2335</div><h1 id="pageTitle">Selecting a GPU for OpenCL on the Mac Pro (Late 2013)</h1><p>The Mac Pro (Late 2013) includes dual AMD FirePro workstation-class GPUs that are ideal for compute intensive tasks. This document describes how to query the GPUs and select one or both for use by OpenCL.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014355-CH1-TNTAG1" data-renderer-version="1">What you should know when using OpenCL</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014355-CH1-TNTAG2" data-renderer-version="1">Selecting a GPU when not using OpenGL</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014355-CH1-TNTAG6" data-renderer-version="1">Selecting a GPU when using CL/GL Sharing</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40014355-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40014355-CH1-TNTAG1" title="What you should know when using OpenCL"></a><h2 class="jump">What you should know when using OpenCL</h2><p>OS X has longstanding support for multiple GPUs and the following references have useful background information for setting up your application for multiple GPUs.</p><p>Technical Note TN2229: Supporting Multiple GPUs on OS X describes the use of multiple GPUs on the Mac platform.</p><p>Introduction to OpenGL Programming Guide for OS X describes many key concepts related to the graphics and display system.</p><p>WWDC 2013 Session 508: Working with OpenCL describes how to switch between two GPUs in a Mac portable using power considerations.</p><p>The Mac Pro (Late 2013) is different from other Macs as only the primary GPU provides output for the display. The secondary GPU provides additional processing capability and can perform OpenCL and off-screen OpenGL tasks without affecting the responsiveness of the user interface. Note: There may be additional latency when sharing data between the primary and secondary GPU. WWDC 2013 Session 508, mentioned above, also covers of the particulars of data sharing with OpenCL. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014355-CH1-TNTAG2" title="Selecting a GPU when not using OpenGL"></a><h2 class="jump">Selecting a GPU when not using OpenGL</h2><p>The following code shows how to look up an array containing cl_device_ids for all of the available GPUs in the machine. This array will contain two device on the Mac Pro (Late 2013). Both devices will have the same name and their clGetDeviceInfo queries will return the same values. An application that is not using CL/GL sharing to pass objects between OpenCL and OpenGL may create a cl_context from this device array and then perform compute tasks on either device. </p><a name="//apple_ref/doc/uid/DTS40014355-CH1-SOURCECODE1" title="Listing 1Looking up the available GPUs"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Looking up the available GPUs</p><div class="codesample clear"><table><tr><td scope="row"><pre>cl_uint num = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>clGetDeviceIDs(NULL,CL_DEVICE_TYPE_GPU,0,NULL,&amp;num);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>cl_device_id devices[num];<span></span></pre></td></tr><tr><td scope="row"><pre>clGetDeviceIDs(NULL,CL_DEVICE_TYPE_GPU,num,devices,NULL);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>cl_context ctx = clCreateContext(NULL,num,devices,NULL,NULL,NULL);<span></span></pre></td></tr></table></div><p>Programs that are not sharing resources between OpenCL and OpenGL may use the CGL API to distinguish the GPUs without creating a share group.</p><p>SDK Example: DeviceSelectCL shows how to identify the offline GPU that is not connected to a display, and then use the CL device corresponding to this GPU.</p><p>The following code shows how to select the non-connected GPU. Using the CGL API, iterate over all of the available renderers and query each for its kCGLRPOnline, kCGLRPAcceleratedCompute, and kCGLRPRendererID, then determine the renderer ID that is both offline and supports accelerated compute:</p><a name="//apple_ref/doc/uid/DTS40014355-CH1-SOURCECODE2" title="Listing 2Selecting the non-connected GPU"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Selecting the non-connected GPU</p><div class="codesample clear"><table><tr><td scope="row"><pre>CGLRendererInfoObj rend;<span></span></pre></td></tr><tr><td scope="row"><pre>GLint nrend = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>GLint nonDisplayGPURendererID = 0x0;<span></span></pre></td></tr><tr><td scope="row"><pre>CGLQueryRendererInfo(0xffffffff, &amp;rend, &amp;nrend);<span></span></pre></td></tr><tr><td scope="row"><pre>for(GLint idx=0; idx&lt;nrend; idx++) {<span></span></pre></td></tr><tr><td scope="row"><pre>    GLint online = 1;<span></span></pre></td></tr><tr><td scope="row"><pre>    CGLDescribeRenderer(rend, idx, kCGLRPOnline, &amp;online);<span></span></pre></td></tr><tr><td scope="row"><pre>    if(!online) {<span></span></pre></td></tr><tr><td scope="row"><pre>        GLint accelerated = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>        CGLDescribeRenderer(rend, idx, kCGLRPAcceleratedCompute, &amp;accelerated);<span></span></pre></td></tr><tr><td scope="row"><pre>        if(accelerated) {<span></span></pre></td></tr><tr><td scope="row"><pre>                CGLDescribeRenderer(rend, idx, kCGLRPRendererID,<span></span></pre></td></tr><tr><td scope="row"><pre>                                                        &amp;nonDisplayGPURendererID);<span></span></pre></td></tr><tr><td scope="row"><pre>                break;<span></span></pre></td></tr><tr><td scope="row"><pre>            }<span></span></pre></td></tr><tr><td scope="row"><pre>        }<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>CGLDestroyRendererInfo(rend);<span></span></pre></td></tr></table></div><p>For GPUs that support OpenCL in Mac OS X, the rendererID may be transformed into a cl_device_id by masking away the low byte:</p><a name="//apple_ref/doc/uid/DTS40014355-CH1-SOURCECODE3" title="Listing 3Converting a renderer ID to a cl_device_id"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Converting a renderer ID to a cl_device_id</p><div class="codesample clear"><table><tr><td scope="row"><pre>cl_device_id nonDisplayCLDeviceId = (cl_device_id)(intptr_t)(nonDisplayGPURendererID&amp;~0xff);<span></span></pre></td></tr></table></div><p>This variable may be used to create a CL context, or to create a command queue in an existing context that contains the device.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014355-CH1-TNTAG6" title="Selecting a GPU when using CL/GL Sharing"></a><h2 class="jump">Selecting a GPU when using CL/GL Sharing</h2><p>Applications that share resources between OpenCL and OpenGL by creating a CL context from CGLSharegroup may use an OpenCL extension to determine which device is connected to the display. These applications may also use the CGL API mechanism described in the previous section.</p><p>SDK Example: DeviceSelectCLGL shows how to identify the offline GPU that is not connected to a display.</p><p>The application will create a CL context from a CGL sharegroup, using the following code:</p><a name="//apple_ref/doc/uid/DTS40014355-CH1-SOURCECODE4" title="Listing 4Creating a CGL sharegroup and a CL context"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Creating a CGL sharegroup and a CL context</p><div class="codesample clear"><table><tr><td scope="row"><pre>CGLShareGroupObj sharegroup = CGLGetShareGroup(self.view.openGLContext.CGLContextObj);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>cl_context_properties props[] = {<span></span></pre></td></tr><tr><td scope="row"><pre>  CL_CONTEXT_PROPERTY_USE_CGL_SHAREGROUP_APPLE,<span></span></pre></td></tr><tr><td scope="row"><pre>  (cl_context_properties)sharegroup,<span></span></pre></td></tr><tr><td scope="row"><pre>  0<span></span></pre></td></tr><tr><td scope="row"><pre>};<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>cl_int err;<span></span></pre></td></tr><tr><td scope="row"><pre>ctx = clCreateContext(props, 0, NULL, NULL, NULL, &amp;err);<span></span></pre></td></tr></table></div><p>The CGL sharegroup must include offline renderers. In an NSOpenGLView based application, this selection is performed within InterfaceBuilder. In other applications, call CGLChoosePixelFormat with an attribute list including the kCGLPFAAllowOfflineRenderers attribute.</p><p>The CL context will contain all of the GPU devices in the sharegroup that support OpenCL. If you want to include the OpenCL CPU device in the context, pass it to clCreateContext in an array with the third argument.</p><p>You can use the clGetGLContextInfoAPPLE function to query the cl_device_id corresponding to the current virtual screen and then compare this value to the other devices in the context to distinguish display connected GPU.</p><a name="//apple_ref/doc/uid/DTS40014355-CH1-SOURCECODE5" title="Listing 5Querying for the connected GPU with the app's current virtual screen"></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Querying for the connected GPU with the app's current virtual screen</p><div class="codesample clear"><table><tr><td scope="row"><pre>cl_device_id displayDevice;<span></span></pre></td></tr><tr><td scope="row"><pre>clGetGLContextInfoAPPLE(ctx,self.view.openGLContext.CGLContextObj,<span></span></pre></td></tr><tr><td scope="row"><pre>    CL_CGL_DEVICE_FOR_CURRENT_VIRTUAL_SCREEN_APPLE, sizeof(displayDevice), &amp;displayDevice, NULL);<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40014355-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014355-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-04-18</td><td><p>New document that 
+					describes how to select a GPU in CL-only or CL/GL apps on the Mac Pro (Late 2013)</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-04-18</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

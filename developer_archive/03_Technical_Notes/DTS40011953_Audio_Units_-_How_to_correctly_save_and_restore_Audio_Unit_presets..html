@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2157: Audio Units - How to correctly save and restore Audio Unit presets.</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40011953">
+    <meta id="document-version" name="document-version" content="2.0.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40011953-CH1">
+    <meta id="date" name="date" content="2013-08-09">
+    <meta id="description" name="description" content="TN2157: Illustrates how applications hosting Audio Units correctly save and restore audio unit presets.">
+    <meta id="book-title" name="book-title" content="Audio Units - How to correctly save and restore Audio Unit presets.">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2157">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Units - How to correctly save and restore Audio Unit presets." type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40011953" title="Technical Note TN2157"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Units - How to correctly save and restore Audio Unit presets.</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40011953-CH1-DontLinkElementID_2" title="Technical Note TN2157"></a><div class="dtsDocNumber">Technical Note TN2157</div><h1 id="pageTitle">Audio Units - How to correctly save and restore Audio Unit presets.</h1><p>Applications that host Audio Units can take advantage of the Audio Unit preset mechanism. Presets give users a quick method of choosing a combination of settings for an audio unit, without going through the hassle of making adjustments everytime an Audio Unit gets loaded.</p><p>An Audio Unit can have a specific state at any given time. The state of an audio unit refers to the internal values that can affect its behavior; in most cases, these are the parameters. Audio Units tend to have large amounts of these internal values, making it is useful to allow these values to be saved and restored as presets for later use.</p><p>These states can be either shipped with an Audio Unit, or saved in a file format, that can be loaded by a hosting application.</p><p>Factory Presets are a set of pre-defined audio unit settings that are shipped with an Audio Unit. They usually define common settings that an Audio Unit will ordinarily use. For example, a reverb Audio Unit might want to include several factory presets such as a small room or a large hall.</p><p>User states are custom settings that can be created by a user. Essentially, a user state is a snapshot of the current settings on an audio unit at any given time, which could be stored in a file format.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011953-CH1-FINDPRESETS" data-renderer-version="1">Finding presets</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40011953-CH1-F1" data-renderer-version="1">Factory</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40011953-CH1-FP1" data-renderer-version="1">Custom</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011953-CH1-RESTORE" data-renderer-version="1">Restoring a preset from file</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011953-CH1-CLASSDATA" data-renderer-version="1">Saving Custom User Presets</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011953-CH1-CONC" data-renderer-version="1">Conclusion</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011953-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40011953-CH1-FINDPRESETS" title="Finding presets"></a><h2 class="jump">Finding presets</h2><section><a name="//apple_ref/doc/uid/DTS40011953-CH1-F1" title="Factory"></a><h3 class="jump">Factory</h3><p>Factory presets can be retrieved from an audio unit by using the method <code>AudioUnitGetProperty</code> with the <code>kAudioUnitProperty_FactoryPresets</code> property.</p><a name="//apple_ref/doc/uid/DTS40011953-CH1-SOURCECODE1" title="Listing 1Factory Presets"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Factory Presets</p><div class="codesample clear"><table><tr><td scope="row"><pre> CFArrayRef presets = NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>    propertySize = sizeof(presets);<span></span></pre></td></tr><tr><td scope="row"><pre>    err = AudioUnitGetProperty(SomeAudioUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                               kAudioUnitProperty_FactoryPresets,<span></span></pre></td></tr><tr><td scope="row"><pre>                               kAudioUnitScope_Global,<span></span></pre></td></tr><tr><td scope="row"><pre>                               0,<span></span></pre></td></tr><tr><td scope="row"><pre>                               &amp;presets,<span></span></pre></td></tr><tr><td scope="row"><pre>                               &amp;propertySize);<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40011953-CH1-FP1" title="Custom"></a><h3 class="jump">Custom</h3><p>Presets can also be read off disk and used to set the state of an audio unit. These presets are stored on disk in one of these three locations with the extension .aupreset:</p><ul class="ul"><li class="li"><p>User Domain - ~/Library/Audio/Presets/</p></li><li class="li"><p>Local Domain - /Library/Audio/Presets/</p></li><li class="li"><p>Network Domain - /Network/Library/Audio/Presets/</p></li></ul><p>Presets stored within these directories must be organized in deeper directories by manufacturer name and Audio Unit name. This is the only way to associate a preset with it's accompanying Audio Unit. For example, the presets of the SampleEffect Audio Unit included the Core Audio SDK are stored in:</p><ul class="ul"><li class="li"><p>~/Library/Audio/Presets/Acme Inc/SampleEffectUnit/MyPreset.aupreset</p></li></ul><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40011953-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Applications can use CAFileHandling class included in the CoreAudio SDK to scan, locate, and save .aupreset files.</p><p></p></aside></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011953-CH1-RESTORE" title="Restoring a preset from file "></a><h2 class="jump">Restoring a preset from file </h2><p>The class info property represents the current state of an audio unit. This property is stored in a <code>CFPropertyListRef</code>, which is an XML format, which can be cast to a <code>CFDictionaryRef</code> or an <code>NSDictionary</code>. After locating and obtaining audio unit state information from an .aupreset file, you can restore the audio unit with the state information by using the method <code>AudioUnitSetProperty</code> with <code>kAudioUnitProperty_ClassInfo</code>.</p><a name="//apple_ref/doc/uid/DTS40011953-CH1-SOURCECODE2" title="Listing 2Restoring Presets"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Restoring Presets</p><div class="codesample clear"><table><tr><td scope="row"><pre> AudioUnitSetProperty(theAudioUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                            kAudioUnitProperty_ClassInfo,<span></span></pre></td></tr><tr><td scope="row"><pre>                            kAudioUnitScope_Global,<span></span></pre></td></tr><tr><td scope="row"><pre>                            0,<span></span></pre></td></tr><tr><td scope="row"><pre>                            &amp;inClassInfo,<span></span></pre></td></tr><tr><td scope="row"><pre>                            sizeof(inClassInfo)));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // now that we've potentially changed the values of the parameter we<span></span></pre></td></tr><tr><td scope="row"><pre>    // should notify any listeners of this change:<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioUnitParameter changedUnit;<span></span></pre></td></tr><tr><td scope="row"><pre>    changedUnit.mAudioUnit = theAudioUnit;<span></span></pre></td></tr><tr><td scope="row"><pre>    changedUnit.mParameterID = kAUParameterListener_AnyParameter;<span></span></pre></td></tr><tr><td scope="row"><pre>    RequireNoErr (AUParameterListenerNotify (NULL, NULL, &amp;changedUnit));<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40011953-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;Be sure to notify all parameter listeners that the values of the audio unit has changed.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011953-CH1-CLASSDATA" title="Saving Custom User Presets"></a><h2 class="jump">Saving Custom User Presets</h2><p>To save an audio unit state to an .aupreset file, you must set the audio unit to reflect the new preset and obtain the class info to be saved to disk.</p><p>Before retrieving the current state, you must create a new AUPreset and set it as the present preset using the property ID <code>kAudioUnitProperty_PresentPreset</code>. The AUPreset should have a name and have a preset number less than zero. Setting this property will name the new preset you are creating and will be included when you fetch the audio unit state information later to save as a file.</p><a name="//apple_ref/doc/uid/DTS40011953-CH1-SOURCECODE3" title="Listing 3Saving Presets"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Saving Presets</p><div class="codesample clear"><table><tr><td scope="row"><pre> AUPreset myPreset;<span></span></pre></td></tr><tr><td scope="row"><pre>    myPreset.presetNumber = -1; //should be less than zero ,(user preset)<span></span></pre></td></tr><tr><td scope="row"><pre>    myPreset.presetName = CFSTR("Name of New Preset");<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    AudioUnitSetProperty(SomeAudioUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                         kAudioUnitProperty_PresentPreset,<span></span></pre></td></tr><tr><td scope="row"><pre>                         kAudioUnitScope_Global,<span></span></pre></td></tr><tr><td scope="row"><pre>                         0,<span></span></pre></td></tr><tr><td scope="row"><pre>                         &amp;myPreset,<span></span></pre></td></tr><tr><td scope="row"><pre>                         sizeof(AUPreset));<span></span></pre></td></tr></table></div><p>To obtain the current state from an audio unit, use <code>AudioUnitGetProperty</code> with the <code>kAudioUnitProperty_ClassInfo</code> property. An example is below:</p><a name="//apple_ref/doc/uid/DTS40011953-CH1-SOURCECODE4" title="Listing 4Getting the class info (current settings)"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Getting the class info (current settings)</p><div class="codesample clear"><table><tr><td scope="row"><pre> CFPropertyListRef  myClassData;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    UInt32 size = sizeof(CFPropertyListRef);<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioUnitGetProperty(SomeAudioUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                         kAudioUnitProperty_ClassInfo,<span></span></pre></td></tr><tr><td scope="row"><pre>                         kAudioUnitScope_Global,<span></span></pre></td></tr><tr><td scope="row"><pre>                         0,<span></span></pre></td></tr><tr><td scope="row"><pre>                         &amp;myClassData,<span></span></pre></td></tr><tr><td scope="row"><pre>                         &amp;size);<span></span></pre></td></tr></table></div><p>After retrieving the current state information, save this data as an .aupreset file in the local, user, or network domain as described above.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011953-CH1-CONC" title="Conclusion"></a><h2 class="jump">Conclusion</h2><p>Audio Unit Presets eases the burden put on users to manually reset the state of an audio unit every time it is loaded. Presets make using audio units and their hosting application much easier for users.</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/library/mac/#technotes/tn2247/_index.html#//apple_ref/doc/uid/DTS40012567" class="urlLink" rel="external">Audio Components and the Application Sandbox</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/library/mac/navigation/index.html#section=Topics&amp;topic=Audio%20%26amp%3B%20Video" class="browserLink" >Audio Documentation</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/MusicAudio/Conceptual/AudioUnitProgrammingGuide/index.html" class="browserLink" >Audio Unit Programming Guide</a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/library/mac/#documentation/MusicAudio/Conceptual/CoreAudioOverview/Introduction/Introduction.html" class="urlLink" rel="external">Core Audio Overview</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40011953-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40011953-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2013-08-09</td><td><p>Corrected minor bug in Listing 3 that would cause it to return a kAudioUnitErr_InvalidPropertyValue.</p></td></tr><tr><td scope="row">2012-03-06</td><td><p>New document that 
+					illustrates how applications hosting Audio Units correctly save and restore audio unit presets.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-08-09</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

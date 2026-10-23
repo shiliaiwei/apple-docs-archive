@@ -1,0 +1,995 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Opening Resource Files Twice Considered Hard?">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002960">
+            <meta id="document-version" name="document-version" content="1.0.2">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1120.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+   <title>Technical Note TN1120: Opening Resource Files Twice Considered Hard?</title>
+  
+    <meta name="keywords" content="Mac OS 8 FSpOpenResFile Opening resource files twice TopMapHndl">
+    <meta name="Description" content="Technical Note TN1120: This Technical Note describes the
+exact behavior of                                     FSpOpenResFile
+when the resource file is already open,                 
+                   and describes some cookbook solutions
+to avoid                                     problems in
+this case.">
+
+
+<meta name="categories" content="Human Interface Toolbox">
+
+
+<meta name="week-posted" content="Dec 29, 1997 - Jan 2, 1998">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002960" title="Opening Resource Files Twice Considered Hard?"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Opening Resource Files Twice Considered Hard?</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxCarbon-date.html">Carbon</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Carbon/idxHumanInterfaceToolbox-date.html" target="_blank">Carbon > Human Interface Toolbox</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1120</div>
+<div id="pageheadsub">Opening Resource Files Twice Considered Hard?</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+<center><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+         
+ <!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+<!-- begin_toc -->
+<p id="menutext"><a HREF = "#Section1">Describing the
+         Problem</a><BR><BR>
+         
+         <a HREF = "#Section2"><CODE>FSpOpenResFile</CODE>
+         Explain!</a><BR><BR>
+         
+         <a HREF = "#Section3">Cookbook
+         Solutions</a><BR><BR>
+         
+        <a href="#Summary">Summary</a><BR><BR>
+<a href="#References">References</a><BR><BR>
+<a href="#Downloads">Downloadables</a></p>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+            
+			<!-- begin_intro_text -->
+<p id="introtext">Most Mac OS
+         programmers do not consider <CODE>FSpOpenResFile</CODE> (or
+         it's older cousins <CODE>OpenResFile</CODE>,
+         <CODE>OpenRFPerm</CODE>, and <CODE>HOpenResFile</CODE>) to
+         be difficult to call. However, the behavior of these calls
+         when the resource file is already open has never been
+         documented properly.</P>
+         
+<p id="introtext">This Note describes the <a HREF = "#Section2">exact
+         behavior</a> of <CODE>FSpOpenResFile</CODE> when the
+         resource file is already open, and describes some
+         <a HREF = "#Section3">cookbook solutions</a> to avoid problems
+         in this case.</P>
+         
+<p id="introtext">All Mac OS programmers who use the
+         <a href="http://developer.apple.com/documentation/mac/MoreToolbox/MoreToolbox-9.html">Resource
+         Manager</a> should read the <a HREF = "#Summary">Summary</a>
+         section of this Note, just to familiarize themselves with
+         the problem. In addition, programmers who are writing
+         non-application code should carefully read the entire Note
+         to ensure maximum compatibility for their code.</P>
+               
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Jan 30 1998]</h3>
+<!-- end_date -->
+        </td>
+    </tr>
+</table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+<!-- begin_content --><a NAME="Section1"></a>
+         <H2>Describing the Problem</H2>
+         
+         <P><a href="http://developer.apple.com/documentation/mac/MoreToolbox/MoreToolbox-41.html"><I>Inside
+         Macintosh: More Macintosh Toolbox</I> (p1-60)</a> has the
+         following to say about the behavior of
+         <CODE>FSpOpenResFile</CODE> when the resource file is
+         already open:</P>
+         
+         <BLOCKQUOTE><P><a NAME="IMQuote"></a>If you attempt to use
+         <CODE>FSpOpenResFile</CODE> to open a resource fork that is
+         already open, <CODE>FSpOpenResFile</CODE> returns the
+         existing file reference number or a new one, depending on
+         the access permission for the existing access path. For
+         example, your application receives a new file reference
+         number after a successful request for read-only access to a
+         file previously opened with write access, whereas it
+         receives the same file reference number in response to a
+         second request for write access to the same file. In this
+         case, <CODE>FSpOpenResFile</CODE> doesn't make that file the
+         current resource file.</P></BLOCKQUOTE>
+         
+         <P>This statement is mostly true, but it certainly is not
+         the whole truth. The exact situation is a lot more complex.
+         </P>
+         
+         <H3>Complicating Factors</H3>
+         
+         <P>The complicating factors when opening a resource file
+         include:</P>
+         
+         <UL>
+            <li>the exact call used to open the file, i.e.
+            <CODE>OpenResFile</CODE>, <CODE>OpenRFPerm</CODE>,
+            <CODE>HOpenResFile</CODE>, and
+            <CODE>FSpOpenResFile</CODE>,</li>
+            
+            <li>the permissions supplied to the call,</li>
+            
+            <li>whether the resource file is already open,</li>
+            
+            <li>if the resource file is already open (whether by this process or by another)</li>
+            
+            <li>if the resource file is already open by another
+            process (whether this process is on the local machine or
+            on another machine accessing the file via File Sharing)</li>
+            
+            
+            <li>if the resource file is already open (the permissions
+            previously used to open the file).</li>
+         </UL>
+         
+         <P>These complicating factors combine to make opening a
+         resource file potentially much more complicated than it
+         seems on first examination.</P>
+         
+         <H3>Simplifying the Problem</H3>
+         
+         <P>Fortunately, not all of the above factors actually
+         complicate the problem. We can simplify the analysis by
+         noting the following:</P>
+         
+         <UL>
+            <li><CODE>OpenResFile</CODE>, <CODE>OpenRFPerm</CODE>,
+            <CODE>HOpenResFile</CODE>, and
+            <CODE>FSpOpenResFile</CODE> all behave in the same way.
+            While you might think this is obvious, DTS engineers take
+            nothing for granted and I hope you feel reassured to know
+            that I actually tested this.</li>
+         </UL>
+         
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+                  
+                  <CODE>OpenResFile</CODE> does not take a
+                  permission parameter. When you call
+                  <CODE>OpenResFile</CODE>, it acts as if you had
+                  supplied the permission <CODE>fsCurPerm</CODE>.</P>
+</TD></TR></table></CENTER><BR><BR>
+         
+         <UL>
+            <li>There are only three <a NAME="outcomes"></a>outcomes
+            from calling <CODE>FSpOpenResFile</CODE>:
+            
+            <OL>
+               <li><a NAME="CompleteSuccess"></a><STRONG>Complete
+               Success</STRONG> -- A new resource map is
+               created and added to the top of the resource chain.
+               The routine makes the new resource map the current
+               resource map and returns its resource file reference
+               number.</li>
+               
+               <li><a NAME="PartialSuccess"></a><STRONG>Partial
+               Success</STRONG> -- The resource file reference number
+               of an existing resource map is returned. That existing
+               map will become the current resource map.</li>
+               
+               <li><a NAME="Failure"></a><STRONG>Failure</STRONG> --
+               <CODE>FSpOpenResFile</CODE> returns -1 and the
+               resource chain remains unchanged. You can call
+               <CODE>ResError</CODE> to get the real error number.</li>
+            </OL></li>
+         </UL>
+         
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+                  In the Partial Success outcome above,
+                  <CODE>CurResFile</CODE> is changed, which directly
+                  contradicts the last sentence of the
+                  <a HREF = "#IMQuote">quote from <I>Inside Macintosh:
+                  More Macintosh Toolbox</I></a>. This Technote is
+                  correct and Inside Macintosh is in error.</P>
+</TD></TR></table></CENTER><BR><BR>
+         
+         <UL>
+            <li>In all cases, asking for <CODE>fsWrPerm</CODE> and
+            asking for <CODE>fsRdWrPerm</CODE> have the same effect.</li>
+         </UL>
+         
+         <P>These points combine to make it much easier to describe
+         the exact situation. What remains is to describe the
+         behavior in each of the remaining cases.</p>
+
+<BR><P><a href="#top">Back to top</a></P>
+
+         <P><a NAME="Section2"></a></P>
+         
+         <H2><CODE>FSpOpenResFile</CODE> Explained!
+         </H2>
+         
+         <P>The following table show the exact behavior of
+         <CODE>FSpOpenResFile</CODE> in the various interesting cases.</P>
+         
+         <table BORDER=1>
+            <TR>
+               <td width=120 align=left>
+                  <P><B>Permissions Used<BR>
+                  
+                  to Open First</B></p>
+               </TD><td width=120 align=left>
+                  <P><B>Permissions Used<BR>
+                  
+                  to Open Second</B></p>
+               </TD><td width=70 align=left>
+                  <P><B><a NAME="ColumnA"></a>Same<BR>
+                  
+                  Process</B></p>
+               </TD><td width=70 align=left>
+                  <P><B>Same<BR>
+                  
+                  Machine</B></p>
+               </TD><td width=70 align=left>
+                  <P><B>Different<BR>
+                  
+                  Machines</B></p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P></p>
+               </TD><td width=120 align=left>
+                  <P></p>
+               </TD><td width=70 align=left>
+                  <P></p>
+               </TD><td width=70 align=left>
+                  <P></p>
+               </TD><td width=70 align=left>
+                  <P></p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P><CODE>fsCurPerm</CODE></p>
+               </TD><td width=120 align=left>
+                  <P><CODE>fsCurPerm</CODE></p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#Failure">Failure</a> -54</p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P><CODE>fsCurPerm</CODE></p>
+               </TD><td width=120 align=left>
+                  <P><CODE>fsRdPerm</CODE></p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#Failure">Failure</a> -54</p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P><CODE>fsCurPerm</CODE></p>
+               </TD><td width=120 align=left>
+                  <P><CODE>fsWrPerm<BR>
+                  
+                  fsRdWrPerm</CODE></p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#PartialSuccess">Partial</a> R/W</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#Failure">Failure</a> -49</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#Failure">Failure</a> -54</p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P></p>
+               </TD><td width=120 align=left>
+                  <P></p>
+               </TD><td width=70 align=left>
+                  <P></p>
+               </TD><td width=70 align=left>
+                  <P></p>
+               </TD><td width=70 align=left>
+                  <P></p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P><CODE>fsRdPerm</CODE></p>
+               </TD><td width=120 align=left>
+                  <P><CODE>fsCurPerm</CODE></p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P><CODE>fsRdPerm</CODE></p>
+               </TD><td width=120 align=left>
+                  <P><CODE>fsRdPerm</CODE></p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P><CODE>fsRdPerm</CODE></p>
+               </TD><td width=120 align=left>
+                  <P><CODE>fsWrPerm<BR>
+                  
+                  fsRdWrPerm</CODE></p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#PartialSuccess">Partial</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#Failure">Failure</a> -49</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P></p>
+               </TD><td width=120 align=left>
+                  <P></p>
+               </TD><td width=70 align=left>
+                  <P></p>
+               </TD><td width=70 align=left>
+                  <P></p>
+               </TD><td width=70 align=left>
+                  <P></p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P><CODE>fsWrPerm<BR>
+                  
+                  fsRdWrPerm</CODE></p>
+               </TD><td width=120 align=left>
+                  <P><CODE>fsCurPerm</CODE></p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#Failure">Failure</a> -54</p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P><CODE>fsWrPerm<BR>
+                  
+                  fsRdWrPerm</CODE></p>
+               </TD><td width=120 align=left>
+                  <P><CODE>fsRdPerm</CODE></p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#CompleteSuccess">Success</a> R-O</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#Failure">Failure</a> -54</p>
+               </TD></TR>
+            <TR>
+               <td width=120 align=left>
+                  <P><CODE>fsWrPerm<BR>
+                  
+                  fsRdWrPerm</CODE></p>
+               </TD><td width=120 align=left>
+                  <P><CODE>fsWrPerm<BR>
+                  
+                  fsRdWrPerm</CODE></p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#PartialSuccess">Partial</a> R/W</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#Failure">Failure</a> -49</p>
+               </TD><td width=70 align=left>
+                  <P><a HREF = "#Failure">Failure</a> -54</p>
+               </TD></TR>
+         </table>
+         
+         <P>The first column gives the permission value used the
+         first time the file was opened. The second column gives the
+         permission value for this call to
+         <CODE>FSpOpenResFile</CODE>.</P>
+         
+         <P>The remaining three columns describe the behavior in
+         each of the three important cases:</P>
+         
+         <UL>
+            <li><B>Same Process</B> -- The file has already been
+            opened by the same process.</li>
+            
+            <li><B>Same Machine</B> -- The file has already been
+            opened by another process on the same machine.</li>
+            
+            <li><B>Different Machines</B> -- The file has already
+            been opened by another process on another machine
+            connected via File Sharing.</li>
+         </UL>
+         
+         <P>Each cell is labelled with a pair of items. The first
+         item is the outcome of the call, <a HREF = "#outcomes">as
+         defined above</a>. The second item is either the permissions
+         associated with the returned resource file reference number
+         (for outcomes <a HREF = "#CompleteSuccess">Success</a> and
+         <a HREF = "#PartialSuccess">Partial</a> ) or the error code
+         returned (for outcome <a HREF = "#Failure">Failure</a> ).</P>
+         
+         <H3>Gotchas and Observations
+         </H3>
+         
+         <P>There are a number of important observations to be made
+         about the above table:</P>
+         
+         <UL>
+            <li>Asking for write permissions to a file if it has
+            already been opened by your process will yield
+            <a HREF = "#PartialSuccess">Partial Success</a>, i.e.
+            <CODE>FSpOpenResFile</CODE> will return the resource file
+            reference number of an existing resource map. If you're
+            not prepared for this (and you close the resource map
+            after using it, say), you will find yourself in a world
+            of pain. For example, it's common for developers to
+            accidentally close the resource map of their own
+            application, or the system resource map.</li>
+            
+            <li>It is possible to get lesser permissions than you
+            asked for. For example, in <a HREF = "#ColumnA">Same
+            Process</a> column in the table, if the file is already
+            open with <CODE>fsRdPerm</CODE> and you open it with
+            <CODE>fsRdWrPerm</CODE>, the resource file reference
+            number returned has read-only permissions. You can check
+            for this situation using the
+            <a HREF = "#CheckPermissions">code shown below</a>.</li>
+            
+            <li>Asking for <CODE>fsRdWrPerm</CODE> permissions to a
+            file which has already been opened with
+            <CODE>fsRdPerm</CODE> by another machine will succeed
+            (!), but will give you a read-only resource file
+            reference number.</li>
+            
+            <li>The exact error code you get back when a resource
+            file is already opened by another process depends on
+            whether that process is running on the local machine or
+            not.</li>
+         </UL>
+         
+         <H3><a NAME="OneFinalGotcha"></a>One
+         Final Gotcha</H3>
+         
+         <P>The last problem with opening the same resource file
+         twice is intrinsic to the design of the Resource Manager and
+         very hard to guard against. When you open a resource file,
+         the Resource Manager loads a catalog of all the resources
+         (the <STRONG>resource map</STRONG>) into your heap, and uses
+         that map to locate the data for each resource resides in the
+         resource file.</P>
+         
+         <P>When changing the resource map, the Resource Manager does
+         not coordinate between the various processes that might
+         have the resource file open. While the Resource Manager
+         prevents you from opening two read/write resource file
+         reference numbers to the same resource file, it does not
+         stop you from having a read-only and a read/write resource file
+         reference number simultaneously.</P>
+         
+         <P>This can cause serious problems in the following
+         situation:</P>
+         
+         <OL>
+            <li>Process A opens the resource file read/write. The
+            Resource Manager reads the resource map for the file into
+            Process's A's heap.</li>
+            
+            <li>Process B opens the resource read-only. The Resource
+            Manager reads the resource map for the file into
+            Process's B's heap.</li>
+            
+            <li>Process A then changes the resource file and calls
+            <CODE>UpdateResFile</CODE> to write those changes back to
+            the disk. This can cause the position of various
+            resources in the resource file to change quite
+            dramatically.</li>
+            
+            <li>Process B then calls the Resource Manager to read a
+            resource from the resource file. Because Process B's copy
+            of the resource map no longer matches the actual file,
+            the Resource Manager returns bogus resource data.</li>
+         </OL>
+         
+         <P>The restriction is described quite well in the Special
+         Considerations section of the description of
+         <a href="http://developer.apple.com/documentation/mac/MoreToolbox/MoreToolbox-41.html">FSpOpenResFile
+         in <I>Inside Macintosh: More Macintosh Toolbox</I></a>, but that
+         description is worth reiterating while we're on the subject
+         of opening resource files twice.</p>
+
+
+<BR><P><a href="#top">Back to top</a></P>
+
+         <P><a NAME="Section3"></a></P>
+         
+         <H2>Cookbook Solutions</H2>
+         
+         <P>This section describes some useful techniques you can
+         employ to ensure that the weirdnesses of
+         <CODE>FSpOpenResFile</CODE> does not bite your software. These
+         are listed with the most recommended (and easiest to
+         implement) first.</P>
+         
+         <H3>Open Resource Files Once
+         </H3>
+         
+         <P>If you're writing normal application-level code, it's
+         easy to remember whether your process has already opened a
+         resource file and avoid opening it twice. The following snippet
+         shows a simple example of this.</P>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>static SInt16 gResourceResFile = 0;
+static UInt32 gResourceUsageCount = 0;
+&nbsp;
+static OSErr StartUsingResources(ConstFSSpecPtr fss)
+{
+    OSErr  err;
+    SInt16 tmpResFile;
+&nbsp;
+    err = noErr;
+    if (gResourceUsageCount == 0) {
+        tmpResFile = FSpOpenResFile(fss, fsRdWrPerm);
+        err = ResError();
+        if (err == noErr) {
+            gResourceResFile = tmpResFile;
+        }
+    }
+    if (err == noErr) {
+        gResourceUsageCount += 1;
+    }
+&nbsp;
+    return err;
+}
+&nbsp;
+static void StopUsingResources(void)
+{
+    gResourceUsageCount -= 1;
+    if (gResourceUsageCount == 0) {
+        CloseResFile(gResourceResFile);
+        gResourceResFile = 0;
+    }
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+         
+         <P>Extending this technique for more than one resource file is
+         left as an exercise to the developer.</P>
+         
+         <H3>Open Resource Files Read
+         Only</H3>
+         
+         <P>In situations where you don't know whether a resource
+         file has already been opened by the current process (in
+         system extension code, for example), the easiest solution is
+         to always open the resource file read-only, i.e. using
+         <CODE>fsRdPerm</CODE>. If you do this, you will always get a
+         new resource reference number that you can safely close.
+         </P>
+         
+         <P>A further refinement of this solution is to open, read,
+         and close the resource file quickly, without yielding time
+         to other processes in between. This helps prevent another
+         process from modifying the file while you're reading it, and
+         minimizes your vulnerability to the
+         <a HREF = "#OneFinalGotcha">trickiest gotcha described
+         above</a>. This refinement is only useful in certain
+         situations, but is definitely one to keep in your
+         'cookbook'.</P>
+         
+         <H3>Check <CODE>TopMapHndl</CODE></H3>
+         
+         <P>In situations where you don't know whether a resource
+         file has already been opened by the current process and you
+         must open the resource file read/write, the best technique
+         is to monitor the <CODE>TopMapHndl</CODE> low memory global
+         to see if it changes around your call to
+         <CODE>FSpOpenResFile</CODE>. If this global changes, a new
+         resource map has been added to the top of the resource
+         chain, and you are responsible for closing it. If the global
+         does not change, an existing resource map reference number
+         was returned and you should not close it.</P>
+         
+         <P>The following snippet illustrates this technique.</P>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>static void SafeOpenResFileReadWrite(ConstFSSpecPtr fss)
+{
+    OSErr   err;
+    SInt16  oldResFile;
+    Handle  oldTopMap;
+    SInt16  resFile;
+    Boolean shouldClose;
+&nbsp;
+    oldResFile = CurResFile();
+&nbsp;
+    oldTopMap = LMGetTopMapHndl();
+    resFile = FSpOpenResFile(fss, fsRdWrPerm);
+    err = ResError();
+&nbsp;
+    if (err == noErr) {
+        shouldClose = (LMGetTopMapHndl() != oldTopMap);
+&nbsp;
+        // do the stuff with the resource file
+&nbsp;
+        if (shouldClose) {
+            CloseResFile(resFile);
+        }
+    }
+&nbsp;
+    UseResFile(oldResFile);
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+         
+         <P>It's important to remember that this technique is only
+         necessary if you need to open the file read/write and you
+         don't know whether the file is already open by the current
+         process. As such, this technique is needed most by
+         non-application code -- such as system extensions, shared
+         libraries, application plug-ins, etc -- but it may also be
+         useful for application code is running in strange environments,
+         such as a Standard File filter function.</P>
+         
+         <H3>Always Preserve <CODE>CurResFile</CODE>
+         </H3>
+         
+         <P>Regardless of which of above techniques you use, it's
+         always a good idea to bracket your calls to
+         <CODE>FSpOpenResFile</CODE> with calls to
+         <CODE>CurResFile</CODE> and <CODE>UseResFile</CODE> to
+         ensure that your code does not accidentally change the
+         current resource map. The above snippets also illustrates
+         this technique.</P>
+         
+         <H3><a NAME="CheckPermissions"></a>Check
+         Permissions</H3>
+         
+         <P>If you need to write to a resource file and you are not
+         sure whether that file has already been opened, it pays to
+         examine the resource file reference number to ensure that it
+         supports read/write access. While having a read/write
+         resource file reference number is not a guarantee that
+         writing to the file will succeed, it's a good idea to check
+         this as the first step.</P>
+         
+         <P>You can check whether a resource file reference number is
+         read/write by calling the File Manager routine
+         <CODE>PBGetFCBInfoSync</CODE> and looking at bit 8 of
+         <CODE>ioFCBFlags</CODE>. The following snippet demonstrates
+         this technique.</P>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>static Boolean IsResourceFileRefNumWritable(SInt16 rsrcRefNum)
+{
+    Boolean result;
+    FCBPBRec fcbPB;
+
+    fcbPB.ioNamePtr = nil;
+    fcbPB.ioVRefNum = 0;
+    fcbPB.ioRefNum = rsrcRefNum;
+    fcbPB.ioFCBIndx = 0;
+    if ( PBGetFCBInfoSync(&amp;fcbPB) == noErr ) {
+        result = ((fcbPB.ioFCBFlags &amp; (1 &lt;&lt; 8)) != 0);
+    } else {
+        result = false;
+    }
+
+    return result;
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+<BR><P><a href="#top">Back to top</a></P>
+
+         <P><a NAME="Summary"></a></P>
+         
+         <H2>Summary</H2>
+         
+         <P>If you open the same resource file twice, you are
+         vulnerable to a number of strange behaviors of the Resource
+         Manager, including:</P>
+         
+         <UL>
+            <li><CODE>FSpOpenResFile</CODE> returning an existing
+            resource file reference number rather than opening a new
+            resource file reference number.</li>
+            
+            <li><CODE>FSpOpenResFile</CODE> returning a read-only
+            resource file reference number, even though you
+            explicitly asked for read/write access.</li>
+            
+            <li>Possible corrupt resource data if you read a resource
+            file through a read-only resource file reference number
+            while simultaneously modifying it through another
+            read/write resource file reference number.</li>
+         </UL>
+         
+         <P>The best way to guard against these problems is to avoid
+         opening a resource file twice. If this is unavoidable, this
+         Note suggests a <a HREF = "#Section3">number of approaches</a>
+         you can use to minimize your vulnerability.</p>
+
+<BR><P><a href="#top">Back to top</a></P>
+<a NAME="References" TARGET="_top"></a>
+<H2>References</H2>
+
+<P><a href="http://developer.apple.com/documentation/mac/MoreToolbox/MoreToolbox-2.html"><I>Inside
+            Macintosh: More Macintosh Toolbox</I></a>, Chapter 1
+            <a href="http://developer.apple.com/documentation/mac/MoreToolbox/MoreToolbox-9.html">Resource
+            Manager</a></p>
+            
+
+            <p><a HREF = "../fl/fl_37.html">DTS
+            Technote FL 37 You Want Permission to do What?!!</a></p>
+
+
+<BR><P><a href="#top">Back to top</a></P>
+
+        <a NAME="Downloads"></a> 
+        <br><h2>Downloadables</h2>
+
+        <center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+          <TR> 
+            <td width=50 align=left> 
+              <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" width=22 height=23></P>
+            </TD>
+            <td align="left"> 
+              <p>Acrobat version of this Note (72K).</P>
+            </TD>
+            <td width=60 align=left> 
+              <p><a href="pdf/tn1120.pdf">Download</a></P>
+            </TD>
+          </TR>
+        </table></center><BR><BR>
+
+        </td></tr></table></center>
+<!-- end_content -->
+
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

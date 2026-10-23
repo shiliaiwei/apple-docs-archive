@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2318: Troubleshooting Failed Signature Verification</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40013777">
+    <meta id="document-version" name="document-version" content="1.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40013777-CH1">
+    <meta id="date" name="date" content="2014-09-10">
+    <meta id="description" name="description" content="TN2318: assists in resolving failed signature verification.">
+    <meta id="book-title" name="book-title" content="Troubleshooting Failed Signature Verification">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/Security}, {Topic/Xcode}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2318">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Troubleshooting Failed Signature Verification" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40013777" title="Technical Note TN2318"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Troubleshooting Failed Signature Verification</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_2" title="Technical Note TN2318"></a><div class="dtsDocNumber">Technical Note TN2318</div><h1 id="pageTitle">Troubleshooting Failed Signature Verification</h1><p>This document assists in troubleshooting failed signature verification that can occur when archiving an app in Xcode, or while validating an archive for distribution. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013777-CH1-OVERVIEW" data-renderer-version="1">Overview</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013777-CH1-DIAGNOSING" data-renderer-version="1">Diagnosing Signature Verification Failure</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG0" data-renderer-version="1">Resolving Signature Verification Failure</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-ROOTCAUSE" data-renderer-version="1">Check the Signature For a Failure Root Cause</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG4" data-renderer-version="1">Do Not Distribute Apps From Beta OS X or Beta Xcode</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG0-AVOID_SPECIAL_CHARACTERS_IN_EXECUTABLE_NAMES" data-renderer-version="1">Avoid special characters in Executable names</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG5" data-renderer-version="1">Code Signing Entitlements Troubleshooting</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG2" data-renderer-version="1">Avoid App ID Prefix Mismatching</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG1" data-renderer-version="1">Sign Your App With The Correct Provisioning Profile</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-ROOTCA" data-renderer-version="1">Install the Apple Root certification authority</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG8" data-renderer-version="1">Supporting Information</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG38" data-renderer-version="1">How do I check if my application's signature has been corrupted?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG6" data-renderer-version="1">How do I see which certificate was used to sign my app?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG33" data-renderer-version="1">How do I check the entitlements on my Application's Signature?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG68" data-renderer-version="1">How do I locate the .app file signed for distribution from within an application archive?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG65" data-renderer-version="1">How do I check the entitlements associated to my Provisioning Profile?</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG44" data-renderer-version="1">How do I check which devices are associated to my Provisioning Profile?</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013777-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40013777-CH1-OVERVIEW" title="Overview"></a><h2 class="jump">Overview</h2><p>Signature verification problems can be puzzling, but usually these types of problems can be traced to a few common cases that are relatively easy to resolve. The goal of this document is to help developers having trouble with their signature verification by enabling them to quickly and easily identify what types of problems they are having and how to correct them.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-DIAGNOSING" title="Diagnosing Signature Verification Failure"></a><h2 class="jump">Diagnosing Signature Verification Failure</h2><p>Signature verification failure is diagnosed with the following error messages. </p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE1" title="Listing 1App Validation error indicating the app is not signed with an App Store distribution profile."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;App Validation error indicating the app is not signed with an App Store distribution profile.</p><div class="codesample clear"><table><tr><td scope="row"><pre>Invalid Provisioning Profile<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE2" title="Listing 2Alternate app validation error indicating the app is not signed with a provisioning profile suitable for submission."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Alternate app validation error indicating the app is not signed with a provisioning profile suitable for submission.</p><div class="codesample clear"><table><tr><td scope="row"><pre>The bundle is not signed using an Apple submission certificate.<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE3" title="Listing 3Invalid Binary rejection email indicating a corrupted code signature was detected."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Invalid Binary rejection email indicating a corrupted code signature was detected.</p><div class="codesample clear"><table><tr><td scope="row"><pre>Invalid Signature - Make sure you have signed your application with a distribution certificate, not an ad hoc certificate or a development certificate. Verify that the code signing settings in Xcode are correct at the target level (which override any values at the project level). Additionally, make sure the bundle you are uploading was built using a Release target in Xcode, not a Simulator target. If you are certain your code signing settings are correct, choose "Clean All" in Xcode, delete the "build" directory in the Finder, and rebuild your release target.<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG0" title="Resolving Signature Verification Failure"></a><h2 class="jump">Resolving Signature Verification Failure</h2><p>To resolve signature verification failure, make sure the app and its Xcode project satisfy the recommendations made by the following sub-sections.</p><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-ROOTCAUSE" title="Check the Signature For a Failure Root Cause"></a><h3 class="jump">Check the Signature For a Failure Root Cause</h3><p>The following Terminal command is capable of distinguishing a number of code signature issues that follow.</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>codesign --verify -vvvv -R='anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.1] exists and (certificate leaf[field.1.2.840.113635.100.6.1.2] exists or certificate leaf[field.1.2.840.113635.100.6.1.4] exists)' /path/to/the.app<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;"/path/to/the.app" is your app file path. Drag and drop the .app file from the Finder window into the Terminal window to automatically fill in the file path.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;To find the app file associated to an Xcode app archive, see <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG68" data-renderer-version="1">How do I locate the .app file signed for distribution from within an application archive?</a></span></p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE5" title="Listing 4Healthy command results appear as shown."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Healthy command results appear as shown.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/path/to/the.app: valid on disk<span></span></pre></td></tr><tr><td scope="row"><pre>/path/to/the.app: satisfies its Designated Requirement<span></span></pre></td></tr><tr><td scope="row"><pre>/path/to/the.app: explicit requirement satisfied<span></span></pre></td></tr></table></div><p>If a different result is shown, compare it with the following list of code signature issues.</p><ul class="ul"><li class="li"><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>test-requirement: failed to satisfy code requirement(s)<span></span></pre></td></tr></table></div><p>This error indicates that the profile used to sign the app is missing its submission entitlement which can occur for example when a development Provisioning Profile is used to the sign the app instead of the intended distribution profile.</p></li><li class="li"><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE7"></a><div class="codesample clear"><table><tr><td scope="row"><pre>a sealed resource is missing or invalid in architecture: armv7<span></span></pre></td></tr></table></div><p>Or, it's related error:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE8"></a><div class="codesample clear"><table><tr><td scope="row"><pre>resource missing: my.app/._*<span></span></pre></td></tr></table></div><p>Following are two options to resolve this issue:</p><ul class="nested"><li class="nested li"><p>The file prefixed with "._" is problematic and a was the result of copying certain Mac OS X files to a non-HFS+ formatted disk. These files are referred to as Dot files, Apple Double files, or resource forks. They are invisible to Finder but can be removed using the dot_clean utility. The Xcode Project Folder is the argument to dot_clean as illustrated below.</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE9"></a><div class="codesample clear"><table><tr><td scope="row"><pre>dot_clean /path/to/My_Xcode_Project<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;Drag and drop the Xcode project folder from Finder to Terminal to automatically in the path. </p><p></p></aside></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_6" title="Important"></a><p><strong>Important:</strong>&nbsp;If Terminal cannot find the dot_clean utility, download the optional Command Line Tools through Xcode via Preferences &gt; Downloads.</p><p></p></aside></div></li><li class="nested li"><p>Alternatively, this issue may be worked around by making a new project using the latest version of Xcode. Move your code, resources, and frameworks to the new project, and reattempt your distribution build validation.</p></li></ul></li><li class="li"><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE10"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Failed to load provisioning profile from: (x)<span></span></pre></td></tr></table></div><p>Two slightly different versions of this error follow:</p><ul class="nested"><li class="nested li"><p>If (x) in the above error is a file path that appears to be *truncated* then the workaround to this problem is to do anything in your power to *shorten* that path, such as setting the "bundle name" Info.plist property to a shorter name. Then reattempt your distribution build validation.</p></li><li class="nested li"><p>If (x) in the above error is a file path that *does not* appear to be truncated but you are running on Mac OS X 10.6.x, please update to OS X Lion 10.7.x and download/install the latest version of Xcode.</p></li></ul></li><li class="li"><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE11"></a><div class="codesample clear"><table><tr><td scope="row"><pre>object file format invalid or unsuitable<span></span></pre></td></tr></table></div><p>To resolve this error:</p><ul class="nested"><li class="nested li"><p>1) Ensure that your "Executable file" Info.plist property is set to the value: <code>${EXECUTABLE_NAME}</code>. </p></li><li class="nested li"><p>2) Ensure your Derived Data folder resides on an HFS+ formatted drive. </p></li><li class="nested li"><p>3) This issue was prevalent in older versions of Xcode. Make sure you're running the latest version of Xcode possible on your Mac, and if so, reinstall Xcode.</p></li><li class="nested li"><p>4) This error has also been known to occur when the codesign utility cannot find the codesign_allocate utility, which could occur if the CODESIGN_ALLOCATE environment variable is not set, such as:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE12"></a><div class="codesample clear"><table><tr><td scope="row"><pre>export CODESIGN_ALLOCATE="/Applications/Xcode.app/Contents/Developer/usr/bin/codesign_allocate"<span></span></pre></td></tr></table></div></li></ul></li><li class="li"><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE13"></a><div class="codesample clear"><table><tr><td scope="row"><pre>cannot find code object on disk<span></span></pre></td></tr></table></div><p>This error occurs when signed app bundles are placed on foreign disk formats that do not support Mac OS X resource forks. To resolve the issue please ensure that both the Xcode Project and the Derived Data folder reside on an HFS+ formatted disk. The Derived Data setting is found within Xcode Preferences &gt; Locations.</p></li><li class="li"><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE14"></a><div class="codesample clear"><table><tr><td scope="row"><pre>For any of the following errors:<span></span></pre></td></tr><tr><td scope="row"><pre>* Error: 0x8001094A -2147415734 CSSMERR_CSP_VERIFY_FAILED<span></span></pre></td></tr><tr><td scope="row"><pre>* CSSM_SignData returned: 8001094A<span></span></pre></td></tr></table></div><ul class="nested"><li class="nested li"><p>If OCSP and CRL checking are temporarily turned off (in Keychain Access &gt; Preferences &gt; Certificates) and this resolves the Xcode build, reinstall Xcode (to restore its own signature) and also ensure there are no network connectivity issues on the Mac that is running Xcode.</p></li></ul></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG4" title="Do Not Distribute Apps From Beta OS X or Beta Xcode"></a><h3 class="jump">Do Not Distribute Apps From Beta OS X or Beta Xcode</h3><p>App Store apps are required to be built with GM versions of OS X and Xcode. If apps are instead built with a beta version of OS X or Xcode, they will be rejected on those grounds. Beta, Seed, Developer Preview and Pre-Release software are synonymous in this context.</p><ul class="ul"><li class="li"><p>Check the OS X version using the Apple menu &gt; About This Mac &gt; More Info &gt; System Report. Click "Software" on the sidebar for the System Version. Compare your system version and build number with the latest OS X release displayed on the Mac App Store.</p></li><li class="li"><p>To check Xcode's version, open the Xcode menu &gt; About Xcode. Compare the version and build number with the latest non-beta Xcode release available on the Dev Center website.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG0-AVOID_SPECIAL_CHARACTERS_IN_EXECUTABLE_NAMES" title="Avoid special characters in Executable names"></a><h3 class="jump">Avoid special characters in Executable names</h3><p>Executable files within your app that contain special characters (i.e. non-numeric, and non-alpha) can cause this rejection. To resolve the problem, change the Xcode target’s Product Name build setting from <code>${TARGET_NAME}</code> to a string containing only alpha/numeric characters. Also, ensure the value of the Info.plist key "Executable file" is equal to <code>${EXECUTABLE_NAME}</code>. If identified to be the cause, please file a bug report using <span class="content_text"><a href="http://developer.apple.com/bug-reporting/" class="browserLink" >Apple Bug Reporter</a></span> identifying the problematic characters.</p></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG5" title="Code Signing Entitlements Troubleshooting"></a><h3 class="jump">Code Signing Entitlements Troubleshooting</h3><p>Code signing entitlements exist in two places within an app and they must match (or be compatible with) each other to prevent code signing entitlement related validation failures.</p><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG5-ENTITLEMENT_DESTINATIONS_ON_A_BUILT_APP" title="Entitlement Destinations on a built App"></a><h4 class="jump">Entitlement Destinations on a built App</h4><p>To diagnose code signing entitlement validation failures, compare the entitlements of the following two places for mismatches or unexpected values:</p><ul class="ul"><li class="li"><p>The app's signature. You can view the entitlements on the app's signature using the steps in section: <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG33" data-renderer-version="1">How do I check the entitlements on my Application's Signature?</a></span></p></li><li class="li"><p>The app's embedded provisioning profile. You can view the entitlements associated to the app's embedded provisioning profile using the steps in section: <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG65" data-renderer-version="1">How do I check the entitlements associated to my Provisioning Profile?</a></span></p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG5-ENTITLEMENT_SOURCES" title="Entitlement Sources"></a><h4 class="jump">Entitlement Sources</h4><p>To resolve entitlement mismatches or unexpected values, you'll need to track down their source. The following list identifies where the app's entitlements of the above locations are configured:</p><p>1. Entitlements on provisioning profiles are configured through their App ID on the <span class="content_text"><a href="https://developer.apple.com/account/overview.action" class="urlLink" rel="external">Certs IDs and Profiles</a></span> website, or equivalently, through Xcode's Target &gt; Capabilities pane.</p><p>2. Entitlements on the app's signature source from the following various places:</p><ul class="ul"><li class="li"><p>The entitlements associated to the provisioning profile used to sign the app. (These source from the services enabled for the App ID that is associated to the profile.)</p></li><li class="li"><p>Capabilities which are enabled on the Xcode &gt; Target &gt; Capabilities pane. (This essentially affects the entitlements that are associated to App ID linked to the provisioning profile that Xcode will attempt to use to sign the app.)</p></li><li class="li"><p>Any custom code signing entitlements that might be supplied via a ".entitlements" file defined in Xcode's Code Signing Entitlements target build setting (if any).</p></li><li class="li"><p>The App ID Prefix always sources from the App ID Prefix associated to the provisioning profile that was *initially* used to sign the app. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_7" title="Important"></a><p><strong>Important:</strong>&nbsp;"Initially" is emphasized because apps can be re-signed on the Xcode &gt; Organizer &gt; Archives pane for various distribution workflows in which all entitlements are replaced by the re-signing profile *except* the App ID Prefix. See section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG2" data-renderer-version="1">Avoid App ID Prefix Mismatching</a></span> for more information. </p><p></p></aside></div></li></ul><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_8" title="Note"></a><p><strong>Note:</strong>&nbsp;Supplying a custom Code Signing Entitlements file within your Target &gt; Build Settings is generally only required when utilizing custom keychain access sharing across multiple apps. </p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG5-WORKFLOW_TO_VERIFY_AN_APP_S_ENTITLEMENTS" title="Workflow to Verify an App's Entitlements"></a><h4 class="jump">Workflow to Verify an App's Entitlements</h4><p>The process to check the entitlements of the *exact* build you'll be submitting to the App Store, use the workflow in <span class="content_text"><a href="https://developer.apple.com/library/prerelease/ios/qa/qa1798/_index.html#//apple_ref/doc/uid/DTS40014167" class="urlLink" rel="external">Technical Q&amp;A QA1798 - Checking Distribution Entitlements</a></span>.</p></section></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG2" title="Avoid App ID Prefix Mismatching"></a><h3 class="jump">Avoid App ID Prefix Mismatching</h3><p>There are two code signing phases involved in distributing an app and the App ID Prefix of both Provisioning Profiles used in those code signing phases must match. If the App ID Prefix doesn't match in both, the app will fail to submit to the app store, and it will fail to install on testing or enterprise iOS devices. </p><p>An example App ID Prefix is shown below. It's the 10-character prefix of the App ID associated with the Provisioning Profile. So for App ID:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE15"></a><div class="codesample clear"><table><tr><td scope="row"><pre>A1B2C3D4E5.com.company.myGreatApp<span></span></pre></td></tr></table></div><p>The App ID Prefix is:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE16"></a><div class="codesample clear"><table><tr><td scope="row"><pre>A1B2C3D4E5<span></span></pre></td></tr></table></div><p>Here's how to resolve the issue: </p><ol class="ol"><li class="li"><p>Check the App ID Prefix of your app's embedded profile using the steps in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG65" data-renderer-version="1">How do I check the entitlements associated to my Provisioning Profile?</a></span></p></li><li class="li"><p>Then compare it to the App ID Prefix on the apps signature using <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG33" data-renderer-version="1">How do I check the entitlements on my Application's Signature?</a></span></p></li><li class="li"><p>If the prefix doesn't match, the easiest solution is to use the same provisioning profile in both signing phases: </p><ol class="ol"><li class="ol ol"><p>Open the Xcode project Target &gt; Build Settings, and expand the Code Signing Identity and Provisioning Profile build settings. Set “Any iOS SDK” to “iOS Distribution” for Release. </p></li><li class="ol ol"><p>Set the Provisioning Profile build setting to your distribution provisioning profile. </p></li><li class="ol ol"><p>Re-archive the app (via Xcode &gt; Product menu &gt; Archive). </p></li><li class="ol ol"><p>Re-submit the app through the Xcode Organizer, and be sure to pick the same distribution profile to sign the submission. </p></li></ol></li></ol><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_9" title="Note"></a><p><strong>Note:</strong>&nbsp;The App ID Prefix is sometimes equal to the Team ID, but it isn't always the case. See Cocoa Core Competancies &gt; <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/general/conceptual/DevPedia-CocoaCore/AppID.html" class="urlLink" rel="external">App ID</a></span> for more information about App IDs.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG1" title="Sign Your App With The Correct Provisioning Profile"></a><h3 class="jump">Sign Your App With The Correct Provisioning Profile</h3><p>There are two locations within Xcode that determine which Provisioning Profile is used to sign the app: the Code Signing Identity and Provisioning Profile target build settings, and the Provisioning Profile selection menu shown while distributing an archive on the Organizer.</p><p>Here are the two locations to ensure you're signing with the right provisioning profile:</p><ul class="ul"><li class="li"><p>The app archiving invoked via Xcode &gt; Product menu &gt; Archive uses the Code Signing Identity and Provisioning Profile target build setting to select the Provisioning Profile to sign the app.</p><ul class="nested"><li class="nested li"><p>Assign the Release build configuration to the Archive task. Do that using the steps in <span class="content_text"><a href="http://developer.apple.com/library/ios/recipes/xcode_help-scheme_editor/Articles/SchemeArchive.html#//apple_ref/doc/uid/TP40010402-CH6-SW1" class="browserLink" >Scheme Editing Help</a></span>. This affects which Code Signing Identity build setting is used to sign the app during app archiving. </p></li><li class="nested li"><p>Set the Release build configuration's Code Signing Identity to iOS Distribution, and set the Release build configuration's Provisioning Profile build setting to your App Store distribution provisioning profile.</p></li></ul></li><li class="li"><p>The Distribute phase on the Xcode &gt; Organizer &gt; Archives tab uses the Provisioning Profile selection menu to re-sign the archive before it is submitted. Note that App ID Prefixes are never updated during the re-signing process. See section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG2" data-renderer-version="1">Avoid App ID Prefix Mismatching</a></span> for more information. </p></li></ul><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_10" title="Note"></a><p><strong>Note:</strong>&nbsp;You can verify your results by checking that your app is signed with the distribution certificate using the steps in section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG6" data-renderer-version="1">How do I see which certificate was used to sign my app?</a></span>. The "Authority" field should print "iPhone Distribution".</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-ROOTCA" title="Install the Apple Root certification authority"></a><h3 class="jump">Install the Apple Root certification authority</h3><p>The app validation process requires the root certification authority (CA) certificates in order to validate the app's code signature.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40013777-CH1-FIGURE1" title="Figure 1Properly installed Apple Root certification authority."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Properly installed Apple Root certification authority.</figcaption><img src="Art/tn2318_keychainRootCA.png" class="wide-image" alt="" width="801" height="452"><img src="Art/tn2318_keychainRootCA.png" class="ipad-scaled-image" alt="" width="670" height="378"></figure><p>If these files are missing from your keychain, follow these steps:</p><p>1. Download and install both Apple root certificate authorities here: <span class="content_text"><a href="http://www.apple.com/certificateauthority/" class="urlLink" rel="external">Apple Root Certification Authority</a></span>.</p><p>2. Double click the downloaded .cer files to install them into Keychain Access. Add them to the default 'login' keychain.</p><p>3. If the submission still fails signature verification, continue to the next requirements covered by this guide.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG8" title="Supporting Information"></a><h2 class="jump">Supporting Information</h2><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG38" title="How do I check if my application's signature has been corrupted?"></a><h3 class="jump">How do I check if my application's signature has been corrupted?</h3><p>Use the steps in section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-ROOTCAUSE" data-renderer-version="1">Check the Signature For a Failure Root Cause</a></span> to check whether your apps signature is (or has been) corrupted.</p></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG6" title="How do I see which certificate was used to sign my app?"></a><h3 class="jump">How do I see which certificate was used to sign my app?</h3><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_11" title="Note"></a><p><strong>Note:</strong>&nbsp;This command uses an .app file argument. If needed, see the steps in section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG68" data-renderer-version="1">How do I locate the .app file signed for distribution from within an application archive?</a></span></p><p></p></aside></div><p>To verify your app was signed with the correct certificate, use the following console command:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE17"></a><div class="codesample clear"><table><tr><td scope="row"><pre>codesign -dvvv /path/to/MyGreatApp.app<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_12" title="Note"></a><p><strong>Note:</strong>&nbsp;Drag and drop the .mobileprovision file from Finder to Terminal to automatically fill in the file path.</p><p></p></aside></div><p>Check the "Authority" field within the command results to see which identity owns the certificate used to sign the app:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE18"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Authority=iPhone Distribution: Appleseed Inc.<span></span></pre></td></tr></table></div><p>If the Authority of a distribution build reads "iPhone Developer" then a development Provisioning Profile was used to sign the app by mistake. For more information, see the section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG1" data-renderer-version="1">Sign Your App With The Correct Provisioning Profile</a></span>.</p></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG33" title="How do I check the entitlements on my Application's Signature?"></a><h3 class="jump">How do I check the entitlements on my Application's Signature?</h3><p>During the code signing process, application entitlements are written into the signature. The entitlements source from two places, the Provisioning Profile used to sign the app, and a custom code signing entitlements file, if you've included one in the Xcode target's optional Code Signing Entitlements build setting. To view the entitlements on the app's signature, run the following console command:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE19"></a><div class="codesample clear"><table><tr><td scope="row"><pre>codesign -d --entitlements :- /path/to/MyGreatApp.app<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_13" title="Note"></a><p><strong>Note:</strong>&nbsp;Drag and drop the .mobileprovision file from Finder to Terminal to automatically fill in the file path.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_14" title="Note"></a><p><strong>Note:</strong>&nbsp;This command uses an .app file argument. If needed, see the steps in section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG68" data-renderer-version="1">How do I locate the .app file signed for distribution from within an application archive?</a></span></p><p></p></aside></div><p>For example, the following are results from a typical distribution build:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE20"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Executable=/path/to/MyGreatApp.app/MyGreatApp<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;plist version="1.0"&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;application-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;ABC123DE45.com.appleseedinc.mygreatapp&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;get-task-allow&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;false/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;keychain-access-groups&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;ABC123DE45.com.appleseedinc.mygreatapp&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/plist&gt;<span></span></pre></td></tr></table></div><p>The entitlements in this case came solely from the Provisioning Profile used to sign the app. Additional entitlements should be present if any of the store technologies are enabled for your app. See <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/ProvisioningStoreTechnologies/ProvisioningStoreTechnologies.html#//apple_ref/doc/uid/TP40012582-CH14-SW1" class="urlLink" rel="external">Provisioning Your App for Store Technologies</a></span> for more information on ways that additional entitlements get added to the app's signature.</p></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG68" title="How do I locate the .app file signed for distribution from within an application archive?"></a><h3 class="jump">How do I locate the .app file signed for distribution from within an application archive?</h3><ul class="ul"><li class="li"><p>Follow the steps in the App Distribution Guide section <span class="content_text"><a href="http://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/TestingYouriOSApp/TestingYouriOSApp.html#//apple_ref/doc/uid/TP40012582-CH8-SW1" class="browserLink" >Beta Testing Your iOS App</a></span> to create an .ipa, however, be sure to sign the app using your App Store distribution Provisioning Profile.</p></li><li class="li"><p>Rename the .ipa created in the previous step to have a .zip file extension, and double click it to decompress the contents. The uncompressed folder will be titled "Payload".</p></li><li class="li"><p>See the .app file signed for distribution within the ./Payload/Applications folder. </p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG65" title="How do I check the entitlements associated to my Provisioning Profile?"></a><h3 class="jump">How do I check the entitlements associated to my Provisioning Profile?</h3><p>Entitlements are associated with Provisioning Profiles and transferred to your application's signature during code signing.</p><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG65-CHECKING_THE_ENTITLEMENTS_OF_A_PROVISIONING_PROFILE" title="Checking the Entitlements of a Provisioning Profile"></a><h4 class="jump">Checking the Entitlements of a Provisioning Profile</h4><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE21"></a><div class="codesample clear"><table><tr><td scope="row"><pre>security cms -D -i /path/to/AppStoreProfile.mobileprovision<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_15" title="Note"></a><p><strong>Note:</strong>&nbsp;Drag and drop the .mobileprovision file from Finder to Terminal to automatically fill in the file path.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE22" title="Listing 5The pertinent command results are seen within the Entitlements key."></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;The pertinent command results are seen within the Entitlements key.</p><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key&gt;Entitlements&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;application-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;ABC123DE45.com.appleseedinc.*&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;get-task-allow&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;false/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;keychain-access-groups&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;ABC123DE45.*&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/dict&gt;<span></span></pre></td></tr></table></div><p>Consider the example that this profile was used to create the application signature as seen in the section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40013777-CH1-TNTAG33" data-renderer-version="1">How do I check the entitlements on my Application's Signature?</a></span> Note the following expected results when comparing the two:</p><ul class="ul"><li class="li"><p>1) the <code>application-identifier</code> entitlement on the signature is fully-qualified to fill in the "*" portion of that entitlement within the profile. </p></li><li class="li"><p>2) the <code>keychain-access-groups</code> entitlement on the signature is fully-qualified and in most cases will be equal to the fully-qualified <code>application-identifier</code> on the signature.</p></li><li class="li"><p>3) <code>get-task-allow</code> is false, as it should be for distribution profiles. Though this particular entitlement is ignored during App Store ingestion, it must be false for Ad Hoc profiles (and Ad Hoc signatures). If you have a value of true here on the signature it might indicate that you've built your distribution build with the wrong build configuration, "Debug" instead of "Release".</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG65-CHECKING_THE_ENTITLEMENTS_OF_AN_APPS_EMBEDDED_PROVISIONING_PROFILE" title="Checking the entitlements of an Apps embedded Provisioning Profile"></a><h4 class="jump">Checking the entitlements of an Apps embedded Provisioning Profile</h4><p>To check the entitlements of a profile that is embedded into your .app bundle as a result of Code Signing process at build time, the command will look similar to:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE23"></a><div class="codesample clear"><table><tr><td scope="row"><pre>security cms -D -i /path/to/the.app/embedded.mobileprovision<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_16" title="Note"></a><p><strong>Note:</strong>&nbsp;Drag and drop the .mobileprovision file from Finder to Terminal to automatically fill in the file path.</p><p></p></aside></div></section></section><section><a name="//apple_ref/doc/uid/DTS40013777-CH1-TNTAG44" title="How do I check which devices are associated to my Provisioning Profile?"></a><h3 class="jump">How do I check which devices are associated to my Provisioning Profile?</h3><p>Devices are associated to Development and Ad Hoc Provisioning Profiles when they're created on the iOS Portal. To verify those devices specified are contained within the resulting profile, use the following command:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE24"></a><div class="codesample clear"><table><tr><td scope="row"><pre>security cms -D -i /path/to/MyAdHocProfile1.mobileprovision<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_17" title="Note"></a><p><strong>Note:</strong>&nbsp;Drag and drop the .mobileprovision file from Finder to Terminal to automatically fill in the file path.</p><p></p></aside></div><p>Within the command results look for the &lt;key&gt;ProvisionedDevices&lt;/key&gt; section for the device UDIDs associated to the profile, such as:</p><a name="//apple_ref/doc/uid/DTS40013777-CH1-SOURCECODE25"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key&gt;ProvisionedDevices&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;abab79177cse660edf75b4affe9d87ef2685ade2&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;3436dc195c5432f1c22b5a687adfcd350de3af0a&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;04589ca69bbde998a72f320s7148290603bc025c&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;8a684993a490ebfdf564ef20d5fa38ebfb31b8d7&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;16663b95823sf346fc377c3d31a90bc9fcd61d1d&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;2e88a9cb3155fc81577c580b86s74351e3f50d5b&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;105404f9945627sa24be595015a7cb5655f096f1&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;7ea5s4fe4ee0c8d40a18117c446306663fc0bf73&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/array&gt;<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40013777-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40013777-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-09-10</td><td><p>Editorial update.</p></td></tr><tr><td scope="row">2014-06-17</td><td><p>Add root CA certificate requirement.</p></td></tr><tr><td scope="row">2013-09-23</td><td><p>New document that 
+					assists in resolving failed signature verification.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-09-10</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

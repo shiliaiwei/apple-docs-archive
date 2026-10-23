@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1917: Debugging issues with CloudKit subscriptions</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017578">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017578-CH1">
+    <meta id="date" name="date" content="2016-11-16">
+    <meta id="description" name="description" content="QA1917: explains how to debug the issue that CloudKit subscriptions don't trigger notifications when the relevant changes are made.">
+    <meta id="book-title" name="book-title" content="Debugging issues with CloudKit subscriptions">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/CloudKit}, {Topic/Data Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1917">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Debugging issues with CloudKit subscriptions" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017578" title="Technical Q&amp;A QA1917"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Debugging issues with CloudKit subscriptions</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017578-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1917"></a><div class="dtsDocNumber">Technical Q&amp;A QA1917</div><h1 id="pageTitle">Debugging issues with CloudKit subscriptions</h1><h2>Q:&nbsp;
+My CloudKit subscriptions don’t trigger notifications after relevant changes are made. How to debug that?
+</h2><p><span>A: </span>Most CloudKit subscription issues are either due to incorrect assumptions about when and where notifications should fire or improperly configured CloudKit containers or subscriptions. This document will introduce you some cases that aren't expected to trigger CloudKit notifications, following with how to verify the state of your iCloud container and how to avoid some common issues related to CloudKit subscriptions.</p><section><a name="//apple_ref/doc/uid/DTS40017578-CH1-CASES_THAT_AREN_T_EXPECTED_TO_TRIGGER_CLOUDKIT_NOTIFICATIONS" title="Cases that aren't expected to trigger CloudKit notifications"></a><h2 class="jump">Cases that aren't expected to trigger CloudKit notifications</h2><p>When working with CloudKit subscriptions, be aware that:</p><ul class="ul"><li class="li"><p>Notifications won't be delivered to your device if the notification settings for your app are off. CloudKit relies on the Apple Push Notification service (APNs) to deliver notifications. If your app is not allowed for push notifications on the device, you won't see them. To turn the settings on, go to <code>Settings &gt; Notifications</code>, then navigate to your app's setting screen.</p></li><li class="li"><p>CloudKit notifications won’t be delivered to the device on which the relevant changes are made.</p></li><li class="li"><p>The Simulators don't support push notifications. To test push notifications you must be running directly on the target platform.</p></li><li class="li"><p>CloudKit notifications won’t be delivered to your app if the notifications' <span class="content_text"><a href="https://developer.apple.com/reference/cloudkit/cknotificationinfo/1515110-shouldsendcontentavailable" class="urlLink" rel="external"><codeVoice>shouldSendContentAvailable</codeVoice></a></span> property is <code>true</code> and meanwhile your app is force quit. On iOS, users can force quit an app by double-tapping the home button and swiping it away from the multitasking UI.</p></li><li class="li"><p>CloudKit generates a notification for every relevant change. However, notifications can be coalesced by the APNs if too many occur in a short period time. In that case, you will still get the last notification, thus can retrieve the unhandled ones with <code>CKFetchNotificationChangesOperation</code> and process them from there.</p></li></ul><p>With these cases in mind, if your issue is still there, the next step is to verify the state of your iCloud container.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017578-CH1-VERIFY_THE_STATE_OF_YOUR_ICLOUD_CONTAINER" title="Verify the state of your iCloud container"></a><h2 class="jump">Verify the state of your iCloud container</h2><p>You can verify the state of your iCloud container with the following steps:</p><ol class="ol"><li class="li"><p>Prepare two iOS devices running the latest iOS,  log in iCloud with the same Apple ID, and make sure iCloud Drive is On. You can use an iOS Simulator to change the CloudKit database, but only a device can register and receive push notifications. CloudKit works on macOS and tvOS as well, so you can set up Macs or Apple TVs similarly if you are using a macOS or tvOS app for this verification.</p></li><li class="li"><p>Download Apple's <span class="content_text"><a href="https://developer.apple.com/library/content/samplecode/CloudAtlas/Introduction/Intro.html#//apple_ref/doc/uid/TP40014599" class="urlLink" rel="external">CloudKit Catalog sample</a></span>, change the bundle ID to the one being used in your app, pick the right iCloud container in Xcode’s <code>Capabilities</code> pane if you use a custom one, then build and run the sample on your devices. Make sure notification settings are allowed, as discussed above.</p></li><li class="li"><p>Create a query subscription to track record creations. On one device, run the CloudKit Catalog sample, go to <code>Subscriptions</code> &gt; <code>saveSubscription</code> screen, set the <code>subscriptionType</code> to <code>Query</code>, input something in the <code>name BEGINSWITH</code> field that will be used in the subscription predicate, then tap the <code>Run</code> <code>Code</code> button.</p></li><li class="li"><p>One the other device, go to <code>Records</code> &gt; <code>saveRecord</code> screen and add a new record, make sure the record name begins with the string you just input so that it matches the subscription predicate, then tap the <code>Run</code> <code>Code</code> button.</p></li></ol><p>Your first device should soon get a notification, proving that your iCloud container is functioning. If this does not work, it is likely that your iCloud container is in an invalid state. In that case, you can report it by <span class="content_text"><a href="http://developer.apple.com/bug-reporting/" class="browserLink" >filing a bug report</a></span>, and continue your development using a new iCloud container and / or logging in iCloud with a new Apple ID.</p><p>To use a new iCloud container, go to the Xcode's <code>Capabilities</code> panel, switch the <code>iCloud</code> &gt; <code>Containers</code> options to <code>Specify custom containers</code>, then pick or add a new container. To create a new Apple ID, follow the steps on the <span class="content_text"><a href="https://appleid.apple.com/account#!&amp;page=create" class="urlLink" rel="external">Create Your Apple ID</a></span> page.</p><p>With the same iCloud container and Apple ID, if CloudKit Catalog works well but your app doesn’t, the next step is to check if your app has any coding issue related to CloudKit subscriptions.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017578-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;You can't remove an iCloud container once it is created, thus you might want to choose a good name when creating a new container.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017578-CH1-AVOID_COMMON_ISSUES_RELATED_TO_CLOUDKIT_SUBSCRIPTIONS" title="Avoid common issues related to CloudKit subscriptions"></a><h2 class="jump">Avoid common issues related to CloudKit subscriptions</h2><p>The following issues are frequently seen when working with CloudKit subscriptions:</p><ul class="ul"><li class="li"><p>Apps haven't registered for push notifications.</p><p>When you pick the CloudKit service on the <code>Capabilities</code> pane, Xcode automatically adds the Push Notifications service for your app so you don't need to do extra configuration on your app ID in the membership portal. However, like other apps, CloudKit apps need to register for push notifications as well by calling <code>UIApplication</code>'s <code>registerForRemoteNotifications()</code> method. See the <span class="content_text"><a href="https://developer.apple.com/library/content/technotes/tn2265/_index.html#//apple_ref/doc/uid/DTS40010376-CH1-TNTAG21" class="urlLink" rel="external">Registering for Push Notifications</a></span> section of TN2265 for the details. </p><p>Note that CloudKit does handle device tokens for you, so you don't need to implement the <code>application(_:didRegisterForRemoteNotificationsWithDeviceToken:)</code> method, unless you need that for another purpose. </p></li><li class="li"><p>Apps fail to create subscriptions.</p><p>Creating subscriptions can fail for a number of reasons, so error handling when saving subscriptions is very important. Due to the asynchronous nature of CloudKit work, error handling is an essential part of writing a CloudKit application. See the WWDC session, <span class="content_text"><a href="https://developer.apple.com/videos/play/wwdc2016/231/" class="urlLink" rel="external">CloudKit Best Practices</a></span>, for how to better handle CloudKit errors.</p><p>One common error is saving subscriptions that refer to un-indexed fields in the production environment, which will generate an Invalid Arguments (<code>CKError.code.</code><code>invalidArguments</code>) error. You can fix it by going to the production environment in <span class="content_text"><a href="https://icloud.developer.apple.com/dashboard/" class="urlLink" rel="external">CloudKit Dashboard</a></span>, selecting the field, and checking the <code>Query</code> box under the <code>Index</code> column.</p></li><li class="li"><p>Apps don't create subscriptions for every user. </p><p>CloudKit subscriptions are per-user, which means your app needs to create subscriptions for each and every user that should receive push notifications. Logging in CloudKit Dashboard with your account and seeing subscriptions there doesn’t mean all users have them. </p><p>For debugging purpose, you can use <code>CKFetchSubscriptionsOperation</code> to fetch and look into all subscriptions for the current user. However, you don’t need to check the existence before creating subscriptions. Instead, you can create subscriptions with specified subscription IDs and save them directly – if a subscription with the same ID has already existed on the server, no duplicate will be created.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017578-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;The initializers for creating a <code>CKSubscription</code> object with a <code>subscriptionID</code> are deprecated, so use <code>CKQuerySubscription</code>, <code>CKRecordZoneSubscription</code>, or <code>CKDatabaseSubscription</code> on iOS 10.0+, macOS 10.12+, and tvOS 10.0+. Be aware that <code>CKQuerySubscription</code> is not supported in the shared database, and <code>CKDatabaseSubscription</code> currently only tracks the changes from custom zones in the private and shared database.</p><p></p></aside></div></li><li class="li"><p>The changes don’t really match the subscription predicate.</p><p>When creating a subscription whose predicate contains a <code>CKReference</code> field, be sure to use a <code>CKRecordID</code> object as the value for the field when creating the predicate. Using a <code>CKRecord</code> object in this case doesn't currently work.</p><p>To rule out issues related to predicate formats and values in debugging time, simply replace your predicate with <code>truePredicate</code> and check if the issue is still there.</p></li><li class="li"><p>Notifications get lost in the delivery process.</p><p>CloudKit notifications can get lost if something is wrong on the network connection used by the APNs. If your issue doesn't fall into the above cases, check if notifications are lost in the delivery process by installing the <span class="content_text"><a href="https://developer.apple.com/library/content/technotes/tn2265/tn2265_PersistentConnectionLogging.zip" class="urlLink" rel="external">Persistent Connection Logging profile</a></span> on your device, then analyzing the push service logs. See the <span class="content_text"><a href="https://developer.apple.com/library/content/technotes/tn2265/_index.html#//apple_ref/doc/uid/DTS40010376-CH1-TNTAG21" class="urlLink" rel="external">Observing Push Status Messages</a></span> section of TN2265 for how to do that.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017578-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017578-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-11-16</td><td><p>New document that 
+					explains how to debug the issue that CloudKit subscriptions don't trigger notifications when the relevant changes are made.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-11-16</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

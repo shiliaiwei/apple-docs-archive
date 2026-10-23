@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1298: Resolves may return an IPv6 address in Panther</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002345">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10002345-CH1">
+    <meta id="date" name="date" content="2005-01-10">
+    <meta id="description" name="description" content="QA1298: Explains why you get an IP address of 0.0.0.0 when resolving a Bonjour service.">
+    <meta id="book-title" name="book-title" content="Resolves may return an IPv6 address in Panther">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Networking, Internet, & Web/Services & Discovery}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1298">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Resolves may return an IPv6 address in Panther" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10002345" title="Technical Q&amp;A QA1298"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Resolves may return an IPv6 address in Panther</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10002345-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1298"></a><div class="dtsDocNumber">Technical Q&amp;A QA1298</div><h1 id="pageTitle">Resolves may return an IPv6 address in Panther</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+Starting in Mac OS X 10.3, my Resolve callback function is sometimes returning a sockaddr with an IP address of 0.0.0.0. What's going on?
+</h2><p><span>A: </span>Starting in Mac OS X 10.3, my Resolve callback function is sometimes returning a sockaddr with an IP address of 0.0.0.0. What's going on?</p><p>Bonjour supports IPv6 address records in Mac OS X 10.3 and later, so this 0.0.0.0 address is actually the result of parsing a sockaddr as if it was IPv4, when in fact it's probably IPv6. Since your advertised service may not support IPv6, you'll most likely want to ignore all IPv6 addresses. Here's some code that demonstrates how to ignore IPv6 addresses for both CFNetServices and NSNetServices.</p><a name="//apple_ref/doc/uid/DTS10002345-CH1-SOURCECODE1" title="Listing 1Example CFNetServices Resolve callback function."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Example CFNetServices Resolve callback function.</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;CoreServices/CoreServices.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+
+
+static void
+MyResolveCallback(CFNetServiceRef service, CFStreamError* error, void* info)
+{
+  struct sockaddr * socketAddress;
+  CFArrayRef addresses;
+  char buffer[256];
+  uint16_t port;
+  int count;
+
+  addresses = CFNetServiceGetAddressing(service);
+
+  /* Search for the IPv4 addresses in the array. */
+  for (count = 0; count &lt; CFArrayGetCount(addresses); count++) {
+
+    socketAddress = (struct sockaddr *)CFDataGetBytePtr(CFArrayGetValueAtIndex(addresses, count));
+
+    /* Only continue if this is an IPv4 address. */
+    if (socketAddress &amp;&amp; socketAddress-&gt;sa_family == AF_INET) {
+
+      if (inet_ntop(AF_INET, &amp;((struct sockaddr_in *)
+          socketAddress)-&gt;sin_addr, buffer, sizeof(buffer))) {
+
+        port = ntohs(((struct sockaddr_in *)socketAddress)-&gt;sin_port);
+
+        printf("IP Address = %s\n", buffer);
+        printf("Port Number = %d\n", port);
+
+        /* Now that you know the IP address and port number, you
+        should attempt to connect to the service. If the connection
+        succeeds, then cancel the Resolve operation. If the connection
+        fails, keep the Resolve running just in case your Resolve
+        callback gets called again with another IPv4 address, and then
+        try connecting to the new address. */
+      }
+    }
+  }
+
+  return;
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10002345-CH1-SOURCECODE2" title="Listing 2Example NSNetServices netServiceDidResolveAddress method."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Example NSNetServices netServiceDidResolveAddress method.</p><div class="codesample clear"><table><tr><td scope="row"><pre>#import &lt;Foundation/Foundation.h&gt;
+#import &lt;netinet/in.h&gt;
+#import &lt;arpa/inet.h&gt;
+#import &lt;sys/types.h&gt;
+#import &lt;sys/socket.h&gt;
+
+
+- (void)netServiceDidResolveAddress:(NSNetService *)sender {
+
+  NSArray * addresses;
+  struct sockaddr * socketAddress;
+  char buffer[256];
+  uint16_t port;
+  int count;
+
+  addresses = [sender addresses];
+
+  /* Search for the IPv4 addresses in the array. */
+  for (count = 0; count &lt; [addresses count]; count++) {
+
+    socketAddress = (struct sockaddr *)[[addresses objectAtIndex:count] bytes]; 
+
+    /* Only continue if this is an IPv4 address. */
+    if (socketAddress &amp;&amp; socketAddress-&gt;sa_family == AF_INET) {
+
+      if (inet_ntop(AF_INET, &amp;((struct sockaddr_in *)
+          socketAddress)-&gt;sin_addr, buffer, sizeof(buffer))) {
+
+        port = ntohs(((struct sockaddr_in *)socketAddress)-&gt;sin_port);
+
+        printf("IP Address = %s\n", buffer);
+        printf("Port Number = %d\n", port);
+
+        /* Now that you know the IP address and port number, you
+        should attempt to connect to the service. If the connection
+        succeeds, then cancel the Resolve operation. If the connection
+        fails, keep the Resolve running just in case your Resolve
+        callback gets called again with another IPv4 address, and then
+        try connecting to the new address. */
+      }
+    }
+  }
+
+  return;
+}<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS10002345-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10002345-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2005-01-10</td><td><p>Updated example code to be more robust against changes in callback behavior that might occur in the future.</p></td></tr><tr><td scope="row">2003-10-15</td><td><p>New document that 
+					explains why you get an IP address of 0.0.0.0 when resolving a Bonjour service.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2005 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2005-01-10</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

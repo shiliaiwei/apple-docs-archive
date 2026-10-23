@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Note TN2130: Memory Allocation Recommendations on Mac OS X</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003484">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003484-CH1">
+    <meta id="date" name="date" content="2005-07-12">
+    <meta id="description" name="description" content="TN2130: Recommends the best ways to allocate memory on Mac OS X.">
+    <meta id="book-title" name="book-title" content="Memory Allocation Recommendations on Mac OS X">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2130">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Memory Allocation Recommendations on Mac OS X" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003484" title="Technical Note TN2130"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Memory Allocation Recommendations on Mac OS X</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003484-CH1-DontLinkElementID_2" title="Technical Note TN2130"></a><div class="dtsDocNumber">Technical Note TN2130</div><h1 id="pageTitle">Memory Allocation Recommendations on Mac OS X</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003484-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>This Technical Note is aimed at Carbon Application Developers to help them decide which, out of the multiple memory allocation APIs, is the one the most appropriate for the situation.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003484-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003484-CH1-SECTION2" data-renderer-version="1">Legacy and Deprecated APIs</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003484-CH1-SECTION3" data-renderer-version="1">Current APIs</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003484-CH1-SUBSECTION3" data-renderer-version="1">Core Foundation</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003484-CH1-SUBSECTION4" data-renderer-version="1">Macintosh Memory Manager</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003484-CH1-SUBSECTION5" data-renderer-version="1">Standard C Library</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003484-CH1-SECTION7" data-renderer-version="1">Moving and Setting bytes</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003484-CH1-SECTION8" data-renderer-version="1">Summary</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003484-CH1-SECTION9" data-renderer-version="1">Reference Section</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003484-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003484-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>A lot of Carbon APIs allocate memory to create specific items, for example, <code>HIObjectCreate</code>, <code>CreateNewWindow</code>, <code>NewGWorld</code>. Since there is usually only one API to create/allocate a specific item, there is little choice, thus little doubt as to which API is the best to use in each case.</p><p>But when it comes to allocating blocks of memory for general use, for example, pixel data for image processing, arrays of numeric values for number crunching, or character buffers for text processing, there are many Carbon APIs which could be used for that purpose.</p><p>With choice comes confusion and the possibility of choosing a sub-optimal API for a particular job.</p><p>Furthermore, the optimal APIs for Mac OS X are not the same as those which were optimal in Mac OS 9 and earlier releases. Thus, developers who have a lot of legacy code should check this code for possible improvements.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003484-CH1-SECTION2" title="Legacy and Deprecated APIs"></a><h2 class="jump">Legacy and Deprecated APIs</h2><p>Open Transport provided the memory allocation function <code>OTAllocMem</code> [<code>void * OTAllocMem(OTByteCount size)</code>] in the Universal Interfaces in Mac OS 9 and earlier. When Carbon was introduced, <code>OTAllocMem</code> was replaced by <code>OTAllocMemInContext</code> [<code>void * OTAllocMemInContext(OTByteCount size, OTClientContextPtr clientContext)</code>]. Since Open Transport, as a whole, has been deprecated, there is no reason to use <code>OTAllocMemInContext</code> other than if you still have to support Mac OS 8 or Mac OS 9. Use <code>OTFreeMem</code> to deallocate the allocated memory, you cannot resize the allocated memory.</p><p>Multiprocessing Services provided the memory allocation function <code>MPAllocate</code> [<code>LogicalAddress MPAllocate(ByteCount size)</code>], while this function is still available, it is marked as deprecated and not recommended. Since version 2.0, Multiprocessing Services provides <code>MPAllocateAligned</code> [<code>LogicalAddress MPAllocateAligned(ByteCount size, UInt8 alignment, OptionBits options)</code>] which has always been available in Carbon. Use <code>MPFree</code> to deallocate the allocate memory, you cannot resize the allocated memory.</p><p>Most of the specific alignments provided by <code>MPAllocateAligned</code> have ceased to be useful, except for the 16-byte boundary alignment required by Altivec code.</p><p>Since <code>malloc</code> aligns all its allocations on 16-byte boundaries more efficiently than <code>MPAllocateAligned</code> does, the memory-related APIs of the Multiprocessing Services have been deprecated, and so you should not use <code>MPAllocateAligned</code>.</p><p>The Macintosh Memory Manager provides six functions related to virtual memory management as it was handled on Mac OS 8 and 9. All those six functions are available but do strictly nothing when called on Mac OS X from version 10.0 to version 10.3. It is unlikely that they will ever be doing anything in a later release since the virtual memory management of Mac OS X is very different from its predecessor. Those six functions are <code>ReleaseMemoryData</code>, <code>MakeMemoryNonResident</code>, <code>MakeMemoryResident</code>, <code>FlushMemory</code>, <code>HoldMemory</code>, and <code>UnholdMemory</code>.</p><p>The Macintosh Memory Manager also provides seven functions which handle memory in the global address space instead of within the application heap on Mac OS 8 and 9. These seven functions are available on Mac OS X but function no differently than their application heap counterparts. Thus <code>TempNewHandle</code> is the same as <code>NewHandle</code>, <code>TempMaxMem</code> is the same as <code>MaxMem</code>, <code>TempFreeMem</code> is the same as <code>FreeMem</code>, <code>TempHLock</code> is the same as <code>HLock</code>, <code>TempHUnlock</code> is the same as <code>HUnlock</code>, <code>TempDisposeHandle</code> is the same as <code>DisposeHandle</code>, and <code>TempTopMem</code> is the same as <code>TopMem</code>. It is also noteworthy to mention that <code>FreeMem</code> always return a hard-coded value of, currently, 20 * 1024 * 1024, that <code>MaxMem</code> returns the same value, that <code>TopMem</code> always returns <code>NULL</code>, and that <code>CompactMem</code> does nothing else but return the value you passed as its parameter.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003484-CH1-SECTION3" title="Current APIs"></a><h2 class="jump">Current APIs</h2><section><a name="//apple_ref/doc/uid/DTS10003484-CH1-SUBSECTION3" title="Core Foundation"></a><h3 class="jump">Core Foundation</h3><p>Core Foundation provides in CFBase.h the memory allocation function <code>CFAllocatorAllocate</code> [<code>void *CFAllocatorAllocate(CFAllocatorRef allocator, CFIndex size, CFOptionFlags hint)</code>]. This function is thread safe.</p><p>The main reason for using <code>CFAllocatorAllocate</code> instead of another memory allocation API is that you can choose the <code>CFAllocatorRef</code> the most appropriate for the situation. It can be just the default <code>CFAllocatorRef</code> (<code>kCFAllocatorDefault</code>), but you can also use any of the other provided <code>CFAllocatorRef</code> (<code>kCFAllocatorSystemDefault</code>, <code>kCFAllocatorMalloc</code>, <code>kCFAllocatorNull</code>, <code>kCFAllocatorUseContext</code>) or create your own with <code>CFAllocatorCreate</code> (in very rare situations).</p><p>You can also, in a library, use <code>kCFAllocatorDefault</code> and then you will work with whatever <code>CFAllocatorRef</code> was set as a default by the main application.</p><p>Use <code>CFAllocatorDeallocate</code> to deallocate the allocate memory, you can use <code>CFAllocatorReallocate</code> to resize the allocated memory.</p></section><section><a name="//apple_ref/doc/uid/DTS10003484-CH1-SUBSECTION4" title="Macintosh Memory Manager"></a><h3 class="jump">Macintosh Memory Manager</h3><p>The Macintosh Memory Manager provides in MacMemory.h the four memory allocation functions <code>NewPtr</code>, <code>NewPtrClear</code>, <code>NewHandle</code>, and <code>NewHandleClear</code>. All those functions are thread-safe starting with Mac OS X v10.3 but not in previous versions. On Mac OS X, those four functions eventually call the C library function <code>malloc</code> with a thin overhead.</p><p>Use <code>DisposePtr</code> to deallocate the memory allocated by <code>NewPtr</code> or <code>NewPtrClear</code> and you can use <code>SetPtrSize</code> to resize the allocated memory (beware, even on Mac OS X, <code>SetPtrSize</code> may fail).</p><p>Use <code>DisposeHandle</code> to deallocate the memory allocated by <code>NewHandle</code> or <code>NewHandleClear</code> and you can use <code>SetHandleSize</code> to resize the allocated memory.</p><p>There is no performance advantage to calling <code>NewPtr</code> instead of <code>malloc</code>, or <code>NewPtrClear</code> instead of <code>calloc</code>. This is the reverse of what was true on Mac OS 8 and 9 where <code>malloc</code> was eventually calling <code>NewPtr</code> in some C runtimes.</p><p>Carbon APIs use specific handles less and less, either because the technology has been or is being deprecated; a better, modern replacement has been introduced; or specific handles have been converted in opaque references. See the tables below for some examples; since Carbon APIs rely on handles less and less as new versions of Mac OS X are released, these table lists are not exhaustive and the best way to know whether you should or should not use a specific handle is to look at the comments of its declaration in its header file.</p><a name="//apple_ref/doc/uid/DTS10003484-CH1-TABLE1" title="Table 1Technologies which are or are being deprecated."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Technologies which are or are being deprecated.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Technology
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Types (not exhaustive)
+</p></th></tr><tr><td  scope="row"><p>
+QuickDraw
+</p></td><td ><p>
+PixMapHandle, CTabHandle, PicHandle, PaletteHandle
+</p></td></tr><tr><td  scope="row"><p>
+TextEdit
+</p></td><td ><p>
+TEHandle, TextStyleHandle, CharsHandle, STHandle
+</p></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003484-CH1-TABLE2" title="Table 2Technologies which have a modern replacement."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;Technologies which have a modern replacement.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Technology
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Types (not exhaustive)
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Modern Technology
+</p></th></tr><tr><td  scope="row"><p>
+Sound Manager
+</p></td><td ><p>
+SndHandle, SndListHandle, Snd2ListHandle
+</p></td><td ><p>
+CoreAudio 
+</p></td></tr><tr><td  scope="row"><p>
+File Translation
+</p></td><td ><p>
+FileTranslationSpecArrayHandle, FileTranslationListHandle, ScrapTranslationListHandle
+</p></td><td ><p>
+Translation Services
+</p></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003484-CH1-TABLE3" title="Table 3Specific Handles obsoleted by a modern replacement."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 3</strong>&nbsp;&nbsp;Specific Handles obsoleted by a modern replacement.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Specific Handles
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Modern Replacement
+</p></th></tr><tr><td  scope="row"><p>
+ListHandle (using the List control)
+</p></td><td ><p>
+DataBrowser control
+</p></td></tr><tr><td  scope="row"><p>
+NavTypeListHandle (Navigation Services)
+</p></td><td ><p>
+Use a filter function, use LSCanRefAcceptItem (Launch Services)
+</p></td></tr><tr><td  scope="row"><p>
+CIconHandle, IconFamilyHandle
+</p></td><td ><p>
+IconRef
+</p></td></tr><tr><td  scope="row"><p>
+ControlHandle
+</p></td><td ><p>
+ControlRef
+</p></td></tr><tr><td  scope="row"><p>
+MenuHandle
+</p></td><td ><p>
+MenuRef
+</p></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003484-CH1-TABLE4" title="Table 4Specific Handles still in use."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 4</strong>&nbsp;&nbsp;Specific Handles still in use.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Specific Handles
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Note
+</p></th></tr><tr><td  scope="row"><p>
+RgnHandle
+</p></td><td ><p>
+HIShapeRef will replace RgnHandle as the HIShape technology evolves
+</p></td></tr><tr><td  scope="row"><p>
+AliasHandle
+</p></td><td ><p>
+The Alias Manager is evolving to deal with the type AliasRecord *
+</p></td></tr></table></div><p>It is still inadvisable to fake handles, that is to use a pointer on a pointer to a memory block, and use them as parameters in Carbon APIs. If the Carbon API attempts to call <code>GetHandleSize</code> or <code>SetHandleSize</code>, then unexpected consequences will follow.</p></section><section><a name="//apple_ref/doc/uid/DTS10003484-CH1-SUBSECTION5" title="Standard C Library"></a><h3 class="jump">Standard C Library</h3><p>The Standard C Library provides the memory allocation functions <code>malloc</code>, <code>calloc</code> (which clears the memory block), and <code>valloc</code> (which aligns the memory block on a virtual memory page boundary).</p><p><code>malloc</code> and <code>calloc</code> align their allocations on 16-byte boundaries.</p><p>All these functions are thread-safe. Use <code>free</code> to deallocate the allocate memory, you can use <code>realloc</code> to safely resize the allocated memory.</p><p>Apple Engineers spent a long time making <code>malloc</code> the most efficient memory allocation function. Use <code>malloc</code> (or <code>calloc</code>) preferably to any other memory allocation function.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003484-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;When debugging in Xcode, you may use GuardMalloc. That actually means that you are using libgmalloc which modifies the behavior of <code>malloc</code> and <code>calloc</code>. libgmalloc alignes the end of the allocated block with the end of a page. Thus, if you need 16-byte aligned allocations, you may need to pad your structures or arrays to a multiple of 16 when debugging with GuardMalloc.</p><p></p></aside></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003484-CH1-SECTION7" title="Moving and Setting bytes"></a><h2 class="jump">Moving and Setting bytes</h2><p>After allocating memory, it is common to move bytes around. There are many functions which can do the job. Fortunately, it is easier to determine which API should be used almost exclusively.</p><p>Prefer <code>BlockMoveData</code> or <code>BlockMoveDataUncached</code> to <code>BlockMove</code>, but anyway, these functions eventually call <code>memmove</code>, so...</p><p>For copying bytes from one location to another, use <code>memmove</code> or <code>bcopy</code> which are thread-safe and check for overlaps.</p><p>On shipping releases of Mac OS X, <code>memcpy</code> also checks for overlaps, but the IEEE specification does not require that check, so behavior on other platforms is undefined, so use it with caution.</p><p>In some situations, rather than calling <code>memmove</code>, you can use a tight loop or let the compiler generate the code for moving bytes if the size of the transfer is known at compilation time. In most other situations, use <code>memmove</code>.</p><p>Rather than allocating a new block of memory, you may want to reuse instead previously allocated memory. In that case, it is common to zero that memory before using it. We recommend that you use <code>bzero</code> or <code>memset</code> rather than <code>BlockZero</code> to do so.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003484-CH1-SECTION8" title="Summary"></a><h2 class="jump">Summary</h2><p>Do not use <code>OTAllocMem</code> or <code>OTAllocMemInContext</code>.</p><p>Do not use <code>MPAllocate</code> or <code>MPAllocateAligned</code>.</p><p>Do not use <code>TempNewHandle</code>.</p><p>Use <code>NewPtr</code> or <code>NewHandle</code> only in legacy code that you didn't optimize yet. Do not use them in new code.</p><p><code>CFAllocatorAllocate</code> should be rarely used.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003484-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;Use <code>malloc</code> or <code>calloc</code> almost exclusively.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003484-CH1-SECTION9" title="Reference Section"></a><h2 class="jump">Reference Section</h2><p><span class="content_text"><a href="http://developer.apple.com/documentation/Performance/Conceptual/ManagingMemory/Tasks/MemoryAlloc.html" class="browserLink" >Optimizing Your Memory Allocations</a></span>.</p><p><span class="content_text"><a href="http://developer.apple.com/technotes/tn/tn1174.html" class="browserLink" >Optimization Strategies for Mac OS</a></span>.</p><p><span class="content_text"><a href="http://developer.apple.com/qa/qa2001/qa1259.html" class="browserLink" >Memory Management Edge Cases</a></span>.</p><p><span class="content_text"><a href="http://developer.apple.com/documentation/Performance/Conceptual/ManagingMemory/index.html" class="browserLink" >Memory Management in Mac OS X</a></span>.</p><p><span class="content_text"><a href="x-man-page://3/malloc" class="urlLink" rel="external"><codeVoice>malloc</codeVoice>(3) and <codeVoice>calloc</codeVoice>(3) man documentation</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003484-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003484-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2005-07-12</td><td><p>Added a reference to malloc man documentation.</p></td></tr><tr><td scope="row">2005-05-24</td><td><p>GuardMalloc information added.</p></td></tr><tr><td scope="row">2005-04-07</td><td><p>New document that 
+					recommends the best ways to allocate memory on Mac OS X.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2005 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2005-07-12</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>About Authentication, Authorization, and Permissions</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40011200">
+    <meta id="document-version" name="document-version" content="1.3.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40011200-CH201">
+    <meta id="date" name="date" content="2013-01-28">
+    <meta id="description" name="description" content="Explains the concepts of authorization and authentication in depth.">
+    <meta id="book-title" name="book-title" content="Authentication, Authorization, and Permissions Guide">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Topic/Security}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Authentication, Authorization, and Permissions Guide: About Authentication, Authorization, and Permissions">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Authentication, Authorization, and Permissions Guide" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../Authentication/Authentication.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40011200-CH201" title="About Authentication, Authorization, and Permissions"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Authentication, Authorization, and Permissions Guide</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../Authentication/Authentication.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40011200" title="About Authentication, Authorization, and Permissions"></a><a name="//apple_ref/doc/uid/TP40011200-CH201-TPXREF101" title="About Authentication, Authorization, and Permissions"></a><h1 id="pageTitle">About Authentication, Authorization, and Permissions</h1><a name="//apple_ref/doc/uid/TP40011200-CH201-DontLinkElementID_1"></a><p>Authentication and authorization are a key aspect of computer security. <em>Authentication</em> means determining the identity of a user, server, or client. <em>Authorization</em> means determining whether that user, server, or client as permission to do something. <em>Permissions</em> are settings on a file or other object that define who or what is allowed to use it and what they are allowed to do with it. This document describes the way macOS approaches authentication, authorization, and permissions.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40011200-CH201-SW1" title="Note"></a><p><strong>Note:</strong>&nbsp;Authentication, authorization, and permissions are mostly relevant in the context of multiuser systems. As a result, this document only discusses macOS.</p><p></p></aside></div><figure class="figure"><a name="//apple_ref/doc/uid/TP40011200-CH201-CHDHIIJF"></a><img src="../Art/layered_arch_simple_2x.png" alt="OS X security architecture overview" width="521" height="339"></figure><a name="//apple_ref/doc/uid/TP40011200-CH201-DontLinkElementID_2" title="At a Glance"></a><h2 class="jump">At a Glance</h2><p>As you saw in <em><a href="../../Security_Overview/Introduction/Introduction.html#//apple_ref/doc/uid/TP30000976" data-renderer-version="1" target="_self">Security Overview</a></em>, macOS provides a wide range of security technologies that you can use when securing your application and its data. Authentication, authorization, and permissions in macOS are largely based on two open-source standards: Mach and BSD. These technologies sit at the lowest layer of macOS. The cryptography used for storing passwords and other secret information is provided by higher level technologies, such as Common Crypto. Common Crypto is an Apple open source technology that provides support for symmetric and asymmetric encryption, hashing, and other cryptography-related tasks.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40011200-CH201-SW3" title="Historical Note"></a><p><strong>Historical Note:</strong>&nbsp;Many macOS security services were originally built on top of CDSA, but that is now deprecated. See <em><a href="../../cryptoservices/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011172" data-renderer-version="1" target="_self">Cryptographic Services Guide</a></em> for information about CDSA.</p><p></p></aside></div><p>On top of these three technologies, macOS layers a number of security APIs (most of which are in the Core Services layer), including Security Transforms, the Security Interface framework, and Keychain Services. The Security Objective-C API is described in this document. The others are described in <em><a href="../../cryptoservices/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011172" data-renderer-version="1" target="_self">Cryptographic Services Guide</a></em>.</p><section><a name="//apple_ref/doc/uid/TP40011200-CH201-SW2" title="macOS Provides Many Authentication and Identification Schemes and Technologies"></a><h3>macOS Provides Many Authentication and Identification Schemes and Technologies</h3><p>There are many different ways to do authentication and identification, and macOS provides a number of authentication-related APIs and UI elements to help you. macOS also provides a number of authentication features to help you integrate macOS into enterprise environments.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40011200-CH201-SW4" title="Relevant Chapter"></a><p><strong>Relevant Chapter:</strong>&nbsp;<span class="content_text"><a href="../Authentication/Authentication.html#//apple_ref/doc/uid/TP40011200-CH4-SW1" data-renderer-version="1">Authentication and Identification In Depth</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40011200-CH201-SW5" title="Authorization Services Provides Centralized Management of Privileges"></a><h3>Authorization Services Provides Centralized Management of Privileges</h3><p>The Authorization Services API lets you run privileged helpers, and lets you use a single, central source of information for limiting what features of your app are usable by different accounts on the system. The Authorization Services API is not supported in sandboxed apps.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40011200-CH201-SW6" title="Relevant Chapter"></a><p><strong>Relevant Chapter:</strong>&nbsp;<span class="content_text"><a href="../Authorization/Authorization.html#//apple_ref/doc/uid/TP40011200-CH3-SW1" data-renderer-version="1">Using Authorization</a></span></p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40011200-CH201-SW9" title="Note"></a><p><strong>Note:</strong>&nbsp;Writing authorization plug-ins is beyond the scope of this document. To learn more about writing these plug-ins, read <em><a href="../../../../../technotes/tn2228/_index.html#//apple_ref/doc/uid/DTS40007991" data-renderer-version="1" target="_self">Running At Login</a></em>.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40011200-CH201-SW7" title="Permissions and Access Control Limit Program Behavior"></a><h3>Permissions and Access Control Limit Program Behavior</h3><p>macOS supports permissions systems at various levels of the system, from Mach ports to file system permissions and mandatory access control.</p><p>The BSD portions of macOS provide fundamental services, including a user and group identification scheme, file system security policies based on users and groups, and network security policies.</p><p>The Mach portions of the macOS kernel provide fundamental services, including memory management, process management, thread management, hardware abstraction (with the help of the I/O Kit), and Mach port-based communication. Mach enforces access by controlling which tasks can send a message to a given Mach port, where a Mach port represents a task or some other Mach resource.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40011200-CH201-SW8" title="Relevant Chapter"></a><p><strong>Relevant Chapter:</strong>&nbsp;<span class="content_text"><a href="../Permissions/Permissions.html#//apple_ref/doc/uid/TP40011200-CH5-SW1" data-renderer-version="1">Understanding Permissions</a></span></p><p></p></aside></div></section><a name="//apple_ref/doc/uid/TP40011200-CH201-DontLinkElementID_4" title="Prerequisites"></a><h2 class="jump">Prerequisites</h2><p>Before reading this document, you should be familiar with the concepts in <em><a href="../../Security_Overview/Introduction/Introduction.html#//apple_ref/doc/uid/TP30000976" data-renderer-version="1" target="_self">Security Overview</a></em> and <em><a href="../../SecureCodingGuide/Introduction.html#//apple_ref/doc/uid/TP40002415" data-renderer-version="1" target="_self">Secure Coding Guide</a></em>.</p><div id="introSeeAlsoSection"><a name="//apple_ref/doc/uid/TP40011200-CH201-DontLinkElementID_3" title="See Also"></a><h2 class="jump">See Also</h2><p>For more information on related technologies, consider the following documents:</p><ul class="ul"><li class="li"><p><em><a href="../../Security_Overview/Introduction/Introduction.html#//apple_ref/doc/uid/TP30000976" data-renderer-version="1" target="_self">Security Overview</a></em>—Provides an overview of security concepts</p></li><li class="li"><p><em><a href="../../cryptoservices/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011172" data-renderer-version="1" target="_self">Cryptographic Services Guide</a></em>—Describes the cryptographic features of macOS and iOS</p></li><li class="li"><p><em><a href="../../../../../technotes/tn2228/_index.html#//apple_ref/doc/uid/DTS40007991" data-renderer-version="1" target="_self">Running At Login</a></em>—Describes how to write authorization services plug-ins for adding authentication schemes</p></li><li class="li"><p><em><a href="../../SecureCodingGuide/Introduction.html#//apple_ref/doc/uid/TP40002415" data-renderer-version="1" target="_self">Secure Coding Guide</a></em>—Explains how to write code that is robust against security holes</p></li></ul></div>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../Authentication/Authentication.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2003, 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-01-28</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

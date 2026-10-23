@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2415: Entitlements Troubleshooting</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40016427">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40016427-CH1">
+    <meta id="date" name="date" content="2015-08-12">
+    <meta id="description" name="description" content="TN2415: assists with troubleshooting entitlement related failures that occur during Xcode build, app installation, or submission.">
+    <meta id="book-title" name="book-title" content="Entitlements Troubleshooting">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/Security}, {Topic/Languages & Utilities/Distribution Tools}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2415">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Entitlements Troubleshooting" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40016427" title="Technical Note TN2415"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Entitlements Troubleshooting</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40016427-CH1-DontLinkElementID_2" title="Technical Note TN2415"></a><div class="dtsDocNumber">Technical Note TN2415</div><h1 id="pageTitle">Entitlements Troubleshooting</h1><p>Use this document to troubleshoot entitlement related problems that can occur during an Xcode build, app installation or submission. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40016427-CH1-INTRODUCTION" data-renderer-version="1">Introduction</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-INTRODUCTION-SCOPE" data-renderer-version="1">Scope</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-INTRODUCTION-DEFINITION" data-renderer-version="1">Definition</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-INTRODUCTION-EXAMPLE_ERRORS" data-renderer-version="1">Example Errors</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40016427-CH1-TP" data-renderer-version="1">Troubleshooting Process</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-TP-ENTITLEMENTS_OVERVIEW_DIAGRAM" data-renderer-version="1">Entitlements Overview Diagram</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-TARGETCAPABILITIES" data-renderer-version="1">Target Capabilities</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-APPIDSERVICES" data-renderer-version="1">App ID Services</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-CREATEPROFILE" data-renderer-version="1">Provisioning Profile is created on the website</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-WEBSITEPROFILELIBRARY" data-renderer-version="1">Website provisioning profile library</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-PROFILESENTITLEMENTS" data-renderer-version="1">Inspecting a profile's entitlements</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-INSTALLPROFILE" data-renderer-version="1">Installing the profile in Xcode</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-PROFILELIBRARY" data-renderer-version="1">Xcode's local provisioning profile library</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-AUTOMATICPROVISIONING" data-renderer-version="1">Xcode must be configured to choose the code signing profile on your behalf</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-CHOSENPROFILE" data-renderer-version="1">View the chosen profile in the build log</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-APPENTITLEMENTS" data-renderer-version="1">Inspect the entitlements of a built app</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-OSVALIDATION" data-renderer-version="1">App entitlements are validated by the OS during an install or launch</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-TP-INSPECTING_DISTRIBUTION_BUILD_ENTITLEMENTS_WHILE_SUBMITTING_AN_APP_IN_XCODE" data-renderer-version="1">Inspecting distribution build entitlements while submitting an app in Xcode</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-ENTITLEMENTSFILE" data-renderer-version="1">Code Signing Entitlements files</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40016427-CH1-SUPPORTING_INFORMATION" data-renderer-version="1">Supporting Information</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-ENTITLEMENTSLIST" data-renderer-version="1">List of Entitlements</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-SOURCES" data-renderer-version="1">Entitlement Sources</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-DESTINATIONS" data-renderer-version="1">Entitlement Destinations</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40016427-CH1-PREFIXMISMATCH" data-renderer-version="1">App ID Prefix Mismatching</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40016427-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40016427-CH1-INTRODUCTION" title="Introduction"></a><h2 class="jump">Introduction</h2><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-INTRODUCTION-SCOPE" title="Scope"></a><h3 class="jump">Scope</h3><p>This document is for app developers who are experiencing entitlement related issues with their app. This material does not intend to provide an exhaustive list of possible errors, nor does it provide specific solutions to individual errors. Instead, the troubleshooting strategy is the same for all errors by providing a high level understanding of the entire entitlements process along with all areas you can check at each phase. By stepping through the whole workflow and double checking entitlements along the way, it is normally enough to resolve entitlement related issues that can occur with your app. </p></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-INTRODUCTION-DEFINITION" title="Definition"></a><h3 class="jump">Definition</h3><p>An Entitlement can be thought of as the string written into an app's signature that allows a specific capability or opts the app into a specific service. The operating system (OS) checks these strings before allowing an app access to certain features. For example, an app must have the iCloud entitlement before it is allowed to access iCloud APIs at runtime. The OS enforces that by checking the app for an iCloud entitlement such as the following: </p><a name="//apple_ref/doc/uid/DTS40016427-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key&gt;com.apple.developer.ubiquity-kvstore-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;4ZX4Z3MVHG.com.appleseedinc.MyGreatApp&lt;/string&gt;<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40016427-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Other services that require entitlements are Push Notification, Health Kit, Home Kit, and others.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-INTRODUCTION-EXAMPLE_ERRORS" title="Example Errors"></a><h3 class="jump">Example Errors</h3><p>The following are a few example entitlement related errors: </p><p><strong>Entitlements mismatch error</strong></p><a name="//apple_ref/doc/uid/DTS40016427-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>The executable was signed with invalid entitlements. The entitlements specified in your application's Code Signing Entitlements file do not match those specified in your provisioning profile.<span></span></pre></td></tr></table></div><p><strong>Installation error</strong></p><a name="//apple_ref/doc/uid/DTS40016427-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Could not install the application. Your code signing/provisioning profiles are not correctly configured ... you have an entitlement not supported by your current provisioning profile ... (error: 0xe8008016).<span></span></pre></td></tr></table></div><p><strong>Submission error</strong></p><a name="//apple_ref/doc/uid/DTS40016427-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>Invalid Code Signing Entitlements. The entitlements in your app bundle<span></span></pre></td></tr><tr><td scope="row"><pre>signature do not match the ones that are contained in the provisioning<span></span></pre></td></tr><tr><td scope="row"><pre>profile. According to the provisioning profile, the bundle contains a key value<span></span></pre></td></tr><tr><td scope="row"><pre>that is not allowed: '[ A1B2C3D4E5.com.appleseedinc.MyGreatApp ]' for the key<span></span></pre></td></tr><tr><td scope="row"><pre>"keychain-access-groups" in "Payload/MyGreatApp.app/MyGreatApp"<span></span></pre></td></tr></table></div><p><strong>Invalid values error</strong></p><a name="//apple_ref/doc/uid/DTS40016427-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre>entitlement 'keychain-access-groups' has value not permitted by a provisioning profile<span></span></pre></td></tr></table></div><p>To resolve entitlement errors like these, follow the ordered steps given in section: <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-TP" data-renderer-version="1">Troubleshooting Process</a></span>.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-TP" title="Troubleshooting Process"></a><h2 class="jump">Troubleshooting Process</h2><p>Begin troubleshooting entitlement errors by working through the complete process. Start with the first step that entitlements are introduced, and trace them to their final destination on the app's signature and embedded provisioning profile. While checking entitlements at various phases during this process the entitlement anomaly will be visible, and in most cases, a solution can be inferred depending on the context of the observation. </p><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-TP-ENTITLEMENTS_OVERVIEW_DIAGRAM" title="Entitlements Overview Diagram"></a><h3 class="jump">Entitlements Overview Diagram</h3><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016427-CH1-FIGURE1" title="Figure 1Overview of the entitlements process. "></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Overview of the entitlements process. </figcaption><img src="Art/tn2415_processOverview.jpg" class="wide-image" alt="" width="1024" height="722"><img src="Art/tn2415_processOverview.jpg" class="ipad-scaled-image" alt="" width="670" height="472"></figure><p><strong>Figure 1</strong> Legend: </p><ol class="ol"><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-TARGETCAPABILITIES" data-renderer-version="1">Target Capabilities</a></span></p></li><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-APPIDSERVICES" data-renderer-version="1">App ID Services</a></span></p></li><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-CREATEPROFILE" data-renderer-version="1">Provisioning Profile is created on the website</a></span></p></li><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-WEBSITEPROFILELIBRARY" data-renderer-version="1">Website provisioning profile library</a></span></p></li><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-PROFILESENTITLEMENTS" data-renderer-version="1">Inspecting a profile's entitlements</a></span></p></li><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-INSTALLPROFILE" data-renderer-version="1">Installing the profile in Xcode</a></span></p></li><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-PROFILELIBRARY" data-renderer-version="1">Xcode's local provisioning profile library</a></span></p></li><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-AUTOMATICPROVISIONING" data-renderer-version="1">Xcode must be configured to choose the code signing profile on your behalf</a></span></p></li><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-CHOSENPROFILE" data-renderer-version="1">View the chosen profile in the build log</a></span></p></li><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-APPENTITLEMENTS" data-renderer-version="1">Inspect the entitlements of a built app</a></span></p></li><li class="li"><p><span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-OSVALIDATION" data-renderer-version="1">App entitlements are validated by the OS during an install or launch</a></span></p></li></ol><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40016427-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;<strong>PP</strong> = Provisioning Profile • <strong>.app</strong> = the built app bundle • <strong>OS</strong> = Operating System</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-TARGETCAPABILITIES" title="Target Capabilities"></a><h3 class="jump">Target Capabilities</h3><p>The first location that entitlements are introduced into your app is in Xcode's target Capabilities tab. </p><p>￼</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016427-CH1-FIGURE2" title="Figure 2The target Capabilities tab."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;The target Capabilities tab.</figcaption><img src="Art/tn2415_capabilities.png" class="wide-image" alt="" width="675" height="593"><img src="Art/tn2415_capabilities.png" class="ipad-scaled-image" alt="" width="670" height="588"></figure><p>Toggling a target capability causes Xcode to do the following: </p><ol class="ol"><li class="li"><p>Xcode creates or updates an entitlements file, if it is necessary, that contains the capability's corresponding entitlement(s). </p></li><li class="li"><p>Xcode registers the project's Bundle ID as an App ID on the <span class="content_text"><a href="https://developer.apple.com/account/ios/identifiers/bundle/bundleList.action" class="urlLink" rel="external">Identifiers</a></span> section of the <span class="content_text"><a href="https://developer.apple.com/account/overview.action" class="urlLink" rel="external">Certificates, ID's and Profiles</a></span> website, if it doesn't already exist. </p></li><li class="li"><p>Xcode enables (or disables) the corresponding service on your app's App ID. This change is also reflected in the <span class="content_text"><a href="https://developer.apple.com/account/ios/identifiers/bundle/bundleList.action" class="urlLink" rel="external">Identifiers</a></span> section of the <span class="content_text"><a href="https://developer.apple.com/account/overview.action" class="urlLink" rel="external">Certificates, ID's and Profiles</a></span> website. </p></li><li class="li"><p>Xcode generates (or updates) a provisioning profile that includes the proper set of entitlements required to support the target's currently enabled capabilities. The generated provisioning profile can be seen in the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-WEBSITEPROFILELIBRARY" data-renderer-version="1">Website provisioning profile library</a></span> of <span class="content_text"><a href="https://developer.apple.com/account/overview.action" class="urlLink" rel="external">Certificates, ID's and Profiles</a></span>. </p></li><li class="li"><p>Xcode downloads and installs the profile into <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-PROFILELIBRARY" data-renderer-version="1">Xcode's local provisioning profile library</a></span> so it can be used for code signing. </p></li></ol><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016427-CH1-FIGURE3" title="Figure 3Shows enabled target capabilities in Xcode."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;Shows enabled target capabilities in Xcode.</figcaption><img src="Art/tn2415_iCloudCapability.png" class="wide-image" alt="" width="687" height="210"><img src="Art/tn2415_iCloudCapability.png" class="ipad-scaled-image" alt="" width="670" height="204"></figure><p>Relevant notes on Capabilities and their corresponding entitlements: </p><ul class="ul"><li class="li"><p>Though most do, not all capabilities require an entitlement.</p></li><li class="li"><p>There are more possible entitlements than those which result from enabling capabilities on the target Capabilities tab in Xcode. See the following sections for these types of entitlements: <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-ENTITLEMENTSFILE" data-renderer-version="1">Code Signing Entitlements files</a></span> and <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-ENTITLEMENTSLIST" data-renderer-version="1">List of Entitlements</a></span>. </p></li></ul><p><strong>Things that can go wrong:</strong></p><ul class="ul"><li class="li"><p>Xcode uses web services to communicate with the <span class="content_text"><a href="https://developer.apple.com/account/overview.action" class="urlLink" rel="external">Certificates, ID's and Profiles</a></span> website which requires you to have an internet connection to complete capability configuration changes. </p></li><li class="li"><p>An Admin or Agent team role is required because capability changes require modification of App ID's. Log into Xcode with a team member with Admin privileges in the Preferences menu &gt; Accounts tab. </p></li><li class="li"><p>If instead you are a team member role, Xcode will highlight in red any privilege related issues next to the capability you attempt to enable. At that point you must request that a team Admin effect the requested capability changes either in Xcode or directly in the <span class="content_text"><a href="https://developer.apple.com/account/overview.action" class="urlLink" rel="external">Certificates, ID's and Profiles</a></span> website. Once that's done, the member role should: </p><ul class="nested"><li class="nested li"><p>Refresh the target capabilities pane. The red items will turn black which indicates Xcode recognizes that the capabilities are now enabled. </p></li><li class="nested li"><p>Refresh provisioning profiles in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-PROFILELIBRARY" data-renderer-version="1">Xcode's local provisioning profile library</a></span> using the "⟳" button. This will download the updated provisioning profile(s) that reflect the capability change and allow you to test the capabilities on a device.</p></li></ul></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-APPIDSERVICES" title="App ID Services"></a><h3 class="jump">App ID Services</h3><p>Target Capabilities in Xcode map to Services that are configured for your app's App ID on Certificates, IDs &amp; Profiles: </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016427-CH1-FIGURE4" title="Figure 4An App ID's enabled services on Certificates, IDs &amp; Profiles."></a><figcaption><strong class="caption_number">Figure 4</strong>&nbsp;&nbsp;An App ID's enabled services on Certificates, IDs &amp; Profiles.</figcaption><img src="Art/tn2415_appIDServices.png" class="wide-image" alt="" width="900" height="795"><img src="Art/tn2415_appIDServices.png" class="ipad-scaled-image" alt="" width="670" height="591"></figure><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016427-CH1-FIGURE5" title="Figure 5Shows an enabled App ID service."></a><figcaption><strong class="caption_number">Figure 5</strong>&nbsp;&nbsp;Shows an enabled App ID service.</figcaption><img src="Art/tn2415_iCloudService.png" alt="" width="402" height="184"></figure><p>A few notes on App IDs and their entitlements: </p><ul class="ul"><li class="li"><p>Xcode's use of the term Capabilities is synonymous with the website's use of the term Services. </p></li><li class="li"><p>There is a one-to-one mapping between capabilities seen in Xcode and its corresponding Service on the website.</p></li><li class="li"><p>All of the Services listed on the Identifiers section of the website are reserved for App Store apps. Enterprise apps cannot use those services. This is why they are sometimes referred to as Store Services.</p></li><li class="li"><p>When a target Capability is toggled in Xcode, the corresponding Service is enabled on your app’s App ID on the website.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-CREATEPROFILE" title="Provisioning Profile is created on the website"></a><h3 class="jump">Provisioning Profile is created on the website</h3><p>When a target capability is toggled, Xcode creates or updates a corresponding provisioning profile on the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-WEBSITEPROFILELIBRARY" data-renderer-version="1">Website provisioning profile library</a></span> to be used for code signing. </p></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-WEBSITEPROFILELIBRARY" title="Website provisioning profile library"></a><h3 class="jump">Website provisioning profile library</h3><p>This repository of provisioning profiles is located on Apple's servers from which you (or Xcode) can access. The profiles it contains are visible on the <span class="content_text"><a href="https://developer.apple.com/account/ios/profile/profileList.action" class="urlLink" rel="external">Provisioning Profiles</a></span> section of <span class="content_text"><a href="https://developer.apple.com/account/overview.action" class="urlLink" rel="external">Certificates, Identifiers &amp; Profiles</a></span>: </p><p><figure class="figure"><img src="Art/tn2415_provisioningProfilesWebsite.png" class="wide-image" alt="Art/tn2415_provisioningProfilesWebsite.png" width="775" height="504"><img src="Art/tn2415_provisioningProfilesWebsite.png" class="ipad-scaled-image" alt="Art/tn2415_provisioningProfilesWebsite.png" width="670" height="435"></figure></p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016427-CH1-FIGURE6" title="Figure 6Click on a profile to view its enabled services. iCloud is highlighted as an example."></a><figcaption><strong class="caption_number">Figure 6</strong>&nbsp;&nbsp;Click on a profile to view its enabled services. iCloud is highlighted as an example.</figcaption><img src="Art/tn2415_profileServices.png" class="wide-image" alt="" width="700" height="322"><img src="Art/tn2415_profileServices.png" class="ipad-scaled-image" alt="" width="670" height="308"></figure><p>A few notes on provisioning profiles and their embedded entitlements: </p><ul class="ul"><li class="li"><p>A provisioning profile is associated to exactly one App ID which specifies a single app (or class of apps) and their enabled services. Most services have corresponding entitlements. </p></li><li class="li"><p>A provisioning profile contains a list of development (or beta test) devices (up to 100 of them) that will be allowed to launch the app once it is code signed. </p></li><li class="li"><p>The only provisioning profiles that do not contain a list of provisioned devices are App Store profiles, which do not launch on devices, and Enterprise apps, which use a different facility to launch on company owned devices.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-PROFILESENTITLEMENTS" title="Inspecting a profile's entitlements"></a><h3 class="jump">Inspecting a profile's entitlements</h3><p>You can download a provisioning profile to your Mac using the download button on the Certificates, IDs &amp; Profiles website. To see the profile's entitlements that correspond to its enabled services, use the following Terminal command: </p><a name="//apple_ref/doc/uid/DTS40016427-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>security cms -D -i /path/to/iOSTeamProfile.mobileprovision<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40016427-CH1-SOURCECODE7" title="Listing 1Example results of the profile entitlements terminal command clipped to the Entitlements key region."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Example results of the profile entitlements terminal command clipped to the Entitlements key region.</p><div class="codesample clear"><table><tr><td scope="row"><pre> &lt;key&gt;Entitlements&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;keychain-access-groups&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>            &lt;string&gt;4ZX4Z3MVHG.*&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;inter-app-audio&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;true/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;get-task-allow&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;true/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;application-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;string&gt;4ZX4Z3MVHG.com.appleseedinc.MyProject&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;com.apple.developer.ubiquity-kvstore-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;string&gt;4ZX4Z3MVHG.*&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;com.apple.developer.icloud-services&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;string&gt;*&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;com.apple.developer.icloud-container-environment&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>            &lt;string&gt;Development&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>            &lt;string&gt;Production&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;com.apple.developer.icloud-container-identifiers&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>            &lt;string&gt;iCloud.com.appleseedinc.MyProject&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>            &lt;string&gt;iCloud.com.appleseedinc.container1&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;com.apple.developer.icloud-container-development-container-identifiers&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>            &lt;string&gt;iCloud.com.appleseedinc.MyProject&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>            &lt;string&gt;iCloud.com.appleseedinc.container1&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;com.apple.developer.ubiquity-container-identifiers&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>            &lt;string&gt;iCloud.com.appleseedinc.MyProject&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>            &lt;string&gt;iCloud.com.appleseedinc.container1&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;com.apple.developer.team-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;string&gt;4ZX4Z3MVHG&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;key&gt;aps-environment&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;string&gt;development&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;/dict&gt;<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40016427-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;A code signed app's embedded provisioning profile is found in the root app bundle folder. Show package contents on the app bundle to find a file that is named <code>embedded.mobileprovision</code>.</p><p></p></aside></div><p>A few notes on the entitlements that are embedded in a provisioning profile: </p><ul class="ul"><li class="li"><p>Not only do a profile's enabled services have their corresponding entitlements listed in its text "entitlements" section of the file itself, but this is the sole method of their expression within a profile. </p></li><li class="li"><p>When a profile is used for code signing, Xcode transfers the profile's associated entitlements to the resulting code signature of the .app.</p></li><li class="li"><p>Though a profile's enabled services produce entitlements in a profile, Store Services are not the only source of a profile's entitlements. See the section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-SOURCES" data-renderer-version="1">Entitlement Sources</a></span> for more information. </p><p>It's also relevant to note that not all enabled services have associated entitlements. See <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-ENTITLEMENTSLIST" data-renderer-version="1">List of Entitlements</a></span> for more information. </p></li><li class="li"><p>It is expected to see asterisks in the profile and not in the app's signature. Therefore, not all entitlement values in the provisioning profile will textually match those on an app signed with that profile in this regard. For the purpose of creating the entitlements that are written into the app's signature during a build, Xcode replaces all asterisk portions of entitlements found in the profile such as application-identifier, iCloud, keychain-access-groups, and others, to be fully qualified based on the values defined in the target's code signing entitlements file. </p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-INSTALLPROFILE" title="Installing the profile in Xcode"></a><h3 class="jump">Installing the profile in Xcode</h3><p>Xcode manages all the profiles needed for code signing on your behalf. When you make a new project with a new bundle ID, or toggle capabilities for a target, Xcode manages the App ID, downloads and installs a profile for code signing automatically. </p></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-PROFILELIBRARY" title="Xcode's local provisioning profile library"></a><h3 class="jump">Xcode's local provisioning profile library</h3><p>You can view installed provisioning profiles within <strong>Xcode's</strong> &gt; Preferences menu &gt; Accounts tab &gt; (your account) &gt; View Details: </p><p><figure class="figure"><img src="Art/tn2415_accountViewDetails.png" alt="Art/tn2415_accountViewDetails.png" width="660" height="506"></figure></p><p>A few notes regarding Xcode's provisioning profile library: </p><ul class="ul"><li class="li"><p>When a Capability is toggled on the project’s target, Xcode automatically downloads and installs into its profile library an updated provisioning profile reflecting that change. </p></li><li class="li"><p>Custom provisioning profiles that you've made on the website can be downloaded into Xcode by clicking the "⟳" button on the bottom-left to refresh Xcode's profiles. </p></li><li class="li"><p>If a profile for your app's App ID is not seen in the list, or, it's capabilities do not reflect changes that were made (either on the Capabilities pane, or that you've made manually on the website) click the "⟳" button on the bottom-left to refresh Xcode's profiles. </p></li></ul><p>￼</p></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-AUTOMATICPROVISIONING" title="Xcode must be configured to choose the code signing profile on your behalf"></a><h3 class="jump">Xcode must be configured to choose the code signing profile on your behalf</h3><p>After profiles are installed in Xcode, they can be used to code sign an app. Before that, you must configure the target's build settings to allow Xcode to automatically sign the app with the right provisioning profile for you. </p><p>The steps to do this are covered in the following document: </p><p><strong>QA1814</strong> - <span class="content_text"><a href="https://developer.apple.com/library/mac/qa/qa1814/_index.html" class="urlLink" rel="external">Setting up Xcode to automatically manage your provisioning profiles</a></span>. </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016427-CH1-FIGURE7" title="Figure 7Correctly configured Code Signing build settings."></a><figcaption><strong class="caption_number">Figure 7</strong>&nbsp;&nbsp;Correctly configured Code Signing build settings.</figcaption><img src="Art/tn2415_codeSigningBuildSettings.png" class="wide-image" alt="" width="1024" height="777"><img src="Art/tn2415_codeSigningBuildSettings.png" class="ipad-scaled-image" alt="" width="670" height="508"></figure></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-CHOSENPROFILE" title="View the chosen profile in the build log"></a><h3 class="jump">View the chosen profile in the build log</h3><p>Once the Xcode project is configured to choose the right profile for code signing, you're ready to build. On a successful build, the provisioning profile Xcode chooses for signing is visible in the "Sign" step of the build log:</p><p><figure class="figure"><img src="Art/tn2415_buildLog.png" class="wide-image" alt="Art/tn2415_buildLog.png" width="1024" height="685"><img src="Art/tn2415_buildLog.png" class="ipad-scaled-image" alt="Art/tn2415_buildLog.png" width="670" height="448"></figure></p><p>A few notes regarding the profile Xcode chooses for code signing: </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40016427-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;Xcode does not code sign Simulator builds, so you must choose an iOS Device run destination in order to view the Code Sign step in the build log. </p><p></p></aside></div><p>To double check the entitlements of the profile that Xcode chose to code sign the build, follow these steps: </p><ol class="ol"><li class="li"><p>Navigate to <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-PROFILELIBRARY" data-renderer-version="1">Xcode's local provisioning profile library</a></span>. </p></li><li class="li"><p>Locate the provisioning profile by the name that was printed in the build log. </p></li><li class="li"><p>Control-click on the profile and choose <strong>Show in Finder</strong>.</p></li><li class="li"><p>Follow the steps in section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-PROFILESENTITLEMENTS" data-renderer-version="1">Inspecting a profile's entitlements</a></span>.</p></li></ol><p>￼</p></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-APPENTITLEMENTS" title="Inspect the entitlements of a built app"></a><h3 class="jump">Inspect the entitlements of a built app</h3><p>Running the following terminal command prints the entitlements from its signature: </p><a name="//apple_ref/doc/uid/DTS40016427-CH1-SOURCECODE8"></a><div class="codesample clear"><table><tr><td scope="row"><pre>$ codesign -d --ent :- /path/to/the.app<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40016427-CH1-SOURCECODE9" title="Listing 2Example app signature entitlements."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Example app signature entitlements.</p><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;plist version="1.0"&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;application-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;string&gt;4ZX4Z3MVHG.com.appleseedinc.MyProject&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;com.apple.developer.team-identifier&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;string&gt;4ZX4Z3MVHG&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;get-task-allow&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;true/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;keychain-access-groups&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        &lt;string&gt;4ZX4Z3MVHG.com.appleseedinc.MyProject&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/plist&gt;<span></span></pre></td></tr></table></div><p>Notes on an app's signature entitlements: </p><ul class="ul"><li class="li"><p>During code signing, the entitlements corresponding to the app’s enabled Capabilities/Services are transferred to the app's signature from the provisioning profile Xcode chose to sign the app. </p></li><li class="li"><p>The provisioning profile is embedded into the app bundle during the build. </p></li><li class="li"><p>Entitlements from <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-ENTITLEMENTSFILE" data-renderer-version="1">Code Signing Entitlements files</a></span> are transferred to the app's signature. </p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-OSVALIDATION" title="App entitlements are validated by the OS during an install or launch"></a><h3 class="jump">App entitlements are validated by the OS during an install or launch</h3><p>When a code signed app is installed or launched, the OS validates its entitlements. If the entitlements do not pass inspection, the install or launch will fail with an entitlement related error. </p><p>The OS validates the following: </p><ol class="ol"><li class="li"><p>There are no unexpected or misconfigured entitlements. </p></li><li class="li"><p>That entitlements match across the app’s signature and the app’s embedded provisioning profile. </p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-TP-INSPECTING_DISTRIBUTION_BUILD_ENTITLEMENTS_WHILE_SUBMITTING_AN_APP_IN_XCODE" title="Inspecting distribution build entitlements while submitting an app in Xcode"></a><h3 class="jump">Inspecting distribution build entitlements while submitting an app in Xcode</h3><p>Xcode shows the distribution build's signature entitlements in the Summary pane during the submission workflow. This is the last opportunity you have to visually ensure that your app contains the expected entitlements before submitting your app for review. </p><p><figure class="figure"><img src="Art/tn2415_entitlementsReview.png" class="wide-image" alt="Art/tn2415_entitlementsReview.png" width="1024" height="732"><img src="Art/tn2415_entitlementsReview.png" class="ipad-scaled-image" alt="Art/tn2415_entitlementsReview.png" width="670" height="478"></figure> </p></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-ENTITLEMENTSFILE" title="Code Signing Entitlements files"></a><h3 class="jump">Code Signing Entitlements files</h3><p>Code signing entitlements are defined in Xcode using the Code Signing Entitlements build setting seen the following figure. </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016427-CH1-FIGURE8" title="Figure 8Example Code Signing Entitlements file."></a><figcaption><strong class="caption_number">Figure 8</strong>&nbsp;&nbsp;Example Code Signing Entitlements file.</figcaption><img src="Art/tn2415_codeSigningEntitlements.png" class="wide-image" alt="" width="1024" height="685"><img src="Art/tn2415_codeSigningEntitlements.png" class="ipad-scaled-image" alt="" width="670" height="448"></figure><p>The contents of this example entitlements file are seen here: </p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40016427-CH1-FIGURE9" title="Figure 9Contents of the MyProject.entitlements file."></a><figcaption><strong class="caption_number">Figure 9</strong>&nbsp;&nbsp;Contents of the <code>MyProject.entitlements</code> file.</figcaption><img src="Art/tn2415_myProjectEntitlements.png" class="wide-image" alt="" width="1072" height="583"><img src="Art/tn2415_myProjectEntitlements.png" class="ipad-scaled-image" alt="" width="670" height="364"></figure><p>The following are relevant notes regarding Xcode's use of code signing entitlements files: </p><ul class="ul"><li class="li"><p>Certain capabilities require a code signing entitlements file. Xcode manages the creation of this file automatically when you adjust a target's capabilities. </p></li><li class="li"><p>When Xcode creates the entitlements for the app's signature, values from the code signing entitlements file are used to fill in any wildcard, asterisk portions of the entitlements that might exist in the code signing provisioning profile.</p></li><li class="li"><p>Aside from the entitlements that Xcode writes into code signing entitlements files for you, it’s possible to add entitlements into these files yourself. There used to be a need to do this but it is historic and more often the cause of entitlement problems nowadays. </p></li></ul></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-SUPPORTING_INFORMATION" title="Supporting Information"></a><h2 class="jump">Supporting Information</h2><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-ENTITLEMENTSLIST" title="List of Entitlements"></a><h3 class="jump">List of Entitlements</h3><p>The following is a list of example entitlements found in an app. Rather than provide an exhaustive list, the purpose of this section is to provide you with a few common example entitlements to guide your expectations as you inspect your app while troubleshooting entitlements. </p><ol class="ol"><li class="li"><p><code>beta-reports-active</code></p><p>Beta reports active is a key entitlement with no value. It exists on all App Store distribution provisioning profiles and determines that the app can be distributed through TestFlight. </p></li><li class="li"><p><code>team-identifier</code></p><p>Your Team ID, which is your team's unique 10-digit alpha/numeric value. This value is often used as the default App ID prefix. Certain features are only allowed across apps whose team-identifier value match, for example, Handoff, keychain and UIPasteboard sharing. </p></li><li class="li"><p><code>get-task-allow</code></p><p>The boolean value of get-task-allow determines whether Xcode's debugger can attach to the app. </p></li><li class="li"><p><code>application-identifier</code></p><p>The string value of application-identifier is of the format: &lt;prefix&gt;.&lt;bundle_id&gt; and it corresponds to your app's <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/AppID.html" class="urlLink" rel="external">App ID</a></span>. Often times the prefix is equal to the Team ID though it isn't always the case. In the provisioning profile, this value includes an asterisk if it is associated to a wildcard App ID. In either case, the application-identifier on an app's signature is always fully qualified to include the app's full bundle ID. </p></li><li class="li"><p><code>keychain-access-groups</code></p><p>This entitlement defines an array of strings corresponding to keychains you intend the app to have access to. Each string value in the array are of the format: &lt;prefix&gt;.&lt;bundle_id&gt;. By default, Xcode creates this entitlement for you a value equal to the application-identifier entitlement. All prefixes in this array of strings must match. For more information, see the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Security/Reference/keychainservices/#//apple_ref/c/func/SecItemAdd" class="urlLink" rel="external">SecItemAdd</a></span> section of the <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Security/Reference/keychainservices/" class="urlLink" rel="external">Keychain Services Reference</a></span>. </p></li><li class="li"><p><code>push-notification</code></p><p>The presence of this entitlement indicates that the app is enabled to receive push notifications. The value of this entitlement is either "production" or "development", which refer to the live and sandbox push notification servers, respectively. For more information on troubleshooting push notifications, see: </p><p><strong>TN2265</strong> - <span class="content_text"><a href="https://developer.apple.com/library/ios/technotes/tn2265/_index.html" class="urlLink" rel="external">Troubleshooting Push Notifications</a></span>.</p></li></ol><p>For more entitlements, including iCloud and App Sandbox, see the <span class="content_text"><a href="https://developer.apple.com/library/mac/documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/AboutEntitlements.html" class="urlLink" rel="external">Entitlement Key Reference</a></span>. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40016427-CH1-DontLinkElementID_7" title="Note"></a><p><strong>Note:</strong>&nbsp;In-App Purchase and Game Center services do not have corresponding entitlements. The OS allows an app to use Game Center or In App Purchase if the app's embedded profile specifies an explicit App ID. Conversely, apps that are code signed with a wildcard provisioning profile cannot use Game Center and In-App Purchase. </p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-SOURCES" title="Entitlement Sources"></a><h3 class="jump">Entitlement Sources</h3><p>This section provides a review of all possible locations that entitlements are defined. </p><ol class="ol"><li class="li"><p>Entitlements embedded in a provisioning profile that is used to code sign the app, which are composed of: </p></li><li class="li"><p><ol class="ol"><li class="li"><p>Capabilities defined on the Xcode project's target Capabilities tab, and/or: </p></li><li class="li"><p>Enabled Services on the app's App ID which are configured on the Identifiers section of the Certificates, ID's and Profiles website. </p></li><li class="li"><p>Other entitlements that are injected by the profile generation service. Unlike entitlements that result from an app's enabled services or capabilities, you do not have control over these entitlements. </p></li></ol></p></li><li class="li"><p>Entitlements from a code signing entitlements file. See <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-ENTITLEMENTSFILE" data-renderer-version="1">Code Signing Entitlements files</a></span> for more information. </p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-DESTINATIONS" title="Entitlement Destinations"></a><h3 class="jump">Entitlement Destinations</h3><p>This section provides a review of the locations that entitlements reside. Entitlements end up in two different places within an app: </p><ol class="ol"><li class="li"><p>The app's signature. See <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-APPENTITLEMENTS" data-renderer-version="1">Inspect the entitlements of a built app</a></span> for more information. </p></li><li class="li"><p>The app's embedded provisioning profile. See <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-PROFILESENTITLEMENTS" data-renderer-version="1">Inspecting a profile's entitlements</a></span> for more information. </p></li></ol></section><section><a name="//apple_ref/doc/uid/DTS40016427-CH1-PREFIXMISMATCH" title="App ID Prefix Mismatching"></a><h3 class="jump">App ID Prefix Mismatching</h3><p>When an app is validated during installation or launch, the operating system ensures that the prefix of the app's application-identifier entitlement  matches across the app's signature and its embedded provisioning profile. If they do not match, the app is prevented from installing or launching as a security measure. A couple notes related to App ID prefix mismatching: </p><ul class="ul"><li class="li"><p>You can diagnose an App ID Prefix mismatch by comparing the entitlements in both places listed in section <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40016427-CH1-DESTINATIONS" data-renderer-version="1">Entitlement Destinations</a></span>. </p></li><li class="li"><p>An App ID Prefix mismatch is resolved by rebuilding the app and making sure that provisioning profiles with matching prefixes are used in all code signing phases. </p></li></ul><p>The following guides cover App ID Prefix issues in detail: </p><ul class="ul"><li class="li"><p><strong>QA1879</strong> - <span class="content_text"><a href="https://developer.apple.com/library/ios/qa/qa1879/_index.html" class="urlLink" rel="external">Resolving App ID Prefix Mismatching</a></span> </p></li><li class="li"><p><strong>TN2311</strong> - <span class="content_text"><a href="https://developer.apple.com/library/ios/technotes/tn2311/_index.html" class="urlLink" rel="external">Managing Multiple App ID Prefixes</a></span></p></li><li class="li"><p><strong> QA1726</strong> - <span class="content_text"><a href="https://developer.apple.com/library/ios/qa/qa1726/_index.html" class="urlLink" rel="external">Resolving the Potential Loss of Keychain Access warning</a></span></p></li><li class="li"><p><strong>TN2319</strong> - Installation Failure Troubleshooting for iOS &gt; <span class="content_text"><a href="https://developer.apple.com/library/ios/technotes/tn2319/_index.html#//apple_ref/doc/uid/DTS40013778-CH1-ERRORMESSAGES-UPGRADE_S_APPLICATION_IDENTIFIER_DOES_NOT_MATCH_THE_INSTALLED_APP" class="urlLink" rel="external">Upgrade's application-identifier does not match the installed app</a></span></p></li></ul></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40016427-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40016427-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2015-08-12</td><td><p>Editorial update.</p></td></tr><tr><td scope="row">2015-08-11</td><td><p>Editorial update.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>Editorial update.</p></td></tr><tr><td scope="row">2015-08-04</td><td><p>New document that 
+					assists with troubleshooting entitlement related failures that occur during Xcode build, app installation, or submission. </p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-08-12</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<!--This file created 8/14/02 4:53 PM by Claris Home Page version 3.0-->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+            <meta id="book-title" name="book-title" content="Problems recording CopyBits into a PICT on Mac OS X 10.2">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001718">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="QA1189: Identifies a problem with CopyBits and PICT on Mac OS X 10.2 and gives a simple workaround.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+   <title>Technical Q&amp;A QA1189: Problems recording CopyBits into a PICT on Mac OS X 10.2</title>
+   <META NAME=GENERATOR CONTENT="Claris Home Page 3.0">
+   <X-CLARIS-WINDOW TOP=42 BOTTOM=985 LEFT=4 RIGHT=773>
+   <X-CLARIS-TAGVIEW MODE=minimal>
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css"><LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css"><meta name="keywords" content="CopyBits PICT record 10.2 Jaguar RectRgn"><meta name="Description" content="Technical Q&amp;A QA1189: This Q&amp;A identifies a problem with
+CopyBits and PICT on Mac OS X 10.2 and gives a simple workaround.">
+
+
+<meta name="categories" content="QuickDraw">
+
+
+<meta name="week-posted" content="Nov 18, 2002 - Nov 22, 2002">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR=white id="StaticPage"><a name="//apple_ref/doc/uid/DTS10001718" title="Problems recording CopyBits into a PICT on Mac OS X 10.2"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Problems recording CopyBits into a PICT on Mac OS X 10.2</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technicalQA">
+
+<!-- top_of_header_marker_comment --> <!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalqas/index.html">Technical Q&As</a> &gt; <a href="../../technicalqas/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalqas/Carbon/idxGraphicsImaging-date.html">Graphics & Imaging</a> &gt; </p><!-- end_header_information --> <!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Q&amp;A QA1189</div>
+<div id="pageheadsub">Problems recording CopyBits into a PICT on Mac OS X 10.2</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment --></P>
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600>
+   <TR>
+      <td align="left">
+         <P><!-- begin_content -->
+         
+         <hr width=500 align=center>
+         
+         </P>
+         
+         <P id=p2>Q: Why doesn't <code>CopyBits(portBitsPtr, portBitsPtr,
+         &amp;srcRect, &amp;dstRect, srcCopy, NULL)</code> get recorded in a
+         PICT on Mac OS X 10.2 when I'm copying from a window port onto itself?</P>
+         
+         <P id=p4>A: This is a known bug (r. 3017823) in 10.2 that prevents <code>CopyBits</code> calls from being
+         recorded into PICTs under the following conditions:</P>
+         
+         <ul>
+		<li>Source and destination ports are the same window port</li>
+		<li>Source and destination rectangles are the same size</li>
+		<li><CODE>srcCopy</CODE> blit mode</li>
+		<li><CODE>NULL</CODE> mask region</li>
+		</ul>
+
+         
+         
+         <P>This bug is fixed in Mac OS X 10.2.2 and later, but for 10.2 and 10.2.1 the simplest
+         workaround is to construct a rectangular region out of
+         <code>dstRect</code> using <code>RectRgn</code> and pass that in as the last parameter,
+         i.e.</P>
+         
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+
+    RgnHandle dstRectRgn;
+    dstRectRgn = NewRgn();
+    if (dstRectRgn != NULL) {
+        RectRgn(dstRectRgn, &dstRect);
+        CopyBits(portBitsPtr, portBitsPtr, &amp;srcRect, &amp;dstRect, srcCopy, dstRectRgn);
+        DisposeRgn(dstRectRgn);
+    }
+
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+                             
+         <P id=p4>Both <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-139.html" target="_blank">RectRgn</a>
+         and <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-166.html" target="_blank">CopyBits</a>
+         are defined in QuickDraw.h and described in <a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-2.html" target="_blank">Inside
+         Macintosh: Imaging with QuickDraw</a>.</P>
+         
+         <P>
+         
+         <hr width=500 align=center>
+         
+         </P>
+         
+         <!-- begin_date --><H4><CENTER>[Aug 14 2002]</CENTER></H4><!-- end_date -->
+      </TD>
+   </TR>
+</table>
+</CENTER>
+
+<P><!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information --></P>
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

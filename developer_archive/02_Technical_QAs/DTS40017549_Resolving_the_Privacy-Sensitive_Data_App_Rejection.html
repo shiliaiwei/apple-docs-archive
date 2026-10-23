@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1937: Resolving the Privacy-Sensitive Data App Rejection</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017549">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017549-CH1">
+    <meta id="date" name="date" content="2016-10-07">
+    <meta id="description" name="description" content="QA1937: describes how to resolve the privacy-sensitive data app rejection">
+    <meta id="book-title" name="book-title" content="Resolving the Privacy-Sensitive Data App Rejection">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Security}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1937">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Resolving the Privacy-Sensitive Data App Rejection" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017549" title="Technical Q&amp;A QA1937"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Resolving the Privacy-Sensitive Data App Rejection</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017549-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1937"></a><div class="dtsDocNumber">Technical Q&amp;A QA1937</div><h1 id="pageTitle">Resolving the Privacy-Sensitive Data App Rejection</h1><h2>Q:&nbsp;
+How do I resolve the privacy-sensitive data app rejection?
+</h2><p><span>A: </span>Maintaining user privacy is an important consideration when designing your app. Most iOS, watchOS, and tvOS devices contain data that users might not want to expose to apps or external entities. Access user data only with the user’s informed consent, and be transparent about how you use it. </p><p>Your app is responsible for all usage of privacy-sensitive data, including access to this data by all third party libraries used in your app. If your app attempts to access privacy-sensitive data without a usage description, your app will exit. Additionally, App Review checks for use of privacy-sensitive data, and rejects apps that request access to this data without a usage description. <span class="content_text"><!--a  -->Listing 1<!--/a--></span> shows an example of such a rejection.</p><a name="//apple_ref/doc/uid/DTS40017549-CH1-SOURCECODE1" title="Listing 1Example privacy-sensitive data rejection email for an app accessing the user's contacts"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Example privacy-sensitive data rejection email for an app accessing the user's contacts</p><div class="codesample clear"><table><tr><td scope="row"><pre>This app attempts to access privacy-sensitive data without a usage description. The app's Info.plist must contain an NSContactsUsageDescription key with a string value explaining to the user how the app uses this data.<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS40017549-CH1-APIS_REQUIRING_USAGE_DESCRIPTIONS" title="APIs Requiring Usage Descriptions"></a><h2 class="jump">APIs Requiring Usage Descriptions</h2><p><span class="content_text"><!--a  -->Table 1<!--/a--></span> lists the different classes of privacy-sensitive data, and the APIs your app uses to access the data class. Using any of these data classes requires <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017549-CH1-PROVIDE_DESCRIPTION" data-renderer-version="1">Providing A Usage Description</a></span>. For examples of requesting user consent to access any of these data classes, consult the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017549-CH1-OTHER_DOCS" data-renderer-version="1">Additional Documentation</a></span> section.</p><p>If you receive a rejection email from App Review, such as the example email in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>, and you don't believe your app accesses the data class named in the email, look for any use of the listed APIs in your code, including in all of your third party libraries. If a third party library requires the privacy-sensitive data, you should work with the library vendor to understand how this data is used by their library and provide a transparent and meaningful usage description.</p><a name="//apple_ref/doc/uid/DTS40017549-CH1-TABLE1" title="Table 1APIs requiring usage descriptions"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;APIs requiring usage descriptions</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Data Class
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Xcode Key
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Raw Info.plist Key
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+API Requiring Usage Description
+</p></th></tr><tr><td  scope="row"><p>
+Apple Music
+</p></td><td ><p>
+Privacy - Media Library Usage Description
+</p></td><td ><p>
+NSAppleMusicUsageDescription
+</p></td><td ><p>
+
+
+SKCloudServiceController requestCapabilitiesWithCompletionHandler:
+
+
+SKCloudServiceController requestCapabilitiesWithCompletionHandler:
+
+
+SKCloudServiceController requestStorefrontIdentifierWithCompletionHandler:
+
+
+MPMediaQuery
+
+
+MPMediaLibrary requestAuthorization:
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Bluetooth
+</p></td><td ><p>
+Privacy - Bluetooth Peripheral Usage Description
+</p></td><td ><p>
+NSBluetoothPeripheralUsageDescription
+</p></td><td ><p>
+
+
+CBCentralManager
+
+
+CBPeripheralManager
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Calendar
+</p></td><td ><p>
+Privacy - Calendars Usage Description
+</p></td><td ><p>
+NSCalendarsUsageDescription
+</p></td><td ><p>
+
+
+EKEventStore requestAccessToEntityType:
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Camera
+</p></td><td ><p>
+Privacy - Camera Usage Description
+</p></td><td ><p>
+NSCameraUsageDescription
+</p></td><td ><p>
+
+
+AVCaptureDeviceInput
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Contacts
+</p></td><td ><p>
+Privacy - Contacts Usage Description
+</p></td><td ><p>
+NSContactsUsageDescription
+</p></td><td ><p>
+
+
+CNContactStore requestAccessForEntityType:
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Health
+</p></td><td ><p>
+Privacy - Health Share Usage Description
+Privacy - Health Update Usage Description
+</p></td><td ><p>
+NSHealthShareUsageDescription
+NSHealthUpdateUsageDescription
+</p></td><td ><p>
+
+
+com.apple.developer.healthkit entitlement
+
+
+HKHealthStore
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Home
+</p></td><td ><p>
+Privacy - HomeKit Usage Description
+</p></td><td ><p>
+NSHomeKitUsageDescription
+</p></td><td ><p>
+
+
+HMHomeManager
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Location
+</p></td><td ><p>
+Privacy - Location Always Usage Description
+Privacy - Location When In Use Usage Description
+</p></td><td ><p>
+NSLocationAlwaysUsageDescription
+NSLocationWhenInUseUsageDescription
+</p></td><td ><p>
+
+
+CLLocationManager requestAlwaysAuthorization:
+
+
+CLLocationManager requestWhenInUseAuthorization:
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Microphone
+</p></td><td ><p>
+Privacy - Microphone Usage Description
+</p></td><td ><p>
+NSMicrophoneUsageDescription
+</p></td><td ><p>
+
+
+AVAudioSession requestRecordPermission:
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Motion
+</p></td><td ><p>
+Privacy - Motion Usage Description
+</p></td><td ><p>
+NSMotionUsageDescription
+</p></td><td ><p>
+
+
+CMMotionActivityManager  
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Photos
+</p></td><td ><p>
+Privacy - Photo Library Usage Description
+</p></td><td ><p>
+NSPhotoLibraryUsageDescription
+</p></td><td ><p>
+UIImagePickerController  or 
+PHPhotoLibrary requestAuthorization: used in conjunction with any of the following classes:
+
+
+PHAsset  
+
+
+PHAssetCollection  
+
+
+PHCollection  
+
+
+PHCollectionList  
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Reminders
+</p></td><td ><p>
+Privacy - Reminders Usage Description
+</p></td><td ><p>
+NSRemindersUsageDescription
+</p></td><td ><p>
+
+
+EKEventStore requestAccessToEntityType:
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Siri
+</p></td><td ><p>
+Privacy - Siri Usage Description
+</p></td><td ><p>
+NSSiriUsageDescription
+</p></td><td ><p>
+
+
+INPreferences requestSiriAuthorization: 
+
+
+</p></td></tr><tr><td  scope="row"><p>
+Speech Recognition
+</p></td><td ><p>
+Privacy - Speech Recognition Usage Description
+</p></td><td ><p>
+NSSpeechRecognitionUsageDescription
+</p></td><td ><p>
+
+
+SFSpeechRecognizer requestAuthorization: 
+
+
+</p></td></tr><tr><td  scope="row"><p>
+TV Provider Account
+</p></td><td ><p>
+Privacy - TV Provider Usage Description
+</p></td><td ><p>
+NSVideoSubscriberAccountUsageDescription
+</p></td><td ><p>
+
+
+VSAccountManager
+
+
+</p></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017549-CH1-PROVIDE_DESCRIPTION" title="Providing A Usage Description"></a><h2 class="jump">Providing A Usage Description</h2><p>All usage descriptions, including for privacy-sensitive data access from a framework,  are declared in your app's <code>Info.plist</code> file, <span class="content_text"><a href="http://help.apple.com/xcode/mac/8.0/#/dev3f399a2a6" class="urlLink" rel="external">which can be edited in Xcode</a></span>. Add a new row to the <code>Info.plist</code> file, and set the key for the appropriate data class, defined in <span class="content_text"><!--a  -->Table 1<!--/a--></span>. Set your usage description string as the value. </p><p>If your app supports multiple locales, localize the usage description and place the localized string in <code> InfoPlist.strings </code>for each locale, in addition to providing a usage description in the <code>Info.plist</code> file. See <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html#//apple_ref/doc/uid/TP40009254-102276" class="urlLink" rel="external">Localizing Property List Values</a></span> for more information about localizing property lists.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017549-CH1-OTHER_DOCS" title="Additional Documentation"></a><h2 class="jump">Additional Documentation</h2><p>For additional information on using privacy-sensitive data, consult the following resources:</p><ul class="ul"><li class="li"><p>App Programming Guide: <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/ExpectedAppBehaviors/ExpectedAppBehaviors.html#//apple_ref/doc/uid/TP40007072-CH3-SW6" class="urlLink" rel="external">Supporting User Privacy</a></span></p></li><li class="li"><p>Sample Code: <span class="content_text"><a href="https://developer.apple.com/library/prerelease/content/samplecode/PrivacyPrompts/Introduction/Intro.html" class="urlLink" rel="external">Checking and Requesting Access to Data Classes in Privacy Settings</a></span></p></li><li class="li"><p>WWDC 2016 video: <span class="content_text"><a href="https://developer.apple.com/videos/play/wwdc2016/709/" class="urlLink" rel="external">Engineering Privacy for Your Users</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017549-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017549-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-10-07</td><td><p>Clarified where to declare usage descriptions for frameworks and localizations</p></td></tr><tr><td scope="row">2016-09-21</td><td><p>New document that 
+					describes how to resolve the privacy-sensitive data app rejection</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-10-07</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

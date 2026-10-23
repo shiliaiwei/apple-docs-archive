@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Introduction to Accessing Hardware From Applications</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP30000376">
+    <meta id="document-version" name="document-version" content="2.11.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40002714">
+    <meta id="date" name="date" content="2007-02-08">
+    <meta id="description" name="description" content="Tips and guidelines for developing applications that communicate with or control devices.">
+    <meta id="book-title" name="book-title" content="Accessing Hardware From Applications">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Technologies/Kernel & Driver Layer/IOKit}, {Topic/Drivers, Kernel, & Hardware/User-Space Device Access}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Accessing Hardware From Applications: Introduction to Accessing Hardware From Applications">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Accessing Hardware From Applications" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../AH_Other_APIs/AH_Other_APIs.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40002714" title="Introduction to Accessing Hardware From Applications"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Accessing Hardware From Applications</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../AH_Other_APIs/AH_Other_APIs.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP30000376" title="Introduction to Accessing Hardware From Applications"></a><a name="//apple_ref/doc/uid/TP40002714-BAJDAJDJ" title="Introduction to Accessing Hardware From Applications"></a><h1 id="pageTitle">Introduction to Accessing Hardware From Applications</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><a name="//apple_ref/doc/uid/TP40002714-DontLinkElementID_1"></a><p>There are many reasons your application might need to access hardware: Receiving mouse and keyboard events, accessing devices, such as a FireWire DV camcorder, and driving a device from an application are just a few. Although only code that resides in the kernel can access hardware directly, OS X provides many services that allow you to communicate with hardware from plug-ins, applications, shared libraries, and other code running outside the kernel.</p><a name="//apple_ref/doc/uid/TP40002714-DontLinkElementID_2" title="Who Should Read This Document?"></a><h2 class="jump">Who Should Read This Document?</h2><p>This document describes how software running in OS X can access hardware by communicating with the kernel, focusing on services the I/O Kit provides to develop an application-based driver. You should read this document if you need to access a device from an application. Note that many applications will be able to handle all their hardware-access needs using high-level APIs, such as Open Transport and QuickTime, that are available through Carbon and Cocoa. To help you determine which approach is right for you, and for a summary of other services OS X provides for hardware access from applications, see <span class="content_text"><a href="../AH_Other_APIs/AH_Other_APIs.html#//apple_ref/doc/uid/TP30000377-BAJDAJDJ" data-renderer-version="1">Hardware-Access Options</a></span>.</p><p>This document includes many code fragments illustrating the various tasks involved in developing an application that accesses hardware, but it is not intended to be a step-by-step cookbook for accessing a particular type of device. To determine how to access a particular device, see <span class="content_text"><a href="../AH_Family_Reference/AH_Family_Reference.html#//apple_ref/doc/uid/TP30000693-BABCCBIJ" data-renderer-version="1">I/O Kit Family Device-Access Support</a></span>; For each device family it specifies how to access a device in that family and where to find more detailed documentation.</p><p>This document does <em>not</em> describe how to write kernel-resident code to access hardware. Kernel programmers should refer to <em><a href="../../../../Darwin/Conceptual/KernelProgramming/About/About.html#//apple_ref/doc/uid/TP30000905" data-renderer-version="1" target="_self">Kernel Programming Guide</a></em> and in-kernel device-driver developers should read <em><a href="../../WritingDeviceDriver/Introduction/Intro.html#//apple_ref/doc/uid/TP30000694" data-renderer-version="1" target="_self">IOKit Device Driver Design Guidelines</a></em>. In particular, if you are developing your own device interface and user client to create a custom solution to access your device, you should read the <span class="content_text"><a href="../../WritingDeviceDriver/MakingHWAccessible/MakingHWAccessible.html#//apple_ref/doc/uid/TP30000698" data-renderer-version="1" target="_self">Making Hardware Accessible to Applications</a></span> chapter in that document. For other documents that cover how to access particular devices, visit <span class="content_text"><a href="../../../../../navigation/redirect.html#//apple_ref/doc/uid/TP30000943-TP40003576-TP30000511" data-renderer-version="1" target="_self">Reference Library > Hardware &amp; Drivers</a></span>.</p><a name="//apple_ref/doc/uid/TP40002714-TPXREF107" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2><p><em>Accessing Hardware From Applications</em> includes the following chapters:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="../AH_Other_APIs/AH_Other_APIs.html#//apple_ref/doc/uid/TP30000377-BAJDAJDJ" data-renderer-version="1">Hardware-Access Options</a></span></p><p>Describes many other methods you can use to access hardware from an application, such as Core Audio, QuickTime, and the Carbon Event Manager. Read this chapter to determine if such high-level APIs can meet your needs.</p></li><li class="li"><p><span class="content_text"><a href="../AH_Device_Access_IOKit/AH_Device_Access_IOKit.html#//apple_ref/doc/uid/TP30000378-BAJDAJDJ" data-renderer-version="1">Device Access and the I/O Kit</a></span></p><p>Summarizes I/O Kit architecture, providing a list of terms used throughout this document and describing how the I/O Kit models I/O connections. It then describes the two fundamental hardware-access methods the I/O Kit supports: device interfaces and device files.</p></li><li class="li"><p><span class="content_text"><a href="../AH_Finding_Devices/AH_Finding_Devices.html#//apple_ref/doc/uid/TP30000379-BAJDAJDJ" data-renderer-version="1">Finding and Accessing Devices</a></span></p><p>Describes the steps you take to access a device using an I/O Kit device interface and, for appropriate devices, using a device file.</p></li><li class="li"><p><span class="content_text"><a href="../AH_IOKitLib_API/AH_IOKitLib_API.html#//apple_ref/doc/uid/TP30000380-BAJDAJDJ" data-renderer-version="1">The IOKitLib API</a></span></p><p>Categorizes and describes the functions of the main API that supports user-space device access through the I/O Kit.</p></li><li class="li"><p><span class="content_text"><a href="../AH_Handling_Errors/AH_Handling_Errors.html#//apple_ref/doc/uid/TP30000381-BAJDAJDJ" data-renderer-version="1">Handling Errors</a></span></p><p>Describes how to interpret I/O Kit return values and provides information on the exclusive-access error.</p></li><li class="li"><p><span class="content_text"><a href="../AH_Family_Reference/AH_Family_Reference.html#//apple_ref/doc/uid/TP30000693-BABCCBIJ" data-renderer-version="1">I/O Kit Family Device-Access Support</a></span></p><p>Lists the current I/O Kit families and describes what support they provide for hardware access from applications.</p></li><li class="li"><p><span class="content_text"><a href="../AH_RevHistory/AH_RevHistory.html#//apple_ref/doc/uid/TP40002715-BAJDAJDJ" data-renderer-version="1">Document Revision History</a></span></p><p>Lists changes to this document.</p></li><li class="li"><p><span class="content_text"><a href="../AH_Glossary/AH_Glossary.html#//apple_ref/doc/uid/TP30000383-TP1" data-renderer-version="1">Glossary</a></span></p><p>Defines key terms used in this document.</p></li></ul><div id="seeAlsoSection"><a name="//apple_ref/doc/uid/TP40002714-TPXREF106" title="See Also"></a><h2 class="jump">See Also</h2><p>Although this document includes a summary of basic I/O Kit information (in <span class="content_text"><a href="../AH_Device_Access_IOKit/AH_Device_Access_IOKit.html#//apple_ref/doc/uid/TP30000378-CJAHIJFI" data-renderer-version="1">I/O Kit Summary</a></span>), you should read <em><a href="../../IOKitFundamentals/Introduction/Introduction.html#//apple_ref/doc/uid/TP0000011" data-renderer-version="1" target="_self">IOKit Fundamentals</a></em> for a thorough understanding of this subsystem.</p><p>Familiarity with the CFPlugIn architecture is useful in reading this document. This architecture is described in the developer documentation available in <span class="content_text"><a href="../../../../../navigation/redirect.html#//apple_ref/doc/uid/TP30000943-TP30000421-TP30000511" data-renderer-version="1" target="_self">Reference Library > Core Foundation</a></span>.</p><p>Knowledge of the OS X kernel and device drivers may be useful but is not required. To get more information about these topics, visit <span class="content_text"><a href="../../../../../navigation/redirect.html#//apple_ref/doc/uid/TP30000943-TP30000422-TP30000511" data-renderer-version="1" target="_self">Reference Library > Darwin</a></span>.</p><p>When you install the Developer package, you get developer documentation as well as tools and example code. You can find all the I/O Kit and kernel documents mentioned in this document listed in <code>/Developer/ADC Reference Library/documentation/Darwin</code> and <code>/Developer/ADC Reference Library/documentation/HardwareDrivers</code>. Sample projects are available in <code>/Developer/Examples</code>. Most of the sample projects that are relevant to device access from applications reside in <code>/Developer/Examples/IOKit</code>.</p><p>There you can view the documentation for BSD and POSIX functions and tools by typing <code>man</code> <em>function_name</em> in a Terminal window (for example, <code>man gdb</code>) or in HTML at <span class="content_text"><!--a target="_self" -->OS X Man Pages<!--/a--></span>.</p><p>You can access reference documentation on I/O Kit families from Xcode, Help Viewer, and <span class="content_text"><a href="../../../../../navigation/redirect.html#//apple_ref/doc/uid/TP30000943-TP40003576-TP30000511" data-renderer-version="1" target="_self">Reference Library > Hardware &amp; Drivers</a></span>. Of course, you can also browse the header files for various I/O Kit families and other I/O Kit services accessible from user space in <code>/System/Library/Frameworks/IOKit.framework/Headers</code>.</p></div>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../AH_Other_APIs/AH_Other_APIs.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2001, 2007 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2007-02-08</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

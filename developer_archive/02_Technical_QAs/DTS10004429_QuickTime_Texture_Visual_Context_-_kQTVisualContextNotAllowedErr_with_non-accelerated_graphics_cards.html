@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1542: QuickTime Texture Visual Context - kQTVisualContextNotAllowedErr with non-accelerated graphics cards</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004429">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004429-CH1">
+    <meta id="date" name="date" content="2007-09-18">
+    <meta id="description" name="description" content="QA1542: Discusses how to create a display mask and avoid a kQTVisualContextNotAllowedErr when using a non-accelerated graphics card.">
+    <meta id="book-title" name="book-title" content="QuickTime Texture Visual Context - kQTVisualContextNotAllowedErr with non-accelerated graphics cards">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/QuickTime}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1542">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="QuickTime Texture Visual Context - kQTVisualContextNotAllowedErr with non-accelerated graphics cards" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004429" title="Technical Q&amp;A QA1542"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>QuickTime Texture Visual Context - kQTVisualContextNotAllowedErr with non-accelerated graphics cards</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004429-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1542"></a><div class="dtsDocNumber">Technical Q&amp;A QA1542</div><h1 id="pageTitle">QuickTime Texture Visual Context - kQTVisualContextNotAllowedErr with non-accelerated graphics cards</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I'm working with QTCoreVideo101 but it never returns a VisualContextRef. Calling <code>QTOpenGLTextureContextCreate</code> always fails with error -9459. I have a Mac Pro system with a third party video card for Final Cut Pro. How can I create a QuickTime OpenGL Texture Visual Context?
+</h2><p><span>A: </span>I'm working with QTCoreVideo101 but it never returns a VisualContextRef. Calling <code>QTOpenGLTextureContextCreate</code> always fails with error -9459. I have a Mac Pro system with a third party video card for Final Cut Pro. How can I create a QuickTime OpenGL Texture Visual Context?</p><p>The most likely reason for the -9459 (<code>kQTVisualContextNotAllowedErr</code>) error is the third party video card. If the card presents itself as a video device but does not support accelerated surfaces <code>QTOpenGLTextureContextCreate</code> will fail.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004429-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;In Quartz, the term display refers to a graphics hardware system consisting of a framebuffer, a color correction (gamma) table or color palette, and possibly an attached monitor.</p><p></p></aside></div><p>To successfully create a QuickTime OpenGL Texture Visual Context, the non-accelerated display(s) may be masked out by creating a display mask (simply a bitmask used to specify a set of attached displays) that only identifies the displays supporting accelerated surfaces. This can be done using Quartz Display Services APIs such as <code>CGDisplayUsesOpenGLAcceleration</code> and <code>CGDisplayIDToOpenGLDisplayMask</code>.</p><p>This display mask (with the non-accelerated display(s) masked out) is then used when creating the OpenGL Pixel Format object. This Pixel Format object is used when creating the OpenGL Context and when calling <code>QTOpenGLTextureContextCreate</code>.</p><p>Listing 1 demonstrates how to build the display mask, while listing 2 demonstrates how to use the returned display mask when creating the <code>NSOpenGLPixelFormat</code> object.</p><a name="//apple_ref/doc/uid/DTS10004429-CH1-SOURCECODE1" title="Listing 1Return the Accelerated Display Mask."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Return the Accelerated Display Mask.</p><div class="codesample clear"><table><tr><td scope="row"><pre>static CGOpenGLDisplayMask GetTheAcceleratedDisplayMask(void)
+{ 
+    const CGDisplayCount maxDisplays = sizeof(CGOpenGLDisplayMask) * 8; // the number of displays
+
+    CGDirectDisplayID displays[maxDisplays]; // represents the unique identifier for an attached display
+    CGDisplayCount display, displayCount;
+    CGOpenGLDisplayMask displayMask = 0; // bitmask used in OpenGL to specify a set of attached displays
+
+    // get the list of displays that are active (or drawable)
+    if (CGGetActiveDisplayList(maxDisplays, displays, &amp;displayCount) == kCGErrorSuccess) {
+
+        // does the display support acceleration
+        for (display = 0; display &lt; displayCount; display++) {
+
+            if (CGDisplayUsesOpenGLAcceleration(displays[display])) {
+                // it does, so get the OpenGL display mask for the display and update our display mask
+                displayMask |= CGDisplayIDToOpenGLDisplayMask(displays[display]);
+            }
+        }
+    }
+
+    // return our display mask that now has all the non-accelerated displays filtered out
+    return displayMask;
+}<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004429-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;<code>CGGetActiveDisplayList</code> vs. <code>CGGetOnlineDisplayList</code></p><p></p></aside></div><p>In listing 1, we need the <strong>active</strong> display list. An active display is connected, <strong>awake</strong> and available for drawing, while a display is considered online simply when the frame buffer is connected to a monitor.</p><p>In a hardware mirroring set, only the primary display is active.</p><a name="//apple_ref/doc/uid/DTS10004429-CH1-SOURCECODE2" title="Listing 2Using the Display Mask by Subclassing NSOpenGLView"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Using the Display Mask by Subclassing NSOpenGLView</p><div class="codesample clear"><table><tr><td scope="row"><pre>@interface MyOpenGLView : NSOpenGLView
+{
+    ...
+
+    QTVisualContextRef mQTOpenGLTextureVisualContext;
+}
+    ...
+
+- (QTVisualContextRef)visualContext;
+- (void) setVisualContextRef:(QTVisualContextRef)inVisualContext;
+
+    ...
+@end
+
+@implementation MyOpenGLView
+
++ (NSOpenGLPixelFormat *)defaultPixelFormat
+{
+    // create an NSOpenGLPixelFormat object with the appropriate display mask
+    CGOpenGLDisplayMask myDisplayMask = GetTheAcceleratedDisplayMask();
+
+    if (0 != myDisplayMask) {
+        NSOpenGLPixelFormatAttribute attributes[] =
+        {
+            NSOpenGLPFADoubleBuffer, // double buffered pixel format
+            NSOpenGLPFAAccelerated,  // hardware accelerated renderer
+            NSOpenGLPFANoRecovery,   // disable all failure recovery systems
+            //** bit mask of supported physical screens **//
+            NSOpenGLPFAScreenMask, (NSOpenGLPixelFormatAttribute)myDisplayMask,
+            (NSOpenGLPixelFormatAttribute)0
+        };
+
+        return [[(NSOpenGLPixelFormat*)[NSOpenGLPixelFormat alloc]
+                                                            initWithAttributes:attributes] autorelease];
+    } else {
+        return [super defaultPixelFormat];
+    }
+}
+
+- (id)initWithFrame:(NSRect)frameRect
+{
+    return [super initWithFrame:frameRect pixelFormat:[MyOpenGLView defaultPixelFormat]];
+}
+
+- (void)prepareOpenGL
+{
+    ...
+
+    if (nil != [self openGLContext]) {
+        long swapInterval = 1;
+
+       // sync with screen refresh to avoid tearing
+       [[self openGLContext] setValues:&amp;swapInterval forParameter:NSOpenGLCPSwapInterval];
+    }
+
+    ...
+
+    // create the QuickTime Texture Visual Context for rendering to my custom NSOpenGLView
+    if (NULL == [self visualContextRef]) {
+        QTVisualContextRef aQTOpenGLTextureContext;
+
+        OSStatus status = QTOpenGLTextureContextCreate(kCFAllocatorDefault,
+                                         [[self openGLContext] CGLContextObj],
+                                         (CGLPixelFormatObj)[[self pixelFormat] CGLPixelFormatObj],
+                                         NULL, &amp;aQTOpenGLTextureContext);
+        if (noErr == status) {
+            [self setVisualContextRef:aQTOpenGLTextureContext];
+
+            ...
+
+        } else {
+            [self setVisualContextRef:NULL];
+        }
+    }
+
+    ...
+
+}
+    ...
+
+- (QTVisualContextRef)visualContext
+{
+    return mQTOpenGLTextureVisualContext;
+}
+
+- (void)setVisualContextRef:(QTVisualContextRef)inVisualContext
+{
+    mQTOpenGLTextureVisualContext = inVisualContext;
+}
+    ...<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS10004429-CH1-SECTION1" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/QuartzDisplayServicesConceptual/Introduction/Introduction.html" class="browserLink" >Introduction to Quartz Display Services Programming Topics</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/OpenGL-MacProgGuide/opengl_intro/chapter_1_section_1.html#//apple_ref/doc/uid/TP40001987-CH207-TP9" class="browserLink" >Introduction to OpenGL Programming Guide for Mac OS X</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/QuickTime/Conceptual/QT7UpdateGuide/Chapter02/chapter_2_section_1.html#//apple_ref/doc/uid/TP40001163-CH313-DontLinkElementID_161" class="browserLink" >What's New in QuickTime 7</a></span></p></li><li class="li"><p><span class="content_text"><a href="/qa/qa2001/qa1218.html" class="urlLink" rel="external">Technical Q&amp;A QA1218, 'How do I tell if a particular display is being hardware accelerated by Quartz Extreme?'</a></span></p></li><li class="li"><p><span class="content_text"><a href="/samplecode/QTCoreVideo101/index.html" class="urlLink" rel="external">Sample Code 'QTCoreVideo101'</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004429-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004429-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2007-09-18</td><td><p>New document that 
+					discusses how to create a display mask and avoid a kQTVisualContextNotAllowedErr when using a non-accelerated graphics card.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2007 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2007-09-18</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

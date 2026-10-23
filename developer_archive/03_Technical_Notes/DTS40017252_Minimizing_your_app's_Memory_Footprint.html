@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2434: Minimizing your app's Memory Footprint</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017252">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017252-CH1">
+    <meta id="date" name="date" content="2016-05-23">
+    <meta id="description" name="description" content="TN2434: walks through the process of minimizing an app's memory usage using the Allocations Instrument.">
+    <meta id="book-title" name="book-title" content="Minimizing your app&#39;s Memory Footprint">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core OS Layer/System}, {Topic/Performance}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2434">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Minimizing your app&#39;s Memory Footprint" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017252" title="Technical Note TN2434"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Minimizing your app&#39;s Memory Footprint</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017252-CH1-DontLinkElementID_2" title="Technical Note TN2434"></a><div class="dtsDocNumber">Technical Note TN2434</div><h1 id="pageTitle">Minimizing your app's Memory Footprint</h1><p>For the benefit of both stability and performance, it's important to understand and heed the differing amounts of memory that are available to your app across the various devices your app supports. Minimizing the memory usage of your app is the best way to ensure it runs at full speed and avoids crashing due to memory depletion in customer instantiations. Furthermore, using the Allocations Instrument to assess large memory allocations within your app can sometimes be a quick exercise that can yield surprising performance gains. </p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017252-CH1-INTRODUCTION" data-renderer-version="1">Introduction</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017252-CH1-INTRODUCTION-TERMS_DEFINITION" data-renderer-version="1">Terms Definition</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017252-CH1-PROFILE" data-renderer-version="1">Profiling the app for memory usage</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017252-CH1-REVIEW" data-renderer-version="1">Analyzing the results</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017252-CH1-CONCLUSION" data-renderer-version="1">Conclusion</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017252-CH1-RELATED_MATERIAL" data-renderer-version="1">Related Material</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017252-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40017252-CH1-INTRODUCTION" title="Introduction"></a><h2 class="jump">Introduction</h2><p>This guide provides a walkthrough of the steps to profile your app's memory usage in Xcode. Organizing your app's more significant memory use at a granular level can sometimes yield surprising results. Taking further steps to reduce big allocations is one of the easiest ways to increase performance, and safeguard your app from termination in low memory conditions. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017252-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;As an arbitrary example, this guide profiles a real game in development called <strong>Ascii Man</strong>. Being a 2D tile-based game implemented in OpenGL ES, the larger allocations we look at are those required to render a game of this type. </p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS40017252-CH1-INTRODUCTION-TERMS_DEFINITION" title="Terms Definition"></a><h3 class="jump">Terms Definition</h3><ul class="ul"><li class="li"><p><strong>Memory Footprint</strong> refers to the total current amount of system memory that is allocated to your app. </p></li></ul></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017252-CH1-PROFILE" title="Profiling the app for memory usage"></a><h2 class="jump">Profiling the app for memory usage</h2><ol class="ol"><li class="li"><p>Xcode &gt; <strong>Product</strong> menu &gt; Profile</p></li><li class="li"><p>Choose <strong>Allocations</strong>.</p><p><figure class="figure"><img src="Art/tn2434_allocationsInstrument.png" class="wide-image" alt="Art/tn2434_allocationsInstrument.png" width="770" height="433"><img src="Art/tn2434_allocationsInstrument.png" class="ipad-scaled-image" alt="Art/tn2434_allocationsInstrument.png" width="670" height="376"></figure></p></li><li class="li"><p>Click the record button. </p><p><figure class="figure"><img src="Art/tn2434_recordButton2.png" alt="Art/tn2434_recordButton2.png" width="353" height="214"></figure></p></li><li class="li"><p>Navigate to the area of the app that you're interested in assessing memory usage, such as the main level of a game, or the primary editing operations of an image editing app.</p></li><li class="li"><p>Use the app for a few minutes to allow Instruments to retrieve a representative sample of data. </p></li><li class="li"><p>Press the Stop button to stop profiling. </p></li><li class="li"><p>Select a range spanning the time within the run you want to analyze. Doing this filters the results shown on the <strong>Allocations Summary</strong> below. </p><p><strong>Figure 1</strong> – Hold the Command key and click from areas marked 1 to 2 in order to select the range of interest. </p><p><figure class="figure"><img src="Art/tn2434_selectedRange.png" class="wide-image" alt="Art/tn2434_selectedRange.png" width="898" height="300"><img src="Art/tn2434_selectedRange.png" class="ipad-scaled-image" alt="Art/tn2434_selectedRange.png" width="670" height="223"></figure></p><p><strong>Figure 2</strong> – Include in the range ramps that represent allocation. The range shown here includes allocations for a game's intro screen and loading the first level. These two events were chosen because they allocate a majority of the total memory used by the app, and therefore, they are also the best candidates to speed up. </p><p><figure class="figure"><img src="Art/tn2434_selectedRange2.png" class="wide-image" alt="Art/tn2434_selectedRange2.png" width="686" height="221"><img src="Art/tn2434_selectedRange2.png" class="ipad-scaled-image" alt="Art/tn2434_selectedRange2.png" width="670" height="215"></figure></p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017252-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;Allocations made by your app take time to fulfill and they take time to release. Using this process to reduce the number (or size) of allocations in your app not only eliminates the time required to perform those allocations, but earns performance for the OS as it has more memory to work with as a result.</p><p></p></aside></div></li><li class="li"><p>Now it's time to analyze the results. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017252-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;This guide profiles a real app in development and its memory usage highlighted is unique to that app. Therefore, the following issues we identify serve as an example of the types of things you'll find. The memory usage circumstances will be different for your app but the approach to assess memory usage remains the same. </p><p></p></aside></div><p><strong>Figure 3 –</strong> The results are shown on the Allocations Summary pane. </p><p><figure class="figure"><img src="Art/tn2434_resultsPane_sized.png" class="wide-image" alt="Art/tn2434_resultsPane_sized.png" width="900" height="516"><img src="Art/tn2434_resultsPane_sized.png" class="ipad-scaled-image" alt="Art/tn2434_resultsPane_sized.png" width="670" height="384"></figure></p><p><strong>Figure 3 Legend:</strong></p><ol class="ol"><li class="ol ol"><p><strong>Persistent Bytes</strong> is the primary focus of this tutorial. It is the total number of bytes your app currently holds in memory. For the purposes of this guide, Persistent Bytes for <code>All Heap &amp; Anonymous VM</code> represents your app's memory footprint.</p><p>This is the value to minimize; the lower the <strong>persistent bytes</strong>, the faster your app can run and the less chances there are to face memory depletion. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017252-CH1-DontLinkElementID_6" title="Important"></a><p><strong>Important:</strong>&nbsp;On iOS, tvOS and watchOS, if the device is low on available memory and your app is high on <strong>Persistent Bytes</strong> it can result in your app being terminated.</p><p></p></aside></div></li><li class="ol ol"><p><strong># Persistent</strong> is the other interesting metric we look at here. It represents the total <strong>number</strong> of repetitions of a particular allocation.</p></li></ol><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017252-CH1-DontLinkElementID_7" title="Note"></a><p><strong>Note:</strong>&nbsp;Our exercise is performed using these two metrics of the Allocations Summary pane alone. To read more about the other columns, see: </p><p></p></aside></div><p>• <strong>Instruments User Guide </strong> &gt; Allocations Instrument &gt; <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/Instrument-Allocations.html" class="urlLink" rel="external">Detail Pane Columns</a></span>. </p></li></ol><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017252-CH1-REVIEW" title="Analyzing the results"></a><h2 class="jump">Analyzing the results</h2><p>This section analyzes the results of the memory profiling done in the above section, <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017252-CH1-PROFILE" data-renderer-version="1">Profiling the app for memory usage</a></span>.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017252-CH1-DontLinkElementID_8" title="Important"></a><p><strong>Important:</strong>&nbsp;By default, the Allocation Summary pane is sorted descending on column Persistent Bytes. If your results are sorted differently, follow along by sorting the results descending on column Persistent Bytes. </p><p></p></aside></div><ol class="ol"><li class="li"><p>Have a look at the first allocation type: </p><ul class="ul"><li class="li"><p><strong>Figure 4</strong> – The first allocation type is titled "Malloc 96.00 KiB".</p><p><figure class="figure"><img src="Art/tn2434_item1.png" class="wide-image" alt="Art/tn2434_item1.png" width="900" height="431"><img src="Art/tn2434_item1.png" class="ipad-scaled-image" alt="Art/tn2434_item1.png" width="670" height="320"></figure></p><p><strong>Figure 4 Legend –</strong></p><ol class="ol"><li class="li"><p>This allocation is a <strong>Malloc of size 96 KB</strong>. 144 of these allocations result in 13.5 MB out of the total 39 MB of our memory footprint. That's a whopping 34%!</p></li><li class="li"><p>Click the right-arrow next to this allocation in order to list all 144 repetitions.</p></li></ol></li><li class="li"><p><strong>Figure 5</strong> – Now sort the allocation by <strong>Responsible Caller</strong> to narrow down the locations where it occurs. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017252-CH1-DontLinkElementID_9" title="Note"></a><p><strong>Note:</strong>&nbsp;To sort the list by Responsible Caller, click title of the Responsible Caller column.</p><p></p></aside></div><p><figure class="figure"><img src="Art/tn2434_item1_responsibleCaller.png" class="wide-image" alt="Art/tn2434_item1_responsibleCaller.png" width="899" height="641"><img src="Art/tn2434_item1_responsibleCaller.png" class="ipad-scaled-image" alt="Art/tn2434_item1_responsibleCaller.png" width="670" height="477"></figure></p><p><strong>Figure 5 Legend –</strong> </p><ol class="ol"><li class="li"><p>The first 10 instances of the 144 allocations source from <code>TileSet readImageWithTileset:</code>. </p></li><li class="li"><p>The rest (10 thru 144) source from <code>TileSet checkAndAllocateTileSlice:</code>. </p></li></ol></li><li class="li"><p><strong>Figure 6</strong> – Select a row whose Responsible Caller repeats the most times. This is the method to analyze first since it composes a majority of this type of allocation.</p><p><figure class="figure"><img src="Art/tn2434_item1_inspectCulprit.png" class="wide-image" alt="Art/tn2434_item1_inspectCulprit.png" width="820" height="144"><img src="Art/tn2434_item1_inspectCulprit.png" class="ipad-scaled-image" alt="Art/tn2434_item1_inspectCulprit.png" width="670" height="117"></figure></p></li><li class="li"><p><strong>Figure 7</strong> – Show the Extended Detail Pane to view the stack trace where the allocation occurred.</p><p><figure class="figure"><img src="Art/tn2434_item1_stackTrace.png" class="wide-image" alt="Art/tn2434_item1_stackTrace.png" width="1070" height="683"><img src="Art/tn2434_item1_stackTrace.png" class="ipad-scaled-image" alt="Art/tn2434_item1_stackTrace.png" width="670" height="427"></figure></p><p><strong>Figure 7 Legend –</strong></p><ol class="ol"><li class="li"><p>Click to show the Right-pane.</p></li><li class="li"><p>Click the "E" icon to reveal the Extended Detail pane.</p></li><li class="li"><p>View the stack trace and note the call to <code>TileSet checkAndAllocateTileSlice:</code>.</p></li></ol></li><li class="li"><p><strong>Figure 8</strong> – Double click the <code>TileSet checkAndAllocateTileSlice:</code> line in the stack trace to reveal the location within your code the allocation occurred.</p><p><figure class="figure"><img src="Art/tn2434_item1_doubleClickStackLine.png" alt="Art/tn2434_item1_doubleClickStackLine.png" width="261" height="240"></figure></p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017252-CH1-DontLinkElementID_10" title="Note"></a><p><strong>Note:</strong>&nbsp;You're only able to see code for sources for your app. Source code is not shown for allocations made within a framework or static library, though you can still weigh the memory cost of a library call and decide to throttle use or consider a replacement. </p><p></p></aside></div><p><strong>Figure 9</strong> – Line of code where the allocation occurs.</p><p><figure class="figure"><img src="Art/tn2434_item1_culpriteLineOfCode.png" class="wide-image" alt="Art/tn2434_item1_culpriteLineOfCode.png" width="811" height="672"><img src="Art/tn2434_item1_culpriteLineOfCode.png" class="ipad-scaled-image" alt="Art/tn2434_item1_culpriteLineOfCode.png" width="670" height="555"></figure></p><ul class="nested"><li class="nested li"><p>Line 350 is the allocation of interest. It is responsible for 12.56 MB of this type of allocation.</p></li><li class="nested li"><p>Line 348 is a different allocation, and at 1 KB, it pales in comparison and can be ignored for the time being.</p></li></ul></li><li class="li"><p><strong>Consider ways to reduce this allocation</strong> </p><p>Because this allocation accounts for 34% of the app's total memory, it's a single line of code that offers the largest opportunity to minimize memory usage. This line of code is responsible for a feature called "tile slices," a rudimentary geometry-based form of image masking. Given this information, consider the following approaches to minimize this allocation: </p><ol class="ol"><li class="li"><p><strong>Remove the allocation</strong> </p><ul class="ul"><li class="li"><p>This geometry-based form of image masking was created with the intention of being incredibly fast at runtime, which it would be if the memory required to support it were not so large. The developer should consider switching to image-based masking, and then profile to assess the new speed-versus-space trade off. </p></li><li class="li"><p>All 34% of the memory footprint can be saved for levels not using image masking if a flag is used to prevent these placeholder allocations in those cases. </p></li></ul></li><li class="li"><p><strong>Reduce the number of allocations</strong> </p><p>For levels that do use masking, the developer might consider <strong>reducing the number of allocations</strong>. Having observed that the <code>malloc</code> effecting the allocation is repeated <code>kNumberOfTileSices</code> times, the number of allocations can be reduced if <code>kNumberOfTileSlices</code> can be reduced. </p><p><code>kNumberOfTileSlices</code> controls the number of image masking options to shape a tile; if some of the shapes are used less often, the developer could consider removing the lesser used options. </p></li><li class="li"><p><strong>Reduce the size of the allocation</strong> </p><p>Alternatively, the developer can look into <strong>reducing the size of the allocation</strong>. Noticing that the size of the allocation is a factor a TileSet's   number of tiles, <code>numTiles</code>, now is good time to consider whether extra tiles in the TileSet could be removed. </p></li></ol></li></ul></li><li class="li"><p>Next, let's have a look at the second largest allocation. </p><ul class="ul"><li class="li"><p><strong>Figure 10</strong> – The next allocation is "Tile". </p><p><figure class="figure"><img src="Art/tn2434_item2.png" class="wide-image" alt="Art/tn2434_item2.png" width="931" height="464"><img src="Art/tn2434_item2.png" class="ipad-scaled-image" alt="Art/tn2434_item2.png" width="670" height="333"></figure></p><p><strong>Figure 10 Legend –</strong></p><ol class="ol"><li class="li"><p>Click the Allocation Summary breadcrumb to return to the results pane. </p></li><li class="li"><p>The second largest allocation made by the app is the <strong>Tile</strong> class. Though each Tile is relatively small (183 bytes), there are 41,900 instances in memory at one time and that composes a total of 7.67 MB. This allocation is 19.7% of the app's total memory footprint. </p></li></ol></li><li class="li"><p>For this allocation type, viewing the line of code it sources from is less interesting than considering its overall size and number of repetitions. Opening up Tile.m in the Xcode editor, you can see its 183 bytes are composed of a few handfuls of primitives, most notably, arrays of size <code>kNumberOfLayers</code> which in this run was equal to 7. </p><p><figure class="figure"><img src="Art/tn2434_item2_tileImpl.png" alt="Art/tn2434_item2_tileImpl.png" width="502" height="527"></figure></p></li><li class="li"><p><strong>Consider ways to reduce this allocation.</strong></p><ol class="ol"><li class="li"><p><strong>Remove the allocation</strong> </p><p>In this case, removing the Tile allocation is not an option, as it is the most essential data structure required to render a game level.</p></li><li class="li"><p><strong>Reduce the number of allocations</strong> </p><p>Reducing the number of allocations is more of a level-design choice, than one of programming. This is because the number of Tiles is directly dependent on the designer's choice of map dimensions in the game editor. Therefore, reducing the number of Tile allocations is easier to do moving forward (as a recommendation to the level designer), as retroactive reduction of tiles would likely involve modifying game levels.</p></li><li class="li"><p><strong>Reduce the size of the allocation</strong> </p><p>Reducing allocation size is the most realistic option the developer can explore to reduce the memory used by <strong>Tile</strong>s. Here are a couple examples: </p><ol class="ol"><li class="ol ol"><p>The <strong>red, green</strong> and <strong>blue</strong> instance variables implement a feature that allows each tile to be colorized dynamically. With <code>kNumberOfLayers</code> = 7, it costs 3 (bytes) x 7 (number of layers) = 21 bytes out of the 183 bytes for each Tile to implement colorization. If the colorization feature were non-essential or sparsely used, the developer could consider removing it. </p><p>How much memory does that earn us? Each tile allocation with colorization removed is 183 bytes - 21 bytes = 162 bytes. 162 bytes x 41,900 (number of tiles) = 6.79 MB. </p><p>The total memory savings with colorization removed is 7.67 MB - 6.79 MB = 880 KB, <strong>almost 1 MB</strong>. </p></li><li class="ol ol"><p>The array of <strong>AnimatingTile</strong> at line 23 has repetitions for each layer (or z-position). AnimatingTile is an object that allows a Tile's artwork to animate, and because most animations cover the entire size of a tile, a fairly reasonable consolation is to constrain each Tile to only a single AnimatingTile. This removes the array of <code>AnimatingTile*</code> down to a single pointer, and on 64-bit architecture each memory address is large (8 bytes) when every byte counts. </p><p>How much memory does that earn us? Each tile allocation with animating tiles constrained to 1-per-tile is 183 bytes - 6 (number of layers minus one) * 8 bytes (per 64-bit memory address) = 159 bytes. 159 bytes x 41,900 (number of tiles) = 6.66 MB. </p><p>The total memory savings is 7.67 MB - 6.66 MB = <strong>1.01 MB savings</strong>. </p></li></ol><p>The two changes made above save the app almost 2 MB of memory use, which amounts to a total memory savings of <strong>5% of the app's memory footprint</strong>, and we were just getting started. </p></li></ol></li></ul></li></ol><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017252-CH1-CONCLUSION" title="Conclusion"></a><h2 class="jump">Conclusion</h2><p>In the example shown here, we consider only the first two allocations in detail; because we've sorted the allocations by size, the first two account for 50% of the app's total footprint. The next steps are to continue down to the remaining 50%. With each allocation, consider whether it can be <strong>removed, reduced in size,</strong> or <strong>reduced in repetition. </strong> </p><p>Each app will have different allocation types sourcing from varying locations in code, along with different circumstances around their potential minimization, but the approach to assess memory use remains the same. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017252-CH1-RELATED_MATERIAL" title="Related Material"></a><h2 class="jump">Related Material</h2><p>For other memory related tasks, see: </p><p>• <strong>Instruments User Guide</strong> &gt; <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/CommonMemoryProblems.html#//apple_ref/doc/uid/TP40004652-CH91-SW1" class="urlLink" rel="external">Profile Your App's Memory Usage</a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017252-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017252-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-05-23</td><td><p>New document that 
+					walks through the process of minimizing an app's memory usage using the Allocations Instrument.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-05-23</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

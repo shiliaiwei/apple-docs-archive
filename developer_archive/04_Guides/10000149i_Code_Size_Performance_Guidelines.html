@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Introduction to Code Size Performance Guidelines</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/10000149i">
+    <meta id="document-version" name="document-version" content="3.3.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="10000149">
+    <meta id="date" name="date" content="2014-03-10">
+    <meta id="description" name="description" content="Guidelines for reducing the size of an application binary.">
+    <meta id="book-title" name="book-title" content="Code Size Performance Guidelines">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Topic/Performance}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Code Size Performance Guidelines (Legacy): Introduction to Code Size Performance Guidelines">
+    <meta id="resources-uri" name="resources-uri" content="../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Code Size Performance Guidelines" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="Articles/MachOOverview.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/10000149" title="Introduction to Code Size Performance Guidelines"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Code Size Performance Guidelines</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Articles/MachOOverview.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/10000149i" title="Introduction to Code Size Performance Guidelines"></a><a name="//apple_ref/doc/uid/10000149-SW1" title="Introduction to Code Size Performance Guidelines"></a><h1 id="pageTitle">Introduction to Code Size Performance Guidelines</h1>
+
+<a name="//apple_ref/doc/uid/10000149-DontLinkElementID_1"></a><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/10000149-DontLinkElementID_6" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>In the context of performance, there is a distinct correlation between memory usage and efficiency. The more memory your application occupies, the more inefficient it is going to be. More memory means more memory allocations, more code, and a greater potential for paging.</p>
+<p>The focus of this programming topic is on the reduction of your executable code. Reducing your code footprint is not just a matter of turning on code optimizations in your compiler, although that does help. You can also reduce your code footprint by organizing your code so that only the minimum set of required functions is in memory at any given time. You implement this optimization by profiling your code. </p>
+<p>Reducing the amount of memory allocated by your application is also important in reducing your memory footprint; however, that information is covered in <em><a href="../ManagingMemory/ManagingMemory.html#//apple_ref/doc/uid/10000160i" data-renderer-version="1" target="_self">Memory Usage Performance Guidelines</a></em> in Performance Documentation. </p>
+<a name="//apple_ref/doc/uid/10000149-DontLinkElementID_2" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2>
+<p>This programming topic contains the following articles:</p>
+<ul class="ul"><li class="li"><p><span class="content_text"><a href="Articles/MachOOverview.html#//apple_ref/doc/uid/20001860-BAJGJEJC" data-renderer-version="1">Overview of the Mach-O Executable Format</a></span> describes how to use the organization of the Mach-O executable format to improve the efficiency of your code.</p></li>
+<li class="li"><p><span class="content_text"><a href="Articles/CompilerOptions.html#//apple_ref/doc/uid/20001861-CJBJFIDD" data-renderer-version="1">Managing Code Size</a></span> describes several compiler options that you can use to reduce the overall size of your executables. </p></li>
+<li class="li"><p><span class="content_text"><a href="Articles/ImprovingLocality.html#//apple_ref/doc/uid/20001862-CJBJFIDD" data-renderer-version="1">Improving Locality of Reference</a></span> describes how to profile and reorganize your code to improve loading times for code segments.</p></li>
+<li class="li"><p><span class="content_text"><a href="Articles/SharedPages.html#//apple_ref/doc/uid/20001863-CJBJFIDD" data-renderer-version="1">Reducing Shared Memory Pages</a></span> describes ways to reduce the size of your <code>__DATA</code> segments. </p></li>
+<li class="li"><p><span class="content_text"><a href="Articles/ReducingExports.html#//apple_ref/doc/uid/20001864-CJBJFIDD" data-renderer-version="1">Minimizing Your Exported Symbols</a></span> shows how you identify and eliminate unnecessary symbol information in your code.</p></li></ul>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Articles/MachOOverview.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2003, 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-03-10</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    
+    <script charset="utf-8" src="../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+            <meta id="book-title" name="book-title" content="Using Navigation Services to filter QuickTime files">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/QuickTime}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001697">
+            <meta id="document-version" name="document-version" content="2.0.0">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="QA1152: Using the CanQuickTimeOpenFile function in a Navigation Services filter to display files that QuickTime can open.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+
+
+
+<title>Technical Q&amp;A QA1152: Using Navigation Services to filter QuickTime files</title>
+
+<meta name="keywords" content="QuickTime CanQuickTimeOpenFile Navigation Services filter
+function">
+
+<meta name="Description" content="Technical Q&amp;A QA1152: This Q&amp;A demonstrates how to use the
+QuickTime CanQuickTimeOpenFile function in a Navigation Services
+filter function to display files QuickTime is able to open.">
+
+
+
+<meta name="categories" content="Human Interface Toolbox and QuickTime Components">
+
+
+<meta name="week-posted" content="Jul 15, 2002 - Jul 19, 2002">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10001697" title="Using Navigation Services to filter QuickTime files"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Using Navigation Services to filter QuickTime files</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technicalQA">
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalqas/index.html">Technical Q&As</a> &gt; <a href="../../technicalqas/QuickTime/index.html">QuickTime</a> &gt; <a href="../../technicalqas/QuickTime/idxMovieBasics-date.html">Movie Basics</a> &gt; </p><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Q&amp;A QA1152</div>
+<div id="pageheadsub">Using Navigation Services to filter QuickTime files</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+
+
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600> <TR> <td align="left">
+
+<!-- begin_content -->
+
+<hr width=500 align=center>
+         
+
+         <P id=p2>Q:
+      I'm using Navigation Services in my QuickTime-saavy application,
+      and I'd like to be able to display in my Navigation Services
+      Open dialog box all the files QuickTime is able to open.
+      Is there any easy way to do this?</p>
+
+         
+         
+        <P id=p4>A: Yes. The QuickTime CanQuickTimeOpenFile function will tell 
+          you whether a file can be opened by QuickTime using a graphics importer 
+          or opened in place as a movie. Simply call this API from a Navigation 
+          Services application-defined filter function and you'll be able to display 
+          all files QuickTime is able to open. Here's a sample Navigation Services 
+          filter function which demonstrates how this is done:</p>
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+                <pre>
+ OSStatus    GetFSSpecFromAEDesc( FSSpec *fsspec, AEDesc* theItem )
+{
+    OSStatus    err           = noErr;
+    AEDesc      coerceDesc    = { NULL, NULL };
+    AEDesc      coerceDesc2   = { NULL, NULL };
+    FSSpec      fsSpec;
+
+
+    /* If the AEDesc isn't already an FSSpec, convert it to one... */
+    if ( theItem-&gt;descriptorType != typeFSS )
+    {
+        err = AECoerceDesc( theItem, typeFSS, &amp;coerceDesc2 );
+        /* Get the FSSpec out of the AEDesc */
+        if ( err == noErr )
+        {
+            theItem = &amp;coerceDesc2;
+        }
+    }
+    err = AEGetDescData( theItem, fsspec, sizeof(fsSpec) );
+    AEDisposeDesc( &amp;coerceDesc2 );
+
+    return( err );
+}
+
+pascal Boolean NavLaunchServicesFilterProc(
+                                          AEDesc* theItem,
+                                          void* info,
+                                          NavCallBackUserData ioUserData,
+                                          NavFilterModes filterMode
+                                          )
+{
+    #pragma unused(ioUserData)
+    NavFileOrFolderInfo    *myInfo      = (NavFileOrFolderInfo *)info;
+    OSStatus                err         = noErr;
+    Boolean                 showItem    = false;
+    FSSpec                  fsspec;
+    if ( filterMode == kNavFilteringBrowserList )
+    {
+        if (theItem-&gt;descriptorType == typeFSS)
+        {
+            /* file or folder? */
+            if (myInfo-&gt;isFolder)
+            {
+                /* show all folders */
+                showItem = true;
+            }
+            else    /* we have a file, not a folder */
+            {
+                Boolean outCanOpenWithGraphicsImporter    = false;
+                Boolean outCanOpenAsMovie        = false;
+                err = GetFSSpecFromAEDesc( &amp;fsspec, theItem );
+                if ( err != noErr ) goto BailWithError;
+/*
+A reference to the documentation for the CanQuickTimeOpenFile function
+is provided at the end of this document.
+
+We simply pass an FSSpec for the file of interest, and QuickTime will return
+to us in the outCanOpenWithGraphicsImporter and outCanOpenAsMovie parameters
+a value indicating whether or not the file can be opened using a graphics
+importer or in place as a movie.
+
+Of particular interest are the various flags you can pass for the inFlags
+parameter. These affect the way QuickTime performs its search. Here's a
+list of the flags:
+
+-inFlags Constants-
+
+kQTDontUseDataToFindImporter
+Tells QuickTime not to use the data in the file to help in the search.
+This will speed up the search, especially in cases where a negative
+result is returned, but it will cause QuickTime to report that it
+cannot open files that aren't identified by a recognized file type
+or file name suffix.
+
+kQTDontLookForMovieImporterIfGraphicsImporterFound
+Tells QuickTime to short-circuit its search as soon as it finds one
+way to open the file. Pass this flag if you want to know whether a
+file can be opened with a graphics importer or as a movie, but you
+don't care which.
+
+kQTAllowOpeningStillImagesAsMovies
+Tells QuickTime to consider opening still images as movies. If
+this flag is set, if a file can be opened using a graphics importer
+QuickTime will automatically say it can be opened as a movie.
+
+kQTAllowImportersThatWouldCreateNewFile
+Tells QuickTime to include importers which would create new files.
+If this flag is clear, QuickTime only includes importers which can
+import in place without needing to create new files.
+
+kQTAllowAggressiveImporters
+Tells QuickTime to include movie importers for file types like PICT
+and TEXT that aren't traditionally thought of as movies. If this
+flag is clear, QuickTime excludes these movie importers.
+
+We recommend using the kQTDontLookForMovieImporterIfGraphicsImporterFound
+flag, as it makes the search faster, since you don't care how the file
+is opened.  In certain situations if may be useful to use the
+kQTDontUseDataToFindImporter flag, as it will also speed-up the
+search. However, the drawback is it will skip files with no
+suffix or file type.
+*/
+                err = CanQuickTimeOpenFile(
+                       &amp;fsspec,
+                           /* fileType */
+                       myInfo-&gt;fileAndFolder.fileInfo.finderInfo.fdType,
+                           /* filename suffix, or 0 if not known */
+                       0,
+                           /* returns true if file can be opened with a
+                           graphics importer */
+                       &amp;outCanOpenWithGraphicsImporter,
+                           /* returns true if file can be opened with a
+                           movie importer */
+                       &amp;outCanOpenAsMovie,
+                           /* returns true if file can be opened both with
+                           a graphics importer and movie importer, but
+                           QT would prefer to use a graphics importer */
+                       nil,
+                           /* inFlags, we'll specify
+                           kQTDontLookForMovieImporterIfGraphicsImporterFound
+                           to tell QuickTime to short-circuit its search as
+                           soon as it finds one way to open the file. We
+                           don't care if the file can be opened with a
+                           graphics importer or as a movie. */
+                       kQTDontLookForMovieImporterIfGraphicsImporterFound
+                       );
+                if ( err != noErr ) goto BailWithError;
+                if ((outCanOpenWithGraphicsImporter) || (outCanOpenAsMovie))
+                {
+                    /* success!! file can be opened with either a graphics
+                    importer or movie importer */
+                    showItem = true;
+                }
+            }
+        }
+    }
+    return (showItem);
+BailWithError:
+    return( false );
+}
+</pre>
+</TD></TR><TR><td align="left">
+<P><B>Listing 1</B>.       Sample Navigation Services application-defined filter function
+      which uses the CanQuickTimeOpenFile function to filter files</P>
+</TD></TR></table></CENTER><BR><BR>
+
+
+        
+<P><B>References:</B><BR><BR>
+
+Documentation for the <CODE>CanQuickTimeOpenFile</CODE> can found in the QuickTime online
+documentation at the address:<BR>
+<a href="http://developer.apple.com/documentation/quicktime/qtdevdocs/APIREF/SOURCESI/canquicktimeopenfile.htm">http://developer.apple.com/documentation/quicktime/qtdevdocs/APIREF/SOURCESI/canquicktimeopenfile.htm</a></P>
+
+          
+
+
+<hr width=500 align=center>
+ 
+<!-- begin_date --><H4 ALIGN=center>[Jul 15 2002]</H4><!-- end_date -->
+
+</TD> </TR> </table></CENTER>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

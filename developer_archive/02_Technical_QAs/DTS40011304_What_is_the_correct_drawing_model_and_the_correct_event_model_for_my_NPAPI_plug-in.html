@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1755: What is the correct drawing model and the correct event model for my NPAPI plug-in? </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40011304">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40011304-CH1">
+    <meta id="date" name="date" content="2011-09-30">
+    <meta id="description" name="description" content="QA1755: gives guidelines and describes default behavior for drawing and event models in NPAPI plug-ins.">
+    <meta id="book-title" name="book-title" content="What is the correct drawing model and the correct event model for my NPAPI plug-in? ">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/WebKit}, {Topic/General}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1755">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="What is the correct drawing model and the correct event model for my NPAPI plug-in? " type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40011304" title="Technical Q&amp;A QA1755"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>What is the correct drawing model and the correct event model for my NPAPI plug-in? </h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40011304-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1755"></a><div class="dtsDocNumber">Technical Q&amp;A QA1755</div><h1 id="pageTitle">What is the correct drawing model and the correct event model for my NPAPI plug-in? </h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+What is the correct drawing model and the correct event model for my NPAPI plug-in?
+</h2><p><span>A: </span>NPAPI plug-ins now support the Core Graphics and Core Animation drawing models. If your plug-in does very little drawing or a small amount of simple drawing, you should use the Core Graphics drawing model. If your plug-in plays video or does complex drawing (including 3D graphics), then you should use the Core Animation drawing model.</p><p>As of Safari 4, the QuickDraw drawing model is no longer supported. 64-bit NPAPI plug-ins will use the Core Graphics drawing model by default, when no drawing model is explicitly specified. 32-bit NPAPI plug-ins will use QuickDraw by default, when no drawing model is explicitly specified. If a plug-in selects the QuickDraw drawing model — either explicitly, or by default when no drawing model is specified — then the plug-in is immediately destroyed. This means that your 32-bit NPAPI plug-in must explicitly select the Core Graphics or Core Animation drawing model in order to load and function in Safari 4 and later. </p><p>The Cocoa event model is also supported as of Safari 4. Since the semantics of the Cocoa event model closely match Cocoa NSEvents, using this event model lets you write code that is cleaner and more modern than code which uses the legacy Carbon event model. The Cocoa event model is compatible with both 32-bit and 64-bit plug-ins, and is the recommended event model for NPAPI plug-ins in Safari.</p><p><span class="content_text"><!--a  -->Listing 1<!--/a--></span> shows how to enable the Core Graphics drawing model and Cocoa event model.</p><a name="//apple_ref/doc/uid/DTS40011304-CH1-SOURCECODE1" title="Listing 1Enabling the Core Graphics drawing model and Cocoa event model."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Enabling the Core Graphics drawing model and Cocoa event model.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/* Ask the browser if it supports the CoreGraphics drawing model */<span></span></pre></td></tr><tr><td scope="row"><pre>NPBool supportsCoreGraphics;<span></span></pre></td></tr><tr><td scope="row"><pre>if (browser-&gt;getvalue(instance, NPNVsupportsCoreGraphicsBool, &amp;supportsCoreGraphics) != NPERR_NO_ERROR)<span></span></pre></td></tr><tr><td scope="row"><pre>    supportsCoreGraphics = FALSE;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>if (!supportsCoreGraphics)<span></span></pre></td></tr><tr><td scope="row"><pre>    return NPERR_INCOMPATIBLE_VERSION_ERROR;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>/* If the browser supports the CoreGraphics drawing model, enable it. */<span></span></pre></td></tr><tr><td scope="row"><pre>browser-&gt;setvalue(instance, NPPVpluginDrawingModel, (void *)NPDrawingModelCoreGraphics);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>/* Ask the browser if it supports the Cocoa event model */<span></span></pre></td></tr><tr><td scope="row"><pre>NPBool supportsCocoa;<span></span></pre></td></tr><tr><td scope="row"><pre>if (browser-&gt;getvalue(instance, NPNVsupportsCocoaBool, &amp;supportsCocoa) != NPERR_NO_ERROR)<span></span></pre></td></tr><tr><td scope="row"><pre>    supportsCocoa = FALSE;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>if (!supportsCocoa)<span></span></pre></td></tr><tr><td scope="row"><pre>    return NPERR_INCOMPATIBLE_VERSION_ERROR;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>/* If the browser supports the Cocoa event model, enable it. */<span></span></pre></td></tr><tr><td scope="row"><pre>browser-&gt;setvalue(instance, NPPVpluginEventModel, (void *)NPEventModelCocoa);<span></span></pre></td></tr></table></div><p>Plug-ins that use the Core Animation drawing model must use the Cocoa event model. <span class="content_text"><!--a  -->Listing 2<!--/a--></span> shows how to enable the Core Animation drawing model and the Cocoa event model, when these are available. </p><a name="//apple_ref/doc/uid/DTS40011304-CH1-SOURCECODE2" title="Listing 2Enabling the Core Animation drawing model and Cocoa event model."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Enabling the Core Animation drawing model and Cocoa event model.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/* Ask the browser if it supports the Core Animation drawing model */<span></span></pre></td></tr><tr><td scope="row"><pre>NPBool supportsCoreAnimation;<span></span></pre></td></tr><tr><td scope="row"><pre>if (browser-&gt;getvalue(instance, NPNVsupportsCoreAnimationBool, &amp;supportsCoreAnimation) != NPERR_NO_ERROR)<span></span></pre></td></tr><tr><td scope="row"><pre>    supportsCoreAnimation = FALSE;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>if (!supportsCoreAnimation)<span></span></pre></td></tr><tr><td scope="row"><pre>    return NPERR_INCOMPATIBLE_VERSION_ERROR;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>/* If the browser supports the Core Animation drawing model, enable it. */<span></span></pre></td></tr><tr><td scope="row"><pre>browser-&gt;setvalue(instance, NPPVpluginDrawingModel, (void *)NPDrawingModelCoreAnimation);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>/* Ask the browser if it supports the Cocoa event model */<span></span></pre></td></tr><tr><td scope="row"><pre>NPBool supportsCocoa;<span></span></pre></td></tr><tr><td scope="row"><pre>if (browser-&gt;getvalue(instance, NPNVsupportsCocoaBool, &amp;supportsCocoa) != NPERR_NO_ERROR)<span></span></pre></td></tr><tr><td scope="row"><pre>    supportsCocoa = FALSE;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>if (!supportsCocoa)<span></span></pre></td></tr><tr><td scope="row"><pre>    return NPERR_INCOMPATIBLE_VERSION_ERROR;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>/* If the browser supports the Cocoa event model, enable it. */<span></span></pre></td></tr><tr><td scope="row"><pre>browser-&gt;setvalue(instance, NPPVpluginEventModel, (void *)NPEventModelCocoa);<span></span></pre></td></tr></table></div><p>For more information on drawing models, see the the <span class="content_text"><a href="https://wiki.mozilla.org/NPAPI:CoreGraphicsDrawing" class="urlLink" rel="external">Core Graphics Drawing model specification</a></span> and the <span class="content_text"><a href="https://wiki.mozilla.org/NPAPI:CoreAnimationDrawingModel" class="urlLink" rel="external">Core Animation Drawing model specification</a></span>.</p><p>For more information on Cocoa events, see the <span class="content_text"><a href="https://wiki.mozilla.org/NPAPI:CocoaEventModel" class="urlLink" rel="external">Cocoa Event model specification</a></span>.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS40011304-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40011304-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2011-09-30</td><td><p>New document that 
+					gives guidelines and describes default behavior for drawing and event models in NPAPI plug-ins.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2011 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2011-09-30</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN1164: Scripting Additions for Mac OS X</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003003">
+    <meta id="document-version" name="document-version" content="4.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003003-CH1">
+    <meta id="date" name="date" content="2009-05-29">
+    <meta id="description" name="description" content="TN1164: Explains how to create AppleScript scripting additions (OSAX) for Mac OS X.">
+    <meta id="book-title" name="book-title" content="Scripting Additions for Mac OS X">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/CoreServices}, {Topic/Languages & Utilities/Other Languages}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN1164">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Scripting Additions for Mac OS X" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003003" title="Technical Note TN1164"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Scripting Additions for Mac OS X</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003003-CH1-DontLinkElementID_2" title="Technical Note TN1164"></a><div class="dtsDocNumber">Technical Note TN1164</div><h1 id="pageTitle">Scripting Additions for Mac OS X</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>This Technote describes the API that allow developers to create AppleScript scripting additions for Mac OS X. It is directed at application developers who are interested in creating scripting additions.</p><p>This Technote describes the API that allow developers to create AppleScript scripting additions for Mac OS X. It is directed at application developers who are interested in creating scripting additions.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003003-CH1-WHAT_ARE_SCRIPTING_ADDITIONS_" data-renderer-version="1">What are Scripting Additions?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003003-CH1-PACKAGING_SCRIPTING_ADDITIONS" data-renderer-version="1">Packaging Scripting Additions</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003003-CH1-MAC_OS_X_V10_6__SNOW_LEOPARD__AND_LATER__INFO_PLIST" data-renderer-version="1">Mac OS X v10.6 (Snow Leopard) and later: Info.plist</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003003-CH1-MAC_OS_X_V10_6__SNOW_LEOPARD__AND_LATER__INFO_PLIST-HANDLER" data-renderer-version="1">Handler</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003003-CH1-MAC_OS_X_V10_6__SNOW_LEOPARD__AND_LATER__INFO_PLIST-THREADSAFE" data-renderer-version="1">ThreadSafe</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003003-CH1-MAC_OS_X_V10_6__SNOW_LEOPARD__AND_LATER__INFO_PLIST-CONTEXT" data-renderer-version="1">Context</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003003-CH1-MAC_OS_X_V10_5__LEOPARD___INFO_PLIST" data-renderer-version="1">Mac OS X v10.5 (Leopard): Info.plist</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003003-CH1-PRE-LEOPARD" data-renderer-version="1">Mac OS X v10.4 (Tiger) and earlier: Required Functions</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003003-CH1-INITIALIZATION" data-renderer-version="1">Initialization</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003003-CH1-PRE_LEOPARD-TERMINATION" data-renderer-version="1">Termination</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003003-CH1-PRE_LEOPARD-REFERENCE_COUNTING" data-renderer-version="1">Reference Counting</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003003-CH1-HELPFUL_TIPS" data-renderer-version="1">Helpful Tips</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003003-CH1-HELPFUL_TIPS-RUNTIME_CONSIDERATIONS" data-renderer-version="1">Runtime Considerations</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003003-CH1-HELPFUL_TIPS-LOCATING_YOUR_SCRIPTING_ADDITION_S_BUNDLE_RESOURCES" data-renderer-version="1">Locating Your Scripting Addition's Bundle Resources</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003003-CH1-HELPFUL_TIPS-LOCAL_AND_REMOTE_REQUESTS" data-renderer-version="1">Local and Remote Requests</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003003-CH1-REFERENCES" data-renderer-version="1">References</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003003-CH1-DOWNLOADABLES" data-renderer-version="1">Downloadables</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003003-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003003-CH1-WHAT_ARE_SCRIPTING_ADDITIONS_" title="What are Scripting Additions?"></a><h2 class="jump">What are Scripting Additions?</h2><p>Scripting additions provide a mechanism for delivery of additional functionality that can be used in AppleScripts. A scripting addition can provide Apple event handling and Apple event data coercion handling.</p><p>The Apple event handlers and Apple event data coercion handlers installed by a scripting addition are written in basically the same way that handlers used inside an application are written. What differs between scripting additions and applications is the packaging of the code and the mechanisms by which the scripting addition is installed in the system. These differences are discussed in the sections that follow.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-PACKAGING_SCRIPTING_ADDITIONS" title="Packaging Scripting Additions"></a><h2 class="jump">Packaging Scripting Additions</h2><p>Scripting additions are packaged as bundles with a name ending with the extension <code>.osax</code> and a <code>CFBundleSignature</code> of <code>osax</code>.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003003-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Single-file CFM binaries linked with <code>CarbonLib</code> are supported up through Mac OS X v10.5, and only work on PowerPC systems.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-MAC_OS_X_V10_6__SNOW_LEOPARD__AND_LATER__INFO_PLIST" title="Mac OS X v10.6 (Snow Leopard) and later: Info.plist"></a><h2 class="jump">Mac OS X v10.6 (Snow Leopard) and later: Info.plist</h2><p>Mac OS X v10.6 (Snow Leopard) uses a data-driven scheme for installing the handlers in a scripting addition. The older methods described below are still supported, but the 10.6-style Info.plist is recommended for performance reasons. The 10.6 format is not backward-compatible; an addition that uses it will only work on Mac OS X v10.6 and later.</p><p>The <code>Info.plist</code> file must contain a <code>OSAXHandlers</code> key whose value is a dictionary containing up to three other dictionaries:</p><ul class="ul"><li class="li"><p><code>Events</code>: Event handlers.</p></li><li class="li"><p><code>DescCoercions</code>: Coercion handlers that use the <code>AECoerceDesc</code> interface.</p></li><li class="li"><p><code>PtrCoercions</code>: Coercion handlers that use the <code>AECoercePtr</code> interface.</p></li></ul><p>The value in each case is a dictionary whose keys are the eight-character event code (event class and event id) or the "from" and "to" <code>DescType</code> values, and whose values are dictionaries describing the handler function. Given this data, the system will take care of installing and uninstalling the handlers for you: there is no initialization or cleanup for you to write. For example, the Info.plist fragment in Listing 1 declares a handler for the <code>syso</code>/<code>dlog</code> event (better known as <code>display dialog</code>), a descriptor-based coercion for <code>STXT</code> to <code>utxt</code>, and a pointer-based coercion for <code>TEXT</code> to <code>utxt</code>.</p><a name="//apple_ref/doc/uid/DTS10003003-CH1-SOURCECODE1" title="Listing 1Info.plist fragment declaring scripting addition functions."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Info.plist fragment declaring scripting addition functions.</p><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key&gt;OSAXHandlers&lt;/key&gt;
+&lt;dict&gt;
+    &lt;key&gt;Events&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;sysodlog&lt;/key&gt;
+        &lt;dict&gt;
+            &lt;key&gt;Handler&lt;/key&gt;
+            &lt;string&gt;DisplayDialogEventHandler&lt;/string&gt;
+            &lt;key&gt;ThreadSafe&lt;/key&gt;
+            &lt;false/&gt;
+            &lt;key&gt;Context&lt;/key&gt;
+            &lt;string&gt;Process&lt;/string&gt;
+        &lt;/dict&gt; 
+    &lt;/dict&gt;
+    &lt;key&gt;DescCoercions&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;STXTutxt&lt;/key&gt;
+        &lt;dict&gt;
+            &lt;key&gt;Handler&lt;/key&gt;
+            &lt;string&gt;CoerceStyledTextToUnicodeText&lt;/string&gt;
+        &lt;/dict&gt;
+    &lt;/dict&gt;
+    &lt;key&gt;PtrCoercions&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;TEXTutxt&lt;/key&gt;
+        &lt;dict&gt;
+            &lt;key&gt;Handler&lt;/key&gt;
+            &lt;string&gt;CoercePlainTextToUnicodeText&lt;/string&gt;
+        &lt;/dict&gt;
+    &lt;/dict&gt;
+&lt;/dict&gt;<span></span></pre></td></tr></table></div><p>For each handler, the dictionary contains the name of the handler function, and for event handlers, its thread-safety and context requirements, using the keys and values described here:</p><a name="//apple_ref/doc/uid/DTS10003003-CH1-TABLE1" title="Table 1Handler dictionary keys"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Handler dictionary keys</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Key
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Description
+</p></th></tr><tr><td  scope="row"><p>
+Handler
+</p></td><td ><p>
+A string; the name of the handler function.
+</p></td></tr><tr><td  scope="row"><p>
+ThreadSafe
+</p></td><td ><p>
+A boolean; is the handler thread-safe? (Event handlers only.)
+</p></td></tr><tr><td  scope="row"><p>
+Context
+</p></td><td ><p>
+A string, one of Any, Machine, User, or Process; the context requirements for the handler. (Event handlers only.)
+</p></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-MAC_OS_X_V10_6__SNOW_LEOPARD__AND_LATER__INFO_PLIST-HANDLER" title="Handler"></a><h3 class="jump">Handler</h3><p>This is the handler function name. The function must be exported as an entry point into the executable.</p></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-MAC_OS_X_V10_6__SNOW_LEOPARD__AND_LATER__INFO_PLIST-THREADSAFE" title="ThreadSafe"></a><h3 class="jump">ThreadSafe</h3><p>OSA and AppleScript in Mac OS X v10.6 are thread-safe. If a script is executed on a background thread and invokes an event handler that is not thread-safe, it will be called on the main thread, which is slower than directly invoking it on the calling thread and may reduce application responsiveness to user input. Ideally, all handlers should be thread-safe. Some inherently cannot be; for example, almost anything that displays UI must be executed on the main thread. You are encouraged to either verify that your event handlers are thread-safe or update them to make them thread-safe.</p><p>If the value of this key is true, then the handler may be executed on a non-main thread and it may be executed concurrently from multiple threads. If false, it will only be executed on the main thread. This key is required for event handlers, and must not be present for coercion handlers, which are required to be thread-safe. If a coercion handler cannot be made safe to run on background threads, the handler must arrange to execute the coercion on the main thread, such as using by using libdispatch and the main dispatch queue.</p></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-MAC_OS_X_V10_6__SNOW_LEOPARD__AND_LATER__INFO_PLIST-CONTEXT" title="Context"></a><h3 class="jump">Context</h3><p>For security reasons, Mac OS X v10.6 will only execute scripting additions in other processes if it is necessary, and in some cases may ask for authorization before doing so. Exactly how a scripting addition is handled depends on the value of the "Context" key, which describes what execution context the handler depends on in order to function correctly. In the script, a scripting addition command may be inside a <code>tell</code> block for, say, Mail.app on a remote machine, but if its "context" is relaxed enough, it will actually be executed in a different process that presents less of a security risk, typically the application running the script. The <code>Context</code> key may have one of four values:</p><a name="//apple_ref/doc/uid/DTS10003003-CH1-TABLE2" title="Table 2Context values"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;Context values</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Value
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Description
+</p></th></tr><tr><td  scope="row"><p>
+Any
+</p></td><td ><p>
+The handler depends only on its own input parameters, and may be handled within any process on any machine. (For example, offset of, round.)
+</p></td></tr><tr><td  scope="row"><p>
+Machine
+</p></td><td ><p>
+The handler depends on the machine it is running on, and must be handled within some process on the target machine. (For example, beep, system info.)
+</p></td></tr><tr><td  scope="row"><p>
+User
+</p></td><td ><p>
+The handler depends on the user and group id, typically because of the user's preferences or permissions, and must be handled within some process with the same user and group id as the target process. (For example, commands that perform file I/O such as open for access and info for.)
+</p></td></tr><tr><td  scope="row"><p>
+Process
+</p></td><td ><p>
+The handler depends upon attributes that vary between individual processes, and must be handled in the target process on the target machine. (For example, display alert, which layers the alert with the target application's windows.)
+</p></td></tr></table></div><p>Any value of <code>Context</code> implies the dependencies of the contexts above it, so <code>User</code> implies <code>Machine</code> dependencies, and <code>Process</code> implies <code>User</code> and <code>Machine</code> dependencies. Try to write handlers with as few dependencies as possible, since more dependencies means greater security risk.</p><p>This key is required for event handlers, and must not be present for coercion handlers, which are always executed in the same process as the script.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-MAC_OS_X_V10_5__LEOPARD___INFO_PLIST" title="Mac OS X v10.5 (Leopard): Info.plist"></a><h2 class="jump">Mac OS X v10.5 (Leopard): Info.plist</h2><p>Mac OS X v10.5 (Leopard) uses an Info.plist identical to the one described above, except that the value for a handler entry is simply a string specifying the name of the handler function, not a dictionary. For example, Listing 2 shows the 10.5-style declaration of <code>display dialog</code> shown in Listing 1:</p><a name="//apple_ref/doc/uid/DTS10003003-CH1-SOURCECODE2" title="Listing 2Info.plist fragment declaring the display dialog command."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Info.plist fragment declaring the display dialog command.</p><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key&gt;OSAXHandlers&lt;/key&gt;
+&lt;dict&gt;
+    &lt;key&gt;Events&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;sysodlog&lt;/key&gt;
+        &lt;string&gt;DisplayDialogEventHandler&lt;/string&gt;
+    &lt;/dict&gt;
+&lt;/dict&gt;<span></span></pre></td></tr></table></div><p>Scripting addition event handlers using this format on 10.6 are assumed to be thread-unsafe and have a context of "Machine".</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-PRE-LEOPARD" title="Mac OS X v10.4 (Tiger) and earlier: Required Functions"></a><h2 class="jump">Mac OS X v10.4 (Tiger) and earlier: Required Functions</h2><p>If your scripting addition will only run on Mac OS X v10.5 or later versions, then this Info.plist entry is all you need. If you want it to run on older versions of Mac OS X, then you must supply three additional functions to install, terminate, and reference-count your scripting addition.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003003-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;These functions are not supported in 64-bit mode. 64-bit scripting additions must use one of the Info.plist formats above.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003003-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;When running in 10.5 and later, the initialization function will only be called if you do not provide the Info.plist data described above. The reference-count function will never be called, since Leopard will never attempt to unload a scripting addition from a process once it is loaded. The termination functions will also never be called. If your addition needs to do work at process termination time, such as releasing resources, use <code>atexit</code>(3). Bear in mind that many resources, such as allocated memory, will be freed automatically when the process exits.</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-INITIALIZATION" title="Initialization"></a><h3 class="jump">Initialization</h3><p>Your scripting addition's initialization routine is responsible for installing your scripting addition's handler routines. To implement it, the scripting addition must export a routine named <code>SAInitialize</code>, which will be called by AppleScript and must install all the event and coercion handlers. Listing 3 provides a sketch of a scripting addition's initialization routine:</p><a name="//apple_ref/doc/uid/DTS10003003-CH1-SOURCECODE3" title="Listing 3Sample scripting addition initialization routine."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Sample scripting addition initialization routine.</p><div class="codesample clear"><table><tr><td scope="row"><pre>OSErr SAInitialize(CFBundleRef additionBundle)
+{
+    OSErr err;
+
+    Boolean isSysHandler = true;
+    err = AEInstallEventHandler(theAEEventClass, theAEEventID, eventHandlerUPP, refcon, isSysHandler);
+    err = AEInstallCoercionHandler(fromType, toType, coercionHandlerUPP, refcon, fromIsDesc, isSysHandler);
+
+    return err;
+}<span></span></pre></td></tr></table></div><p>All scripting addition handlers must be installed in the system dispatch table, as shown above.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003003-CH1-DontLinkElementID_6" title="Important"></a><p><strong>Important:</strong>&nbsp;If your initialization routine returns any result other than <code>noErr</code>, then the addition's termination function will not be called, so the initialization function is responsible for cleaning up anything it did. In particular, it should not leave any Apple event handlers installed. </p><p></p></aside></div><p>Your scripting addition should always install all of its handlers, even if functionality they require is not present in the system. That way, you have an opportunity to provide a meaningful error message when your addition is invoked, rather than the generic "doesn't understand" or "can't coerce" message.</p><p>Your initialization function may perform additional setup operations, such as allocating memory or finding files, but this is not recommended: it creates additional startup cost, and may not even be necessary, since your scripting addition may never be invoked. Initialization should be deferred until your addition is actually invoked.</p><p>The <code>additionBundle</code> parameter passed to <code>SAInitialize</code> is a reference to the scripting addition's bundle. This is only present for historical reasons. If a handler needs access to the scripting addition's bundle resources, it can locate the bundle using <code>CFBundleGetBundleWithIdentifier</code>.</p><p>Information about bundle references and the bundle format can be found in the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10003003-CH1-REFERENCES" data-renderer-version="1">References</a></span> section at the end of this article.</p></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-PRE_LEOPARD-TERMINATION" title="Termination"></a><h3 class="jump">Termination</h3><p>Your scripting addition's termination routine is responsible for removing your scripting addition's handler routines. To implement it, a scripting addition must export a routine named <code>SATerminate</code>, which will be called by AppleScript and must remove all the event and coercion handlers. Listing 4 provides a sketch of a scripting addition's termination routine:</p><a name="//apple_ref/doc/uid/DTS10003003-CH1-SOURCECODE4" title="Listing 4Sample scripting addition termination routine."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Sample scripting addition termination routine.</p><div class="codesample clear"><table><tr><td scope="row"><pre>void SATerminate(void) {     AERemoveEventHandler(theAEEventClass, theAEEventID, gTheHandler, true);     DisposeAEEventHandlerUPP(gTheHandler);      ...other cleanup operations... }<span></span></pre></td></tr></table></div><p>The termination routine may perform other cleanup operations, such as releasing resources. However, the termination function will never be called in Leopard. If your addition needs to do work at process termination time, such as releasing resources, use <code>atexit</code>(3). Bear in mind that many resources, such as allocated memory, will be freed automatically when the process exits.</p></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-PRE_LEOPARD-REFERENCE_COUNTING" title="Reference Counting"></a><h3 class="jump">Reference Counting</h3><p>This routine exists for historical reasons: in classic Mac OS, it was possible to crash the system by removing a scripting addition while it was still running. Therefore, scripting additions exported a function named <code>SAIsBusy</code> to indicate whether or not they were busy, and therefore not safe to unload. This possible crash was solved by other means in Mac OS X v10.2, rendering <code>SAIsBusy</code> obsolete. It still needs to exist, but can simply return <code>false</code>, as shown in Listing 5.</p><a name="//apple_ref/doc/uid/DTS10003003-CH1-SOURCECODE5" title="Listing 5Sample SAIsBusy routine for a scripting addition."></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Sample SAIsBusy routine for a scripting addition.</p><div class="codesample clear"><table><tr><td scope="row"><pre>Boolean SAIsBusy(void) {     return false; }<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-HELPFUL_TIPS" title="Helpful Tips"></a><h2 class="jump">Helpful Tips</h2><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-HELPFUL_TIPS-RUNTIME_CONSIDERATIONS" title="Runtime Considerations"></a><h3 class="jump">Runtime Considerations</h3><p>Your scripting addition may be loaded into any application's process, and should therefore take care to not disturb the global state outside of the addition handler itself, such as the Resource Manager resource chain, effective user id, and so on. </p><p>Scripting additions are loaded separately into each application process that uses them. As a result, you should design your scripting addition keeping in mind that there may be many instances of your scripting addition open in many different applications at the same time. Some scripting additions may require additional code if they use a single shared resource such as a printer or a serial port.</p></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-HELPFUL_TIPS-LOCATING_YOUR_SCRIPTING_ADDITION_S_BUNDLE_RESOURCES" title="Locating Your Scripting Addition's Bundle Resources"></a><h3 class="jump">Locating Your Scripting Addition's Bundle Resources</h3><p>Scripting additions may need to access resources and files located inside of their bundle. To do this, get a <code>CFBundleRef</code> using <code>CFBundleGetBundleWithIdentifier</code>, passing it the bundle identifier of your scripting addition.</p><p>Information about bundle references and the bundle format can be found in the <span class="content_text"><a href="#//apple_ref/doc/uid/DTS10003003-CH1-REFERENCES" data-renderer-version="1">References</a></span> section at the end of this article.</p></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-HELPFUL_TIPS-LOCAL_AND_REMOTE_REQUESTS" title="Local and Remote Requests"></a><h3 class="jump">Local and Remote Requests</h3><p>If executing your scripting addition command on a remote machine is not meaningful or would constitute a security risk, your command handler should detect and reject events from remote machines. A handler can determine the source of an event by examining the <code>keyEventSourceAttr</code> attribute in the incoming event. An event from a remote system will have an attribute value of <code>kAERemoteProcess</code>.</p><a name="//apple_ref/doc/uid/DTS10003003-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>DescType sourceAttr;
+
+err = AEGetAttributePtr(eventPtr, keyEventSourceAttr, typeType, NULL, &amp;sourceAttr, sizeof(sourceAttr), NULL);
+if (err != noErr || sourceAttr == kAERemoteProcess)
+{
+    return errAELocalOnly;
+}<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-REFERENCES" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/AppleScript/Conceptual/AppleEvents" class="browserLink" >Apple Event Programming Guide</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/CoreFoundation/Conceptual/CFBundles" class="browserLink" >Bundle Programming Guide</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003003-CH1-DOWNLOADABLES" title="Downloadables"></a><h2 class="jump">Downloadables</h2><ul class="ul"><li class="li"><p>Stub scripting addition project. ("tn1164_SkeletonAddition.zip", 7.2K)
+
+</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003003-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003003-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2009-05-29</td><td><p>Updated for Mac OS X v10.6 with information about security and thread-safety Info.plist entries.</p></td></tr><tr><td scope="row">2008-04-24</td><td><p>Add sample project.</p></td></tr><tr><td scope="row">2008-01-15</td><td><p>Update to cover API changes for Leopard.</p></td></tr><tr><td scope="row">2004-04-26</td><td><p>Unspecified content revisions.</p></td></tr><tr><td scope="row">2001-09-13</td><td><p>New document that 
+					explains how to create AppleScript scripting additions (OSAX) for Mac OS X.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-05-29</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

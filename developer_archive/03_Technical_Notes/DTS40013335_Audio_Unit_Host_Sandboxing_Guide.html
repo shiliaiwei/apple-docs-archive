@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2312: Audio Unit Host Sandboxing Guide</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40013335">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40013335-CH1">
+    <meta id="date" name="date" content="2014-03-06">
+    <meta id="description" name="description" content="TN2312: This guide provides an overview of the changes that an Audio Unit Host application needs to make in order to adopt the App Sandbox.">
+    <meta id="book-title" name="book-title" content="Audio Unit Host Sandboxing Guide">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2312">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Unit Host Sandboxing Guide" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40013335" title="Technical Note TN2312"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Unit Host Sandboxing Guide</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40013335-CH1-DontLinkElementID_2" title="Technical Note TN2312"></a><div class="dtsDocNumber">Technical Note TN2312</div><h1 id="pageTitle">Audio Unit Host Sandboxing Guide</h1><p>This technical note provides an overview of the changes that an Audio Unit Host application needs to make in order to adopt the App Sandbox. </p><p>These changes include the following:</p><ul class="ul"><li class="li"><p>Adding the appropriate entitlements</p></li><li class="li"><p>Migrating to the Audio Component API</p></li><li class="li"><p>Checking to see if Audio Units are Sandbox Safe</p></li><li class="li"><p>Preflighting Audio Components using <code>AudioComponentCopyConfigurationInfo</code></p></li><li class="li"><p>Writing and resolving Security-scoped bookmarks in AUPreset Files and Application documents</p></li></ul>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013335-CH1-PREREQUISITES" data-renderer-version="1">Prerequisites</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013335-CH1-TNTAG1" data-renderer-version="1">Entitlements and System Resource Access</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013335-CH1-TNTAG2" data-renderer-version="1">Using the Audio Component API</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013335-CH1-TNTAG3" data-renderer-version="1">Checking to see if an Audio Unit is Sandbox-Safe</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013335-CH1-TNTAG4" data-renderer-version="1">Preflighting Audio Components</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013335-CH1-TNTAG6" data-renderer-version="1">Persistent File Access</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013335-CH1-TNTAG7" data-renderer-version="1">Loading Audio Unit Preset Files</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013335-CH1-TNTAG8" data-renderer-version="1">Writing Audio Unit Presets</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013335-CH1-TNTAG9" data-renderer-version="1">Saving and Restoring Application Documents</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013335-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40013335-CH1-PREREQUISITES" title="Prerequisites"></a><h2 class="jump">Prerequisites</h2><p>Before reading this document, you should familiarize yourself with the following documents which explain general App Sandbox concepts and provide specific information about Audio Units in a sandboxed environment:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/Security/Conceptual/AppSandboxDesignGuide/AboutAppSandbox/AboutAppSandbox.html#//apple_ref/doc/uid/TP40011183-CH1-SW1" class="browserLink" >App Sandbox Design Guide</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW1" class="browserLink" >Enabling App Sandbox</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/Miscellaneous/Reference/EntitlementKeyReference/Chapters/EnablingAppSandbox.html#//apple_ref/doc/uid/TP40011195-CH4-SW1" class="browserLink" >App Sandbox Entitlement Keys</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/library/mac/technotes/tn2247/_index.html#//apple_ref/doc/uid/DTS40012567-CH1-HOSTING_AUDIO_COMPONENTS_IN_A_SANDBOXED_APPLICATION" class="browserLink" >Enumerating Sandbox Safe Audio Components</a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/library/mac/#qa/qa1483/_index.html" class="urlLink" rel="external">Testing your custom Audio Unit in a sandboxed environment</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/library/mac/#technotes/tn2247/_index.html" class="browserLink" >Audio Components and the Application Sandbox</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013335-CH1-TNTAG1" title="Entitlements and System Resource Access"></a><h2 class="jump">Entitlements and System Resource Access</h2><p>An Audio Unit host needs access to specific system resources in order to open Audio Units, use MIDI, and read and write files. The Sandboxed host needs to declare its intentions to perform these actions via an entitlement.</p><p>An entitlement is a key-value pair that identifies a specific capability, such as the capability to use a built-in microphone, and is specified in a .entitlements property list file in Xcode.</p><p>Common entitlements that you may want to add to your sandboxed AU host application:</p><a name="//apple_ref/doc/uid/DTS40013335-CH1-TABLE1" title="Table 1Common Entitlements"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Common Entitlements</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Entitlement
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Purpose
+</p></th></tr><tr><td  scope="row"><p>
+com.apple.security.temporary-exception.audio-unit-host
+</p></td><td ><p>
+Allows opening of Audio Units that are not sandbox-safe
+</p></td></tr><tr><td  scope="row"><p>
+com.apple.security.files.user-selected.read-write
+</p></td><td ><p>
+Enables reading and writing of user selected files
+</p></td></tr><tr><td  scope="row"><p>
+com.apple.security.files.bookmarks.document-scope
+</p></td><td ><p>
+Enables reading and writing of document-scope security bookmarks
+</p></td></tr><tr><td  scope="row"><p>
+com.apple.security.files.bookmarks.app-scope
+</p></td><td ><p>
+Enables reading and writing of application-scope security bookmarks 
+</p></td></tr><tr><td  scope="row"><p>
+com.apple.security.temporary-exception.mach-lookup.global-name
+</p></td><td ><p>
+Enables MIDI (Type is an array of two string values). See Table 2.
+</p></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40013335-CH1-TABLE2" title="Table 2com.apple.security.temporary-exception.mach-lookup.global-name Array String Values"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;com.apple.security.temporary-exception.mach-lookup.global-name Array String Values</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+String Values
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Notes
+</p></th></tr><tr><td  scope="row"><p>
+com.apple.midiserver
+</p></td><td ><p>
+Required
+</p></td></tr><tr><td  scope="row"><p>
+com.apple.midiserver.io
+</p></td><td ><p>
+Optional
+</p></td></tr></table></div><p>When you add the <code>com.apple.security.temporary-exception.audio-unit-host entitlement</code>, you gain the ability to load Audio Units that are not sandbox-safe (more on this later). When a non-sandbox-safe Audio Unit is loaded, the system will show the user a dialog indicating that the process is attempting to open an Audio Component that isn’t Sandbox Safe.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40013335-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Using the com.apple.security.temporary-exception.audio-unit-host key can cause the system to disable the host application's sandbox completely. It is therefore important to understand the ramifications of using this key in a sandbox compatibility testing scenario. See <span class="content_text"><a href="http://developer.apple.com/library/mac/#technotes/tn2247/_index.html%23//apple_ref/doc/uid/DTS40012567" class="browserLink" >Audio Components and the Application Sandbox</a></span> for more information.</p><p></p></aside></div><p>For more information on entitlements see: <span class="content_text"><a href="https://developer.apple.com/library/mac/#documentation/Security/Conceptual/AppSandboxDesignGuide/AppSandboxInDepth/AppSandboxInDepth.html#//apple_ref/doc/uid/TP40011183-CH3-SW1" class="urlLink" rel="external">Entitlements and System Resource Access</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013335-CH1-TNTAG2" title="Using the Audio Component API"></a><h2 class="jump">Using the Audio Component API</h2><p>Audio Unit Host applications that run in an App Sandbox must migrate to the AudioComponent API and can no longer rely on the Component Manager to query, load, or manipulate components. Only Audio Component Plug-ins can declare themselves safe to open in a sandboxed process. All Component Manager components are assumed to be unsafe.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013335-CH1-TNTAG3" title="Checking to see if an Audio Unit is Sandbox-Safe"></a><h2 class="jump">Checking to see if an Audio Unit is Sandbox-Safe</h2><p>Audio Unit Hosts may need to check if an Audio Unit is Sandbox-safe before attempting to open it. A “Sandbox Safe Audio Component” is defined to be an Audio Component that can function correctly in a process that has the most severely restricting Sandbox- preventing access to the file system, network, and drivers in the kernel. </p><p>A Sandbox Safe Audio Component will have the <code>kAudioComponentFlag_SandboxSafe</code> flag set in the componentFlags field of its AudioComponentDescription. If this flag is not present, the Audio Unit may not be sandbox-safe.</p><p>See Technical Note TN2247 for a code snippet on <span class="content_text"><a href="http://developer.apple.com/library/ios/#technotes/tn2247/_index.html" class="browserLink" >Enumerating Sandbox Safe Audio Components</a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013335-CH1-TNTAG4" title="Preflighting Audio Components"></a><h2 class="jump">Preflighting Audio Components</h2><p>Many applications build up a list of the various Audio Components and their capabilities. Since querying an Audio Component to find out what it does requires opening the Audio Component, this may cause the application’s sandbox to drop even if the application never uses any of the queried Audio Components.</p><p>To avoid dropping the application’s sandbox while querying components, the new <code>AudioComponentCopyConfigurationInfo</code> API can be used.</p><a name="//apple_ref/doc/uid/DTS40013335-CH1-SOURCECODE1" title="Listing 1Checking to see if an AudioComponent has a custom view without opening it."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Checking to see if an AudioComponent has a custom view without opening it.</p><div class="codesample clear"><table><tr><td scope="row"><pre>AudioComponentDescription delayDescription;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>delayDescription.componentType = kAudioUnitType_Effect;<span></span></pre></td></tr><tr><td scope="row"><pre>delayDescription.componentSubType = kAudioUnitSubType_Delay;<span></span></pre></td></tr><tr><td scope="row"><pre>delayDescription.componentManufacturer = kAudioUnitManufacturer_Apple;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AudioComponent delayReference = AudioComponentFindNext(NULL, &amp;delayDescription);<span></span></pre></td></tr><tr><td scope="row"><pre>NSDictionary *configDictionary;<span></span></pre></td></tr><tr><td scope="row"><pre>OSStatus result = AudioComponentCopyConfigurationInfo(delayReference, &amp;((CFDictionaryRef)configDictionary));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>if (result != noErr &amp;&amp; configDictionary) {<span></span></pre></td></tr><tr><td scope="row"><pre>    BOOL hasCustomView = [[configDictionary objectForKey:@kAudioUnitConfigurationInfo_HasCustomView] boolValue];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    NSLog(@“The delay effect %@ have a custom view”, hasCustomView ? @“does” : @“does not”);<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>For more information about this API, <span class="content_text"><a href="http://developer.apple.com/library/ios/#technotes/tn2247/_index.html" class="browserLink" >see Technical Note TN2247</a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013335-CH1-TNTAG6" title="Persistent File Access"></a><h2 class="jump">Persistent File Access</h2><p>Audio Unit hosts manage loading, saving, and restoring Audio Unit presets as well as Audio Unit state stored in their document files. As sandboxed hosts have restrictions on file access, care must be taken to ensure that files can be saved and reopened with a minimum of user interaction across launches and even by other Sandboxed Audio Unit Hosts.</p><p>This is further complicated by the fact that Audio Units may need access to external files, for example, a sample-based Instrument or a reverb effect that uses impulse response files to model its environments. The following sections discuss in detail changes that the host needs to make in order to load and save Audio Unit preset files and documents, ensuring that any external references are loadable by the Audio Unit.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013335-CH1-TNTAG7" title="Loading Audio Unit Preset Files"></a><h2 class="jump">Loading Audio Unit Preset Files</h2><p>Audio Units that reference external files and need the host to manage their file access will have a section in their preset file in the following format:</p><a name="//apple_ref/doc/uid/DTS40013335-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key&gt;file-references&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;File 1&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;string&gt;/Users/Apple/Music/Samples/Boink.aiff&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/dict&gt;<span></span></pre></td></tr></table></div><p>The file-references dictionary contains one or more key-value pairs where the value is the path to the file that needs to be accessed. If an Audio Unit Preset File does not contain this key, the host does not need to do any additional work.</p><p>In the above example, the file is accessible if the host has an entitlement to access the user’s Music folder. The host can load the AUPreset file since it has access to the file-reference used in the preset and by extension, so will the Audio Unit.</p><p>If however, the file system location is outside of the hosts’ container or in a location that is not accessible via an entitlement (such as on the desktop or an external volume), the host would have to ask permission from the user to access the file by going through Powerbox. See <span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/Security/Conceptual/AppSandboxDesignGuide/AboutAppSandbox/AboutAppSandbox.html#//apple_ref/doc/uid/TP40011183-CH1-SW1" class="browserLink" >App Sandbox Design Guide</a></span> for more information.</p><p>As this extra level of user interaction every time the preset is loaded may be undesirable to the user, the preset file has a standard mechanism for persistent secure file access. An additional key, file-secure-references, contains a dictionary that is similar to the file-references dictionary except that the value holds an NSData object that is a document-scoped security bookmark for the file specified by the key.</p><a name="//apple_ref/doc/uid/DTS40013335-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key&gt;file-secure-references&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;key&gt;File 1&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;data&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>        Ym9va9AC1THISISNOTVALIDDATAiVEKsUkH83gyyVB11mwqxk2XWd7RiOVDs<span></span></pre></td></tr><tr><td scope="row"><pre>        ...<span></span></pre></td></tr><tr><td scope="row"><pre>        DAgBAAAAAAAAEcAAABQAAAAAAAAAEsAAABgBAAAAAAAAENAAAKgBAAAAAAAA<span></span></pre></td></tr><tr><td scope="row"><pre>    &lt;/data&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/dict&gt;<span></span></pre></td></tr></table></div><p>If this key is present in the preset dictionary, the host can resolve the URL using <span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/CoreFoundation/Reference/CFURLRef/Reference/reference.html#//apple_ref/c/func/CFURLCreateByResolvingBookmarkData" class="browserLink" ><codeVoice>CFURLCreateByResolvingBookmarkData</codeVoice></a></span> and passing the URL to the preset file as the relativeToURL parameter. Note that a specific entitlement is required to be able to create security-scoped bookmarks.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40013335-CH1-FIGURE1" title="Figure 1"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;</figcaption><img src="Art/tn2312_PresetLoading.png" class="wide-image" alt="Figure 1 Art/tn2312_PresetLoading.png" width="860" height="1114"><img src="Art/tn2312_PresetLoading.png" class="ipad-scaled-image" alt="Figure 1 Art/tn2312_PresetLoading.png" width="670" height="867"></figure><p>The host should verify that the URL that is resolved in the bookmark data refers to the same file that is contained in the file-references dictionary with the matching key. If these differ, then the host should assume that the bookmark is stale and ask the user for permission to access the file (via a standard file dialog). If the user grants permission to access the file, the host should update the secure-file-references section with a newly created document-scoped bookmark based on the file the user has chosen in order to ensure persistent access to the file. The host should also update the file-references path entry if the user selects a different file.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40013335-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;For backwards compatibility, Audio Units will only ever read the file-references section of a preset file and it is the responsibility of the Host to keep it up to date and to ensure the path is accessible.</p><p></p></aside></div><p>Document-scoped bookmarks can only reference a single file, not a directory. The user will have to individually grant access to every single file used by the preset. That is why it is very important to store document-scoped bookmarks for each file so the user only has to grant access the first time the preset file is used.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013335-CH1-TNTAG8" title="Writing Audio Unit Presets"></a><h2 class="jump">Writing Audio Unit Presets</h2><p>The Host application needs to ensure that any newly created AUPreset files have a corresponding file-secure-references section for any file-references entries with valid document-scoped bookmarks. The document-scoped bookmark can be created by using either <span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/CoreFoundation/Reference/CFURLRef/Reference/reference.html%23//apple_ref/c/func/CFURLCreateBookmarkData" class="browserLink" ><codeVoice>CFURLCreateBookmarkData</codeVoice></a></span> or the corresponding methods in <span class="content_text"><a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/Reference/Reference.html" class="urlLink" rel="external"><codeVoice>NSURL</codeVoice></a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013335-CH1-TNTAG9" title="Saving and Restoring Application Documents"></a><h2 class="jump">Saving and Restoring Application Documents</h2><p>Application documents contain the saved state of every Audio Unit in its graph and they may also contain references to audio files. As with Audio Unit Presets, the host application is responsible for creating security-scoped bookmarks for each of these items that are outside of its accessible file-system so that documents can be reopened without user interaction. The bookmarks should be application-scoped as these files do not need to be opened by other hosts.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40013335-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40013335-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-03-06</td><td><p>Fixed bad URLs.</p></td></tr><tr><td scope="row">2013-05-16</td><td><p>New document that 
+					this guide provides an overview of the changes that an Audio Unit Host application needs to make in order to adopt the App Sandbox.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-03-06</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

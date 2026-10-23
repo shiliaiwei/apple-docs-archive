@@ -1,0 +1,1222 @@
+<html><head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Release Note">
+            <meta id="book-title" name="book-title" content="iOS 4.1 API Diffs">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Topic/General}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40010179">
+            <meta id="document-version" name="document-version" content="1.0.2">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="Document that lists new and changed API from iOS 4.0 to iOS 4.1.">
+            <meta id="resources-uri" name="resources-uri" content="../../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="iOS">
+<link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback.css" />
+
+<title>iOS 4.0 to iOS 4.1 API Differences</title>
+
+<style type="text/css">
+    
+    th, td { font-size: 10px; }  /*  For ADC header */
+    
+    #breadcrumb {
+        font-family: lucida grande, geneva, helvetica, arial, sans-serif;
+        font-size: 10px;
+        font-weight: normal;
+        margin-left: 10px;
+        margin-top: 8px;
+    }
+    
+    a:link          { color: #18396E; text-decoration: none; }
+    a:active        { color: #18396E; text-decoration: none; }
+    a:visited       { color: #003366; text-decoration: none; }
+    
+    a:link:hover    { color: #18396E; text-decoration: underline; }
+    a:visited:hover { color: #003366; text-decoration: underline; }
+    
+    div.diffReport {
+        font-size:12px;
+        font-family: lucida grande, geneva, helvetica, arial, sans-serif;
+        padding-bottom: 30px;
+    }
+    
+    .diffReport h1 {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font: bold 30px lucida grande, geneva, helvetica, arial, sans-serif;
+        color: #000;
+    }
+    .diffReport h2 {
+        margin-top: 40px;
+        margin-bottom: 15px;
+        font-size: 24px;
+        color: #000;
+        padding-bottom: 2px; border-bottom: 1px solid #919699;
+    }
+    
+    
+    .diffReport div.headerFile {
+        margin-left: 20px
+    }
+    .diffReport div.headerName {
+        margin:  15px 0px 10px -20px;
+        padding:  4px 4px  4px  20px;
+        font-weight: bold; font-size: 120%;
+        background-color: #F8F8F8;
+    }
+    
+    .diffReport table {
+        border: 1px #888 solid;
+        padding:2px; border-spacing:0px;
+        border-collapse: collapse;
+        margin-left: 40px;
+        margin-top: 7px
+    }
+    .diffReport td, .diffReport th {
+        font-size: 10px;
+        border: 1px #888 solid;
+        padding:3px 6px;
+    }
+    .diffReport th { font-size: 10px; text-align: center; background-color: #eee; }
+    .diffReport td { font-size: 90%;  text-align: left; }
+    
+    .diffReport .declaration { font-family: courier, monospace }
+    
+    .diffReport .nochange {
+        margin-left: 20px;
+        font-style: italic;
+        color:#888;
+    }
+    
+    .diffReport div.modified { margin-top: 5px }
+    .diffReport div.removed  { margin-top: 5px }
+    .diffReport div.added    { margin-top: 5px }
+    
+    .diffReport div.symbolName {
+        padding-left: 20px;
+        font-family: monospace;
+        font-size: 110%}
+    .diffReport span.symbolArch {
+        font-size: 80%;
+        font-style: italic;
+        color: #CCC;
+        padding-left: 20px; }
+    .diffReport span.noArch {
+        font-style: italic;
+     }
+    
+    
+    .diffReport .removed  .diffStatus {
+        font-style: italic; font-size: 80%; color:red;
+     }
+    .diffReport .added    .diffStatus {
+        font-style: italic; font-size: 80%; color:blue;
+    }
+    .diffReport .modified .diffStatus {
+        font-style: italic; font-size: 80%; color:#080;
+    }
+    
+    .diffReport .headerName .added:after {
+        content: " (Added)";   font-style: italic; font-size: 80%; color:blue;
+    }
+    .diffReport .headerName .removed:after {
+        content: " (Removed)"; font-style: italic; font-size: 80%; color:red;
+    }
+    
+</style>
+
+</head>
+
+<body id="StaticPage"><a name="//apple_ref/doc/uid/TP40010179" title="iOS 4.1 API Diffs"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>iOS 4.1 API Diffs</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              
+
+<!-- start of header -->
+
+<!-- end of header -->
+
+<!-- start of breadcrumb -->
+<!-- end of breadcrumb -->
+
+<div class="diffReport">
+<h1>iOS 4.0 to iOS 4.1 API Differences</h1>
+
+<h2>Accelerate</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/Accelerate.framework/Frameworks/vecLib.framework/Headers/vDSP.h'>vDSP.h</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/c/func/vDSP_zvcmulD'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/accelerate/1449764-vdsp_zvcmuld" class="urlLink">vDSP_zvcmulD()</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">void vDSP_zvcmulD ( DSPDoubleSplitComplex *__vDSP_A, vDSP_Stride __vDSP_I, DSPDoubleSplitComplex *__vDSP_B, vDSP_Stride __vDSP_J, DSPDoubleSplitComplex *__vDSP_C, vDSP_Stride __vDSP_K, vDSP_Length __vDSP_N);</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>void vDSP_zvcmulD ( const DSPDoubleSplitComplex *__vDSP_A, vDSP_Stride __vDSP_I, const DSPDoubleSplitComplex *__vDSP_B, vDSP_Stride __vDSP_J, const DSPDoubleSplitComplex *__vDSP_C, vDSP_Stride __vDSP_K, vDSP_Length __vDSP_N);</tt></td></tr></table><br>
+<div class='symbolName' title='//apple_ref/c/func/vDSP_zvcmul'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/accelerate/1450717-vdsp_zvcmul" class="urlLink">vDSP_zvcmul()</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">void vDSP_zvcmul ( DSPSplitComplex *__vDSP_A, vDSP_Stride __vDSP_I, DSPSplitComplex *__vDSP_B, vDSP_Stride __vDSP_J, DSPSplitComplex *__vDSP_C, vDSP_Stride __vDSP_K, vDSP_Length __vDSP_N);</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>void vDSP_zvcmul ( const DSPSplitComplex *__vDSP_A, vDSP_Stride __vDSP_I, const DSPSplitComplex *__vDSP_B, vDSP_Stride __vDSP_J, const DSPSplitComplex *__vDSP_C, vDSP_Stride __vDSP_K, vDSP_Length __vDSP_N);</tt></td></tr></table><br>
+<div class='symbolName' title='//apple_ref/c/func/vDSP_zvmulD'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/accelerate/1450390-vdsp_zvmuld" class="urlLink">vDSP_zvmulD()</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">void vDSP_zvmulD ( DSPDoubleSplitComplex *__vDSP_input1, vDSP_Stride __vDSP_stride1, DSPDoubleSplitComplex *__vDSP_input2, vDSP_Stride __vDSP_stride2, DSPDoubleSplitComplex *__vDSP_result, vDSP_Stride __vDSP_strideResult, vDSP_Length __vDSP_size, int __vDSP_conjugate);</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>void vDSP_zvmulD ( const DSPDoubleSplitComplex *__vDSP_input1, vDSP_Stride __vDSP_stride1, const DSPDoubleSplitComplex *__vDSP_input2, vDSP_Stride __vDSP_stride2, const DSPDoubleSplitComplex *__vDSP_result, vDSP_Stride __vDSP_strideResult, vDSP_Length __vDSP_size, int __vDSP_conjugate);</tt></td></tr></table><br>
+</div>
+</div>
+
+<h2>AddressBook</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AddressBook.framework/Headers/ABPerson.h'>ABPerson.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/func/ABPersonCopyImageDataWithFormat"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/addressbook/1619742-abpersoncopyimagedatawithformat" class="urlLink">ABPersonCopyImageDataWithFormat()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/ABPersonImageFormat"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/addressbook/abpersonimageformat" class="urlLink">ABPersonImageFormat</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kABPersonImageFormatOriginalSize"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/addressbook/abpersonimageformat/kabpersonimageformatoriginalsize" class="urlLink">kABPersonImageFormatOriginalSize</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kABPersonImageFormatThumbnail"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/addressbook/abpersonimageformat/kabpersonimageformatthumbnail" class="urlLink">kABPersonImageFormatThumbnail</a> </div>
+</div>
+</div>
+
+<h2>AddressBookUI</h2>
+<div class="nochange">No changes</div>
+
+<h2>AssetsLibrary</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AssetsLibrary.framework/Headers/ALAssetsLibrary.h'>ALAssetsLibrary.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instm/ALAssetsLibrary/writeImageDataToSavedPhotosAlbum:metadata:completionBlock:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/assetslibrary/alassetslibrary/1617926-writeimagedatatosavedphotosalbum" class="urlLink">-[ALAssetsLibrary writeImageDataToSavedPhotosAlbum:metadata:completionBlock:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/ALAssetsLibrary/writeImageToSavedPhotosAlbum:metadata:completionBlock:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/assetslibrary/alassetslibrary/1617898-writeimagetosavedphotosalbum" class="urlLink">-[ALAssetsLibrary writeImageToSavedPhotosAlbum:metadata:completionBlock:]</a> </div>
+</div>
+</div>
+
+<h2>AudioToolbox</h2>
+<div class="nochange">No changes</div>
+
+<h2>AudioUnit</h2>
+<div class="nochange">No changes</div>
+
+<h2>AVFoundation</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVAssetExportSession.h'>AVAssetExportSession.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/clm/AVAssetExportSession/exportSessionWithAsset:presetName:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetexportsession/1564246-exportsessionwithasset" class="urlLink">+[AVAssetExportSession exportSessionWithAsset:presetName:]</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVAssetReader.h'><span class="added">AVAssetReader.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/AVAssetReader"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader" class="urlLink">AVAssetReader</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetReader/addOutput:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1390110-addoutput" class="urlLink">-[AVAssetReader addOutput:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReader/asset"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1389128-asset" class="urlLink">AVAssetReader.asset</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/AVAssetReader/assetReaderWithAsset:error:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1420148-assetreaderwithasset" class="urlLink">+[AVAssetReader assetReaderWithAsset:error:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetReader/canAddOutput:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1387485-canadd" class="urlLink">-[AVAssetReader canAddOutput:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetReader/cancelReading"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1390258-cancelreading" class="urlLink">-[AVAssetReader cancelReading]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReader/error"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1388114-error" class="urlLink">AVAssetReader.error</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetReader/initWithAsset:error:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1385593-init" class="urlLink">-[AVAssetReader initWithAsset:error:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReader/outputs"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1387132-outputs" class="urlLink">AVAssetReader.outputs</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetReader/startReading"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1390286-startreading" class="urlLink">-[AVAssetReader startReading]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReader/status"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1390211-status" class="urlLink">AVAssetReader.status</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReader/timeRange"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/1386400-timerange" class="urlLink">AVAssetReader.timeRange</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/AVAssetReaderStatus"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/status" class="urlLink">AVAssetReaderStatus</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVAssetReaderStatusCancelled"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderstatus/avassetreaderstatuscancelled" class="urlLink">AVAssetReaderStatusCancelled</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVAssetReaderStatusCompleted"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/status/completed" class="urlLink">AVAssetReaderStatusCompleted</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVAssetReaderStatusFailed"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreader/status/failed" class="urlLink">AVAssetReaderStatusFailed</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVAssetReaderStatusReading"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderstatus/avassetreaderstatusreading" class="urlLink">AVAssetReaderStatusReading</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVAssetReaderStatusUnknown"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderstatus/avassetreaderstatusunknown" class="urlLink">AVAssetReaderStatusUnknown</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVAssetReaderOutput.h'><span class="added">AVAssetReaderOutput.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/AVAssetReaderAudioMixOutput"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderaudiomixoutput" class="urlLink">AVAssetReaderAudioMixOutput</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/AVAssetReaderAudioMixOutput/assetReaderAudioMixOutputWithAudioTracks:audioSettings:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderaudiomixoutput/1490328-assetreaderaudiomixoutputwithaud" class="urlLink">+[AVAssetReaderAudioMixOutput assetReaderAudioMixOutputWithAudioTracks:audioSettings:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReaderAudioMixOutput/audioMix"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderaudiomixoutput/1387074-audiomix" class="urlLink">AVAssetReaderAudioMixOutput.audioMix</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReaderAudioMixOutput/audioSettings"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderaudiomixoutput/1388860-audiosettings" class="urlLink">AVAssetReaderAudioMixOutput.audioSettings</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReaderAudioMixOutput/audioTracks"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderaudiomixoutput/1385635-audiotracks" class="urlLink">AVAssetReaderAudioMixOutput.audioTracks</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetReaderAudioMixOutput/initWithAudioTracks:audioSettings:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderaudiomixoutput/1388883-init" class="urlLink">-[AVAssetReaderAudioMixOutput initWithAudioTracks:audioSettings:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/AVAssetReaderOutput"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderoutput" class="urlLink">AVAssetReaderOutput</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetReaderOutput/copyNextSampleBuffer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderoutput/1385732-copynextsamplebuffer" class="urlLink">-[AVAssetReaderOutput copyNextSampleBuffer]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReaderOutput/mediaType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreaderoutput/1390880-mediatype" class="urlLink">AVAssetReaderOutput.mediaType</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/AVAssetReaderTrackOutput"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadertrackoutput" class="urlLink">AVAssetReaderTrackOutput</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/AVAssetReaderTrackOutput/assetReaderTrackOutputWithTrack:outputSettings:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadertrackoutput/1490322-assetreadertrackoutputwithtrack" class="urlLink">+[AVAssetReaderTrackOutput assetReaderTrackOutputWithTrack:outputSettings:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetReaderTrackOutput/initWithTrack:outputSettings:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadertrackoutput/1385807-init" class="urlLink">-[AVAssetReaderTrackOutput initWithTrack:outputSettings:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReaderTrackOutput/outputSettings"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadertrackoutput/1387163-outputsettings" class="urlLink">AVAssetReaderTrackOutput.outputSettings</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReaderTrackOutput/track"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadertrackoutput/1386921-track" class="urlLink">AVAssetReaderTrackOutput.track</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/AVAssetReaderVideoCompositionOutput"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadervideocompositionoutput" class="urlLink">AVAssetReaderVideoCompositionOutput</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/AVAssetReaderVideoCompositionOutput/assetReaderVideoCompositionOutputWithVideoTracks:videoSettings:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadervideocompositionoutput/1490331-assetreadervideocompositionoutpu" class="urlLink">+[AVAssetReaderVideoCompositionOutput assetReaderVideoCompositionOutputWithVideoTracks:videoSettings:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetReaderVideoCompositionOutput/initWithVideoTracks:videoSettings:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadervideocompositionoutput/1386676-init" class="urlLink">-[AVAssetReaderVideoCompositionOutput initWithVideoTracks:videoSettings:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReaderVideoCompositionOutput/videoComposition"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadervideocompositionoutput/1388927-videocomposition" class="urlLink">AVAssetReaderVideoCompositionOutput.videoComposition</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReaderVideoCompositionOutput/videoSettings"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadervideocompositionoutput/1389247-videosettings" class="urlLink">AVAssetReaderVideoCompositionOutput.videoSettings</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetReaderVideoCompositionOutput/videoTracks"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetreadervideocompositionoutput/1389000-videotracks" class="urlLink">AVAssetReaderVideoCompositionOutput.videoTracks</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVAssetWriter.h'><span class="added">AVAssetWriter.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/AVAssetWriter"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter" class="urlLink">AVAssetWriter</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriter/addInput:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1390389-addinput" class="urlLink">-[AVAssetWriter addInput:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/AVAssetWriter/assetWriterWithURL:fileType:error:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1426663-init" class="urlLink">+[AVAssetWriter assetWriterWithURL:fileType:error:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriter/availableMediaTypes"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1388730-availablemediatypes" class="urlLink">AVAssetWriter.availableMediaTypes</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriter/canAddInput:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1387863-canaddinput" class="urlLink">-[AVAssetWriter canAddInput:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriter/canApplyOutputSettings:forMediaType:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1388842-canapply" class="urlLink">-[AVAssetWriter canApplyOutputSettings:forMediaType:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriter/cancelWriting"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1387234-cancelwriting" class="urlLink">-[AVAssetWriter cancelWriting]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriter/endSessionAtSourceTime:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1389921-endsession" class="urlLink">-[AVAssetWriter endSessionAtSourceTime:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriter/error"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1390725-error" class="urlLink">AVAssetWriter.error</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriter/finishWriting"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1426644-finishwriting" class="urlLink">-[AVAssetWriter finishWriting]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriter/initWithURL:fileType:error:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1389201-init" class="urlLink">-[AVAssetWriter initWithURL:fileType:error:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriter/inputs"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1388264-inputs" class="urlLink">AVAssetWriter.inputs</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriter/metadata"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1387974-metadata" class="urlLink">AVAssetWriter.metadata</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriter/movieFragmentInterval"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1387469-moviefragmentinterval" class="urlLink">AVAssetWriter.movieFragmentInterval</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriter/outputFileType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1387349-outputfiletype" class="urlLink">AVAssetWriter.outputFileType</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriter/outputURL"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1387731-outputurl" class="urlLink">AVAssetWriter.outputURL</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriter/shouldOptimizeForNetworkUse"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1389811-shouldoptimizefornetworkuse" class="urlLink">AVAssetWriter.shouldOptimizeForNetworkUse</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriter/startSessionAtSourceTime:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1389908-startsessionatsourcetime" class="urlLink">-[AVAssetWriter startSessionAtSourceTime:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriter/startWriting"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1386724-startwriting" class="urlLink">-[AVAssetWriter startWriting]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriter/status"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1389335-status" class="urlLink">AVAssetWriter.status</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/AVAssetWriterStatus"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/status" class="urlLink">AVAssetWriterStatus</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVAssetWriterStatusCancelled"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/status/cancelled" class="urlLink">AVAssetWriterStatusCancelled</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVAssetWriterStatusCompleted"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterstatus/avassetwriterstatuscompleted" class="urlLink">AVAssetWriterStatusCompleted</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVAssetWriterStatusFailed"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterstatus/avassetwriterstatusfailed" class="urlLink">AVAssetWriterStatusFailed</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVAssetWriterStatusUnknown"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterstatus/avassetwriterstatusunknown" class="urlLink">AVAssetWriterStatusUnknown</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVAssetWriterStatusWriting"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/status/writing" class="urlLink">AVAssetWriterStatusWriting</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVAssetWriterInput.h'><span class="added">AVAssetWriterInput.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/AVAssetWriterInput"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput" class="urlLink">AVAssetWriterInput</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriterInput/appendSampleBuffer:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1389566-appendsamplebuffer" class="urlLink">-[AVAssetWriterInput appendSampleBuffer:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/AVAssetWriterInput/assetWriterInputWithMediaType:outputSettings:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1449070-assetwriterinputwithmediatype" class="urlLink">+[AVAssetWriterInput assetWriterInputWithMediaType:outputSettings:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriterInput/expectsMediaDataInRealTime"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1387827-expectsmediadatainrealtime" class="urlLink">AVAssetWriterInput.expectsMediaDataInRealTime</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriterInput/initWithMediaType:outputSettings:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1385912-init" class="urlLink">-[AVAssetWriterInput initWithMediaType:outputSettings:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriterInput/markAsFinished"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1390122-markasfinished" class="urlLink">-[AVAssetWriterInput markAsFinished]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriterInput/mediaType"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1385565-mediatype" class="urlLink">AVAssetWriterInput.mediaType</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriterInput/metadata"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1386328-metadata" class="urlLink">AVAssetWriterInput.metadata</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriterInput/outputSettings"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1388406-outputsettings" class="urlLink">AVAssetWriterInput.outputSettings</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriterInput/readyForMoreMediaData"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1389084-readyformoremediadata" class="urlLink">AVAssetWriterInput.readyForMoreMediaData</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriterInput/requestMediaDataWhenReadyOnQueue:usingBlock:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1387508-requestmediadatawhenready" class="urlLink">-[AVAssetWriterInput requestMediaDataWhenReadyOnQueue:usingBlock:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriterInput/transform"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1390183-transform" class="urlLink">AVAssetWriterInput.transform</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/AVAssetWriterInputPixelBufferAdaptor"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinputpixelbufferadaptor" class="urlLink">AVAssetWriterInputPixelBufferAdaptor</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriterInputPixelBufferAdaptor/appendPixelBuffer:withPresentationTime:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinputpixelbufferadaptor/1388102-append" class="urlLink">-[AVAssetWriterInputPixelBufferAdaptor appendPixelBuffer:withPresentationTime:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriterInputPixelBufferAdaptor/assetWriterInput"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinputpixelbufferadaptor/1387565-assetwriterinput" class="urlLink">AVAssetWriterInputPixelBufferAdaptor.assetWriterInput</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/AVAssetWriterInputPixelBufferAdaptor/assetWriterInputPixelBufferAdaptorWithAssetWriterInput:sourcePixelBufferAttributes:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinputpixelbufferadaptor/1449096-assetwriterinputpixelbufferadapt" class="urlLink">+[AVAssetWriterInputPixelBufferAdaptor assetWriterInputPixelBufferAdaptorWithAssetWriterInput:sourcePixelBufferAttributes:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAssetWriterInputPixelBufferAdaptor/initWithAssetWriterInput:sourcePixelBufferAttributes:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinputpixelbufferadaptor/1390639-init" class="urlLink">-[AVAssetWriterInputPixelBufferAdaptor initWithAssetWriterInput:sourcePixelBufferAttributes:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriterInputPixelBufferAdaptor/pixelBufferPool"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinputpixelbufferadaptor/1389662-pixelbufferpool" class="urlLink">AVAssetWriterInputPixelBufferAdaptor.pixelBufferPool</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriterInputPixelBufferAdaptor/sourcePixelBufferAttributes"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinputpixelbufferadaptor/1387829-sourcepixelbufferattributes" class="urlLink">AVAssetWriterInputPixelBufferAdaptor.sourcePixelBufferAttributes</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVAudioSettings.h'>AVAudioSettings.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/AVLinearPCMIsNonInterleavedKey"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avlinearpcmisnoninterleavedkey" class="urlLink">#def AVLinearPCMIsNonInterleavedKey</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVCompositionTrackSegment.h'>AVCompositionTrackSegment.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/AVCompositionTrackSegment/empty"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avcompositiontracksegment/1389592-isempty" class="urlLink">AVCompositionTrackSegment.empty</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVPlayer.h'>AVPlayer.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/AVQueuePlayer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avqueueplayer" class="urlLink">AVQueuePlayer</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVQueuePlayer/advanceToNextItem"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avqueueplayer/1389318-advancetonextitem" class="urlLink">-[AVQueuePlayer advanceToNextItem]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVQueuePlayer/canInsertItem:afterItem:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avqueueplayer/1387289-caninsertitem" class="urlLink">-[AVQueuePlayer canInsertItem:afterItem:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVQueuePlayer/initWithItems:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avqueueplayer/1389345-initwithitems" class="urlLink">-[AVQueuePlayer initWithItems:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVQueuePlayer/insertItem:afterItem:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avqueueplayer/1388543-insertitem" class="urlLink">-[AVQueuePlayer insertItem:afterItem:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVQueuePlayer/items"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avqueueplayer/1390539-items" class="urlLink">-[AVQueuePlayer items]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/AVQueuePlayer/queuePlayerWithItems:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avqueueplayer/1538384-queueplayerwithitems" class="urlLink">+[AVQueuePlayer queuePlayerWithItems:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVQueuePlayer/removeAllItems"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avqueueplayer/1385788-removeallitems" class="urlLink">-[AVQueuePlayer removeAllItems]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVQueuePlayer/removeItem:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avqueueplayer/1387400-remove" class="urlLink">-[AVQueuePlayer removeItem:]</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVPlayerActionAtItemEndAdvance"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeractionatitemend/avplayeractionatitemendadvance" class="urlLink">AVPlayerActionAtItemEndAdvance</a> </div>
+</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/occ/clm/AVPlayer/playerWithPlayerItem:'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayer/1538390-playerwithplayeritem" class="urlLink">+[AVPlayer playerWithPlayerItem:]</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">+ (AVPlayer *)playerWithPlayerItem:(AVPlayerItem *)item</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>+ (id)playerWithPlayerItem:(AVPlayerItem *)item</tt></td></tr></table><br>
+<div class='symbolName' title='//apple_ref/occ/clm/AVPlayer/playerWithURL:'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayer/1538409-playerwithurl" class="urlLink">+[AVPlayer playerWithURL:]</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">+ (AVPlayer *)playerWithURL:(NSURL *)URL</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>+ (id)playerWithURL:(NSURL *)URL</tt></td></tr></table><br>
+</div>
+</div>
+
+<h2>CFNetwork</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreAudio</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreData</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreData.framework/Headers/CoreDataDefines.h'>CoreDataDefines.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/NSCoreDataVersionNumber_iOS_4_0"><span class="diffStatus">Added</span> <!--a -->#def NSCoreDataVersionNumber_iOS_4_0<!--/a--> </div>
+</div>
+</div>
+
+<h2>CoreFoundation</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreGraphics</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreLocation</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreMedia</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreMotion</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreTelephony</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreText</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTFontManager.h'><span class="added">CTFontManager.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/tdef/CTFontManagerAutoActivationSetting"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagerautoactivationsetting" class="urlLink">CTFontManagerAutoActivationSetting</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CTFontManagerRegisterFontsForURL"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/1499468-ctfontmanagerregisterfontsforurl" class="urlLink">CTFontManagerRegisterFontsForURL()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CTFontManagerRegisterFontsForURLs"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/1499470-ctfontmanagerregisterfontsforurl" class="urlLink">CTFontManagerRegisterFontsForURLs()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CTFontManagerRegisterGraphicsFont"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/1499499-ctfontmanagerregistergraphicsfon" class="urlLink">CTFontManagerRegisterGraphicsFont()</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/CTFontManagerScope"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagerscope" class="urlLink">CTFontManagerScope</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CTFontManagerUnregisterFontsForURL"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/1499496-ctfontmanagerunregisterfontsforu" class="urlLink">CTFontManagerUnregisterFontsForURL()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CTFontManagerUnregisterFontsForURLs"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/1499477-ctfontmanagerunregisterfontsforu" class="urlLink">CTFontManagerUnregisterFontsForURLs()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CTFontManagerUnregisterGraphicsFont"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/1499472-ctfontmanagerunregistergraphicsf" class="urlLink">CTFontManagerUnregisterGraphicsFont()</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerAutoActivationDefault"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagerautoactivationsetting/kctfontmanagerautoactivationdefault" class="urlLink">kCTFontManagerAutoActivationDefault</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerAutoActivationDisabled"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagerautoactivationsetting/kctfontmanagerautoactivationdisabled" class="urlLink">kCTFontManagerAutoActivationDisabled</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerAutoActivationEnabled"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagerautoactivationsetting/kctfontmanagerautoactivationenabled" class="urlLink">kCTFontManagerAutoActivationEnabled</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerAutoActivationPromptUser"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagerautoactivationsetting/promptuser" class="urlLink">kCTFontManagerAutoActivationPromptUser</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerScopeNone"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagerscope/none" class="urlLink">kCTFontManagerScopeNone</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerScopeProcess"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagerscope/process" class="urlLink">kCTFontManagerScopeProcess</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerScopeSession"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagerscope/kctfontmanagerscopesession" class="urlLink">kCTFontManagerScopeSession</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerScopeUser"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagerscope/user" class="urlLink">kCTFontManagerScopeUser</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTFontManagerErrors.h'><span class="added">CTFontManagerErrors.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/tdef/CTFontManagerError"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagererror" class="urlLink">CTFontManagerError</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerErrorAlreadyRegistered"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagererror/kctfontmanagererroralreadyregistered" class="urlLink">kCTFontManagerErrorAlreadyRegistered</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCTFontManagerErrorDomain"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/kctfontmanagererrordomain" class="urlLink">kCTFontManagerErrorDomain</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerErrorFileNotFound"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagererror/filenotfound" class="urlLink">kCTFontManagerErrorFileNotFound</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCTFontManagerErrorFontURLsKey"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/kctfontmanagererrorfonturlskey" class="urlLink">kCTFontManagerErrorFontURLsKey</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerErrorInUse"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagererror/kctfontmanagererrorinuse" class="urlLink">kCTFontManagerErrorInUse</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerErrorInsufficientPermissions"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagererror/insufficientpermissions" class="urlLink">kCTFontManagerErrorInsufficientPermissions</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerErrorInvalidFontData"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagererror/kctfontmanagererrorinvalidfontdata" class="urlLink">kCTFontManagerErrorInvalidFontData</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerErrorNotRegistered"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagererror/notregistered" class="urlLink">kCTFontManagerErrorNotRegistered</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerErrorSystemRequired"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagererror/kctfontmanagererrorsystemrequired" class="urlLink">kCTFontManagerErrorSystemRequired</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontManagerErrorUnrecognizedFormat"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontmanagererror/kctfontmanagererrorunrecognizedformat" class="urlLink">kCTFontManagerErrorUnrecognizedFormat</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTStringAttributes.h'>CTStringAttributes.h</div>
+<div class='removed'>
+<div class="symbolName" title="//apple_ref/c/data/kCTVerticalFormsAttributeName"><span class="diffStatus">Removed</span> <a href="https://developer.apple.com/documentation/coretext/kctverticalformsattributename" class="urlLink">kCTVerticalFormsAttributeName</a> </div>
+</div>
+</div>
+
+<h2>CoreVideo</h2>
+<div class="nochange">No changes</div>
+
+<h2>EventKit</h2>
+<div class="nochange">No changes</div>
+
+<h2>EventKitUI</h2>
+<div class="nochange">No changes</div>
+
+<h2>ExternalAccessory</h2>
+<div class="nochange">No changes</div>
+
+<h2>Foundation</h2>
+<div class="nochange">No changes</div>
+
+<h2>GameKit</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKAchievement.h'><span class="added">GKAchievement.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKAchievement"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement" class="urlLink">GKAchievement</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievement/completed"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement/1521050-completed" class="urlLink">GKAchievement.completed</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievement/hidden"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement/1521136-ishidden" class="urlLink">GKAchievement.hidden</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievement/identifier"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement/1520631-identifier" class="urlLink">GKAchievement.identifier</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKAchievement/initWithIdentifier:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement/1520622-init" class="urlLink">-[GKAchievement initWithIdentifier:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievement/lastReportedDate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement/1520993-lastreporteddate" class="urlLink">GKAchievement.lastReportedDate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKAchievement/loadAchievementsWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement/1520748-loadachievements" class="urlLink">+[GKAchievement loadAchievementsWithCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievement/percentComplete"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement/1520939-percentcomplete" class="urlLink">GKAchievement.percentComplete</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKAchievement/reportAchievementWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement/1521108-reportachievementwithcompletionh" class="urlLink">-[GKAchievement reportAchievementWithCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKAchievement/resetAchievementsWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievement/1520717-resetachievementswithcompletionh" class="urlLink">+[GKAchievement resetAchievementsWithCompletionHandler:]</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKAchievementDescription.h'><span class="added">GKAchievementDescription.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKAchievementDescription"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription" class="urlLink">GKAchievementDescription</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievementDescription/achievedDescription"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416598-achieveddescription" class="urlLink">GKAchievementDescription.achievedDescription</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievementDescription/hidden"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416582-hidden" class="urlLink">GKAchievementDescription.hidden</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievementDescription/identifier"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416586-identifier" class="urlLink">GKAchievementDescription.identifier</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievementDescription/image"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416591-image" class="urlLink">GKAchievementDescription.image</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKAchievementDescription/incompleteAchievementImage"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416600-incompleteachievementimage" class="urlLink">+[GKAchievementDescription incompleteAchievementImage]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKAchievementDescription/loadAchievementDescriptionsWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416601-loadachievementdescriptionswithc" class="urlLink">+[GKAchievementDescription loadAchievementDescriptionsWithCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKAchievementDescription/loadImageWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416596-loadimage" class="urlLink">-[GKAchievementDescription loadImageWithCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievementDescription/maximumPoints"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416589-maximumpoints" class="urlLink">GKAchievementDescription.maximumPoints</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKAchievementDescription/placeholderCompletedAchievementImage"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416580-placeholdercompletedachievementi" class="urlLink">+[GKAchievementDescription placeholderCompletedAchievementImage]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievementDescription/title"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416602-title" class="urlLink">GKAchievementDescription.title</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievementDescription/unachievedDescription"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementdescription/1416584-unachieveddescription" class="urlLink">GKAchievementDescription.unachievedDescription</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKAchievementViewController.h'><span class="added">GKAchievementViewController.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKAchievementViewController"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementviewcontroller" class="urlLink">GKAchievementViewController</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKAchievementViewController/achievementDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementviewcontroller/1520486-achievementdelegate" class="urlLink">GKAchievementViewController.achievementDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intf/GKAchievementViewControllerDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementviewcontrollerdelegate" class="urlLink">GKAchievementViewControllerDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKAchievementViewControllerDelegate/achievementViewControllerDidFinish:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkachievementviewcontrollerdelegate/1521156-achievementviewcontrollerdidfini" class="urlLink">-[GKAchievementViewControllerDelegate achievementViewControllerDidFinish:]</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKError.h'><span class="added">GKError.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorAuthenticationInProgress"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerrorcode/gkerrorauthenticationinprogress" class="urlLink">GKErrorAuthenticationInProgress</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorCancelled"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerror/code/cancelled" class="urlLink">GKErrorCancelled</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/GKErrorCode"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerrorcode" class="urlLink">GKErrorCode</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorCommunicationsFailure"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerror/code/communicationsfailure" class="urlLink">GKErrorCommunicationsFailure</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/GKErrorDomain"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerrordomain" class="urlLink">GKErrorDomain</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorGameUnrecognized"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerror/code/gameunrecognized" class="urlLink">GKErrorGameUnrecognized</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorInvalidCredentials"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerror/code/invalidcredentials" class="urlLink">GKErrorInvalidCredentials</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorInvalidPlayer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerrorcode/gkerrorinvalidplayer" class="urlLink">GKErrorInvalidPlayer</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorMatchRequestInvalid"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerror/code/matchrequestinvalid" class="urlLink">GKErrorMatchRequestInvalid</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorNotAuthenticated"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerrorcode/gkerrornotauthenticated" class="urlLink">GKErrorNotAuthenticated</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorNotSupported"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerror/code/notsupported" class="urlLink">GKErrorNotSupported</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorParentalControlsBlocked"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerrorcode/gkerrorparentalcontrolsblocked" class="urlLink">GKErrorParentalControlsBlocked</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorPlayerStatusExceedsMaximumLength"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerrorcode/gkerrorplayerstatusexceedsmaximumlength" class="urlLink">GKErrorPlayerStatusExceedsMaximumLength</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorPlayerStatusInvalid"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerror/code/playerstatusinvalid" class="urlLink">GKErrorPlayerStatusInvalid</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorScoreNotSet"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerrorcode/gkerrorscorenotset" class="urlLink">GKErrorScoreNotSet</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorUnderage"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerror/code/underage" class="urlLink">GKErrorUnderage</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorUnknown"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerror/code/unknown" class="urlLink">GKErrorUnknown</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKErrorUserDenied"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkerrorcode/gkerroruserdenied" class="urlLink">GKErrorUserDenied</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKLeaderboard.h'><span class="added">GKLeaderboard.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKLeaderboard"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard" class="urlLink">GKLeaderboard</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboard/category"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503154-category" class="urlLink">GKLeaderboard.category</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKLeaderboard/init"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503125-init" class="urlLink">-[GKLeaderboard init]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKLeaderboard/initWithPlayerIDs:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503132-init" class="urlLink">-[GKLeaderboard initWithPlayerIDs:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKLeaderboard/loadCategoriesWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503155-loadcategories" class="urlLink">+[GKLeaderboard loadCategoriesWithCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKLeaderboard/loadScoresWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503160-loadscoreswithcompletionhandler" class="urlLink">-[GKLeaderboard loadScoresWithCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboard/loading"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503163-loading" class="urlLink">GKLeaderboard.loading</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboard/localPlayerScore"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503151-localplayerscore" class="urlLink">GKLeaderboard.localPlayerScore</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboard/maxRange"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503136-maxrange" class="urlLink">GKLeaderboard.maxRange</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboard/playerScope"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503165-playerscope" class="urlLink">GKLeaderboard.playerScope</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboard/range"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503144-range" class="urlLink">GKLeaderboard.range</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboard/scores"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503159-scores" class="urlLink">GKLeaderboard.scores</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboard/timeScope"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503130-timescope" class="urlLink">GKLeaderboard.timeScope</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboard/title"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboard/1503139-title" class="urlLink">GKLeaderboard.title</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/GKLeaderboardPlayerScope"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardplayerscope" class="urlLink">GKLeaderboardPlayerScope</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKLeaderboardPlayerScopeFriendsOnly"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardplayerscope/friendsonly" class="urlLink">GKLeaderboardPlayerScopeFriendsOnly</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKLeaderboardPlayerScopeGlobal"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardplayerscope/gkleaderboardplayerscopeglobal" class="urlLink">GKLeaderboardPlayerScopeGlobal</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/GKLeaderboardTimeScope"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardtimescope" class="urlLink">GKLeaderboardTimeScope</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKLeaderboardTimeScopeAllTime"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardtimescope/gkleaderboardtimescopealltime" class="urlLink">GKLeaderboardTimeScopeAllTime</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKLeaderboardTimeScopeToday"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardtimescope/gkleaderboardtimescopetoday" class="urlLink">GKLeaderboardTimeScopeToday</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKLeaderboardTimeScopeWeek"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardtimescope/week" class="urlLink">GKLeaderboardTimeScopeWeek</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKLeaderboardViewController.h'><span class="added">GKLeaderboardViewController.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKLeaderboardViewController"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardviewcontroller" class="urlLink">GKLeaderboardViewController</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboardViewController/category"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardviewcontroller/1520506-category" class="urlLink">GKLeaderboardViewController.category</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboardViewController/leaderboardDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardviewcontroller/1520996-leaderboarddelegate" class="urlLink">GKLeaderboardViewController.leaderboardDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLeaderboardViewController/timeScope"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardviewcontroller/1520521-timescope" class="urlLink">GKLeaderboardViewController.timeScope</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intf/GKLeaderboardViewControllerDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardviewcontrollerdelegate" class="urlLink">GKLeaderboardViewControllerDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKLeaderboardViewControllerDelegate/leaderboardViewControllerDidFinish:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkleaderboardviewcontrollerdelegate/1521097-leaderboardviewcontrollerdidfini" class="urlLink">-[GKLeaderboardViewControllerDelegate leaderboardViewControllerDidFinish:]</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKLocalPlayer.h'><span class="added">GKLocalPlayer.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKLocalPlayer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gklocalplayer" class="urlLink">GKLocalPlayer</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKLocalPlayer/authenticateWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gklocalplayer/1515406-authenticatewithcompletionhandle" class="urlLink">-[GKLocalPlayer authenticateWithCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLocalPlayer/authenticated"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gklocalplayer/1515402-isauthenticated" class="urlLink">GKLocalPlayer.authenticated</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLocalPlayer/friends"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gklocalplayer/1515405-friends" class="urlLink">GKLocalPlayer.friends</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKLocalPlayer/loadFriendsWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gklocalplayer/1515391-loadfriendswithcompletionhandler" class="urlLink">-[GKLocalPlayer loadFriendsWithCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKLocalPlayer/localPlayer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gklocalplayer/1515401-localplayer" class="urlLink">+[GKLocalPlayer localPlayer]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKLocalPlayer/underage"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gklocalplayer/1515394-underage" class="urlLink">GKLocalPlayer.underage</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/GKPlayerAuthenticationDidChangeNotificationName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayerauthenticationdidchangenotificationname" class="urlLink">GKPlayerAuthenticationDidChangeNotificationName</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKMatch.h'><span class="added">GKMatch.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKMatch"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatch" class="urlLink">GKMatch</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatch/delegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatch/1502046-delegate" class="urlLink">GKMatch.delegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatch/disconnect"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatch/1502062-disconnect" class="urlLink">-[GKMatch disconnect]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatch/expectedPlayerCount"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatch/1502051-expectedplayercount" class="urlLink">GKMatch.expectedPlayerCount</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatch/playerIDs"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatch/1502064-playerids" class="urlLink">GKMatch.playerIDs</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatch/sendData:toPlayers:withDataMode:error:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatch/1502033-send" class="urlLink">-[GKMatch sendData:toPlayers:withDataMode:error:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatch/sendDataToAllPlayers:withDataMode:error:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatch/1502029-senddatatoallplayers" class="urlLink">-[GKMatch sendDataToAllPlayers:withDataMode:error:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatch/voiceChatWithName:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatch/1502066-voicechat" class="urlLink">-[GKMatch voiceChatWithName:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intf/GKMatchDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchdelegate" class="urlLink">GKMatchDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKMatchDelegate/match:connectionWithPlayerFailed:withError:"><span class="diffStatus">Added</span> <!--a -->-[GKMatchDelegate match:connectionWithPlayerFailed:withError:]<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKMatchDelegate/match:didFailWithError:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchdelegate/1502025-match" class="urlLink">-[GKMatchDelegate match:didFailWithError:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKMatchDelegate/match:didReceiveData:fromPlayer:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchdelegate/1502054-match" class="urlLink">-[GKMatchDelegate match:didReceiveData:fromPlayer:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKMatchDelegate/match:player:didChangeState:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchdelegate/1502028-match" class="urlLink">-[GKMatchDelegate match:player:didChangeState:]</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/GKMatchSendDataMode"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchsenddatamode" class="urlLink">GKMatchSendDataMode</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKMatchSendDataReliable"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchsenddatamode/gkmatchsenddatareliable" class="urlLink">GKMatchSendDataReliable</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKMatchSendDataUnreliable"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchsenddatamode/unreliable" class="urlLink">GKMatchSendDataUnreliable</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/GKPlayerConnectionState"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayerconnectionstate" class="urlLink">GKPlayerConnectionState</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKPlayerStateConnected"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayerconnectionstate/stateconnected" class="urlLink">GKPlayerStateConnected</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKPlayerStateDisconnected"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayerconnectionstate/statedisconnected" class="urlLink">GKPlayerStateDisconnected</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKPlayerStateUnknown"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayerconnectionstate/gkplayerstateunknown" class="urlLink">GKPlayerStateUnknown</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKMatchmaker.h'><span class="added">GKMatchmaker.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKInvite"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkinvite" class="urlLink">GKInvite</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKInvite/hosted"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkinvite/1520458-hosted" class="urlLink">GKInvite.hosted</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKInvite/inviter"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkinvite/1520959-inviter" class="urlLink">GKInvite.inviter</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/GKMatchRequest"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchrequest" class="urlLink">GKMatchRequest</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatchRequest/maxPlayers"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchrequest/1521083-maxplayers" class="urlLink">GKMatchRequest.maxPlayers</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatchRequest/minPlayers"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchrequest/1520550-minplayers" class="urlLink">GKMatchRequest.minPlayers</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatchRequest/playerAttributes"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchrequest/1520912-playerattributes" class="urlLink">GKMatchRequest.playerAttributes</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatchRequest/playerGroup"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchrequest/1521071-playergroup" class="urlLink">GKMatchRequest.playerGroup</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatchRequest/playersToInvite"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchrequest/1520921-playerstoinvite" class="urlLink">GKMatchRequest.playersToInvite</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/GKMatchmaker"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmaker" class="urlLink">GKMatchmaker</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatchmaker/addPlayersToMatch:matchRequest:completionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmaker/1520561-addplayerstomatch" class="urlLink">-[GKMatchmaker addPlayersToMatch:matchRequest:completionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatchmaker/cancel"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmaker/1520882-cancel" class="urlLink">-[GKMatchmaker cancel]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatchmaker/findMatchForRequest:withCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmaker/1520777-findmatch" class="urlLink">-[GKMatchmaker findMatchForRequest:withCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatchmaker/findPlayersForHostedMatchRequest:withCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmaker/1520915-findplayersforhostedmatchrequest" class="urlLink">-[GKMatchmaker findPlayersForHostedMatchRequest:withCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatchmaker/inviteHandler"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmaker/1521060-invitehandler" class="urlLink">GKMatchmaker.inviteHandler</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatchmaker/queryActivityWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmaker/1520930-queryactivity" class="urlLink">-[GKMatchmaker queryActivityWithCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatchmaker/queryPlayerGroupActivity:withCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmaker/1521189-queryplayergroupactivity" class="urlLink">-[GKMatchmaker queryPlayerGroupActivity:withCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKMatchmaker/sharedMatchmaker"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmaker/1520781-sharedmatchmaker" class="urlLink">+[GKMatchmaker sharedMatchmaker]</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKMatchmakerViewController.h'><span class="added">GKMatchmakerViewController.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKMatchmakerViewController"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontroller" class="urlLink">GKMatchmakerViewController</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatchmakerViewController/hosted"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontroller/1492414-ishosted" class="urlLink">GKMatchmakerViewController.hosted</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatchmakerViewController/initWithInvite:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontroller/1492434-init" class="urlLink">-[GKMatchmakerViewController initWithInvite:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatchmakerViewController/initWithMatchRequest:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontroller/1492423-initwithmatchrequest" class="urlLink">-[GKMatchmakerViewController initWithMatchRequest:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatchmakerViewController/matchRequest"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontroller/1492410-matchrequest" class="urlLink">GKMatchmakerViewController.matchRequest</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKMatchmakerViewController/matchmakerDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontroller/1492426-matchmakerdelegate" class="urlLink">GKMatchmakerViewController.matchmakerDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKMatchmakerViewController/setHostedPlayerReady:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontroller/1620326-sethostedplayerready" class="urlLink">-[GKMatchmakerViewController setHostedPlayerReady:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intf/GKMatchmakerViewControllerDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontrollerdelegate" class="urlLink">GKMatchmakerViewControllerDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKMatchmakerViewControllerDelegate/matchmakerViewController:didFailWithError:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontrollerdelegate/1492419-matchmakerviewcontroller" class="urlLink">-[GKMatchmakerViewControllerDelegate matchmakerViewController:didFailWithError:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKMatchmakerViewControllerDelegate/matchmakerViewController:didFindMatch:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontrollerdelegate/1492416-matchmakerviewcontroller" class="urlLink">-[GKMatchmakerViewControllerDelegate matchmakerViewController:didFindMatch:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKMatchmakerViewControllerDelegate/matchmakerViewController:didFindPlayers:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontrollerdelegate/1492428-matchmakerviewcontroller" class="urlLink">-[GKMatchmakerViewControllerDelegate matchmakerViewController:didFindPlayers:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/GKMatchmakerViewControllerDelegate/matchmakerViewControllerWasCancelled:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkmatchmakerviewcontrollerdelegate/1492432-matchmakerviewcontrollerwascance" class="urlLink">-[GKMatchmakerViewControllerDelegate matchmakerViewControllerWasCancelled:]</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKPlayer.h'><span class="added">GKPlayer.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKPlayer"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayer" class="urlLink">GKPlayer</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKPlayer/alias"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayer/1520970-alias" class="urlLink">GKPlayer.alias</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKPlayer/isFriend"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayer/1520467-isfriend" class="urlLink">GKPlayer.isFriend</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKPlayer/loadPlayersForIdentifiers:withCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayer/1520723-loadplayersforidentifiers" class="urlLink">+[GKPlayer loadPlayersForIdentifiers:withCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKPlayer/playerID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayer/1521127-playerid" class="urlLink">GKPlayer.playerID</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/GKPlayerDidChangeNotificationName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkplayerdidchangenotificationname" class="urlLink">GKPlayerDidChangeNotificationName</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKScore.h'><span class="added">GKScore.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKScore"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkscore" class="urlLink">GKScore</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKScore/category"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkscore/1399225-category" class="urlLink">GKScore.category</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKScore/date"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkscore/1399234-date" class="urlLink">GKScore.date</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKScore/formattedValue"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkscore/1399221-formattedvalue" class="urlLink">GKScore.formattedValue</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKScore/initWithCategory:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkscore/1399242-init" class="urlLink">-[GKScore initWithCategory:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKScore/playerID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkscore/1399232-playerid" class="urlLink">GKScore.playerID</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKScore/rank"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkscore/1399244-rank" class="urlLink">GKScore.rank</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKScore/reportScoreWithCompletionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkscore/1399223-report" class="urlLink">-[GKScore reportScoreWithCompletionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKScore/value"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkscore/1399236-value" class="urlLink">GKScore.value</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKVoiceChat.h'><span class="added">GKVoiceChat.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/GKVoiceChat"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechat" class="urlLink">GKVoiceChat</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKVoiceChat/active"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechat/1385697-active" class="urlLink">GKVoiceChat.active</a> </div>
+<div class="symbolName" title="//apple_ref/occ/clm/GKVoiceChat/isVoIPAllowed"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechat/1385703-isvoipallowed" class="urlLink">+[GKVoiceChat isVoIPAllowed]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKVoiceChat/name"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechat/1385707-name" class="urlLink">GKVoiceChat.name</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKVoiceChat/playerStateUpdateHandler"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechat/1385705-playerstateupdatehandler" class="urlLink">GKVoiceChat.playerStateUpdateHandler</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKVoiceChat/setMute:forPlayer:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechat/1385711-setmute" class="urlLink">-[GKVoiceChat setMute:forPlayer:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKVoiceChat/start"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechat/1385709-start" class="urlLink">-[GKVoiceChat start]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/GKVoiceChat/stop"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechat/1385715-stop" class="urlLink">-[GKVoiceChat stop]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/GKVoiceChat/volume"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechat/1385691-volume" class="urlLink">GKVoiceChat.volume</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKVoiceChatPlayerConnected"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechatplayerstate/connected" class="urlLink">GKVoiceChatPlayerConnected</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKVoiceChatPlayerDisconnected"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechatplayerstate/gkvoicechatplayerdisconnected" class="urlLink">GKVoiceChatPlayerDisconnected</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKVoiceChatPlayerSilent"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechatplayerstate/gkvoicechatplayersilent" class="urlLink">GKVoiceChatPlayerSilent</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/GKVoiceChatPlayerSpeaking"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechatplayerstate/speaking" class="urlLink">GKVoiceChatPlayerSpeaking</a> </div>
+<div class="symbolName" title="//apple_ref/c/tdef/GKVoiceChatPlayerState"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechatplayerstate" class="urlLink">GKVoiceChatPlayerState</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/GameKit.framework/Headers/GKVoiceChatService.h'>GKVoiceChatService.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/clm/GKVoiceChatService/isVoIPAllowed"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/gamekit/gkvoicechatservice/1624549-isvoipallowed" class="urlLink">+[GKVoiceChatService isVoIPAllowed]</a> </div>
+</div>
+</div>
+
+<h2>iAd</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/iAd.framework/Headers/ADBannerView.h'>ADBannerView.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/ADErrorBannerVisibleWithoutContent"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/aderror/code/bannervisiblewithoutcontent" class="urlLink">ADErrorBannerVisibleWithoutContent</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/ADErrorConfigurationError"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/aderror/code/configurationerror" class="urlLink">ADErrorConfigurationError</a> </div>
+</div>
+</div>
+
+<h2>ImageIO</h2>
+<div class="nochange">No changes</div>
+
+<h2>MapKit</h2>
+<div class="nochange">No changes</div>
+
+<h2>MediaPlayer</h2>
+<div class="nochange">No changes</div>
+
+<h2>MessageUI</h2>
+<div class="nochange">No changes</div>
+
+<h2>MobileCoreServices</h2>
+<div class="nochange">No changes</div>
+
+<h2>OpenAL</h2>
+<div class="nochange">No changes</div>
+
+<h2>OpenGLES</h2>
+<div class="nochange">No changes</div>
+
+<h2>QuartzCore</h2>
+<div class="nochange">No changes</div>
+
+<h2>QuickLook</h2>
+<div class="nochange">No changes</div>
+
+<h2>Security</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/Security.framework/Headers/SecKey.h'>SecKey.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kSecPaddingOAEP"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/security/secpadding/1617929-oaep" class="urlLink">kSecPaddingOAEP</a> </div>
+</div>
+</div>
+
+<h2>StoreKit</h2>
+<div class="nochange">No changes</div>
+
+<h2>SystemConfiguration</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/SystemConfiguration.framework/Headers/CaptiveNetwork.h'>CaptiveNetwork.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/func/CNCopyCurrentNetworkInfo"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/systemconfiguration/1614126-cncopycurrentnetworkinfo" class="urlLink">CNCopyCurrentNetworkInfo()</a> </div>
+<div class="symbolName" title="//apple_ref/c/func/CNCopySupportedInterfaces"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/systemconfiguration/1494829-cncopysupportedinterfaces" class="urlLink">CNCopySupportedInterfaces()</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCNNetworkInfoKeyBSSID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/systemconfiguration/kcnnetworkinfokeybssid" class="urlLink">kCNNetworkInfoKeyBSSID</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCNNetworkInfoKeySSID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/systemconfiguration/kcnnetworkinfokeyssid" class="urlLink">kCNNetworkInfoKeySSID</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCNNetworkInfoKeySSIDData"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/systemconfiguration/kcnnetworkinfokeyssiddata" class="urlLink">kCNNetworkInfoKeySSIDData</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/SystemConfiguration.framework/Headers/SCNetworkConnection.h'>SCNetworkConnection.h</div>
+<div class='removed'>
+<div class="symbolName" title="//apple_ref/c/func/defined"><span class="diffStatus">Removed</span> <!--a -->defined()<!--/a--> </div>
+</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/kSCNetworkConnectionBytesIn"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/systemconfiguration/kscnetworkconnectionbytesin" class="urlLink">#def kSCNetworkConnectionBytesIn</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/SystemConfiguration.framework/Headers/SCNetworkReachability.h'>SCNetworkReachability.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kSCNetworkReachabilityFlagsConnectionOnDemand"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/systemconfiguration/scnetworkreachabilityflags/kscnetworkreachabilityflagsconnectionondemand" class="urlLink">kSCNetworkReachabilityFlagsConnectionOnDemand</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/SystemConfiguration.framework/Headers/SCPreferences.h'>SCPreferences.h</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/c/econst/kSCPreferencesNotificationApply'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/systemconfiguration/scpreferencesnotification/kscpreferencesnotificationapply" class="urlLink">kSCPreferencesNotificationApply</a></div>
+<table><tr><th></th><th>Architectures</th></tr>
+<tr><th>From</th><td scope="row"><span class="noArch" title="Symbol exists in the header file but may not be available for this release (or platform) due to a failed #if condition.">Unknown</span></td></tr>
+<tr><th>To</th><td scope="row">arm</td></tr></table><br>
+<div class='symbolName' title='//apple_ref/c/econst/kSCPreferencesNotificationCommit'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/systemconfiguration/scpreferencesnotification/1517235-commit" class="urlLink">kSCPreferencesNotificationCommit</a></div>
+<table><tr><th></th><th>Architectures</th></tr>
+<tr><th>From</th><td scope="row"><span class="noArch" title="Symbol exists in the header file but may not be available for this release (or platform) due to a failed #if condition.">Unknown</span></td></tr>
+<tr><th>To</th><td scope="row">arm</td></tr></table><br>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/SystemConfiguration.framework/Headers/SCSchemaDefinitions.h'>SCSchemaDefinitions.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/kSCCompAnyRegex"><span class="diffStatus">Added</span> <!--a -->#def kSCCompAnyRegex<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCCompGlobal"><span class="diffStatus">Added</span> <!--a -->#def kSCCompGlobal<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCCompHostNames"><span class="diffStatus">Added</span> <!--a -->#def kSCCompHostNames<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCCompInterface"><span class="diffStatus">Added</span> <!--a -->#def kSCCompInterface<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCCompNetwork"><span class="diffStatus">Added</span> <!--a -->#def kSCCompNetwork<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCCompService"><span class="diffStatus">Added</span> <!--a -->#def kSCCompService<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCCompSystem"><span class="diffStatus">Added</span> <!--a -->#def kSCCompSystem<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCCompUsers"><span class="diffStatus">Added</span> <!--a -->#def kSCCompUsers<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStoreDomainFile"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStoreDomainFile<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStoreDomainPlugin"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStoreDomainPlugin<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStoreDomainPrefs"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStoreDomainPrefs<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStoreDomainSetup"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStoreDomainSetup<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStoreDomainState"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStoreDomainState<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStorePropNetInterfaces"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStorePropNetInterfaces<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStorePropNetPrimaryInterface"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStorePropNetPrimaryInterface<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStorePropNetPrimaryService"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStorePropNetPrimaryService<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStorePropNetServiceIDs"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStorePropNetServiceIDs<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStorePropSetupCurrentSet"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStorePropSetupCurrentSet<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCDynamicStorePropSetupLastUpdated"><span class="diffStatus">Added</span> <!--a -->#def kSCDynamicStorePropSetupLastUpdated<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNet6to4"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNet6to4<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetAirPort"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetAirPort<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetDHCP"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetDHCP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetDNS"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetDNS<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetEthernet"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetEthernet<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetFireWire"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetFireWire<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetIPSec"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetIPSec<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetIPv4"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetIPv4<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetIPv6"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetIPv6<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetInterface"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetInterface<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetL2TP"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetL2TP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetLink"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetLink<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetModem"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetModem<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetPPP"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetPPP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetPPPSerial"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetPPPSerial<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetPPPoE"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetPPPoE<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetPPTP"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetPPTP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCEntNetProxies"><span class="diffStatus">Added</span> <!--a -->#def kSCEntNetProxies<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPrefCurrentSet"><span class="diffStatus">Added</span> <!--a -->#def kSCPrefCurrentSet<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPrefNetworkServices"><span class="diffStatus">Added</span> <!--a -->#def kSCPrefNetworkServices<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPrefSets"><span class="diffStatus">Added</span> <!--a -->#def kSCPrefSets<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPrefSystem"><span class="diffStatus">Added</span> <!--a -->#def kSCPrefSystem<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropInterfaceName"><span class="diffStatus">Added</span> <!--a -->#def kSCPropInterfaceName<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropMACAddress"><span class="diffStatus">Added</span> <!--a -->#def kSCPropMACAddress<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNet6to4Relay"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNet6to4Relay<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetAirPortAllowNetCreation"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetAirPortAllowNetCreation<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetAirPortAuthPassword"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetAirPortAuthPassword<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetAirPortAuthPasswordEncryption"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetAirPortAuthPasswordEncryption<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetAirPortJoinMode"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetAirPortJoinMode<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetAirPortPowerEnabled"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetAirPortPowerEnabled<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetAirPortPreferredNetwork"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetAirPortPreferredNetwork<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetAirPortSavePasswords"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetAirPortSavePasswords<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetDNSDomainName"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetDNSDomainName<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetDNSOptions"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetDNSOptions<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetDNSSearchDomains"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetDNSSearchDomains<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetDNSSearchOrder"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetDNSSearchOrder<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetDNSServerAddresses"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetDNSServerAddresses<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetDNSServerPort"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetDNSServerPort<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetDNSServerTimeout"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetDNSServerTimeout<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetDNSSortList"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetDNSSortList<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetDNSSupplementalMatchDomains"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetDNSSupplementalMatchDomains<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetDNSSupplementalMatchOrders"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetDNSSupplementalMatchOrders<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetEthernetMTU"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetEthernetMTU<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetEthernetMediaOptions"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetEthernetMediaOptions<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetEthernetMediaSubType"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetEthernetMediaSubType<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecAuthenticationMethod"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecAuthenticationMethod<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecConnectTime"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecConnectTime<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecLocalCertificate"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecLocalCertificate<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecLocalIdentifier"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecLocalIdentifier<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecLocalIdentifierType"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecLocalIdentifierType<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecRemoteAddress"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecRemoteAddress<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecSharedSecret"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecSharedSecret<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecSharedSecretEncryption"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecSharedSecretEncryption<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecStatus"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecStatus<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecXAuthEnabled"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecXAuthEnabled<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecXAuthName"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecXAuthName<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecXAuthPassword"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecXAuthPassword<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPSecXAuthPasswordEncryption"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPSecXAuthPasswordEncryption<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv4Addresses"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv4Addresses<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv4BroadcastAddresses"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv4BroadcastAddresses<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv4ConfigMethod"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv4ConfigMethod<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv4DHCPClientID"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv4DHCPClientID<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv4DestAddresses"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv4DestAddresses<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv4Router"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv4Router<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv4SubnetMasks"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv4SubnetMasks<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv6Addresses"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv6Addresses<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv6ConfigMethod"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv6ConfigMethod<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv6DestAddresses"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv6DestAddresses<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv6Flags"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv6Flags<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv6PrefixLength"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv6PrefixLength<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetIPv6Router"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetIPv6Router<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetInterfaceDeviceName"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetInterfaceDeviceName<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetInterfaceHardware"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetInterfaceHardware<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetInterfaceSubType"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetInterfaceSubType<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetInterfaceSupportsModemOnHold"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetInterfaceSupportsModemOnHold<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetInterfaceType"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetInterfaceType<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetInterfaces"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetInterfaces<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetL2TPIPSecSharedSecret"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetL2TPIPSecSharedSecret<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetL2TPIPSecSharedSecretEncryption"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetL2TPIPSecSharedSecretEncryption<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetL2TPTransport"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetL2TPTransport<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetLinkActive"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetLinkActive<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetLinkDetaching"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetLinkDetaching<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetLocalHostName"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetLocalHostName<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemAccessPointName"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemAccessPointName<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemConnectSpeed"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemConnectSpeed<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemConnectionPersonality"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemConnectionPersonality<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemConnectionScript"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemConnectionScript<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemDataCompression"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemDataCompression<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemDeviceContextID"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemDeviceContextID<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemDeviceModel"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemDeviceModel<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemDeviceVendor"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemDeviceVendor<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemDialMode"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemDialMode<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemErrorCorrection"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemErrorCorrection<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemHoldCallWaitingAudibleAlert"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemHoldCallWaitingAudibleAlert<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemHoldDisconnectOnAnswer"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemHoldDisconnectOnAnswer<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemHoldEnabled"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemHoldEnabled<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemHoldReminder"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemHoldReminder<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemHoldReminderTime"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemHoldReminderTime<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemNote"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemNote<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemPulseDial"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemPulseDial<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemSpeaker"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemSpeaker<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetModemSpeed"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetModemSpeed<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetOverridePrimary"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetOverridePrimary<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPACSPEnabled"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPACSPEnabled<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPAuthEAPPlugins"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPAuthEAPPlugins<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPAuthName"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPAuthName<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPAuthPassword"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPAuthPassword<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPAuthPasswordEncryption"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPAuthPasswordEncryption<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPAuthPrompt"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPAuthPrompt<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPAuthProtocol"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPAuthProtocol<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCCPEnabled"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCCPEnabled<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCCPMPPE128Enabled"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCCPMPPE128Enabled<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCCPMPPE40Enabled"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCCPMPPE40Enabled<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCommAlternateRemoteAddress"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCommAlternateRemoteAddress<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCommConnectDelay"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCommConnectDelay<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCommDisplayTerminalWindow"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCommDisplayTerminalWindow<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCommRedialCount"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCommRedialCount<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCommRedialEnabled"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCommRedialEnabled<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCommRedialInterval"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCommRedialInterval<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCommRemoteAddress"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCommRemoteAddress<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCommTerminalScript"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCommTerminalScript<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPCommUseTerminalScript"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPCommUseTerminalScript<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPConnectTime"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPConnectTime<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPDeviceLastCause"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPDeviceLastCause<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPDialOnDemand"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPDialOnDemand<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPDisconnectOnFastUserSwitch"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPDisconnectOnFastUserSwitch<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPDisconnectOnIdle"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPDisconnectOnIdle<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPDisconnectOnIdleTimer"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPDisconnectOnIdleTimer<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPDisconnectOnLogout"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPDisconnectOnLogout<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPDisconnectOnSleep"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPDisconnectOnSleep<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPDisconnectTime"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPDisconnectTime<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPIPCPCompressionVJ"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPIPCPCompressionVJ<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPIPCPUsePeerDNS"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPIPCPUsePeerDNS<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPIdleReminder"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPIdleReminder<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPIdleReminderTimer"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPIdleReminderTimer<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLCPCompressionACField"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLCPCompressionACField<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLCPCompressionPField"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLCPCompressionPField<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLCPEchoEnabled"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLCPEchoEnabled<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLCPEchoFailure"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLCPEchoFailure<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLCPEchoInterval"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLCPEchoInterval<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLCPMRU"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLCPMRU<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLCPMTU"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLCPMTU<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLCPReceiveACCM"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLCPReceiveACCM<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLCPTransmitACCM"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLCPTransmitACCM<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLastCause"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLastCause<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPLogfile"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPLogfile<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPOverridePrimary"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPOverridePrimary<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPPlugins"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPPlugins<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPRetryConnectTime"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPRetryConnectTime<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPSessionTimer"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPSessionTimer<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPStatus"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPStatus<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPUseSessionTimer"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPUseSessionTimer<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetPPPVerboseLogging"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetPPPVerboseLogging<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesExceptionsList"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesExceptionsList<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesExcludeSimpleHostnames"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesExcludeSimpleHostnames<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesFTPEnable"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesFTPEnable<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesFTPPassive"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesFTPPassive<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesFTPPort"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesFTPPort<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesFTPProxy"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesFTPProxy<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesGopherEnable"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesGopherEnable<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesGopherPort"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesGopherPort<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesGopherProxy"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesGopherProxy<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesHTTPEnable"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesHTTPEnable<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesHTTPPort"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesHTTPPort<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesHTTPProxy"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesHTTPProxy<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesHTTPSEnable"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesHTTPSEnable<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesHTTPSPort"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesHTTPSPort<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesHTTPSProxy"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesHTTPSProxy<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesProxyAutoConfigEnable"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesProxyAutoConfigEnable<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesProxyAutoConfigJavaScript"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesProxyAutoConfigJavaScript<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesProxyAutoConfigURLString"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesProxyAutoConfigURLString<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesProxyAutoDiscoveryEnable"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesProxyAutoDiscoveryEnable<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesRTSPEnable"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesRTSPEnable<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesRTSPPort"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesRTSPPort<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesRTSPProxy"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesRTSPProxy<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesSOCKSEnable"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesSOCKSEnable<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesSOCKSPort"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesSOCKSPort<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetProxiesSOCKSProxy"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetProxiesSOCKSProxy<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropNetServiceOrder"><span class="diffStatus">Added</span> <!--a -->#def kSCPropNetServiceOrder<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropSystemComputerName"><span class="diffStatus">Added</span> <!--a -->#def kSCPropSystemComputerName<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropSystemComputerNameEncoding"><span class="diffStatus">Added</span> <!--a -->#def kSCPropSystemComputerNameEncoding<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropUserDefinedName"><span class="diffStatus">Added</span> <!--a -->#def kSCPropUserDefinedName<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCPropVersion"><span class="diffStatus">Added</span> <!--a -->#def kSCPropVersion<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCResvInactive"><span class="diffStatus">Added</span> <!--a -->#def kSCResvInactive<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCResvLink"><span class="diffStatus">Added</span> <!--a -->#def kSCResvLink<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetAirPortAuthPasswordEncryptionKeychain"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetAirPortAuthPasswordEncryptionKeychain<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetAirPortJoinModeAutomatic"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetAirPortJoinModeAutomatic<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetAirPortJoinModePreferred"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetAirPortJoinModePreferred<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetAirPortJoinModeRanked"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetAirPortJoinModeRanked<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetAirPortJoinModeRecent"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetAirPortJoinModeRecent<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetAirPortJoinModeStrongest"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetAirPortJoinModeStrongest<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPSecAuthenticationMethodCertificate"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPSecAuthenticationMethodCertificate<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPSecAuthenticationMethodHybrid"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPSecAuthenticationMethodHybrid<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPSecAuthenticationMethodSharedSecret"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPSecAuthenticationMethodSharedSecret<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPSecLocalIdentifierTypeKeyID"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPSecLocalIdentifierTypeKeyID<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPSecSharedSecretEncryptionKeychain"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPSecSharedSecretEncryptionKeychain<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPSecXAuthPasswordEncryptionKeychain"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPSecXAuthPasswordEncryptionKeychain<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPSecXAuthPasswordEncryptionPrompt"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPSecXAuthPasswordEncryptionPrompt<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv4ConfigMethodAutomatic"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv4ConfigMethodAutomatic<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv4ConfigMethodBOOTP"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv4ConfigMethodBOOTP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv4ConfigMethodDHCP"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv4ConfigMethodDHCP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv4ConfigMethodINFORM"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv4ConfigMethodINFORM<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv4ConfigMethodLinkLocal"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv4ConfigMethodLinkLocal<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv4ConfigMethodManual"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv4ConfigMethodManual<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv4ConfigMethodPPP"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv4ConfigMethodPPP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv6ConfigMethod6to4"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv6ConfigMethod6to4<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv6ConfigMethodAutomatic"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv6ConfigMethodAutomatic<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv6ConfigMethodLinkLocal"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv6ConfigMethodLinkLocal<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv6ConfigMethodManual"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv6ConfigMethodManual<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetIPv6ConfigMethodRouterAdvertisement"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetIPv6ConfigMethodRouterAdvertisement<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetInterfaceSubTypeL2TP"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetInterfaceSubTypeL2TP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetInterfaceSubTypePPPSerial"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetInterfaceSubTypePPPSerial<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetInterfaceSubTypePPPoE"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetInterfaceSubTypePPPoE<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetInterfaceSubTypePPTP"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetInterfaceSubTypePPTP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetInterfaceType6to4"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetInterfaceType6to4<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetInterfaceTypeEthernet"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetInterfaceTypeEthernet<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetInterfaceTypeFireWire"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetInterfaceTypeFireWire<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetInterfaceTypeIPSec"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetInterfaceTypeIPSec<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetInterfaceTypePPP"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetInterfaceTypePPP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetL2TPIPSecSharedSecretEncryptionKeychain"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetL2TPIPSecSharedSecretEncryptionKeychain<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetL2TPTransportIP"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetL2TPTransportIP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetL2TPTransportIPSec"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetL2TPTransportIPSec<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetModemDialModeIgnoreDialTone"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetModemDialModeIgnoreDialTone<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetModemDialModeManual"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetModemDialModeManual<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetModemDialModeWaitForDialTone"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetModemDialModeWaitForDialTone<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetPPPAuthPasswordEncryptionKeychain"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetPPPAuthPasswordEncryptionKeychain<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetPPPAuthPasswordEncryptionToken"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetPPPAuthPasswordEncryptionToken<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetPPPAuthPromptAfter"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetPPPAuthPromptAfter<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetPPPAuthPromptBefore"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetPPPAuthPromptBefore<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetPPPAuthProtocolCHAP"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetPPPAuthProtocolCHAP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetPPPAuthProtocolEAP"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetPPPAuthProtocolEAP<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetPPPAuthProtocolMSCHAP1"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetPPPAuthProtocolMSCHAP1<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetPPPAuthProtocolMSCHAP2"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetPPPAuthProtocolMSCHAP2<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kSCValNetPPPAuthProtocolPAP"><span class="diffStatus">Added</span> <!--a -->#def kSCValNetPPPAuthProtocolPAP<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/SystemConfiguration.framework/Headers/SystemConfiguration.h'>SystemConfiguration.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kSCStatusConnectionNoService"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/systemconfiguration/kscstatusconnectionnoservice" class="urlLink">kSCStatusConnectionNoService</a> </div>
+</div>
+</div>
+
+<h2>UIKit</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIImagePickerController.h'>UIImagePickerController.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/UIImagePickerControllerMediaMetadata"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiimagepickercontroller/infokey/1619147-mediametadata" class="urlLink">UIImagePickerControllerMediaMetadata</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/UIImagePickerControllerReferenceURL"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiimagepickercontrollerreferenceurl" class="urlLink">UIImagePickerControllerReferenceURL</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UITextInputTraits.h'>UITextInputTraits.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/UIKeyboardTypeDecimalPad"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uikeyboardtype/decimalpad" class="urlLink">UIKeyboardTypeDecimalPad</a> </div>
+</div>
+</div>
+</div>
+
+<!-- start of footer -->
+<div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+
+<!-- end of footer -->
+
+
+            </article>
+</body>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/feedback.js"></script>
+
+</html>

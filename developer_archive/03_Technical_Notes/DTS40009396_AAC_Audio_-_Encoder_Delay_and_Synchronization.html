@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2258: AAC Audio - Encoder Delay and Synchronization</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009396">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009396-CH1">
+    <meta id="date" name="date" content="2009-11-19">
+    <meta id="description" name="description" content="TN2258: Discusses AAC encoder delay and the effects on synchronization with other media such as video.">
+    <meta id="book-title" name="book-title" content="AAC Audio - Encoder Delay and Synchronization">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/CoreAudio}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2258">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="AAC Audio - Encoder Delay and Synchronization" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009396" title="Technical Note TN2258"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>AAC Audio - Encoder Delay and Synchronization</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009396-CH1-DontLinkElementID_2" title="Technical Note TN2258"></a><div class="dtsDocNumber">Technical Note TN2258</div><h1 id="pageTitle">AAC Audio - Encoder Delay and Synchronization</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>This Technical Note discusses AAC encoder delay and how it relates to synchronization with other media such as video.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SECTION2" data-renderer-version="1">Encoder Delay</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SECTION3" data-renderer-version="1">Synchronization</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SECTION4" data-renderer-version="1">The 2112 Sample Assumption</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SECTION5" data-renderer-version="1">Encoder Delay Recommendation</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SECTION6" data-renderer-version="1">QuickTime And Core Audio APIs</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SUBSECTION6" data-renderer-version="1">MovieAudioExtraction And Movie Playback</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SUBSECTION7" data-renderer-version="1">Audio Converter</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SUBSECTION8" data-renderer-version="1">Extended Audio File</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SUBSECTION9" data-renderer-version="1">Audio Queue</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SUBSECTION10" data-renderer-version="1">Audio File</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009396-CH1-SECTION12" data-renderer-version="1">Reference</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009396-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>AAC requires additional data in order to correctly encode and decode audio samples. During the encoding process, an AAC encoder will require some number of audio samples at input before it can generate an AAC access unit (also referred to as an audio packet). During decoding, data dependencies existing between AAC access units require an AAC decoder to see the "prior" AAC access unit in order to correctly decode the current AAC access unit.</p><p>Encoder delay is the term used to describe the delay incurred at encode to produce properly encoded packets. This is the number of silent sample frames (also called priming frames) added to the front of an AAC encoded bitstream.</p><p>The term Remainder refers to the number of silent samples (padding) added to the end of an AAC bitstream to round up to the AAC access unit size.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009396-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;The encoding delay for an AAC encoder is implementation dependent. The decoding delay for an AAC decoder should be fixed and consistent across different implementations.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SECTION2" title="Encoder Delay"></a><h2 class="jump">Encoder Delay</h2><p>In the original AAC implementations, the common practice was to propagate the encoding delay in the provided AAC bitstream. With these original implementations, the most common delay used was <strong>2112</strong> audio samples. Therefore, an AAC bitstream would generally be 3 AAC access units larger than what was theoretically required by the original signal.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009396-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;AAC typically represents 1024 samples in one AAC access unit.</p><p></p></aside></div><p>As this encoding delay is represented in the AAC bitstream, the first actual audio sample is 2112 samples (the length of the encoding delay) into the decoded output.</p><p>In other words, the first and second AAC access units decoded would each produce 1024 samples of silence and the third AAC access unit decoded would produce the first 960 samples of the original source data. 960 being 1024 samples minus the remaining 64 samples of the encoding delay.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009396-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;1024 + 1024 + 64 = 2112 encoding delay samples.</p><p></p></aside></div><p>A playback implementation would then need to discard these first 2112 silent samples from the decoded output since they contain none of the original source audio data; these samples are an artifact of the encoding/decoding process.</p><p>2112 samples was chosen because at that time this was the common encoding delay used by most of the shipping implementations of AAC encoders (commercial and otherwise).</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40009396-CH1-FIGURE1" title="Figure 1"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;</figcaption><img src="Art/tn2258_AACPriming1.png" class="wide-image" alt="Figure 1 Art/tn2258_AACPriming1.png" width="866" height="374"><img src="Art/tn2258_AACPriming1.png" class="ipad-scaled-image" alt="Figure 1 Art/tn2258_AACPriming1.png" width="670" height="289"></figure><p>In the above diagram, the source audio to be encoded shown as the blue waveform is <strong>5,389</strong> samples long.</p><p>This data will be represented in 8 AAC access units, where each access unit represents 1024 audio samples. The total duration represented by these 8 AAC access units is <strong>8192 </strong> samples (note that this is longer than the duration of the source audio).</p><p>The result breaks down into the following values:</p><ul class="ul"><li class="li"><p>2112 priming samples at the start - required to correctly encode the start of the audio.</p></li><li class="li"><p>5389 samples of actual audio.</p></li><li class="li"><p>691 remainder samples - required to round up the last samples to the packet size.</p></li></ul><p>Therefore, to correctly extract the original 5389 samples of source audio, the first 2112 samples of priming and the last 691 samples of the remainder must be removed.</p><p>8192 - 2112 - 691 = 5389 original source samples.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40009396-CH1-DontLinkElementID_6" title="Important"></a><p><strong>Important:</strong>&nbsp;Regardless of the length of source audio, the priming value is currently fixed at 2112 samples and the remainder will always be less than 1024 samples or 1 encoded packet long.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SECTION3" title="Synchronization"></a><h2 class="jump">Synchronization</h2><p>If an audio playback system attempting to synchronize AAC encoded audio and video does not compensate for this delay (that is, does not discard these silent samples), the audio and video will be out of synchronization by 2112 samples -- the audio will be 2112 samples behind the video since the first real audio sample is actually 2112 samples past the beginning of the decoded data.</p><p>Therefore, a playback system must trim this data to preserve correct synchronization.</p><p>This trimming by the playback system should be done in two places:</p><ul class="ul"><li class="li"><p>When playback first begins.</p></li><li class="li"><p>When the playback position is moved to another location - for example, the user skips ahead or back to another part of the media and begins playback from that new location.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SECTION4" title="The 2112 Sample Assumption"></a><h2 class="jump">The 2112 Sample Assumption</h2><p>As there was no explicit notion with the first implementations of this encoding delay in an AAC bitstream, Apple chose to assume that the AAC bitstream always contained an encoding delay of 2112 samples.</p><p>With MPEG-4 and ADTS/MPEG-2 bitstreams and file containers, there is still no satisfactory and explicit signaling mechanism for either the encoding delay or remainder padding. Therefore, there is no explicit means to correctly determine the location of the first and last actual audio sample(s) in the bitstream. The <span class="content_text"><a href="http://developer.apple.com/mac/library/documentation/MusicAudio/Reference/CAFSpec/CAF_intro/CAF_intro.html" class="browserLink" >Core Audio File Format</a></span> (<code>.caf</code>) specification contains an explicit entry in the packet table chunk to capture both of these values.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SECTION5" title="Encoder Delay Recommendation"></a><h2 class="jump">Encoder Delay Recommendation</h2><p>Apple recommends 3rd party products and devices generating AAC bitstreams do so with the assumption that the playback system will <strong>always</strong> assume there is an encoding delay of 2112 samples in the produced bitstream. It must also be assumed that without an explicit value, the playback system will trim 2112 samples from the AAC decoder output when starting playback from any point in the bistream.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009396-CH1-DontLinkElementID_7" title="Note"></a><p><strong>Note:</strong>&nbsp;This problem is not unique to AAC. MP3 also has these data dependencies and delays in its bitstream, as do proprietary codecs such as AC-3 and others.</p><p></p></aside></div><p>In all of these cases the behaviour is as described above; an implicit, not-signalled, assumption is made about the size of this delay and the playback engine is required to trim this designated number of samples from its output at the start of playback.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SECTION6" title="QuickTime And Core Audio APIs"></a><h2 class="jump">QuickTime And Core Audio APIs</h2><p>The default setting for AAC priming is 2112 samples, and the default setting for remainder samples is 0.</p><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SUBSECTION6" title="MovieAudioExtraction And Movie Playback"></a><h3 class="jump">MovieAudioExtraction And Movie Playback</h3><p>When playing back a QuickTime <code>Movie</code> or when using <code>MovieAudioExtraction</code> APIs to decode audio samples from a <code>Movie</code>, the default priming and remainder samples are removed from the decoded bitstream. When creating a file, no priming or remainder information is added to any file container at this time.</p></section><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SUBSECTION7" title="Audio Converter"></a><h3 class="jump">Audio Converter</h3><p>When using an <code>AudioConverter</code> object directly, the default setting for priming is used for encoding and decoding.</p><p>During decode, these default may be overridden with the <code>kAudioConverterPrimeInfo</code> property and set to whatever values are appropriate.</p><p>During encode, a value may be set, however the specific encoder being used may not support your requested settings.</p></section><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SUBSECTION8" title="Extended Audio File"></a><h3 class="jump">Extended Audio File</h3><p>With <code>ExtAudioFile</code>, priming and remainder values are read from the file (if present) and those samples are removed from the decoded bitstream automatically on behalf of the client. If these values are not present in the file, the default values are used.</p></section><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SUBSECTION9" title="Audio Queue"></a><h3 class="jump">Audio Queue</h3><p><code>AudioQueue</code> objects do not handle priming or remainder samples for you, it is the clients responsibility to specify priming and remainder values if applicable.</p><p>For example,  when "enqueuing" the first buffers from an AAC bitstream the client should specify 2112 samples of trimming at the start of that first buffer (if there is no specifically signaled priming samples). For the last buffer, the client should also trim out the remainder samples (if known).</p><p>Refer to the documentation for <code>AudioQueueEnqueueBufferWithParameters</code> and Q&amp;A 1636 for more information.</p></section><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SUBSECTION10" title="Audio File"></a><h3 class="jump">Audio File</h3><p>When creating a file using the <code>AudioFile</code> API, priming and remainder file values will be written if specified with the <code>kAudioFilePropertyPacketTableInfo</code> property and the file type being written supports these values. Currently, only the Core Audio File Format (<code>.caf</code>) and MPEG-4 Audio (<code>.m4a</code>) containers have a described means to carry this information. </p><p><code>ExtAudioFile</code> will perform this work on behalf of the client; automatically obtaining the priming information from the <code>AudioConverter </code>and calculating the remainder frames.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009396-CH1-SECTION12" title="Reference"></a><h2 class="jump">Reference</h2><p><span class="content_text"><a href="/qa/qa2009/qa1636.html" class="urlLink" rel="external">Technical Q&amp;A QA1636, 'Audio Queue - Looping Compressed Audio'</a></span></p><p><span class="content_text"><a href="http://en.wikipedia.org/wiki/Advanced_Audio_Coding" class="urlLink" rel="external">Advanced Audio Coding</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40009396-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009396-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2009-11-19</td><td><p>New document that 
+					discusses AAC encoder delay and the effects on synchronization with other media such as video.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-11-19</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

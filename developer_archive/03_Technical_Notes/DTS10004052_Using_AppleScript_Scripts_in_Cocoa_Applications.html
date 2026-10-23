@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2084: Using AppleScript Scripts in Cocoa Applications</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004052">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004052-CH1">
+    <meta id="date" name="date" content="2006-09-19">
+    <meta id="description" name="description" content="TN2084: Explains how to work with AppleScript scripts in your Cocoa application.">
+    <meta id="book-title" name="book-title" content="Using AppleScript Scripts in Cocoa Applications">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/Foundation}, {Topic/Interapplication Communication}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2084">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Using AppleScript Scripts in Cocoa Applications" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004052" title="Technical Note TN2084"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Using AppleScript Scripts in Cocoa Applications</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004052-CH1-DontLinkElementID_2" title="Technical Note TN2084"></a><div class="dtsDocNumber">Technical Note TN2084</div><h1 id="pageTitle">Using AppleScript Scripts in Cocoa Applications</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Even though your application is written in Objective-C using Cocoa, you can use AppleScript scripts to perform certain operations. This Technical Note explains how to integrate and execute AppleScripts from within your Cocoa application. It discusses how to leverage the NSAppleScript class and the use of NSAppleEventDescriptor to send data to the receiver.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004052-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Similar documentation on this subject for Carbon developers can be found in the technical Q&amp;As: <span class="content_text"><a href="http://developer.apple.com/technicalqas/AppleScript/idxCarbon-date.html" class="browserLink" >QA1026 and QA1111</a></span></p><p></p></aside></div>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004052-CH1-SECTION1" data-renderer-version="1">Summary</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004052-CH1-SECTION2" data-renderer-version="1">Creating an NSAppleScript</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004052-CH1-SECTION3" data-renderer-version="1">Using NSAppleScript With an Embedded String</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004052-CH1-SECTION4" data-renderer-version="1">Using NSAppleScript With a Script Inside The App's Bundle</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10004052-CH1-SUBSECTION4" data-renderer-version="1">Integrating Compiled Scripts Into Your Xcode Project</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004052-CH1-SECTION6" data-renderer-version="1">Sample Code</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004052-CH1-SECTION7" data-renderer-version="1">Online Documentation</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004052-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10004052-CH1-SECTION1" title="Summary"></a><h2 class="jump">Summary</h2><p>NSAppleScript is a great tool for interapplication communication. It is a convenient way to pass parameters to an AppleScript script running inside your application. This Technical Note shows how to use NSAppleScript to load, compile, and execute scripts, and NSAppleEventDescriptor to invoke a handler in a loaded script.</p><p>This Technical Note explains how to do the following:</p><ul class="ul"><li class="li"><p>load a script from a URL or create one from an embedded <code>NSString</code>.</p></li><li class="li"><p>execute the script and check for errors.</p></li><li class="li"><p>obtain an <code>NSAppleEventDescriptor</code> containing the reply from an executed script or event.</p></li><li class="li"><p>integrate an AppleScript into your Xcode project.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004052-CH1-SECTION2" title="Creating an NSAppleScript"></a><h2 class="jump">Creating an NSAppleScript</h2><p>When you create an instance of NSAppleScript object, you can use a URL to specify a script that can be in either text or compiled form:</p><p><code>NSAppleScript* appleScript = [[NSAppleScript alloc] initWithContentsOfURL:url error:&amp;errors];</code></p><p>or you can supply the script as a string by using:</p><p><code>NSAppleScript* appleScript = [[NSAppleScript alloc] initWithSource: (NSString *)source];</code></p><p>Should an error occur when compiling or executing the script, the method <code>[NSAppleScript executeAndReturnError]</code> returns a dictionary containing error information.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004052-CH1-SECTION3" title="Using NSAppleScript With an Embedded String"></a><h2 class="jump">Using NSAppleScript With an Embedded String</h2><p>Listing 1 shows how to use NSAppleScript to execute a complex script, embedded as an instance of NSString. If the script is successful, the code extracts information from the returned instance of NSAppleEventDescriptor. The executed script sets your application as a "Login Item" to the "Accounts" System Preferences.</p><a name="//apple_ref/doc/uid/DTS10004052-CH1-SOURCECODE1" title="Listing 1Using NSAppleScript with an embedded string."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Using NSAppleScript with an embedded string.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (IBAction)addLoginItem:(id)sender
+{
+    NSDictionary* errorDict;
+    NSAppleEventDescriptor* returnDescriptor = NULL;
+
+    NSAppleScript* scriptObject = [[NSAppleScript alloc] initWithSource:
+                @"\
+                set app_path to path to me\n\
+                tell application \"System Events\"\n\
+                if \"AddLoginItem\" is not in (name of every login item) then\n\
+                make login item at end with properties {hidden:false, path:app_path}\n\
+                end if\n\
+                end tell"];
+
+    returnDescriptor = [scriptObject executeAndReturnError: &amp;errorDict];
+    [scriptObject release];
+
+    if (returnDescriptor != NULL)
+    {
+        // successful execution
+        if (kAENullEvent != [returnDescriptor descriptorType])
+        {
+            // script returned an AppleScript result
+            if (cAEList == [returnDescriptor descriptorType])
+            {
+                 // result is a list of other descriptors
+            }
+            else
+            {
+                // coerce the result to the appropriate ObjC type
+            }
+        } 
+    }
+    else
+    {
+        // no script result, handle error here
+    }
+}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004052-CH1-SECTION4" title="Using NSAppleScript With a Script Inside The App's Bundle"></a><h2 class="jump">Using NSAppleScript With a Script Inside The App's Bundle</h2><p>The following code in Listing 2 shows how your application can load an AppleScript script from its resources folder and send a text message to the Finder by displaying it in a dialog (the script is described below in Listing 3). It uses a series of NSAppleEventDescriptors to build the script parameters, determine the method name that's called and finally to create the AppleEvent for transmission to the Finder.</p><a name="//apple_ref/doc/uid/DTS10004052-CH1-SOURCECODE2" title="Listing 2Using NSAppleScript with a script inside the app's bundle."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Using NSAppleScript with a script inside the app's bundle.</p><div class="codesample clear"><table><tr><td scope="row"><pre>- (IBAction)sendFinderEvent:(id)sender
+{
+    // load the script from a resource by fetching its URL from within our bundle
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"SendFinderMessage" ofType:@"scpt"];
+    if (path != nil)
+    {
+        NSURL* url = [NSURL fileURLWithPath:path];
+        if (url != nil)
+        {
+            NSDictionary* errors = [NSDictionary dictionary];
+            NSAppleScript* appleScript =
+                    [[NSAppleScript alloc] initWithContentsOfURL:url error:&amp;errors];
+            if (appleScript != nil)
+            {
+                // create the first parameter
+                NSAppleEventDescriptor* firstParameter =
+                        [NSAppleEventDescriptor descriptorWithString:@"Message from my app."];
+
+                // create and populate the list of parameters (in our case just one)
+                NSAppleEventDescriptor* parameters = [NSAppleEventDescriptor listDescriptor];
+                [parameters insertDescriptor:firstParameter atIndex:1];
+
+                // create the AppleEvent target
+                ProcessSerialNumber psn = {0, kCurrentProcess};
+                NSAppleEventDescriptor* target =
+                [NSAppleEventDescriptor
+                        descriptorWithDescriptorType:typeProcessSerialNumber
+                        bytes:&amp;psn
+                        length:sizeof(ProcessSerialNumber)];
+
+                // create an NSAppleEventDescriptor with the script's method name to call,
+                // this is used for the script statement: "on show_message(user_message)"
+                // Note that the routine name must be in lower case.
+                NSAppleEventDescriptor* handler =
+                        [NSAppleEventDescriptor descriptorWithString:
+                        [@"show_message" lowercaseString]];
+
+                // create the event for an AppleScript subroutine,
+                // set the method name and the list of parameters
+                NSAppleEventDescriptor* event =
+                        [NSAppleEventDescriptor appleEventWithEventClass:kASAppleScriptSuite
+                                eventID:kASSubroutineEvent
+                                targetDescriptor:target
+                                returnID:kAutoGenerateReturnID
+                transactionID:kAnyTransactionID];
+                [event setParamDescriptor:handler forKeyword:keyASSubroutineName];
+                [event setParamDescriptor:parameters forKeyword:keyDirectObject];
+
+                // call the event in AppleScript
+                if (![appleScript executeAppleEvent:event error:&amp;errors]); 
+                {
+                    // report any errors from 'errors'
+                }
+
+                [appleScript release];
+            }
+            else
+            {
+                // report any errors from 'errors'
+            }
+        }
+    }
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10004052-CH1-SOURCECODE3" title="Listing 3The Contents of SendFinderMessage.scpt"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;The Contents of SendFinderMessage.scpt</p><div class="codesample clear"><table><tr><td scope="row"><pre>on show_message(user_message)     tell application "Finder"         display dialog user_message     end tell end show_message<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004052-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;For easier source code and project management, it is good practice to factor your AppleScript scripts as separate objects (i.e. separate compiled AppleScript files inside your app's resources folder). That way you won't need to change as much code if the scripting environment or object model for your target changes.</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS10004052-CH1-SUBSECTION4" title="Integrating Compiled Scripts Into Your Xcode Project"></a><h3 class="jump">Integrating Compiled Scripts Into Your Xcode Project</h3><p>Since the code in Listing 2 loads the script from within your application's Resources folder, you should provide this script in your Xcode project as a "compiled script".</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004052-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;You may have noticed that Listing 3 is titled "SendFinderMessage.scpt". This is a compiled script with an extension ".scpt"; script text files are saved with ".applescript" extension. Compiled scripts are recommended for improved performance, especially if your scripts are large. </p><p></p></aside></div><p>Adding your script to your Xcode project can be done two ways:</p><p>1. Compile The Script Yourself</p><p>When creating and editing your script using Script Editor you can save it in two formats: text or script. The "script" format means "compiled script". If you choose to save it as a compiled script then do the following with Xcode:</p><ul class="ul"><li class="li"><p>Drag the compiled script (in our case "SendFinderMessage.scpt") to your Xcode project.</p></li><li class="li"><p>Include the script file in the "Copy Bundle Resources" build phase.</p></li></ul><p>2. Have Xcode Compile The Script</p><p>If you choose to store your script file as a "text" file, then you need Xcode to compile the script for you.</p><ul class="ul"><li class="li"><p>Drag the script text file (in our case "SendFinderMessage.applescript") to your Xcode project.</p></li><li class="li"><p>Create a new Run Script Build Phase and add the following (see example in Figure 1):</p><p><code>osacompile -d -o SendFinderMessage.scpt SendFinderMessage.applescript</code></p></li><li class="li"><p>Create a new Copy Files Build Phase and configure it to copy "SendFinderMessage.scpt" to the Resources folder.</p></li></ul><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004052-CH1-FIGURE1" title="Figure 1Run Script Build Phase"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Run Script Build Phase</figcaption><img src="Art/tn2084_runscript.png" alt="" width="452" height="155"></figure></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004052-CH1-SECTION6" title="Sample Code"></a><h2 class="jump">Sample Code</h2><p>If you wish to research a more extensive example of using AppleScript scripts inside your Cocoa application using the techniques described in this Technical Note, refer to the <span class="content_text"><a href="http://developer.apple.com/samplecode/AttachAScript/" class="browserLink" >AttachAScript</a></span> sample code project.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004052-CH1-SECTION7" title="Online Documentation"></a><h2 class="jump">Online Documentation</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSAppleScript_Class/index.html#//apple_ref/doc/uid/TP40003618" class="browserLink" >NSAppleScript</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/documentation/Cocoa/Reference/Foundation/Classes/NSAppleEventDescriptor_Class/index.html#//apple_ref/doc/uid/TP40003616" class="browserLink" >NSAppleEventDescriptor</a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004052-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004052-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2006-09-19</td><td><p>New document that 
+					explains how to work with AppleScript scripts in your Cocoa application.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2006 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2006-09-19</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

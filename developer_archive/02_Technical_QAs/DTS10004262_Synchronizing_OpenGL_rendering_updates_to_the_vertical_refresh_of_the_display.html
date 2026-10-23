@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1521: Synchronizing OpenGL rendering updates to the vertical refresh of the display</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004262">
+    <meta id="document-version" name="document-version" content="1.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004262-CH1">
+    <meta id="date" name="date" content="2007-07-16">
+    <meta id="description" name="description" content="QA1521: How to avoid tearing by synchronizing your rendering to the display VBL">
+    <meta id="book-title" name="book-title" content="Synchronizing OpenGL rendering updates to the vertical refresh of the display">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/OpenGL}, {Topic/Graphics & Animation/3D Drawing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1521">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Synchronizing OpenGL rendering updates to the vertical refresh of the display" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004262" title="Technical Q&amp;A QA1521"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Synchronizing OpenGL rendering updates to the vertical refresh of the display</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004262-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1521"></a><div class="dtsDocNumber">Technical Q&amp;A QA1521</div><h1 id="pageTitle">Synchronizing OpenGL rendering updates to the vertical refresh of the display</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004262-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;<strong>Removed Document</strong></p><p>This document has been removed from the ADC Reference Library. It contained information that had been obsoleted by more recent documents, or which was longer relevant for modern iOS or Mac OS X development.</p><p>Current information on this Reference Library topic can be found here:</p><p><span class="content_text"><a href="http://developer.apple.com/referencelibrary/index.html" class="browserLink" >Reference Library</a></span></p><p></p></aside></div><h2>Q:&nbsp;
+How do I avoid tearing in OpenGL?
+</h2><p><span>A: </span>Tearing is a visual artifact that occurs when the display begins reading from a buffer before your application's rendering to that buffer has completed.</p><p>You can use the swap interval context parameter to avoid tearing. This parameter is zero by default. If you set it to a non-zero value, OpenGL will synchronize buffer swaps with a vertical retrace event.</p><p>One potential reason to have a zero swap interval is to measure the maximum possible number of frames that can be rendered within a given time. This is because setting swap interval to a non-zero value caps the effective frame rate of your application to an integer divisor of the display's refresh rate. For instance, if your application can complete its rendering within one display refresh period, the frame rate will be capped at the refresh rate. If, however, your application takes longer than one refresh period, then the buffer swap will have to wait until the next refresh event. This effectively drops your frame rate to 1 / [time to render a frame rounded up to nearest vertical retrace period].</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004262-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;Although LCD displays don't have a vertical blanking period as such; they have a fixed refresh frequency of around 60Hz.</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS10004262-CH1-TNTAG3" title="NSOpenGLContexts"></a><h2 class="jump">NSOpenGLContexts</h2><p>Listing 1 shows how to enable and disable synchronization in an NSOpenGLContext.</p><a name="//apple_ref/doc/uid/DTS10004262-CH1-SOURCECODE1" title="Listing 1Synchronizing buffer swaps to VBL in an NSOpenGLView."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Synchronizing buffer swaps to VBL in an NSOpenGLView.</p><div class="codesample clear"><table><tr><td scope="row"><pre>long swapInterval = 1; // request synchronization<span></span></pre></td></tr><tr><td scope="row"><pre>//long swapInterval = 0; // disable synchronization<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>[[self openGLContext] setValues:&amp;swapInterval forParameter: NSOpenGLCPSwapInterval];<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004262-CH1-TNTAG2" title="AGL Contexts"></a><h2 class="jump">AGL Contexts</h2><p>Listing 2 shows how to enable and disable synchronization using the AGL API.</p><a name="//apple_ref/doc/uid/DTS10004262-CH1-SOURCECODE2" title="Listing 2Synchronizing buffer swaps to VBL in the current AGL Context."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Synchronizing buffer swaps to VBL in the current AGL Context.</p><div class="codesample clear"><table><tr><td scope="row"><pre>long swapInterval = 1; // request synchronization<span></span></pre></td></tr><tr><td scope="row"><pre>//long swapInterval =0; // disable synchronization<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>AGLContext ctx = aglGetCurrentContext();<span></span></pre></td></tr><tr><td scope="row"><pre>if (NULL != ctx) aglSetInteger(ctx, AGL_SWAP_INTERVAL, &amp;swapInterval);<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004262-CH1-TNTAG5" title="CGL Contexts"></a><h2 class="jump">CGL Contexts</h2><p>Listing 3 shows how to enable and disable synchronization using the CGL API.</p><a name="//apple_ref/doc/uid/DTS10004262-CH1-SOURCECODE3" title="Listing 3Synchronizing buffer swaps to VBL in the current CGL Context"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Synchronizing buffer swaps to VBL in the current CGL Context</p><div class="codesample clear"><table><tr><td scope="row"><pre>long swapInterval = 1; // request synchronization<span></span></pre></td></tr><tr><td scope="row"><pre>//long swapInterval = 0; // disable synchronization<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>CGLContextObj ctx = CGLGetCurrentContext();<span></span></pre></td></tr><tr><td scope="row"><pre>if (NULL != ctx) CGLSetParameter(ctx, kCGLCPSwapInterval, &amp;swapInterval);<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004262-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;You can use CGLSetParameter to set the swap interval for AGLContext and NSOpenGLContext objects because each of these contexts are built on the CGLContextObj opaque type.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004262-CH1-TNTAG7" title="GLUT Defaults"></a><h2 class="jump">GLUT Defaults</h2><p>GLUT based programs have the additional convenience of a default setting. The default setting is only evaluated during application launch, so for the change to take effect the application must be restarted. </p><p>GLUT defaults can be accessed on their application menus:</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004262-CH1-FIGURE1" title="Figure 1Accessing the preferences of a GLUT application"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Accessing the preferences of a GLUT application</figcaption><img src="Art/qa1521_GlutMainMenu.png" alt="" width="409" height="218"></figure><p>To enable synchronization to VBL by default select "Default Synchronize to Vertical Blank" and restart the application.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004262-CH1-FIGURE2" title="Figure 2Selecting synchronization default."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Selecting synchronization default.</figcaption><img src="Art/qa1521_GlutPreferences2.png" alt="" width="368" height="380"></figure><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004262-CH1-TNTAG10" title="References"></a><h2 class="jump">References</h2><p>The <span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/Conceptual/OpenGL-MacProgGuide/" class="browserLink" >OpenGL Programming Guide for Mac OS X</a></span> has a section about this topic under the best practices area of improving performance.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004262-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004262-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2007-07-16</td><td><p>New document that 
+					how to avoid tearing by synchronizing your rendering to the display VBL</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2007 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2007-07-16</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

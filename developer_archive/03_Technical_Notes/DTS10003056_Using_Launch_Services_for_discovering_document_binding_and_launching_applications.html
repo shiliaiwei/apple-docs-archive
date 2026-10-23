@@ -1,0 +1,740 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 03-24-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Using Launch Services for discovering document binding and launching applications">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/CoreServices}, {Topic/Data Management/File Management}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003056">
+            <meta id="document-version" name="document-version" content="2.0.0">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN2017: Interface to starting applications, opening documents either with a specific application, or using the default application.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="Stylesheet" HREF="../../style.css" TYPE="text/css">
+
+<title>Technical Note TN2017: Using Launch Services for discovering document binding and launching applications</title>
+
+<meta name="keywords" content="Launch, Launch Services, Desktop Manager, LSOpenFSRef, Document Binding">
+
+<meta name="Description" content="Technical Note TN2017: Launch Services is responsible for
+binding documents to applications and provides the system-level
+functionality of launching applications. It serves as the
+single interface to starting applications of various formats,
+opening documents either with a specific application, or
+using the default application.">
+
+
+
+<meta name="categories" content="Runtime Architecture, Processes, Operating System, Overview and Files">
+
+
+<meta name="week-posted" content="Apr 16, 2001 - Apr 20, 2001">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10003056" title="Using Launch Services for discovering document binding and launching applications"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Using Launch Services for discovering document binding and launching applications</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalnotes/Carbon/idxFileManagement-date.html">File Management</a> &gt; </p><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN2017</div>
+<div id="pageheadsub">Using Launch Services for discovering document binding and launching applications</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+         
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+            <tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                    <!-- begin_toc -->
+                    <p id="menutext">
+                   <a href="#Section1">About Launch Services</a><BR>
+                  <BR>
+                  <a href="#Section2">Benefits of using Launch Services</a><BR>
+                  <BR>
+                  <a href="#Section3">Document Binding Criteria</a><BR>
+                  <BR>
+                  <a href="#Section4">Locating the Default Application</a><BR>
+                  <BR>
+                  <a href="#Section5">Launching an Application with a Document</a><BR>
+                  <BR>
+                  <a href="#Section6">Navigation Services Filter Proc</a><BR>
+                  <BR>
+                  <a href="#Section7">Other Common Routines</a><BR>
+                  <BR>
+                  <a href="#References">References</a><BR>
+                  <BR>
+                  <a href="#Downloads">Downloadables</a></P>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+ 
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+            
+<!-- begin_intro_text -->
+<p id="introtext">Launch Services is the new API for launching applications in Mac OS X.</P>
+        
+<p id="introtext">Launch Services is responsible for binding documents to applications and provides 
+the system-level functionality of launching applications.  The Desktop Database falls short in 
+identifying bundles and file extensions; Launch Services provides the appropriate functionality 
+to identify and launch applications.</P>
+        
+              
+<p id="introtext">
+This Note is directed at application developers who have relied on Desktop Manager services in the 
+past or require application launching from within their code.</P>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Apr 17 2001]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+          <!-- begin_content -->
+          <P><a NAME=Section1></a></P>
+         
+         <H2>About Launch Services</H2>
+         
+		<P>Launch Services will be covered in detail within Tech Pubs documentation; however, it is important that you 
+		adopt Launch Services as soon as possible.  While we don't have the full documentation, this note shows 
+		how to do some of the more important things.  Another valuable resource is the headerdoc information in 
+		LaunchServices.h itself.
+		</P>
+        <P>The primary purpose of Launch Services is to launch applications. Launch Services serves as the single, 
+        medium-level interface to starting applications of various formats, opening documents either with a specific 
+        application or using the default application, and opening URLs. Launch Services is responsible for grouping 
+        documents associated with the same application together before issuing launch requests in order to minimize 
+        the number of launch requests. None of the launching APIs are preemptive or re-entrant safe for Mac OS X.
+        </P>
+        <P>
+        With Mac OS X and application bundles, the Desktop Manager has lost its usefulness.  Since application bundles 
+        may be composed strictly of data files and properties of the bundle listed in its <code>plist</code> file Launch Services 
+        was created to register and maintain information about which documents should be launched by which applications. 
+        </P>
+         
+         <P>If you use the Desktop DB APIs you'll notice they ignore bundled applications.  
+         Details of how to locate applications within the Desktop Database can be found in 
+         "DTS Technote 1002, <a href="tn1002.html#RTFToC1">On 
+         Launching an App with a Document</a>"</P>
+         
+
+		<P><a href="#top">Back to top</a></P>
+         
+         
+         
+         <P><a NAME=Section2></a></P>
+         
+         <H2>Benefits of using Launch Services</H2>
+<P>The API for finding and launching applications has changed with Mac OS X, but this is a good thing - it's easier 
+        now. In the past, launching applications with documents in a way similar to the Finder required knowledge of several 
+        API sets including the Desktop Manager, File Manager, Translation Manager, Internet Config, Process Manager, and 
+        Apple Events.  Now all this functionality has been wrapped up into one easy-to-use set of APIs.</p>
+		<P>
+		Launch Services was created specifically to avoid the common need for third parties to ask the Finder to open an application or 
+        document for them. The Finder previously had implicit knowledge of the Translation Manager, the Desktop Database, and other 
+        aspects of determining the correct application not available elsewhere. Launch Services solves this problem by being the sole 
+        place clients should go to launch applications or open documents. The Mac OS X Finder does no additional processing beyond 
+        calling Launch Services, so any client using Launch Services will behave the same as the Finder with respect to opening 
+        applications and documents.</p>
+         
+         
+   		<P><a href="#top">Back to top</a></P>
+         
+         <P><a NAME=Section3></a></P>
+
+         <H2>Document Binding Criteria</H2>
+         
+        <P>Locating the application is based on a number of criteria primarily set up within the application's <code>plist</code>.  
+        The user may override some information by specifying which applications are designated to open certain files, 
+        files of certain types, and extensions. Matching documents with applications is based on a set of priorities. 
+        Note that file types and creators of <code>'????'</code> are treated the same as 0.</p>
+        
+        <OL>
+        <li>Has the user specified the application for this document?</li>
+        <li>If a creator was provided, look for applications with the creator.</li>
+        <li>If an extension was provided, look for applications that claim they can open files with the provided 
+        extension (comparison of extensions is case insensitive).</li>
+        <li>If a file type was provided, look for applications that claim they can open files with the provided type.</li>
+        <li>In any case, if the located application does not claim to handle documents like the supplied inputs, it 
+        is not considered eligible and is skipped.</li>
+        <li>Select the first application from the collection giving preference first to native applications, then Classic applications.</li>
+        <li>Break any ties of the same application by choosing the latest version number.</li>
+<!--	This Last precedence *might* be fixed for Puma -->
+<!--	<li>Give precedence to local applications on the boot volume, then local applications on other volumes, then remote applications.</li> -->
+        </OL>
+        
+       <p>
+ These precedence rules produce the following examples:
+</p>
+
+    <table BORDER=0 WIDTH="100%" >
+        <TR>
+          <td width=90 align=left><P><B>File Name</B></P></TD><td width=64 align=left><P><B>Type</B></P></TD><td width=64 align=left><P><B>Creator</B></P></TD><td align="left"><P><B>Results</B></P></TD></TR>
+        <TR>
+          <td width=90 align=left><P>Read Me.txt</P></TD><td width=64 align=left><P>TEXT</P></TD><td width=64 align=left><P>ttxt</P></TD><td align="left"><P>Classic SimpleText because creator was specified</P></TD></TR>
+        <TR>
+          <td width=90 align=left><P>Read Me.txt</P></TD><td width=64 align=left><P>????</P></TD><td width=64 align=left><P>????</P></TD><td align="left"><P>TextEdit.app because no creator, TextEdit claims .txt, is native, is local</P></TD></TR>
+        <TR>
+          <td width=90 align=left><P>Doc1.pdf</P></TD><td width=64 align=left><P>PDF_</P></TD><td width=64 align=left><P>CARO</P></TD><td align="left"><P>Classic Acrobat Reader because creator was specified and no native Acrobat Reader</P></TD></TR>
+        <TR>
+          <td width=90 align=left><P>Doc2.pdf</P></TD><td width=64 align=left><P>TEXT</P></TD><td width=64 align=left><P>????</P></TD><td align="left"><P>TextEdit.app because no creator, TextEdit claims pdf, is native, and is local</P></TD></TR>
+        <TR>
+          <td width=90 align=left><P>Index.html</P></TD><td width=64 align=left><P>TEXT</P></TD><td width=64 align=left><P>ttxt</P></TD><td align="left"><P>Classic SimpleText because creator was specified</P></TD></TR>
+        <TR>
+          <td width=90 align=left><P>Index.html</P></TD><td width=64 align=left><P>TEXT</P></TD><td width=64 align=left><P>????</P></TD><td align="left"><P>IE-X because no creator, IE-X claims .html, is native, and is local</P></TD></TR>
+        <TR>
+          <td width=90 align=left><P>Index.html</P></TD><td width=64 align=left><P>????</P></TD><td width=64 align=left><P>????</P></TD><td align="left"><P>IE-X because no creator, IE-X claims .html, is native, and is local</P></TD></TR>
+        <TR>
+          <td width=90 align=left><P>My Doc</P></TD><td width=64 align=left><P>TEXT</P></TD><td width=64 align=left><P>MSWD</P></TD><td align="left"><P>Classic Microsoft Word because creator was specified</P></TD></TR>
+        <TR>
+          <td width=90 align=left><P>My Doc</P></TD><td width=64 align=left><P>????</P></TD><td width=64 align=left><P>????</P></TD><td align="left"><P>No binding - requests the user to select an application a</P></TD>    </TR>
+        <TR>
+          <td width=90 align=left><P>My Doc</P></TD><td width=64 align=left><P>TEXT</P></TD><td width=64 align=left><P>????</P></TD><td align="left"><P>TextEdit.app because no creator, TextEdit claims OSType TEXT, is native, and is loc</P></TD></TR>
+        </table>
+
+        
+        <P>
+        Launch Services is also tasked with maintaining the collection of recently opened applications and documents. Only those 
+        applications successfully launched and only those documents successfully opened are added to the recent items.
+        </P>
+         
+                 
+         <P><a href="#top">Back to top</a></P>
+         
+         <P><a NAME=Section4></a></P>
+         
+         <H2>Locating the Default Application</H2>
+         
+        <P>Currently Launch Services is only available on Mac OS X to both CFM and Mach-O applications.  The APIs 
+        are available within &lt;LaunchServices.h&gt; and you should check the availability of Launch Services by doing 
+        a runtime T-Vector check of an API, shown in Listing 1, as the Launch Services functionality may be brought 
+        back to Mac OS 8/9 through CarbonLib at a later date. Looking at &lt;LaunchServices.h&gt; you'll notice parallel 
+        versions of the APIs accepting either <code>FSRefs</code> or CFURLs.</p>
+        <P>
+        If you use the Desktop DB APIs, you'll notice they ignore bundled applications.  It used to be primarily 
+        responsible for locating which single binary application is associated with a given type and creator pair.  
+        Details of how to locate applications within the Desktop Database can be found in "
+        <a href="tn1002.html#RTFToC1">DTS Technote 1002, On Launching an App with a Document</a>"
+        </P>
+		<P>The following code demonstrates how to locate the default application given a files OSType.</P>
+         
+
+       
+    <BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+if ( (UInt32)LSGetApplicationForInfo !=
+        (UInt32)kUnresolvedCFragSymbolAddress ) {
+    err = LSGetApplicationForInfo(kLSUnknownType,
+        'MSIE', nil, kLSRolesAll,
+        &amp;outAppRef, &amp;outAppURL);
+    if ( err != noErr ) return( err );
+}
+</pre>
+</TD></TR><TR><td align="left">
+<P>&nbsp;<B>Listing 1</B>. A source code listing to check if Launch Services is available by checking its T-Vector and then locates the default application given an applications creator, <code>'MSIE'</code>.</P>
+</TD></TR></table></CENTER><BR><BR>
+   
+         
+        <P>
+        Likewise, you can also locate the appropriate application based on a number of other criteria including <code>OSType</code>, 
+        file extension, role, etc.  For example, in the listing below the routine <CODE>LSGetApplicationForInfo()</CODE> is 
+        being called to locate the appropriate application for viewing a document based on the document's file 
+        name extension.
+        </P>
+         
+         
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>err = LSGetApplicationForInfo(
+    kLSUnknownType,
+    kLSUnknownCreator,
+    CFSTR("html"),
+    kLSRolesViewer,
+    &amp;outAppRef,
+    &amp;outAppURL
+);</pre>
+</TD></TR>
+<TR><td align="left">
+<P>&nbsp;<B>Listing 2</B>. A source code listing locates the designated application to view ".html" files.</P>
+</TD></TR>
+</table></CENTER><BR><BR>
+
+         <P><a href="#top">Back to top</a></P>
+         
+         <P ALIGN=center>&nbsp;</P>
+         
+         <P><a NAME=Section5></a></P>
+         
+         <H2>Launching an Application with a Document</H2>
+         
+        <P>
+        
+        </P><P>
+        There are typically two scenarios in which one launches an application with a document.  The simplest and most common case 
+        is launching the default application to open the specified document.  (This is similar to double-clicking a file from the Finder.)
+        This can be done by calling <CODE>LSOpenFSRef()</CODE>.
+       </P>
+         
+ 
+  <BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+EXTERN_API( OSStatus )
+LSOpenFSRef(
+  const FSRef *  inRef,             /* Item to open */
+  FSRef *        outLaunchedRef);   /* can be NULL */
+</pre>
+</TD></TR>
+<TR><td align="left">
+<P>&nbsp;<B>Listing 3</B>. The following example shows how to open a file with the default application given an <code>FSRef</code> 
+to the file you wish to open.</P>
+</TD></TR>
+</table></CENTER><BR><BR>
+
+
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+LSLaunchFSRefSpec inLaunchSpec;
+    /* app to use, can be NULL*/
+inLaunchSpec.appRef = &amp;outAppRef;
+    /* items to open/print, can be NULL*/
+inLaunchSpec.numDocs = numDocuments;
+    /* array of FSRefs*/
+inLaunchSpec.itemRefs = documentRefArray;
+    /* passed untouched to application as optional parameter*/
+inLaunchSpec.passThruParams = nil;
+    /* default = open, async, use Info.plist, start Classic*/
+inLaunchSpec.launchFlags = kLSLaunchDefaults;
+    /* used if you register for app birth/death notification*/
+inLaunchSpec.asyncRefCon = nil;
+
+err = LSOpenFromRefSpec( &amp;inLaunchSpec, &amp;outLaunchedRef );
+</pre>
+</TD></TR>
+<TR><td align="left">
+<P>&nbsp;<B>Listing 4</B>. The following example demonstrates the more interesting case of launching a chosen 
+                  application to open the specified documents.</P>
+</TD></TR>
+</table></CENTER><BR><BR>
+
+<P><a href="#top">Back to top</a></P>
+         
+         
+         
+         <P><a NAME=Section6></a></P>
+         
+         <H2>Navigation Services Filter Proc</H2>
+         
+        <P>
+        You may want to create a Navigation Services filter proc if you want to display only the files an application can open.
+        </P>
+        <P>
+        The important part of writing a Navigation Services filter proc is determining whether each item should 
+        be enabled for selection or not. To make this decision an application must gather certain information 
+        about the item and determine whether the item can be opened by the developer's application.  For instance if 
+        your text editing application has a <code>plist</code> describing that it can open files of type <code>'TEXT'</code>, or files with a 
+        file name extension of "txt", or "text", this generic filter proc will query Launch Services to automatically 
+        display only files your application is capable of opening.</p>
+         
+         
+     <BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+pascal Boolean NavLaunchServicesFilterProc(
+                    AEDesc* theItem,
+                    void* info,
+                    NavCallBackUserData ioUserData,
+                    NavFilterModes filterMode)
+{
+    #pragma unused( info, ioUserData )
+    LSItemInfoRecord        infoRec;
+    FSRef                    fsRef;
+    OSStatus                err            = noErr;
+    Boolean                    showItem    = false;
+
+    if ( filterMode == kNavFilteringBrowserList )
+    {
+        err    = GetFSRefFromAEDesc( &amp;fsRef, theItem );
+        if ( err != noErr ) goto BailWithError;
+
+            /* Ask LaunchServices for information about
+            package-ness and type and creator. */
+        err = LSCopyItemInfoForRef( &amp;fsRef, kLSRequestAllInfo,
+                    &amp;infoRec );
+        if ( (err != noErr) &amp;&amp; (err != kLSApplicationNotFoundErr) )
+            goto BailWithError;
+
+            /* Determine if we can open this item. If the
+            item is a folder (and not a package) then we
+            always enable it so the user can see the contents.
+            Boolean isPkg =
+                ( (infoRec.flags &amp; kLSItemInfoIsPackage) != 0 );
+            Boolean isApp =
+                ( (infoRec.flags &amp; kLSItemInfoIsApplication) != 0 );
+            */
+
+        if ( (infoRec.flags &amp; kLSItemInfoIsAliasFile) != 0 )
+        {
+            /* We could resolve the alias and decide
+            to select the item or not based on the
+            original.  Left to the reader as an exercise. */
+        }
+
+        if ( (infoRec.flags &amp; kLSItemInfoIsContainer) != 0 )
+        {
+            showItem = true;
+        }
+        else
+        {
+            Boolean canViewItem = false;
+
+            err    = LSCanRefAcceptItem( &amp;fsRef, &amp;gApplicationFSRef,
+                kLSRolesViewer, kLSAcceptDefault, &amp;canViewItem );
+
+            if ( err == noErr )
+                showItem = canViewItem;
+        }
+    }
+    else
+    {
+        showItem = true;
+    }
+    return( showItem );
+
+BailWithError:
+    return( false );
+}
+
+
+OSStatus    GetFSRefFromAEDesc( FSRef *fsRef, AEDesc* theItem )
+{
+    OSStatus        err            = noErr;
+    AEDesc             coerceDesc    = { NULL, NULL };
+
+    /* If the AEDesc isn't already an FSSpec,
+        convert it to one... */
+    if ( theItem-&gt;descriptorType != typeFSRef )
+    {
+        err = AECoerceDesc( theItem, typeFSRef, &amp;coerceDesc );
+        if ( err == noErr )
+            theItem = &amp;coerceDesc;
+    }
+    /* Get the FSRef out of the AEDesc */
+    if ( err == noErr )
+        err = AEGetDescData( theItem, fsRef, sizeof(*fsRef) );
+    AEDisposeDesc( &amp;coerceDesc );
+
+    /* If we have could not get an FSRef try getting an FSSpec and
+        make an FSRef out of it. */
+    if ( err != noErr )
+    {
+        FSSpec fsSpec;
+        AEDesc coerceDesc2 = {NULL, NULL};
+
+        /* If the AEDesc isn't already an FSSpec, convert it to one... */
+        if ( theItem-&gt;descriptorType != typeFSS )
+        {
+            err = AECoerceDesc( theItem, typeFSS, &amp;coerceDesc2 );
+            theItem = &amp;coerceDesc2;
+        }
+
+        /* Get the FSSpec out of the AEDesc and convert it to an FSRef... */
+        if ( err == noErr )
+            err = AEGetDescData( theItem, &amp;fsSpec, sizeof(fsSpec) );
+        AEDisposeDesc( &amp;coerceDesc2 );
+        if ( err == noErr )
+            err = FSpMakeFSRef( &amp;fsSpec, fsRef );
+    }
+
+    return( err );
+}
+</pre>
+</TD></TR>
+<TR><td align="left">
+<P><B>Listing 5</B>. A source code listing of a NavigationServices filter proc which only displays items which Launch Services decides your application can open.  This becomes very important, for example, if your text editing application should open files without a file type, but with an filename extension. 
+<a href="downloads/LSNavFilterSample.sit">Download</a> the sample code.</P>
+</TD></TR>
+</table></CENTER><BR><BR>
+
+        <P><a href="#top">Back to top</a></P>
+         
+         
+        
+        <P><a NAME=Section7></a></P>
+         
+		<H2>Other Common Routines</H2>
+         
+		<P>
+       <CODE>LSCopyItemInfoForRef</CODE>, used in code Listing 5, and its related functions are used to gather important information 
+       about packages. Whether it is a Carbon or Classic application, a package, on application, the type and creator, and 
+       other info.  As noted in the header file, LaunchServices.h, some variants of this routine are thread safe.</p>
+       <P>
+       Developers often want to show the same "kind" strings as displayed within the Finders list view. For example File, Folder, 
+       Alias, CodeWarrior text file, etc. <CODE>LSCopyKindStringForRef</CODE> and <CODE>LSCopyKindStringForURL</CODE> return a <code>CFStringRef</code> containing 
+       the file kind.</p>
+       
+		<P><a href="#top">Back to top</a></P>
+
+
+         <P><a NAME=References></a></P>
+         
+         <H2>References</H2>
+         
+<BR><BR><CENTER><table BORDER=0 CELLPADDING=4 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>IMPORTANT:</B><BR>
+Be sure that you read the <a href="tn2013.html">
+        DTS Technote 2013, The 'plst' Resource</a> to set up your applications <code>plist</code> correctly.
+</P>
+</TD></TR></table></CENTER><BR><BR>
+                             
+         
+         
+        
+        <P>
+        Also read <a href="tn1002.html">DTS Technote 1002, 
+        On Launching an App with a Document</a> for information about the Desktop Database.</p>
+        
+        <P><a href="#top">Back to top</a></P>
+        
+          
+          
+		<P><a NAME=Downloads></a></P>
+		<H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (68K)</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/tn2017.pdf">Download</a></P>
+               </TD>
+            </TR>
+            <TR>
+               <td width=50 align=left>
+  <P ALIGN=center><img src="images/redbook.gif" width=20 height=20 align=bottom alt="Redbook gif"></P>
+               </TD>
+               <td align="left">
+                  <P>tn2017.hqx, an application using the Navigation Services filter code in Listing 5 (28 K)</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="downloads/tn2017.hqx">Download</a></P>
+               </TD>
+            </TR>
+         </table>
+         <BR>
+         
+         
+         
+         
+         <P><a href="#top">Back to top</a></P>
+        
+         
+</TD></TR></table></CENTER>
+<!-- end_content -->
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

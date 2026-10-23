@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1408: Audio Units - How to determine the version of an Audio Unit</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003489">
+    <meta id="document-version" name="document-version" content="2.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003489-CH1">
+    <meta id="date" name="date" content="2013-07-30">
+    <meta id="description" name="description" content="QA1408: demonstrates how to find the version number of an Audio Unit.">
+    <meta id="book-title" name="book-title" content="Audio Units - How to determine the version of an Audio Unit">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1408">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Units - How to determine the version of an Audio Unit" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003489" title="Technical Q&amp;A QA1408"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Units - How to determine the version of an Audio Unit</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003489-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1408"></a><div class="dtsDocNumber">Technical Q&amp;A QA1408</div><h1 id="pageTitle">Audio Units - How to determine the version of an Audio Unit</h1><h2>Q:&nbsp;
+How do I determine the version of an Audio Unit I am using?
+</h2><p><span>A: </span>Core Audio uses the Audio Component API to make Audio Units available as a system-wide resource. After obtaining a valid instance of an Audio Unit, you can use <code>AudioComponentGetVersion</code> to get the version number.</p><p>This can be useful when you require a specific version of an Audio Unit with updated or different features and you want to determine which version is installed before using the Audio Unit. </p><p>Listing 1 demonstrates how to ensure you have at least version 2.0 of the 3D Mixer audio unit installed.</p><a name="//apple_ref/doc/uid/DTS10003489-CH1-SOURCECODE1" title="Listing 1Checking the 3D Mixer Version."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Checking the 3D Mixer Version.</p><div class="codesample clear"><table><tr><td scope="row"><pre>// The Version format is 0xMMMMmmbb<span></span></pre></td></tr><tr><td scope="row"><pre>// The digits M/m/b are stored in BCD (Binary Coded Decimal) format for numbers greater than 9<span></span></pre></td></tr><tr><td scope="row"><pre>// A version number for 10.3.1 would be: 0x100301<span></span></pre></td></tr><tr><td scope="row"><pre>// A version number for 2.3.1 would be: 0x20301<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>#define kPreferredMixerVersion  0x20400<span></span></pre></td></tr><tr><td scope="row"><pre>#define kMinimumMixerVersion    0x20000<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // if the returned version is less than 0x20000<span></span></pre></td></tr><tr><td scope="row"><pre>    // it's not the 3DMixer we're looking for, move along...<span></span></pre></td></tr><tr><td scope="row"><pre>    UInt32 mixerVersion = kMinimumMixerVersion;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if ( Is3DMixerVersionValid(&amp;mixerVersion) ) {<span></span></pre></td></tr><tr><td scope="row"><pre>        // yes, we can work with it<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>        // your code here...<span></span></pre></td></tr><tr><td scope="row"><pre>        printf("Version Number Returned 0x%x", (unsigned int)mixerVersion);<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>bool Is3DMixerVersionValid(UInt32 *ioVersionNumber)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    bool isVersionValid = false;<span></span></pre></td></tr><tr><td scope="row"><pre>    UInt32 theVersionNumber = 0;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if (NULL == ioVersionNumber) return false;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    AudioComponentDescription mixer3D_desc = { kAudioUnitType_Mixer,<span></span></pre></td></tr><tr><td scope="row"><pre>                                               kAudioUnitSubType_3DMixer,<span></span></pre></td></tr><tr><td scope="row"><pre>                                               kAudioUnitManufacturer_Apple,<span></span></pre></td></tr><tr><td scope="row"><pre>                                               0, 0 };<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    AudioComponent mixer3D_component = AudioComponentFindNext(0, &amp;mixer3D_desc);<span></span></pre></td></tr><tr><td scope="row"><pre>    if (NULL == mixer3D_component) return false;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if (AudioComponentGetVersion(mixer3D_component, &amp;theVersionNumber)) return false;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if (theVersionNumber &gt;= *ioVersionNumber){<span></span></pre></td></tr><tr><td scope="row"><pre>        isVersionValid = true;<span></span></pre></td></tr><tr><td scope="row"><pre>        *ioVersionNumber = theVersionNumber; // validated this pointer on entry<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    return isVersionValid;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>See <code>AudioComponent.h</code> for more information.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS10003489-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003489-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2013-07-30</td><td><p>Updated to use Audio Component API. Updated description of version format &amp; added examples.</p></td></tr><tr><td scope="row">2005-03-07</td><td><p>Changed code of Is3DMixerVersionValid(). Added information about Version format (BCD). </p></td></tr><tr><td scope="row">2005-02-03</td><td><p>New document that 
+					demonstrates how to find the version number of an Audio Unit.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-07-30</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

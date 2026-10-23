@@ -1,0 +1,1075 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Identifying Java on OS X">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Cross Platform/Java}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003202">
+            <meta id="document-version" name="document-version" content="8.0.0">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN2110: Discovering installed versions of Java for OS X from Java code.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="Java">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- BEGIN META TAG INFO --><link rel="home" href="http://developer.apple.com/">
+<link rel="find" href="http://developer.apple.com/search/">
+
+<script language="JavaScript" src="../../Resources/1282/JavaScript/adc.js" type="text/javascript"></script><!-- END META TAG INFO --><!-- BEGIN TITLE --><title>Technical Note TN2110: Identifying Java on OS X</title>
+<!-- END TITLE --><style>
+			.sourcecodebox {
+				white-space: pre-wrap;
+				white-space: -moz-pre-wrap !important;
+				white-space: -pre-wrap;
+				white-space: -o-pre-wrap;
+				word-wrap: break-word;
+			}
+			</style>
+
+</head>
+
+<!-- BEGIN BODY OPEN --><body bgcolor="#ffffff" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10003202" title="Identifying Java on OS X"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Identifying Java on OS X</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<!-- END BODY OPEN --><!-- START CENTER OPEN --><center>
+<!-- END CENTER OPEN --><a name="top"></a><!-- BEGIN LOGO AND SEARCH --><!-- END LOGO AND SEARCH --><!-- START BREADCRUMB --><div id="breadcrumb"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td scope="row"><img width="340" height="10" src="images/1dot.gif" alt=""></td>
+<td><img width="340" height="10" src="images/1dot.gif" alt=""></td>
+</tr>
+<tr valign="middle"><td align="left" colspan="2">
+<a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/Java/index.html">Java</a> &gt; <a href="../../technicalnotes/Java/idxPorting-date.html">Porting</a> &gt; </td></tr>
+<tr><td colspan="2" scope="row"><img width="100%" height="35" src="images/1dot.gif" alt=""></td></tr>
+</table></div>
+<!-- END BREADCRUMB --><!-- START MAIN CONTENT --><!-- START TITLE GRAPHIC AND INTRO --><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr align="left" valign="top"><td><h1>
+<div id="pagehead">Technical Note TN2110</div>
+<div id="pageheadsub">Identifying Java on OS X</div>
+</h1></td></tr></table>
+<!-- END TITLE GRAPHIC AND INTRO --><!-- BEGIN WIDE COLUMN --><table width="100%" border="0" cellpadding="0" cellspacing="0"><tr align="left" valign="top"><td align="left" width="100%">
+<!-- BEGIN CONTENTS --><table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr align="left" valign="top"><td><p>This Technical Note discusses the recommended ways to identify an OS X Java installation at runtime, as well as differentiating between the various Apple Java releases for OS X. It is targeted at developers who need to provide features or workarounds in their applications which are specific to the OS X platform, or to a particular Java release for OS X. End-user techniques for discovering installed versions of Java are not discussed.</p></td></tr>
+<tr><td scope="row">
+<img height="20" src="images/1dot.gif" alt="">
+</td></tr>
+</table>
+<table class="toc" border="0" cellpadding="0" cellspacing="0">
+<tr align="left" valign="top"><td width="100%"><ul>
+<li><a href="#FINDINGMAC">Identifying OS X from Java</a></li>
+<li><a href="#FINDINGJAVAVERS">Identifying a Java Version</a></li>
+<li><a href="#FINDINGMACVERS">Identifying a OS X Version from Java</a></li>
+<li><a href="#FINDINGMACJAVAVERS">Identifying an Apple Java Version</a></li>
+<ul>
+<li><a href="#MRJV">mrj.version</a></li>
+<li><a href="#TABLES">Java Version Strings</a></li>
+</ul>
+<li><a href="#document_revision_summary">Document Revision History</a></li>
+</ul></td></tr>
+<tr><td colspan="3" scope="row">
+<img height="20" src="images/1dot.gif" alt="">
+</td></tr>
+</table>
+<a name="FINDINGMAC"></a><h2>Identifying OS X from Java</h2>
+<p>Apple has made a Java SE runtime available for OS X, beginning with version 10.0. Any pure Java application should run great on OS X, but there are times when you may want to know which platform your application is running on. For example, to handle the About, Preferences, and Quit menu items your application can use the <code>com.apple.eawt</code> APIs, but it should only call those APIs on OS X. There are a number of ways to detect the current platform, but the easiest and most reliable way is to check the standard <code>os.name</code> System property:</p>
+<p class="caption"><strong>Listing 1: </strong>Detecting OS X in Java code.</p>
+<pre class="sourcecodebox">public static boolean isOSX() {
+    String osName = System.getProperty("os.name");
+    return osName.contains("OS X");
+}</pre>
+<p>This is the preferred method for detecting an OS X system, because it uses a standard System property with a known value.</p>
+<p style="margin-top:-5px"><a href="#top">Back to Top </a><a href="#top"><img src="images/arrow_linkup.gif" height="7" width="10" border="0" alt=""></a></p>
+<a name="FINDINGJAVAVERS"></a><h2>Identifying a Java Version</h2>
+<p>The next level of granularity to examine is which specific Java version your application is running under. For example, perhaps you want to use Java 1.5-specific APIs, but remain compatible with Java 1.4. There's nothing special about this on OS X: as on any other platform, you need to check the <code>java.version</code> System property:</p>
+<p class="caption"><strong>Listing 2: </strong>Detecting a Major Java Version.</p>
+<pre class="sourcecodebox">public static boolean isJava15OrBetter() {
+    String javaVersion = System.getProperty("java.version");
+    String[] fragments = javaVersion.split("\\.");
+
+    // sanity check the "1." part of the version
+    if (!fragments[0].equals("1")) return false;
+    if (fragments.length &lt; 2) return false;
+
+    // check if Java 1.5.x or higher
+    try {
+        int minorVers = Integer.parseInt(fragments[1]);
+        if (minorVers &gt;= 5) return true;
+    } catch (NumberFormatException e) {
+        // was not an integer
+    }
+
+    return false;
+}</pre>
+<div class="notebox"><p><strong>Note: </strong>If you intend to support multiple Java versions, be sure to compile with the <code>-target &lt;version&gt;</code> flag, where <code>version</code> is the earliest version you want to support (i.e. <code>javac -source 1.4 -target 1.4 *.java</code>).</p></div>
+<p style="margin-top:-5px"><a href="#top">Back to Top </a><a href="#top"><img src="images/arrow_linkup.gif" height="7" width="10" border="0" alt=""></a></p>
+<a name="FINDINGMACVERS"></a><h2>Identifying a OS X Version from Java</h2>
+<p>Sometimes it is necessary to identify a major version of OS X to use a tool or a native library that requires a minimum version of OS X. The most reliable way to determine the OS X version is to use the <code>os.version</code> System property:</p>
+<p class="caption"><strong>Listing 3: </strong>Detecting OS X in Java code.</p>
+<pre class="sourcecodebox">public static boolean isSnowLeopardOrBetter() {
+    String osName = System.getProperty("os.name");
+    if (!osName.contains("OS X")) return false;
+
+    // split the "10.x.y" version number
+    String osVersion = System.getProperty("os.version");
+    String[] fragments = osVersion.split("\\.");
+
+    // sanity check the "10." part of the version
+    if (!fragments[0].equals("10")) return false;
+    if (fragments.length &lt; 2) return false;
+
+    // check if OS X 10.6(.y)
+    try {
+        int minorVers = Integer.parseInt(fragments[1]);
+        if (minorVers &gt;= 6) return true;
+    } catch (NumberFormatException e) {
+        // was not an integer
+    }
+
+    return false;
+}</pre>
+<p style="margin-top:-5px"><a href="#top">Back to Top </a><a href="#top"><img src="images/arrow_linkup.gif" height="7" width="10" border="0" alt=""></a></p>
+<a name="FINDINGMACJAVAVERS"></a><h2>Identifying an Apple Java Version</h2>
+<p>While Apple does its best to make sure its Java releases track the latest Oracle releases, Apple software update schedules for OS X depend on many factors. Therefore, Apple does not necessarily ship a Java release for every Java version that Oracle does. It is also possible for Apple to release a Java update that fixes problems specific to Java on OS X before a new minor version appears from Oracle. In this scenario, there would would be two Java SE 6 releases for the same version of OS X with the same Java version number, and simply checking the <code>java.version</code> System property would not be adequate to determine which Apple release your application is running on.</p>
+<p>Why should developers be concerned?  If there is a problem specific to Java on OS X that is affecting your application, there are two likely solutions:</p>
+<ol>
+<li><p>Your application prompts the user to update their Java to a version you know fixes the problem.</p></li>
+<li><p>If the above is not an option, work around the problem in the release which exhibits it.</p></li>
+</ol>
+<p>Either of these actions requires a way of specifically determining which Apple Java release your application is running on. There are a number of ways of doing this, but the recommended method is to analyze the <code>java.runtime.version</code> System property. Apple appends a release-specific version string to the end of this property that can be used to identify which Apple release you're using, regardless of the major/minor Java release numbers. Listing 2 illustrates how you might do this in your Java code.</p>
+<p class="caption"><strong>Listing 4: </strong>Identifying a specific Apple Java release.</p>
+<pre class="sourcecodebox">public static boolean isExactlyLeopardUpdate4() {
+    if (!isOSX()) return false;
+
+    String runtimeVersion = System.getProperty("java.runtime.version");
+    if (!runtimeVersion.startsWith("1.5.0_")) return false;
+    if (!runtimeVersion.endsWith("-304")) return false;
+    return true;
+}</pre>
+<p>Be sure to check against both the Java and Apple version substrings as in the example above. While highly unlikely, it's possible for more than one major Apple Java release (i.e. 1.3.x, 1.4.x, 1.5.x, 1.6.x) to have the same build strings at the end. Note that for additional robustness, this check is done in conjunction with the OS X check from Listing 1.</p>
+<p>As with the previous code examples, this is the preferred method of determining which release of Java for OS X you're running, because it uses standard System properties.</p>
+<a name="MRJV"></a><h3>mrj.version</h3>
+<p>Another System property provided by Apple, <code>mrj.version</code>, can be used to a similar end. However, it is a legacy system property dating back to the Classic Mac OS, and is not guaranteed to have a deterministic format through future releases. Furthermore, Apple is trying to stay as close to the standard Java functionality as possible. For these reasons, we recommend that you instead use the more standard <code>os.name</code> and <code>java.runtime.version</code> properties for Macintosh identification in all ongoing Java development, as outlined in this Technical Note.</p>
+<p style="margin-top:-5px"><a href="#top">Back to Top </a><a href="#top"><img src="images/arrow_linkup.gif" height="7" width="10" border="0" alt=""></a></p>
+<a name="TABLES"></a><h3>Java Version Strings</h3>
+<p>In order to make use of the technique described above, you'll need to know the version strings for all Java releases on OS X. Tables 1 through 4 list the relevant System property values for all Java 1.3, 1.4, 5.0, and 6 releases, respectively, starting with Mac OS X 10.0. Java versions which shipped with a OS X release are listed under that corresponding version, with a dash under the "Java Release" column. Java releases which appeared as Software Updates and/or manual downloads are listed under the "Java Release" column, next to the version of OS X for which they were available.</p>
+<div class="notebox"><p><strong>Note: </strong>J2SE 1.4 was not available until Mac OS X Jaguar (10.2), J2SE 5.0 not until Mac OS X Tiger (10.4), and Java SE 6 not until Mac OS X Leopard (10.5).</p></div>
+<p class="smalltext"><strong>Table 1 : </strong>J2SE 1.3 Releases on OS X</p>
+<table cellspacing="0" class="graybox">
+<tr>
+<th><strong>OS X Release</strong></th>
+<th><strong>Java Release</strong></th>
+<th><strong>java.version</strong></th>
+<th><strong>java.runtime.version</strong></th>
+</tr>
+<tr>
+<td scope="row"><strong>10.0</strong></td>
+<td>Mac OS X 10.0</td>
+<td><code>1.3.0</code></td>
+<td><code>1.3</code></td>
+</tr>
+<tr>
+<td scope="row"><strong>10.1</strong></td>
+<td>Mac OS X 10.1</td>
+<td><code>1.3.1</code></td>
+<td><code>1.3.1-root-010902-18:51</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>1.3.1 Update 1</strong></td>
+<td><code>1.3.1</code></td>
+<td><code>1.3.1-root_1.3.1_020714-12:46</code></td>
+</tr>
+<tr>
+<td scope="row"><strong>10.2</strong></td>
+<td>Mac OS X 10.2</td>
+<td><code>1.3.1</code></td>
+<td><code>1.3.1-root-010902-18:51</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>1.3.1 Update 1</strong></td>
+<td><code>1.3.1</code></td>
+<td><code>1.3.1-root_1.3.1_030709-15:51</code></td>
+</tr>
+<tr>
+<td scope="row"><strong>10.3</strong></td>
+<td>Mac OS X 10.3</td>
+<td><code>1.3.1</code></td>
+<td><code>1.3.1-root_1.3.1_030912-19:52</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java Security Update (4.0)</strong></td>
+<td><code>1.3.1_16</code></td>
+<td><code>1.3.1_16-root_1.3.1_050825-11:50</code></td>
+</tr>
+<tr>
+<td scope="row"><strong>10.4</strong></td>
+<td>Mac OS X 10.4</td>
+<td><code>1.3.1_15</code></td>
+<td><code>1.3.1_15-root_1.3.1_050320-16:33</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>1.3.1 and 1.4.2 Release 2</strong></td>
+<td><code>1.3.1_16</code></td>
+<td>
+<code>1.3.1_16-root_1.3.1_050718-17:36 (PowerPC)</code><br><code>1.3.1_16-root_1.3.1_060113-11:57 (Intel)</code>
+</td>
+</tr>
+</table>
+<div class="notebox"><p><strong>Note: </strong>Mac OS X 10.4 for Intel contains a J2SE 1.3 runtime for PPC, but running it under Rosetta is unsupported.</p></div>
+<div class="notebox"><p><strong>Note: </strong>Mac OS X 10.5 and later do not include J2SE 1.3.</p></div>
+<p class="smalltext"><strong>Table 2 : </strong>J2SE 1.4 Releases on OS X</p>
+<table cellspacing="0" class="graybox">
+<tr>
+<th><strong>OS X Release</strong></th>
+<th><strong>Java Release</strong></th>
+<th><strong>java.version</strong></th>
+<th><strong>java.runtime.version</strong></th>
+</tr>
+<tr>
+<td scope="row"><strong>10.2</strong></td>
+<td>Mac OS X 10.2</td>
+<td><code>1.4.1_01</code></td>
+<td><code>1.4.1_01-39</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>1.4.1 Update 1</strong></td>
+<td><code>1.4.1_01</code></td>
+<td><code>1.4.1_01-69.1</code></td>
+</tr>
+<tr>
+<td scope="row"><strong>10.3</strong></td>
+<td>Mac OS X 10.3</td>
+<td><code>1.4.1_01</code></td>
+<td><code>1.4.1_01-99</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>1.4.2</strong></td>
+<td><code>1.4.2_03</code></td>
+<td><code>1.4.2_03-117.1</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>1.4.2</strong></td>
+<td><code>1.4.2_03</code></td>
+<td><code>1.4.2_03-117.1</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>1.4.2 Update 1</strong></td>
+<td><code>1.4.2_05</code></td>
+<td><code>1.4.2_05-141</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>1.4.2 Update 2</strong></td>
+<td><code>1.4.2_05</code></td>
+<td><code>1.4.2_05-141.3</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Security Update 2005-002</strong></td>
+<td><code>1.4.2_05</code></td>
+<td><code>1.4.2_05-141.4</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java Security Update (4.0)</strong></td>
+<td><code>1.4.2_09</code></td>
+<td><code>1.4.2_09-233</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Update 5</strong></td>
+<td><code>1.4.2_12</code></td>
+<td><code>1.4.2_12-269</code></td>
+</tr>
+<tr>
+<td scope="row"><strong>10.4</strong></td>
+<td>Mac OS X 10.4</td>
+<td><code>1.4.2_07</code></td>
+<td><code>1.4.2_07-215</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>1.3.1 and 1.4.2 Release 2</strong></td>
+<td><code>1.4.2_09</code></td>
+<td>
+<code>1.4.2_09-232 (PowerPC)</code><br><code>1.4.2_09-239 (Intel)</code>
+</td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Release 5</strong></td>
+<td><code>1.4.2_12</code></td>
+<td><code>1.4.2_12-269</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Release 6</strong></td>
+<td><code>1.4.2_16</code></td>
+<td><code>1.4.2_16-b05-303</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Release 7</strong></td>
+<td><code>1.4.2_18</code></td>
+<td><code>1.4.2_18-b08-310</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Release 8</strong></td>
+<td><code>1.4.2_18</code></td>
+<td><code>1.4.2_18-b08-310</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Release 9</strong></td>
+<td><code>1.4.2_21</code></td>
+<td><code>1.4.2_21-b01-326</code></td>
+</tr>
+<tr>
+<td scope="row"><strong>10.5</strong></td>
+<td>Mac OS X 10.5</td>
+<td><code>1.4.2_16</code></td>
+<td><code>1.4.2_16-b05-302</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 2</strong></td>
+<td><code>1.4.2_18</code></td>
+<td><code>1.4.2_18-b08-314</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 3</strong></td>
+<td><code>1.4.2_18</code></td>
+<td><code>1.4.2_18-b08-314</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 4</strong></td>
+<td><code>1.4.2_21</code></td>
+<td><code>1.4.2_21-b01-324</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 5</strong></td>
+<td><code>1.4.2_22</code></td>
+<td><code>1.4.2_22-b02-329</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 6</strong></td>
+<td><code>disabled</code></td>
+<td><code>disabled</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 7</strong></td>
+<td><code>disabled</code></td>
+<td><code>disabled</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 8</strong></td>
+<td><code>disabled</code></td>
+<td><code>disabled</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 9</strong></td>
+<td><code>disabled</code></td>
+<td><code>disabled</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 10</strong></td>
+<td><code>disabled</code></td>
+<td><code>disabled</code></td>
+</tr>
+</table>
+<div class="notebox"><p><strong>Note: </strong>The "Java for Mac OS X 10.5 Update 6" release disables J2SE 1.4 by default, but leaves the existing 1.4 installation present.</p></div>
+<div class="notebox"><p><strong>Note: </strong>Mac OS X 10.6 does not include J2SE 1.4.</p></div>
+<p class="smalltext"><strong>Table 3 : </strong>J2SE 5.0 Releases on OS X</p>
+<table cellspacing="0" class="graybox">
+<tr>
+<th><strong>OS X Release</strong></th>
+<th><strong>Java Release</strong></th>
+<th><strong>java.version</strong></th>
+<th><strong>java.runtime.version</strong></th>
+</tr>
+<tr>
+<td scope="row"><strong>10.4</strong></td>
+<td><strong>5.0 Release 1</strong></td>
+<td><code>1.5.0_02</code></td>
+<td><code>1.5.0_02-56</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>5.0 Release 3</strong></td>
+<td><code>1.5.0_05</code></td>
+<td><code>1.5.0_05-83</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>5.0 Release 4</strong></td>
+<td><code>1.5.0_06</code></td>
+<td><code>1.5.0_06-112</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Release 5</strong></td>
+<td><code>1.5.0_07</code></td>
+<td><code>1.5.0_07-164</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Release 6</strong></td>
+<td><code>1.5.0_13</code></td>
+<td><code>1.5.0_13-b05-241</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Release 7</strong></td>
+<td><code>1.5.0_16</code></td>
+<td><code>1.5.0_16-b06-275</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Release 8</strong></td>
+<td><code>1.5.0_16</code></td>
+<td><code>1.5.0_16-b06-275</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Release 9</strong></td>
+<td><code>1.5.0_19</code></td>
+<td><code>1.5.0_19-b02-306</code></td>
+</tr>
+<tr>
+<td scope="row"><strong>10.5</strong></td>
+<td>Mac OS X 10.5</td>
+<td><code>1.5.0_13</code></td>
+<td><code>1.5.0_13-b05-237</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java on Mac OS X 10.5 Update 2</strong></td>
+<td><code>1.5.0_16</code></td>
+<td><code>1.5.0_16-b06-284</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java on Mac OS X 10.5 Update 3</strong></td>
+<td><code>1.5.0_16</code></td>
+<td><code>1.5.0_16-b06-284</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java on Mac OS X 10.5 Update 4</strong></td>
+<td><code>1.5.0_19</code></td>
+<td><code>1.5.0_19-b02-304</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java on Mac OS X 10.5 Update 5</strong></td>
+<td><code>1.5.0_20</code></td>
+<td><code>1.5.0_20-b02-315</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java on Mac OS X 10.5 Update 6</strong></td>
+<td><code>1.5.0_22</code></td>
+<td><code>1.5.0_22-b03-333-9M3125</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java on Mac OS X 10.5 Update 7</strong></td>
+<td><code>1.5.0_24</code></td>
+<td><code>1.5.0_24-b02-357-9M3165</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java on Mac OS X 10.5 Update 8</strong></td>
+<td><code>1.5.0_26</code></td>
+<td><code>1.5.0_26-b03-376-9M3263</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java on Mac OS X 10.5 Update 9</strong></td>
+<td><code>1.5.0_28</code></td>
+<td><code>1.5.0_28-b04-382-9M3326</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java on Mac OS X 10.5 Update 10</strong></td>
+<td><code>1.5.0_30</code></td>
+<td><code>1.5.0_30-b03-389-9M3425</code></td>
+</tr>
+</table>
+<div class="notebox"><p><strong>Note: </strong>Mac OS X 10.6 does not include J2SE 5.0.</p></div>
+<p class="smalltext"><strong>Table 4 : </strong>Java SE 6 Releases on OS X</p>
+<table cellspacing="0" class="graybox">
+<tr>
+<th><strong>OS X Release</strong></th>
+<th><strong>Java Release</strong></th>
+<th><strong>java.version</strong></th>
+<th><strong>java.runtime.version</strong></th>
+</tr>
+<tr>
+<td scope="row"><strong>10.5</strong></td>
+<td><strong>Java for Mac OS X 10.5 Update 1</strong></td>
+<td><code>1.6.0_05</code></td>
+<td><code>1.6.0_05-b13-120</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 2</strong></td>
+<td><code>1.6.0_07</code></td>
+<td><code>1.6.0_07-b06-153</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 3</strong></td>
+<td><code>1.6.0_07</code></td>
+<td><code>1.6.0_07-b06-153</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 4</strong></td>
+<td><code>1.6.0_13</code></td>
+<td><code>1.6.0_13-b03-211</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 5</strong></td>
+<td><code>1.6.0_15</code></td>
+<td><code>1.6.0_15-b03-226</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 6</strong></td>
+<td><code>1.6.0_17</code></td>
+<td><code>1.6.0_17-b04-248-9M3125</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 7</strong></td>
+<td><code>1.6.0_20</code></td>
+<td><code>1.6.0_20-b02-279-9M3165</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 8</strong></td>
+<td><code>1.6.0_22</code></td>
+<td><code>1.6.0_22-b04-307-9M3263</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 9</strong></td>
+<td><code>1.6.0_24</code></td>
+<td><code>1.6.0_24-b07-330-9M3326</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.5 Update 10</strong></td>
+<td><code>1.6.0_26</code></td>
+<td><code>1.6.0_26-b03-384-9M3425</code></td>
+</tr>
+<tr>
+<td scope="row"><strong>10.6</strong></td>
+<td>Mac OS X 10.6</td>
+<td><code>1.6.0_15</code></td>
+<td><code>1.6.0_15-b03-219</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 1</strong></td>
+<td><code>1.6.0_17</code></td>
+<td><code>1.6.0_17-b04-248-10M3025</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 2</strong></td>
+<td><code>1.6.0_20</code></td>
+<td><code>1.6.0_20-b02-279-10M3065</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 3</strong></td>
+<td><code>1.6.0_22</code></td>
+<td><code>1.6.0_22-b04-307-10M3261</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 4</strong></td>
+<td><code>1.6.0_24</code></td>
+<td><code>1.6.0_24-b07-334-10M3326</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 5</strong></td>
+<td><code>1.6.0_26</code></td>
+<td><code>1.6.0_26-b03-384-10M3425</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 6</strong></td>
+<td><code>1.6.0_29</code></td>
+<td><code>1.6.0_29-b11-402-10M3527</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 7</strong></td>
+<td><code>1.6.0_31</code></td>
+<td><code>1.6.0_31-b04-413-10M3623</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 8</strong></td>
+<td><code>1.6.0_31</code></td>
+<td>
+<code>1.6.0_31-b04-415-10M3635</code><br><code>1.6.0_31-b04-415-10M3646</code>
+</td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 9</strong></td>
+<td><code>1.6.0_33</code></td>
+<td><code>1.6.0_33-b03-424-10M3720</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 10</strong></td>
+<td><code>1.6.0_35</code></td>
+<td><code>1.6.0_35-b10-428-10M3811</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 11</strong></td>
+<td><code>1.6.0_37</code></td>
+<td><code>1.6.0_37-b06-434-10M3909</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 12</strong></td>
+<td><code>1.6.0_39</code></td>
+<td><code>1.6.0_39-b04-442-10M4008</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 13</strong></td>
+<td><code>1.6.0_41</code></td>
+<td><code>1.6.0_41-b02-445-10M4107</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 14</strong></td>
+<td><code>1.6.0_43</code></td>
+<td><code>1.6.0_43-b01-447-10M4203</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 15</strong></td>
+<td><code>1.6.0_45</code></td>
+<td><code>1.6.0_45-b06-451-10M4406</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 16</strong></td>
+<td><code>1.6.0_51</code></td>
+<td><code>1.6.0_51-b11-457-10M4509</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.6 Update 17</strong></td>
+<td><code>1.6.0_65</code></td>
+<td><code>1.6.0_65-b14-462-10M4609</code></td>
+</tr>
+<tr>
+<td scope="row"><strong>10.7</strong></td>
+<td><strong>Java for Mac OS X 10.7</strong></td>
+<td><code>1.6.0_26</code></td>
+<td>
+<code>1.6.0_26-b03-383-11A511</code><br><code>1.6.0_26-b03-383-11A511c</code>
+</td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for Mac OS X 10.7 Update 1</strong></td>
+<td><code>1.6.0_29</code></td>
+<td><code>1.6.0_29-b11-402-11M3527</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for OS X 2012-001</strong></td>
+<td><code>1.6.0_31</code></td>
+<td><code>1.6.0_31-b04-413-11M3623</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for OS X 2012-002</strong></td>
+<td><code>1.6.0_31</code></td>
+<td><code>1.6.0_31-b04-414-11M3626</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for OS X 2012-003</strong></td>
+<td><code>1.6.0_31</code></td>
+<td>
+<code>1.6.0_31-b04-415-11M3635</code><br><code>1.6.0_31-b04-415-11M3646</code>
+</td>
+</tr>
+<tr>
+<td scope="row"><strong>10.7/10.8</strong></td>
+<td><strong>Java for OS X 2012-004</strong></td>
+<td><code>1.6.0_33</code></td>
+<td><code>1.6.0_33-b03-424-11M3720</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for OS X 2012-005</strong></td>
+<td><code>1.6.0_35</code></td>
+<td><code>1.6.0_35-b10-428-11M3811</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for OS X 2012-006</strong></td>
+<td><code>1.6.0_37</code></td>
+<td><code>1.6.0_37-b06-434-11M3909</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for OS X 2013-001</strong></td>
+<td><code>1.6.0_41</code></td>
+<td><code>1.6.0_41-b02-445-11M4107</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for OS X 2013-002</strong></td>
+<td><code>1.6.0_43</code></td>
+<td><code>1.6.0_43-b01-447-11M4203</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for OS X 2013-003</strong></td>
+<td><code>1.6.0_45</code></td>
+<td><code>1.6.0_45-b06-451-11M4406</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for OS X 2013-004</strong></td>
+<td><code>1.6.0_51</code></td>
+<td><code>1.6.0_51-b11-457-11M4509</code></td>
+</tr>
+<tr>
+<td scope="row">&nbsp;</td>
+<td><strong>Java for OS X 2013-005</strong></td>
+<td><code>1.6.0_65</code></td>
+<td><code>1.6.0_65-b14-462-11M4609</code></td>
+</tr>
+</table>
+<div class="notebox"><p><strong>Note: </strong>Java SE 6 for Mac OS X 10.5 is only available on 64-bit capable Intel Macs.</p></div>
+<p style="margin-top:-5px"><a href="#top">Back to Top </a><a href="#top"><img src="images/arrow_linkup.gif" height="7" width="10" border="0" alt=""></a></p>
+<a name="document_revision_summary"></a><h2>Document Revision History</h2>
+<table cellspacing="0" class="graybox" width="100%">
+<tr>
+<th width="100">Date</th>
+<th>Notes</th>
+</tr>
+<tr>
+<td scope="row">2014-02-20</td>
+<td>Version info for "Java for OS X 2013-005" and "Java for Mac OS X 10.6 Update 17"</td>
+</tr>
+<tr>
+<td scope="row">2013-06-24</td>
+<td>Version info for "Java for OS X 2013-004" and "Java for Mac OS X 10.6 Update 16"</td>
+</tr>
+<tr>
+<td scope="row">2013-04-18</td>
+<td>Version info for "Java for OS X 2013-003" and "Java for Mac OS X 10.6 Update 15"</td>
+</tr>
+<tr>
+<td scope="row">2013-03-05</td>
+<td>Version info for "Java for OS X 2013-002" and "Java for Mac OS X 10.6 Update 14"</td>
+</tr>
+<tr>
+<td scope="row">2013-02-21</td>
+<td>Version info for "Java for OS X 2013-001" and "Java for Mac OS X 10.6 Update 13"</td>
+</tr>
+<tr>
+<td scope="row">2013-02-04</td>
+<td>Version info for "Java for Mac OS X 10.6 Update 12"</td>
+</tr>
+<tr>
+<td scope="row">2012-10-16</td>
+<td>Version info for "Java for OS X 2012-006" and "Java for Mac OS X 10.6 Update 11"</td>
+</tr>
+<tr>
+<td scope="row">2012-09-10</td>
+<td>Version info for "Java for OS X 2012-005" and "Java for Mac OS X 10.6 Update 10"</td>
+</tr>
+<tr>
+<td scope="row">2012-06-20</td>
+<td>Version info for "Java for OS X 2012-004" and "Java for Mac OS X 10.6 Update 9".</td>
+</tr>
+<tr>
+<td scope="row">2012-04-23</td>
+<td>Version info for "Java for OS X 2012-002", "Java for OS X 2012-003", and "Java for Mac OS X 10.6 Update 8".</td>
+</tr>
+<tr>
+<td scope="row">2012-04-04</td>
+<td>Version info for "Java for OS X 2012-001" and "Java for Mac OS X 10.6 Update 7", updated OS version checks for robustness.</td>
+</tr>
+<tr>
+<td scope="row">2011-11-10</td>
+<td>Version info for "Java for Mac OS X 10.7 Update 1" and "Java for Mac OS X 10.6 Update 6".</td>
+</tr>
+<tr>
+<td scope="row">2011-08-03</td>
+<td>Version info for "Java for Mac OS X 10.7".</td>
+</tr>
+<tr>
+<td scope="row">2011-07-05</td>
+<td>Editorial</td>
+</tr>
+<tr>
+<td scope="row">2011-06-29</td>
+<td>Version info for "Java for Mac OS X 10.6 Update 5" and "Java for Mac OS X 10.5 Update 10".</td>
+</tr>
+<tr>
+<td scope="row">2011-03-18</td>
+<td>Fixing typo in Java SE 6 version table.</td>
+</tr>
+<tr>
+<td scope="row">2011-03-08</td>
+<td>Version info for "Java for Mac OS X 10.6 Update 4" and "Java for Mac OS X 10.5 Update 9".</td>
+</tr>
+<tr>
+<td scope="row">2011-01-07</td>
+<td>Adding architecture information for Java SE 6 on Mac OS X 10.5.</td>
+</tr>
+<tr>
+<td scope="row">2010-10-20</td>
+<td>Version info for "Java for Mac OS X 10.6 Update 3" and "Java for Mac OS X 10.5 Update 8".</td>
+</tr>
+<tr>
+<td scope="row">2010-05-18</td>
+<td>Many version updates to the 1.4, 1.5, and 1.6 tables for 10.4, 10.5 and 10.6. Changed Sun to Oracle, added section about how to find Mac OS X version, modernized examples, and fixed up some older platform names.</td>
+</tr>
+<tr>
+<td scope="row">2008-05-07</td>
+<td>Version info for Java for Mac OS X 10.5, Update 1</td>
+</tr>
+<tr>
+<td scope="row">2008-01-08</td>
+<td>Version info for Java for Mac OS X 10.5 and Java for Mac OS X 10.4, Release 6 (Tiger)</td>
+</tr>
+<tr>
+<td scope="row">2007-04-26</td>
+<td>Version info for Java for Mac OS X 10.4, Release 5 (Tiger) and Java for Mac OS X 10.3, Update 5 (Panther)</td>
+</tr>
+<tr>
+<td scope="row">2006-04-17</td>
+<td>Version info for J2SE 5.0 Release 4 (Tiger)</td>
+</tr>
+<tr>
+<td scope="row">2006-01-12</td>
+<td>Version info for J2SE 5.0 Release 3 (Tiger)</td>
+</tr>
+<tr>
+<td scope="row">2005-09-21</td>
+<td>Version info for 1.3.1 and 1.4.2 Release 2 (Tiger), Java Security Update v4.0 (Panther)</td>
+</tr>
+<tr>
+<td scope="row">2005-05-05</td>
+<td>Added version info (1.3.1, 1.4.2, 5.0/1.5) for Mac OS X 10.4</td>
+</tr>
+<tr>
+<td scope="row">2005-02-25</td>
+<td>New version string from Security Update 2005-002 (10.3.4+)</td>
+</tr>
+<tr>
+<td scope="row">2004-10-05</td>
+<td>Added version info for Java 1.4.2 Update 2 to Table 2</td>
+</tr>
+<tr>
+<td scope="row">2004-08-10</td>
+<td>Added version info for Java 1.4.2 Update 1 to Table 2</td>
+</tr>
+<tr>
+<td scope="row">2004-05-26</td>
+<td>revison information</td>
+</tr>
+<tr>
+<td scope="row">2004-04-26</td>
+<td>Unspecified content revisions.</td>
+</tr>
+<tr>
+<td scope="row">2004-03-04</td>
+<td>New document that discovering installed versions of Java for OS X from Java code.</td>
+</tr>
+</table>
+
+<!-- END CONTENTS -->
+</td></tr></table>
+<!-- END WIDE COLUMN --><!-- END MAIN CONTENT --><!-- START BOTTOM APPLE NAVIGATION --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- END BOTTOM APPLE NAVIGATION --><!-- START CENTER CLOSE -->
+</center>
+<!-- END CENTER CLOSE -->
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</html>

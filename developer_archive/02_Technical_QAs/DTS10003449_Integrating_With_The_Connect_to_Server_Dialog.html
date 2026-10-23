@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1387: Integrating With The Connect to Server Dialog</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003449">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003449-CH1">
+    <meta id="date" name="date" content="2006-11-16">
+    <meta id="description" name="description" content="QA1387: Describes problems integrating a third-party network file system with Finder's Connect to Server dialog.">
+    <meta id="book-title" name="book-title" content="Integrating With The Connect to Server Dialog">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Data Management/File Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1387">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Integrating With The Connect to Server Dialog" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003449" title="Technical Q&amp;A QA1387"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Integrating With The Connect to Server Dialog</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003449-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1387"></a><div class="dtsDocNumber">Technical Q&amp;A QA1387</div><h1 id="pageTitle">Integrating With The Connect to Server Dialog</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I'm writing a network file system (VFS plug-in) for my custom network file system protocol. How do I integrate with the Finder's Connect to Server dialog?  I want to support browsing and allow the user to enter a URL in the Server Address field.
+</h2><p><span>A: </span>I'm writing a network file system (VFS plug-in) for my custom network file system protocol. How do I integrate with the Finder's Connect to Server dialog?  I want to support browsing and allow the user to enter a URL in the Server Address field.</p><p>It is currently not possible for third party network file systems to fully integrate with the Connect to Server dialog. There are two aspects to this problem.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003449-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;The following is accurate for Mac OS X 10.4.x. The specific details may be different on earlier systems (and are likely to change for future systems), but the overall result is the same.</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS10003449-CH1-SECTION1" title="Manually Entering a URL"></a><h2 class="jump">Manually Entering a URL</h2><p>When you enter a URL in the Server Address field, the Finder calls the File Manager to mount the server volume (<code>FSMountServerVolumeAsync</code>). This extracts the URL scheme (the text before the colon) and uses that to load and run the appropriate URLMount plug-in. The structure of a URLMount plug-in is not publicly documented 
+			(r. <span class="content_text"><a href="rdar://problem/3502170" class="urlLink" rel="external">3502170</a></span>)
+		.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003449-CH1-SECTION2" title="Browsing"></a><h2 class="jump">Browsing</h2><p>When you click the Browse button, the Finder opens a window that displays the contents of <code>/Network</code>. This directory is actually a mount point which <span class="content_text"><a href="x-man-page://8/automount" class="urlLink" rel="external">automount</a></span> populates using the NSL map. <code>automount</code> generates the NSL map by calling Network Service Location to find all network file system services. NSL does this by calling Open Directory (the Directory Services API), which in turn passes the job off to one or more of its plug-ins (as configured by the Directory Access utility).</p><p>The problem here is that, when <code>automount</code> searches for services using NSL, it searches for a fixed set of service types (URL schemes) 
+			(r. <span class="content_text"><a href="rdar://problem/2888560" class="urlLink" rel="external">2888560</a></span>)
+		. This list is currently <code>afp</code>, <code>smb</code>, <code>cifs</code>, <code>nfs</code>, <code>webdav</code>, and <code>ftp</code>. As your URL scheme does not appear in this list, your servers will not appear in <code>/Network</code>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003449-CH1-SECTION3" title="Workaround"></a><h2 class="jump">Workaround</h2><p>The only workaround currently available is for you to write a custom application that allows the user to mount your file system. Your custom application can support manually entering a URL, browsing, or any other mechanism appropriate for your product.</p><p>If you are developing a network file system that's affected by this issue, please contact <span class="content_text"><a href="mailto:dts@apple.com" class="urlLink" rel="external">DTS</a></span> and let us know about your development efforts.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003449-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003449-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2006-11-16</td><td><p>New document that 
+					describes problems integrating a third-party network file system with Finder's Connect to Server dialog.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2006 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2006-11-16</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

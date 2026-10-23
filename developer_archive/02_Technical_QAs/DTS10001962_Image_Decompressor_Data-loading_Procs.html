@@ -1,0 +1,352 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!--Template 8-10-00-->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+            <meta id="book-title" name="book-title" content="Image Decompressor Data-loading Procs">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/QuickTime}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10001962">
+            <meta id="document-version" name="document-version" content="2.0.0">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="QTMCC19: Explains how to use an image decompressor's data-loading proc.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+    <title>Technical Q&amp;A QTMCC19: Image Decompressor Data-loading Procs</title>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<meta name="keywords" content="Image Decompression components data loading">
+<meta name="Description" content="Technical Q&amp;A QTMCC19: A description of some details relating
+to the correct way to call the data loading procedure from
+inside of a decompressor component.">
+
+
+<meta name="categories" content="QuickTime Image Compression Manager and QuickTime Components">
+
+
+<meta name="week-posted" content="Nov 27, 2000 - Dec 1, 2000">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10001962" title="Image Decompressor Data-loading Procs"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Image Decompressor Data-loading Procs</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technicalQA">
+
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalqas/index.html">Technical Q&As</a> &gt; <a href="../../technicalqas/QuickTime/index.html">QuickTime</a> &gt; <a href="../../technicalqas/QuickTime/idxQuickTimeComponentCreation-date.html">QuickTime Component Creation</a> &gt; </p><!-- end_header_information -->
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Q&amp;A QTMCC19</div>
+<div id="pageheadsub">Image Decompressor Data-loading Procs</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+<CENTER>
+
+
+  <!-- --> <!-- Document Body -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600>
+    <TR>
+       <td align="left">
+
+          <hr width=500 align=center>
+
+
+<P id=p2>Q: I'm writing a decompressor component to work with my graphics importer and I need to load all my image data into a single buffer before decompression. In implementing <CODE>ImageCodecPreflight</CODE> I've made sure to set <CODE>bandMin</CODE> to the full height of my image. However, I am finding the buffer size that I am passed in <CODE>ImageCodecBeginBand</CODE> is set to 32K, and not the size of the image on disk. Can you explain why that is and how I can call the data-loading proc correctly?
+</p>
+
+<P id=p4>A: The caller of <CODE>FDecompressImage</CODE> (or one of the related functions in the Image Compression Manager) has a choice: they can provide all of the compressed data in a single buffer, or provide a smaller buffer and a data-loading proc.</p>
+
+<P id=p4>A data-loading function's buffer will be at least 32K - <CODE>codecMinimumDataSize</CODE> is defined as 32K.</p>
+
+<P id=p4>Image decompressor components should support both modes, since both modes are likely to occur.  In current versions of QuickTime the video media handler will never use a data-loading proc, while the base graphics importer always does.</p>
+
+<P id=p4>The data-loading proc interface is designed for ease of use by image decompressor components that only need to make a single pass through their input data.  If a data-loading proc is supplied, you will need to call it regularly with the pointer you're reading data from and indicate the maximum read-ahead you might need. If necessary, the data-loading proc updates your pointer to make sure there's enough data ahead of you.</p>
+
+<P id=p4>However, sometimes there are reasons why you can't integrate calls to the data-loading proc into your decompressor -- for example, if the actual decompression work is done by code or hardware you cannot modify.  In these cases, you may need to copy the whole frame into a buffer by calling the data-loading proc multiple times, asking for <CODE>p-&gt;bufferSize</CODE> bytes each time.</p>
+
+<P id=p4>The base graphics importer always ensures that the image description's <CODE>dataSize</CODE> contains the actual size of the entire compressed data.</p>
+
+<P id=p4>Let's take a look at how this works:</p>
+
+
+    <CENTER><table BORDER=0 CELLPADDING=4 width=500> <TR> <td bgcolor="#e6e6e6" align=left>
+<pre>
+OSErr ICMDataProcPtr(Ptr *dataP, long bytesNeeded, long refcon);
+</pre>
+    </TD></TR></table></CENTER>
+    <BR><BR>
+
+
+<OL TYPE="1" START="1">
+	<li>When you call a data-loading proc, you pass it the address of your pointer into the data-loading proc's buffer.  The data-loading proc may check that your pointer still points into its buffer, and it will use the pointer's current value to calculate how much data you have consumed.</li>
+</OL>
+
+    <CENTER><table BORDER=0 CELLPADDING=4 width=500> <TR> <td bgcolor="#e6e6e6" align=left>
+<pre>
+Ptr dataPtr = drp-&gt;codecData;
+Size bytesConsumed;
+Boolean done = false;
+
+while(! done) {
+  if(dataProc) {
+    err = CallICMDataProc(dataProc, &amp;dataPtr, 10000, dataRefCon);
+    if(err) goto bail;
+  }
+    err = consumeUpTo10000Bytes(..., dataPtr, &amp;bytesConsumed, &amp;done);
+    if(err) goto bail;
+    dataPtr += bytesConsumed;
+}
+</pre>
+    </TD></TR></table></CENTER>
+    <BR><BR>
+
+
+<OL TYPE="1" START="2">
+	<li>Passing NULL instead of the address of your pointer has a special meaning: if the <CODE>bytesNeeded</CODE> parameter is zero, it requests a reset to the start of the data-stream; if the <CODE>bytesNeeded</CODE> parameter is non-zero, it requests a relative seek by that many bytes.  Before doing a relative seek, you should make sure the data-loading proc knows the location of your pointer in its buffer. You can do this by calling the data-proc to ask for zero bytes:</li>
+</OL>
+
+
+<P id=p4>Reset to Start of Data-Stream:</p>
+
+    <CENTER><table BORDER=0 CELLPADDING=4 width=500> <TR> <td bgcolor="#e6e6e6" align=left>
+<pre>
+  err = CallICMDataProc(dataProc, NULL, 0, dataRefCon);
+</pre>
+    </TD></TR></table></CENTER>
+    <BR><BR>
+
+
+
+<P id=p4>Relative Seek:</p>
+
+    <CENTER><table BORDER=0 CELLPADDING=4 width=500> <TR> <td bgcolor="#e6e6e6" align=left>
+<pre>
+  err = CallICMDataProc(dataProc, &amp;dataPtr, 0, dataRefCon);
+  err = CallICMDataProc(dataProc, NULL, relativeSeekAmount, dataRefCon);
+</pre>
+    </TD></TR></table></CENTER>
+    <BR><BR>
+
+
+<P id=p4>followed by read:</p>
+
+    <CENTER><table BORDER=0 CELLPADDING=4 width=500> <TR> <td bgcolor="#e6e6e6" align=left>
+<pre>
+  err = CallICMDataProc(dataProc, &amp;dataPtr, bytesNeeded, dataRefCon);
+</pre>
+    </TD></TR></table></CENTER>
+    <BR><BR>
+
+ 
+<OL TYPE="1" START="3">
+	<li>To load the data into a block of memory you've allocated, you could do this in your <CODE>BeginBand</CODE> routine:</li>
+</OL>
+
+
+    <CENTER><table BORDER=0 CELLPADDING=4 width=500> <TR> <td bgcolor="#e6e6e6" align=left>
+<pre>
+Ptr dataPtr = drp-&gt;codecData;
+Ptr bufferPtr = myBuffer;
+Size bytesRemaining = myBufferSize;
+
+while(bytesRemaining &gt; 0) {
+  Size bytesToRequest;
+  if(bytesRemaining &lt; codecMinimumDataSize)
+    bytesToRequest = bytesRemaining;
+  else
+    bytesToRequest = codecMinimumDataSize;
+
+  err = CallICMDataProc(dataProc, &amp;dataPtr, bytesToRequest, dataRefCon);
+  if(err) goto bail;
+  BlockMoveData(dataPtr, bufferPtr, bytesToRequest);
+  dataPtr += bytesToRequest;
+  bufferPtr += bytesToRequest;
+  bytesRemaining -= bytesToRequest;
+}
+</pre>
+    </TD></TR></table></CENTER>
+    <BR><BR>
+
+
+
+<!-- begin_date --><H4 ALIGN=center>[Jul 10, 2003]</H4><!-- end_date -->
+
+</td>
+</tr>
+</table></CENTER>
+
+
+
+</CENTER>
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

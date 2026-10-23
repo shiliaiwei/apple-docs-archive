@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Note TN2145: Efficiently using Quartz Composer compositions with QuickTime</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003738">
+    <meta id="document-version" name="document-version" content="1.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003738-CH1">
+    <meta id="date" name="date" content="2005-07-05">
+    <meta id="description" name="description" content="TN2145.">
+    <meta id="book-title" name="book-title" content="Efficiently using Quartz Composer compositions with QuickTime">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/Quartz}, {Topic/Graphics & Animation}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2145">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Efficiently using Quartz Composer compositions with QuickTime" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003738" title="Technical Note TN2145"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Efficiently using Quartz Composer compositions with QuickTime</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003738-CH1-DontLinkElementID_2" title="Technical Note TN2145"></a><div class="dtsDocNumber">Technical Note TN2145</div><h1 id="pageTitle">Efficiently using Quartz Composer compositions with QuickTime</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003738-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>Mac OS X 10.4 includes a new graphics technology called Quartz Composer, which can be used to create motion graphics animations based on OpenGL, Core Image, Core Video and more... Those animations are called "Quartz Composer compositions" and are stored in ".qtz" files.</p><p>QuickTime 7 on Mac OS X 10.4 natively supports these ".qtz" files. This means that any application that can manipulate QuickTime movies can potentially handle Quartz Composer compositions. It's just a matter of allowing users to select .qtz files in the open dialogs (and possibly to drag and drop them onto the application's icon as well).</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003738-CH1-TNTAG0" data-renderer-version="1">QuickTime 7 support for Quartz Composer</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003738-CH1-TNTAG1" data-renderer-version="1">Important differences with other forms of QuickTime media</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003738-CH1-TNTAG2" data-renderer-version="1">Quartz Composer contents renders though OpenGL</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003738-CH1-TNTAG3" data-renderer-version="1">Quartz Composer contents is resolution independent</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003738-CH1-TNTAG9" data-renderer-version="1">Quartz Composer contents has no duration or frame rate</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003738-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003738-CH1-TNTAG0" title="QuickTime 7 support for Quartz Composer"></a><h2 class="jump">QuickTime 7 support for Quartz Composer</h2><p>When opening a Quartz Composer composition with QuickTime, the result is a Movie that contains a "Quartz Composer" track of type 'qtz '. A Quartz Composer track contains the original data of the composition, not a rasterized version of it, and has the following characteristics:</p><ul class="ul"><li class="li"><p>it is evaluated and rendered in real-time,</p></li><li class="li"><p>it renders square pixels,</p></li><li class="li"><p>it renders as progressive,</p></li><li class="li"><p>its alpha channel is valid.</p></li></ul><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003738-CH1-FIGURE1" title="Figure 1A Quartz Composer composition playing inside the QuickTime Player."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;A Quartz Composer composition playing inside the QuickTime Player.</figcaption><img src="Art/tn2145_player.png" alt="" width="350" height="348"></figure><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003738-CH1-DontLinkElementID_4" title="Warning"></a><p><strong>Warning:</strong>&nbsp;A few features of Quartz Composer are not supported inside QuickTime:</p><p></p><div class="clear"></div></aside></div><ul class="ul"><li class="li"><p>mouse and keyboard events,</p></li><li class="li"><p>contents download from Internet (RSS feeds, images...),</p></li><li class="li"><p>edition of the input parameters of the compositions.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003738-CH1-TNTAG1" title="Important differences with other forms of QuickTime media"></a><h2 class="jump">Important differences with other forms of QuickTime media</h2><p>Quartz Composer compositions have special characteristics you should be aware of when using them through QuickTime, in order to preserve quality and performance:</p><ul class="ul"><li class="li"><p>they render through OpenGL,</p></li><li class="li"><p>they are resolution independent,</p></li><li class="li"><p>they don't have defined durations or frame rates.</p></li></ul><p>Each of the above points is explained in details in following sections:</p><section><a name="//apple_ref/doc/uid/DTS10003738-CH1-TNTAG2" title="Quartz Composer contents renders though OpenGL"></a><h3 class="jump">Quartz Composer contents renders though OpenGL</h3><p>Quartz Composer back-end is implemented using OpenGL and renders directly on the display card for optimal performance. As a consequence, QuickDraw GWorld based QuickTime applications need to move to the new visual context and Core Video APIs to avoid a severe performance hit.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003738-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;It's essential that your application switch to the new APIs introduced in QuickTime 7: QTKit for Cocoa applications (see <span class="content_text"><a href="http://developer.apple.com/documentation/QuickTime/index.html" class="browserLink" >QuickTime Kit Programming Guide</a></span>) and HIMovieView for Carbon applications (see <span class="content_text"><a href="http://developer.apple.com/documentation/QuickTime/index.html" class="browserLink" >QuickTime Reference Update</a></span>). These playback APIs use the new visual contexts instead of QuickDraw GWorlds and will improve QuickTime playback performance in general and especially in the case of Quartz Composer contents.</p><p></p></aside></div><p>For the same reasons, if your application needs to render and perform operations on the movie frames, you should use visual contexts and Core Video buffers instead of QuickDraw GWorlds.</p></section><section><a name="//apple_ref/doc/uid/DTS10003738-CH1-TNTAG3" title="Quartz Composer contents is resolution independent"></a><h3 class="jump">Quartz Composer contents is resolution independent</h3><p>Quartz Composer compositions do not inherently specify dimensions at which they are to be rendered. However, for compatibility with QuickTime, the Quartz Composer track must have specified dimensions. If the composition is exported as a QuickTime movie from the Quartz Composer application, users can specify a custom size in the export settings dialog. In most cases however, composition files will be imported through QuickTime into arbitrary applications and default dimensions of 640x480 are used.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003738-CH1-FIGURE2" title="Figure 2The Quartz Composer QuickTime movie export dialog."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;The Quartz Composer QuickTime movie export dialog.</figcaption><img src="Art/tn2145_export.png" alt="" width="427" height="206"></figure><p>When rendering a QuickTime movie that has Quartz Composer track in a visual context (either directly or by using QTKit or HIMovieView), the track is always rendered at the final movie size and the initial track dimensions are ignored.</p><p>To ensure the best possible quality, it's important to render the QuickTime movie directly at the needed size (using <code>SetMovieBox</code> or <code>SetMovieMatrix</code> for example). Do not attempt to do any scaling yourself.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003738-CH1-DontLinkElementID_6" title="Important"></a><p><strong>Important:</strong>&nbsp;If the final rendering size does not have the same aspect ratio as the original track size (for example, if the Quartz Composer track is 640x480 and the movie is displayed at 1024x480), the resulting images will be distorted (non-uniform scaling) and not cropped (uniform scaling). This is expected QuickTime behavior, but is opposite to the way the Quartz Composer playback APIs QCView and QCRenderer behave.</p><p></p></aside></div><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003738-CH1-FIGURE3" title="Figure 3Quartz Composer crops when changing a composition's aspect ratio"></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;Quartz Composer crops when changing a composition's aspect ratio</figcaption><img src="Art/tn2145_ratioviewer.png" alt="" width="657" height="302"></figure><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003738-CH1-FIGURE4" title="Figure 4QuickTime distorts when changing a composition's aspect ratio"></a><figcaption><strong class="caption_number">Figure 4</strong>&nbsp;&nbsp;QuickTime distorts when changing a composition's aspect ratio</figcaption><img src="Art/tn2145_ratioplayer.png" class="wide-image" alt="" width="671" height="361"><img src="Art/tn2145_ratioplayer.png" class="ipad-scaled-image" alt="" width="670" height="360"></figure><p>If you need to avoid any kind of non-uniform scaling or wish to have the Quartz Composer tracks have specific dimensions, you will have to specify custom values for the default dimensions (instead of 640x480). They can be changed globally or per-application using the "defaults" command line tool (units are pixels):</p><a name="//apple_ref/doc/uid/DTS10003738-CH1-SOURCECODE1" title="Listing 1Setting the default Quartz Composer QuickTime tracks dimensions from the Terminal."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Setting the default Quartz Composer QuickTime tracks dimensions from the Terminal.</p><div class="codesample clear"><table><tr><td scope="row"><pre>defaults write NSGlobalDomain QuartzComposerDefaultMovieWidth 1024<span></span></pre></td></tr><tr><td scope="row"><pre>defaults write NSGlobalDomain QuartzComposerDefaultMovieHeight 768<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003738-CH1-DontLinkElementID_7" title="Note"></a><p><strong>Note:</strong>&nbsp;Replace "NSGlobalDomain" with the bundle identifier of an application, like "com.apple.iMovie" to set defaults only for that application.</p><p></p></aside></div><p>In the case of your own application, you do not need to use the "defaults" command line tool to set those defaults: just set them using the NSUserDefaults API for Cocoa applications (see <span class="content_text"><a href="http://developer.apple.com/documentation/Cocoa/index.html" class="browserLink" >Application Kit Reference</a></span>), or the CFPreferences API for Carbon applications (see <span class="content_text"><a href="http://developer.apple.com/documentation/CoreFoundation/index.html" class="browserLink" >Core Foundation Reference</a></span>). For example, you would add the following method to the application controller class of a Cocoa application to set the default dimensions at initialization time:</p><a name="//apple_ref/doc/uid/DTS10003738-CH1-SOURCECODE2" title="Listing 2Setting the default Quartz Composer QuickTime tracks dimensions from inside the application."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Setting the default Quartz Composer QuickTime tracks dimensions from inside the application.</p><div class="codesample clear"><table><tr><td scope="row"><pre>+ (void) initialize<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    NSUserDefaults*			defaults = [NSUserDefaults standardUserDefaults];<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    [defaults setInt:[NSNumber numberWithInt:1024] forKey:@"QuartzComposerDefaultMovieWidth"];<span></span></pre></td></tr><tr><td scope="row"><pre>    [defaults setInt:[NSNumber numberWithInt:768] forKey:@"QuartzComposerDefaultMovieHeight"];<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003738-CH1-TNTAG9" title="Quartz Composer contents has no duration or frame rate"></a><h3 class="jump">Quartz Composer contents has no duration or frame rate</h3><p>Quartz Composer compositions do not specify a duration for which they are to be rendered. For compatibility with QuickTime however, the Quartz Composer track must have a duration. If the composition is exported as a QuickTime movie from the Quartz Composer application, users can specify a custom duration in the export settings dialog. In most cases however, composition files will be imported through QuickTime into arbitrary applications and a default duration of 30 seconds is used.</p><p>You can change the default track duration globally or per-application using the "defaults" command line tool (units are seconds):</p><a name="//apple_ref/doc/uid/DTS10003738-CH1-SOURCECODE3" title="Listing 3Setting the default Quartz Composer QuickTime tracks duration from the Terminal."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Setting the default Quartz Composer QuickTime tracks duration from the Terminal.</p><div class="codesample clear"><table><tr><td scope="row"><pre>defaults write NSGlobalDomain QuartzComposerDefaultMovieDuration 300<span></span></pre></td></tr></table></div><p>Quartz Composer compositions do not have a predefined framerate. When playing a QuickTime movie using the QTKit or HIMovieView, rendering of the Quartz Composer track is driven from the Core Video display link (see <span class="content_text"><a href="http://developer.apple.com/documentation/GraphicsImaging/index.html" class="browserLink" >Core Video Programming Guide</a></span>), which runs at the screen refresh rate (60Hz or more). Unless limited by the complexity of the composition, the track will render as the rate of the Core Video display link.</p><p>For compatibility with QuickTime, the Quartz Composer track will return 1/30 increments when <code>GetNextInterestingTime</code> is called, even if the composition does not have a real framerate. This matters when rendering the Quartz Composer track into separate frames to be processed and reassembled.</p><p>An obvious example is to convert the movie to another format like DV using the QuickTime Player export capabilities. If the frame rate of the export format is different than 30, then QuickTime will need to do some pull-down conversion. This will likely affect the quality of the export.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003738-CH1-DontLinkElementID_8" title="Important"></a><p><strong>Important:</strong>&nbsp;Explicitly set the "Frame Rate" option of the QuickTime export dialog to the destination format frame rate (24 for cinema, 29.97 for NTSC, 25 for PAL and so on), as the default ("Current") will mean 30 frames per second.</p><p></p></aside></div><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003738-CH1-FIGURE5" title="Figure 5The QuickTime Player export video settings dialog."></a><figcaption><strong class="caption_number">Figure 5</strong>&nbsp;&nbsp;The QuickTime Player export video settings dialog.</figcaption><img src="Art/tn2145_movie.png" class="wide-image" alt="" width="766" height="578"><img src="Art/tn2145_movie.png" class="ipad-scaled-image" alt="" width="670" height="505"></figure><p>If you are rendering QuickTime movies frame by frame in your application and those movies contain enabled Quartz Composer tracks, you should ignore completely <code>GetNextInterestingTime</code> and ask QuickTime to render movie frames directly at the times you need.</p><a name="//apple_ref/doc/uid/DTS10003738-CH1-SOURCECODE4" title="Listing 4Scanning a QuickTime movie for enabled Quartz Composer tracks."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Scanning a QuickTime movie for enabled Quartz Composer tracks.</p><div class="codesample clear"><table><tr><td scope="row"><pre>Boolean HasEnabledQuartzComposerTracks(Movie movie)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    Track					track;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    track = GetMovieIndTrackType(movie, 1, 'qtz ',<span></span></pre></td></tr><tr><td scope="row"><pre>            movieTrackMediaType | movieTrackEnabledOnly);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    return (track != NULL ? true : false);<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003738-CH1-DontLinkElementID_9" title="Warning"></a><p><strong>Warning:</strong>&nbsp;For compatibility reasons, a Quartz Composer track can render in a GWorld environment at the expense of performance. This is not recommended as the performace hit is severe.</p><p></p><div class="clear"></div></aside></div><p>The following limitations also apply:</p><ul class="ul"><li class="li"><p>The track renders at its initial dimensions, whatever the final movie size, and QuickTime scales the rendered image as necessary. This behavior limits CPU processing usage, but can be turned off by setting the high-quality Movie playback hint.</p></li><li class="li"><p>The track renders at 30 frames per second maximum to limit CPU processing usage.</p></li></ul></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003738-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003738-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2005-07-05</td><td><p>Fixed HasQuartzComposerTracks() sample code not working correctly: it should scan for Quartz Composer tracks, not video tracks with samples using the Quartz Composer codec.</p></td></tr><tr><td scope="row">2005-06-24</td><td><p>New document that 
+					describes how to best use Quartz Composer compositions in a QuickTime environment.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2005 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2005-07-05</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

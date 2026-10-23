@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>About Core Animation</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40004514">
+    <meta id="document-version" name="document-version" content="9.4.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40004514-CH1">
+    <meta id="date" name="date" content="2015-03-09">
+    <meta id="description" name="description" content="Introduces the main components and services of Core Animation.">
+    <meta id="book-title" name="book-title" content="Core Animation Programming Guide">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Technologies/Media Layer/QuartzCore}, {Topic/Graphics & Animation/Animation}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Core Animation Programming Guide: About Core Animation">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Core Animation Programming Guide" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../CoreAnimationBasics/CoreAnimationBasics.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X,iOS,tvOS">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40004514-CH1" title="About Core Animation"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Core Animation Programming Guide</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../CoreAnimationBasics/CoreAnimationBasics.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40004514" title="About Core Animation"></a><a name="//apple_ref/doc/uid/TP40004514-CH1-SW1" title="About Core Animation"></a><h1 id="pageTitle">About Core Animation</h1><a name="//apple_ref/doc/uid/TP40004514-CH1-DontLinkElementID_1"></a><p>Core Animation is a graphics rendering and animation infrastructure available on both iOS and OS X that you use to animate the views and other visual elements of your app. With Core Animation, most of the work required to draw each frame of an animation is done for you. All you have to do is configure a few animation parameters (such as the start and end points) and tell Core Animation to start. Core Animation does the rest, handing most of the actual drawing work off to the onboard graphics hardware to accelerate the rendering. This automatic graphics acceleration results in high frame rates and smooth animations without burdening the CPU and slowing down your app. </p><p>If you are writing iOS apps, you are using Core Animation whether you know it or not. And if you are writing OS X apps, you can take advantage of Core Animation with extremely little effort. Core Animation sits beneath AppKit and UIKit and is integrated tightly into the view workflows of Cocoa and Cocoa Touch. Of course, Core Animation also has interfaces that extend the capabilities exposed by your app’s views and give you more fine-grained control over your app’s animations. </p><figure class="figure"><img src="../Art/ca_architecture_2x.png" alt="../Art/ca_architecture_2x.png" width="276" height="207"></figure><a name="//apple_ref/doc/uid/TP40004514-CH1-DontLinkElementID_2" title="At a Glance"></a><h2 class="jump">At a Glance</h2><p>You may never need to use Core Animation directly, but when you do you should understand the role that Core Animation plays as part of your app’s infrastructure.</p><section><a name="//apple_ref/doc/uid/TP40004514-CH1-SW2" title="Core Animation Manages Your App’s Content"></a><h3>Core Animation Manages Your App’s Content</h3><p>Core Animation is not a drawing system itself. It is an infrastructure for compositing and manipulating your app’s content in hardware. At the heart of this infrastructure are <em class="newTerm">layer objects</em>, which you use to manage and manipulate your content. A layer captures your content into a bitmap that can be manipulated easily by the graphics hardware. In most apps, layers are used as a way to manage the content of views but you can also create standalone layers depending on your needs. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40004514-CH1-SW3" title="Relevant Chapter"></a><p><strong>Relevant Chapter:</strong>&nbsp;<span class="content_text"><a href="../CoreAnimationBasics/CoreAnimationBasics.html#//apple_ref/doc/uid/TP40004514-CH2-SW3" data-renderer-version="1">Core Animation Basics</a></span>, <span class="content_text"><a href="../SettingUpLayerObjects/SettingUpLayerObjects.html#//apple_ref/doc/uid/TP40004514-CH13-SW12" data-renderer-version="1">Setting Up Layer Objects</a></span>, </p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40004514-CH1-SW4" title="Layer Modifications Trigger Animations"></a><h3>Layer Modifications Trigger Animations</h3><p>Most of the animations you create using Core Animation involve the modification of the layer’s properties. Like views, layer objects have a bounds rectangle, a position onscreen, an opacity, a transform, and many other visually-oriented properties that can be modified. For most of these properties, changing the property’s value results in the creation of an implicit animation whereby the layer animates from the old value to the new value. You can also explicitly animate these properties in cases where you want more control over the resulting animation behavior. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40004514-CH1-SW5" title="Relevant Chapters"></a><p><strong>Relevant Chapters:</strong>&nbsp;, <span class="content_text"><a href="../CreatingBasicAnimations/CreatingBasicAnimations.html#//apple_ref/doc/uid/TP40004514-CH3-SW1" data-renderer-version="1">Animating Layer Content</a></span>, <span class="content_text"><a href="../AdvancedAnimationTricks/AdvancedAnimationTricks.html#//apple_ref/doc/uid/TP40004514-CH8-SW1" data-renderer-version="1">Advanced Animation Tricks</a></span>, <span class="content_text"><a href="../LayerStyleProperties/LayerStyleProperties.html#//apple_ref/doc/uid/TP40004514-CH10-SW1" data-renderer-version="1">Layer Style Property Animations</a></span>, <span class="content_text"><a href="../AnimatableProperties/AnimatableProperties.html#//apple_ref/doc/uid/TP40004514-CH11-SW1" data-renderer-version="1">Animatable Properties</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40004514-CH1-SW6" title="Layers Can Be Organized into Hierarchies"></a><h3>Layers Can Be Organized into Hierarchies</h3><p>Layers can be arranged hierarchically to create parent-child relationships. The arrangement of layers affects the visual content that they manage in a way that is similar to views. The hierarchy of a set of layers that are attached to views mirrors the corresponding view hierarchy. You can also add standalone layers into a layer hierarchy to extend the visual content of your app beyond just your views.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40004514-CH1-SW7" title="Relevant Chapters"></a><p><strong>Relevant Chapters:</strong>&nbsp;<span class="content_text"><a href="../BuildingaLayerHierarchy/BuildingaLayerHierarchy.html#//apple_ref/doc/uid/TP40004514-CH6-SW2" data-renderer-version="1">Building a Layer Hierarchy</a></span></p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/TP40004514-CH1-SW8" title="Actions Let You Change a Layer’s Default Behavior"></a><h3>Actions Let You Change a Layer’s Default Behavior</h3><p>Implicit layer animations are achieved using <em class="newTerm">action objects</em>, which are generic objects that implement a predefined interface. Core Animation uses action objects to implement the default set of animations normally associated with layers. You can create your own action objects to implement custom animations or use them to implement other types of behaviors too. You then assign your action object to one of the layer’s properties. When that property changes, Core Animation retrieves your action object and tells it to perform its action. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/TP40004514-CH1-SW9" title="Relevant Chapters"></a><p><strong>Relevant Chapters:</strong>&nbsp;<span class="content_text"><a href="../ReactingtoLayerChanges/ReactingtoLayerChanges.html#//apple_ref/doc/uid/TP40004514-CH7-SW1" data-renderer-version="1">Changing a Layer’s Default Behavior</a></span></p><p></p></aside></div></section><a name="//apple_ref/doc/uid/TP40004514-CH1-DontLinkElementID_3" title="How to Use This Document"></a><h2 class="jump">How to Use This Document</h2><p>This document is intended for developers who need more control over their app’s animations or who want to use layers to improve the drawing performance of their apps. This document also provides information about the integration between layers and views for both iOS and OS X. The integration between layers and views is different on iOS and OS X and understanding those differences is important to being able to create efficient animations.  </p><a name="//apple_ref/doc/uid/TP40004514-CH1-DontLinkElementID_5" title="Prerequisites"></a><h2 class="jump">Prerequisites</h2><p>You should already understand the view architecture of your target platform and be familiar with how to create view-based animations. If not, you should read one of the following documents: </p><ul class="ul"><li class="li"><p>For iOS apps, you should understand the view architecture described in <em><a href="../../../../WindowsViews/Conceptual/ViewPG_iPhoneOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009503" data-renderer-version="1" target="_self">View Programming Guide for iOS</a></em>.</p></li><li class="li"><p>For OS X apps, you should understand the view architecture described in <em><a href="../../CocoaViewsGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40002978" data-renderer-version="1" target="_self">View Programming Guide</a></em>.</p></li></ul><div id="introSeeAlsoSection"><a name="//apple_ref/doc/uid/TP40004514-CH1-DontLinkElementID_4" title="See Also"></a><h2 class="jump">See Also</h2><p>For examples of how to implement specific types of animations using Core Animation, see <em><a href="../../../../GraphicsImaging/Conceptual/CoreAnimation_Cookbook/Introduction/Introduction.html#//apple_ref/doc/uid/TP40005406" data-renderer-version="1" target="_self">Core Animation Cookbook</a></em>. </p></div>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../CoreAnimationBasics/CoreAnimationBasics.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2015 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2015-03-09</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

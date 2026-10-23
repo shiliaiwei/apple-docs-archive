@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+  <title>Affinity API Release Notes for OS X v10.5</title>
+
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/release-notes-1.6.3.css" />
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback-1.6.3.css" />
+  <meta charset='utf-8'> 
+<meta id="j-version" name="j-version" content="" />
+<meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+<meta id="document-version" name="document-version" content="1.1.1" />
+<meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Topic/Performance}" />
+<meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40006635" />
+<meta id="chapterId" name="chapterId" content="TP40006635-CH1">
+<meta id="book-title" name="book-title" content="Affinity API Release Notes for OS X v10.5" />
+<meta id="book-resource-type" name="book-resource-type" content="Release Note" />
+<meta id="book-root" name="book-root" content="./" />
+<meta id="book-json" name="book-json" content="book.json">
+<meta id="date" name="date" content="2007-10-31" />
+<meta id="description" name="description" content="Explains how to influence which CPU core runs a group of threads (for performance optimization)." />
+<meta id="IndexTitle" name="IndexTitle" content="" />
+<meta id="resources-uri" name="resources-uri" content="../../../Resources/1282">
+<link id="book-index-page" rel="Start" title="" type="text/html" href="./index.html">
+<!-- , next_chapter: next_chapter, previous_chapter: previous_chapter -->
+<link id="next-page" rel="Next" type="text/html" href="">
+<link id="previous-page" rel="Prev" type="text/html" href="">
+<meta id="devcenter" name="devcenter" content="<!-- DEVCENTER_NAME -->" />
+<meta id="devcenter-url" name="devcenter-url" content="<!-- DEVCENTER_URL -->" />
+<meta id="reflib" name="reflib" content="<!-- REFLIB_NAME -->" />
+
+<meta id="xcode-display" name="xcode-display" content="render" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta id="platforms" name="platforms" content="OS X">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta id="platforms" name="platforms" content="OS X">
+</head>
+
+  <body class="release-notes">
+    <a name="//apple_ref/doc/uid/TP40006635" title="Affinity API Release Notes for OS X v10.5"></a>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+    <div id='ssi_Header' class="hideInXcode <!-- library -->">
+        <a id="ssi_LibraryTitle" href="../../../navigation/">Documentation Archive
+      </a>
+        <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+        <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+    </div>
+    <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+        <label for='adcsearch'>Search Documentation Archive</label>
+        <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+    </form>
+</div>
+ 
+<header id="header">
+    <div id="title" role="banner">
+        <h1>Affinity API Release Notes for OS X v10.5</h1>
+        <span id="file_links">
+            <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+            <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+        </span>
+    </div>
+    <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+        <li id="toc_button" style="display:none">
+            <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+        </li>
+        <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top"><<Jump To&#133;>></option></select></li>
+        <li id="downloadSample_button" style="display:none">
+            <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+        </li>
+    </ul>
+</header>
+<nav id="tocContainer" tabindex="7">
+    <ul id="toc" role="tree"></ul>
+</nav>
+<article id="contents" class="chapter" role="main">
+  <a name="//apple_ref/doc/uid/TP40006635-CH1"></a><a name="//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_7"></a>
+  <h1>Thread Affinity API Release Notes</h1>
+
+	<div class="importantbox clear">
+  <section class="important">  
+    <aside>
+      <p>
+        <strong>Important:</strong>
+        <p class="para">
+  This document is no longer being updated. For the latest information about Apple SDKs, visit the <a href="https://developer.apple.com/documentation">documentation website</a>.
+</p>
+
+      </p>
+    </aside>   
+  </section>
+</div>
+  <section class="table-of-contents">
+  <h4>Contents:</h4>
+  <ul>
+      <li><a href="#//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_1">Applications, Processors, Memory, and Caches</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_2">Thread Affinity API</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_3">The sysctl for Cache Sizes and Sharing Levels</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_4">The sysctl for Processor Package Count</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_5">The sysctl for Processor Family</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_6">For More Information</a></li>
+  </ul>
+</section>
+
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_1"></a>
+  <h3 class="section-name" tabindex="0">Applications, Processors, Memory, and Caches</h3>
+  <p class="para">
+  Optimized multithreaded applications need to know the number of available processors (for concurrency), and the size and sharing of the processor caches (for memory sharing).
+</p><p class="para">
+  OS X does not export interfaces that identify processors or control thread placement—explicit thread to processor binding is not supported. Instead, the kernel manages all thread placement.  Applications expect that the scheduler will, under most circumstances, run its threads using a good processor placement with respect to cache affinity.
+</p><p class="para">
+  However, the application itself knows the detailed caching characteristics of its threads and its data—in particular, the organization of threads as disjoint sets characterized by their association with (affinity to) distinct shared data.
+</p><p class="para">
+  While threads within such a set exhibit affinity with each other via shared data, they share a disaffinity or negative affinity with respect to other sets. In other words, a set expresses an affinity with an L2 cache and the scheduler should seek to run threads in a set on processors sharing that L2 cache.
+</p><p class="para">
+  To support this, two new APIs are introduced in Leopard:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  A mechanism for an application to express thread affinity hints to the scheduler as an extension to Mach thread policies.
+</p>
+</li><li class="item"><p class="para">
+  A more uniform and complete set of <code class="code-voice u-api"><a href="../../../documentation/System/Conceptual/ManPages_iPhoneOS/man3/sysctl.3.html#//apple_ref/doc/man/3/sysctl" data-renderer-version="1">sysctl(3)</a></code> controls to obtain processor cache sharing information.
+</p>
+</li>
+</ul>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_2"></a>
+  <h3 class="section-name" tabindex="0">Thread Affinity API</h3>
+  <p class="para">
+  An affinity set is a collection of threads which share memory resources and wish to share an L2 cache. Distinct affinity sets represent separate affinities—that is, threads belonging to a different set should use a separate L2 cache and hence be run on a different logical processors.
+</p><p class="para">
+  An affinity set is identified by a &quot;tag&quot;. Threads are assigned to a particular affinity set by assigning it the tag identifying that set. A thread can belong to at most one affinity set; that is, it has one affinity tag. The default, null, tag represents no affinity.
+</p><p class="para">
+  Each task has a distinct universe of affinity sets and thus a private namespace of tags; a tag value in one task does not identify the same affinity set in another task.
+</p><p class="para">
+  The Mach thread policy calls are defined in header <code class="code-voice">/usr/include/mach/thread_policy.h</code> and in <code class="code-voice">/System/Library/Frameworks/System.framework/PrivateHeaders/mach/thread_policy.h</code> as follows:
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>kern_return_t  thread_policy_set(
+                        thread_t                thread,
+                        thread_policy_flavor_t  flavor,
+                        thread_policy_t         policy_info,
+                        mach_msg_type_number_t  count);</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>kern_return_t  thread_policy_get(
+                        thread_t                thread,
+                        thread_policy_flavor_t  flavor,
+                        thread_policy_t         policy_info,
+                        mach_msg_type_number_t  *count);
+                        boolean_t               *get_default);</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  These calls have been extended by adding a new flavor of thread policy:
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>#define THREAD_AFFINITY_POLICY         4
+
+struct thread_affinity_policy {
+        integer_t       affinity_tag;
+};
+typedef struct thread_affinity_policy   thread_affinity_policy_data_t;
+typedef struct thread_affinity_policy   *thread_affinity_policy_t;
+
+#define THREAD_AFFINITY_POLICY_COUNT    ((mach_msg_type_number_t) \
+                (sizeof (thread_affinity_policy_data_t) / sizeof (integer_t)))
+
+#define THREAD_AFFINITY_TAG_NULL        0
+</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  By setting a (non-null) affinity tag for a thread, the thread is placed into the affinity set identified by the &quot;tag&quot;. By default, all threads have the <code class="code-voice">THREAD_AFFINITY_NULL</code> affinity. A non-null tag is arbitrary and can convey application-specific information.
+</p><p class="para">
+  The <code class="code-voice">thread_policy_set(THREAD_AFFINITY_POLICY)</code> call can be made after creating a thread but before starting it running in order to influence its initial placement.
+</p><p class="para">
+  For example, an application wanting to run 2 threads on separate L2 caches would set the threads with different affinity tags. On a dual core machine, this affinity will effectively be ignored. However, on a 4-core MacPro, the scheduler will try to run threads on separate packages. Similarly, on an 8-core MacPro, the scheduler will try to run these threads on separate dies (which may or may not be in the same physical CPU package).
+</p><p class="para">
+  An application with a producer and a consumer thread that should share an L2 cache would perform the following steps:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  Create both threads.
+</p>
+</li><li class="item"><p class="para">
+  Set the same affinity tag for each thread.
+</p>
+</li><li class="item"><p class="para">
+  Start both threads.
+</p>
+</li>
+</ul><p class="para">
+  An application that wants to place a thread on every available processor would do the following:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  Obtain the number of processors on the system using <code class="code-voice u-api"><a href="../../../documentation/System/Conceptual/ManPages_iPhoneOS/man3/sysctl.3.html#//apple_ref/doc/man/3/sysctl" data-renderer-version="1">sysctl(3)</a></code> (see below).
+</p>
+</li><li class="item"><p class="para">
+  Create that number of threads.
+</p>
+</li><li class="item"><p class="para">
+  Set each thread with a distinct affinity tag.
+</p>
+</li><li class="item"><p class="para">
+  Start all threads.
+</p>
+</li>
+</ul><p class="para">
+  Threads with default affinity policy will be scheduled more freely on any processor. These threads will be preferentially migrated to run on an idle processor. Threads with affinity tags will tend to remain in place.
+</p><p class="para">
+  Generally, the affinity tag namespace is private to one task (process). However, a child process forked after its parent has made a <code class="code-voice">THREAD_AFFINITY_POLICY</code> call will share the affinity namespace of the parent process. This enables a family of forked processes to share an affinity namespace despite comprising separate tasks. Moreover, the forked child inherits the affinity tag of its parent. Hence, a parent can seed a number of child processes within an arbitrary organization of shared affinity sets. Note: affinity namespace inheritance is destroyed by the <code class="code-voice u-api"><a href="../../../documentation/System/Conceptual/ManPages_iPhoneOS/man3/exec.3.html#//apple_ref/doc/man/3/exec" data-renderer-version="1">exec(3)</a></code> system call, however.
+</p><p class="para">
+  In addition, the header <code class="code-voice">/usr/include/mach/task_info.h</code> includes the following new information request:
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>struct task_affinity_tag_info {         integer_t        count;
+        integer_t        min;
+        integer_t        max;
+        integer_t        task_count;
+};
+typedef struct task_affinity_tag_info   task_affinity_tag_info_data_t;
+typedef struct task_affinity_tag_info   *task_affinity_tag_info_t;
+#define TASK_AFFINITY_TAG_INFO          16
+#define TASK_AFFINITY_TAG_INFO_COUNT    \
+                (sizeof(task_affinity_tag_info_data_t) / sizeof(natural_t))
+</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  This enables you to obtain the number (<code class="code-voice">count</code>) and range [<code class="code-voice">min</code> .. <code class="code-voice">max</code>] of the affinity tags currently defined for a task.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_3"></a>
+  <h3 class="section-name" tabindex="0">The sysctl for Cache Sizes and Sharing Levels</h3>
+  <p class="para">
+  For Leopard, the <code class="code-voice">hw.cacheconfig</code> sysctl reports the number of logical processors sharing caches at various levels in the system. That is:
+</p><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">hw.cacheconfig[0]</code> reports the RAM sharing (the total number of logical processors).
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">hw.cacheconfig[1]</code> reports the L1 sharing (the number of logical processors sharing a level 1 cache).
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">hw.cacheconfig[2]</code> reports the L2 sharing.
+</p>
+</li><li class="item"><p class="para">
+  ...
+</p>
+</li>
+</ul><p class="para">
+  There are already assorted sysctl controls that report the size of various caches. These continue to exist for compatibility, but this information is now consolidated into hw.cachesize where:
+</p><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">hw.cachesize[0]</code> reports the size of memory.
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">hw.cachesize[1]</code> reports the size of the L1 data cache.
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">hw.cachesize[2]</code> reports the size of the L2 cache.
+</p>
+</li><li class="item"><p class="para">
+  ...
+</p>
+</li>
+</ul><p class="para">
+  Both <code class="code-voice">hw.cacheconfig</code> and <code class="code-voice">hw.cachesize</code> are arrays of 64-bit values.
+</p><p class="para">
+  Hence, <code class="code-voice">hw.cacheconfig</code> and <code class="code-voice">hw.cachesize</code> provide the information needed for an application to configure:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  its threading level for maximum parallelism
+</p>
+</li><li class="item"><p class="para">
+  buffer space for cache residency
+</p>
+</li><li class="item"><p class="para">
+  affinity hints for thread placement and cache sharing.
+</p>
+</li>
+</ul>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_4"></a>
+  <h3 class="section-name" tabindex="0">The sysctl for Processor Package Count</h3>
+  <p class="para">
+  The number of processor packages present on a machine is published through <code class="code-voice">hw.packages</code>. For currently shipping machines this is <code class="code-voice">1</code> or <code class="code-voice">2</code>.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_5"></a>
+  <h3 class="section-name" tabindex="0">The sysctl for Processor Family</h3>
+  <p class="para">
+  The sysctl <code class="code-voice">hw.cpufamily</code> publishes a value identifying the micro-architectural family of the processor. This value is arbitrarily chosen to be unique for this family. No numerical relationship can be inferred between any two values. Processor features present in any family should be determined by querying other specific <code class="code-voice">hw.optional</code> variables.
+</p><p class="para">
+  The values returned for processor families supported by Leopard are:
+</p><div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Processor
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  hw.cpufamily
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  PowerPC G4
+</p></td>
+            <td><p class="para">
+  2009171118
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  PowerPC G5
+</p></td>
+            <td><p class="para">
+  3983988906
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  Intel Core Solo/Duo
+</p></td>
+            <td><p class="para">
+  1943433984
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  Intel Core 2 Duo
+</p></td>
+            <td><p class="para">
+  1114597871
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40006635-CH1-DontLinkElementID_6"></a>
+  <h3 class="section-name" tabindex="0">For More Information</h3>
+  <p class="para">
+  For more information on using <code class="code-voice">sysctl</code> controls, see the <a href="../../../documentation/Darwin/Conceptual/KernelProgramming/boundaries/boundaries.html#//apple_ref/doc/uid/TP30000905-CH217" data-renderer-version="1" target="_self">Boundary Crossings</a> chapter of <em class="u-book"><a href="../../../documentation/Darwin/Conceptual/KernelProgramming/About/About.html#//apple_ref/doc/uid/TP30000905" data-renderer-version="1" target="_self">Kernel Programming Guide</a></em> and the manual pages for <code class="code-voice u-api"><a href="../../../documentation/System/Conceptual/ManPages_iPhoneOS/man3/sysctl.3.html#//apple_ref/doc/man/3/sysctl" data-renderer-version="1">sysctl(3)</a></code>, <code class="code-voice u-api"><a href="../../../documentation/System/Conceptual/ManPages_iPhoneOS/man3/sysctlbyname.3.html#//apple_ref/doc/man/3/sysctlbyname" data-renderer-version="1">sysctlbyname(3)</a></code>, and the <code class="code-voice u-api"><!-- a href="" -->sysctl(8)<!-- /a --></code> command.
+</p>
+  
+</section>
+
+  <div id="copyright" class='copyright'>
+    <br><hr><div align="center"><p class="content_text" lang="en" dir="ltr">Copyright &#x00a9; 2018 Apple Inc. All rights reserved. <a class="link" href="http://www.apple.com/legal/terms/site.html" target="_blank">Terms of Use</a>   |  <a class="link" href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |   Updated: 2007-10-31
+</div>
+  <div id="pediaWindow">
+    <div id="pediaHeader"></div>
+    <div id="pediaBody"></div>
+  </div>
+</article>
+
+
+
+    <footer id="footer">
+  <script src="../../../Resources/1282/JavaScript/lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/release-notes-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/feedback-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+</footer>
+
+  	<div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+  </body>
+</html>

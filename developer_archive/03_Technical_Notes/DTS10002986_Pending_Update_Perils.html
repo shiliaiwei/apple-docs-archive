@@ -1,0 +1,858 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Pending Update Perils">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002986">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1147: Discusses potential problems when pending update events for windows behind modal dialogs are not serviced.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+   <title>Technical Note TN1147: Pending Update Perils</title>
+   
+    <meta name="keywords" content="Mac OS 8 modal dialog pending update problems filter procedure">
+    <meta name="Description" content="Technical Note TN1147: This Technical Note discusses potential
+problems when pending update events for windows behind modal
+dialogs are not serviced. Technical Note demonstrates potential
+problems, and describes a solution by detailing how to write
+a filter procedure and drawing procedure,  which will handle
+these modal dialog update problems.">
+
+
+<meta name="categories" content="Human Interface Toolbox">
+
+
+<meta name="week-posted" content="Dec 28, 1998 - Jan 1, 1999">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002986" title="Pending Update Perils"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Pending Update Perils</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalnotes/Carbon/idxHumanInterfaceToolbox-date.html">Human Interface Toolbox</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Not Recommended Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>The information in this document is <strong>Not Recommended</strong> and should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Carbon/idxHumanInterfaceToolbox-date.html" target="_blank">Carbon > Human Interface Toolbox</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1147</div>
+<div id="pageheadsub">Pending Update Perils</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+         
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+     <tr>
+<td width=300 valign="top" align=left scope="row">
+    <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+        </tr>
+        <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+       <span id="menutitle">
+CONTENTS 
+  <br>
+  <br>
+       </span>
+   </td>
+        </tr>
+        <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+       <!-- begin_toc -->
+<p id="menutext"> 
+<a href="#Section1">Introduction</a><BR><BR>
+<a href="#Section2">The Update and
+         <CODE>ModalDialog</CODE></a><BR><BR>
+<a href="#Section3">Yuck, that's nasty!</a><BR><BR>
+<a href="#Section4">If you do some, you have to do a little more...</a><BR><BR>
+<a href="#Summary">Conclusion</a><BR><BR>
+<a href="#References">References</a><BR><BR>
+<a href="#Changes">Change History</a><BR><BR>
+<a href="#Downloads">Downloadables</a></p>
+  <!-- end_toc -->
+</td>
+        </tr>
+
+        <tr>
+   <td width=300 align=left scope="row">
+       <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+   </td>
+        </tr>
+    </table>
+</td>
+        <td width=300 valign="top" align=left>
+            
+<!-- begin_intro_text -->
+<P id = "introtext">
+This Technical Note discusses potential problems when pending update events for
+windows behind modal dialogs are not serviced.
+</p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Jan 11 1999]</h3>
+<!-- end_date -->
+</TD>
+             </TR>
+          </table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+<!-- begin_content -->
+<a NAME=Section1></a>
+         
+         <H2>Introduction</H2>
+         
+         <P>Modal dialog boxes have always caused some problems with
+         windows behind dialog windows. Since <CODE>ModalDialog</CODE> has its own
+         event loop which does not by default cooperate with your
+         application event loop you have always had the potential for
+         not knowing that updates have occurred for the other windows
+         in your application when you are in a <code>ModalDialog</code>
+         loop.</P>
+         
+         <P>If you've ever written a filter procedure for a modal
+         dialog, you've probably seen this for yourself. Your filter
+         will get a continual stream of update events. These events
+         are not for the dialog, but are for the window behind the
+         dialog, which has not been updated since the modal dialog
+         came up. The event has not come through your normal event
+         loop, and you have probably not serviced the update since
+         you are only concerned about events for your dialog. This
+         causes the update event to keep getting re-sent. The only way
+         for the update to be stopped is for the update region of the
+         affected window to be cleared by the <CODE>Begin/EndUpdate</CODE> calls
+         in your drawing routine (see <a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-207.html#HEADING207-47">Handling
+         Update Events in Inside Macintosh:Macintosh Toolbox
+         Essentials</a>).</P>
+         
+         <P>This situation is exacerbated by screen savers and
+         Balloon Help. If a screen saver becomes active while a modal
+         dialog is up, or if your user has Balloon help on and part
+         of a window behind the dialog is obscured by a balloon, then
+         an update event will be generated for the window.</P>
+         
+<BR>
+<a HREF = "#top">Back to top</a>
+<BR>
+
+         <a NAME=Section2></a>
+         
+         <H2>The Update and
+         <CODE>ModalDialog</CODE></H2>
+         
+         <P>If there is an update event pending for your application,
+         no other applications, drivers, control panels, or anything
+         else, will get time.</P>
+         
+         <P>Updates pending for other applications do not generally
+         cause a problem (unless they too are suffering from pending
+         updates). They will be handled normally by the application
+         in the background. Updates <I>must</I> be serviced or other
+         processes will not get time.</P>
+         
+         <P>This is a potential Bad Thing<B>. </B>Many pieces of code
+         need time to keep living, to maintain network connections,
+         or just to look good.</P>
+         
+         <P>A simple example is the Chooser. Open the Chooser, then
+         launch an application that you know has a modal dialog.
+         Position the Chooser so you can see it, and you'll notice
+         that it refreshes its lists even while it's in the
+         background.</P>
+         
+         <P>Now make sure there is a document window open in the
+         frontmost application. Turn on Balloon Help from the Help
+         menu.</P>
+         
+         <P>Open a modal dialog in the application (the About box in
+         most applications will work). Now move the cursor over the
+         window behind the modal dialog. A balloon will appear saying
+         something like "This window is not active because a dialog
+         box is up....", and a piece of the window will be blasted by
+         the balloon. Now look at the Chooser. It has stopped
+         running. The window that got zapped by the balloon now has
+         an update pending for it, that update is going through the
+         <CODE>ModalDialog</CODE> trap, and not through the program's event loop,
+         so it is not being serviced. Time stops for all other
+         applications.</P>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+This <B>only</B> happens if the update is for the
+same application as the dialog box. If you blast a
+window in another application (like the Finder)
+then that update will be processed normally.</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<BR>
+<a HREF = "#top">Back to top</a>
+<BR>
+
+
+         <P><a NAME=Section3></a></P>
+         
+         <H2>Yuck, that's nasty!</H2>
+         
+         <P>You have two choices in your application to prevent this
+         from happening. The first is to have no other open windows
+         in your application when you open a modal dialog. Obviously,
+         this isn't always a realistic solution.</P>
+         
+         <P>The second, saner, solution is to provide yourself a
+         mechanism to refresh all your windows from within your modal
+         dialog.</P>
+         
+         <P>A filter procedure (described in 
+         <a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-385.html#HEADING385-63">
+         Writing an Event Filter Function for Alert and Modal Dialog Boxes in
+         Inside Macintosh:Macintosh Toolbox Essentials</a>) is the
+         proper tool to use to fix this problem. You'll need to add a
+         simple filter procedure to every dialog or alert you bring
+         up in your application. And, in most cases, it can be the
+         same filter for every dialog, so it's not a great deal of
+         extra code.</P>
+         
+         <P>However, you're going to have to do a little preparation
+         to do this. Your filter proc needs to have a way to call the
+         drawing procedure for any of your windows. There are many
+         ways to do this, dictated by the specific needs of your
+         application and your own programming style. You may want to
+         create a window control object that contains a pointer to
+         your drawing routine, you may want to include the same check
+         and dispatch you have in your main event loop, or use
+         another method which you are comfortable with.</P>
+         
+         <P>The simplest, bare bones method, would be to include a
+         flag for your drawing procedure in your window record
+         <CODE>refCon</CODE>, and have your drawing routine vector based on the
+         value in the <CODE>refCon</CODE>, as shown here:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+    /* Window drawing proc, defined somewhere else*/
+Boolean MyDrawProc(WindowPtr windowToDraw) {
+    Boolean returnVal;
+
+        /* switch using the value you've stored in
+        your window earlier. */
+    switch (GetWRefCon(windowToDraw)) {
+
+            /*draw my clipboard*/
+        case kMyClipboard:
+            DrawMyClip (windowToDraw);
+            returnVal = true;
+            break;
+
+            /*document content*/
+        case kMyDocument:
+            DrawMyDoc (windowToDraw);
+            returnVal = true;
+            break;
+
+            /*do nothing for anything else,
+            to prevent drawing window*/
+        default:
+            returnVal = false;
+            break;
+    }
+
+        /* this return value is used to tell the Dialog
+        Manager if you've handled the update or not when
+        this is called from your filter.  In normal uses
+        (i.e., in response to an updateEvent in your main
+        event loop) the boolean is unnecessary, but it
+        doesn't do any harm*/
+
+    return returnVal;
+
+}
+</pre></TD></TR></table></CENTER><br><BR>
+         
+         <P>Install the flag when you create a window:</P>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+myWindowPtr = GetNewWindow(kMyWindowID, nil, (WindowPtr)-1);
+SetWRefCon(myWindowPtr, (long)myDrawingProcFlag);
+</pre></TD></TR></table></CENTER><br><br>
+
+<P>In your filter, the update handling would look something like this:</P>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+    /* if the update is for the dialog box, ignore
+    it since the regular ModalDialog will redraw
+    it as necessary*/
+if(theEventIn-&gt;what == updateEvt
+&amp;&amp; theEventIn-&gt;message != myDialogPtr ) {
+        /* go to my drawing routine, window will
+        be redrawn if I own it*/
+    return (MyDrawProc ((WindowPtr)theEventIn-&gt;message));
+}
+</pre></TD></TR></table></CENTER><BR><BR>
+
+<h3>In MPW Pascal:</h3>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+    { The function's result is used to tell the Dialog
+    Manager if you've handled the update or not when this
+    is called from your filter. In normal uses (i.e., in
+    response to an updateEvent in your main event loop)
+    the boolean is unnecessary, but it doesn't do any harm.
+    The window drawing procedure is defined somewhere else.}
+
+FUNCTION MyDrawProc(windowToDraw WindowPtr): BOOLEAN;
+
+BEGIN
+  CASE GetWRefCon(windowPtr) OF
+
+    kMyClipboard:
+      BEGIN
+        DrawMyClipboard(windowToDraw);
+        MyDrawProc := TRUE;
+      END;
+
+    kMyDocument:
+      BEGIN
+        DrawMyDocument(windowToDraw);
+        MyDrawProc := TRUE;
+      END;
+
+    OTHERWISE
+      MyDrawProc := FALSE;
+   END; {CASE}
+END;</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+         
+<P>Install the flag when you create a window:</P>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+myWindowPtr := GetNewWindow(kMyWindowID, NIL, WindowPtr(-1));
+SetWRefCon(myWindowPtr, myDrawingProcFlag);
+</pre></TD></TR></table></CENTER><BR><BR>
+
+         
+<P>In your filter, the update handling would look something like this:</P>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+   { if the update is for the dialog box, ignore
+    it since the regular ModalDialog function will
+    redraw it as necessary }
+FUNCTION MyFilter(currentDialog: DialogPtr;
+    VAR theEventIn: EventRecord;
+    VAR theItem: INTEGER): BOOLEAN;
+BEGIN
+
+    IF (theEventIn.what = updateEvt
+    AND theEventIn.message &lt;&gt; currentDialog) BEGIN
+        MyFilter := MyDrawProc(currentDialog);
+    END;
+END;
+</pre></TD></TR></table></CENTER><BR><BR>
+
+
+         
+<BR>
+<a HREF = "#top">Back to top</a>
+<BR>
+
+<a NAME=Section4></a>
+         
+         <H2>If you do some, you have to do a
+         little more...</H2>
+         
+         <P>The only downside to adding your own filter procedure to
+         a dialog is that the Dialog Manager then assumes that you
+         are handing more than just updates. Specifically, the Dialog
+         Manager assumes that you are handling the standard "return
+         key aliases to item 1" filtering. So, you need to write
+         keystroke handling in the filter yourself.</P>
+         
+         <P>The Dialog Manager in System 7 has some new calls you can
+         make to ease the load on your program in this situation.
+         These calls were created and tested too late in System 7's
+         development cycle to be documented in <I>Inside Macintosh</I>, so
+         they are presented in <a HREF = "tn1148.html">Technote 1148: Dialog Manager Helper Functions</a>. They allow you to
+         call on the services of the System to track standard
+         keystrokes in your dialog.</P>
+         
+         <H3>The System 6 Way</H3>
+         
+         <P>Of course, under pre-System 7 applications, you can't use
+         the new calls, so you have to do it yourself. Here's a
+         sample System 6.0.x filter proc that does roughly the same
+         thing that a System 7 filter will do.</P>
+
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>/* Pre-system 7 dialog filter*/
+#define kMyButtonDelay 8
+
+    /* declared as `pascal' since it's called by the toolbox*/
+pascal Boolean MyFilter(DialogPtr currentDialog,
+        EventRecord *theEventIn,
+        short *theDialogItem) {
+    Boolean     returnVal;
+    long        waitTicks;
+    short       itemKind;
+    Handle      itemHandle;
+    Rect        itemRect;
+
+    returnVal = false;
+
+        /* myDialogPtr is defined where you created the
+        dialog if the update is for the dialog box,
+        ignore it since the regular ModalDialog function
+        will redraw it as necessary*/
+    if (theEventIn-&gt;what == updateEvt
+    &amp;&amp; theEventIn-&gt;message != myDialogPtr) {
+
+            /* go to my drawing routine*/
+        returnVal = MyDrawProc (theEventIn-&gt;message);
+
+    } else {
+
+            /* it wasn't an update, see if it was a keystroke.
+            Check for the return or enter key, and alias that
+            as item 1. I also included a check here for the
+            escape key aliasing as item 2, you may not want
+            to use that*/
+
+        if ((theEventIn-&gt;what == keyDown)
+        || (theEventIn-&gt;what == autoKey)) {
+
+            /* it was a key*/
+            switch (theEventIn-&gt;message &amp; charCodeMask) {
+
+                    /* change whatever the current item is to
+                    the OK item ok is #defined in Dialogs.h
+                    as now we need to invert the button so
+                    the user gets the right feedback*/
+
+                case kReturnKey:
+                case kEnterKey:
+
+                    *theDialogItem = ok;
+
+                        /* invert the button*/
+                    GetDItem (currentDialog, ok, &amp;itemKind,
+                        &amp;itemHandle, &amp;itemRect);
+                    HiliteControl ((ControlHandle)itemHandle, inButton);
+
+                        /* wait about 8 ticks so they can see it*/
+                    Delay (kMyButtonDelay, &amp;waitTicks);
+
+                        /* and back to normal*/
+                    HiliteControl ((ControlHandle)itemHandle, false);
+
+                        /* tell the Dialog Manager we handled this event*/
+                    returnVal = true;
+                    break;
+
+
+                    /* This filters the escape key the same
+                    as item 2 (the cancel button,usually )*/
+
+                case kEscKey:
+
+                        /* cancel is #defined in Dialogs.h as 2*/
+                    *theDialogItem = cancel;
+
+                        /* invert the button*/
+                    GetDItem (currentDialog, cancel, &amp;itemKind,
+                            &amp;itemHandle, &amp;itemRect);
+                    HiliteControl ((ControlHandle)itemHandle, inButton);
+
+                        /* wait about 8 ticks so they can see it*/
+                    Delay (kMyButtonDelay, &amp;waitTicks);
+                    HiliteControl ((ControlHandle)itemHandle, false);
+
+                        /* tell the Dialog Manager we handled this event*/
+                    returnVal = true;
+                    break;
+            }
+        }
+    }
+
+    return returnVal;
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+       
+<h3>MPW Pascal</h3>
+         
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+{ Your filter for pre-System 7 will look something like this: }
+
+FUNCTION MyFilter(currentDialog: DialogPtr; VAR theEventIn:
+     EventRecord; VAR theItem: INTEGER): BOOLEAN;
+CONST
+    kMyButtonDelay = 8;
+VAR
+  itemKind: INTEGER;
+  itemHandle: Handle;
+  itemRect: Rect;
+  savePort: GrafPtr;
+  waitTicks: LONGINT;
+
+BEGIN
+        { if the update is for the dialog box,
+        ignore it since the regular ModalDialog
+        function will redraw it as necessary }
+    IF (theEventIn.what = updateEvt
+    AND theEventIn.message &lt;&gt; currentDialog) THEN
+        MyFilter := MyDrawProc(theEventIn.message)
+    ELSE BEGIN
+            { it wasn't an update, see if it was a keystroke
+            Check for the return or enter key, and alias that
+            as item "ok".  I also included a check here for
+            the escape key aliasing as item "cancel", you
+            may not want to use that }
+        IF ((theEventIn.what = keyDown)
+        OR (theEventIn.what = autoKey)) THEN BEGIN
+
+             { it was a key down }
+            CASE CHR(BAnd(theEventIn.message, charCodeMask)) OF
+
+                kReturnKey, kEnterKey:
+                    BEGIN
+                        GetDItem(currentDialog, ok, itemKind,
+                                itemHandle, itemRect);
+                        HiliteControl(ControlHandle(itemHandle), TRUE);
+
+                            {wait about 8 ticks so they can see it}
+                        Delay(kMyButtonDelay , waitTicks);
+
+                            {and back to normal}
+                        HiliteControl(ControlHandle(itemHandle), FALSE);
+
+                            {tell the Dialog Manager we handled this event}
+                        MyFilter := TRUE;
+                    END;
+
+                kEscKey:
+                    BEGIN
+                        theItem := cancel;
+                        GetDItem(currentDialog, cancel, itemKind,
+                                itemHandle, itemRect);
+                        HiliteControl(ControlHandle(itemHandle), TRUE);
+
+                            {wait about 8 ticks so they can see it}
+                        Delay(kMyButtonDelay , waitTicks);
+
+                            {and back to normal}
+                        HiliteControl(ControlHandle(itemHandle), FALSE);
+
+                            {tell the Dialog Manager we handled this event}
+                        MyFilter := TRUE;
+                    END;
+
+            END; {CASE}
+        END;
+    END;
+END;</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+
+<BR>
+<a HREF = "#top">Back to top</a>
+<BR>
+
+<a NAME=Summary></a>
+         
+         <H2>Summary</H2>
+         
+         <P>Never-ending updates are not a new problem. It is
+         imperative that you do something about never-ending updates.
+         There isn't much extra work involved; just add a simple
+         filter to all of your dialogs and alerts, and put a flag to
+         your drawing proc in your window structure.</P>
+         
+         <P>The results will allow the system to continue to run
+         smoothly, and as an added benefit your users will always see
+         your application's windows the way they should be, instead
+         of windows with chunks bitten out of them.</P>
+     
+<BR><P><a href="#top">Back to top</a></P>
+<a NAME=References></a>
+
+<H2>References</H2>
+
+
+<p><a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-28.html#HEADING28-0">Inside
+Macintosh:Macintosh Toolbox Essentials, Chapter 2 - Event
+Manager</a></p>
+            
+<p><a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-188.html#HEADING188-0">Inside
+Macintosh:Macintosh Toolbox Essentials, Chapter 4 -
+Window Manager</a></p>
+            
+<p><a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-370.html#HEADING370-0">Inside
+Macintosh:Macintosh Toolbox Essentials, Chapter 6 -
+Dialog Manager</a></p>
+
+<BR>
+<a HREF = "#top">Back to top</a>
+<BR>
+
+
+<a NAME=Changes></a>
+
+<H2>Change History</H2>
+
+           
+         <table BORDER=0 CELLPADDING=3 WIDTH=544>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-October-1991</P>
+               </TD>
+               <td align="left">
+                  <P>Originally written as Technote TB 37.</P>
+               </TD>
+            </TR>
+			<TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>1991 and 1999</P>
+               </TD>
+               <td align="left">
+                  <P>Accompanying code written and revised.</P>
+               </TD>
+            </TR>
+		<TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>11-January-1999</P>
+               </TD>
+               <td align="left">
+                  <P>Updated to better organize
+   the ideas presented.</P>
+               </TD>
+            </TR>
+   
+ </table><BR>
+
+<BR><P><a href="#top">Back to top</a></P>
+
+        <a NAME="Downloads"></a> 
+        <h2>Downloadables</h2>
+
+        <center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+         <TR> 
+            <td width=50 align=left> 
+              <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" width=22 height=23></P>
+            </TD>
+            <td align="left"> 
+              <p>Acrobat version of this Note (64K).</P>
+            </TD>
+            <td width=60 align=left> 
+              <p><a href="pdf/tn1147.pdf">Download</a></P>
+            </TD>
+          </TR> 
+</table></center><BR><BR>
+
+<BR><P><a href="#top">Back to top</a></P>
+</TD></TR></table></CENTER>
+
+<!-- end_content -->
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

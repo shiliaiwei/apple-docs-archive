@@ -1,0 +1,605 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<!-- Template 03-24-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Understanding the Differences Between Apple and Windows IMA-ADPCM Compressed Sound Files">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Cross Platform/Windows}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002922">
+            <meta id="document-version" name="document-version" content="1.0.2">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1081.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+<title>Technical Note TN1081: Understanding the Differences Between Apple and Windows IMA-ADPCM Compressed Sound Files</title>
+
+    <meta name="keywords" content="Mac OS 8 Sound Manager IMA adpcm compressed files differences Wave">
+    <meta name="Description" content="Technical Note TN1081: This Technical Note details the differences
+between Apple IMA and Windows IMA (ADPCM) compressed sound
+files. Included is a discussion on playing a compressed and
+an uncompressed WAVE file on the Macintosh.">
+ 
+
+
+<meta name="categories" content="Cross-Platform and Sound">
+
+
+<meta name="week-posted" content="Oct 28, 1996 - Nov 1, 1996">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002922" title="Understanding the Differences Between Apple and Windows IMA-ADPCM Compressed Sound Files"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Understanding the Differences Between Apple and Windows IMA-ADPCM Compressed Sound Files</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxQuickTime-date.html">QuickTime</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/QuickTime/idxQuickTimeforWindows-date.html" target="_blank">QuickTime > QuickTime for Windows</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1081</div>
+<div id="pageheadsub">Understanding the Differences Between Apple and Windows IMA-ADPCM Compressed Sound Files</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+ <!-- begin_header_box -->
+ <table width="600" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td width=300 valign="top" align=left scope="row">
+			<table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+				</tr>
+				<tr bgcolor="#e6e6e6">
+					<td background="images/tnmenubody.gif" width=300 align=left>
+						<span id="menutitle">
+							CONTENTS 
+                            <br>
+                            <br>
+						</span>
+					</td>
+				</tr>
+				<tr bgcolor="#e6e6e6">
+					<td background="images/tnmenubody.gif" width=300 align=left>
+<!-- begin_toc -->
+<p id="menutext">
+    <a HREF = "#Section1">A Little Background &amp; Terminology</a><BR><BR>
+    <a HREF = "#Section2">Differences in Data Stream Formats</a><BR><BR>
+    <a HREF = "#Section3">Differences in Encoding/Decoding Stereo Streams<BR> and 
+    AIFF and WAVE Files</a><BR><BR>
+    <a HREF = "#Section4">Consequences of the Differences Between AIFF<BR> and 
+    WAVE File Formats</a><BR><BR>
+    <a HREF = "#Section5">Options for Cross-Platform Compressed Sound</a><BR><BR>
+    <a HREF = "#Summary">Summary</a><BR><BR>
+     <a HREF = "#References">References</a><BR><BR>
+    <a HREF = "#Sidebar">Playing a Compressed WAVE File on the Mac: A Sidebar</a><BR><BR>
+    <a href="#Downloads">Downloadables</a></p>
+                  <!-- end_toc --> 			
+					</td>
+				</tr>
+				<tr>
+					<td width=300 align=left scope="row">
+						<img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td width=300 valign="top" align=left>	
+		<!-- begin_intro_text -->       
+
+    <p id = "introtext">If you attempt to play a sound compressed 
+with Apple's IMA compressor on a computer running Windows' IMA decompressor, the sound 
+either does not play or plays incorrectly. The same thing also occurs if you try to play
+a Windows WAVE file compressed with the IMA-ADPCM algorithm on a
+Macintosh using the Apple-supplied 'ima4' decompressor. Because the two
+sound file formats are not interchangeable, many developers working in
+cross-platform environments want to know what the differences are
+between Apple IMA and Windows IMA compressed sound files.</p>
+
+<p id = "introtext">This Technote is aimed at developers who want to edit or play back
+Macintosh IMA-ADPCM files on computers not running the Mac OS or QuickTime for Windows.</P>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Dec 06 1996]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_header_box -->
+ <BR><BR>
+<hr width=500 align=center>
+          <BR><BR>
+ <!-- begin_content -->
+    <a name="Section1"></a>
+    <H2>A Little Background &amp; Terminology</h2>
+    
+    
+    <P><B>IMA</B> is an acronym for the Interactive Multimedia Association, which
+defined and published the <B>ADPCM</B> algorithm that Apple's and Microsoft's
+compressors (and therefore decompressors) are based on.</P>
+
+<P>For purposes of this Note, I refer to Apple's compressor as IMA, because
+that is generally how Macintosh programmers refer to it, and I refer to
+Microsoft's compressor as ADPCM because that is how most Microsoft
+programmers refer to it. I refer to the actual algorithm, regardless of
+platform, as IMA-ADPCM (because that's its official designation).</P>
+
+<P>The IMA-ADPCM algorithm only defines how to take 16-bit linear samples
+and compress them down to four bits each. According to page 11 of
+<CITE>Recommended Practices for Enhancing Digital Audio Compatibility in
+Multimedia Systems revision 3.00</CITE> (October, 1992) by IMA, "...tagging the
+[audio] stream definition and synchronization issues are left to
+upcoming IMA recommendations," which, to date, have not yet been made.
+Since it does not define the data stream or file format for the
+resulting data, Apple and Microsoft have designed file formats that are
+not exactly the same in the way that data is streamed to the file. The
+consequence of this is explained in the next section.</P>
+ 
+<P>The IMA-ADPCM algorithm takes a word (16 bits), and produces a nibble (4
+bits), which is then placed sequentially into a buffer for later
+storage. This has several important advantages. For one thing, it means
+that while the uncompressed data is endian dependent (being either
+big-endian or little-endian), the resulting compressed data is endian-independent,
+ which is a big plus when making a cross-platform sound standard.</P>
+<P><a href="#top">Back to top</a></P>
+
+    <a name="Section2"></a>
+    <H2>Differences in Data Stream Formats</h2>
+    
+    
+    <P>The reason why the Apple and Microsoft IMA files are not compatible is
+because of their different data stream formats, not because the actual
+compression algorithm differs radically. The IMA-ADPCM algorithm does
+not specifically disallow data other than sound data in the file format,
+so Apple and Microsoft were able to make design decisions and implement
+the file stream that worked best for their intended use and to fit
+within any previous sound file definitions.</P>
+
+
+    <H3>Differences in Packet Sizes</h3>
+    
+    <P>The most obvious differences between Apple's and Microsoft's ADPCM
+compressed files are in the size of the <B>packet</B> that each uses. A packet
+is the smallest amount of data that can be decompressed by the given the
+algorithm implementation. All decompression must be done with an integer
+number of packets.</P>
+
+<P>Apple's IMA compressed files have a fixed packet size of 64 samples per
+packet, while Microsoft's ADPCM compressed files have a variable number
+of samples per packet. The packet size is not variable within a WAVE
+file, but it can, and does, vary between WAVE files. </P>
+
+<P>Since the IMA-ADPCM algorithm is a type of run-length encoding, which
+doesn't lend itself to easy random access, to allow for random access
+the encoded data is broken into packets with the predicted sample value
+and step index put at the front of the packet of samples. This
+information can be used to restart the decompression from this point in
+the file.</P>
+<P><a href="#top">Back to top</a></P>
+    <a name="Section3">   </a>
+    <H2>Differences in Encoding/Decoding Stereo Streams 
+    and AIFF and WAVE Files</h2>
+
+    
+<P>    Apple's and Microsoft's ADPCM compressed files also differ in how stereo
+streams are encoded, and therefore decoded. The IMA standard does not
+say anything about having predictor bytes, nor does it say how multiple
+channels of sound should be treated, and that is one place where AIFF
+and WAVE files differ. </P>
+
+<P>For packet size, Apple chose 64 samples per predictor bytes, and for
+stereo, Apple defines that a packet of left channel data precedes a
+packet of right channel data. Apple's IMA compressor puts two bytes at
+the front of each packet, which are referred to as predictor bytes (not
+be confused with the predictor value that the IMA-ADPCM algorithm
+defines). These two bytes contain the step index, a 7-bit value in the
+low byte, and the most significant 9 bits of the predictor value.
+Obviously, since the real predictor value is 16 bits, this 9-bit
+predictor is only an approximation, but it doesn't cause significant
+loss of quality.</P>
+
+<P>Microsoft, on the other hand, lets the program compressing the sound
+determine the size of the packet, and the WAVE standard is eight samples
+of left data followed by eight samples of right data. WAVE files also
+have a two byte header just like the Mac, but have an 8-bit step index
+instead of a 7-bit step index and an 8-bit predicted sample
+approximation instead of a 9-bit approximation.</P>
+
+<p>
+For more information on the WAVE format, interested developers may
+want to consult one or more of the specifications and descriptions
+that can be found on the 
+<a HREF = "http://www.google.com/search?q=WAVE+file+format">Internet</a>
+</p>
+
+
+    <H3>The wBlockAlign Field</h3>
+    
+    <P>The WAVE file format has a field called wBlockAlign which tells the
+program reading the file the minimum number of bytes that must be
+processed at a time. The only WAVE files compressed with ADPCM that I
+have studied have had this value set to either 512 or 1024. This field
+could be set to other values. Setting this value to a number larger than
+34 allows the WAVE file to have fewer predictor bytes than the same data
+as an IMA compressed AIFF file.</P>
+
+<P>Apple's method of small packet sizes gains the ability to start playing
+sound from more locations in the file, thus giving better random access.
+Microsoft's method still allows for random access, but with greater
+jumps between points where sound can begin playing from.</P>
+<P><a href="#top">Back to top</a></P>
+    <a name="Section4"></a>
+    <H2>Consequences of the Differences Between AIFF and 
+    WAVE File Formats</h2>
+    
+    
+    <P>Because of the substantial differences between the AIFF and WAVE
+formats, the Apple IMA decompression codec will not handle Microsoft's
+ADPCM compressed WAVE files. </P>
+
+<P>Stereo ADPCM WAVE files have the channels interleaved differently than
+AIFF files and have fewer predictor bytes, which is a significant enough
+difference that the Apple IMA decompressor will not decompress them and
+produce the same sound as the Microsoft ADPCM decompressor would. The
+Microsoft ADPCM decompressor will not decompress a stereo IMA AIFF file
+as the Apple IMA decompressor would unless it is modified to take into
+account the different channel interleaving and predictor bytes.</P>
+
+<P>Because the Apple IMA compressor makes use of the high bit of the low
+byte in the predictor word for the predicted sample (to double its
+precision) and the Microsoft IMA compressor treats this bit as part of
+the value of the step index, it is likely that the step index will be
+invalid most of the time if the Microsoft ADPCM decompressor is dealing
+with an Apple IMA compressed sound.</P>
+
+<P>The step index is likely to be invalid because, depending on what the
+value of the predicted sample is, the high bit of the low byte of the
+predictor word (the least significant bit of the predicted sample) may
+or may not be set. Because the Microsoft ADPCM decompressor takes all 8
+bits of the low byte of the predictor word, instead of only the low 7
+bits (which are all that are needed; the step index's possible range is
+from 0 to 88, inclusive), having the high bit set will automatically
+make the index out of range, which may cause the decompressor to stop
+decompressing data.</P>
+
+
+    <H3>Differences in Resulting Data at the Nibble Level</h3>
+    
+    <P>Inspection of the same data compressed using Apple's IMA compressor and
+Microsoft's ADPCM compressor shows differences in the resulting data at
+the nibble level. The difference in the resulting data is often not
+major: if the data is different, it is usually only off by one value
+plus or minus. Examining the public Microsoft IMAADPCM.C file shows that
+the imaadpcmFastEncode and imaadpcmSampleEncode algorithms are not
+exactly the same as that published by IMA, but I have not attempted to
+trace execution of sample data to determine where the algorithm is
+producing different data. When played back through the correct
+decompressor, the two sounds sound identical.</P>
+
+
+    <H3>The Bottom Line</h3>
+    
+    <P>What this means is that if you were to go to all the work of converting
+from one file format to the other -- for example, converting a WAVE file
+to AIFF file -- you would find that when you decompressed the sound, the
+resulting sound would be slightly different, though the change might not
+be audible.</P>
+
+<P><a href="#top">Back to top</a></P>
+    <a name="Section5"> </a>
+    <H2>Options for Cross-Platform Compressed Sound</h2>
+   
+    
+    <P>If you are a developer and wish to have only one sound file format for
+your cross- platform product, what are your options when it comes to
+cross-platform compressed sound?</P>
+
+<P>At this point in time, you have three options: </P>
+
+<UL TYPE=DISC>
+    <li>go with QuickTime sound-only movies,</li>
+    <li>use both AIFF and WAVE IMA-ADPCM compressed sounds,</li>
+    <li>or don't use IMA-ADPCM compressed sounds.</li>
+</UL>
+
+<P>Each solution has its own advantages and drawbacks. Only you can
+determine the right combination for your intended market.</P>
+
+<P><a href="#top">Back to top</a></P>
+
+<a name="Summary"></a>
+<H2>Summary</h2>
+
+
+<P>As you can see, using cross-platform sounds doesn't have to be
+difficult. It all revolves around the proper selection of a file format.
+IMA may not the panacea that it was intended to be.</P><BR>
+<P><a href="#top">Back to top</a></P>
+<a name="Sidebar"></a>
+<H2>Playing a Compressed WAVE File on the Mac: A Sidebar</h2>
+
+
+<P>You can play a compressed WAVE file on the Mac, but probably not with
+the default functionality of the Sound Manager. You have to do all of
+the sound header parsing yourself, just as you do for an uncompressed
+sound, and then you have data which you may or may not be able to
+directly pass to the Sound Manager.</P>
+
+<P>If the WAVE is formatted using ulaw, then your program doesn't have to
+do anything special. Since the ulaw file is processed on a byte by byte
+basis, and there is no endian difference between the same data as an
+AIFF or WAVE file, the standard Mac ulaw decompressor can deal with this
+data without a problem. </P>
+
+<P>On the other hand, you cannot play IMA-ADPCM compressed WAVE files as
+simply as you could play a ulaw WAVE files because of the difference in
+the actual data stream of a sound compressed with the Mac's IMA
+compressor versus the same sound compressed with the Windows' IMA-ADPCM
+compressor. </P>
+
+<P>You have to deal with Windows' IMA-ADPCM compressed WAVE sounds just as
+you would any sound which required a custom decompressor. Your program
+does all the decompression. This can be done either by writing a
+decompression component for the Mac (in which case any program can use
+it), or by having a decompression function in your program.</P>
+
+<P>If you write your own sound decompressor ('sdec'), you can use any Sound
+Manager routine that will play an arbitrarily compressed sound. You must
+make sure, however, to specify that the sound header explicitly states
+that the sound is compressed with your compressor, so that the Sound
+Manager will call your 'sdec'. </P>
+
+<P>If you choose not to write a decompression component and you can
+decompress the sound completely, you can use any Sound Manager call that
+takes a buffer of uncompressed sound. If you can't decompress the sound
+completely, you will have to decompress it in chunks and use
+<CODE>SndPlayDoubleBuffer</CODE> or <CODE>bufferCmd's</CODE> to play each chunk.</P>
+
+
+<H3>Playing an Uncompressed WAVE File Via the Sound Manager</h3>
+    
+<P>    To play an uncompressed WAVE file via the Sound Manager is relatively
+easy. You only need to parse the sound's header and then give the Sound
+Manager buffers of properly formatted data to play.
+Because the headers of a AIFF and WAVE are very similar and the data is
+stored in very much the same way in both files, parsing a WAVE header is
+no more difficult than parsing an AIFF header. Microsoft documents the
+format in <CITE>Multimedia Programming Interface and Data Specification v1.0</CITE>.
+In the <CODE>SndPlayDoubleBuffer</CODE> sample code (on Apple's Developer ToolChest
+CDs), there is also quick-and-dirty code that shows how to parse a WAVE
+header.</P>
+
+<P>Once you have parsed the WAVE header, you can play the data in much the
+same way you would play AIFF data. Remember that the WAVE file's data is
+stored little-endian, but if you have 8-bit (mono or stereo) sounds,
+that means nothing: a byte in little-endian is the same as a byte in
+big-endian. If you use 16-bit (mono or stereo) sound, however, an endian
+conversion will have to take place before you can play the sound. </P>
+
+<P><a href="#top">Back to top</a></P>
+
+<a id="References"></a><h2>References</h2>
+
+
+    <p><CITE>Multimedia Programming Interface and Data Specification v1.0</CITE></p>
+    <p>For more information on the WAVE format, check out some
+<a HREF = "http://www.google.com/search?q=WAVE+file+format">WAVE format descriptions on the Internet</a>.</p>
+    
+    </p>
+
+
+<P><a href="#top">Back to top</a></p>
+ <a NAME=Downloads></a>
+         
+         <H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="500">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 align=middle alt="Acrobat" height=23></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (180K).</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/tn1081.pdf">Download</a></P>
+               </TD>
+            </TR>
+</table>
+
+
+
+<P><a href="#top">Back to top</a></P>
+
+
+</TD></TR></table></center>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+
+<hr width=500 align=center>
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

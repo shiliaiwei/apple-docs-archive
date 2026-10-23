@@ -1,0 +1,780 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Locking and Unlocking Handles">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002962">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1122: Explains Memory Manager handles: locking, unlocking, and preserving a handle's state.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+   <title>Technical Note TN1122: Locking and Unlocking Handles</title>
+   
+    <meta name="keywords" content="Mac OS 8 Memory Manager locking   HLock HUnlock unlocking handles">
+    <meta name="Description" content="Technical Note TN1122: This Technical Note s addressed to
+developers who manipulate Memory Manager handles, and in
+particular those who lock and unlock them. It explains why
+and when handles need to be locked and how and when to preserve
+the state of a handle to avoid erroneously unlocking it.">
+
+
+<meta name="categories" content="Memory">
+
+
+<meta name="week-posted" content="Jan 26, 1998 - Feb 6, 1998">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002962" title="Locking and Unlocking Handles"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Locking and Unlocking Handles</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalnotes/Carbon/idxProcessManagement-date.html">Process Management</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Not Recommended Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>The information in this document is <strong>Not Recommended</strong> and should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Carbon/idxProcessManagement-date.html" target="_blank">Carbon > Process Management</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1122</div>
+<div id="pageheadsub">Locking and Unlocking Handles</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<center><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+         
+ <!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+<!-- begin_toc -->
+<P id = "menutext"><a HREF = "#intro">The Basics</a><BR><BR>
+         
+         <a HREF = "#problem">The Problem</a><BR><BR>
+         
+         <a HREF = "#solution">The
+         Solution</a></p>
+         
+         <p id = "menutext2"><a HREF = "#technique1">Technique #1</a><BR><BR>
+         
+         <a HREF = "#technique2">Technique
+         #2</a></p>
+         
+<P id = "menutext"><a HREF = "#exceptions">Exceptions</a></p>
+         
+<P id = "menutext2"><a HREF = "#nolock">Don't Lock the Handle</a><BR><BR>
+         
+	<a HREF = "#exclusive">Exclusive
+         Access</a></p>
+         
+<P id = "menutext"><a HREF = "#Summary">Summary</a><BR><BR>
+<a href="#References">References</a><BR><BR>
+         <a href="#Changes">Change History</a><BR><BR>
+         <a href="#Downloads">Downloadables</a></p>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+            
+			<!-- begin_intro_text -->
+         <P id="introtext">This Technote is
+         addressed to developers who manipulate
+         <a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+         Manager</a> handles, and in particular those who lock and
+         unlock them. It explains why and when handles need to be
+         locked and how and when to preserve the state of a handle to
+         avoid erroneously unlocking it.</P>
+         
+         <P id="introtext">After the discovery of a subtle bug (in both Apple and
+         third-party code) having to do with the erroneous unlocking
+         of handles, DTS recently conducted an exhaustive search of
+         developer documentation for an unequivocal and complete
+         statement about proper methods for locking and unlocking
+         handles. Since no such documentation could be found, this
+         Technote now serves as that statement.</P>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Apr 13 1998]</h3>
+<!-- end_date -->
+        </td>
+    </tr>
+</table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+<!-- begin_content -->
+<H2><a NAME="intro"></a>The Basics</H2>
+
+<P>A handle refers to one kind of memory block created and maintained
+by the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a>. Because a handle is an indirect reference (namely, a
+pointer to a pointer) to a block, the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a> is free to move such blocks at certain well-defined
+times. The pointer to which a handle points is called a master
+pointer. When a handle block moves, the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a> changes the master pointer, not the handle. (For a more
+detailed review, check the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-11.html#HEADING11-0">Heap
+Management</a> section of the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-9.html">Introduction
+to Memory Management</a> chapter of
+<I><a href="http://developer.apple.com/documentation/mac/Memory/Memory-2.html">Inside
+Macintosh: Memory</a></I>).</P>
+
+<P>There are times at which a handle needs to be locked. If a program
+needs to pass a master pointer (or a pointer to bytes inside a handle block) to a routine which can
+move memory (that is, a routine which calls the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a>, directly or indirectly, in a way which might cause
+memory to move), the handle must be locked.
+A simple example is the first parameter to
+<CODE><a href="http://developer.apple.com/documentation/mac/Memory/Memory-108.html">PtrAndHand</a></CODE>.
+A slightly more complex example is any call to
+<CODE><a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-228.html#HEADING228-0">NewWindow</a></CODE>.
+Finally, a subtle example of a routine which moves memory is one
+whose implementation does not move memory but whose mere invocation
+does. Calling a routine which resides in an unloaded segment resource
+may cause handle blocks to move when the segment loads. (For details,
+see the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-11.html#HEADING11-10">Loading
+Code Segments</a> section of the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-9.html">Introduction
+to Memory Management</a> chapter of
+<I><a href="http://developer.apple.com/documentation/mac/Memory/Memory-2.html">Inside
+Macintosh: Memory</a></I> and the
+<a href="http://developer.apple.com/documentation/mac/Processes/Processes-135.html">Segment
+Manager</a> chapter of
+<I><a href="http://developer.apple.com/documentation/mac/Processes/Processes-2.html">Inside
+Macintosh: Processes</a></I>.)</P>
+
+<P>Since leaving a handle locked indefinitely may prevent the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a> from relocating other blocks optimally, it is desirable
+to unlock a handle when it is no longer necessary for the handle to
+be locked. However, it's dangerous to unlock a handle without
+understanding all the implications, even in many simple cases. It's
+more dangerous to unlock a handle your program does not own.</P>
+<BR><P><a href="#top">Back to top</a></P>
+<H2><a NAME="problem"></a>The Problem
+</H2>
+
+<P>The problem is that the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a> does not track the number of times a handle has been
+locked. A handle is either locked or unlocked. If a program locks a
+handle twice and then unlocks it once, the handle is unlocked. This
+means that non-trivial programs cannot simply balance lock and unlock
+operations. Here's an example of how <B>not</B> to maintain a lock on
+a handle:</P>
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+static pascal OSErr Unsafe_DoSomethingToHandle (Handle h)
+{
+    OSErr err = noErr;
+&nbsp;
+    <a href="http://developer.apple.com/documentation/mac/Memory/Memory-88.html#HEADING88-0">HLock</a> (h);
+&nbsp;
+    if (!(err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( )))
+    {
+        err = DoSomethingToPointer (*h);
+&nbsp;
+        <a href="http://developer.apple.com/documentation/mac/Memory/Memory-89.html#HEADING89-0">HUnlock</a> (h); // Danger, Will Robinson!
+&nbsp;
+        if (!err)
+            err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( );
+    }
+&nbsp;
+    return err;
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<P>If the caller of <CODE>Unsafe_DoSomethingToHandle</CODE> has
+locked the parameter handle and expects it to stay locked, the
+program is in for a nasty surprise. Even though the caller has locked
+the handle it passes to <CODE>Unsafe_DoSomethingToHandle</CODE>, the
+call to
+<CODE><a href="http://developer.apple.com/documentation/mac/Memory/Memory-89.html#HEADING89-0">HUnlock</a></CODE>
+in <CODE>Unsafe_DoSomethingToHandle</CODE> will undo the lock.</P>
+
+<P>There are, of course, cases which are more difficult to debug.
+Sometimes the software that needs the handle to stay locked is not
+the direct caller, but another function the caller calls, or even
+part of the system. For an example of this last case, see
+<a HREF = "tn1118.html">Technote
+1118</a>,
+"<a HREF = "tn1118.html">Unlocking
+GDHandles Considered Harmful</a>".</P>
+<BR><P><a href="#top">Back to top</a></P>
+<H2><a NAME="solution"></a>The Solution
+</H2>
+
+<P>The general solution is to make sure the handle state is preserved
+by the function (or code sequence within a function).</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>IMPORTANT:</B><BR>
+         
+		If you always preserve the handle state, you will always
+         be safe. There are times when preserving the handle state
+         may be unnecessary and sub-optimal. However, it's essential
+         to precisely understand if and why a given case is safe
+         before you choose not to preserve a handle's state. (More
+         about these exceptional cases later. If you are a defensive
+         programmer and would prefer to be in the habit of writing
+         safe code every time, feel free to ignore the exceptional
+         cases.)</P>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>The handle state is a collection of bit flags maintained for each
+handle by the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a>. One of the state flags describes whether the handle is
+locked. Programs can obtain the state of a handle by calling
+<CODE><a href="http://developer.apple.com/documentation/mac/Memory/Memory-86.html#HEADING86-0">HGetState</a></CODE>.
+All of the techniques listed below use
+<CODE><a href="http://developer.apple.com/documentation/mac/Memory/Memory-86.html#HEADING86-0">HGetState</a></CODE>
+in some way.</P>
+
+<P>
+<a href="#top">Back to top</a>
+</P>
+
+<H3><a NAME="technique1"></a>Technique
+#1</H3>
+
+<P>The simplest technique is to save the entire handle state, lock
+the handle, and then restore the entire handle state. This means that
+the bit which represents whether the handle is locked has the same
+value before and after the code runs, so if the handle is locked
+before the code runs, it stays locked, and if the handle is unlocked
+before the code runs, it stays unlocked. Here's a typical sequence of
+calls:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+static pascal OSErr SafeOne_DoSomethingToHandle (Handle h)
+{
+    OSErr err = noErr;
+&nbsp;
+    SInt8 hState = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-86.html#HEADING86-0">HGetState</a> (h);
+&nbsp;
+    if (!(err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( )))
+    {
+        <a href="http://developer.apple.com/documentation/mac/Memory/Memory-88.html#HEADING88-0">HLock</a> (h);
+&nbsp;
+        if (!(err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( )))
+        {
+            err = DoSomethingToLockedHandle (h);
+&nbsp;
+            <a href="http://developer.apple.com/documentation/mac/Memory/Memory-87.html#HEADING87-0">HSetState</a> (h,hState);
+&nbsp;
+            if (!err)
+                err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( );
+        }
+    }
+&nbsp;
+    return err;
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<P>This technique is reasonably safe. The disadvantage is that it
+saves and restores the <B>entire</B> handle state. If the function
+<CODE>DoSomethingToLockedHandle</CODE> changes any of the other
+handle state flags (for example, the flag which controls the handle's
+purgeability), the call to
+<CODE><a href="http://developer.apple.com/documentation/mac/Memory/Memory-87.html#HEADING87-0">HSetState</a></CODE>
+will wipe out the change.</P>
+<BR><P><a href="#top">Back to top</a></P>
+<H3><a NAME="technique2"></a>Technique
+#2</H3>
+
+<P>A slightly more complicated technique involves testing the handle
+state to see if the handle is locked and then locking and unlocking
+it only if needed. Here's a typical sequence of calls:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+enum { kHandleLockMask = 0x80 }; // absent from &lt;MacMemory.h&gt; 3.0.1
+&nbsp;
+static pascal OSErr SafeTwo_DoSomethingToHandle (Handle h)
+{
+    OSErr err = noErr;
+&nbsp;
+    SInt8 hState = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-86.html#HEADING86-0">HGetState</a> (h);
+&nbsp;
+    if (!(err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( )))
+    {
+        Boolean handleWasLocked =
+              (kHandleLockMask &amp; hState) ? true : false;
+&nbsp;
+        if (!handleWasLocked)
+        {
+            <a href="http://developer.apple.com/documentation/mac/Memory/Memory-88.html#HEADING88-0">HLock</a> (h);
+            err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( );
+        }
+&nbsp;
+        if (!err)
+        {
+            err = DoSomethingToLockedHandle (h);
+&nbsp;
+            if (!handleWasLocked)
+            {
+                <a href="http://developer.apple.com/documentation/mac/Memory/Memory-89.html#HEADING89-0">HUnlock</a> (h);
+&nbsp;
+                if (!err)
+                    err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( );
+            }
+        }
+    }
+&nbsp;
+    return err;
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<P>This sequence avoids the problem that a stale handle state might
+be restored following the call to
+<CODE>DoSomethingToLockedHandle</CODE>. The disadvantage here is the
+relative complexity. This is the kind of code that nobody likes to
+think carefully about (well, perhaps nobody but DTS geeks), and if
+you must lock and unlock a lot of different handles, it's likely that
+bugs will creep in somewhere.</P>
+
+<P>One way to avoid this kind of risky tedium is to wrap the logic up
+in a C++ class whose constructor locks the handle (if necessary) and
+whose destructor unlocks the handle (if necessary). This extra layer
+of wrapping on <a HREF = "#technique2">Technique #2</a> even relieves
+you of having to write code for error-handling and exceptions, since
+the handle will be unlocked, if appropriate, whenever the lock object
+falls out of scope.</P>
+<BR><P><a href="#top">Back to top</a></P>
+<H2><a NAME="exceptions"></a>Exceptional
+Cases</H2>
+
+<P>There are, of course, cases in which you can avoid saving and
+restoring a handle's state. You may, during the optimization phase of
+your development, want to look for cases in which you can do this, to
+avoid code bloat and if you find you are making "too many" (whatever
+that means for your program)
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a> calls in a tight loop. Be sure to measure before assuming
+you must optimize. Also: be safe, then fast.</P>
+<BR><P><a href="#top">Back to top</a></P>
+<H3><a NAME="nolock"></a>Don't Lock the
+Handle</H3>
+
+<P>Sometimes you can avoid saving the handle state by not locking a
+handle. This seems like an obvious statement, but, many times, code
+locks handles when it doesn't need to. Make sure you understand just
+when the
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a> can move relocatable blocks (perhaps implicitly via some
+other Manager which calls
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+Manager</a>). For example, DTS commonly sees developer code which
+looks something like this:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+static pascal OSErr UnnecessaryHandleLock (Handle h)
+{
+    OSErr err = noErr;
+&nbsp;
+    SInt8 hState = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-86.html#HEADING86-0">HGetState</a> (h);
+&nbsp;
+    if (!(err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( )))
+    {
+        <a href="http://developer.apple.com/documentation/mac/Memory/Memory-88.html#HEADING88-0">HLock</a> (h);
+&nbsp;
+        if (!(err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( )))
+        {
+            **h = 12; // we locked 'h' for <B>this</B>?
+&nbsp;
+            <a href="http://developer.apple.com/documentation/mac/Memory/Memory-87.html#HEADING87-0">HSetState</a> (h,hState);
+            err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( );
+        }
+    }
+&nbsp;
+    return err;
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<P>In addition to taking advantage of situations which don't require
+you to lock a handle, you can also deliberately go out of your way to
+avoid locking it. If you need to modify a small portion of a handle
+block, you can copy the appropriate bytes into a variable, modify the
+variable, and copy the variable back into place within the handle.
+For example:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+static pascal OSErr AvoidHandleLock (Handle h)
+{
+    OSErr err = noErr;
+&nbsp;
+    char c = **h;
+&nbsp;
+    err = DoSomethingToCharacter (&amp;c);
+&nbsp;
+    if (!err)
+        **h = c;
+&nbsp;
+    return err;
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+<P>
+<a NAME="top">Back to top</a>
+</P>
+
+<H3><a NAME="exclusive"></a>Exclusive
+Access</H3>
+
+<P>If a well-defined part of your code has exclusive access to a
+handle, that code can lock and unlock handles at will.</P>
+
+<P>Perhaps you have a code module which is responsible for managing
+some handle-based buffers which are "hidden" from the module's
+callers inside an opaque data type. In this case, your code allocated
+the handles and is solely responsible for them throughout their
+entire lifetime, thus your code can manipulate those handles any way
+it likes.</P>
+
+<P>Another example might be a function which needs to allocate a
+temporary buffer (and, to avoid the obvious memory leak, dispose the
+buffer as the function exits). Since it's safe to pass a locked
+handle to
+<CODE><a href="http://developer.apple.com/documentation/mac/Memory/Memory-73.html#HEADING73-0">DisposeHandle</a></CODE>,
+even though
+<CODE><a href="http://developer.apple.com/documentation/mac/Memory/Memory-67.html#HEADING67-0">NewHandle</a></CODE>
+produces an unlocked handle, a code sequence like this one is
+perfectly acceptable:</P>
+
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>
+static pascal OSErr SafeThree_DoSomethingToHandle (void)
+{
+    OSErr err = noErr;
+&nbsp;
+    Handle h = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-67.html#HEADING67-0">NewHandle</a> (12);
+&nbsp;
+    if (!h)
+        err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( );
+    else
+    {
+        <a href="http://developer.apple.com/documentation/mac/Memory/Memory-88.html#HEADING88-0">HLock</a> (h);
+        err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( );
+&nbsp;
+        if (!err)
+            err = DoSomethingToLockedHandle (h);
+&nbsp;
+        <a href="http://developer.apple.com/documentation/mac/Memory/Memory-73.html#HEADING73-0">DisposeHandle</a> (h);
+&nbsp;
+        if (!err)
+            err = <a href="http://developer.apple.com/documentation/mac/Memory/Memory-116.html#HEADING116-0">MemError</a> ( );
+    }
+&nbsp;
+    return err;
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+<BR><P><a href="#top">Back to top</a></P>
+<H2><a NAME="Summary"></a>Summary</H2>
+
+<P>It's generally not safe to preserve a handle's lock state simply
+by balancing calls to
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-88.html#HEADING88-0">HLock</a>
+and
+<a href="http://developer.apple.com/documentation/mac/Memory/Memory-89.html#HEADING89-0">HUnlock</a>.
+In most cases, you should instead preserve the handle state. In the
+remaining cases, you need to fully understand the implications of not
+preserving the handle state. In fact, if safety is of utmost
+importance to you, you can't go wrong by always using one of the
+handle state preservation techniques illustrated in this Technote.
+</P>
+<BR><P><a href="#top">Back to top</a></P>
+<a NAME="References"></a>
+<H2>References</H2>
+
+<P>The
+   <a href="http://developer.apple.com/documentation/mac/Memory/Memory-56.html#HEADING56-0">Memory
+   Manager</a> chapter in
+   <I><a href="http://developer.apple.com/documentation/mac/Memory/Memory-2.html">Inside
+   Macintosh: Memory</a></i></p>
+   
+   <p>The
+   <a href="http://developer.apple.com/documentation/mac/Processes/Processes-135.html">Segment
+   Manager</a> chapter of
+   <I><a href="http://developer.apple.com/documentation/mac/Processes/Processes-2.html">Inside
+   Macintosh: Processes</a></i></p>
+
+<BR><P><a href="#top">Back to top</a></P>
+<H3>Acknowledgements</H3>
+
+<P>Major funding provided by the Handle State Preservation Society.
+</P>
+<BR><P><a href="#top">Back to top</a></P>
+<a NAME="Changes"></a>
+<H2>Change history:</H2>
+
+<table BORDER=0 CELLPADDING=3 WIDTH=544>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>02/09/98</P>
+               </TD>
+               <td align="left">
+                  <P>Initial version.</P>
+               </TD>
+            </TR>
+            <TR>
+				<td width=100 align=left>
+                  <P ALIGN=center>02/13/98</P>
+               </TD>
+               <td align="left">
+                  <P>Clarified examples of system calls which
+         move memory.</P>
+               </TD>
+            </TR>
+     
+</table>
+<BR><P><a href="#top">Back to top</a></P>
+
+        <a NAME="Downloads"></a> 
+        <br><h2>Downloadables</h2>
+
+        <center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+          <TR> 
+            <td width=50 align=left> 
+              <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" width=22 height=23></P>
+            </TD>
+            <td align="left"> 
+              <p>Acrobat version of this Note (68K).</P>
+            </TD>
+            <td width=60 align=left> 
+              <p><a href="pdf/tn1122.pdf">Download</a></P>
+            </TD>
+          </TR>
+        </table></center><BR><BR>
+
+        </td></tr></table></center>
+<!-- end_content -->
+
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

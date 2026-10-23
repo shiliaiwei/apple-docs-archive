@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1684: Audio Unit Properties and Core Foundation Data Types</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009582">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009582-CH1">
+    <meta id="date" name="date" content="2010-03-03">
+    <meta id="description" name="description" content="QA1684: Describes the ownership of CF data types when Getting/Setting AU properties.">
+    <meta id="book-title" name="book-title" content="Audio Unit Properties and Core Foundation Data Types">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/CoreAudio}, {Topic/Audio, Video, & Visual Effects}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1684">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Unit Properties and Core Foundation Data Types" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009582" title="Technical Q&amp;A QA1684"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Unit Properties and Core Foundation Data Types</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009582-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1684"></a><div class="dtsDocNumber">Technical Q&amp;A QA1684</div><h1 id="pageTitle">Audio Unit Properties and Core Foundation Data Types</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+When working with Audio Unit properties that take and return Core Foundation Data Types, who is responsible for retaining or releasing.
+</h2><p><span>A: </span>When working with Audio Unit properties that take and return Core Foundation Data Types, who is responsible for retaining or releasing.</p><p>Whenever an Audio Unit host is working with Audio Unit properties that are  Core Foundation Data Types, the caller almost always owns the reference and is therefore responsible for releasing it as required.</p><section><a name="//apple_ref/doc/uid/DTS40009582-CH1-SECTION1" title="Summary for AudioUnitSetProperty"></a><h2 class="jump">Summary for AudioUnitSetProperty</h2><ul class="ul"><li class="li"><p><code>kAudioUnitProperty_ClassInfo</code> - Takes a <code>CFDictionaryRef</code> valid on global scope.</p></li><li class="li"><p><code>kAudioUnitProperty_ElementName</code> - Takes a <code>CFStringRef</code> valid on any scope.</p></li><li class="li"><p><code>kAudioUnitProperty_PresentPreset</code> - Takes an <code>AUPreset</code> struct valid on global scope. <code>presetName</code> is a <code>CFStringRef</code> containing the preset name owned by the caller after getting this property.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009582-CH1-SECTION2" title="Summary for AudioUnitGetProperty"></a><h2 class="jump">Summary for AudioUnitGetProperty</h2><p>All Core Foundation objects returned by <code>AudioUnitGetProperty</code> follow Core Foundation Copy semantics and are therefore owned by the caller. It is the callers responsibility to relinquish ownership (using <code>CFRelease</code>) when done with the returned value.</p><section><a name="//apple_ref/doc/uid/DTS40009582-CH1-SUBSECTION2" title="The following properties return Core Foundation objects:"></a><h3 class="jump">The following properties return Core Foundation objects:</h3><ul class="ul"><li class="li"><p><code>kAudioUnitProperty_ClassInfo</code> - Returns a <code>CFDictionaryRef</code>.</p></li><li class="li"><p><code>kAudioUnitProperty_ParameterValueStrings</code> - Returns a <code>CFArrayRef</code>.</p></li><li class="li"><p><code>kAudioUnitProperty_FactoryPresets</code> - Returns a <code>CFArrayRef</code>.</p></li><li class="li"><p><code>kAudioUnitProperty_ElementName</code> - Returns a <code>CFStringRef</code>.</p></li><li class="li"><p><code>kAudioUnitOfflineProperty_PreflightName</code> - Returns a <code>CFStringRef</code>.</p></li><li class="li"><p><code>kMusicDeviceProperty_BankName</code> - Returns a <code>CFStringRef</code>.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40009582-CH1-SUBSECTION3" title="The following properties return Core Foundation objects embedded as fields in C structures:"></a><h3 class="jump">The following properties return Core Foundation objects embedded as fields in C structures:</h3><ul class="ul"><li class="li"><p><code>kAudioUnitProperty_PresentPreset</code> - Returns an <code>AUPreset</code>, where <code>presetName</code> is a <code>CFStringRef</code> containing the preset name.</p></li><li class="li"><p><code>kAudioUnitProperty_ParameterStringFromValue</code> - Returns a <code>AudioUnitParameterStringFromValue</code> struct where <code>outString</code> is a <code>CFStringRef</code> (may be <code>NULL</code>).</p></li><li class="li"><p><code>kAudioUnitProperty_ParameterIDName</code> - Returns a <code>AudioUnitParameterNameInfo</code> struct where <code>outName</code> is a <code>CFStringRef</code>.</p></li><li class="li"><p><code>kAudioUnitProperty_ParameterClumpName</code> - Returns a <code>AudioUnitParameterNameInfo</code> struct where <code>outName</code> is a <code>CFStringRef</code>.</p></li><li class="li"><p><code>kAudioUnitProperty_CocoaUI</code> - Returns a <code>AudioUnitCocoaViewInfo</code> struct where the <code>CFStringRef</code> class name(s) are returned in the <code>mCocoaAUViewClass</code> field.</p></li></ul><p>The number of class names in  the <code>mCocoaAUViewClass</code> field can be found by using the following code. <code>dataSize</code> is the maximum size of the property returned by calling <code>AudioUnitGetPropertyInfo</code> for the <code>kAudioUnitProperty_CocoaUI</code> property.</p><a name="//apple_ref/doc/uid/DTS40009582-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>UInt32 numberOfClasses = (dataSize - sizeof(CFURLRef)) / sizeof(CFStringRef);<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40009582-CH1-SUBSECTION4" title="Handling Parameter Names"></a><h3 class="jump">Handling Parameter Names</h3><p>Ownership is based on the <code>kAudioUnitParameterFlag_CFNameRelease</code> flag. This flag is normally always set.</p><ul class="ul"><li class="li"><p><code>kAudioUnitProperty_ParameterInfo</code> - Returns a <code>AudioUnitParameterInfo</code> struct. Only release <code>unitName</code> and <code>cfNameString</code> <code>CFStringRefs</code> if the <code>kAudioUnitParameterFlag_CFNameRelease</code> flag is set. See Listing 1.</p></li></ul><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009582-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;If an Audio Unit can generate parameter names dynamically, it should set the <code>kAudioUnitParameterFlag_CFNameRelease</code> flag.</p><p></p></aside></div><p>The Audio Unit Host should check for this flag and if set,  should release the audio unit parameter name when it is done using it. If this flag is not set, the Host can assume that the Audio Unit will release its parameter names.</p><a name="//apple_ref/doc/uid/DTS40009582-CH1-SOURCECODE2" title="Listing 1Illustrating use of kAudioUnitParameterFlag_CFNameRelease."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Illustrating use of <code>kAudioUnitParameterFlag_CFNameRelease</code>.</p><div class="codesample clear"><table><tr><td scope="row"><pre>AudioUnitParameterInfo auinfo;
+UInt32 propertySize = sizeof(AudioUnitParameterInfo);
+OSStatus err = AudioUnitGetProperty(mAudioUnit,
+                                    kAudioUnitProperty_ParameterInfo,
+                                    mScope,
+                                    mParameterID,
+                                    &amp;auinfo,
+                                    &amp;propertySize);
+if (err) { // handle error };
+
+... 
+
+if (auinfo.flags &amp; kAudioUnitParameterFlag_CFNameRelease) {
+    if (auinfo.flags &amp; kAudioUnitParameterFlag_HasCFNameString &amp;&amp; auinfo.cfNameString != NULL)
+        CFRelease(auinfo.cfNameString);
+    if (auinfo.unit == kAudioUnitParameterUnit_CustomUnit &amp;&amp; auinfo.unitName != NULL)
+        CFRelease(auinfo.unitName);
+}<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40009582-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009582-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-03-03</td><td><p>New document that 
+					describes the ownership of CF data types when Getting/Setting AU properties.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-03-03</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

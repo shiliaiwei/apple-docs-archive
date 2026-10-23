@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2175: Preprocessing Info.plist files in Xcode Using the C Preprocessor</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004415">
+    <meta id="document-version" name="document-version" content="1.2.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004415-CH1">
+    <meta id="date" name="date" content="2010-05-07">
+    <meta id="description" name="description" content="TN2175: Describes workarounds for several issues concerning preprocessing Info.plist files in Xcode with the C preprocessor.">
+    <meta id="book-title" name="book-title" content="Preprocessing Info.plist files in Xcode Using the C Preprocessor">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Languages & Utilities}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2175">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Preprocessing Info.plist files in Xcode Using the C Preprocessor" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004415" title="Technical Note TN2175"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Preprocessing Info.plist files in Xcode Using the C Preprocessor</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004415-CH1-DontLinkElementID_2" title="Technical Note TN2175"></a><div class="dtsDocNumber">Technical Note TN2175</div><h1 id="pageTitle">Preprocessing Info.plist files in Xcode Using the C Preprocessor</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>This document provides solutions to several challenges faced when preprocessing Info.plist files with the GCC C preprocessor in Xcode. It details how to keep URLs from being converted to comments, how to format strings to preserve whitespace in &lt;string&gt; properties and a successful technique to handle macro expansion.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004415-CH1-TNTAG1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004415-CH1-TNTAG2" data-renderer-version="1">Preserving whitespace within strings defined in an Info.plist file</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004415-CH1-TNTAG3" data-renderer-version="1">Preventing URLs from being converted to comments and discarded</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004415-CH1-TNTAG4" data-renderer-version="1">Eliminating whitespace between tokens in the macro expansion process</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10004415-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10004415-CH1-TNTAG1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>There are several well-known challenges faced by the development community using the GCC C preprocessor to preprocess their property list (<code>Info.plist</code>) files in Xcode. Some developers have faced issues with the whitespace in their user-defined strings being compressed after preprocessing. Others faced problems concerning URLs being turned into comments and discarded, or being unable to successfully expand user-defined macros in reference to the <code>Info.plist</code> files. This document will present workarounds for each of these issues.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004415-CH1-TNTAG2" title="Preserving whitespace within strings defined in an Info.plist file"></a><h2 class="jump">Preserving whitespace within strings defined in an Info.plist file</h2><p>In Xcode a <code>&lt;string&gt;</code> property in an <code>Info.plist file</code> will have any embedded runs of spaces converted to a single space when the plist is copied to the built product. This is an issue when string properties are used in cases where strings are compared for matching purposes.</p><p>This problem is often seen in device driver development. For example, the IOSCSIPeripheralDeviceNub for a particular drive model has the property "Product Identification" with the value</p><a name="//apple_ref/doc/uid/DTS10004415-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre> "DVD-R   TLF-313"<span></span></pre></td></tr></table></div><p>- there are three consecutive spaces in this value. By default, if that key/value pair is placed in the <code>Info.plist</code> of a device driver, the value in the built KEXT is changed to </p><a name="//apple_ref/doc/uid/DTS10004415-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>"DVD-R TLF-313"<span></span></pre></td></tr></table></div><p>- where the three consecutive spaces have been compressed into a single space. As a result, the property in the <code>Info.plist</code> does not match the device and the driver silently fails to start. </p><p>To preserve the whitespace within the <code>&lt;string&gt;</code> property, replace the space characters inside the string with the XML character reference<code> &amp;#x20;</code>. In the device driver example, the <code>Info.plist</code> would contain the property: </p><a name="//apple_ref/doc/uid/DTS10004415-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;string&gt;DVD-R &amp;#x20;&amp;#x20;&amp;#x20;TLF-313&lt;/string&gt;<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004415-CH1-TNTAG3" title="Preventing URLs from being converted to comments and discarded"></a><h2 class="jump">Preventing URLs from being converted to comments and discarded</h2><p>Using the GCC C preprocessor to preprocess your <code>Info.plist</code> files may have some unintended side-effects. Such as using URLs in your file. That is, the C preprocessor treats the text in the same way it would treat source code - anything following "//" characters are treated as comments and discarded. Therefore, a <code>&lt;string&gt;</code> property that is originally represented as this:</p><a name="//apple_ref/doc/uid/DTS10004415-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;string&gt;http://developer.apple.com&lt;/string&gt;<span></span></pre></td></tr></table></div><p>will get converted into this:</p><a name="//apple_ref/doc/uid/DTS10004415-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;string&gt;http:<span></span></pre></td></tr></table></div><p>To work around this feature of the C preprocessor, we can pass the <code>-traditional</code> flag to the <code>Info.plist Other Preprocessor Flags</code> build setting in Xcode. This will cause the preprocessor to use the traditional ANSI C <code>/* </code>and <code> */</code> character strings as tokens to recognize and discard text as comments.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004415-CH1-TNTAG4" title="Eliminating whitespace between tokens in the macro expansion process"></a><h2 class="jump">Eliminating whitespace between tokens in the macro expansion process</h2><p>Many developers wish to use macros to represent specific things about their software in the <code>Info.plist</code> file. One such usage is to represent the values for the major, minor and maintenance versions of their software. For example:</p><a name="//apple_ref/doc/uid/DTS10004415-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>#define MAJORVERSION 2 #define MINORVERSION 4 #define MAINTVERSION 6<span></span></pre></td></tr></table></div><p>placed in the Info.plist prefix header with a corresponding <code>Info.plist</code> file containing:</p><a name="//apple_ref/doc/uid/DTS10004415-CH1-SOURCECODE7"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;key&gt;CFBundleShortVersionString&lt;/key&gt; &lt;string&gt;MAJORVERSION.MINORVERSION.MAINTVERSION&lt;/string&gt;<span></span></pre></td></tr></table></div><p>will cause the string <code>"1 . 2 . 3"</code> to appear in the <code>About</code> window of the application. The spaces between the numbers in the macro expansion process can be avoided by passing <code>-traditional</code> to the <code>Info.plist Other Preprocessor Flags</code> build setting.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004415-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004415-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-05-07</td><td><p>Fixed typo. Pass the "-traditional"  flag rather than the "-CC" flag to eliminate whitespace between tokens in the macro expansion process.</p></td></tr><tr><td scope="row">2007-08-14</td><td><p>New document that 
+					describes workarounds for several issues concerning preprocessing Info.plist files in Xcode with the C preprocessor.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-05-07</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

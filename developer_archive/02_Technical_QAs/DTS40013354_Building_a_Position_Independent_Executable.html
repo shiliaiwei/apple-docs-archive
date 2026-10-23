@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1788: Building a Position Independent Executable</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40013354">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40013354-CH1">
+    <meta id="date" name="date" content="2014-02-20">
+    <meta id="description" name="description" content="QA1788: Addresses how to build a Position Independent Executable.">
+    <meta id="book-title" name="book-title" content="Building a Position Independent Executable">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Xcode/Compiler Tools}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1788">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Building a Position Independent Executable" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40013354" title="Technical Q&amp;A QA1788"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Building a Position Independent Executable</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40013354-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1788"></a><div class="dtsDocNumber">Technical Q&amp;A QA1788</div><h1 id="pageTitle">Building a Position Independent Executable</h1><h2>Q:&nbsp;
+I received a "Non-PIE Binary - The executable '&lt;appname&gt;.app' is not a Position Independent Executable. Please ensure that your build settings are configured to create PIE executables." warning after uploading my app to iTunes Connect. How do I build my app as Position Independent Executable (PIE)?
+</h2><p><span>A: </span>Position Independent Executable (PIE) applications can be loaded at a random memory address when run. This has security benefits for your application. iOS 4.3 or later, and OS X 10.7 or later, fully support PIE executables.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40013354-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Your app is PIE if and only if your main executable and all its dependencies were built as PIE.</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS40013354-CH1-STEPS_FOR_BUILDING_YOUR_APPLICATION_AS_PIE" title="Steps for building your application as PIE"></a><h2 class="jump">Steps for building your application as PIE</h2><ol class="ol"><li class="li"><p>In Xcode, select your target in the "Targets" section, then click the "Build Settings" tab to view its settings.</p></li><li class="li"><p>For iOS apps, set <code>iOS Deployment Target</code> to iOS 4.3 or later. For Mac apps, set <code>OS X Deployment Target</code> to OS X 10.7 or later.</p></li><li class="li"><p>Verify that <code>Generate Position-Dependent Code</code> is set at its default value of <code><!--a  -->NO<!--/a--></code>.</p></li><li class="li"><p>Verify that <code>Don't Create Position Independent Executables</code> is set at its default value of <code><!--a  -->NO<!--/a--></code>.</p></li></ol><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013354-CH1-CHECK" title="Verifying that your application was built as PIE"></a><h2 class="jump">Verifying that your application was built as PIE</h2><p>You can check whether your application is PIE by running <code>otool -hv</code> on your executable in the Terminal. Your application is PIE if its header contains the <code>PIE</code> flag. <span class="content_text"><!--a  -->Listing 1<!--/a--></span> shows an example of how to do this for an iOS app.</p><a name="//apple_ref/doc/uid/DTS40013354-CH1-SOURCECODE1" title="Listing 1Example of a PIE application"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Example of a PIE application</p><div class="codesample clear"><table><tr><td scope="row"><pre> $ otool -hv /path/to/MyApp.app/MyApp<span></span></pre></td></tr><tr><td scope="row"><pre>MyApp:<span></span></pre></td></tr><tr><td scope="row"><pre>Mach header<span></span></pre></td></tr><tr><td scope="row"><pre>magic   cputype cpusubtype caps filetype  ncmds  sizeofcmds   flags<span></span></pre></td></tr><tr><td scope="row"><pre>MH_MAGIC  ARM    V7        0x00  EXECUTE    23        2372     NOUNDEFS DYLDLINK TWOLEVEL PIE<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40013354-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40013354-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-02-20</td><td><p>Clarified the notion of PIE for apps with dependencies.</p></td></tr><tr><td scope="row">2013-05-23</td><td><p>New document that 
+					addresses how to build a Position Independent Executable.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-02-20</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

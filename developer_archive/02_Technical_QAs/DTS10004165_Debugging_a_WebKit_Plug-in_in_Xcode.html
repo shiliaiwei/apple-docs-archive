@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Q&amp;A QA1500: Debugging a WebKit Plug-in in Xcode</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004165">
+    <meta id="document-version" name="document-version" content="1.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004165-CH1">
+    <meta id="date" name="date" content="2007-06-05">
+    <meta id="description" name="description" content="QA1500.">
+    <meta id="book-title" name="book-title" content="Debugging a WebKit Plug-in in Xcode">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Networking, Internet, & Web/Safari Reference Library}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1500">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Debugging a WebKit Plug-in in Xcode" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004165" title="Technical Q&amp;A QA1500"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Debugging a WebKit Plug-in in Xcode</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10004165-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1500"></a><div class="dtsDocNumber">Technical Q&amp;A QA1500</div><h1 id="pageTitle">Debugging a WebKit Plug-in in Xcode</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10004165-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10004165-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;<strong>Legacy Document</strong></p><p>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p><p>Current information on this Reference Library topic can be found here:</p><p><span class="content_text"><a href="http://developer.apple.com/referencelibrary/index.html" class="browserLink" >Reference Library</a></span></p><p></p></aside></div><h2>Q:&nbsp;
+I am writing a WebKit Plug-in, how can I debug it in Xcode?
+</h2><p><span>A: </span>Follow these steps to debug a WebKit Plug-in in Xcode 2.4.1:</p><ul class="ul"><li class="li"><p>First, set the custom executable to Safari. To do this, open your plugin project and select the "New Custom Executable..." item from the "Project" menu. This will open a window for specifying the custom executable application. Use the Browse button to select Safari.</p></li><li class="li"><p>Second, in your build settings, make sure that the "Strip Debug Symbols During Copy" option is OFF and the "Generate Debug Symbols" option is ON. Also, you should set your optimization level to a low setting so the debugger can operate properly. The option settings shown in <span class="content_text"><!--a  -->Figure 1<!--/a--></span> illustrate the propper settings for debugging a WebKit Plug-in.</p></li></ul><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004165-CH1-FIGURE1" title="Figure 1Xcode's inspector window showing settings for the debug configuration of the project."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Xcode's inspector window showing settings for the debug configuration of the project.</figcaption><img src="Art/qa1500_options.png" alt="" width="463" height="369"></figure><ul class="ul"><li class="li"><p>Third, add a new Run Script build phase to your project. The script shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span> is a /bin/sh script that you can copy and paste into any Xcode Internet plug-in project that you would like to debug using Xcode's built in debugger. This script checks the build configuration and if you are in debugging mode, it will create a symbolic link to your plug-in in the Internet Plug-Ins folder inside of the current user's Library folder. </p><a name="//apple_ref/doc/uid/DTS10004165-CH1-SOURCECODE1" title="Listing 1/bin/sh script to use as a Xcode Run Script build phase to put a WebKit Plug-in in place for debugging"></a><br/><br/><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;/bin/sh script to use as a Xcode Run Script build phase to put a WebKit Plug-in in place for debugging</p><div class="codesample clear"><table><tr><td scope="row"><pre># clean up any previous products/symbolic links in the Internet Plug-Ins folder<span></span></pre></td></tr><tr><td scope="row"><pre>if [ -a "${USER_LIBRARY_DIR}/Internet Plug-Ins/${FULL_PRODUCT_NAME}" ]; then<span></span></pre></td></tr><tr><td scope="row"><pre>    rm -Rf "${USER_LIBRARY_DIR}/Internet Plug-Ins/${FULL_PRODUCT_NAME}"<span></span></pre></td></tr><tr><td scope="row"><pre>fi<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre># Depending on the build configuration, either copy or link to the most recent product<span></span></pre></td></tr><tr><td scope="row"><pre>if [ "${CONFIGURATION}" == "Debug" ]; then<span></span></pre></td></tr><tr><td scope="row"><pre>    # if we're debugging, add a symbolic link to the plug-in<span></span></pre></td></tr><tr><td scope="row"><pre>    ln -sf "${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}" \<span></span></pre></td></tr><tr><td scope="row"><pre>        "${USER_LIBRARY_DIR}/Internet Plug-Ins/${FULL_PRODUCT_NAME}"<span></span></pre></td></tr><tr><td scope="row"><pre>elif [ "${CONFIGURATION}" == "Release" ]; then<span></span></pre></td></tr><tr><td scope="row"><pre>    # if we're compiling for release, just copy the plugin to the Internet Plug-ins folder<span></span></pre></td></tr><tr><td scope="row"><pre>    cp -Rfv "${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}" \<span></span></pre></td></tr><tr><td scope="row"><pre>        "${USER_LIBRARY_DIR}/Internet Plug-Ins/${FULL_PRODUCT_NAME}"<span></span></pre></td></tr><tr><td scope="row"><pre>fi<span></span></pre></td></tr></table></div></li></ul><p>After these steps, whenever your current build configuration is set to debug and you click "Build and Run" in Xcode, Xcode will put a symbolic link to your WebKit Plug-in in the the "Internet Plug-Ins" folder and launch Safari. If you have any breakpoints set in your plug-in and breakpoints are enabled, then Xcode will stop in your plug-in and allow you to use its debugger to step through code and debug just as you would in any other project.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS10004165-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004165-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2007-06-05</td><td><p>Minor editorial corrections.</p></td></tr><tr><td scope="row">2006-11-16</td><td><p>New document that 
+					directions for debugging a WebKit plug-in in Xcode.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2007 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2007-06-05</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

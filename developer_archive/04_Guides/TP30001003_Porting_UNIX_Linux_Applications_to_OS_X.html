@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Introduction to Porting UNIX/Linux Applications to OS X</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP30001003">
+    <meta id="document-version" name="document-version" content="2.17.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40002847">
+    <meta id="date" name="date" content="2012-06-11">
+    <meta id="description" name="description" content="Conceptual information and tips about porting UNIX and Linux applications to OS X.">
+    <meta id="book-title" name="book-title" content="Porting UNIX/Linux Applications to OS X">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Topic/Cross Platform/UNIX}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Porting UNIX/Linux Applications to OS X: Introduction to Porting UNIX/Linux Applications to OS X">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Porting UNIX/Linux Applications to OS X" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../background/background.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40002847" title="Introduction to Porting UNIX/Linux Applications to OS X"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Porting UNIX/Linux Applications to OS X</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../background/background.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP30001003" title="Introduction to Porting UNIX/Linux Applications to OS X"></a><a name="//apple_ref/doc/uid/TP40002847-TPXREF101" title="Introduction to Porting UNIX/Linux Applications to OS X"></a><h1 id="pageTitle">Introduction to Porting UNIX/Linux Applications to OS X</h1><p>The UNIX Porting Guide is a first stop for UNIX developers coming to OS X. This document helps guide developers in bringing applications written for UNIX-based operating systems to OS X. It provides the background needed to understand the operating system. It touches on some of the design decisions, and it provides a listing and discussion of some of the main areas that you should be concerned with in bringing UNIX applications to OS X. It also points out some of the advanced features of OS X not available in traditional UNIX applications that you can add to your ported applications.</p><p>This document also provides an entry point for other documentation on various subjects that may be of interest if you are porting an application from a UNIX environment to OS X.</p><p>This document is an overview, not a tutorial. In many regards it is a companion to the more extensive <em><a href="../../../../MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067" data-renderer-version="1" target="_self">Mac Technology Overview</a></em>, but with a bias toward the UNIX developer.</p><p>This document also does not cover porting shell scripts to OS X. For more information about shell scripts and OS X, you should read <em><a href="../../../../OpenSource/Conceptual/ShellScripting/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004268" data-renderer-version="1" target="_self">Shell Scripting Primer</a></em>.</p><a name="//apple_ref/doc/uid/TP40002847-TPXREF107" title="Bringing UNIX Apps to OS X"></a><h2 class="jump">Bringing UNIX Apps to OS X</h2><p>The introduction of UNIX-like operating systems such as FreeBSD and Linux for personal computers was a great step in bringing the power and stability of UNIX to the mass market. Generally though, these projects were driven by power users and developers for their own use, without making design decisions that would make UNIX palatable to consumers. OS X, on the other hand, was designed from the beginning with end users in mind.</p><p>With this operating system, Apple builds its well-known strengths in simplicity and elegance of design on a UNIX-based foundation. Rather than reinventing what has already been done well, Apple is combining their strengths with the strengths brought about by many years of advancement by the UNIX community.</p><a name="//apple_ref/doc/uid/TP40002847-TPXREF106" title="Who Should Read This Document?"></a><h2 class="jump">Who Should Read This Document?</h2><p>Any UNIX developers can benefit from reading this book.</p><ul class="ul"><li class="li"><p>In-house corporate application developers</p></li><li class="li"><p>Commercial UNIX developers</p></li><li class="li"><p>Open source developers</p></li><li class="li"><p>Open source porters</p></li><li class="li"><p>Higher education faculty, staff, and students</p></li><li class="li"><p>Science and research developers</p></li></ul><p>If you’re a commercial UNIX developer, you are already familiar with other UNIX-based systems and may want to understand the differences between other systems and OS X. You might be interested in porting the GUI from an X11 environment into a native graphics environment using Carbon or Cocoa. You may also have special needs such as direct hardware access, exclusive file access guarantees, and so on.</p><p>If you’re a corporate in-house developer (developing applications for internal use), you probably want to port applications with minimal code divergence.</p><p>If you’re an open source developer, you might want information about how to incorporate new technologies into your software, and may be interested in GUI porting, depending on your level of interest. Alternately, you might be interested only in quickly porting code to a new platform with minimal changes so that you can easily get your changes back into the official code base. If so, you may be more likely to use compatibility shims than to use new APIs.</p><p>No matter what “flavor” of developer you are, this book will provide information that is helpful to you and provide pointers to additional documents that may be of interest.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;If you are primarily interested in shell scripts and command-line compatibility, you should read <span class="content_text"><a href="../../../../OpenSource/Conceptual/ShellScripting/PortingScriptstoMacOSX/PortingScriptstoMacOSX.html#//apple_ref/doc/uid/TP40004268-TP40003517" data-renderer-version="1" target="_self">Designing Scripts for Cross-Platform Deployment</a></span> in <em><a href="../../../../OpenSource/Conceptual/ShellScripting/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004268" data-renderer-version="1" target="_self">Shell Scripting Primer</a></em>. That document gives a more thorough overview of the shell environment in OS X, including common cross-platform compatibility issues.</p><p></p></aside></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;This<a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_105"></a> document is not designed for pure Java developers. OS X has a full and robust Java 2 Platform, Standard Edition (J2SE) implementation. If you have a pure Java application already, it should run in OS X.</p><p></p></aside></div><a name="//apple_ref/doc/uid/TP40002847-TPXREF104" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2><p>This document is a first stop for UNIX developers coming to OS X. It contains many links to more extensive documentation. Specific details of implementation are covered here only in cases where it is not adequately covered in other places in the documentation set. </p><p>To use this document most effectively, first read <span class="content_text"><a href="../background/background.html#//apple_ref/doc/uid/TP40002848-TPXREF101" data-renderer-version="1">Overview of OS X</a></span> to find out the basics about the Mac and to get some of the high-level information you need to begin your port. If you already have an application that builds on other UNIX-based platforms, <span class="content_text"><a href="../compiling/compiling.html#//apple_ref/doc/uid/TP40002850-TPXREF101" data-renderer-version="1">Compiling Your Code in OS X</a></span> will help you find out how to compile your code on OS X. </p><p>Most of your effort, however, should be spent towards making decisions concerning which, if any, graphical user interface to implement with your application. <span class="content_text"><a href="../graphicalports/graphicalports.html#//apple_ref/doc/uid/TP40002851-TPXREF101" data-renderer-version="1">Choosing a Graphical Environment for Your Application</a></span> helps you with this.</p><p>If you want to refactor your application to take advantage of the rich feature set of OS X, see <span class="content_text"><a href="../additionalfeatures/additionalfeatures.html#//apple_ref/doc/uid/TP40002856-TPXREF101" data-renderer-version="1">Additional Features</a></span> for examples of features available in OS X.</p><p>Once you have a complete application, read <span class="content_text"><a href="../distributing/distibuting.html#//apple_ref/doc/uid/TP40002855-TPXREF101" data-renderer-version="1">Distributing Your Application</a></span> for information on getting your application to OS X users.</p><div id="seeAlsoSection"><a name="//apple_ref/doc/uid/TP40002847-TPXREF105" title="See Also"></a><h2 class="jump">See Also</h2><p><a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_106"></a>Developer documentation can be found at Apple’s developer website at <span class="content_text"><a href="http://developer.apple.com/" class="browserLink" >http://developer.apple.com/</a></span>. This site contains reference, conceptual, and tutorial material for the many facets of development on OS X. The OS X Developer Tools CD<a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_107"></a> includes a snapshot of the developer documentation, which can be searched for and viewed in Xcode’s doc viewer. The <code><!--a target="_self" -->man<!--/a--></code> pages are also included with the OS X Developer Tools.<a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_108"></a></p><p>Apple Developer Connection<a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_109"></a> (ADC) offers a variety of membership levels to help you in your development. These range from free memberships that give you access to developer software, to paid memberships that provide support incidents as well as the possibility of software seeds. More information on memberships is available at <span class="content_text"><a href="http://developer.apple.com/programs/mac/" class="browserLink" >http://developer.apple.com</a></span>.</p><p>Once a year in early Summer, Apple hosts the Worldwide Developers Conference<a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_110"></a> (WWDC) in the San Francisco, California Bay area. This is an extremely valuable resource for developers trying to get an overall picture of OS X as well as specific implementation details of individual technologies. Information on WWDC is available on the ADC website.</p><p>Apple hosts an extensive array of public mailing lists<a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_111"></a>. These are available for public subscription and searching at <span class="content_text"><a href="http://lists.apple.com" class="urlLink" rel="external">http://lists.apple.com</a></span>. The <em>unix-porting</em> list is highly recommended. <a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_112"></a>The <em>darwin-dev</em> and <em>darwinos-users</em> lists also offer much help but less specific to the task of porting<a name="//apple_ref/doc/uid/TP40002847-DontLinkElementID_113"></a>.</p><p>In addition to Apple’s own resources, many external resources exist, for example, O’Reilly’s Mac DevCenter, <span class="content_text"><a href="http://www.oreillynet.com/mac/" class="urlLink" rel="external">http://www.oreillynet.com/mac/</a></span>.</p></div>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../background/background.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2002, 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-06-11</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

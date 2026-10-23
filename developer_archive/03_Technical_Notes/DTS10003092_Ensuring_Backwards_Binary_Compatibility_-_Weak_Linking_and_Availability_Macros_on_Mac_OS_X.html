@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Note TN2064: Ensuring Backwards Binary Compatibility - Weak Linking and Availability Macros on Mac OS X</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003092">
+    <meta id="document-version" name="document-version" content="1.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003092-CH1">
+    <meta id="date" name="date" content="2003-02-18">
+    <meta id="description" name="description" content="TN2064.">
+    <meta id="book-title" name="book-title" content="Ensuring Backwards Binary Compatibility - Weak Linking and Availability Macros on Mac OS X">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Xcode/Compiler Tools}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2064">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Ensuring Backwards Binary Compatibility - Weak Linking and Availability Macros on Mac OS X" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003092" title="Technical Note TN2064"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Ensuring Backwards Binary Compatibility - Weak Linking and Availability Macros on Mac OS X</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003092-CH1-DontLinkElementID_2" title="Technical Note TN2064"></a><div class="dtsDocNumber">Technical Note TN2064</div><h1 id="pageTitle">Ensuring Backwards Binary Compatibility - Weak Linking and Availability Macros on Mac OS X</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003092-CH1-DontLinkElementID_3" title="Important:"></a><p><strong>Important:</strong>&nbsp;This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div><p>This Technote describes how to ensure that a Mach-O application built against the latest version of Mac OS X can run effectively on older versions of Mac OS X, and what you should do if your application uses APIs that do not exist in the older version of Mac OS X.</p><p>The technologies Apple has provided for handling this include weak linking and Availability Macros.</p><p>This technote explains how these technologies work, their benefits and limits, and how to get started using them on Mac OS X. Read this technote if you are writing a Mach--O application and are concerned that APIs you use from today's OS will prevent your application from running properly on earlier versions of Mac OS X.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003092-CH1-OVERVIEW" data-renderer-version="1">Overview</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION1" data-renderer-version="1">What's the Challenge Here?</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION1-_A__APPLICATION_WILL_NOT_LAUNCH" data-renderer-version="1">(a) Application will not launch</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION1-_B__APPLICATION_CRASHES_AT_SOME_POINT_DURING_PROGRAM_EXECUTION" data-renderer-version="1">(b) Application crashes at some point during program execution</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION1-_C__APPLICATION_RUNS_BUT_CAN_T_BE_PREBOUND_ON_OLDER_OS_VERSIONS" data-renderer-version="1">(c) Application runs but can't be prebound on older OS versions</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION2" data-renderer-version="1">Solution: Weak Linking</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION3" data-renderer-version="1">Solution: Availability Macros</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION3-MAC_OS_X_VERSION_MIN_REQUIRED" data-renderer-version="1">MAC_OS_X_VERSION_MIN_REQUIRED</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION3-MAC_OS_X_VERSION_MAX_ALLOWED" data-renderer-version="1">MAC_OS_X_VERSION_MAX_ALLOWED</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION3-ONE_USAGE" data-renderer-version="1">One Usage</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION5" data-renderer-version="1">Fallback Solutions: Bundling and CFBundle</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION5-CFBUNDLE" data-renderer-version="1">CFBundle</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION5-BUNDLING" data-renderer-version="1">Bundling</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003092-CH1-SECTION4" data-renderer-version="1">Considerations and Issues as of the December 2002 Developer Tools/Headers</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003092-CH1-REFERENCES" data-renderer-version="1">References</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003092-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003092-CH1-OVERVIEW" title="Overview"></a><h2 class="jump">Overview</h2><p>This technote describes the technical details of the weak linking and Availability Macros features on Mac OS X (Mac OS X 10.0.x will not be considered, but it works substantially the same as 10.1.x for the purposes of this technote). Before the discussion begins, however, here are a set of high level points summarizing where things stand as of Mac OS X 10.2.x and the December 2002 Mac OS X Developer Tools:</p><ul class="ul"><li class="li"><p>If an application is designed to run on multiple Mac OS X versions and it uses symbols available only in later Mac OS X versions, the application should use weak linking. Otherwise, it will not launch on the earlier Mac OS X version that does not export all the symbols the application uses.</p></li><li class="li"><p>Weak linking support was first added in Mac OS X version 10.2. Therefore, it cannot be used to help applications run on both 10.1.x and 10.2. There are some fallback approaches that can be used to help applications run on both 10.1.x and 10.2.</p></li><li class="li"><p>Availability Macros have been introduced to help automatically take advantage of weak linking for Apple-provided APIs. Furthermore, they can help ensure that an application only uses the APIs available on developer-chosen OS version(s).</p></li><li class="li"><p>Both weak linking and the Availability Macros are newly introduced technologies, and are works in progress. However, major improvements were made in the December 2002 Mac OS X Developer Tools. It is highly recommended that you use the December 2002 toolset if you want to use weak linking and the Availability Macros. </p></li><li class="li"><p>Further improvements to weak linking support and the Availability Macros are coming - check back here periodically for updates on tools and OS support.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION1" title="What's the Challenge Here?"></a><h2 class="jump">What's the Challenge Here?</h2><p>When writing a Mach-O application, you will often want to use new APIs introduced in the latest version of Mac OS X that did not exist in prior versions. However, if you do this and then attempt to run your application on an earlier version of the system, the program will (a) fail to launch, (b) crash at some point during program execution, or (c) run correctly but be unable to be prebound on earlier Mac OS X versions. Let's look at each case.</p><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION1-_A__APPLICATION_WILL_NOT_LAUNCH" title="(a) Application will not launch"></a><h3 class="jump">(a) Application will not launch</h3><p>When the linker (the program called "<code>ld</code>") links an application to the frameworks (such as Carbon or Cocoa) or libraries that the application uses, entries are made in the application binary. These entries reference both the frameworks the application links against, as well as the symbols (functions, global variables) that it uses from those frameworks. To see these entries, fire up Terminal and run <code>otool -l</code> on a binary. This will print the binary's load commands for you; many of the load commands will be of the form <code>LC_LOAD_DYLIB</code>, followed by the path to a shared library or framework that the application is linked against. Listing 1 shows a small part of the output of <code>otool -l</code>.</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE1" title="Listing 1A snippet showing a load command from /usr/bin/perl - perl is linked against /usr/lib/libSystem.B.dylib"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;A snippet showing a load command from /usr/bin/perl - perl is linked against /usr/lib/libSystem.B.dylib</p><div class="codesample clear"><table><tr><td scope="row"><pre>username% otool -l /usr/bin/perl<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>Load command 6<span></span></pre></td></tr><tr><td scope="row"><pre>          cmd LC_LOAD_DYLIB<span></span></pre></td></tr><tr><td scope="row"><pre>      cmdsize 52<span></span></pre></td></tr><tr><td scope="row"><pre>         name /usr/lib/libSystem.B.dylib (offset 24)<span></span></pre></td></tr><tr><td scope="row"><pre>   time stamp 1028942768 Fri Aug  9 18:26:08 2002<span></span></pre></td></tr><tr><td scope="row"><pre>      current version 60.0.0<span></span></pre></td></tr><tr><td scope="row"><pre>compatibility version 1.0.0<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr></table></div><p>If you are not familiar with <code>otool</code>, see the manual page for more details. If a framework or shared library linked by the binary isn't present when the application launches (perhaps the framework is available on 10.2 but not 10.1 like AddressBook.framework), <code>dyld</code> (the dynamic loader) will fail to execute the application when it is launched.</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE2" title="Listing 2What happens when you try to run an application and one of the frameworks it is linked against is missing - dyld gives an error (ENOENT = 2, from /usr/include/sys/errno.h)"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;What happens when you try to run an application and one of the frameworks it is linked against is missing - <code>dyld</code> gives an error (ENOENT = 2, from /usr/include/sys/errno.h)</p><div class="codesample clear"><table><tr><td scope="row"><pre>username% ./test<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>dyld: ./test can't open library:<span></span></pre></td></tr><tr><td scope="row"><pre>./MyFramework.framework/Versions/A/MyFramework (No such file or<span></span></pre></td></tr><tr><td scope="row"><pre>directory, errno = 2)<span></span></pre></td></tr></table></div><p>A somewhat more common and slightly trickier case is when the framework itself is present at runtime, but some of the symbols the application is using are missing. For example, perhaps your application uses routines in Carbon.framework newly introduced in 10.2, which are not present at runtime on 10.1.x. </p><p>You can get a listing of which symbols an application is importing from other frameworks and libraries by running <code>nm -mg</code> on the binary (see the <code>nm</code> manual page for more details). Doing so will tell you how the symbols are referenced, and what libraries or frameworks they come from.</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE3" title="Listing 3A snippet showing a partial listing of symbols imported by /usr/bin/perl"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;A snippet showing a partial listing of symbols imported by /usr/bin/perl</p><div class="codesample clear"><table><tr><td scope="row"><pre>username% nm -mg /usr/bin/perl<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>900154a0 (prebound undefined [lazy bound]) external<span></span></pre></td></tr><tr><td scope="row"><pre>_NSAddressOfSymbol (from libSystem)<span></span></pre></td></tr><tr><td scope="row"><pre>90021440 (prebound undefined [lazy bound]) external<span></span></pre></td></tr><tr><td scope="row"><pre>_NSCreateObjectFileImageFromFile (from libSystem)<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>a0ea736c (prebound undefined) [referenced dynamically] external<span></span></pre></td></tr><tr><td scope="row"><pre>_PL_do_undump (from libperl)<span></span></pre></td></tr><tr><td scope="row"><pre>a0ea8dcc (prebound undefined) [referenced dynamically] external<span></span></pre></td></tr><tr><td scope="row"><pre>_PL_markstack_max (from libperl)<span></span></pre></td></tr><tr><td scope="row"><pre>a0ea8dc8 (prebound undefined) [referenced dynamically] external<span></span></pre></td></tr><tr><td scope="row"><pre>_PL_markstack_ptr (from libperl)<span></span></pre></td></tr></table></div><p>If a symbol the application uses is not present at launch time and the symbol is not lazily bound (discussed later), the application will fail to launch, even if the framework or shared library from which the symbol was linked is present. When this happens, <code>dyld</code> will list the symbols it failed to find, as shown in Listing 4.</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE4" title="Listing 4What happens when you try to run an app and one of the symbols it imports (the SayHello function, in this case) is missing from the framework it is linked against"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;What happens when you try to run an app and one of the symbols it imports (the <code>SayHello</code> function, in this case) is missing from the framework it is linked against</p><div class="codesample clear"><table><tr><td scope="row"><pre>username% ./test<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>dyld: ./test Undefined symbols:<span></span></pre></td></tr><tr><td scope="row"><pre>./test undefined reference to _SayHello expected to be defined in<span></span></pre></td></tr><tr><td scope="row"><pre>MyFramework<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION1-_B__APPLICATION_CRASHES_AT_SOME_POINT_DURING_PROGRAM_EXECUTION" title="(b) Application crashes at some point during program execution"></a><h3 class="jump">(b) Application crashes at some point during program execution</h3><p>Non-variable symbols (i.e., functions) which do not need their memory addresses resolved immediately at launch time are marked by the linker as "lazy bound" (you can see an example of <code>nm</code> output showing lazy bound symbols in Listing 3). Such symbols are lazily bound to their source frameworks by <code>dyld</code> - it doesn't bind them until they are actually needed. If the need never arises, the symbol is never bound, and the application can run just fine even on an OS version that doesn't contain those symbols in its frameworks or libraries. If the symbol is ever referenced, the use of the function triggers a fixup call into <code>dyld</code>, where it then tries to resolve the symbol before execution jumps to the actual function in question. Typically, most functions are lazy bound; one somewhat common case, however, where a routine cannot be lazy bound is when its address is stored in a pointer. In that case, <code>dyld</code> can't be assured of having a chance to resolve the symbol address before it is executed so the function is non-lazy bound. Listing 5 is an example of some code that would produce both lazy and non-lazy bound symbols:</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE5" title="Listing 5InitCursor will not be lazy bound, because the address of the function is copied to a pointer, beyond dyld's ability to resolve it behind the scenes. ObscureCursor, however, will be lazy bound because dyld knows it can resolve the symbol the first time it is explicitly invoked."></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;<code>InitCursor</code> will not be lazy bound, because the address of the function is copied to a pointer, beyond <code>dyld</code>'s ability to resolve it behind the scenes. <code>ObscureCursor</code>, however, will be lazy bound because <code>dyld</code> knows it can resolve the symbol the first time it is explicitly invoked.</p><div class="codesample clear"><table><tr><td scope="row"><pre>void (*foobar)(void);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>foobar=InitCursor; // This forces InitCursor to be non-lazy<span></span></pre></td></tr><tr><td scope="row"><pre>foobar();<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>ObscureCursor(); // ObscureCursor will be lazy bound<span></span></pre></td></tr></table></div><p>The problem with lazy binding is that, depending on how you write your code, your application could be using symbols that do not exist in the target OS version, but you might not find that out without extensive testing. The the application will launch and run successfully when following some codepaths while crashing when following other codepaths (as <code>dyld</code> tries to resolve symbols that are reached in a given codepath). Availability Macros (described below) can help catch the use of newer symbols in your application, but it is still up to you to ensure proper conditionalization for all such symbols.</p></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION1-_C__APPLICATION_RUNS_BUT_CAN_T_BE_PREBOUND_ON_OLDER_OS_VERSIONS" title="(c) Application runs but can't be prebound on older OS versions"></a><h3 class="jump">(c) Application runs but can't be prebound on older OS versions</h3><p>Another problem with applications that bind to missing symbols is that their prebinding will break (and can't be fixed) on OS versions that do not contain <strong>all</strong> of the non-weak (described below) symbols (even lazy bound ones) that the application uses. Broken prebinding for your application typically means that it will take longer to launch. This means that lazy binding is not a good solution for conditionalizing the use of APIs that might not be present at runtime - even if you are careful to ensure that new APIs will never be called when the app is run on an older OS version.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION2" title="Solution: Weak Linking"></a><h2 class="jump">Solution: Weak Linking</h2><p>The solution that Apple has developed to solve these problems is called weak linking. It works in a similar manner to the similarly named feature that <span class="content_text"><a href="http://developer.apple.com/documentation/mac/PPCSoftware/PPCSoftware-40.html" class="browserLink" >CFM</a></span> (the Traditional Mac OS' Code Fragment Manager) had. Weak linking was introduced as a supported OS feature in Mac OS X version 10.2, and the first developer toolset to support weak linking is the July 2002 Developer Tools that shipped as a part of Mac OS X version 10.2. Here's how it works:</p><p>Weak linking allows you to link a symbol such that the symbol does not have to be present at runtime for the binary to continue running. Of course, your program can't actually try to use the symbol if it is non-existent, or it will crash. Instead, your code should check to see if the address of the symbol is NULL. If it is, then the symbol is not available, but if the address is a real address, then the symbol exists and can be used.</p><p>A symbol will be linked strongly unless you explicitly mark its prototype as weak. Typically this is done in the header containing the prototype for the routine, and is done by adding the <code>weak_import</code> attribute to the prototype (this attribute is supported by gcc 3.1 on Mac OS X, but not gcc 2.95). See the <span class="content_text"><a href="http://gcc.gnu.org/onlinedocs/gcc-3.2/gcc/Attribute-Syntax.html#Attribute%20Syntax" class="urlLink" rel="external">documentation on the gcc web site</a></span> for more information about attributes.</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE6" title="Listing 6The SayHello function will be weakly linked thanks to the use of the weak_import attribute on the prototype"></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;The <code>SayHello</code> function will be weakly linked thanks to the use of the <code>weak_import</code> attribute on the prototype</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern int SayHello() __attribute__((weak_import));<span></span></pre></td></tr></table></div><p>Using the <code>weak_import</code> attribute tells the linker that the symbol should be linked weakly. However, weak linking as a feature did not exist in <code>ld</code> or <code>dyld</code> in Mac OS X versions prior to 10.2, so you have to explicitly enable it by setting an environment variable before compilation to tell linker that features can be used that were introduced starting in version 10.2. Listing 7 shows how you set this environment variable from within Terminal.</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE7" title="Listing 7We need to tell the linker that it can feel free to use Mac OS X 10.2 linker features, including weak linking."></a><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;We need to tell the linker that it can feel free to use Mac OS X 10.2 linker features, including weak linking.</p><div class="codesample clear"><table><tr><td scope="row"><pre>setenv MACOSX_DEPLOYMENT_TARGET 10.2<span></span></pre></td></tr></table></div><p>If the environment variable is not set to at least 10.2 (a value of 10.1 is assumed if you don't set it), you will see warnings like the following if you try to use the <code>weak_import</code> attribute:</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE8" title="Listing 8Attempting to weak link will issue warnings if the MACOSX_DEPLOYMENT_TARGET isn't set to a high enough version"></a><p class="codesample clear"><strong class="caption_number">Listing 8</strong>&nbsp;&nbsp;Attempting to weak link will issue warnings if the <code>MACOSX_DEPLOYMENT_TARGET</code> isn't set to a high enough version</p><div class="codesample clear"><table><tr><td scope="row"><pre>test.c:4: warning: weak_import attribute ignored when<span></span></pre></td></tr><tr><td scope="row"><pre>MACOSX_DEPLOYMENT_TARGET environment variable is set to 10.1<span></span></pre></td></tr></table></div><p>The <code>MACOSX_DEPLOYMENT_TARGET</code> environment variable can now also be set in a target build setting in Project Builder, allowing you to enable weak linking from within that IDE.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003092-CH1-FIGURE1" title="Figure 1Add a custom build setting to set the MACOSX_DEPLOYMENT_TARGET environment variable."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Add a custom build setting to set the <code>MACOSX_DEPLOYMENT_TARGET</code> environment variable.</figcaption><img src="Art/tn2064_1.jpg" alt="" width="515" height="309"></figure><p>Assuming that the environment variable is set and the function prototype is properly marked with the <code>weak_import</code> attribute, compilation will cause <code>ld</code> to mark the symbol as weak in the final application. You may recall our use of the <code>nm</code> tool <span class="content_text"><!--a  -->earlier<!--/a--></span> to explore the symbols that a given application imports and how those symbols are referenced. If we use <code>nm -mg |grep frameworkname</code>, we can produce a list of all symbols we reference from a given framework and see whether they are marked weak in the binary or not.</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE9" title="Listing 9Note the description of the _SayHello symbol (imported from MyFramework ) as weak"></a><p class="codesample clear"><strong class="caption_number">Listing 9</strong>&nbsp;&nbsp;Note the description of the <code>_SayHello</code> symbol (imported from <code>MyFramework</code> ) as weak</p><div class="codesample clear"><table><tr><td scope="row"><pre>username% nm -mg test | grep MyFramework<span></span></pre></td></tr><tr><td scope="row"><pre>         (undefined) weak external _SayHello (from MyFramework)<span></span></pre></td></tr></table></div><p>Once a binary has been built with symbols weakly linked, the existence of those symbols (and thus indirectly, features and APIs) can be checked for at runtime. For example:</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE10" title="Listing 10A complete test program showing the test for the presence of the SayHello function at runtime"></a><p class="codesample clear"><strong class="caption_number">Listing 10</strong>&nbsp;&nbsp;A complete test program showing the test for the presence of the <code>SayHello</code> function at runtime</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;stdlib.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>#include &lt;stdio.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>extern int SayHello() __attribute__((weak_import));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>int main()<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    int result;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if (SayHello!=NULL)<span></span></pre></td></tr><tr><td scope="row"><pre>    {<span></span></pre></td></tr><tr><td scope="row"><pre>        printf("SayHello is present!\n");<span></span></pre></td></tr><tr><td scope="row"><pre>        result=SayHello();<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>    else<span></span></pre></td></tr><tr><td scope="row"><pre>        printf("SayHello is not present!\n");<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>You might notice that this whole approach to weak linking assumes that one is weak linking individual symbols, not entire frameworks or libraries. This is in fact correct; ideally, one would not weak link more symbols than are needed, thus preserving the ability of <code>dyld</code> to flag missing symbols as early and completely as possible. However, in some cases it may truly be desirable to weak link an entire framework or shared library - allowing the framework as a whole, not just individual symbols it exports, to be missing at runtime. This is accomplished by the linker in this way: if all symbols that an application imports from a given framework are weakly linked, then the framework as a whole will be automatically marked weak in the application's load command where it loads that framework or shared library. Running <code>otool -l</code> on a binary (as was done in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>) will show whether a framework as a whole is weakly linked or not.</p><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE11" title="Listing 11A snippet showing a load command that weakly loads a framework - note the LC_LOAD_WEAK_DYLIB"></a><p class="codesample clear"><strong class="caption_number">Listing 11</strong>&nbsp;&nbsp;A snippet showing a load command that weakly loads a framework - note the <code>LC_LOAD_WEAK_DYLIB</code></p><div class="codesample clear"><table><tr><td scope="row"><pre>username% otool -l test<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>Load command 5<span></span></pre></td></tr><tr><td scope="row"><pre>          cmd LC_LOAD_WEAK_DYLIB<span></span></pre></td></tr><tr><td scope="row"><pre>      cmdsize 72<span></span></pre></td></tr><tr><td scope="row"><pre>         name ./MyFramework.framework/Versions/A/MyFramework<span></span></pre></td></tr><tr><td scope="row"><pre>(offset 24)<span></span></pre></td></tr><tr><td scope="row"><pre>   time stamp 3247416188 Wed Oct 21 05:34:52 1936<span></span></pre></td></tr><tr><td scope="row"><pre>      current version 0.0.0<span></span></pre></td></tr><tr><td scope="row"><pre>compatibility version 0.0.0<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr></table></div><p>One problem that using a lot of weak linking brings up is how one knows which routines are available in a particular OS version. Wouldn't it be great if the Apple-provided system framework headers automatically configured themselves for the OS version you were writing to, and mark routines as weak appropriately? This is where the Availability Macros come in.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION3" title="Solution: Availability Macros"></a><h2 class="jump">Solution: Availability Macros</h2><p>The Availability Macros are a set of macros was introduced in Mac OS X version 10.2 as a part of the July 2002 Developer Tools. They are contained in a header which is located at "/usr/include/AvailabilityMacros.h" on such a system. "AvailabilityMacros.h" helps you determine which OS versions introduced the APIs you are using, and tells the compiler which routines should be weakly linked. Over time, more and more of Apple's frameworks will be adopting the Availability Macros (the Carbon and Cocoa frameworks do to some degree today).</p><p>At its most basic level, "AvailabilityMacros.h" provides two compile-time variables (or macros) that you can set to determine how APIs are defined. Here is how things are supposed to work:</p><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION3-MAC_OS_X_VERSION_MIN_REQUIRED" title="MAC_OS_X_VERSION_MIN_REQUIRED"></a><h3 class="jump">MAC_OS_X_VERSION_MIN_REQUIRED</h3><p>This macro can be set to a specific OS version (some macro predefines for OS versions are provided in the header), and allows you to specify the minimum OS version that your application will require in order to run. All APIs that use the Availability Macros are conditionalized for the OS version in which they were released, and thus APIs introduced in all OS versions up to and including the minimum OS version required will be strongly linked. "AvailabilityMacros.h" suggests that if <code>MAC_OS_X_VERSION_MIN_REQUIRED</code> is undefined, it will be set by default to 10.0. This is correct if <code>MACOSX_DEPLOYMENT_TARGET</code> is not set, but what the header doesn't tell you is that the compiler driver checks the <code>MACOSX_DEPLOYMENT_TARGET</code> environment variable, and sets the value of <code>MAC_OS_X_VERSION_MIN_REQUIRED</code> to be the same as the <code>MACOSX_DEPLOYMENT_TARGET</code> if <code>MACOSX_DEPLOYMENT_TARGET</code> is set.</p></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION3-MAC_OS_X_VERSION_MAX_ALLOWED" title="MAC_OS_X_VERSION_MAX_ALLOWED"></a><h3 class="jump">MAC_OS_X_VERSION_MAX_ALLOWED</h3><p>This macro allows you to specify the maximum allowed OS version that your application can use APIs from. APIs that were first introduced in an OS version later than the maximum allowed will not be visible to the application. APIs introduced after the minimum required OS version, but before or in the maximum allowed OS version, will be weakly linked automatically. If no value is given to this macro, it will be set to the highest major OS version that Availability Macros is aware of (10.2 as of this writing).</p></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION3-ONE_USAGE" title="One Usage"></a><h3 class="jump">One Usage</h3><p>One common usage of these macros would be to temporarily set <code>MAC_OS_X_VERSION_MAX_ALLOWED</code> to be equal to <code>MAC_OS_X_VERSION_MIN_REQUIRED</code> and rebuild one's application to see which APIs are being used that are not present in the minimum required OS version (compilation will produce errors for each usage of the now suddenly unavailable routines). For example, <code>MAC_OS_X_VERSION_MIN_REQUIRED</code> might be set to 10.1 (represented as 1010 to the compiler) and <code>MAC_OS_X_VERSION_MAX_ALLOWED</code> would be set to 10.1 as well, to see which APIs are being used that were introduced in, say, 10.2. This usage now works for users of both the Cocoa and Carbon frameworks, as of the December 2002 Developer Tools.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION5" title="Fallback Solutions: Bundling and CFBundle"></a><h2 class="jump">Fallback Solutions: Bundling and CFBundle</h2><p>If you need to use APIs introduced in 10.2 in an application that must run on 10.1.x, weak linking is not an option, because it was introduced in Mac OS X version 10.2. So what can be done for this particular OS version transition? There are two main solutions, somewhat similar to each other, for doing what is essentially "manual weak linking" in an application.</p><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION5-CFBUNDLE" title="CFBundle"></a><h3 class="jump">CFBundle</h3><p><code>CFBundle</code> includes APIs such as <code>CFBundleGetFunctionPointerForName</code> that can be used to manually load a function pointer or symbol from a bundle (a framework is a valid bundle). Combined with checks for system version and feature availability, using <code>CFBundle</code> can be a good way of conditionally loading newly introduced symbols, and calling them if they exist. The <span class="content_text"><a href="/samplecode/Sample_Code/Runtime_Architecture/CallMachOFramework.htm" class="urlLink" rel="external">CallMachOFramework code sample</a></span> shows an example of using this routine in the context of loading Mach-O symbols in a CFM application, and the <span class="content_text"><a href="/documentation/CoreFoundation/BundleServices/Bundle_Services_Concepts/Concepts/CFBundle-21.html" class="urlLink" rel="external"><codeVoice>CFBundle</codeVoice> documentation</a></span> provides another good example of this technique.</p></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION5-BUNDLING" title="Bundling"></a><h3 class="jump">Bundling</h3><p>The above approach, using <code>CFBundleGetFunctionPointerForName</code>, is good when only a few symbols are needed. It can be laborious, however, to manually load each symbol directly from the system frameworks if a lot of newly introduced symbols are needed, such as when you adopt a new area of functionality like the AddressBook API. In this situation, the best approach would be to isolate the area of functionality in its own bundle, which is linked directly to the 10.2 system frameworks and has only a few main entry points, and then only load the bundle (using <code>CFBundle</code>) if the application is running on 10.2 or higher. Within the bundle, the 10.2-specific APIs can be used freely and directly, because the application loading the bundle would have already determined that the new APIs were present.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-SECTION4" title="Considerations and Issues as of the December 2002 Developer Tools/Headers"></a><h2 class="jump">Considerations and Issues as of the December 2002 Developer Tools/Headers</h2><p>The implementation of weak linking and Availability Macros today in Mac OS X 10.2 and the December 2002 Developer Tools is a first cut at the functionality. Significant improvements have been made over the July 2002 Developer tools in the December 2002 Developer Tools, and further improvements will be made over time. Here are some of the current considerations, issues, and workarounds with these technologies:</p><ul class="ul"><li class="li"><p>One good thing about Objective-C is that its runtime is sufficiently dynamic that it doesn't suffer from the strong linking/binary compatibility issues that weak linking was designed to solve for other languages like C and C++. That is, as long as an application checks for their existence at runtime and avoids their use as appropriate, it can go ahead and use newly introduced Objective-C methods and classes and the application will still run on earlier version of Mac OS X that do not have the new symbols. Note, however, that Cocoa currently does not automatically weakly link straight C functions, even ones introduced after <code>MAC_OS_X_VERSION_MIN_REQUIRED</code> and before or in MAC_OS_X_VERSOIN_MAX_ALLOWED (r. 3151928).</p></li><li class="li"><p>Weak linking is only supported by <code>dyld</code> in Mac OS X version 10.2 and up. So it cannot be used in applications that need to run on 10.1.x. Weakly linked symbols will be seen as strongly linked symbols on 10.1.x, and weakly linked frameworks or shared libraries will cause the application to crash at launch on 10.1.x.</p></li><li class="li"><p>There is a known bug in the December 2002 Mac OS X Developer Tools where if you link against a framework or shared library from which you use no symbols (call it library A), but you link against and use symbols from another library (call it library B) that does use symbols from library A, then the linker will attempt to weakly link library A. But if your <code>MACOSX_DEPLOYMENT_TARGET</code> isn't set to 10.2 or higher, this will fail (as it should) because earlier OS versions don't support weak linking, and thus a warning will be generated. The warning will be of the form, "<code>ld</code>: warning dynamic shared library: /usr/lib/libSystem.dylib not made weak library in output with <code>MACOSX_DEPLOYMENT_TARGET</code> environment variable set to: 10.1". This bug should be fixed in the next major version of the Mac OS X Developer Tools (r. 3094497). In the meantime, to get rid of the warnings you can either set the <code>MACOSX_DEPLOYMENT_TARGET</code> to 10.2, or make a spurious call into the library to use a symbol from it and get the linker to strongly link it. </p></li></ul><p>There is no obvious way to set the <code>MACOSX_DEPLOYMENT_TARGET,</code> <code>MAC_OS_X_VERSION_MIN_REQUIRED,</code> and <code>MAC_OS_X_VERSION_MAX_ALLOWED</code> settings on a per project basis, if you are using cpp-precomp for precompiled header processing (the default choice in the July 2002 Developer Tools and prior) instead of the new Persistent Front End (PFE) mechanism for precompiled headers (the default choice for new projects in the December 2002 Developer Tools). This is because there is a single system-wide copy of the framework precompiled headers that already assumes values for these defines. Redefining these settings in your project will break the precompiled headers, and compile times will greatly increase (along with lots of warnings being generated). There are two ways to fix this.</p><ul class="ul"><li class="li"><p>Use the new Persistent Front End (PFE) mechanism for precompiled headers on a per project basis. You can do this using the Build Settings pane in the Targets tab of your project. </p></li><li class="li"><p>Rebuild (as needed) your system's precompiled headers with the appropriate settings defined before building any project that needs those settings. cpp-precomp's precompiled headers can be rebuilt using the <code>fixPrecomps</code> command from the command line, as shown in Listing 12. </p></li></ul><a name="//apple_ref/doc/uid/DTS10003092-CH1-SOURCECODE12" title="Listing 12A snippet showing the setting of weak linking and Availability Macros flags and the rebuilding of cpp-precomp's precompiled headers"></a><p class="codesample clear"><strong class="caption_number">Listing 12</strong>&nbsp;&nbsp;A snippet showing the setting of weak linking and Availability Macros flags and the rebuilding of cpp-precomp's precompiled headers</p><div class="codesample clear"><table><tr><td scope="row"><pre>username% setenv MACOSX_DEPLOYMENT_TARGET 10.1<span></span></pre></td></tr><tr><td scope="row"><pre>username% sudo fixPrecomps -force -precompFlags<span></span></pre></td></tr><tr><td scope="row"><pre>-DMAC_OS_X_VERSION_MIN_REQUIRED=1010<span></span></pre></td></tr><tr><td scope="row"><pre>-DMAC_OS_X_VERSION_MAX_ALLOWED=1010<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>reading /System/Library/SystemResources/PrecompLists/phase1.precompList<span></span></pre></td></tr><tr><td scope="row"><pre>reading /System/Library/SystemResources/PrecompLists/phase2.precompList<span></span></pre></td></tr><tr><td scope="row"><pre>-force rebuild /usr/include/libc.p.<span></span></pre></td></tr><tr><td scope="row"><pre>/usr/bin/gcc3 -precomp -x objective-c /usr/include/libc.h -o<span></span></pre></td></tr><tr><td scope="row"><pre>/usr/include/libc-gcc3.p -DMAC_OS_X_VERSION_MIN_REQUIRED=1010<span></span></pre></td></tr><tr><td scope="row"><pre>-DMAC_OS_X_VERSION_MAX_ALLOWED=1010<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr><tr><td scope="row"><pre>.<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003092-CH1-REFERENCES" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p>Mac OS X version 10.2 <code>ld</code>, <code>dyld</code>, <code>nm</code>, and <code>otool</code> manual pages</p></li><li class="li"><p><span class="content_text"><a href="http://gcc.gnu.org/onlinedocs/gcc-3.2/gcc/Attribute-Syntax.html#Attribute%20Syntax" class="urlLink" rel="external">Using the GNU Compiler Collection (GCC)</a></span> GNU document on Attribute Syntax Copyright 2002 by the Free Software Foundation, retrieved 11/19/2002</p></li><li class="li"><p>DTS sample code <span class="content_text"><a href="/samplecode/Sample_Code/Runtime_Architecture/CallMachOFramework.htm" class="urlLink" rel="external">CallMachOFramework</a></span></p></li><li class="li"><p>Apple Computer, Inc., <span class="content_text"><a href="/documentation/CoreFoundation/BundleServices/Bundle_Services_Concepts/Concepts/CFBundle-21.html" class="urlLink" rel="external"><codeVoice>CFBundle</codeVoice> Documentation</a></span>, retrieved 11/19/2002.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003092-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003092-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2003-02-18</td><td><p>Ensuring that Mach-O applications built using today's Mac OS X runs on previous versions of the OS.</p></td></tr><tr><td scope="row">2003-01-21</td><td><p>New document that 
+					ensuring that Mach-O applications built using today's Mac OS X runs on previous versions of the OS.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2003 Apple Computer, Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2003-02-18</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

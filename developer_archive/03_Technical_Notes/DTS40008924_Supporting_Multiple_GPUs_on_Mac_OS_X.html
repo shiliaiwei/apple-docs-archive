@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2229: Supporting Multiple GPUs on Mac OS X</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40008924">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40008924-CH1">
+    <meta id="date" name="date" content="2009-06-05">
+    <meta id="description" name="description" content="TN2229: Describes what you need to know to take maximum advantage of multiple GPU configurations.">
+    <meta id="book-title" name="book-title" content="Supporting Multiple GPUs on Mac OS X">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Performance}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2229">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Supporting Multiple GPUs on Mac OS X" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40008924" title="Technical Note TN2229"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Supporting Multiple GPUs on Mac OS X</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40008924-CH1-DontLinkElementID_2" title="Technical Note TN2229"></a><div class="dtsDocNumber">Technical Note TN2229</div><h1 id="pageTitle">Supporting Multiple GPUs on Mac OS X</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Multiple GPU support has existed in Mac OS X for a long time, and with the introduction of the Late 2008 MacBook Pro brings the first Macintosh hardware that comes standard with 2 GPUs. This makes it more important than ever to ensure that your application works correctly with multiple GPUs. This document describes what you need to know for your OpenGL content to render correctly on all hardware.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008924-CH1-SECTION1" data-renderer-version="1">What you should know when supporting Multiple GPUs</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008924-CH1-SECTION2" data-renderer-version="1">Enabling usage of offline renderers</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40008924-CH1-SUBSECTION2" data-renderer-version="1">Using CGLQueryRendererInfo</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008924-CH1-SECTION4" data-renderer-version="1">Detecting Renderer Changes</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40008924-CH1-SUBSECTION4" data-renderer-version="1">Registering for Display Change notifications using Quartz Display Services</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40008924-CH1-SUBSECTION5" data-renderer-version="1">Using NSOpenGLView</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008924-CH1-SECTION7" data-renderer-version="1">PBuffers vs OpenGL Textures and Buffer Objects</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40008924-CH1-SUBSECTION7" data-renderer-version="1">Choosing the correct renderer for a PBuffer</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008924-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40008924-CH1-SECTION1" title="What you should know when supporting Multiple GPUs"></a><h2 class="jump">What you should know when supporting Multiple GPUs</h2><p>All OpenGL application developers should read and understand the concepts described in the documents below. Understanding these concepts will prevent subtle bugs and allow your application to better take advantage of the GPU resources available on a users system.</p><p><span class="content_text"><a href="http://developer.apple.com/qa/qa2001/qa1248.html" class="browserLink" >Technical Q&amp;A QA1248: Context Sharing Tips</a></span> describes what context sharing is, how its used and what is shared. These concepts are important whenever working with multiple OpenGL contexts, and should be well understood before attempting to work with multiple GPUs. You should note that Fullscreen contexts only support one GPU at a time, thus making sharing more complex. If you need to cover multiple displays with OpenGL content, then you can simply create a normal context that covers the entire display instead.</p><p><span class="content_text"><a href="http://developer.apple.com/technotes/tn2002/tn2080.html" class="browserLink" >Technical Note TN2080: Understanding and Detecting OpenGL Functionality</a></span> describes how you can detect changes in OpenGL functionality when the active hardware renderer changes. Properly detecting OpenGL functionality and changing your rendering paths to accommodate is vital to rendering correctly.</p><p>The <em><a href="../../documentation/GraphicsImaging/Conceptual/QuartzDisplayServicesConceptual/Articles/Notification.html#//apple_ref/doc/uid/TP40004235" data-renderer-version="1" target="_self">Quartz Display Services Programming Topics</a></em> chapter of <em><a href="../../documentation/GraphicsImaging/Conceptual/QuartzDisplayServicesConceptual/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004245" data-renderer-version="1" target="_self">Quartz Display Services Programming Topics</a></em> describes how your application can detect screen configuration changes, which is necessary to know when you need to requery OpenGL capabilities and is especially vital if you are using PBuffers.</p><p>The <span class="content_text"><a href="../../documentation/GraphicsImaging/Conceptual/OpenGL-MacProgGuide/opengl_intro/opengl_intro.html#//apple_ref/doc/uid/TP40001987-CH207" data-renderer-version="1" target="_self">Introduction to OpenGL Programming Guide for Mac OS X</a></span> describes many key concepts for using OpenGL on Mac OS X, including the concept of virtual screens, a core concept when working with OpenGL on Mac OS X in general. In particular you will want to be certain you are familiar with the techniques in the <span class="content_text"><a href="../../documentation/GraphicsImaging/Conceptual/OpenGL-MacProgGuide/opengl_contexts/opengl_contexts.html#//apple_ref/doc/uid/TP40001987-CH216-SW5" data-renderer-version="1" target="_self">Updating a Rendering Context</a></span> section.</p><p>The most important thing to remember is that applications that plan to take maximum advantage of OpenGL hardware should have already implemented most of what this document describes. The primary changes this document describes are for understanding these same concepts in the context of working with hardware that has multiple GPUs installed.</p><p>In any configuration where there are more GPUs than displays then at least 1 of these GPUs is considered to be "offline". Offline GPUs typically do not participate in hardware renderer selection, as this hardware has no means of displaying content, yet it is still sometimes useful to be able to take advantage of this hardware. On the other hand, the default behavior of OpenGL is designed to ensure that rendering typically occurs on GPUs that are capable of displaying that content. This document describes what you need to do to both take advantage of offline GPUs and ensure that your final rendering always occurs to an online GPU.</p><p>In order to do this, you must inform the OpenGL implementation that your application understands how to work correctly with both online and offline GPUs (described in <span class="content_text"><!--a  -->Enabling usage of offline renderers<!--/a--></span>). Once you've informed the implementation of this, then you need to arrange to receive notifications of GPU status changes (see <span class="content_text"><!--a  -->Detecting Renderer Changes<!--/a--></span>). When GPU status changes occur, you need to re-query the renderer capabilities in order to ensure that your rendering continues correctly, as the online renderer you wish to draw to may have changed. Finally, while all OpenGL objects (textures, buffer objects, etc) will retain their contents, display backing stores and PBuffers will need to be updated to ensure their contents remain valid (see <span class="content_text"><!--a  -->PBuffers vs OpenGL Textures and Buffer Objects<!--/a--></span>). </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40008924-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Apple recommends for best performance and convenience that your application always use Framebuffer Objects in preference to PBuffers.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008924-CH1-SECTION2" title="Enabling usage of offline renderers"></a><h2 class="jump">Enabling usage of offline renderers</h2><p>Any Macintosh system configuration that includes more GPUs than displays will have both online and offline GPUs. Online GPUs are those that are connected to a display (such as an LCD panel or projector) while offline GPUs are those that have no such output hardware attached. One example of this is a Mac Pro configured with 2 video cards, but with displays only connected to one of those cards.</p><p>In these configurations you may wish to take advantage of the hardware that is not connected to a display, or to be able to start rendering on this hardware should a display be connected at a future date without having to reconfigure and reupload all of your OpenGL content. In order to enable this behavior you must add the appropriate attribute to your pixel format. For <code>NSOpenGL</code> you add <code>NSOpenGLPFAAllowOfflineRenderers</code>, for <code>CGL</code> add <code>kCGLPFAAllowOfflineRenderers</code> and for <code>AGL</code> add <code>AGL_ALLOW_OFFLINE_RENDERERS</code> to the attribute list you use to create your pixel format. To support Mac OS X 10.4 or earlier, you will need to remove this attribute from your attribute list, as otherwise pixel format creation will fail. Examples using <code>NSOpenGL</code> (<span class="content_text"><!--a  -->Listing 1<!--/a--></span>), <code>CGL</code> (<span class="content_text"><!--a  -->Listing 2<!--/a--></span>) and <code>AGL</code> (<span class="content_text"><!--a  -->Listing 3<!--/a--></span>) follow.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40008924-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;Instead of checking for an error when creating your OpenGL Context, you can instead check that the version of Mac OS X that your application is running on is at least Mac OS X 10.5. Additionally if you cannot use the Mac OS X 10.5 (or later) SDK then you will need to define the Allow Offline Renderer attribute yourself with a value of 96. </p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40008924-CH1-SOURCECODE1" title="Listing 1Creating an offline renderer aware Pixel Format with NSOpenGL."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Creating an offline renderer aware Pixel Format with <code>NSOpenGL</code>.</p><div class="codesample clear"><table><tr><td scope="row"><pre>NSOpenGLPixelFormatAttribute attribs[] =
+{
+    NSOpenGLPFAColorSize, 24,
+    NSOpenGLPFADoubleBuffer,
+    NSOpenGLPFAAllowOfflineRenderers, // lets OpenGL know this context is offline renderer aware
+    (NSOpenGLPixelFormatAttribute)0
+};
+pixFmt = [[NSOpenGLPixelFormat alloc] initWithAttributes:attribs];
+
+#if MAC_OS_X_VERSION_MIN_REQUIRED &lt; MAC_OS_X_VERSION_10_5
+if(pixFmt == nil)
+{
+    // NSOpenGLPFAAllowOfflineRenderers is not supported on this OS version
+    attribs[3] = (NSOpenGLPixelFormatAttribute)0;
+    pixFmt = [[NSOpenGLPixelFormat alloc] initWithAttributes:attribs];
+}
+#endif<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40008924-CH1-SOURCECODE2" title="Listing 2Creating an offline renderer aware Pixel Format with CGL."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Creating an offline renderer aware Pixel Format with <code>CGL</code>.</p><div class="codesample clear"><table><tr><td scope="row"><pre>CGLPixelFormatAttribute attribs[] =
+{
+    kCGLPFAColorBits, 24,
+    kCGLPFADoubleBuffer,
+    kCGLPFAAllowOfflineRenderers, // lets OpenGL know this context is offline renderer aware
+    (CGLPixelFormatAttribute)0
+};
+CGLPixelFormatObj pixelFormatObj;
+GLint numPixelFormats;
+CGLError err;
+
+err = CGLChoosePixelFormat(attribs, &amp;pixelFormatObj, &amp;numPixelFormats);
+
+#if MAC_OS_X_VERSION_MIN_REQUIRED &lt; MAC_OS_X_VERSION_10_5
+if(err == kCGLBadAttribute)
+{
+    // kCGLPFAAllowOfflineRenderers is not supported on this OS version
+    attribs[3] = (CGLPixelFormatAttribute)0;
+    err = CGLChoosePixelFormat(attribs, &amp;pixelFormatObj, &amp;numPixelFormats);
+}
+#endif<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40008924-CH1-SOURCECODE3" title="Listing 3Creating an offline renderer aware Pixel Format with AGL."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Creating an offline renderer aware Pixel Format with <code>AGL</code>.</p><div class="codesample clear"><table><tr><td scope="row"><pre>GLint attribs[] =
+{
+    AGL_COLOR_BITS, 24,
+    AGL_DOUBLE_BUFFER,
+    AGL_ALLOW_OFFLINE_RENDERERS, // lets OpenGL know this context is offline renderer aware
+    AGL_NONE
+};
+AGLPixelFormat pixelFormatObj = aglChoosePixelFormat(NULL, 0, attribs);
+GLenum err = aglGetError();
+
+#if MAC_OS_X_VERSION_MIN_REQUIRED &lt; MAC_OS_X_VERSION_10_5
+if(err == AGL_BAD_ATTRIBUTE || pixelFormatObj == NULL)
+{
+    // AGL_ALLOW_OFFLINE_RENDERERS is not supported on this OS version
+    attribs[3] = AGL_NONE;
+    pixelFormatObj = aglChoosePixelFormat(NULL, 0, attribs);
+}
+#endif<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS40008924-CH1-SUBSECTION2" title="Using CGLQueryRendererInfo"></a><h3 class="jump">Using CGLQueryRendererInfo</h3><p>If your application links against the Mac OS X 10.4u SDK, then <code>CGLQueryRendererInfo</code>() won't return information about offline renderers, even when running on Mac OS X 10.5 or later. Apple recommends that you link against the Mac OS X 10.5 (or later) SDK and use the appropriate deployment target if your software needs to operate on 10.4 or earlier. If this is not possible then please contact <span class="content_text"><a href="mailto:dts@apple.com" class="urlLink" rel="external">dts@apple.com</a></span>for assistance.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008924-CH1-SECTION4" title="Detecting Renderer Changes"></a><h2 class="jump">Detecting Renderer Changes</h2><p>Once your OpenGL context is configured to allow the hardware renderer to change, you will need to detect these changes by responding to Quartz Display Notifications (if you are not using <code>NSOpenGLView</code>) or by overriding <code>-update</code> (if you are using an <code>NSOpenGLView</code> subclass) in order to properly detect functionality changes. If you do not, then your OpenGL drawing may fail in various potentially catastrophic ways. Whenever the virtual screen changes, the capabilities of the video card you are currently rendering to can change, so you must re-query those capabilities and adjust your drawing paths as necessary to support the newly active GPU.</p><section><a name="//apple_ref/doc/uid/DTS40008924-CH1-SUBSECTION4" title="Registering for Display Change notifications using Quartz Display Services"></a><h3 class="jump">Registering for Display Change notifications using Quartz Display Services</h3><p>Using Quartz Display Services is appropriate if your application is not based on <code>NSOpenGLView</code>, regardless of if your application is windowed or fullscreen. You can register for display change notifications using <code>CGDisplayRegisterReconfigurationCallback</code> and request to stop receiving such notifications with <code>CGDisplayRemoveReconfigurationCallback</code>. <span class="content_text"><!--a  -->Listing 4<!--/a--></span> demonstrates how to register for these notifications.</p><a name="//apple_ref/doc/uid/DTS40008924-CH1-SOURCECODE4" title="Listing 4Detecting virtual screen changes with Quartz Display Services."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Detecting virtual screen changes with Quartz Display Services.</p><div class="codesample clear"><table><tr><td scope="row"><pre>void MyDisplayReconfigurationCallBack(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo);
+
+// When the application has finished launching,
+// this message is sent to the Application Delegate
+// We use it to register for display reconfiguration notices.
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+    CGDisplayRegisterReconfigurationCallback(MyDisplayReconfigurationCallBack, self);
+}
+
+// Before the application terminates we'll remove our registration callback.
+// This isn't strictly necessary, but we demonstrate this here in case you have
+// more complex logic for removing the configuration callback
+// (for example, you might remove the callback when you have no windows open).
+- (void)applicationWillTerminate:(NSNotification *)aNotification
+{
+    CGDisplayRemoveReconfigurationCallback(MyDisplayReconfigurationCallBack, self);
+}
+
+// When displays are reconfigured our callback will be called. You can take this opportunity
+// to do further processing or pass the notification on to an object for further handling.
+// In this example we've passed 'self' for the userInfo pointer,
+// so you can cast it to an appropriate object type and forward the message onwards.
+void MyDisplayReconfigurationCallBack(
+    CGDirectDisplayID display,
+    CGDisplayChangeSummaryFlags flags,
+    void *userInfo)
+{
+    if (flags &amp; kCGDisplaySetModeFlag)
+    {
+        // Display has been reconfigured.
+        // Adapt to any changes in capabilities
+        // (such as max texture size, extensions and hardware capabilities such as the amount of VRAM).
+    }
+}<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40008924-CH1-SUBSECTION5" title="Using NSOpenGLView"></a><h3 class="jump">Using NSOpenGLView</h3><p>If you are using <code>NSOpenGLView</code> it automatically registers for notification of changes to the display configuration for you and calls its own <code>-update</code> method in response to those changes. You can then override <code>-update</code> to provide additional handling as shown in <span class="content_text"><!--a  -->Listing 5<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS40008924-CH1-SOURCECODE5" title="Listing 5Detecting virtual screen changes with an NSOpenGLView."></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Detecting virtual screen changes with an <code>NSOpenGLView</code>.</p><div class="codesample clear"><table><tr><td scope="row"><pre>-(void) update
+{
+    [super update];
+    GLint newVirtualScreen = [[self openGLContext] currentVirtualScreen];
+    if (currentVirtualScreen != newVirtualScreen)
+    {
+        currentVirtualScreen = newVirtualScreen;
+        // Adapt to any changes in capabilities
+        // (such as max texture size and hardware capabilities).
+    }
+}<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008924-CH1-SECTION7" title="PBuffers vs OpenGL Textures and Buffer Objects"></a><h2 class="jump">PBuffers vs OpenGL Textures and Buffer Objects</h2><p>It is highly recommended that you use Framebuffer Objects over PBuffers whenever possible. If you must work with PBuffers you need to ensure that the virtual screen of the PBuffer uses the same device of the context that you wish to draw its contents into. When the virtual screen of a PBuffer changes, its conents will be lost, so you need to update the PBuffer's contents at that time. Examples for <code>AGL</code> (<span class="content_text"><!--a  -->Listing 6<!--/a--></span>) and <code>CGL</code> (<span class="content_text"><!--a  -->Listing 7<!--/a--></span>) follow.</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40008924-CH1-DontLinkElementID_5" title="Warning"></a><p><strong>Warning:</strong>&nbsp;An OpenGL context will not have had a virtual screen assigned to it until after you've shaped the context at least once, as these processes cause the context to be assigned to a device. Checking for the virtual screen of a context before it is assigned to a device will not produce a meaningful result.</p><p></p><div class="clear"></div></aside></div><a name="//apple_ref/doc/uid/DTS40008924-CH1-SOURCECODE6" title="Listing 6Updating a PBuffer with AGL."></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;Updating a PBuffer with <code>AGL</code>.</p><div class="codesample clear"><table><tr><td scope="row"><pre>void MyAGLPBufferDraw(
+    AGLContext targetCtx,
+    AGLContext pbufferCtx,
+    AGLPbuffer pbuffer,
+    GLint *pbVS)
+{
+    // make PBuffer context current (as we are drawing into the PBuffer with it)
+    GLboolean success = aglSetCurrentContext(pbufferCtx);
+
+    GLint targetVS = aglGetVirtualScreen(targetCtx);
+    if(*pbVS != targetVS)
+    {
+        *pbVS = targetVS;
+        success = aglSetPBuffer(pbufferCtx, pbuffer, 0, 0, targetVS);
+
+        // re-query capabilities, including VRAM, if needed
+        // rebuild assets only as needed such as with max texture size shrinking
+        // set any state needed to make next draw use proper rendering paths
+    }
+
+    // ...
+    // Do drawing into PBuffer here
+    // ...
+
+    // make available to the target context - use glFlushRenderAPPLE for single buffered contexts
+    glFlushRenderAPPLE(); 
+
+    aglSetCurrentContext(NULL); // ensure we are not still drawing to PBuffer
+}<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40008924-CH1-SOURCECODE7" title="Listing 7Updating a PBuffer with CGL."></a><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;Updating a PBuffer with <code>CGL</code>.</p><div class="codesample clear"><table><tr><td scope="row"><pre>void MyCGLPBufferDraw(
+    CGLContext targetCtx,
+    CGLContext pbufferCtx,
+    CGLPBufferObj pbuffer,
+    GLint *pbVS)
+{
+    CGLError err;
+
+    // make PBuffer context current (as we are drawing into the PBuffer with it)
+    err = CGLSetCurrentContext(pbufferCtx);
+
+    GLint targetVS;
+    err = CGLGetVirtualScreen(targetCtx, &amp;targetVS);
+    if(*pbVS != targetVS)
+    {
+        *pbVS = targetVS;
+        err = CGLSetPBuffer(pbufferCtx, pbuffer, 0, 0, targetVS);
+
+        // re-query capabilities, including VRAM, if needed
+        // rebuild assets only as needed such as with max texture size shrinking
+        // set any state needed to make next draw use proper rendering paths
+    }
+
+    // ...
+    // Do drawing into PBuffer here
+    // ...
+
+    // make available to the target context - use glFlushRenderAPPLE for single buffered contexts
+    glFlushRenderAPPLE(); 
+
+    CGLSetCurrentContext(NULL); // ensure we are not still drawing to PBuffer
+}<span></span></pre></td></tr></table></div><section><a name="//apple_ref/doc/uid/DTS40008924-CH1-SUBSECTION7" title="Choosing the correct renderer for a PBuffer"></a><h3 class="jump">Choosing the correct renderer for a PBuffer</h3><p>If you have a PBuffer whose contents are never displayed via OpenGL (such as might be the case if you use a PBuffer for GPGPU work) then you will need to determine a device for the PBuffer based on some onscreen element. Assuming that you don't have any onscreen OpenGL contexts that you can use for this assignment, the simplest way to do so is to use a pixel format attribute to assign the PBuffer to a device capable of rendering to the main screen. See <span class="content_text"><!--a  -->Listing 8<!--/a--></span></p><a name="//apple_ref/doc/uid/DTS40008924-CH1-SOURCECODE8" title="Listing 8Determining a virtual screen from an NSWindow"></a><p class="codesample clear"><strong class="caption_number">Listing 8</strong>&nbsp;&nbsp;Determining a virtual screen from an NSWindow</p><div class="codesample clear"><table><tr><td scope="row"><pre>NSOpenGLPixelFormat *CreatePixelFormat()
+{
+    // Create pixel format
+    NSOpenGLPixelFormatAttribute attributes[] =
+    {
+        NSOpenGLPFADoubleBuffer,
+        NSOpenGLPFANoRecovery,
+        NSOpenGLPFAAccelerated,
+        // If this attribute is used on an OS that doesn't understand it
+        // then pixel format creation will fail. You can use one of the
+        // techniques described above to verify if the
+        // NSOpenGLPFAAllowOfflineRenderers pixel format attribute
+        // is supported.
+        NSOpenGLPFAAllowOfflineRenderers,
+        (NSOpenGLPixelFormatAttribute)0,
+    };
+    return [[NSOpenGLPixelFormat alloc] initWithAttributes:attributes];
+}
+
+GLint VirtualScreenForWindow(NSWindow *window)
+{
+    // If we're passed nil, then use the menu bar screen.
+    NSScreen *screen = (window != nil) ? [window screen] : [[NSScreen screens] objectAtIndex:0];
+
+    CGDirectDisplayID displayID = (CGDirectDisplayID)[[[screen deviceDescription]
+        objectForKey:@"NSScreenNumber"] unsignedIntValue];
+    if (displayID == 0)
+    {
+        // This is an error case because NSScreen does not have the necessary key.
+        // This should never happen.
+        return -1; // Error case
+    }
+
+    CGOpenGLDisplayMask currentDisplaymask = CGDisplayIDToOpenGLDisplayMask(displayID);
+    if(currentDisplaymask == 0)
+    {
+        // The display ID is unknown and not mappable to an OpenGL context
+        // This should never happen.
+        return -1; // Error case
+    }
+
+    // create pixel format
+    NSOpenGLPixelFormat *pixelFormat = CreatePixelFormat();
+
+    // find virtual screen
+    GLint virtualScreen = 0;
+    GLint numberOfVirtualScreen = [pixelFormat numberOfVirtualScreens];
+    GLint i;
+    for(i = 0; i &lt; numberOfVirtualScreen; i++)
+    {
+        GLint mask;
+        [pixelFormat getValues:&amp;mask
+            forAttribute:NSOpenGLPFAScreenMask forVirtualScreen:i];
+        if(mask &amp; currentDisplaymask)
+        {
+            virtualScreen = i;
+            break;
+        }
+    }
+    [pixelFormat release];
+
+    return virtualScreen;
+}<span></span></pre></td></tr></table></div></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40008924-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40008924-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2009-06-05</td><td><p>New document that 
+					describes what you need to know to take maximum advantage of multiple GPU configurations.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-06-05</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

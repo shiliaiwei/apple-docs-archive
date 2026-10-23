@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+  <title>Kernel Extensions Release Notes</title>
+
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/release-notes-1.6.3.css" />
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback-1.6.3.css" />
+  <meta charset='utf-8'> 
+<meta id="j-version" name="j-version" content="" />
+<meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+<meta id="document-version" name="document-version" content="4.1.0" />
+<meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Technologies/Kernel &amp; Driver Layer/Kernel}, {Topic/Drivers, Kernel, &amp; Hardware/General Kernel Extensions}" />
+<meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40001023" />
+<meta id="chapterId" name="chapterId" content="TP40001023-CH1">
+<meta id="book-title" name="book-title" content="Kernel Extensions Release Notes" />
+<meta id="book-resource-type" name="book-resource-type" content="Release Note" />
+<meta id="book-root" name="book-root" content="./" />
+<meta id="book-json" name="book-json" content="book.json">
+<meta id="date" name="date" content="2009-04-28" />
+<meta id="description" name="description" content="" />
+<meta id="IndexTitle" name="IndexTitle" content="" />
+<meta id="resources-uri" name="resources-uri" content="../../../Resources/1282">
+<link id="book-index-page" rel="Start" title="" type="text/html" href="./index.html">
+<!-- , next_chapter: next_chapter, previous_chapter: previous_chapter -->
+<link id="next-page" rel="Next" type="text/html" href="">
+<link id="previous-page" rel="Prev" type="text/html" href="">
+<meta id="devcenter" name="devcenter" content="<!-- DEVCENTER_NAME -->" />
+<meta id="devcenter-url" name="devcenter-url" content="<!-- DEVCENTER_URL -->" />
+<meta id="reflib" name="reflib" content="<!-- REFLIB_NAME -->" />
+
+<meta id="xcode-display" name="xcode-display" content="render" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta id="platforms" name="platforms" content="OS X">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta id="platforms" name="platforms" content="OS X">
+</head>
+
+  <body class="release-notes">
+    <a name="//apple_ref/doc/uid/TP40001023" title="Kernel Extensions Release Notes"></a>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+    <div id='ssi_Header' class="hideInXcode <!-- library -->">
+        <a id="ssi_LibraryTitle" href="../../../navigation/">Documentation Archive
+      </a>
+        <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+        <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+    </div>
+    <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+        <label for='adcsearch'>Search Documentation Archive</label>
+        <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+    </form>
+</div>
+ 
+<header id="header">
+    <div id="title" role="banner">
+        <h1>Kernel Extensions Release Notes</h1>
+        <span id="file_links">
+            <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+            <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+        </span>
+    </div>
+    <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+        <li id="toc_button" style="display:none">
+            <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+        </li>
+        <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top"><<Jump To&#133;>></option></select></li>
+        <li id="downloadSample_button" style="display:none">
+            <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+        </li>
+    </ul>
+</header>
+<nav id="tocContainer" tabindex="7">
+    <ul id="toc" role="tree"></ul>
+</nav>
+<article id="contents" class="chapter" role="main">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1"></a><a name="//apple_ref/doc/uid/TP40001023-CH1-SW1"></a>
+  <h1>Kernel, Kernel Extensions, and I/O Kit Release Notes for OS X Snow Leopard</h1>
+
+	<section class="intro section">
+  <p class="para">
+  OS X Snow Leopard features a 64-bit kernel and a rewritten infrastructure for kernel extensions (kexts), with enhancements covering many aspects of kext development, from the linker up to the command-line tools. The underlying kext architecture has been thoroughly redesigned for better performance and flexibility, as well as support for 64-bit kexts. In the process of updating the kernel and kext environment, however, changes had to be made to the kernel programming interfaces, which may require some porting work for 32-bit kexts as well as 64-bit kexts.
+</p><p class="para">
+  <strong>Important:</strong> There are no guarantees of binary or run-time compatibility between seeds. Be sure to rebuild all of your Snow Leopard kexts on this seed before loading them.
+</p>
+</section>
+
+  <section class="table-of-contents">
+  <h4>Contents:</h4>
+  <ul>
+      <li><a href="#//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_1">Release Notes for Late April 2009</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_2">Release Notes for April 2009</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_3">Release Notes for March 2009</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_11">Release Notes for November 2008</a></li>
+  </ul>
+</section>
+
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_1"></a>
+  <h3 class="section-name" tabindex="0">Release Notes for Late April 2009</h3>
+  <p class="para">
+  This seed corrects an issue with the prelinked kernel, in which attaching a new device would significantly delay or stall startup.
+</p><p class="para">
+  Kernel extensions with binary <code class="code-voice">Info.plist</code> files are not recognized for loading from user space on OS X Snow Leopard; all kext plists must now be XML. On prior releases, kexts with binary plists have never been recognized by the booter or kernel, but happened to be loadable from user space due to the use of the Core Foundation plist parser. This caused some loading and debugging issues with XML that the kernel/IOKit XML parser couldn’t handle, so now all kext plists are processed with the same parser in both kernel and user space.
+</p><p class="para">
+  Kext authentication now ignores <code class="code-voice">.DS_Store</code> files. <code class="code-voice">.DS_Store</code> files are not available for resource download via <code class="code-voice">OSKextRequestResource()</code>.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_2"></a>
+  <h3 class="section-name" tabindex="0">Release Notes for April 2009</h3>
+  <p class="para">
+  On OS X Snow Leopard, kernel logging output is saved to the file <code class="code-voice">/var/log/kernel.log</code> rather than <code class="code-voice">/var/log/system.log</code>. Be sure to check both log files for relevant messages when debugging kernel extensions and kernel extension loading.
+</p><p class="para">
+  <code class="code-voice">kauth_cred_self()</code> was incorrectly listed in the new KPI tables. The correct name is <code class="code-voice">kauth_cred_get()</code>. The KPI tables have been updated to reflect this.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_3"></a>
+  <h3 class="section-name" tabindex="0">Release Notes for March 2009</h3>
+  
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_4"></a>
+  <h3 class="section-name" tabindex="0">Loading Kexts from C Code; Non-Root Loading</h3>
+  <p class="para">
+  <code class="code-voice u-api"><!-- a href="" -->kextload(8)<!-- /a --></code> now sends an RPC load request to <code class="code-voice u-api"><!-- a href="" -->kextd(8)<!-- /a --></code>. You can load kexts from C code using these RPCs as well. Check out <code class="code-voice">&lt;IOKit/kext/KextManager.h&gt;</code> for <code class="code-voice">KextManagerLoadKextWithIdentifier()</code> and <code class="code-voice">KextManagerLoadKextWithURL()</code>.
+</p><p class="para">
+  Further, <code class="code-voice u-api"><!-- a href="" -->kextload(8)<!-- /a --></code> and these RPCs can be invoked as a non-root user for kexts:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  That define a boolean <code class="code-voice">OSBundleAllowUserLoad</code> property with a <code class="code-voice">true</code> value. (Note that there&#39;s a typo in the man page naming <code class="code-voice">OSKextAllowUserLoad</code>.)
+</p>
+</li><li class="item"><p class="para">
+  That are installed anywhere under <code class="code-voice">/System/</code>.
+</p>
+</li><li class="item"><p class="para">
+  Whose dependencies, direct and indirect, also do both of the above. <code class="code-voice">System.kext</code> and its plugins already define <code class="code-voice">OSBundleAllowUserLoad</code>, but no families do yet—and since I/O Kit drivers are loaded by <code class="code-voice u-api"><!-- a href="" -->kextd(8)<!-- /a --></code> on demand from the kernel, it’s unlikely they will add <code class="code-voice">OSBundleAllowUserLoad</code>.
+</p>
+</li>
+</ul><p class="para">
+  Please enable non-root load for your kexts with some care and only if necessary for addressing security issues (such as avoiding a setuid binary on the system).
+</p><p class="para">
+  <code class="code-voice u-api"><!-- a href="" -->kextunload(8)<!-- /a --></code> and <code class="code-voice u-api"><!-- a href="" -->kextutil(8)<!-- /a --></code> still have to be run as root, for security concerns and because they communicate directly with the kernel.
+</p>
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_5"></a>
+  <h3 class="section-name" tabindex="0">Autounload for BSD Kexts</h3>
+  <p class="para">
+  BSD kexts can now enable and manage autounload for themselves via reference counting; see the Kernel framework’s <code class="code-voice">&lt;libkern/OSKextLib.h&gt;</code> for the functions <code class="code-voice">OSKextRetainKextWithLoadTag()</code> and <code class="code-voice">OSKextReleaseKextWithLoadTag()</code>. For example, if you have a filesystem kext, it can retain itself on each mount, and release itself on each unmount.
+</p><p class="para">
+  As noted elsewhere, BSD kexts can now safely use Libkern C++ classes without inadvertently triggering autounload (as has been the case on every prior release of OS X). Autounload used to be enabled on load for any kext that defined a subclass of OSObject; it is now enabled only when a kext defines a subclass of IOService. If you do define any IOService subclasses, your kext is still subject to autounload; you should either make sure an instance of one of those subclasses exists, or use the kext retain/release mechanism, as appropriate.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_6"></a>
+  <h3 class="section-name" tabindex="0">Resource File Downloads</h3>
+  <p class="para">
+  Brand new in this seed is a built-in facility for kexts to get resource files from their bundles while running in the kernel. See &lt;libkern/OSKextLib.h&gt; for <code class="code-voice">OSKextRequestResource()</code> and related functions. The intent is to allow I/O Kit drivers to get firmware blobs out of their personalities, so they don&#39;t sit around consuming wired kernel memory all the time. Note that resource downloads are performed by <code class="code-voice u-api"><!-- a href="" -->kextd(8)<!-- /a --></code>, so any requests made during early boot won&#39;t be fulfulled until <code class="code-voice u-api"><!-- a href="" -->kextd(8)<!-- /a --></code> starts.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_7"></a>
+  <h3 class="section-name" tabindex="0">Developer Loading with kextutil</h3>
+  <p class="para">
+  As detailed below <code class="code-voice u-api"><!-- a href="" -->kextload(8)<!-- /a --></code> no longer accepts development options. Use <code class="code-voice u-api"><!-- a href="" -->kextutil(8)<!-- /a --></code> for all development loading, symbol generation, and other testing.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_8"></a>
+  <h3 class="section-name" tabindex="0">Final Classes</h3>
+  <p class="para">
+  The Snow Leopard kext linker now supports final classes—classes that can&#39;t be subclassed by another kext (you can still subclass them within the same kext). To declare a class final, use the macros <code class="code-voice">OSDeclareFinalStructors()</code> and <code class="code-voice">OSDefineMetaClassAndFinalStructors()</code> from the Kernel framework’s <code class="code-voice">&lt;libkern/c++/OSMetaClass.h&gt;</code>.
+</p><p class="para">
+  Changing a class to use a final declaration breaks binary compatibility, so don&#39;t make a currently shipping library kext’s classes final if you expect other shipping kexts to link against it.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_9"></a>
+  <h3 class="section-name" tabindex="0">Kext-Related Mach Error Codes</h3>
+  <p class="para">
+  The Mach error codes for the new in-kernel kext system now have <code class="code-voice">mach_error_string</code> values set.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_10"></a>
+  <h3 class="section-name" tabindex="0">Verbose Logging in User and Kernel Space</h3>
+  <p class="para">
+  The kext logging engine has been completey redone, so kext tool output is hopefully less crammed with irrelevant message, but they do print to the terminal information that was normally only logged from the kernel direct to the console. This, combined with the new <code class="code-voice">mach_error_string</code> values, should make failure causes within the kernel more apparent.
+</p><p class="para">
+  The kext tools now don&#39;t log anything by default if the operation succeeds. Using <code class="code-voice">-v</code> turns on additional logging, but log messages about particular kexts are only printed if the kext itself has an <code class="code-voice">OSBundleEnableKextLogging</code> property (see below on overriding). The <code class="code-voice">-v</code> levels have been adjusted somewhat, but each still includes every previous level:
+</p><ul class="list-simple">
+  <li class="item"><p class="para">
+  0: Errors only (= 0xff1 below)
+</p>
+</li><li class="item"><p class="para">
+  - (<code class="code-voice">-v</code> not specified): The default level includes warnings and errors (= 0xff2 below)
+</p>
+</li><li class="item"><p class="para">
+  1: Basic outcome (= 0xff3 below)
+</p>
+</li><li class="item"><p class="para">
+  2: Operation progress (= 0xff4 below)
+</p>
+</li><li class="item"><p class="para">
+  3: Individual steps (typically each kext) (= 0xff5 below)
+</p>
+</li><li class="item"><p class="para">
+  4: Details (= 0xff6 below)
+</p>
+</li><li class="item"><p class="para">
+  5: Debug info (= 0xff7 below)
+</p>
+</li><li class="item"><p class="para">
+  6: Debug info for all kexts (regardless of OSBundleEnableKextLogging) (= 0xfff below)
+</p>
+</li>
+</ul><p class="para">
+  You can also specify logging to very fine detail using a 32-bit hexadecimal logging specification. In short, the bottom nibble, the last hex digit from 0–7, is the (internal) log level, which is generally 2 greater than the equivalent nonzero <code class="code-voice">-v</code> level from the list above. Setting the high bit of this nibble causes messages for all kexts to be logged as appropriate for the level, regardless of <code class="code-voice">OSBundleEnableKextLogging</code>. All bits above the bottom nibble are flags for various kinds of activity. The bottom 2 nibbles of the flags are for typical developer-relevant things like load operations, IPC, and archive creation/processing. The higher-order nibbles are for operations more relevent to the internals of the kext library. To see completely verbose logging, try <code class="code-voice">-v 0xffffffff</code>.
+</p><p class="para">
+  You can set logging for the kernel as well using the kextlog boot-arg/sysctl and the hexadecimal spec. These commands turn on kernel kext logging for the next restart, or immediately:
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>sudo nvram boot-args=&quot;-v kextlog=0xff4&quot;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>sudo sysctl -w debug.kextlog=0xff4</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section>
+  
+</section>
+
+</section>
+
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_11"></a>
+  <h3 class="section-name" tabindex="0">Release Notes for November 2008</h3>
+  
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_12"></a>
+  <h3 class="section-name" tabindex="0">64-Bit Kernel and Kernel Extensions</h3>
+  <p class="para">
+  The early 2008 models of the Mac Pro, 20&quot; and 24&quot; iMac, 15&quot; and 17&quot; MacBook Pro, and Xserve can be used for 64-bit kernel development. Audio and AirPort are now enabled on these testing conﬁgurations. In Snow Leopard, the 64-bit kernel is used by default on Xserve. Mac Pro and MacBook Pro systems can be booted into the 64-bit kernel in one of two ways:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  Temporarily boot into the 64-bit kernel by holding down &quot;6&quot; and &quot;4&quot; while powering on the machine.
+</p>
+</li><li class="item"><p class="para">
+  Run <code class="code-voice">sudo nvram boot-args=&quot;arch=x86_64&quot;</code> to set the 64-bit kernel as your default kernel, and append any other debugging ﬂags you may need, such as <code class="code-voice">debug=0x144</code>. To revert back to the 32-bit kernel as the default, you can run <code class="code-voice">sudo nvram -d boot-args</code> to clear the boot args, or set <code class="code-voice">boot-args</code> without <code class="code-voice">arch=x86_64</code>.
+</p>
+</li>
+</ul><p class="para">
+  This seed contains the necessary support for porting kexts to 64-bit, and developers are strongly encouraged to do so.
+</p><p class="para">
+  Known Limitations in the 64-bit kernel:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  Shark does not work on the 64-bit kernel. 
+</p>
+</li><li class="item"><p class="para">
+  Sleep/wake and power management are not currently supported. It is recommend that you disable sleep in System Preferences.
+</p>
+</li><li class="item"><p class="para">
+  Graphics acceleration is not yet supported which may cause programs which require graphics acceleration to run incorrectly.
+</p>
+</li><li class="item"><p class="para">
+  Some behavior which was previously unsupported, such as modifying an OSCollection while enumerating it, and attempting to modify a kext&#39;s __TEXT segment, now results in diagnostic kernel panics.
+</p>
+</li>
+</ul>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_13"></a>
+  <h3 class="section-name" tabindex="0">Changes to Kernel Extensions &amp; Tools</h3>
+  
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_14"></a>
+  <h3 class="section-name" tabindex="0">Changes to Kext Tools</h3>
+  <p class="para">
+  Most kext tools have been rewritten on OS X Snow Leopard with support for long options, improved logging, and various other enhancements. The major changes to the tools are the deprecation of <code class="code-voice u-api"><!-- a href="" -->kextload(8)<!-- /a --></code> as a developer tool and support for cross-architecture work on kexts.
+</p><p class="para">
+  The <code class="code-voice u-api"><!-- a href="" -->kextload(8)<!-- /a --></code> tool has been reduced to the essential functionality required for production loading of kernel extensions. A new tool, <code class="code-voice u-api"><!-- a href="" -->kextutil(8)<!-- /a --></code>, now handles developer functionality. As of this seed, <code class="code-voice">kextload</code> no longer accepts developer options and supports only <code class="code-voice">-b</code>, <code class="code-voice">-d</code>, <code class="code-voice">-h</code>, <code class="code-voice">-q</code>, <code class="code-voice">-r</code>, <code class="code-voice">-v</code>, and their long equivalents; <code class="code-voice">-c</code>, <code class="code-voice">-D</code>, and <code class="code-voice">-t</code> will be accepted but ignored. See the man pages for details.
+</p><p class="para">
+  <code class="code-voice u-api"><!-- a href="" -->kextutil(8)<!-- /a --></code> features a <code class="code-voice">-arch</code> flag to generate symbols for an architecture other than that of the running kernel, enabling cross-architecture debugging of kexts. Mach-O layout should automatically work when generating symbols for Leopard and earlier releases.
+</p><p class="para">
+  Snow Leopard uses new versions of the mkext and prelinked kernel files, which are not recognized by earlier releases of OS X. Earlier releases will not be able to update Boot≠Root volumes with Snow Leopard installed, but Snow Leopard can update Boot≠Root volumes with earlier releases. <code class="code-voice u-api"><!-- a href="" -->kextcache<!-- /a --></code> includes new options to generate mkext files in both old and new formats, and like <code class="code-voice">kextutil</code> now features a <code class="code-voice">-arch</code> flag; it no longer generates old-format prelinked kernels.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_15"></a>
+  <h3 class="section-name" tabindex="0">Debugging Kernel Extensions</h3>
+  <p class="para">
+  The general procedure for debugging kernel extensions remains the same as on OS X Leopard. Here are the notable differences:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  Use the Snow Leopard version of <code class="code-voice">gdb</code> to debug Snow Leopard kexts.
+</p>
+</li><li class="item"><p class="para">
+  Use <code class="code-voice u-api"><!-- a href="" -->kextutil(8)<!-- /a --></code> to generate debug symbols.
+</p>
+</li><li class="item"><p class="para">
+  Always specify the architecture explicitly via the <code class="code-voice">-arch</code> flag when generating symbols or starting the debugger. This is particularly important for <code class="code-voice">gdb</code>, as it uses the <code class="code-voice">x86_64</code> architecture by default.
+</p>
+</li>
+</ul><p class="para">
+  For example, if you want to generate 64-bit symbols for AppleFWOHCI.kext, and have installed the Kernel Debug Kit, you might use this command (all one line):
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>kextutil -n -z -e -r /Volumes/KernelDebugKit -k /Volumes/KernelDebugKit/mach_kernel -arch x86_64 \</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    -a com.apple.driver.AppleFWOHCI@0xffffff7f80830000 -a com.apple.iokit.IOPCIFamily@0xffffff7f80604000 \</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    -a com.apple.iokit.IOFireWireFamily@0xffffff7f807e6000 -s /tmp/syms -- /tmp/syms/AppleFWOHCI.kext</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  The options used are:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  <code class="code-voice">-n</code> — Don’t load into the kernel.
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">-z</code> — Don’t authenticate extensions (no longer needed on Snow Leopard when using <code class="code-voice">-n</code>, but necessary on older releases)
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">-e</code> — Don’t look in <code class="code-voice">/System/Library/Extensions</code> for dependencies or bundle identifiers
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">-r</code> — Look in <code class="code-voice">/Volumes/KernelDebugKit</code> for dependencies and bundle identifiers
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">-arch</code> — Use executables for the named architecture
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">-a</code> — Link as if the kext with the named identifier is loaded at the given address
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">-s</code> — Save symbol files to this directory
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">---</code> — End of options; everything after this is a kext name
+</p>
+</li>
+</ul><p class="para">
+  In your <code class="code-voice">gdb</code> session, you use the add-kext command like so:
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>(gdb) add-kext /tmp/syms/AppleFWOHCI.kext</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  In addition, FireWire debugging is now built in to the system. To use FireWire debugging:
+</p><ol class="list-number">
+  <li class="item"><p class="para">
+  Enable FireWire kdp on the target machine in <code class="code-voice">boot-args</code>. For example: <code class="code-voice">sudo nvram boot-args=&quot;debug=0x146 kdp_match_name=firewire&quot;</code>.
+</p>
+</li><li class="item"><p class="para">
+  Restart the machine.
+</p>
+</li><li class="item"><p class="para">
+  On the host machine, run the <code class="code-voice">fwkdp</code> command.
+</p>
+</li><li class="item"><p class="para">
+  In a second terminal window, run gdb on the appropriate kernel file and attach; for example:
+</p>
+<section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>gdb -arch x86_64 /Volumes/KernelDebugKit/mach_kernel</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>source /Volumes/KernelDebugKit/kgmacros</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>kdp-reattach localhost</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section></li>
+</ol><p class="para">
+  Note that with kdp you always attach to <code class="code-voice">localhost</code> and not the actual hostname of the target; <code class="code-voice">fwkdp</code> forwards the <code class="code-voice">gdb</code> packets between the host and the target.
+</p><p class="para">
+  For more information on FireWire debugging, consult the <code class="code-voice u-api"><!-- a href="" -->fwkpfv<!-- /a --></code> and <code class="code-voice u-api"><!-- a href="" -->fwkdp(1)<!-- /a --></code> man pages.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_16"></a>
+  <h3 class="section-name" tabindex="0">64-Bit Kernel Extensions</h3>
+  <p class="para">
+  OS X Snow Leopard introduces a 64-bit kernel and support for writing 64-bit kernel extensions. The major change that affects 64-bit kexts is that the <code class="code-voice">com.apple.kernel*</code> libraries are not available; 64-bit kexts must use <code class="code-voice">com.apple.kpi.*</code>. Private KPI has been moved from the <code class="code-voice">com.apple.kpi.unsupported</code> kext to <code class="code-voice">com.apple.kpi.private</code>; third-party kexts should not use this KPI, as it will become unavailable for linkage by the final release of Snow Leopard.
+</p><p class="para">
+  64-bit kexts have a new Mach-O filetype (KEXTBUNDLE rather than OBJECT, as reported by <code class="code-voice u-api"><!-- a href="" -->otool<!-- /a --></code>).
+</p><p class="para">
+  See later in this document for information on porting kexts the 64-bit kernel environment.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_17"></a>
+  <h3 class="section-name" tabindex="0">Installing Kernel Extensions</h3>
+  <p class="para">
+  OS X Snow Leopard requires all directories and files within a kext bundle, except for the contents of the PlugIns folder (which technically contains distinct bundles that need not be kexts), to be owned by root:wheel and not to be writable by group or other. On prior releases this is the documented behavior, but the actual behavior has been to check only the bundle’s Info.plist and executable file and the directory nodes between them and the kext bundle itself. Installers that include resources or other files with different ownership or permissions should be updated to ensure correct protections on all component directories and files of kext bundles.
+</p><p class="para">
+  The recommended way to update kext caches following installation or update is still to update the modification time of <code class="code-voice">/System/Library/Extensions/</code> and then send a SIGHUP to kextd (both as the superuser):
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>touch /System/Library/Extensions</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>/bin/kill -1 `ps -ax | awk &#39;{print $1&quot; &quot;$5}&#39; | grep kextd | awk &#39;{print $1}&#39;`</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  On Leopard and Snow Leopard, the SIGHUP is optional. When <code class="code-voice">/System/Library/Extensions/</code> is touched, all kext caches except for the prelinked kernel are updated automatically after a short delay; the prelinked kernel is updated after the next restart. For more information, particularly with regard to installing on older releases of OS X, see <a href="http://developer.apple.com/qa/qa2001/qa1319.html">Technical Q&amp;A QA1319: Installing an I/O Kit KEXT Without Rebooting</a>.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_18"></a>
+  <h3 class="section-name" tabindex="0">Architecture-Specific Properties</h3>
+  <p class="para">
+  On OS X Snow Leopard, when the kext management stack looks up a top-level kext bundle property, it checks first for the property name corresponding to the current architecture. Such a property name adds to the basic name an underscore followed by the architecture name; architecture-specific values for <code class="code-voice">OSBundleLibraries</code>, for example, can be set as <code class="code-voice">OSBundleLibraries_i386</code> and <code class="code-voice">OSBundleLibraries_x86_64</code>. (Note that the architecture name corresponds to the cputype only and never the cpusubtype.) By defining architecture-specific properties you can specify different sets of libraries to use when loading on different architectures, with different versions if necessary, via <code class="code-voice">OSBundleLibraries</code>; different I/O Kit personalities to use for matching via <code class="code-voice">IOKitPersonalities</code>; and different requirements for early loading with <code class="code-voice">OSBundleRequired</code>.
+</p><p class="para">
+  If your driver is not built fully universal, it&#39;s highly recommended that you use architecture-specific personalities to prevent spurious load requests.
+</p><p class="para">
+  The architecture used is by default that of the running kernel, but many of the kext tools allow you to specify the architecture with the <code class="code-voice">-arch</code> flag, as when generating debug symbols.
+</p><p class="para">
+  Note that architecture-specific properties are a feature of the kext management stack, and not of CFBundle. Only properties defined by the kext system and I/O Kit—specifically those beginning with <code class="code-voice">OSBundle…</code>, <code class="code-voice">OSKernel…</code>, and <code class="code-voice">IO…</code>—use architecture-specific variants.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_19"></a>
+  <h3 class="section-name" tabindex="0">Mixed C/C++ Kexts</h3>
+  <p class="para">
+  OS X Snow Leopard features support for kexts that use both C and C++ code. On prior releases of OS X, making use of Libkern C++ classes in a generic (C-based) kext was a risky proposition, since the I/O Kit auto-unloading mechanism destroyed any kext referencing such classes if there were no instances of them. Apart from that, even if non-Libkern C++ was used, the stub routine invoked at unload called the kext’s static C++ destructors before the kext’s stop routine, and when the kext was auto-unloaded the stop routine wasn’t invoked at all. 
+</p><p class="para">
+  Snow Leopard corrects these issues by:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  Marking only kexts that define subclasses of IOService for auto-unload. Non-I/O Kit kexts loaded on Snow Leopard can safely use and subclass Libkern C++ classes.
+</p>
+</li><li class="item"><p class="para">
+  Altering the stub unload routine to call the kext’s stop routine first, then the kext’s static C++ destructors. <strong>Important:</strong> To gain this behavior you must build your kext to be targeted against Snow Leopard, as the stub routine is built into the kext.
+</p>
+</li><li class="item"><p class="para">
+  Always unloading a kext by calling both the stop routine and then the C++ static destructors, regardless of kext type (generic or I/O Kit).
+</p>
+</li>
+</ul>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_20"></a>
+  <h3 class="section-name" tabindex="0">Internal Changes</h3>
+  
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_21"></a>
+  <h3 class="section-name" tabindex="0">Kext Caches on Snow Leopard</h3>
+  <p class="para">
+  Kext caches on OS X Snow Leopard—including the prelinked kernel, mkext, and kext property caches—now all reside within the <code class="code-voice">/System/Library/Caches/com.apple.kext.caches/</code> folder. As mentioned above, installers and updaters need only update the modification time of <code class="code-voice">/System/Library/Extensions/</code> to ensure that the caches are rebuilt, and should make no assumptions about the locations of kext caches. 
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_22"></a>
+  <h3 class="section-name" tabindex="0">Deprecation of kmod_… Interfaces</h3>
+  <p class="para">
+  Due to significant changes to the kext loading and bookkeeping systems in the kernel, OS X Snow Leopard has removed nearly all <code class="code-voice">kmod_…</code> functions (MIG routines remain for user-space binary compatibility but most now return <code class="code-voice">KERN_UNSUPPORTED</code>). The linked list of <code class="code-voice">kmod_info</code> structs is also no longer exported. Kext start and stop routines are still passed a pointer to the kext’s <code class="code-voice">kmod_info</code> struct, but kexts should consider only the <code class="code-voice">name</code>, <code class="code-voice">version</code>, <code class="code-voice">id</code> (also known as the load tag or index), <code class="code-voice">address</code>, <code class="code-voice">size</code>, and <code class="code-voice">info_version</code> fields as valid. The remaining fields of the<code class="code-voice">kmod_info</code> struct may cease to be used by the final release of Snow Leopard or by a later release of OS X.
+</p><p class="para">
+  Please contact Developer Technical Support with any questions regarding this matter.
+</p>
+  
+</section>
+
+</section>
+
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_23"></a>
+  <h3 class="section-name" tabindex="0">Changes to Kernel Programming Interfaces (KPIs)</h3>
+  
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_24"></a>
+  <h3 class="section-name" tabindex="0">Deprecated and New KPIs</h3>
+  <p class="para">
+  This seed removes many symbols from the headers and KPIs for both 32- and 64-bit kernel extensions. In the 64-bit KPIs, we have consolidated the interfaces, removing functions with duplicate functionality and retaining the more sustainable of them. Some KPIs have minor alterations to make them more sustainable. A handful have been removed that were never in use and did not belong to the model of their subsystems.
+</p><p class="para">
+  Note that the compatible versions of 32-bit KPIs have not changed; removal of unsupported symbols is sufficient to prevent kexts referencing them from loading. If your kext fails to build because of symbols removed from headers, or fails to link because of symbols removed from symbol sets, please consult the Supported KPI documents in <code class="code-voice">/System/Library/Frameworks/Kernel.framework/Resources/</code> and the headers in <code class="code-voice">Kernel.framework</code> for replacements and update your kext accordingly. If no replacement is available for a symbol your kext has been linking against, please file a bug and contact Developer Technical Support.
+</p><p class="para">
+  PC Card support (the IOPCCardFamily.kext and headers) has been removed from OS X Snow Leopard.
+</p><p class="para">
+  A large number of new KPIs are available, particularly in 64-bit I/O Kit. Consult the rest of these release notes, the supported KPI documents in <code class="code-voice">/System/Library/Frameworks/Kernel.framework/Resources/</code> for full lists of symbols on all architectures, and the headers in <code class="code-voice">Kernel.framework</code> relevant to your kext for headerdoc comments.
+</p><p class="para">
+  Two symbols deserve special note here:
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>ucred_t     // legacy type removed, use kauth_cred_t instead</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>vfs_context // opaque and this time it is mandatory for K64; there is no private header exported</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_25"></a>
+  <h3 class="section-name" tabindex="0">KPI Changes for 64-Bit Kexts</h3>
+  <p class="para">
+  All Apple-provided I/O Kit families, except for IOPCCardFamily.kext, are available for 64-bit kernel extensions in this Seed.
+</p>
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_26"></a>
+  <h3 class="section-name" tabindex="0">I/O Kit KPI Changes</h3>
+  <p class="para">
+  In general, using deprecated I/O Kit KPIs will result in a build warning, and you can consult the class documentation to see what has changed. The two major changes summarized here are to <code class="code-voice">IOCreateThread</code>, and <code class="code-voice">IOMemoryDescriptor</code>; otherwise, most changes are to internal KPIs.
+</p><p class="para">
+  <code class="code-voice">IOCreateThread</code> is deprecated for 64-bit kexts. <code class="code-voice">kernel_thread_start</code> should be used instead. Make sure to release the reference to the <code class="code-voice">thread_t</code> by calling <code class="code-voice">thread_deallocate</code>. <code class="code-voice">IOExitThread</code> can be replaced by a call to <code class="code-voice">thread_terminate(current_thread())</code>.
+</p><p class="para">
+  Changes to IOMemoryDescriptor and related classes are summarized here:
+</p><div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::getPhysicalSegment64()</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::getPhysicalSegment(kIOMemoryMapperNone)</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::getVirtualSegment()</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::map()-&gt;getVirtualAddress()</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithAddress(void *)</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithAddress(task_t)</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithPhysicalAddress()</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithPhysicalRanges()</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithRanges()</code>
+</p>
+</li>
+</ul></td>
+            <td><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithOptions()</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::map(task_t)</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::createMappingInTask()</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::withAddress(task_t)</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::withAddressRange()</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::withPhysicalRanges()</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::withOptions(kIOMemoryTypePhysical)</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::withRanges()</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::withOptions(kIOMemoryTypeVirtual)</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::withSubRange()</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOSubMemoryDescriptor::withSubRange([kIOMemoryThreadSafe])</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOBufferMemoryDescriptor::initWithBytes()</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOBufferMemoryDescriptor::initWithPhysicalMask()</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOBufferMemoryDescriptor::initWithOptions(void *)</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOBufferMemoryDescriptor::initWithPhysicalMask()</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOBufferMemoryDescriptor::initWithOptions(task_t)</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOBufferMemoryDescriptor::initWithPhysicalMask()</code>
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div><p class="para">
+  Subclasses of <code class="code-voice">IOMemoryDescriptor</code> further have these changes:
+</p><div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::getPhysicalSegment()</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::getPhysicalSegment(IOOptionBits)</code>
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::getPhysicalSegment64()</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithAddress(void *)</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithAddress(task_t)</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithPhysicalAddress()</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithPhysicalRanges()</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">IOMemoryDescriptor::initWithRanges()</code>
+</p>
+</li>
+</ul></td>
+            <td><p class="para">
+  —
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_27"></a>
+  <h3 class="section-name" tabindex="0">Mach KPI Changes</h3>
+  <p class="para">
+  All KPIs that utilize struct <code class="code-voice">mach_timespec</code> or <code class="code-voice">mach_timespec_t</code> are deprecated, and support for them is not expected in K64.
+</p><p class="para">
+  The following calls return values using new dedicated types, and the seconds returned is <code class="code-voice">unsigned long</code> (64 bits) in K64 (K32 is unchanged). Note these are the Mach primitives; most kexts will use the BSD equivalents instead. 
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>extern void clock_get_system_microtime(</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    clock_sec_t  * secs,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    clock_usec_t * microsecs);</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>extern void clock_get_system_nanotime(</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    clock_sec_t  * secs,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    clock_nsec_t * nanosecs);</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>extern void clock_get_calendar_microtime(</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    clock_sec_t  * secs,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    clock_usec_t * microsecs);</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>extern void clock_get_calendar_nanotime(</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    clock_sec_t  * secs,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    clock_nsec_t * nanosecs);</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section>
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_28"></a>
+  <h3 class="section-name" tabindex="0">Thread Call KPI Changes</h3>
+  <div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">thread_call_func</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">thread_call_func_cancel</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">thread_call_func_delayed</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">thread_call_is_delayed</code>
+</p>
+</li>
+</ul></td>
+            <td><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">thread_call_allocate</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">thread_call_enter</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">thread_call_enter_delayed</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">thread_call_cancel</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">thread_call_free</code>
+</p>
+</li>
+</ul></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_29"></a>
+  <h3 class="section-name" tabindex="0">Thread Timer KPI Changes</h3>
+  <div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">thread_set_timer</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">thread_set_timer_deadline</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">thread_cancel_timer</code>
+</p>
+</li>
+</ul></td>
+            <td><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">assert_wait_deadline</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">assert_wait_timeout</code>
+</p>
+</li>
+</ul></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_30"></a>
+  <h3 class="section-name" tabindex="0">Kernel Thread KPI Changes</h3>
+  <div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">kernel_thread</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">kernel_thread_start</code> (Make sure to release the reference to the <code class="code-voice">thread_t</code> by calling <code class="code-voice">thread_deallocate</code>.)
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_31"></a>
+  <h3 class="section-name" tabindex="0">Clock Time KPI Changes</h3>
+  <div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  <p class="para">
+  <code class="code-voice">clock_get_uptime</code>
+</p>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">mach_absolute_time</code>
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_32"></a>
+  <h3 class="section-name" tabindex="0">BSD and VFS KPI Changes</h3>
+  <p class="para">
+  <strong>Important:</strong> There is <strong>no support</strong> for unthreaded filesystems in the 64-bit kernel. All Filesystems need to be threaded to work in K64. Do not rely on the funnel for any locking.
+</p>
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_33"></a>
+  <h3 class="section-name" tabindex="0">KAuth User KPI Changes</h3>
+  <div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">suser</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">is_suser</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">is_suser1</code>
+</p>
+</li>
+</ul></td>
+            <td><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">kauth_cred_issuser</code>
+</p>
+<p class="para">
+  <code class="code-voice">vfs_context_suser</code>
+</p>
+<p class="para">
+  <code class="code-voice">proc_suser</code>
+</p>
+</li>
+</ul></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_34"></a>
+  <h3 class="section-name" tabindex="0">KAuth Credentials Changes</h3>
+  <div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">proc_ucred</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">kauth_cred_get</code> (or get cred out of passed in <code class="code-voice">vfs_context</code>)
+</p></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">kauth_cred_rele</code>
+</p></td>
+            <td><p class="para">
+  <code class="code-voice">kauth_cred_unref</code>
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_35"></a>
+  <h3 class="section-name" tabindex="0">UBC Changes</h3>
+  <div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">ubc_setcred</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">ubc_sync_range</code>
+</p>
+</li>
+</ul></td>
+            <td><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">ubc_setthreadcred</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">ubc_msync</code>
+</p>
+</li>
+</ul></td>
+        </tr>
+        <tr>
+            <td scope="row"><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">ubc_getobject</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">ubc_info_deallocate</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">ubc_info_init</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">ubc_info_zone</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">ubc_isinuse</code>
+</p>
+</li>
+</ul></td>
+            <td><p class="para">
+  —
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_36"></a>
+  <h3 class="section-name" tabindex="0">VFS Changes</h3>
+  <div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">file_vnode</code>
+</p></td>
+            <td><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">file_vnode_withvid</code> (provides <code class="code-voice">vnode</code> and <code class="code-voice">vid</code>)
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">vnode_getwithvid</code> (for <code class="code-voice">ioref</code> without being under <code class="code-voice">fileref</code> scope)
+</p>
+</li>
+</ul></td>
+        </tr>
+        <tr>
+            <td scope="row"><p class="para">
+  <code class="code-voice">rootvnode</code>
+</p></td>
+            <td><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">vfs_rootvnode</code> (returns a pointer with <code class="code-voice">ioreference</code>, need to drop the ref with <code class="code-voice">vnode_put()</code>)
+</p>
+</li>
+</ul></td>
+        </tr>
+        <tr>
+            <td scope="row"><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">vslock</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">vsunlock</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">vnode_target</code>
+</p>
+</li>
+</ul></td>
+            <td><p class="para">
+  —
+</p></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-DontLinkElementID_37"></a>
+  <h3 class="section-name" tabindex="0">Other Changes</h3>
+  <div class="tableholder">
+  
+  <table class="graybox" border="0" cellspacing="0" cellpadding="5">
+    <caption class="tablecaption"></caption>
+    <thead>
+        <tr>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Not supported in 64-Bit
+</p></th>
+            <th scope="col" class="TableHeading_TableRow_TableCell"><p class="para">
+  Recommended
+</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row"><ul class="list-simple">
+  <li class="item"><p class="para">
+  <code class="code-voice">ldisc_deregister</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">ldisc_register</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">lightning_bolt</code>
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice">postevent</code>
+</p>
+</li>
+</ul></td>
+            <td><ul class="list-simple">
+  <li class="item"><p class="para">
+  —
+</p>
+</li>
+</ul></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+  
+</section>
+
+</section>
+
+</section>
+
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40001023-CH1-SW30"></a>
+  <h3 class="section-name" tabindex="0">Known Bugs in November 2008</h3>
+  <ul class="list-bullet">
+  <li class="item"><p class="para">
+  If you touch the Extensions folder on a Leopard volume while running Snow Leopard, it will be updated with the wrong format mkext and the Leopard volume will panic on startup.
+</p>
+</li><li class="item"><p class="para">
+  Not all Apple-provided kernel extensions are available when using the 64-bit kernel on this seed. In particular, accelerated graphics are not supported. Additionally, sleep and hibernate are not supported. These features should be available in the release version of OS X Snow Leopard
+</p>
+</li><li class="item"><p class="para">
+  The “himemory_mode” boot option used to debug large physical memory configurations is not supported in this seed.
+</p>
+</li><li class="item"><p class="para">
+  The <code class="code-voice">showuserstack</code> <code class="code-voice">gdb</code> macro in <code class="code-voice">kgmacros</code> doesn’t work on 64 bit processes.
+</p>
+</li><li class="item"><p class="para">
+  Using the <code class="code-voice">-v</code> flag with kext tools disables error logging.
+</p>
+</li><li class="item"><p class="para">
+  <code class="code-voice u-api"><!-- a href="" -->kextunload<!-- /a --></code> and <code class="code-voice u-api"><!-- a href="" -->mkextunpack<!-- /a --></code> do not recognize long options such as <code class="code-voice">-bundle-id</code>, and some long options that take optional arguments require an equals sign for the argument to be recognized.
+</p>
+</li>
+</ul>
+  
+</section>
+
+</section>
+
+  <div id="copyright" class='copyright'>
+    <br><hr><div align="center"><p class="content_text" lang="en" dir="ltr">Copyright &#x00a9; 2018 Apple Inc. All rights reserved. <a class="link" href="http://www.apple.com/legal/terms/site.html" target="_blank">Terms of Use</a>   |  <a class="link" href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |   Updated: 2009-04-28
+</div>
+  <div id="pediaWindow">
+    <div id="pediaHeader"></div>
+    <div id="pediaBody"></div>
+  </div>
+</article>
+
+
+
+    <footer id="footer">
+  <script src="../../../Resources/1282/JavaScript/lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/release-notes-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/feedback-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+</footer>
+
+  	<div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+  </body>
+</html>

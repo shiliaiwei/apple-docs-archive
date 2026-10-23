@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Introduction to Text System Storage Layer Overview</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/10000087i">
+    <meta id="document-version" name="document-version" content="3.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="10000087">
+    <meta id="date" name="date" content="2012-09-19">
+    <meta id="description" name="description" content="Explains how the Cocoa text system stores the information it needs to lay out text.">
+    <meta id="book-title" name="book-title" content="Text System Storage Layer Overview">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Technologies/Cocoa Layer/AppKit}, {Topic/User Experience/Text Layout}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Text System Storage Layer Overview: Introduction to Text System Storage Layer Overview">
+    <meta id="resources-uri" name="resources-uri" content="../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Text System Storage Layer Overview" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="Concepts/StorageLayer.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/10000087" title="Introduction to Text System Storage Layer Overview"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Text System Storage Layer Overview</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Concepts/StorageLayer.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/10000087i" title="Introduction to Text System Storage Layer Overview"></a><a name="//apple_ref/doc/uid/10000087-SW1" title="Introduction to Text System Storage Layer Overview"></a><h1 id="pageTitle">Introduction to Text System Storage Layer Overview</h1><a name="//apple_ref/doc/uid/10000087-DontLinkElementID_1"></a><p><em>Text System Storage Layer Overview</em> discusses the facilities that the Cocoa text system uses to store the text and geometric shape information used for text layout.</p><a name="//apple_ref/doc/uid/10000087-68135" title="Who Should Read This Document"></a><h2 class="jump">Who Should Read This Document</h2><p>You should read this document if you need to work directly with the text storage layer. For example, you may need to change the text programmatically in a text storage object or extend its capabilities.</p><p>To understand this material you should have a general understanding of Cocoa programming conventions. You should also have read <em><!--a target="_self" -->Text System Overview<!--/a--></em>.</p><a name="//apple_ref/doc/uid/10000087-DontLinkElementID_2" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2><p>This document contains the following articles:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="Concepts/StorageLayer.html#//apple_ref/doc/uid/20000846-CJBJHGAG" data-renderer-version="1">The Storage Layer: The NSTextStorage Class</a></span> provides a general introduction to the capabilities of text storage objects.</p></li><li class="li"><p><span class="content_text"><a href="Concepts/LayoutGeometry.html#//apple_ref/doc/uid/20001803-CJBJHGAG" data-renderer-version="1">Layout Geometry: The NSTextContainer Class</a></span> explains how text containers define the area in which the system lays out text and how they interact with other text system objects.</p></li><li class="li"><p><span class="content_text"><a href="Tasks/CreatingTextStorage.html#//apple_ref/doc/uid/20000849-CJBBIAAF" data-renderer-version="1">Creating Text Storage</a></span> explains how you create and set up text storage objects.</p></li><li class="li"><p><span class="content_text"><a href="Tasks/ChangingTextStorage.html#//apple_ref/doc/uid/20000848-CJBBIAAF" data-renderer-version="1">Changing Text Storage</a></span> describes the process of editing text in a text storage object programmatically.</p></li><li class="li"><p><span class="content_text"><a href="Tasks/DisplayingTextCont.html#//apple_ref/doc/uid/20000924-CJBBIAAF" data-renderer-version="1">Displaying a Text Container</a></span> explains how you can display the text in a text storage object in a text view or other NSView object.</p></li><li class="li"><p><span class="content_text"><a href="Tasks/Region.html#//apple_ref/doc/uid/20000925-CJBBIAAF" data-renderer-version="1">Calculating Region, Bounding Rectangle, and Inset</a></span> discusses how to define a text container’s text layout area.</p></li><li class="li"><p><span class="content_text"><a href="Tasks/TrackingSize.html#//apple_ref/doc/uid/20000927-CJBBIAAF" data-renderer-version="1">Tracking the Size of a Text View</a></span> explains how you can set up a text container so that its geometry interacts with that of its associated text view.</p></li><li class="li"><p><span class="content_text"><a href="Tasks/Subclassing.html#//apple_ref/doc/uid/20000926-CJBBIAAF" data-renderer-version="1">Creating a Subclass of NSTextStorage</a></span> discusses the requirements of NSTextStorage subclasses.</p></li></ul><div id="seeAlsoSection"><a name="//apple_ref/doc/uid/10000087-68049" title="See Also"></a><h2 class="jump">See Also</h2><p>For further reading, refer to the following documents:</p><ul class="ul"><li class="li"><p><em><a href="../AttributedStrings/AttributedStrings.html#//apple_ref/doc/uid/10000036i" data-renderer-version="1" target="_self">Attributed String Programming Guide</a></em> provides information about the attributed string objects on which <code><a href="https://developer.apple.com/documentation/uikit/nstextstorage" class="urlLink" target="_self">NSTextStorage</a></code> is built. <code>NSTextStorage</code> is a subclass of <code><a href="../../../LegacyTechnologies/WebObjects/WebObjects_3.5/Reference/Frameworks/ObjC/Foundation/Classes/NSAttributedStrngClstr/Description.html#//apple_ref/occ/cl/NSMutableAttributedString" data-renderer-version="1" target="_self">NSMutableAttributedString</a></code>.</p></li><li class="li"><p><em><a href="../TextLayout/TextLayout.html#//apple_ref/doc/uid/10000158i" data-renderer-version="1" target="_self">Text Layout Programming Guide</a></em> describes the layout process involving text storage, text container, text view, and layout manager objects.</p></li></ul></div>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='Concepts/StorageLayer.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 1997, 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-09-19</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

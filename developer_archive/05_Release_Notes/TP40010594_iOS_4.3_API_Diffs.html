@@ -1,0 +1,805 @@
+<html><head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Release Note">
+            <meta id="book-title" name="book-title" content="iOS 4.3 API Diffs">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Topic/General}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40010594">
+            <meta id="document-version" name="document-version" content="1.0.2">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="Document that lists new and changed API from iOS 4.2 to iOS 4.3.">
+            <meta id="resources-uri" name="resources-uri" content="../../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="iOS">
+<link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback.css" />
+
+<title>iOS 4.2 to iOS 4.3 API Differences</title>
+
+<style type="text/css">
+    
+    th, td { font-size: 10px; }  /*  For ADC header */
+    
+    #breadcrumb {
+        font-family: lucida grande, geneva, helvetica, arial, sans-serif;
+        font-size: 10px;
+        font-weight: normal;
+        margin-left: 10px;
+        margin-top: 8px;
+    }
+    
+    a:link          { color: #18396E; text-decoration: none; }
+    a:active        { color: #18396E; text-decoration: none; }
+    a:visited       { color: #003366; text-decoration: none; }
+    
+    a:link:hover    { color: #18396E; text-decoration: underline; }
+    a:visited:hover { color: #003366; text-decoration: underline; }
+    
+    div.diffReport {
+        font-size:12px;
+        font-family: lucida grande, geneva, helvetica, arial, sans-serif;
+        padding-bottom: 30px;
+    }
+    
+    .diffReport h1 {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font: bold 30px lucida grande, geneva, helvetica, arial, sans-serif;
+        color: #000;
+    }
+    .diffReport h2 {
+        margin-top: 40px;
+        margin-bottom: 15px;
+        font-size: 24px;
+        color: #000;
+        padding-bottom: 2px; border-bottom: 1px solid #919699;
+    }
+    .diffReport div.subtitle {
+        font: normal 20px lucida grande, geneva, helvetica, arial, sans-serif;
+        margin-left: 30px;
+        margin-top: -10px;
+        color: #333;
+    }
+    .diffReport div.subtitle span.platformName {
+        font: italic 20px lucida grande, geneva, helvetica, arial, sans-serif;
+        color: #966;
+    }
+    
+    
+    .diffReport div.headerFile {
+        margin-left: 20px
+    }
+    .diffReport div.headerName {
+        margin:  15px 0px 10px -20px;
+        padding:  4px 4px  4px  20px;
+        font-weight: bold; font-size: 120%;
+        background-color: #F8F8F8;
+    }
+    
+    .diffReport table {
+        border: 1px #888 solid;
+        padding:2px; border-spacing:0px;
+        border-collapse: collapse;
+        margin-left: 40px;
+        margin-top: 7px
+    }
+    .diffReport td, .diffReport th {
+        font-size: 10px;
+        border: 1px #888 solid;
+        padding:3px 6px;
+    }
+    .diffReport th { font-size: 10px; text-align: center; background-color: #eee; }
+    .diffReport td { font-size: 90%;  text-align: left; }
+    
+    .diffReport .declaration { font-family: courier, monospace }
+    
+    .diffReport .nochange {
+        margin-left: 20px;
+        font-style: italic;
+        color:#888;
+    }
+    
+    .diffReport div.modified { margin-top: 5px }
+    .diffReport div.removed  { margin-top: 5px }
+    .diffReport div.added    { margin-top: 5px }
+    
+    .diffReport div.symbolName {
+        padding-left: 20px;
+        font-family: monospace;
+        font-size: 110%}
+    .diffReport span.symbolArch {
+        font-size: 80%;
+        font-style: italic;
+        color: #CCC;
+        padding-left: 20px; }
+    .diffReport span.noArch {
+        font-style: italic;
+     }
+    
+    
+    .diffReport .removed  .diffStatus {
+        font-style: italic; font-size: 80%; color:red;
+     }
+    .diffReport .added    .diffStatus {
+        font-style: italic; font-size: 80%; color:blue;
+    }
+    .diffReport .modified .diffStatus {
+        font-style: italic; font-size: 80%; color:#080;
+    }
+    
+    .diffReport .headerName .added:after {
+        content: " (Added)";   font-style: italic; font-size: 80%; color:blue;
+    }
+    .diffReport .headerName .removed:after {
+        content: " (Removed)"; font-style: italic; font-size: 80%; color:red;
+    }
+    
+</style>
+
+</head>
+
+<body id="StaticPage"><a name="//apple_ref/doc/uid/TP40010594" title="iOS 4.3 API Diffs"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>iOS 4.3 API Diffs</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              
+
+<!-- start of header -->
+
+<!-- end of header -->
+
+<!-- start of breadcrumb -->
+<!-- end of breadcrumb -->
+
+<div class="diffReport">
+<h1>iOS 4.2 to iOS 4.3 API Differences</h1>
+
+<h2>Accelerate</h2>
+<div class="nochange">No changes</div>
+
+<h2>AddressBook</h2>
+<div class="nochange">No changes</div>
+
+<h2>AddressBookUI</h2>
+<div class="nochange">No changes</div>
+
+<h2>AssetsLibrary</h2>
+<div class="nochange">No changes</div>
+
+<h2>AudioToolbox</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioConverter.h'>AudioConverter.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kAudioConverterErr_NoHardwarePermission"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/kaudioconvertererr_nohardwarepermission" class="urlLink">kAudioConverterErr_NoHardwarePermission</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioFile.h'>AudioFile.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/kAFInfoDictionary_ISRC"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/kafinfodictionary_isrc" class="urlLink">#def kAFInfoDictionary_ISRC</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kAFInfoDictionary_SourceBitDepth"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/kafinfodictionary_sourcebitdepth" class="urlLink">#def kAFInfoDictionary_SourceBitDepth</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kAFInfoDictionary_SubTitle"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/kafinfodictionary_subtitle" class="urlLink">#def kAFInfoDictionary_SubTitle</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kAudioFilePropertySourceBitDepth"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/kaudiofilepropertysourcebitdepth" class="urlLink">kAudioFilePropertySourceBitDepth</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AudioToolbox.framework/Headers/AudioFormat.h'>AudioFormat.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/tdef/ExtendedAudioFormatInfo"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/extendedaudioformatinfo" class="urlLink">ExtendedAudioFormatInfo</a> </div>
+</div>
+</div>
+
+<h2>AudioUnit</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AudioUnit.framework/Headers/AudioUnitProperties.h'>AudioUnitProperties.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/tdef/AudioUnitParameterHistoryInfo"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/audiounitparameterhistoryinfo" class="urlLink">AudioUnitParameterHistoryInfo</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kAudioUnitParameterFlag_PlotHistory"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/audiounitparameteroptions/1439089-flag_plothistory" class="urlLink">kAudioUnitParameterFlag_PlotHistory</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kAudioUnitProperty_ParameterHistoryInfo"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/audiotoolbox/kaudiounitproperty_parameterhistoryinfo" class="urlLink">kAudioUnitProperty_ParameterHistoryInfo</a> </div>
+</div>
+</div>
+
+<h2>AVFoundation</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVAsset.h'>AVAsset.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAsset/availableChapterLocales"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avasset/1388228-availablechapterlocales" class="urlLink">AVAsset.availableChapterLocales</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVAsset/chapterMetadataGroupsWithTitleLocale:containingItemsWithCommonKeys:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avasset/1388966-chaptermetadatagroupswithtitlelo" class="urlLink">-[AVAsset chapterMetadataGroupsWithTitleLocale:containingItemsWithCommonKeys:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAsset/composable"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avasset/1386129-composable" class="urlLink">AVAsset.composable</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAsset/exportable"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avasset/1389245-isexportable" class="urlLink">AVAsset.exportable</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAsset/playable"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avasset/1385974-playable" class="urlLink">AVAsset.playable</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAsset/readable"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avasset/1390475-readable" class="urlLink">AVAsset.readable</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/AVAsset(AVAssetChapterInspection)"><span class="diffStatus">Added</span> <!--a -->AVAsset(AVAssetChapterInspection)<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/AVAsset(AVAssetUsability)"><span class="diffStatus">Added</span> <!--a -->AVAsset(AVAssetUsability)<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVAssetWriter.h'>AVAssetWriter.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriter/movieTimeScale"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriter/1386762-movietimescale" class="urlLink">AVAssetWriter.movieTimeScale</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/AVAssetWriter(AVAssetWriterFileTypeSpecificProperties)"><span class="diffStatus">Added</span> <!--a -->AVAssetWriter(AVAssetWriterFileTypeSpecificProperties)<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVAssetWriterInput.h'>AVAssetWriterInput.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/AVAssetWriterInput/mediaTimeScale"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avassetwriterinput/1386902-mediatimescale" class="urlLink">AVAssetWriterInput.mediaTimeScale</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/AVAssetWriterInput(AVAssetWriterInputFileTypeSpecificProperties)"><span class="diffStatus">Added</span> <!--a -->AVAssetWriterInput(AVAssetWriterInputFileTypeSpecificProperties)<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/AVAssetWriterInput(AVAssetWriterInputPropertiesForVisualCharacteristic)"><span class="diffStatus">Added</span> <!--a -->AVAssetWriterInput(AVAssetWriterInputPropertiesForVisualCharacteristic)<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVBase.h'><span class="added">AVBase.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/NS_CLASS_AVAILABLE"><span class="diffStatus">Added</span> <!--a -->#def NS_CLASS_AVAILABLE<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVError.h'>AVError.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/AVErrorApplicationIsNotAuthorized"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/averror/averrorapplicationisnotauthorized" class="urlLink">AVErrorApplicationIsNotAuthorized</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVErrorContentIsNotAuthorized"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/averror/averrorcontentisnotauthorized" class="urlLink">AVErrorContentIsNotAuthorized</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVErrorDecoderNotFound"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/averror/code/decodernotfound" class="urlLink">AVErrorDecoderNotFound</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVErrorDeviceIsNotAvailableInBackground"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/averror/averrordeviceisnotavailableinbackground" class="urlLink">AVErrorDeviceIsNotAvailableInBackground</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/AVErrorEncoderNotFound"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/averror/averrorencodernotfound" class="urlLink">AVErrorEncoderNotFound</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVErrorMediaSubTypeKey"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/averrormediasubtypekey" class="urlLink">AVErrorMediaSubTypeKey</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVErrorMediaTypeKey"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/averrormediatypekey" class="urlLink">AVErrorMediaTypeKey</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVMetadataFormat.h'>AVMetadataFormat.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/AVMetadataQuickTimeMetadataKeyCollectionUser"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadatakey/1386696-quicktimemetadatakeycollectionus" class="urlLink">AVMetadataQuickTimeMetadataKeyCollectionUser</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVMetadataQuickTimeMetadataKeyDirectionFacing"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadatakey/1388990-quicktimemetadatakeydirectionfac" class="urlLink">AVMetadataQuickTimeMetadataKeyDirectionFacing</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVMetadataQuickTimeMetadataKeyDirectionMotion"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadataquicktimemetadatakeydirectionmotion" class="urlLink">AVMetadataQuickTimeMetadataKeyDirectionMotion</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVMetadataQuickTimeMetadataKeyLocationBody"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadataquicktimemetadatakeylocationbody" class="urlLink">AVMetadataQuickTimeMetadataKeyLocationBody</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVMetadataQuickTimeMetadataKeyLocationDate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadatakey/1389508-quicktimemetadatakeylocationdate" class="urlLink">AVMetadataQuickTimeMetadataKeyLocationDate</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVMetadataQuickTimeMetadataKeyLocationName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadataquicktimemetadatakeylocationname" class="urlLink">AVMetadataQuickTimeMetadataKeyLocationName</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVMetadataQuickTimeMetadataKeyLocationNote"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadataquicktimemetadatakeylocationnote" class="urlLink">AVMetadataQuickTimeMetadataKeyLocationNote</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVMetadataQuickTimeMetadataKeyLocationRole"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadatakey/1389449-quicktimemetadatakeylocationrole" class="urlLink">AVMetadataQuickTimeMetadataKeyLocationRole</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVMetadataQuickTimeMetadataKeyRatingUser"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadataquicktimemetadatakeyratinguser" class="urlLink">AVMetadataQuickTimeMetadataKeyRatingUser</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVMetadataQuickTimeMetadataKeyTitle"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadatakey/1387911-quicktimemetadatakeytitle" class="urlLink">AVMetadataQuickTimeMetadataKeyTitle</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVMetadataItem.h'>AVMetadataItem.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instm/AVMetadataItem/loadValuesAsynchronouslyForKeys:completionHandler:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadataitem/1387102-loadvaluesasynchronouslyforkeys" class="urlLink">-[AVMetadataItem loadValuesAsynchronouslyForKeys:completionHandler:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVMetadataItem/statusOfValueForKey:error:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmetadataitem/1388523-statusofvalueforkey" class="urlLink">-[AVMetadataItem statusOfValueForKey:error:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/AVMetadataItem(AVAsynchronousKeyValueLoading)"><span class="diffStatus">Added</span> <!--a -->AVMetadataItem(AVAsynchronousKeyValueLoading)<!--/a--> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVPlayerItem.h'>AVPlayerItem.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instm/AVPlayerItem/accessLog"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritem/1388499-accesslog" class="urlLink">-[AVPlayerItem accessLog]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVPlayerItem/currentDate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritem/1386188-currentdate" class="urlLink">-[AVPlayerItem currentDate]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItem/duration"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritem/1389386-duration" class="urlLink">AVPlayerItem.duration</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVPlayerItem/errorLog"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritem/1387573-errorlog" class="urlLink">-[AVPlayerItem errorLog]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/AVPlayerItemAccessLog"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslog" class="urlLink">AVPlayerItemAccessLog</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLog/events"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslog/1387406-events" class="urlLink">AVPlayerItemAccessLog.events</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVPlayerItemAccessLog/extendedLogData"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslog/1386892-extendedlogdata" class="urlLink">-[AVPlayerItemAccessLog extendedLogData]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVPlayerItemAccessLog/extendedLogDataStringEncoding"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslog/1390863-extendedlogdatastringencoding" class="urlLink">-[AVPlayerItemAccessLog extendedLogDataStringEncoding]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/AVPlayerItemAccessLogEvent"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent" class="urlLink">AVPlayerItemAccessLogEvent</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/URI"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1388643-uri" class="urlLink">AVPlayerItemAccessLogEvent.URI</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/durationWatched"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1388200-durationwatched" class="urlLink">AVPlayerItemAccessLogEvent.durationWatched</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/indicatedBitrate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1388123-indicatedbitrate" class="urlLink">AVPlayerItemAccessLogEvent.indicatedBitrate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/numberOfBytesTransferred"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1387305-numberofbytestransferred" class="urlLink">AVPlayerItemAccessLogEvent.numberOfBytesTransferred</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/numberOfDroppedVideoFrames"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1388647-numberofdroppedvideoframes" class="urlLink">AVPlayerItemAccessLogEvent.numberOfDroppedVideoFrames</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/numberOfSegmentsDownloaded"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1588090-numberofsegmentsdownloaded" class="urlLink">AVPlayerItemAccessLogEvent.numberOfSegmentsDownloaded</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/numberOfServerAddressChanges"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1388076-numberofserveraddresschanges" class="urlLink">AVPlayerItemAccessLogEvent.numberOfServerAddressChanges</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/numberOfStalls"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1387712-numberofstalls" class="urlLink">AVPlayerItemAccessLogEvent.numberOfStalls</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/observedBitrate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1390804-observedbitrate" class="urlLink">AVPlayerItemAccessLogEvent.observedBitrate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/playbackSessionID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1388462-playbacksessionid" class="urlLink">AVPlayerItemAccessLogEvent.playbackSessionID</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/playbackStartDate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1390502-playbackstartdate" class="urlLink">AVPlayerItemAccessLogEvent.playbackStartDate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/playbackStartOffset"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1385922-playbackstartoffset" class="urlLink">AVPlayerItemAccessLogEvent.playbackStartOffset</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/segmentsDownloadedDuration"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1388147-segmentsdownloadedduration" class="urlLink">AVPlayerItemAccessLogEvent.segmentsDownloadedDuration</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemAccessLogEvent/serverAddress"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemaccesslogevent/1390315-serveraddress" class="urlLink">AVPlayerItemAccessLogEvent.serverAddress</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/AVPlayerItemErrorLog"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlog" class="urlLink">AVPlayerItemErrorLog</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemErrorLog/events"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlog/1387637-events" class="urlLink">AVPlayerItemErrorLog.events</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVPlayerItemErrorLog/extendedLogData"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlog/1389100-extendedlogdata" class="urlLink">-[AVPlayerItemErrorLog extendedLogData]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVPlayerItemErrorLog/extendedLogDataStringEncoding"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlog/1387271-extendedlogdatastringencoding" class="urlLink">-[AVPlayerItemErrorLog extendedLogDataStringEncoding]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/AVPlayerItemErrorLogEvent"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlogevent" class="urlLink">AVPlayerItemErrorLogEvent</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemErrorLogEvent/URI"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlogevent/1389302-uri" class="urlLink">AVPlayerItemErrorLogEvent.URI</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemErrorLogEvent/date"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlogevent/1388416-date" class="urlLink">AVPlayerItemErrorLogEvent.date</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemErrorLogEvent/errorComment"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlogevent/1388011-errorcomment" class="urlLink">AVPlayerItemErrorLogEvent.errorComment</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemErrorLogEvent/errorDomain"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlogevent/1388603-errordomain" class="urlLink">AVPlayerItemErrorLogEvent.errorDomain</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemErrorLogEvent/errorStatusCode"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlogevent/1387875-errorstatuscode" class="urlLink">AVPlayerItemErrorLogEvent.errorStatusCode</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemErrorLogEvent/playbackSessionID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlogevent/1385934-playbacksessionid" class="urlLink">AVPlayerItemErrorLogEvent.playbackSessionID</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVPlayerItemErrorLogEvent/serverAddress"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlogevent/1385797-serveraddress" class="urlLink">AVPlayerItemErrorLogEvent.serverAddress</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/AVPlayerItem(AVPlayerItemLogging)"><span class="diffStatus">Added</span> <!--a -->AVPlayerItem(AVPlayerItemLogging)<!--/a--> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVPlayerItemFailedToPlayToEndTimeErrorKey"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avplayeritemfailedtoplaytoendtimeerrorkey" class="urlLink">AVPlayerItemFailedToPlayToEndTimeErrorKey</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/AVPlayerItemFailedToPlayToEndTimeNotification"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/foundation/nsnotification/name/1388007-avplayeritemfailedtoplaytoendtim" class="urlLink">AVPlayerItemFailedToPlayToEndTimeNotification</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/AVFoundation.framework/Headers/AVTimedMetadataGroup.h'><span class="added">AVTimedMetadataGroup.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/AVMutableTimedMetadataGroup"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmutabletimedmetadatagroup" class="urlLink">AVMutableTimedMetadataGroup</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVMutableTimedMetadataGroup/items"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmutabletimedmetadatagroup/1386481-items" class="urlLink">AVMutableTimedMetadataGroup.items</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVMutableTimedMetadataGroup/timeRange"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avmutabletimedmetadatagroup/1387595-timerange" class="urlLink">AVMutableTimedMetadataGroup.timeRange</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/AVTimedMetadataGroup"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avtimedmetadatagroup" class="urlLink">AVTimedMetadataGroup</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/AVTimedMetadataGroup/initWithItems:timeRange:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avtimedmetadatagroup/1389632-init" class="urlLink">-[AVTimedMetadataGroup initWithItems:timeRange:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVTimedMetadataGroup/items"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avtimedmetadatagroup/1385928-items" class="urlLink">AVTimedMetadataGroup.items</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/AVTimedMetadataGroup/timeRange"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/avfoundation/avtimedmetadatagroup/1387992-timerange" class="urlLink">AVTimedMetadataGroup.timeRange</a> </div>
+</div>
+</div>
+
+<h2>CFNetwork</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreAudio</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreAudio.framework/Headers/CoreAudioTypes.h'>CoreAudioTypes.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kAudio_FileNotFoundError"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coreaudio/1572099-anonymous/kaudio_filenotfounderror" class="urlLink">kAudio_FileNotFoundError</a> </div>
+</div>
+</div>
+
+<h2>CoreData</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreFoundation</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreFoundation.framework/Headers/CFBase.h'>CFBase.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/kCFCoreFoundationVersionNumber10_6_4"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corefoundation/kcfcorefoundationversionnumber10_6_4" class="urlLink">#def kCFCoreFoundationVersionNumber10_6_4</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kCFCoreFoundationVersionNumber10_6_5"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corefoundation/kcfcorefoundationversionnumber10_6_5" class="urlLink">#def kCFCoreFoundationVersionNumber10_6_5</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kCFCoreFoundationVersionNumber_iOS_4_1"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corefoundation/kcfcorefoundationversionnumber_ios_4_1" class="urlLink">#def kCFCoreFoundationVersionNumber_iOS_4_1</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/kCFCoreFoundationVersionNumber_iOS_4_2"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corefoundation/kcfcorefoundationversionnumber_ios_4_2" class="urlLink">#def kCFCoreFoundationVersionNumber_iOS_4_2</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreFoundation.framework/Headers/CFString.h'>CFString.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/func/CFStringIsHyphenationAvailableForLocale"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corefoundation/1543237-cfstringishyphenationavailablefo" class="urlLink">CFStringIsHyphenationAvailableForLocale()</a> </div>
+</div>
+</div>
+
+<h2>CoreGraphics</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreLocation</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreMedia</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreMedia.framework/Headers/CMBufferQueue.h'>CMBufferQueue.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/func/CMBufferQueueGetCallbacksForSampleBuffersSortedByOutputPTS"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1489625-cmbufferqueuegetcallbacksforsamp" class="urlLink">CMBufferQueueGetCallbacksForSampleBuffersSortedByOutputPTS()</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreMedia.framework/Headers/CMFormatDescription.h'>CMFormatDescription.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/func/CMFormatDescriptionEqualIgnoringExtensionKeys"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1489465-cmformatdescriptionequalignoring" class="urlLink">CMFormatDescriptionEqualIgnoringExtensionKeys()</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCMFormatDescriptionExtension_FullRangeVideo"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmformatdescriptionextension_fullrangevideo" class="urlLink">kCMFormatDescriptionExtension_FullRangeVideo</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMVideoCodecType_AppleProRes422"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmvideocodectype_appleprores422" class="urlLink">kCMVideoCodecType_AppleProRes422</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMVideoCodecType_AppleProRes422HQ"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1564239-video_codec_constants/kcmvideocodectype_appleprores422hq" class="urlLink">kCMVideoCodecType_AppleProRes422HQ</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMVideoCodecType_AppleProRes422LT"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmvideocodectype_appleprores422lt" class="urlLink">kCMVideoCodecType_AppleProRes422LT</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMVideoCodecType_AppleProRes422Proxy"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/1564239-video_codec_constants/kcmvideocodectype_appleprores422proxy" class="urlLink">kCMVideoCodecType_AppleProRes422Proxy</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCMVideoCodecType_AppleProRes4444"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmvideocodectype_appleprores4444" class="urlLink">kCMVideoCodecType_AppleProRes4444</a> </div>
+</div>
+<div class='modified'>
+<div class='symbolName' title='//apple_ref/c/func/CMFormatDescriptionEqual'><span class="diffStatus">Modified</span> <a href="https://developer.apple.com/documentation/coremedia/1489825-cmformatdescriptionequal" class="urlLink">CMFormatDescriptionEqual()</a></div>
+<table><tr><th></th><th>Declaration</th></tr>
+<tr><th>From</th><td class='Declaration' scope="row">Boolean CMFormatDescriptionEqual ( CMFormatDescriptionRef ffd1, CMFormatDescriptionRef ffd2);</td></tr>
+<tr><th>To</th><td class='Declaration' scope="row"><tt>Boolean CMFormatDescriptionEqual ( CMFormatDescriptionRef desc1, CMFormatDescriptionRef desc2);</tt></td></tr></table><br>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreMedia.framework/Headers/CMSampleBuffer.h'>CMSampleBuffer.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/kCMSampleBufferAttachmentKey_GradualDecoderRefresh"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmsamplebufferattachmentkey_gradualdecoderrefresh" class="urlLink">kCMSampleBufferAttachmentKey_GradualDecoderRefresh</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCMSampleBufferConduitNotificationParameter_MinUpcomingOutputPTS"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmsamplebufferconduitnotificationparameter_minupcomingoutputpts" class="urlLink">kCMSampleBufferConduitNotificationParameter_MinUpcomingOutputPTS</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCMSampleBufferConduitNotificationParameter_UpcomingOutputPTSRangeMayOverlapQueuedOutputPTSRange"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmsamplebufferconduitnotificationparameter_upcomingoutputptsrangemayoverlapqueuedoutputptsrange" class="urlLink">kCMSampleBufferConduitNotificationParameter_UpcomingOutputPTSRangeMayOverlapQueuedOutputPTSRange</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCMSampleBufferConduitNotification_UpcomingOutputPTSRangeChanged"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coremedia/kcmsamplebufferconduitnotification_upcomingoutputptsrangechanged" class="urlLink">kCMSampleBufferConduitNotification_UpcomingOutputPTSRangeChanged</a> </div>
+</div>
+</div>
+
+<h2>CoreMIDI</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreMotion</h2>
+<div class="nochange">No changes</div>
+
+<h2>CoreTelephony</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreTelephony.framework/Headers/CoreTelephonyDefines.h'>CoreTelephonyDefines.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/CORETELEPHONY_CLASS_AVAILABLE"><span class="diffStatus">Added</span> <!--a -->#def CORETELEPHONY_CLASS_AVAILABLE<!--/a--> </div>
+</div>
+</div>
+
+<h2>CoreText</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTFont.h'>CTFont.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontTableKerx"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/1524658-anonymous/kctfonttablekerx" class="urlLink">kCTFontTableKerx</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTFontTraits.h'>CTFontTraits.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kCTFontColorGlyphsTrait"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctfontsymbolictraits/1508808-colorglyphstrait" class="urlLink">kCTFontColorGlyphsTrait</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTFrame.h'>CTFrame.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/kCTFrameClippingPathsAttributeName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/kctframeclippingpathsattributename" class="urlLink">kCTFrameClippingPathsAttributeName</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCTFramePathClippingPathAttributeName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/kctframepathclippingpathattributename" class="urlLink">kCTFramePathClippingPathAttributeName</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTParagraphStyle.h'>CTParagraphStyle.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kCTParagraphStyleSpecifierLineSpacingAdjustment"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctparagraphstylespecifier/linespacingadjustment" class="urlLink">kCTParagraphStyleSpecifierLineSpacingAdjustment</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTParagraphStyleSpecifierMaximumLineSpacing"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctparagraphstylespecifier/maximumlinespacing" class="urlLink">kCTParagraphStyleSpecifierMaximumLineSpacing</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCTParagraphStyleSpecifierMinimumLineSpacing"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/ctparagraphstylespecifier/kctparagraphstylespecifierminimumlinespacing" class="urlLink">kCTParagraphStyleSpecifierMinimumLineSpacing</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreText.framework/Headers/CTStringAttributes.h'>CTStringAttributes.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/kCTVerticalFormsAttributeName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/coretext/kctverticalformsattributename" class="urlLink">kCTVerticalFormsAttributeName</a> </div>
+</div>
+</div>
+
+<h2>CoreVideo</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreVideo.framework/Headers/CVPixelBuffer.h'>CVPixelBuffer.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/kCVPixelFormatType_30RGB"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corevideo/kcvpixelformattype_30rgb" class="urlLink">kCVPixelFormatType_30RGB</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCVPixelFormatType_4444AYpCbCr16"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corevideo/1563591-pixel_format_identifiers/kcvpixelformattype_4444aypcbcr16" class="urlLink">kCVPixelFormatType_4444AYpCbCr16</a> </div>
+<div class="symbolName" title="//apple_ref/c/econst/kCVPixelFormatType_4444AYpCbCr8"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corevideo/1563591-pixel_format_identifiers/kcvpixelformattype_4444aypcbcr8" class="urlLink">kCVPixelFormatType_4444AYpCbCr8</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/CoreVideo.framework/Headers/CVPixelFormatDescription.h'>CVPixelFormatDescription.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/kCVPixelFormatContainsAlpha"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/corevideo/kcvpixelformatcontainsalpha" class="urlLink">kCVPixelFormatContainsAlpha</a> </div>
+</div>
+</div>
+
+<h2>EventKit</h2>
+<div class="nochange">No changes</div>
+
+<h2>EventKitUI</h2>
+<div class="nochange">No changes</div>
+
+<h2>ExternalAccessory</h2>
+<div class="nochange">No changes</div>
+
+<h2>Foundation</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/Foundation.framework/Headers/NSObjCRuntime.h'>NSObjCRuntime.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/macro/NSFoundationVersionNumber10_6_3"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/foundation/nsfoundationversionnumber10_6_3" class="urlLink">#def NSFoundationVersionNumber10_6_3</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/NSFoundationVersionNumber10_6_4"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/foundation/nsfoundationversionnumber10_6_4" class="urlLink">#def NSFoundationVersionNumber10_6_4</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/NSFoundationVersionNumber10_6_5"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/foundation/nsfoundationversionnumber10_6_5" class="urlLink">#def NSFoundationVersionNumber10_6_5</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/NSFoundationVersionNumber_iOS_4_1"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/foundation/nsfoundationversionnumber_ios_4_1" class="urlLink">#def NSFoundationVersionNumber_iOS_4_1</a> </div>
+<div class="symbolName" title="//apple_ref/c/macro/NSFoundationVersionNumber_iOS_4_2"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/foundation/nsfoundationversionnumber_ios_4_2" class="urlLink">#def NSFoundationVersionNumber_iOS_4_2</a> </div>
+</div>
+</div>
+
+<h2>GameKit</h2>
+<div class="nochange">No changes</div>
+
+<h2>iAd</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/iAd.framework/Headers/ADBannerView.h'>ADBannerView.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/econst/ADErrorApplicationInactive"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/aderror/aderrorapplicationinactive" class="urlLink">ADErrorApplicationInactive</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/iAd.framework/Headers/ADInterstitialAd.h'><span class="added">ADInterstitialAd.h</span></div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/ADInterstitialAd"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialad" class="urlLink">ADInterstitialAd</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/ADInterstitialAd/actionInProgress"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialad/1614658-actioninprogress" class="urlLink">ADInterstitialAd.actionInProgress</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/ADInterstitialAd/cancelAction"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialad/1614616-cancelaction" class="urlLink">-[ADInterstitialAd cancelAction]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/ADInterstitialAd/delegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialad/1614647-delegate" class="urlLink">ADInterstitialAd.delegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/ADInterstitialAd/loaded"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialad/1614653-isloaded" class="urlLink">ADInterstitialAd.loaded</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/ADInterstitialAd/presentFromViewController:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialad/1621985-presentfromviewcontroller" class="urlLink">-[ADInterstitialAd presentFromViewController:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/ADInterstitialAd/presentInView:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialad/1614646-presentinview" class="urlLink">-[ADInterstitialAd presentInView:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intf/ADInterstitialAdDelegate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialaddelegate" class="urlLink">ADInterstitialAdDelegate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/ADInterstitialAdDelegate/interstitialAd:didFailWithError:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialaddelegate/1614645-interstitialad" class="urlLink">-[ADInterstitialAdDelegate interstitialAd:didFailWithError:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/ADInterstitialAdDelegate/interstitialAdActionDidFinish:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialaddelegate/1614637-interstitialadactiondidfinish" class="urlLink">-[ADInterstitialAdDelegate interstitialAdActionDidFinish:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/ADInterstitialAdDelegate/interstitialAdActionShouldBegin:willLeaveApplication:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialaddelegate/1614652-interstitialadactionshouldbegin" class="urlLink">-[ADInterstitialAdDelegate interstitialAdActionShouldBegin:willLeaveApplication:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/ADInterstitialAdDelegate/interstitialAdDidLoad:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialaddelegate/1614609-interstitialaddidload" class="urlLink">-[ADInterstitialAdDelegate interstitialAdDidLoad:]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/intfm/ADInterstitialAdDelegate/interstitialAdDidUnload:"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/iad/adinterstitialaddelegate/1614651-interstitialaddidunload" class="urlLink">-[ADInterstitialAdDelegate interstitialAdDidUnload:]</a> </div>
+</div>
+</div>
+
+<h2>ImageIO</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/ImageIO.framework/Headers/CGImageProperties.h'>CGImageProperties.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/c/data/kCGImagePropertyExifBodySerialNumber"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/imageio/kcgimagepropertyexifbodyserialnumber" class="urlLink">kCGImagePropertyExifBodySerialNumber</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCGImagePropertyExifCameraOwnerName"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/imageio/kcgimagepropertyexifcameraownername" class="urlLink">kCGImagePropertyExifCameraOwnerName</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCGImagePropertyExifLensMake"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/imageio/kcgimagepropertyexiflensmake" class="urlLink">kCGImagePropertyExifLensMake</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCGImagePropertyExifLensModel"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/imageio/kcgimagepropertyexiflensmodel" class="urlLink">kCGImagePropertyExifLensModel</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCGImagePropertyExifLensSerialNumber"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/imageio/kcgimagepropertyexiflensserialnumber" class="urlLink">kCGImagePropertyExifLensSerialNumber</a> </div>
+<div class="symbolName" title="//apple_ref/c/data/kCGImagePropertyExifLensSpecification"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/imageio/kcgimagepropertyexiflensspecification" class="urlLink">kCGImagePropertyExifLensSpecification</a> </div>
+</div>
+</div>
+
+<h2>MapKit</h2>
+<div class="nochange">No changes</div>
+
+<h2>MediaPlayer</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/MediaPlayer.framework/Headers/MPMoviePlayerController.h'>MPMoviePlayerController.h</div>
+<div class='removed'>
+<div class="symbolName" title="//apple_ref/occ/instm/MPMoviePlayerController/contentURL"><span class="diffStatus">Removed</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieplayercontroller/1620847-contenturl" class="urlLink">-[MPMoviePlayerController contentURL]</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instm/MPMoviePlayerController/setContentURL:"><span class="diffStatus">Removed</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieplayercontroller/1620847-contenturl" class="urlLink">-[MPMoviePlayerController setContentURL:]</a> </div>
+</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/cl/MPMovieAccessLog"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslog" class="urlLink">MPMovieAccessLog</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLog/events"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslog/1620820-events" class="urlLink">MPMovieAccessLog.events</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLog/extendedLogData"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslog/1620870-extendedlogdata" class="urlLink">MPMovieAccessLog.extendedLogData</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLog/extendedLogDataStringEncoding"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslog/1620814-extendedlogdatastringencoding" class="urlLink">MPMovieAccessLog.extendedLogDataStringEncoding</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/MPMovieAccessLogEvent"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent" class="urlLink">MPMovieAccessLogEvent</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/URI"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620959-uri" class="urlLink">MPMovieAccessLogEvent.URI</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/durationWatched"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620880-durationwatched" class="urlLink">MPMovieAccessLogEvent.durationWatched</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/indicatedBitrate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620932-indicatedbitrate" class="urlLink">MPMovieAccessLogEvent.indicatedBitrate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/numberOfBytesTransferred"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620949-numberofbytestransferred" class="urlLink">MPMovieAccessLogEvent.numberOfBytesTransferred</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/numberOfDroppedVideoFrames"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620884-numberofdroppedvideoframes" class="urlLink">MPMovieAccessLogEvent.numberOfDroppedVideoFrames</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/numberOfSegmentsDownloaded"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620937-numberofsegmentsdownloaded" class="urlLink">MPMovieAccessLogEvent.numberOfSegmentsDownloaded</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/numberOfServerAddressChanges"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620801-numberofserveraddresschanges" class="urlLink">MPMovieAccessLogEvent.numberOfServerAddressChanges</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/numberOfStalls"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620925-numberofstalls" class="urlLink">MPMovieAccessLogEvent.numberOfStalls</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/observedBitrate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620827-observedbitrate" class="urlLink">MPMovieAccessLogEvent.observedBitrate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/playbackSessionID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620926-playbacksessionid" class="urlLink">MPMovieAccessLogEvent.playbackSessionID</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/playbackStartDate"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620868-playbackstartdate" class="urlLink">MPMovieAccessLogEvent.playbackStartDate</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/playbackStartOffset"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620902-playbackstartoffset" class="urlLink">MPMovieAccessLogEvent.playbackStartOffset</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/segmentsDownloadedDuration"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620944-segmentsdownloadedduration" class="urlLink">MPMovieAccessLogEvent.segmentsDownloadedDuration</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieAccessLogEvent/serverAddress"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieaccesslogevent/1620862-serveraddress" class="urlLink">MPMovieAccessLogEvent.serverAddress</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/MPMovieErrorLog"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlog" class="urlLink">MPMovieErrorLog</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieErrorLog/events"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlog/1620929-events" class="urlLink">MPMovieErrorLog.events</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieErrorLog/extendedLogData"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlog/1620797-extendedlogdata" class="urlLink">MPMovieErrorLog.extendedLogData</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieErrorLog/extendedLogDataStringEncoding"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlog/1620806-extendedlogdatastringencoding" class="urlLink">MPMovieErrorLog.extendedLogDataStringEncoding</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cl/MPMovieErrorLogEvent"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlogevent" class="urlLink">MPMovieErrorLogEvent</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieErrorLogEvent/URI"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlogevent/1620913-uri" class="urlLink">MPMovieErrorLogEvent.URI</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieErrorLogEvent/date"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlogevent/1620794-date" class="urlLink">MPMovieErrorLogEvent.date</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieErrorLogEvent/errorComment"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlogevent/1620941-errorcomment" class="urlLink">MPMovieErrorLogEvent.errorComment</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieErrorLogEvent/errorDomain"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlogevent/1620818-errordomain" class="urlLink">MPMovieErrorLogEvent.errorDomain</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieErrorLogEvent/errorStatusCode"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlogevent/1620782-errorstatuscode" class="urlLink">MPMovieErrorLogEvent.errorStatusCode</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieErrorLogEvent/playbackSessionID"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlogevent/1620890-playbacksessionid" class="urlLink">MPMovieErrorLogEvent.playbackSessionID</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMovieErrorLogEvent/serverAddress"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieerrorlogevent/1620908-serveraddress" class="urlLink">MPMovieErrorLogEvent.serverAddress</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMoviePlayerController/accessLog"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieplayercontroller/1620922-accesslog" class="urlLink">MPMoviePlayerController.accessLog</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMoviePlayerController/allowsAirPlay"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieplayercontroller/1620781-allowsairplay" class="urlLink">MPMoviePlayerController.allowsAirPlay</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMoviePlayerController/contentURL"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieplayercontroller/1620847-contenturl" class="urlLink">MPMoviePlayerController.contentURL</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/MPMoviePlayerController/errorLog"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/mediaplayer/mpmovieplayercontroller/1620798-errorlog" class="urlLink">MPMoviePlayerController.errorLog</a> </div>
+<div class="symbolName" title="//apple_ref/occ/cat/MPMoviePlayerController(MPMovieLogging)"><span class="diffStatus">Added</span> <!--a -->MPMoviePlayerController(MPMovieLogging)<!--/a--> </div>
+</div>
+</div>
+
+<h2>MessageUI</h2>
+<div class="nochange">No changes</div>
+
+<h2>MobileCoreServices</h2>
+<div class="nochange">No changes</div>
+
+<h2>OpenAL</h2>
+<div class="nochange">No changes</div>
+
+<h2>OpenGLES</h2>
+<div class="nochange">No changes</div>
+
+<h2>QuartzCore</h2>
+<div class="nochange">No changes</div>
+
+<h2>QuickLook</h2>
+<div class="nochange">No changes</div>
+
+<h2>Security</h2>
+<div class="nochange">No changes</div>
+
+<h2>StoreKit</h2>
+<div class="nochange">No changes</div>
+
+<h2>SystemConfiguration</h2>
+<div class="nochange">No changes</div>
+
+<h2>UIKit</h2>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIScreen.h'>UIScreen.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instp/UIScreen/mirroredScreen"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiscreen/1617829-mirrored" class="urlLink">UIScreen.mirroredScreen</a> </div>
+<div class="symbolName" title="//apple_ref/occ/instp/UIScreen/preferredMode"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiscreen/1617823-preferredmode" class="urlLink">UIScreen.preferredMode</a> </div>
+</div>
+</div>
+
+<div class='headerFile'>
+<div class='headerName' title='/System/Library/Frameworks/UIKit.framework/Headers/UIViewController.h'>UIViewController.h</div>
+<div class='added'>
+<div class="symbolName" title="//apple_ref/occ/instm/UIViewController/disablesAutomaticKeyboardDismissal"><span class="diffStatus">Added</span> <a href="https://developer.apple.com/documentation/uikit/uiviewcontroller/1621385-disablesautomatickeyboarddismiss" class="urlLink">-[UIViewController disablesAutomaticKeyboardDismissal]</a> </div>
+</div>
+</div>
+</div>
+
+<!-- start of footer -->
+<div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+
+<!-- end of footer -->
+
+
+            </article>
+</body>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/feedback.js"></script>
+
+</html>

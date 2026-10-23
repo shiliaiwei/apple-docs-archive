@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1637: CATiledLayer and UIKit graphics</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009212">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009212-CH1">
+    <meta id="date" name="date" content="2011-02-15">
+    <meta id="description" name="description" content="QA1637: Discusses thread safety issues when using a CATiledLayer on iOS">
+    <meta id="book-title" name="book-title" content="CATiledLayer and UIKit graphics">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Graphics & Animation/2D Drawing}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1637">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="CATiledLayer and UIKit graphics" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009212" title="Technical Q&amp;A QA1637"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>CATiledLayer and UIKit graphics</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009212-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1637"></a><div class="dtsDocNumber">Technical Q&amp;A QA1637</div><h1 id="pageTitle">CATiledLayer and UIKit graphics</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+I'm using a <code>CATiledLayer</code> in my application and I occasionally see incorrect rendering or crashes, especially when I have multiple views on screen. What can I do to avoid this?
+</h2><p><span>A: </span>I'm using a <code>CATiledLayer</code> in my application and I occasionally see incorrect rendering or crashes, especially when I have multiple views on screen. What can I do to avoid this?</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40009212-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;Beginning with iOS 4.0, drawing to a graphics context in UIKit is thread-safe. This includes accessing and manipulating the current graphics stack, drawing images and strings, and usage of color and font objects from secondary threads. </p><p></p></aside></div><p>Therefore, on iOS 4.0 and later, you can override <code>-drawRect:</code> and do all your drawings as normal, but if you plan to support iOS prior to 4.0, you should still be aware of the issues raised in this document.</p><p>The <code>CATiledLayer</code> implements its drawing by using a background thread to fetch the contents of each tile, however the drawing functions provided by UIKit rely on a global context stack, and as such when a <code>CATiledLayer</code> starts rendering, using any of UIKit's drawing functions can result in a race condition.</p><p>Practically what this means is that you cannot use any UIKit's drawing methods when drawing to a <code>CATiledLayer</code>, and you cannot do your drawing inside of a <code>UIView</code>'s <code>-drawRect:</code> method. Instead you must implement <code>-drawLayer:inContext:</code> and draw only using Core Graphics and other thread-safe functions that accept a <code>CGContextRef</code> to target drawing to.</p><p>If your <code>-drawRect:</code> method uses <code>UIImage</code>'s draw methods, <code>UIColor</code>'s set methods, any string drawing method from <code>NSString(UIStringDrawing)</code> or any of the <code>UIRect</code> or <code>UIGraphics</code> functions provided by UIKit, then your <code>-drawLayer:inContext:</code> method must be rewritten to avoid using those methods, and instead use Core Graphics directly. Not all operations from <code>NSString(UIStringDrawing)</code> are trivially converted to Core Graphics, so you may wish to contact <span class="content_text"><a href="http://developer.apple.com/support/iphone/techsupport/" class="browserLink" >Developer Technical Support</a></span>.</p><p>As UIKit uses the existence of an override of <code>-drawRect:</code> to determine some functionality of a <code>UIView</code>, you should still implement the <code>-drawRect:</code> method, but it does not need to do anything (and will not be called due to your implementation of <code>-drawLayer:inContext:</code>). An example of a correct implementation of a <code>UIView</code> that uses a <code>CATiledLayer</code> is in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS40009212-CH1-SOURCECODE1" title="Listing 1An implementation of a UIView subclass that uses a CATiledLayer for the layerClass."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;An implementation of a <code>UIView</code> subclass that uses a <code>CATiledLayer</code> for the layerClass.</p><div class="codesample clear"><table><tr><td scope="row"><pre>#import &lt;QuartzCore/QuartzCore.h&gt;
+#import &lt;UIKit/UIKit.h&gt;
+#import "MyTiledView.h"
+
++(Class)layerClass
+{
+    return [CATiledLayer class];
+}
+
+-(void)drawRect:(CGRect)r
+{
+    // UIView uses the existence of -drawRect: to determine if should allow its CALayer
+    // to be invalidated, which would then lead to the layer creating a backing store and
+    // -drawLayer:inContext: being called.
+    // By implementing an empty -drawRect: method, we allow UIKit to continue to implement
+    // this logic, while doing our real drawing work inside of -drawLayer:inContext:
+}
+
+-(void)drawLayer:(CALayer*)layer inContext:(CGContextRef)context
+{
+    // Do all your drawing here. Do not use UIGraphics to do any drawing, use Core Graphics instead.
+}<span></span></pre></td></tr></table></div><br/><hr/><a name="//apple_ref/doc/uid/DTS40009212-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009212-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2011-02-15</td><td><p>Added a note about changes for iPhone OS 4.0.</p></td></tr><tr><td scope="row">2009-09-08</td><td><p>New document that 
+					discusses thread safety issues when using a CATiledLayer on iOS</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2011 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2011-02-15</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

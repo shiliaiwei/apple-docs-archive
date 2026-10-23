@@ -1,0 +1,810 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<!-- Template 03-24-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="The Notification Manager: Problems &amp; Fixes">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002868">
+            <meta id="document-version" name="document-version" content="1.0.4">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1026: Describes issues with the Notification Manager 'activate' and 'update' events.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+<title>Technical Note TN1026: The Notification Manager: Problems &amp; Fixes</title>
+
+    <meta name="keywords" content="Mac OS 8 Notification Manager lost events activate UpdateRegionSaver SaveUpdateRegions">
+    <meta name="Description" content="Technical Note TN1026: This Technical Note describes two
+serious problems in the Notification Manager (NM), one having
+to do with activate events and the other with update events.
+These problems can cause windows in your application to be
+drawn redundantly or not at all. This Technote provides a
+workaround for the active event problem and some sample code,
+with explanations, for fixing the update event problem.">
+
+
+<meta name="categories" content="Processes">
+
+
+<meta name="week-posted" content="Jan 29, 1996 - Feb 2, 1996">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002868" title="The Notification Manager: Problems &amp; Fixes"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>The Notification Manager: Problems & Fixes</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalnotes/Carbon/idxProcessManagement-date.html">Process Management</a> &gt; </p><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1026</div>
+<div id="pageheadsub">The Notification Manager: Problems &amp; Fixes</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+ <!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+<td width=300 valign="top" align=left scope="row">
+    <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>    
+    <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+    <td background="images/tnmenubody.gif" width=300 align=left>
+<span id="menutitle">
+    CONTENTS 
+    <BR>
+    <BR>
+</span>
+    </td>
+</tr>
+<tr bgcolor="#e6e6e6">
+    <td background="images/tnmenubody.gif" width=300 align=left>
+<!-- begin_toc -->
+<p id = "menutext"><a href="#RTFToC1">Defining the
+   Problem</a><BR><BR>
+<a href="#RTFToC2">Using the Sample Code
+Library "UpdateRegionSaver" to Work Around the
+Problem</a><BR><BR>
+<a href="#RTFToC3">UpdateRegionSaver Reference</a><BR><BR>
+<a HREF = "#Summary">Summary</a><br><br>
+<a HREF = "#Changes">Change History</a><br><br>
+<a href="#Appendix">Appendix A</a><BR><BR>
+<a HREF = "#References">References</a><br><br>
+<a href="#Downloads">Downloadables</a></P>
+   <!-- end_toc --> 
+ </td>
+</tr>
+<tr>
+    <td width=300 align=left scope="row">
+<img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+    </td>
+</tr>
+    </table>
+</td>
+<td width=300 valign="top" align=left>
+<!-- begin_intro_text -->  
+<P id = "introtext">
+This Technote describes two serious problems in the
+Notification Manager <b><i>prior to Mac OS 9.0</i></b>, one having to do with activate
+events and the other with update events. These
+problems can cause windows in your application to
+be drawn redundantly or not at all. This Technote
+provides a workaround for the active event problem
+and some sample code, with explanations, for fixing
+the update event problem.</P>
+
+
+<P id = "introtext">If you're an application or application
+framework developer and want to ensure the windows
+in your application(s) are always updated and
+activated properly, you should read this Note.</P>
+
+
+<P id = "introtext">This Technote augments the information presented
+in three chapters of <CITE>Inside Macintosh</CITE>
+: "Event Manager" (Chapter 2) and "Window Manager"
+(Chapter 4) of <CITE>Macintosh Toolbox
+Essentials</CITE> and "Notification Manager"
+(Chapter 5) of <CITE>Processes</CITE></p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3 align=center>&nbsp;[Feb 1 1996]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+ <!-- begin_content -->
+<a NAME=RTFToC1></a>
+
+<H2>Defining Notification Manager Problems</H2>
+
+<BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>IMPORTANT: </B><BR>
+Mac OS 9 introduced a
+   <a href="tn1176.html#notificationmanager">non-modal
+   Notification
+   Manager</a>, which
+   does not suffer either of the problems described
+   in the technote. If your application requires
+   Mac OS 9 or later you can ignore this
+   technote.</P>
+</TD></TR></table></CENTER><BR>
+   
+
+<P>You can use the Notification Manager to present
+the user with a modal dialog (alert) that opens in
+front of the windows of all applications. This
+dialog actually appears in the window list of the
+frontmost application during its call to
+<code>WaitNextEvent</code>.</P>
+
+<BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>IMPORTANT: </B><BR>
+Your application should not depend on the
+   details of the way Notification Manager presents
+   its dialog, including but not limited to the
+   fact that Notification Manager uses Dialog
+   Manager. The information is presented here only
+   in order to provide a full understanding of the
+   problem at hand.</P>
+</TD></TR></table></CENTER><BR>
+
+<P>The first thing to know is that Notification
+Manager calls the Dialog Manager to manage the
+dialog. More specifically, Notification Manager
+calls ModalDialog with a dialog filter which in
+turn calls the standard dialog filter as obtained
+by GetStdFilterProc.</P>
+
+<P>The fact that Dialog Manager, and in particular
+ModalDialog and the standard dialog filter, provide
+imperfect event handling means that some
+window-oriented events are "swallowed" (i.e., never
+provided to your application) while the dialog is
+present.</P>
+
+<H3>Swallowed Deactivate Events (and Redundant
+Activate Events)</H3>
+
+<P>Your application does not receive a deactivate
+event for the (soon-to-be-former) front window when
+the Notification Manager's dialog appears. This is
+because ModalDialog has its own event loop
+(partially implemented by the standard dialog
+filter) and has no way of passing the deactivate
+event off to your application's event loop.</P>
+
+<P>When the user dismisses Notification Manager's
+dialog, your application receives a redundant
+activate event for the (recently-reinstated) front
+window. Your application <B>can</B> make sure it
+doesn't logically activate a window (i.e., enable
+text fields, etc.) redundantly by simply checking
+to see if the window is already active before
+logically activating it.</P>
+
+<H3>Swallowed Update Events</H3>
+
+<P>In order to understand how update events get
+swallowed, you need to understand how they would
+have been generated in the first place.</P>
+
+<P>Each window has a region, expressed in global
+coordinates, which describes the portion of the
+window that needs redrawing. This is called the
+window's update region. During <code>WaitNextEvent</code>, the
+Event Manager, Window Manager, and Process Manager
+collaborate in walking the current window list. If
+the update region of a window is found to be
+non-empty, they generate an update event for that
+window.</P>
+
+<P>When your application receives the update event,
+it calls <code>BeginUpdate</code>, (re)draws the image for the
+window, and calls <code>EndUpdate</code>. The
+<code>BeginUpdate/EndUpdate</code> pair of calls empties the
+update region for the window so that subsequent
+searches for windows which need updating do not
+find that window.</P>
+
+<P>These update regions are the key to
+understanding how the Notification Manager swallows
+update events.</P>
+
+<P>The standard dialog filter, to which
+Notification Manager's dialog filter passes
+control, wants to ensure that background apps get
+processing time by "solving" the problem described
+in DTS Technote TN1145
+<a href="tn1147.html">Pending
+Update Perils</a>. The standard filter
+simply calls <code>BeginUpdate</code> and <code>EndUpdate</code> every time
+it's given an update event, regardless of the
+window for which the event is bound.</P>
+
+<P>This results in all windows in the current
+window list having their update regions emptied
+almost immediately. As a consequence, no update
+events are generated for those windows, even though
+they need to be (re)drawn. When the user dismisses
+Notification Manager's dialog, only the windows
+covered by Notification Manager's dialog get update
+events, and then only for the region covered by
+Notification Manager's dialog.</P>
+
+<P>There is nothing straightforward your
+application can do to prevent swallowed update
+events. While your application innocently waits for
+a call to <code>WaitNextEvent</code> to return, Notification
+Manager suddenly puts up its dialog and seizes
+control of the event loop until the user dismisses
+the dialog. Your application can't even predict
+when this will happen, much less prevent it or
+easily work around it.</P>
+<P><a href="#top">Back to top</a></P>
+<a NAME=RTFToC2></a>
+
+<H2>Using the Sample Code Library
+UpdateRegionSaver to Work Around the Problem</H2>
+
+<P>Although Apple has fixed
+both of these problems in Mac OS 9.0, you might
+consider using some of the sample code presented
+here as a workaround on earlier systems. The sample
+code will continue to work, albeit redundantly,
+even on Mac OS 9.0 and above.</P>
+
+<P>Most users of <code>UpdateRegionSaver</code> will only need
+to make three very simple calls, shown in this
+sample: <code>SaveUpdateRegions</code>, <code>RestoreUpdateRegions</code>,
+and <code>DeleteUpdateRegions</code>.</P>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+#ifndef __EVENTS__
+#    include &lt;Events.h&gt;
+#endif
+
+#include "UpdateRegionSaver.h"
+
+pascal Boolean WaitNextEventWithNMSafeUpdates
+    (EventMask eventMask, EventRecord *theEvent,
+        UInt32 sleep, RgnHandle mouseRgn)
+{
+    UpdateRegionSaver *root = SaveUpdateRegions ( );
+    EventRecord event;
+    Boolean result = WaitNextEvent
+        (eventMask,theEvent,sleep,mouseRgn);
+    RestoreUpdateRegions (root);
+    DeleteSavedUpdateRegions (root);
+    root = nil;
+    return result;
+}
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+                  
+<P>For a full listing of each of the three calls,
+refer to <a href="#Appendix">Appendix A</a> at the
+end of this Technote.</P>
+<P><a href="#top">Back to top</a></P>
+<P><a NAME=RTFToC3></a></P>
+
+<H2>UpdateRegionSaver Reference</H2>
+
+<P>This section describes the data structures and
+routines specific to the <code>UpdateRegionSaver</code>
+library.</P>
+
+<H3>Data Structures</H3>
+
+<P>The UpdateRegionSaver library manipulates a data
+structure of type UpdateRegionSaver.</P>
+                  
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>typedef struct UpdateRegionSaver
+{
+
+    RgnHandle            fRgnH;
+    WindowRef            fRef;
+    struct UpdateRegionSaver    *fNext;
+}
+UpdateRegionSaver;
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+                  
+<H4>Field Descriptions</H4>
+
+
+   <code>fRgnH</code>
+   
+   <p>
+A region copied from the update region of a
+   window. It is in global coordinates (as is the
+   update region itself). Before being restored to
+   the window, it will be copied and converted to
+   the local coordinates of the window.
+</p>
+
+   
+   <code>fRef</code>
+   
+   <p>
+The address of the window from which the
+   copy of the update region came. Before restoring
+   the region, <code>UpdateRegionSaver</code> verifies that
+   there is still a window at this address in the
+   window list. (This is not a perfect test, but it
+   is the best test that can be made without
+   patching a trap or three.)
+</p>
+
+   
+   <code>fNext</code>
+   
+ <p>
+  The address of the next structure in the
+   linked list. The last node in the list has a 0
+   here.
+</p>
+
+
+
+<H3>UpdateRegionSaver Routines</H3>
+
+<P>To get a list of update regions associated with
+the windows in the current window list, call
+<code>SaveUpdateRegions</code>. To restore the regions to their
+owning windows, call <code>RestoreUpdateRegions</code>. To
+destroy the list of regions, call
+<code>DeleteSavedUpdateRegions</code>.</P>
+
+<H3>SaveUpdateRegions</H3>
+
+<P>To save the update regions associated with the
+windows in your application's window list, call
+SaveUpdateRegions.</P>
+
+<P><code>SaveUpdateRegions</code> returns a pointer to the root
+of simple singly-linked list which contains a node
+for each window. In each node your application will
+find a window pointer, a copy of the window's
+update region, and a pointer to the next node.</P>
+
+<H3>RestoreUpdateRegions</H3>
+
+<P>To restore a list of saved update regions to the
+windows from which they came, call
+<code>RestoreUpdateRegions</code>.</P>
+
+<P><code>RestoreUpdateRegions</code> copies the regions in the
+list and converts the copies to the local
+coordinates of each window before calling InvalRgn
+to merge the region into any update region which
+may already be there.</P>
+
+<H3>DeleteSavedUpdateRegions</H3>
+
+<P>To delete a list of saved update regions, call
+DeleteSavedUpdateRegions.</P>
+<P><a href="#top">Back to top</a></P>
+<P><a NAME=Summary></a></P>
+
+<H2>Summary</H2>
+
+<P>The Notification Manager may present a Dialog
+Manager dialog whenever your application calls
+<code>WaitNextEvent</code>. This impedes the flow of
+window-related events (such as update or activate)
+to your application's event loop. Make sure your
+application doesn't logically activate a window
+which is already active. Use the <code>UpdateRegionSaver</code>
+library (or something like it) to ensure your
+application will always get the update events it
+requires.</P>
+<P><a href="#top">Back to top</a></P>
+<a NAME="References"></a><H2>References</h2>
+<P>DTS Technote TN1145
+   <a href="tn1147.html">Pending
+   Update Perils</a>,
+   has a discussion of the problem
+   Notification Manager "solves," as mentioned
+   previously.</p>
+   
+   <p>Chapter 6, "Dialog Manager," <CITE>Inside
+   Macintosh: Macintosh Toolbox Essentials</CITE>
+   has a description of the operation of
+   ModalDialog and the standard dialog filter.</p>
+<P><a href="#top">Back to top</a></P>
+<a name="Changes"></a>
+<H2>Change History</H2>
+
+
+ <table BORDER=0 CELLPADDING=3 WIDTH=544>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-February-1996</P>
+               </TD>
+               <td align="left">
+                  <P>First written.</P>
+               </TD>
+            </TR>
+            <TR>
+               <td width=100 align=left>
+                  <P ALIGN=center>01-November-2000</P>
+               </TD>
+               <td align="left">
+                  <P>Updated to mention that the non-modal Notification
+   Manager in Mac OS 9.0 fixes both of the problems
+   described in this technote.</P>
+               </TD>
+            </TR>
+         </table>
+
+
+
+<P><a href="#top">Back to top</a></P>
+<P><a NAME=Appendix></a></P>
+
+<H2>Appendix A</H2>
+
+<H3>UpdateRegionSaver.h</H3>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+#pragma once
+
+#ifndef __WINDOWS__
+#    include &lt;Windows.h&gt;
+#endif
+
+typedef struct UpdateRegionSaver
+{
+    // We don't care about alignment since this is an internal
+    // runtime-only structure.
+
+    RgnHandle            fRgnH;
+    WindowRef            fRef;
+    struct UpdateRegionSaver    *fNext;
+}
+UpdateRegionSaver;
+
+// I can't figure why this next #ifdef would be necessary for
+// pascal funcs,but CW7 for PPC says it is.
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+pascal void RestoreUpdateRegions (UpdateRegionSaver *);
+pascal void DeleteSavedUpdateRegions (UpdateRegionSaver *);
+pascal UpdateRegionSaver * SaveUpdateRegions (void);
+
+#ifdef __cplusplus
+}
+#endif
+                  </pre>
+	</TD>
+</TR>
+</table></CENTER>
+                  
+                  <H3>UpdateRegionSaver.c</H3>
+                  
+                  <CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+#ifndef __LOWMEM__
+#    include &lt;LowMem.h&gt;
+#endif
+
+#include "UpdateRegionSaver.h"
+
+static pascal Boolean IsWindowStillAround (WindowRef ref)
+{
+    WindowRef scan = LMGetWindowList ( );
+
+    while (scan)
+    {
+        if (scan == ref) break;
+        scan = GetNextWindow (scan);
+    }
+
+    return !!scan;
+}
+
+pascal void RestoreUpdateRegions (UpdateRegionSaver *ursp)
+{
+    while (ursp)
+    {
+        if (!EmptyRgn (ursp-&gt;fRgnH) &amp;&amp; IsWindowStillAround (ursp-&gt;fRef))
+        {
+            RgnHandle localUpdateRgn = NewRgn ( );
+            if (localUpdateRgn)
+            {
+                Point zero;
+                GrafPtr keep = qd.thePort;
+                SetPort (ursp-&gt;fRef);
+                zero.h = qd.thePort-&gt;portRect.left;
+                zero.v = qd.thePort-&gt;portRect.top;
+                GlobalToLocal (&amp;zero);
+                CopyRgn (ursp-&gt;fRgnH,localUpdateRgn);
+                OffsetRgn (localUpdateRgn,zero.h,zero.v);
+                InvalRgn (localUpdateRgn);
+                SetPort (keep);
+                DisposeRgn (localUpdateRgn);
+            }
+        }
+
+        ursp = ursp-&gt;fNext;
+    }
+}
+
+pascal void DeleteSavedUpdateRegions (UpdateRegionSaver *ursp)
+{
+    while (ursp)
+    {
+        UpdateRegionSaver *next = ursp-&gt;fNext;
+        DisposeRgn (ursp-&gt;fRgnH);
+        DisposePtr ((Ptr) ursp);
+        ursp = next;
+    }
+}
+
+pascal UpdateRegionSaver * SaveUpdateRegions (void)
+{
+    //
+    //  This function saves as many update regions as it can.
+    //  If for some reason memory is so low that some regions
+    //  cannot be saved, this function makes a best effort.
+    //  (Its best effort is rather stupid, but it does try.)
+    //
+
+    UpdateRegionSaver *root = nil;
+    WindowRef scan = LMGetWindowList ( );
+
+    while (scan)
+    {
+        UpdateRegionSaver *newUpdateRegionSaver =
+            (UpdateRegionSaver *) NewPtr (sizeof (UpdateRegionSaver));
+        if (!MemError ( ))
+        {
+            RgnHandle rgnH = NewRgn ( );
+
+            if (!rgnH)
+            {
+                DisposePtr ((Ptr) newUpdateRegionSaver);
+                newUpdateRegionSaver = nil;
+            }
+            else
+            {
+                GetWindowUpdateRgn (scan,rgnH);
+
+                newUpdateRegionSaver-&gt;fRgnH     = rgnH;
+                newUpdateRegionSaver-&gt;fRef      = scan;
+                newUpdateRegionSaver-&gt;fNext     = root;
+
+                root = newUpdateRegionSaver;
+            }
+        }
+
+        scan = GetNextWindow (scan);
+    }
+
+    return root;
+}</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+
+<P><a href="#top">Back to top</a></P>
+ 
+         <a NAME=Downloads></a>
+         
+         <H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (60K).</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/tn1026.pdf">Download</a></P>
+               </TD>
+            </TR>
+         </table>
+         <BR><BR>
+<P><a href="#top">Back to top</a></P>
+
+
+</TD></TR></table></CENTER>
+		
+<!-- end_content -->
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

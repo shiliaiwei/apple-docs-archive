@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1862: Resolving the "No identities are available for signing" Error</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40014678">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40014678-CH1">
+    <meta id="date" name="date" content="2014-06-17">
+    <meta id="description" name="description" content="QA1862: resolves the "No identities are available for signing" error during Xcode 5's distribute workflow.">
+    <meta id="book-title" name="book-title" content="Resolving the &quot;No identities are available for signing&quot; Error">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Core Services Layer/Security}, {Topic/Xcode}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1862">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Resolving the &quot;No identities are available for signing&quot; Error" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40014678" title="Technical Q&amp;A QA1862"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Resolving the &quot;No identities are available for signing&quot; Error</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40014678-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1862"></a><div class="dtsDocNumber">Technical Q&amp;A QA1862</div><h1 id="pageTitle">Resolving the "No identities are available for signing" Error</h1><h2>Q:&nbsp;
+How do I resolve the "No identities are available for signing" error? 
+</h2><p><span>A: </span>This document iterates the common reasons Xcode presents the error message "No identities are available for signing" during the Distribute phase on the Xcode Organizer. To resolve this error, make sure your Xcode and account configuration satisfy all the items in the following list. </p><section><a name="//apple_ref/doc/uid/DTS40014678-CH1-TEAM_DISTRIBUTION_CERTIFICATE" title="Team Distribution Certificate"></a><h2 class="jump">Team Distribution Certificate</h2><p>1. Verify that your team distribution certificate is installed within your OS X user's default keychain. The steps to verify this are covered in <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates.html#//apple_ref/doc/uid/TP40012582-CH31-SW8" class="urlLink" rel="external">App Distribution Guide</a></span><strong> &gt; Maintaining Your Signing Identities and Certificates &gt; Requesting Signing Identities &gt; Verifying Your Steps &gt; Verifying Using Keychain Access</strong>. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40014678-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;If the team distribution certificate is not present in the keychain, create it using the process in <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/SubmittingYourApp/SubmittingYourApp.html#//apple_ref/doc/uid/TP40012582-CH9-SW4" class="urlLink" rel="external">App Distribution Guide</a></span><strong> &gt; Submitting Your App &gt; Creating Distribution Certificates</strong>.</p><p></p></aside></div><p>2. Verify that the expiration date on the distribution certificate has not lapsed, and, that it corresponds with the expiration date of the team distribution certificate listed in <span class="content_text"><a href="https://developer.apple.com/membercenter/index.action" class="urlLink" rel="external">Member Center</a></span><strong> &gt; Certificates, Identifiers &amp; Profiles &gt; (your program) &gt; Certificates &gt; Production</strong>. </p><ul class="ul"><li class="li"><p>If the expiration date has lapsed you must create a new team distribution certificate. The complete process is covered in <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates.html#//apple_ref/doc/uid/TP40012582-CH31-SW34  " class="urlLink" rel="external">App Distribution Guide</a></span><strong> &gt; Maintaining Your Signing Identities and Certificates &gt; Re-Creating Certificates and Updating Related Provisioning Profiles</strong>.</p></li><li class="li"><p>If the expiration date differs then you must acquire the certificate that exists on Member Center since it is the only active certificate. The process of acquiring the missing certificate can be done by following the process in <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates.html#//apple_ref/doc/uid/TP40012582-CH31-SW15" class="urlLink" rel="external">App Distribution Guide</a></span><strong> &gt; Maintaining Your Signing Identities and Certificates &gt; Exporting and Importing Certificates and Profiles</strong>. The export must be done on the Mac where the distribution certificate was originally created, or was transferred to. If you cannot acquire the certificate, then you must re-create it by following the steps in the former link. </p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014678-CH1-DISTRIBUTION_PROVISIONING_PROFILE" title="Distribution Provisioning Profile"></a><h2 class="jump">Distribution Provisioning Profile</h2><p>1. Sign into <span class="content_text"><a href="https://developer.apple.com/membercenter/index.action" class="urlLink" rel="external">Member Center</a></span><strong> &gt; Certificates, Identifiers &amp; Profiles &gt; (your platform) &gt; Provisioning Profiles &gt; Distribution</strong> and verify your distribution provisioning profile is listed. If it's not, you must create it using the steps in <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/SubmittingYourApp/SubmittingYourApp.html#//apple_ref/doc/uid/TP40012582-CH9-SW8" class="urlLink" rel="external">App Distribution Guide</a></span><strong> &gt; Submitting Your App &gt; Creating Store Provisioning Profiles</strong>.</p><p>2. Verify the distribution profile is installed in Xcode's provisioning profile library, which can be viewed in <strong>Xcode &gt; Preferences &gt; Accounts &gt; (your account) &gt; View Details &gt; Provisioning Profiles</strong>. If the distribution profile is not listed, press the "↺" button to have Xcode download it. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40014678-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;If the distribution profile fails to download during the "↺" process, download it manually from the Member Center. Drag the downloaded provisioning profile onto the Xcode icon on your Dock to install it.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014678-CH1-APP_ID_MATCHING" title="App ID Matching"></a><h2 class="jump">App ID Matching</h2><p>Verify that the App ID associated to the distribution profile is compatible with the app's Bundle Identifier defined in Xcode. To do that: </p><ul class="ul"><li class="li"><p>Click on the distribution profile within <span class="content_text"><a href="https://developer.apple.com/membercenter/index.action" class="urlLink" rel="external">Member Center</a></span><strong> &gt; Certificates, Identifiers &amp; Profiles &gt; (your platform) &gt; Provisioning Profiles &gt; Distribution</strong>. </p></li><li class="li"><p>Check that the value for the App ID (within the parenthesis) matches the Bundle Identifier entered in the Xcode project's Target &gt; Info tab. </p></li><li class="li"><p>If the App ID contains an asterisk ("*"), then confirm this wildcard App ID is compatible with the Bundle Identifier according to the discussion about multiple app wildcard matching within the <strong>App ID</strong> section of <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/general/conceptual/DevPedia-CocoaCore/AppID.html" class="urlLink" rel="external">Cocoa Core Competencies Guide</a></span>. </p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014678-CH1-MULTIPLE_TEAM_DISTRIBUTION_CERTIFICATES" title="Multiple Team Distribution Certificates"></a><h2 class="jump">Multiple Team Distribution Certificates</h2><p>If there are multiple team distribution certificates listed in <span class="content_text"><a href="https://developer.apple.com/membercenter/index.action" class="urlLink" rel="external">Member Center</a></span><strong> &gt; Certificates, Identifiers &amp; Profiles &gt; (your program) &gt; Certificates &gt; Production</strong> then there are a couple points to consider. </p><p>If you don't have all of the team distribution certificates installed in your OS X user's default keychain, and, not all of the team distribution certificates are associated to the distribution provisioning profile, then it's possible the distribution certificate in your keychain isn't the same distribution certificate that is associated with your distribution provisioning profile. Xcode will present the error is this case because it is unable to code signing apps for distribution with this configuration. </p><p>To diagnose and resolve this situation: </p><p>1. Sign into <span class="content_text"><a href="https://developer.apple.com/membercenter/index.action" class="urlLink" rel="external">Member Center</a></span><strong> &gt; Certificates, Identifiers &amp; Profiles &gt; (your program) &gt; Certificates &gt; Production</strong> and compare the number of certificates listed here with those seen in your OS X user's default keychain. Compare the certificate's expiration date to match them up. </p><p>If there are more certificates listed in Member Center than those installed in your keychain, you can resolve the issue by acquiring each of the missing team distribution certificates using the process in <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingCertificates/MaintainingCertificates.html#//apple_ref/doc/uid/TP40012582-CH31-SW15" class="urlLink" rel="external">App Distribution Guide</a></span><strong> &gt; Maintaining Your Signing Identities and Certificates &gt; Exporting and Importing Certificates and Profiles</strong>. The export must be done on the Mac where the distribution certificate was originally created, or was transferred to. </p><p>2. If you're not able to acquire and install all of the team's distribution certificates, then at least, you must ensure that one team distribution certificate you have in your keychain is associated to the distribution provisioning profile. To do that: </p><ul class="ul"><li class="li"><p>Log into <span class="content_text"><a href="https://developer.apple.com/membercenter/index.action" class="urlLink" rel="external">Member Center</a></span><strong> &gt; Certificates, Identifiers &amp; Profiles &gt; (your platform) &gt; Provisioning Profiles &gt; Distribution</strong> and click to edit the distribution provisioning profile.</p></li><li class="li"><p>Within the list of associated certificates, compare the expiration dates with the distribution certificates installed in your keychain. </p></li><li class="li"><p>Check the box next to the certificate whose expiration date matches the one installed in your keychain. </p></li><li class="li"><p>If you made a change to the profile, regenerate it like so: </p><ul class="nested"><li class="nested li"><p>Click Generate at the bottom of the page.</p></li><li class="nested li"><p>Sync profiles in Xcode using the steps in <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingProfiles/MaintainingProfiles.html#//apple_ref/doc/uid/TP40012582-CH30-SW26" class="urlLink" rel="external">App Distribution Guide</a></span><strong> &gt; Maintaining Your Signing Identities and Certificates &gt; Refreshing Provisioning Profiles in Xcode</strong>.</p></li><li class="nested li"><p>Or, manually download the regenerated profile and install it by dragging it onto the Xcode icon on your Dock. </p></li></ul></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40014678-CH1-ACCOUNT_ACCESS" title="Account Access"></a><h2 class="jump">Account Access</h2><p>Account access in Member Center and iTunes Connect must be in good standing, and associated with the proper role that allows app submission. Follow the upcoming steps to ensure Xcode does not present this error due to account configuration issues. </p><section><a name="//apple_ref/doc/uid/DTS40014678-CH1-ACCOUNT_ACCESS-MEMBER_CENTER_ACCESS" title="Member Center Access"></a><h3 class="jump">Member Center Access</h3><p>1. Sign into <span class="content_text"><a href="https://developer.apple.com/membercenter/index.action" class="urlLink" rel="external">Member Center</a></span><strong> &gt; Certificates, Identifiers &amp; Profiles</strong> to verify your access. </p><p>2. If there are any agreement updates, the team Agent must agree to the new terms &amp; conditions on the <span class="content_text"><a href="https://developer.apple.com/membercenter/index.action#agreements" class="urlLink" rel="external">Member Center</a></span><strong> &gt; Agreements</strong>. Xcode will present this error when agreements must be re-signed before app submission can be resumed. </p></section><section><a name="//apple_ref/doc/uid/DTS40014678-CH1-ACCOUNT_ACCESS-ITUNES_CONNECT_ACCESS" title="iTunes Connect Access"></a><h3 class="jump">iTunes Connect Access</h3><p>1. Sign into <span class="content_text"><a href="https://itunesconnect.apple.com" class="urlLink" rel="external">iTunes Connect</a></span> to verify your access. </p><p>2. If there are any agreement updates, a user with the Legal role must agree to the new contract in the Contracts, Tax, and Banking page. Xcode will present this error when agreements must be re-signed before app submission can be resumed. </p><p>3. Click your username in the upper-right corner<strong> &gt; Personal Details &gt; Roles</strong>. The Technical role is required for the Manage Your Apps page in order for you to submit apps. </p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40014678-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40014678-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-06-17</td><td><p>New document that 
+					resolves the "No identities are available for signing" error during Xcode 5's distribute workflow.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-06-17</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

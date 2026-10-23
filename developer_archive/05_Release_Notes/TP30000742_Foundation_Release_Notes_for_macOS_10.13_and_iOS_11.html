@@ -1,0 +1,252 @@
+<HTML>
+<!--This file created by ali using rtf2html by aozer from FouExt.rtf on 2017-06-15 10:16:45 -0700 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Release Note">
+            <meta id="book-title" name="book-title" content="Foundation Release Notes for macOS 10.13 and iOS 11">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Technologies/Core Services Layer/Foundation}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP30000742">
+            <meta id="document-version" name="document-version" content="13.0.2">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="Describes new features and known issues for the Foundation framework.">
+            <meta id="resources-uri" name="resources-uri" content="../../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X,iOS,tvOS,watchOS">
+<link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback.css" />
+
+<TITLE>Foundation Release Notes for macOS 10.13 and iOS 11</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+</head>
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><BODY BGCOLOR="#FFFFFF">
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Foundation Release Notes for macOS 10.13 and iOS 11</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              
+<H1>
+macOS 10.13 and iOS 11 Release Notes<BR>Cocoa Foundation Framework</H1>
+<BR><BR>The Foundation framework is a library of APIs that provide the infrastructure for object-based applications with or without graphical user interfaces.  It is available on macOS, iOS, tvOS, and watchOS.  Parts of Foundation are also available in Swift Core Libraries, for other platforms.<BR>
+<BR>Note that at this time these notes do not capture all of the changes.<BR>
+<BR>Release notes for earlier versions of Foundation can be found <A HREF="https://developer.apple.com/library/content/releasenotes/Foundation/RN-FoundationOlderNotes/index.html">here</A>.<BR>
+<BR><BR>Note that even though some APIs and descriptions refer to the APIs in Objective-C, and some others in Swift, in general all Foundation APIs are available in both Objective-C and Swift.  There are a number of Foundation APIs that are available in Swift as both a reference type that is bridged to its Objective-C counterpart, and value type. For instance, NSData and Data.  In general, the value type is the more appropriate API to use in Swift, but in cases where it&rsquo;s important to preserve bridging or reference behaviors, then the reference type can also be used instead.<BR>
+<BR><BR><H4>
+Key Path and KVO Improvements in Swift</H4>
+We now have a new Swift syntax for key paths, new types to represent them, and block-based key value observing.  Please refer to WWDC 2017 session 212, &ldquo;What&rsquo;s New in Foundation,&rdquo; for an in-depth discussion of these features.<BR>
+<BR><H4>
+Archiving in Swift</H4>
+We have a new protocol, Codable, for archiving and unarchiving in Swift.  It provides powerful archiving features for Swift types, and also enables automatic JSON encoding.  Please refer to WWDC 2017 session 212, &ldquo;What&rsquo;s New in Foundation,&rdquo; for an in-depth discussion.<BR>
+<BR><BR><H4>
+NSDistributedNotificationCenter</H4>
+Observers added to NSDistributedNotificationCenters will now be stored weakly similarly to the NSNotificationCenter storage. This behavior is conditional upon being linked to the latest Foundation. Previously compiled applications will not have this behavior.<BR>
+<BR><H4>
+NSMapTable</H4>
+The function NSMapMember now appropriately handles null key and value parameters.<BR>
+<BR><H4>
+NSNumber</H4>
+Bridging NSNumbers in swift to numeric types now uniformly limits the cases of as? cast no matter how the NSNumber was created. Casting NSNumbers to numeric types will return nil if the number cannot be safely represented as the target type.<BR>
+<PRE><TT>let n = NSNumber(value: UInt32(543))<BR>let v = n as? UInt32<BR>// v is UInt32(543)</TT></PRE>
+<PRE><TT>let v: UInt32 = 543<BR>let n = v as NSNumber<BR>// n == NSNumber(value: 543)</TT></PRE>
+<PRE><TT>let n = NSNumber(value: UInt32(543))<BR>let v = n as? Int16<BR>// v is Int16(543)</TT></PRE>
+<PRE><TT>// Failures when casting that losses the value stored<BR>let n = NSNumber(value: UInt32(543))<BR>let v = n as? Int8<BR>// v is nil</TT></PRE>
+<H4>
+NSOperation</H4>
+NSOperation now responds to KVO and KVC for representing the finished, cancelled, executing and ready states as the strings @&ldquo;finished&rdquo;, @&ldquo;cancelled&rdquo;, @&ldquo;executing&rdquo; and @&ldquo;ready&rdquo; in addition to the older versions like @&ldquo;isReady&rdquo;.<BR>
+<BR>NSOperation completionBlock now uniformly is set to nil upon completion of an operation to avoid circular references to operations.<BR>
+<BR><H4>
+NSOperationQueue</H4>
+NSOperationQueue will no longer create a serial backing dispatch queue for each operation. Instead it now shares a single concurrent dispatch queue.<BR>
+<BR>Quality of service for NSOperations when enqueued to an operation will no longer be calculated in advance, instead the quality of service for an operation is only applied if it is requested upon the execution of an operation. If a NSOperationQueue specifies a quality of service, the backing dispatch queue will have that specified quality of service. Any operations run upon that queue will inherit the effective quality of service if they do not have a quality of service specified. However if an NSOperation has a quality of service specified it will enforce that quality of service when running upon the NSOperationQueue&rsquo;s backing dispatch queue.<BR>
+<BR>Quality of service overrides now only apply when waiting for operations to finish. This means that the work done to calculate the effective quality of service is not paid up-front but instead calculated when waiting is invoked.<BR>
+<BR>NSOperationQueueDefaultMaxConcurrentOperationCount should no longer hit thread exhaustion states.<BR>
+<BR><H4>
+NSTask</H4>
+NSTask now has two new methods to allow for launching processes and returning an error instead of throwing an exception. Additionally the executable path is now exposed as a NSURL via the property executableURL and the current working directory for launching is exposed as a NSURL via currentDirectoryURL.<BR>
+<BR><H4>
+NSThread</H4>
+Setting the stack size for NSThreads will now raise an invalid argument exception when the stack size is not appropriate.<BR>
+<BR><H4>
+NSRange</H4>
+NSRange in Swift conforms to Equatable, Hashable and CustomStringConvertible.<BR>
+<PRE><TT>let ranges = Set&lt;NSRange&gt;([NSRange(location: 4, length: 10), NSRange(location: 2, length: 3)])<BR>print(ranges) // prints [{4, 10}, {2, 3}]</TT></PRE>
+<BR><BR><H4>
+NSXPCConnection support for discrete NSProgress</H4>
+In order to provide an easier and more discoverable solution for updating progress over an NSXPCConnection, void will no longer be the only allowed return type. NSProgress * will now also work:<BR>
+<PRE><TT>@protocol ServerProtocol<BR>// This is a traditional callback<BR>- (void)remoteCallWithReply:(void (^)(BOOL success))reply;</TT></PRE>
+<PRE><TT>// This is the newly allowed style<BR>- (NSProgress *)remoteCallWithProgressAndReply:(void (^)(BOOL success))reply;<BR>@end</TT></PRE>
+On the caller side, they simply compose the result NSProgress * into their tree using the existing NSProgress API.<BR>
+<BR>When a call is made to the proxy using a selector that returns NSProgress, NSXPCConnection will create a local stand-in for the remote side and return it. The call does not become synchronous.<BR>
+<BR>Only methods which have a reply block are allowed to return NSProgress *.<BR>
+<BR>On the remote side, when the called method returns an NSProgress, NSXPCConnection will hook the result up to the progress object it handed out on the local side of the connection.<BR>
+<BR>The following example shows a simple use case.<BR>
+<BR>Shared Code<BR>
+<PRE><TT>@protocol ProgressReportingService &lt;NSObject&gt;<BR>- (NSProgress *)performRequestWithReply:(void (^)(BOOL success))reply;<BR>@end</TT></PRE>
+Server Code<BR>
+<PRE><TT>- (NSProgress *)performRequestWithReply:(void (^)(BOOL))reply {<BR>    NSProgress * progress = [NSProgress progressWithTotalUnitCount:30];<BR>    dispatch_async(dispatch_get_global_queue(0, 0), ^{<BR>        progress.completedUnitCount = 10;<BR>        usleep(100000);<BR>        progress.completedUnitCount = 20;<BR>        usleep(100000);<BR>        progress.completedUnitCount = 30;<BR>        usleep(100000);<BR>        reply(YES);<BR>    });<BR>    return progress;<BR>}</TT></PRE>
+Client Code<BR>
+<PRE><TT>- (void)callRequest {<BR>    NSProgress *localProgress = [[NSProgress alloc] init];<BR>    localProgress.totalUnitCount = 1;</TT></PRE>
+<PRE><TT>    id proxy = [_connection remoteObjectProxy];<BR>    NSProgress *remoteProgress = [proxy performRequestWithReply:^(BOOL success) {<BR>        /* Operation is finished here */<BR>    }];<BR>    [localProgress addChild:remoteProgress withPendingUnitCount:1];</TT></PRE>
+<PRE><TT>    // At this point, localProgress will update as remoteProgress is updated. You may observe it as usual.<BR>}</TT></PRE>
+<BR><H4>
+NSLinguisticTagger</H4>
+NSLinguisticTagger now has the notion of a unit, which may be word, sentence, paragraph, or the entire document, as represented by NSLinguisticTaggerUnit.&nbsp; A number of APIs now have variants which take a unit, allowing certain types of tagging (such as language) to be performed at the word, sentence, paragraph, or document level.&nbsp; Not all types of tagging are available for all units, and +availableTagSchemesForUnit:language: can be used to determine which tag schemes are available for a given unit and language.<BR>
+<BR>The -dominantLanguage and +dominantLanguageForString: methods are also available as a convenience, the equivalent of the language scheme as applied to the document unit.&nbsp; These are the preferred methods for determining the language of a string as a whole.<BR>
+<BR>For Swift 4, NSLinguisticTagScheme and NSLinguisticTag have become named types rather than strings, and the methods that take them have been adjusted appropriately.<BR>
+<BR><BR><H4>
+NSOrthography</H4>
+NSOrthography has a new method, +defaultOrthographyForLanguage:, designed to make it easier to construct an NSOrthography instance, given only a single dominant language.&nbsp; This method will pick a default script for the specified language and construct an NSOrthography instance based on that.<BR>
+<BR><BR><H4>
+NSRegularExpression/NSTextCheckingResult</H4>
+The regular expression syntax used by NSRegularExpression supports named capture groups, and there is now support for that in the API via a new rangeWithName: method on NSTextCheckingResult.<BR>
+<BR>For Swift 4, the keys for&nbsp;NSTextCheckingResult&nbsp;component dictionaries have been converted from strings into a named type.&nbsp; The Swift 4 naming of some&nbsp;NSTextCheckingResult&nbsp;methods has also been adjusted slightly to conform to standard conventions.<BR>
+<BR><BR><BR><H4>
+NSURL</H4>
+NSURL has the following new volume resource property keys:<BR>
+<PRE><TT>NSURLVolumeSupportsImmutableFilesKey<BR>NSURLVolumeSupportsAccessPermissionsKey<BR>NSURLVolumeAvailableCapacityForImportantUsageKey<BR>NSURLVolumeAvailableCapacityForOpportunisticUsageKey</TT></PRE>
+Please refer to NSURL.h for more info on these.<BR>
+<BR>NSURLLocalizedNameKey now correctly handles filenames containing Right-To-Left characters (such as Arabic or Hebrew letters) by inserting the appropriate Unicode control characters.<BR>
+<BR><BR><H4>
+NSURLComponents</H4>
+The hash method is now correctly implemented, so NSURLComponent objects may now be used as dictionary keys.<BR>
+<BR>The percentEncodedQueryItems property was added. This allows callers to get NSURLQueryItem name-value pairs with all percent-encoding intact, and to set NSURLQueryItem name-value pairs with additional characters percent-encoded (characters that are not required to be percent-encoded in the URL query  component).<BR>
+<BR><BR><H4>
+NSURLSession Adaptable Connectivity API</H4>
+New in macOS, iOS, watchOS, and tvOS is URLSession Adaptable Connectivity API. This API enables URLSession clients to have tasks automatically monitor and wait for satisfactory network connectivity, rather than immediately failing with an error when connectivity is unsatisfactory. This simplifies developer adoption of networking functionality by mitigating the need to manually monitor network conditions and retry requests.<BR>
+<BR>This new functionality is made available through the &lsquo;waitsForConnectivity&rsquo; URLSessionConfiguration property and the &lsquo;URLSession:taskIsWaitingForConnectivity:&rsquo; method of the URLSessionTaskDelegate protocol. Further details can be found in the NSURLSession.h header of the Foundation project.<BR>
+<BR><BR><H4>
+NSURLSession ProgressReporting</H4>
+New in macOS, iOS, watchOS, and tvOS is URLSessionTask adoption of the ProgressReporting protocol.<BR>
+<BR>It provides a platform API consistent mechanism for URLSession clients to track the progress of URLSessionTask that allows all clients of URLSessionTask to provide a consistent and meaningful measure of progress for a given task.<BR>
+<BR>URLSessionTask implements a new &lsquo;progress&rsquo; property of Progress type to make this new functionality available.<BR>
+<BR><BR><H4>
+NSURLSession brotli support</H4>
+New in macOS, iOS, watchOS, and tvOS is URLSession support for HTTP brotli content encoding (). HTTP requests by default will contain a &ldquo;br&rdquo; value (in addition to gzip and deflate) for the &ldquo;Accept-Encoding&rdquo; HTTP header; this informs the web server that the user agent supports brotli encoding. The web server can send an HTTP body with &ldquo;Content-Encoding: br&rdquo; HTTP header to indicate that the content is brotli-encoded. URLSession will automatically decompress the HTTP body data &mdash; passing the decoded data back to the client in didReceiveData delegate callbacks or via a Data object for the convenience URLSession APIs &mdash; just like it does for &ldquo;Content-Encoding: gzip&rdquo; content.<BR>
+<BR>For binary compatibility reasons, URLSession brotli support is enabled only for apps linked against the macOS 10.13 / iOS 11 SDKs and later.<BR>
+<BR><BR><H4>
+NSURLSessionTask Scheduling API</H4>
+New in macOS, iOS, watchOS, and tvOS is URLSessionTask Scheduling API. This API allows background URLSession clients to schedule tasks in the future, enabling easy background app refresh semantics for apps, watchOS complications, and more. The API also allows developers to update requests before transmission to address cases where the request has become stale when scheduled in the future.<BR>
+<BR>The new API is expressed by three URLSessionTask properties: &lsquo;earliestBeginDate&rsquo;, &lsquo;countOfBytesClientExpectsToSend&rsquo;, and &lsquo;countOfBytesClientExpectsToReceive&rsquo; and a new method for the URLSessionTaskDelegate protocol, &lsquo;URLSession:task:willBeginDelayedRequest:completionHandler&rsquo;. Further details can be found in the NSURLSession.h header of the Foundation project.<BR>
+<BR><BR><H4>
+NSURLSessionStreamTask proxy support</H4>
+New in macOS, iOS, and tvOS is URLSessionStreamTask support for HTTPS proxies requiring authentication. Currently there is a known issue where reads and writes on a secure connection through an HTTPS proxy will hang. However, proxy support for non-secure endpoints is currently supported for apps linked against the macOS 10.13 / iOS 11 SDKs and later.<BR>
+<BR><BR><H4>
+Collection Copy-on-Write</H4>
+NSArray, NSDictionary, and NSSet now implement &ldquo;copy on write&rdquo; (CoW), which means that a copy of a mutable instance will often not be a full copy, but a much cheaper, O(1) operation.  A full copy is done only when either one of the objects (the original or the copy) is mutated down the line.<BR>
+<BR>Please see WWDC 2017 session 244 &ldquo;Efficient Interactions with Frameworks&rdquo; for more info on this.<BR>
+<H4>
+Collection conveniences</H4>
+NSArray and NSDictionary have new APIs for more convenient reading/writing with an NSError return. The writing is performed atomically:<BR>
+<BR>NSArray:<BR>
+<PRE><TT>- (BOOL)writeToURL:(NSURL *)url error:(NSError **)error;<BR>- (nullable NSArray&lt;ObjectType&gt; *)initWithContentsOfURL:(NSURL *)url error:(NSError **)error;<BR>+ (nullable NSArray&lt;ObjectType&gt; *)arrayWithContentsOfURL:(NSURL *)url error:(NSError **)error;</TT></PRE>
+NSDictionary:<BR>
+<PRE><TT>- (BOOL)writeToURL:(NSURL *)url error:(NSError **)error;<BR>- (nullable NSDictionary&lt;NSString *, ObjectType&gt; *)initWithContentsOfURL:(NSURL *)url error:(NSError **)error;<BR>+ (nullable NSDictionary&lt;NSString *, ObjectType&gt; *)dictionaryWithContentsOfURL:(NSURL *)url error:(NSError **)error;</TT></PRE>
+<H4>
+Collection getObjects: APIs</H4>
+-[NSArray getObjects:] and -[NSDictionary getObjects:andKeys:] are now hard-deprecated.  Use the variants that take range or count arguments.<BR>
+<BR><BR><BR><H4>
+NSJSONSerialization</H4>
+NSJSONSerialization now encodes and decodes a wider range of numbers. Although the JSON spec allows any JSON parsing implementation to place limits on the range and representation of the numbers it parses, NSJSONSerialization should now be able to encode and decode the full range of numbers representable by native floats and doubles, as well as numbers representable by NSDecimalNumber.<BR>
+<BR>NSJSONSerialization also offers a new NSJSONWritingSortedKeys option to sort object keys alphabetically for more human-readable output.<BR>
+<BR><H4>
+plutil</H4>
+plutil -p now sorts property list dictionary keys alphabetically for more human-readable output.<BR>
+<BR><BR><H4>
+Relaxed Key-Value Observing Unregistration Requirements</H4>
+Prior to 10.13, KVO would throw an exception if any observers were still registered after an autonotifying object's -dealloc finished running. Additionally, if all observers were removed, but some were removed from another thread during dealloc, the exception would incorrectly still be thrown. This requirement has been relaxed in 10.13, subject to two conditions:<BR>
+<BR>&bull;&nbsp;The object must be using KVO autonotifying, rather than manually calling -will and -didChangeValueForKey: (i.e. it should not return NO from +automaticallyNotifiesObserversForKey:)<BR>&bull; The object must not override the (private) accessors for internal KVO state<BR>
+<BR>If all of these are true, any remaining observers after -dealloc returns will be cleaned up by KVO; this is also somewhat more efficient than repeatedly calling -removeObserver methods.<BR>
+<BR><H4>
+NSUserDefaults KVO improvements (New since Seed 1)</H4>
+Starting in iOS 9.3, and in subsequent releases of iOS and macOS, key-value observation of NSUserDefaults would deliver notifications asynchronously. This had several downsides including poor -registerDefaults: performance, and compatibility issues with some apps, so has now been scaled back to only delivering notifications of changes from other processes asynchronously. Changes within a process are now delivered synchronously as they were in older versions of the OS. This should also correct duplicate notifications of some changes being delivered to observers.<BR>
+<BR><H4>
+NSUserDefaults Data Loss Fix</H4>
+Starting in iOS 9.3, and in subsequent releases of iOS and macOS, NSUserDefaults could fail to load data if more than roughly 250 separate apps (including separate reinstalls of the same app) had been launched since the last reboot. This has been corrected.<BR>
+<BR><H4>
+NSFileHandle readabilityHandler Behavior Change</H4>
+For applications linked using the latest SDK, NSFileHandle will now correctly call its readabilityHandler when a file handle is readable but has zero bytes to read.<BR>
+<BR><H4>
+NSPropertyListSerialization Old-Style Property List Memory Use Reduction (New since Seed 1)</H4>
+Parsing NeXT-style plists uses roughly half as much memory as in earlier releases.<BR>
+<BR><H4>
+Swift KeyPath Adoption in Foundation APIs</H4>
+Several Foundation methods (including KVO) now have versions that take the new Swift KeyPaths, for improved type safety and usability.<BR>
+<BR><H4>
+Improved NSUserDefaults Handling of Invalid Files</H4>
+In earlier versions, if an NSUserDefaults/CFPreferences backing plist file was replaced with a file that was not a valid property list with a dictionary as its root key, it could cause various problems. NSUserDefaults now detects this and deletes the invalid file to recover.<BR>
+<BR><H4>
+Improved Handling of Mis-nested Key-Value Observing Calls</H4>
+When a KVO callout caused another KVO callout, and the willChange/didChange calls were incorrectly nested, a variety of problems could happen including crashes and bugs in seemingly unrelated code. This has been corrected, though it's still recommended that you avoid getting into this situation.<BR>
+<BR><H4>
+CFLocaleCopyCurrent() Concurrency Improvements</H4>
+Calling CFLocaleCopyCurrent() on many threads at once (for example, searching many NSStrings in parallel, when passing NULL for the locale) is dramatically faster.<BR>
+<BR><H4>
+UserDefaults nil Handling Fix</H4>
+Setting a default to nil in Swift, or calling -setURL: nil forKey: &hellip; in Objective-C would fail to remove the previous value. This has been corrected.<BR>
+<BR><H4>
+NSXMLParser Invalid Data Handling Improvement</H4>
+XML documents with a UTF-8 byte-order mark embedded in an attribute name could cause crashes. This has been fixed.<BR>
+<BR><H4>
+NSXMLDocument xmlns + NSXMLNodePreservePrefixes Fix</H4>
+Specifying NSXMLNodePreservePrefixes on a document with an xmlns attribute could omit the closing `&quot;` when creating an XML string. This has been corrected.<BR>
+<BR><BR><H4>
+NSError</H4>
+NSError now has a new key, NSLocalizedFailureErrorKey. The value for this userInfo key captures what failed as a complete sentence, but not why. This is meant for being specified by a higher level API that returns a CF/NSError from a lower level API, allowing the higher level to customize the what went wrong while keeping the failure reason intact.  This should be a complete sentence, including period at the end of the sentence (for localizations where that makes sense).<BR>
+<BR>As an example, for Foundation error code NSFileWriteOutOfSpaceError, setting the value of this key to &quot;The image library could not be saved.&quot; will allow the localizedDescription of the error to come out as &quot;The image library could not be saved. The volume Macintosh HD is out of space.&quot; rather than the default (say) &ldquo;You can't save the file ImgDatabaseV2 because the volume Macintosh HD is out of space.&quot;<BR>
+<BR>As a clarification, here are the steps taken by NSError.localizedDescription to compute the its value:<BR>
+<BR> 1. Look for NSLocalizedDescriptionKey in userInfo, use value as-is if present.  This allows the localizedDescription of any error to be easily customized by an app for presentation.<BR> 2. Look for NSLocalizedFailureErrorKey in userInfo. If present, use, combining with value for NSLocalizedFailureReasonErrorKey if available.  This allows an app to customize the operation that failed while keeping the failure reason provided by lower level intact, as described above.<BR> 3. Fetch NSLocalizedDescriptionKey from userInfoValueProvider, use value as-is if present. This is done after step 2 to allow the userInfo entry for NSLocalizedFailureErrorKey to take precedence.<BR> 4. Fetch NSLocalizedFailureErrorKey from userInfoValueProvider. If present, use, combining with value for NSLocalizedFailureReasonErrorKey if available.<BR> 5. Look for NSLocalizedFailureReasonErrorKey in userInfo or from userInfoValueProvider; combine with generic &quot;Operation failed&quot; message.<BR> 6. Last resort localized but barely-presentable string manufactured from domain and code. The result is never nil.<BR>
+<BR>Given this, an error producer can either provide a value for NSLocalizedDescriptionKey or values for NSLocalizedFailureErrorKey and NSLocalizedFailureReasonErrorKey.  Just NSLocalizedDescriptionKey by itself allows more flexibility in the language of the message; the other two enable more customizability in the final output, but the results are simply appended and appear as two distinct sentences.<BR>
+<BR>Higher level API that gets an NSError and passes it on for possible presentation can set either the NSLocalizedDescriptionKey or NSLocalizedFailureErrorKey to customize the error message.<BR>
+<BR><BR><BR>
+Release Notes Copyright &copy; 2017 Apple Inc.  All Rights Reserved.
+
+            </article>
+</body>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

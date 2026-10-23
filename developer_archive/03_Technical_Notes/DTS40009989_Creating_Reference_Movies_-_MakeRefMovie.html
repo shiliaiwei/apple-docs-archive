@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2266: Creating Reference Movies - MakeRefMovie</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009989">
+    <meta id="document-version" name="document-version" content="1.2.2">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009989-CH1">
+    <meta id="date" name="date" content="2010-05-19">
+    <meta id="description" name="description" content="TN2266: Describes the MakeRefMovie tool for Mac OS X.">
+    <meta id="book-title" name="book-title" content="Creating Reference Movies - MakeRefMovie">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/QuickTime}, {Topic/Audio, Video, & Visual Effects}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2266">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Creating Reference Movies - MakeRefMovie" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009989" title="Technical Note TN2266"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Creating Reference Movies - MakeRefMovie</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009989-CH1-SW1" title="Technical Note TN2266"></a><div class="dtsDocNumber">Technical Note TN2266</div><h1 id="pageTitle">Creating Reference Movies - MakeRefMovie</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>A reference movie contains pointers to alternate data rate movies--that is, multiple versions of the movie designed for downloading at various data rates or other criteria. MakeRefMovie is a utility allowing configuration of auto-selected movies for any connection speed, platform, language and so on without the viewer having to make a choice, and without special coding on the part of the content author.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009989-CH1-SECTION1" data-renderer-version="1">About MakeRefMovie</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009989-CH1-SECTION2" data-renderer-version="1">Using MakeRefMovie</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009989-CH1-SECTION3" data-renderer-version="1">Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009989-CH1-SECTION4" data-renderer-version="1">Downloads</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009989-RevisionHistory-SW998" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40009989-CH1-SECTION1" title="About MakeRefMovie"></a><h2 class="jump">About MakeRefMovie</h2><p><span class="content_text"><a href="https://connect.apple.com/cgi-bin/WebObjects/MemberSite.woa/wa/getSoftware?bundleID=19980" class="urlLink" rel="external">MakeRefMovie</a></span> allows you to create a QuickTime reference movie--a movie that contains pointers to alternate data rate movies which are best suited for the user's current connection speed. For example, you could create three versions of a movie-- a version optimized for low bandwidth, a version for DSL or cable modems and version for LAN users. Instead of having 3 or more links on your page, simply embed the reference movie in your web page and let QuickTime determine the appropriate movie to serve based on the user's current connection speed and device (e.g. iPhone). </p><p>In addition to connection speed, MakeRefMovie allows you to specify the version of QuickTime required to view the content and allows you to specify iPhone only delivery.</p><p>For a detailed discussion of recommended compression settings to use when creating QuickTime movies for delivery on the web and iPhone, see <span class="content_text"><a href="http://developer.apple.com/library/mac/#technotes/tn2218/_index.html" class="browserLink" >Technical Note TN2218, Compressing QuickTime Movies for the Web</a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009989-CH1-SECTION2" title="Using MakeRefMovie"></a><h2 class="jump">Using MakeRefMovie</h2><ol class="ol"><li class="li"><p>Open the MakeRefMovie Utility.</p></li><li class="li"><p>Drag each of the alternate movies onto the main window of MakeRefMovie. An alternate movie will appear for each file you drag-and-drop. Or you can open each file separately by choosing 'Add Movie Files...' from the Movie menu or you can type the URL to your streaming movie by selecting "Add URL..." from the Movie menu.</p></li><li class="li"><p>Set the minimum connection speed for each alternate movie in the Speed: pop-up menu.</p></li><li class="li"><p>For movies intended for playback on iPhone, set the Mobility setting to "Only on iPhone." This setting ensures that the movies will be ignored by QuickTime on Mac and PC.</p></li><li class="li"><p>Ensure that the alternate movies are ordered properly. Movies intended for desktop playback should come first followed by movies intended for iPhone. Also, movies should be ordered from lowest to highest connection speed for desktop and iPhone. You can reorder the movies by simply dragging them to a new position in the UI. If there is more than one movie designed for the same connection speed, set the load order of the movies in the Priority: pop-up.</p></li><li class="li"><p>Specify the default movie by checking Flatten into output. The default movie may be compressed with a codec supported by older versions of QuickTime for backward compatibility. This checkbox can only be applied to one movie.</p></li><li class="li"><p>Save the reference movie. If you created your alternates using relative URL paths, the reference movie will need to be placed in the same folder as the alternate movies. Upload the directory or folder to the server.</p></li></ol><p>See the following documents for information discussing media deployment:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/safari/library/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Introduction/Introduction.html" class="browserLink" >Safari HTML5 Audio and Video Guide</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/safari/library/technotes/tn2008/tn2218.html" class="browserLink" >Compressing QuickTime Movies for the Web</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/safari/library/technotes/tn2010/tn2262/index.html" class="browserLink" >Preparing Your Web Content for iPad</a></span></p></li><li class="li"><p><span class="content_text"><a href="http://developer.apple.com/iphone/library/technotes/tn2010/tn2224.html" class="browserLink" >Best Practices for Creating and Deploying HTTP Live Streaming Media for the iPhone and iPad</a></span></p></li></ul><figure class="figure"><a name="//apple_ref/doc/uid/DTS40009989-CH1-FIGURE1" title="Figure 1"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;</figcaption><img src="Art/tn2266_mrm.png" class="wide-image" alt="Figure 1 Art/tn2266_mrm.png" width="788" height="555"><img src="Art/tn2266_mrm.png" class="ipad-scaled-image" alt="Figure 1 Art/tn2266_mrm.png" width="670" height="471"></figure><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009989-CH1-SW2" title="Note"></a><p><strong>Note:</strong>&nbsp;Make sure the reference movie filename contains the '.mov' extension. This reference movie will call upon the alternates.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009989-CH1-SECTION3" title="Revision History"></a><h2 class="jump">Revision History</h2><ul class="ul"><li class="li"><p>MakeRefMovie 2.0.1 adds a user preferences that allow you to choose how alternate movies are added to the reference movie.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009989-CH1-SECTION4" title="Downloads"></a><h2 class="jump">Downloads</h2><p><span class="content_text"><a href="https://connect.apple.com/cgi-bin/WebObjects/MemberSite.woa/wa/getSoftware?bundleID=19980" class="urlLink" rel="external">MakeRefMovie (DMG)</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40009989-CH1-SW998" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009989-RevisionHistory-SW998" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-05-19</td><td><p>First Version</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-05-19</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

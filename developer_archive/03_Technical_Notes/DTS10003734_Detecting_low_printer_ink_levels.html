@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Technical Note TN2144: Detecting low printer ink levels</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003734">
+    <meta id="document-version" name="document-version" content="1.2.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003734-CH1">
+    <meta id="date" name="date" content="2018-06-04">
+    <meta id="description" name="description" content="TN2144: How to detect printer supply levels using a low ink tool">
+    <meta id="book-title" name="book-title" content="Detecting low printer ink levels">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Graphics & Animation/Printing}">
+    
+    <meta name="ROBOTS" content="NOINDEX"/>
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2144">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Detecting low printer ink levels" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003734" title="Technical Note TN2144"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Detecting low printer ink levels</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        <div id="legacyOuterWrapper" role="alert"><div align="center" id="watermark"><div class="legacybox">
+<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1><p><b>Important:</b>
+Retired Document: This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p></div></div></div>
+        <a name="//apple_ref/doc/uid/DTS10003734-CH1-SW1" title="Technical Note TN2144"></a><div class="dtsDocNumber">Technical Note TN2144</div><h1 id="pageTitle">Detecting low printer ink levels</h1><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003734-CH1-DontLinkElementID_1" title="Important:"></a><p><strong>Important:</strong>&nbsp;Retired Document: This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.</p><p></p></aside></div>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003734-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003734-CH1-SECTION2" data-renderer-version="1">Custom Supply Tools</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003734-CH1-SECTION3" data-renderer-version="1">Required Keys</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003734-CH1-SECTION4" data-renderer-version="1">Optional Keys</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003734-CH1-SECTION5" data-renderer-version="1">Testing your tool</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003734-CH1-SECTION6" data-renderer-version="1">Sample SNMP Query</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003734-CH1-SECTION7" data-renderer-version="1">Communication with your printer</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003734-RevisionHistory-SW1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003734-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Starting with Mac OS X 10.4, IP printers can detect printer supply levels by using the built-in command line tool <code>snmpInk</code>. This tool is run by default to determine printer ink levels. The tool is located in <code>/System/Library/Printers/Libraries/</code> and can be run on the command line with a single argument, the printer queue ID.</p><a name="//apple_ref/doc/uid/DTS10003734-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>/System/Library/Printers/Libraries/snmpInk &lt;queue_id&gt;<span></span></pre></td></tr></table></div><p>This tool will return XML formatted data obtained using SNMP which is then used to create a supply level Print Dialog Extension (PDE), which can be displayed to the user to indicate ink levels. Here is an example of a "Supply Levels" pane in the Print Dialog:</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003734-CH1-SECTION2" title="Custom Supply Tools"></a><h2 class="jump">Custom Supply Tools</h2><p>A printer driver can provide a custom tool that can detect printer supply levels. This tool will override the default <code>snmpInk</code> tool used for IP printers. The driver specifies the appropriate tool via a line in the printer's PPD or an entry in the printer's info ticket. When the print system wishes to query the printer for supply levels, it will execute the tool passing in the queue id (the name of the printer queue) as the first argument. </p><p>If you have a CUPS driver and you would like to override the default tool with your custom tool, you must add the *<code>APPrinterLowInkTool</code> key to your PPD file with the full path to your tool.</p><a name="//apple_ref/doc/uid/DTS10003734-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>*APPrinterLowInkTool: "/Library/Printers/Foo/Utility/MySupplyTool"<span></span></pre></td></tr></table></div><p>If you have a Tioga driver (10.0 -10.1 based driver), you must include the <code>APPrinterLowInkTool</code> in your Info.plist file as the child of the root node.</p><p>When executed, the tool should write to stdout the XML form of a CF or <code>NSDictionary</code>. The dictionary describes each consumable in the printer and provides information about its current state.</p><p>Your tool should also be able to end gracefully when receiving the TERM signal. The TERM signal is sent to your tool if a user were to switch printers in the print dialog. Therefore, your tool may need a signal handler to gracefully shutdown its dialog with the printer.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003734-CH1-SECTION3" title="Required Keys"></a><h2 class="jump">Required Keys</h2><p>Currently, there is a single defined key for the top-level dictionary. This key is <code>prtMarkerSuppliesTable</code>. The value for the <code>prtMarkerSuppliesTable</code> key is an array of dictionaries. Each element in the array describes a consumable through a series of key-value pairs. The defined keys and their values are listed below. See <span class="content_text"><a href="http://www.ietf.org/rfc/rfc3805.txt" class="urlLink" rel="external">RFC 3805</a></span> for additional information about these keys.</p><p>When creating your custom tool, you must support four keys.</p><a name="//apple_ref/doc/uid/DTS10003734-CH1-TABLE1" title="Table 1Required Keys"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Required Keys</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Required Keys
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Type 
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Value 
+</p></th></tr><tr><td  scope="row"><p>
+prtMarkerSuppliesClass 
+</p></td><td ><p>
+CFNumber representing an integer
+</p></td><td ><p>
+1 = other
+3 = supplyThatIsConsumed
+4 = supplyThatIsFilled
+</p></td></tr><tr><td  scope="row"><p>
+prtMarkerSuppliesDescription 
+</p></td><td ><p>
+CFString 
+</p></td><td ><p>
+A localized description of the supply.This description should be as generic as possible. For example "Black ink". The prtMarkerPartNumber dictionary entry can be used to supply more precise information about the supply.
+</p></td></tr><tr><td  scope="row"><p>
+prtMarkerSuppliesMaxCapacity 
+</p></td><td ><p>
+CFNumber representing an integer
+</p></td><td ><p>
+The maximum capacity of this supply container/receptacle expressed in prtMarkerSuppliesSupplyUnit. 
+A value of (-1) means other and specifically indicates that the sub-unit places no restrictions on this parameter. A value of (-2) means unknown.
+</p></td></tr><tr><td  scope="row"><p>
+prtMarkerSuppliesLevel 
+</p></td><td ><p>
+CFNumber representing an integer
+</p></td><td ><p>
+The current level if this supply is a container; the remaining space if this supply is a receptacle.
+A value of (-2) means unknown. A value of (-3) means that the printer knows that the maximum capacity has not been reached but the precise level is unknown. If the device can only signal if the supplies level is "low" then set this value to 5% of 'prtMarkerSuppliesMaxCapacity'.
+</p></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003734-CH1-DontLinkElementID_2" title="Important"></a><p><strong>Important:</strong>&nbsp;It is important to note that your custom tool should return localized CFStrings for the prtMarkerSuppliesDescription key. Therefore, your tool would most likely be contained in an application bundle with localized resources.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003734-CH1-SECTION4" title="Optional Keys"></a><h2 class="jump">Optional Keys</h2><a name="//apple_ref/doc/uid/DTS10003734-CH1-TABLE2" title="Table 2Optional Keys"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;Optional Keys</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Optional Keys
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Type 
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Value 
+</p></th></tr><tr><td  scope="row"><p>
+prtMarkerSuppliesType 
+</p></td><td ><p>
+CFNumber representing an integer
+</p></td><td ><p>
+1 = other
+2 = unknown
+3 - toner
+4 = wasteToner
+5 = ink
+6 = inkCartridge
+7 = inkRibbon
+8 = wasteInk
+9 = opc
+10 = developer
+11 = fuserOil
+12 = solidWax
+13 = ribbonWax
+14 = wasteWax
+15 = fuser
+16 = coronaWire
+17 = fuserOilWick
+18 = cleanerUnit
+19 = fuserCleaningPad
+20 = transferUnit
+21 = tonerCartridge
+22 = fuserOiler
+23 = water
+24 = wasteWater
+25 = glueWaterAdditive
+26 = wastePaper
+27 = bindingSupply
+28 = bandingSupply
+29 = stitchingWire
+30 = shrinkWrap
+31 = paperWrap
+32 = staples
+33 = inserts
+34 = covers
+</p></td></tr><tr><td  scope="row"><p>
+prtMarkerSuppliesSupplyUnit 
+</p></td><td ><p>
+CFString representing an integer
+</p></td><td ><p>
+1 = other
+2 = unknown
+3 = tenThousandthsOfInches
+4 = micrometers
+7 = impressions
+8 = sheets
+11 = hours
+12 = thousandthsOfOunces
+13 = tenthsOfGrams
+14 = hundrethsOfFluidOunces
+15 = tenthsOfMilliliters
+16 = feet
+17 = meters
+18 = items
+19 = percent
+</p></td></tr><tr><td  scope="row"><p>
+prtMarkerSRGBRepresentation 
+</p></td><td ><p>
+CFArray containing three CFNumbers
+</p></td><td ><p>
+The red, green, and blue sRGB values to represent on the display the color of this supply.
+</p></td></tr><tr><td  scope="row"><p>
+prtMarkerPartNumber 
+</p></td><td ><p>
+CFString holding the part number of the supply.
+</p></td><td ><p>
+Vendor specific
+</p></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003734-CH1-SECTION5" title="Testing your tool"></a><h2 class="jump">Testing your tool</h2><p>When you are testing your custom supply tool, you can run your tool on the command line and retrieve output in the console.</p><a name="//apple_ref/doc/uid/DTS10003734-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;tool&gt; &lt;queue_id&gt;<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003734-CH1-SW2" title="Note"></a><p><strong>Note:</strong>&nbsp;When developing a custom tool you must enable verbose output by modifying your printing preferences to get the output returned by your tool. Enable verbose output with the following command:</p><p></p></aside></div><p>defaults write com.apple.print verboseInk 'YES'</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003734-CH1-SECTION6" title="Sample SNMP Query"></a><h2 class="jump">Sample SNMP Query</h2><p>Here is sample output for a color laser printer. This sample was generated via SNMP queries of the printer.</p><a name="//apple_ref/doc/uid/DTS10003734-CH1-SOURCECODE4" title="Listing 1Sample SNMP Query"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Sample SNMP Query</p><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN"
+                              "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+        &lt;key&gt;prtMarkerSuppliesTable&lt;/key&gt;
+        &lt;array&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Black Print Cartridge&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;20500&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;25000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8550A&lt;/string&gt;
+                &lt;/dict&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Cyan Print Cartridge&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;11750&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;25000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8551A&lt;/string&gt;
+                &lt;/dict&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Magenta Print Cartridge&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;12500&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;25000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8553A&lt;/string&gt;
+                &lt;/dict&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Yellow Print Cartridge&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;11500&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;25000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8552A&lt;/string&gt;
+                &lt;/dict&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Black Image Drum&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;38800&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;40000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;9&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8560A&lt;/string&gt;
+                &lt;/dict&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Cyan Image Drum&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;14400&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;40000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;9&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8561A&lt;/string&gt;
+                &lt;/dict&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Magenta Image Drum&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;14800&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;40000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;9&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8563A&lt;/string&gt;
+                &lt;/dict&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Yellow Image Drum&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;14800&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;40000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;9&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8562A&lt;/string&gt;
+                &lt;/dict&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Image Transfer Kit&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;162822&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;200000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;20&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8555A&lt;/string&gt;
+                &lt;/dict&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Image Cleaning Kit&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;45388&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;50000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;18&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8554A&lt;/string&gt;
+                &lt;/dict&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;prtMarkerSuppliesClass&lt;/key&gt;
+                        &lt;integer&gt;3&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesDescription&lt;/key&gt;
+                        &lt;string&gt;Image Fuser Kit&lt;/string&gt;
+                        &lt;key&gt;prtMarkerSuppliesLevel&lt;/key&gt;
+                        &lt;integer&gt;62819&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesMaxCapacity&lt;/key&gt;
+                        &lt;integer&gt;100000&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesSupplyUnit&lt;/key&gt;
+                        &lt;integer&gt;7&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerSuppliesType&lt;/key&gt;
+                        &lt;integer&gt;15&lt;/integer&gt;
+                        &lt;key&gt;prtMarkerPartNumber&lt;/key&gt;
+                        &lt;string&gt;HP C8556A &lt;/string&gt;
+                &lt;/dict&gt;
+        &lt;/array&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003734-CH1-SECTION7" title="Communication with your printer"></a><h2 class="jump">Communication with your printer</h2><p>To communicate with your printer, you will need to determine your printers connection type. You can use the <code>PMPrinter</code> APIs to determine the connection type from the queue ID. </p><a name="//apple_ref/doc/uid/DTS10003734-CH1-SOURCECODE5" title="Listing 2Determine your printers connection type from the queue ID"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Determine your printers connection type from the queue ID</p><div class="codesample clear"><table><tr><td scope="row"><pre> //argv[1] = Queue name
+
+    CFStringRef queueID = CFStringCreateWithCString(kCFAllocatorDefault,argv[1],kCFStringEncodingUTF8);
+    PMPrinter printer = PMPrinterCreateFromPrinterID(queueID);
+
+    CFURLRef deviceURI;
+    PMPrinterCopyDeviceURI(printer, (CFURLRef *)&amp;deviceURI);
+
+        //connection type : ipp, lpd ...
+    CFURLRef scheme = CFURLCopyScheme(deviceURI);<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003734-CH1-SW1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003734-RevisionHistory-SW1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2018-06-04</td><td><p>Moved to Retired Documents Library.</p></td></tr><tr><td scope="row">2005-06-29</td><td><p>Updates.</p></td></tr><tr><td scope="row">&nbsp;</td><td><p>New document explaining how to detect printer supply levels using a low ink tool.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2018 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2018-06-04</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

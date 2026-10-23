@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2127: Kernel Authorization</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003591">
+    <meta id="document-version" name="document-version" content="1.2.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003591-CH1">
+    <meta id="date" name="date" content="2010-03-23">
+    <meta id="description" name="description" content="TN2127: Describes the kernel authorization (kauth) subsystem and its associated KPI.">
+    <meta id="book-title" name="book-title" content="Kernel Authorization">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Kernel & Driver Layer/Kernel}, {Topic/Drivers, Kernel, & Hardware/General Kernel Extensions}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2127">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Kernel Authorization" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003591" title="Technical Note TN2127"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Kernel Authorization</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_2" title="Technical Note TN2127"></a><div class="dtsDocNumber">Technical Note TN2127</div><h1 id="pageTitle">Kernel Authorization</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Mac OS X 10.4 Tiger introduced a new kernel subsystem, Kernel Authorization or Kauth for short, for managing authorization within the kernel. The Kauth subsystem exports a kernel programming interface (KPI) that allows third party kernel developers to authorize actions within the kernel, modify authorization decisions, and extend the kernel's authorization landscape. It can also be used as a notification mechanism.</p><p>If you write code that interacts with the BSD portions of the Mac OS X kernel, you should read this technote to gain a passing familiarity with Kauth. If you need to perform any of the tasks list above, you'll want to study this technote in depth. Finally, if you're developing an anti-virus product for Mac OS X, you will need the information contained in this technote to implement "on access" and "post modification" file scanning.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION1" data-renderer-version="1">Kauth Fundamentals</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION2" data-renderer-version="1">Implementing a Listener</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION3" data-renderer-version="1">Registering a Listener</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION4" data-renderer-version="1">Deregistering a Listener</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION5" data-renderer-version="1">Registering a New Scope</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION6" data-renderer-version="1">Deregistering a Scope</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION7" data-renderer-version="1">Authorizing an Action</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION8" data-renderer-version="1">Built-In Scopes</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION8" data-renderer-version="1">Process Scope</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION9" data-renderer-version="1">Generic Scope</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION10" data-renderer-version="1">File Operation Scope</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION11" data-renderer-version="1">Vnode Scope</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION14" data-renderer-version="1">Listener Gotchas</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION14" data-renderer-version="1">Context</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION18" data-renderer-version="1">Kauth Cookbook</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION18" data-renderer-version="1">Denying the Debugger</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION19" data-renderer-version="1">Anti-Virus Scanner</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION20" data-renderer-version="1">New Kernel Subsystem</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-CH1-SECTION22" data-renderer-version="1">KauthORama Sample Code</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003591-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION1" title="Kauth Fundamentals"></a><h2 class="jump">Kauth Fundamentals</h2><p>The Kauth system was introduced in Mac OS X 10.4 Tiger. It was implemented primarily to simplify the implementation of access control lists (ACLs), a major new feature of the Tiger kernel. Because evaluating an ACL is a complex task, the code for doing this has been abstracted out of each file system plug-in and moved into the kernel proper. Kauth does this in a general and flexible way.</p><p>While Kauth was originally designed to support ACLs, it is a general kernel authorization mechanism and can be used for a variety of other tasks. One such use is as a simple notification mechanism for anti-virus developers (see <span class="content_text"><!--a  -->Anti-Virus Scanner<!--/a--></span>).</p><p>To understand Kauth, you'll need to understand a number of core concepts.</p><ul class="ul"><li class="li"><p><strong>scopes</strong> — A scope is an area of interest for authorization within the kernel. For example, the scope <code>KAUTH_SCOPE_VNODE</code> is used for all authorization within the VFS layer. Scopes allow you to register interest in some subset of kernel authorization decisions, without being involved in all authorization decisions.</p><p>Scopes are strings formatted using reverse DNS notation (for example, <code>KAUTH_SCOPE_VNODE</code> is <code>"com.apple.kauth.vnode"</code>), so you can define your own scope if you like.</p></li><li class="li"><p><strong>actions</strong> — An action is an operation within a scope. For example, the VFS subsystem defines an action, <code>KAUTH_VNODE_READ_DATA</code>, which determines whether you're allowed to read data from a file system object. Actions are specified by integer constants (the actual type is <code>kauth_action_t</code>) and each scope has its own action namespace.</p><p>The combination of a scope and an action defines an operation whose authorization can be checked.</p></li><li class="li"><p><strong>actors</strong> — An actor is an entity that's performing an operation.</p></li><li class="li"><p><strong>credentials</strong> — Credentials are the information that identifies an actor. Credentials are specified by an opaque type, <code>kauth_cred_t</code>. There are numerous accessor functions that let you operate on this type. For example, <code>kauth_cred_getuid</code> returns the effective user ID (EUID) from the credentials.</p></li><li class="li"><p><strong>request</strong> — In the context of this document, an actor makes requests to perform an action within a particular scope.</p></li><li class="li"><p><strong>listener</strong> — A listener is a callback that makes an authorization decision for a request. Fundamentally the listener authorizes the request based on the credentials of the actor. The listener is free to use whatever scope- and action-dependent information necessary to make that decision.</p><p>There is a <strong>default listener</strong> for every built-in scope. This listener implements the standard BSD authorization model for all actions within that scope. In addition, you can register your own listeners for a scope.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION2" title="Implementing a Listener"></a><h2 class="jump">Implementing a Listener</h2><p>The prototype for a listener is shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>.</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE1" title="Listing 1Prototype for a listener"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Prototype for a listener</p><div class="codesample clear"><table><tr><td scope="row"><pre>static int MyListener(
+    kauth_cred_t   credential,
+    void *         idata,
+    kauth_action_t action,
+    uintptr_t      arg0,
+    uintptr_t      arg1,
+    uintptr_t      arg2,
+    uintptr_t      arg3
+);<span></span></pre></td></tr></table></div><p>The meaning of the first three arguments is the same for all scopes.</p><ul class="ul"><li class="li"><p><code>credential</code> is a reference to the actor's credentials.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;When inspecting the credentials associated with a request, always use the accessor functions defined in &lt;sys/kauth.h&gt;. Be especially careful when testing for group membership. In Tiger a user can be in lots of groups (many more than the traditional limit of 16) and groups can be nested. If you want to test whether a user is a member of a group, use <code>kauth_cred_ismember_gid</code>.</p><p></p></aside></div></li><li class="li"><p><code>idata</code> is the cookie (or refCon) data you supplied when you registered the listener (see <span class="content_text"><!--a  -->Registering a Listener<!--/a--></span>).</p></li><li class="li"><p><code>action</code> is the requested action (for example, <code>KAUTH_VNODE_READ_DATA</code>).</p></li></ul><p>The meaning of the remaining parameters is scope dependent. I'll discuss these in detail in later sections. However, in most cases these parameters give you extra information that allow you to make an authorization decision. For example, for the VFS scope (<code>KAUTH_SCOPE_VNODE</code>), <code>arg1</code> is a reference to the vnode (of type <code>vnode_t</code>) that's being operated on.</p><p>A listener callback must return one of the following values.</p><ul class="ul"><li class="li"><p><code>KAUTH_RESULT_DEFER</code> — This value indicates that the listener defers the decision about this request to the other listeners (and ultimately to the default listener).</p></li><li class="li"><p><code>KAUTH_RESULT_ALLOW</code> — This value indicates that, as far as this listener is concerned, the request is allowed.</p></li><li class="li"><p><code>KAUTH_RESULT_DENY</code> — This value indicates that the request should be denied.</p></li></ul><p>For a request to be allowed, at least one listener must return <code>KAUTH_RESULT_ALLOW</code> and no listeners can return <code>KAUTH_RESULT_DENY</code>. This has a number of consequences.</p><ul class="ul"><li class="li"><p>All listeners are called for all requests (because the last listener just might return <code>KAUTH_RESULT_DENY</code>).</p></li><li class="li"><p>Because a listener can't allow a request that's denied by any other listener, a non-default listener can only tighten security.</p></li></ul><p>When writing a listener, there are a number of important points that you need to keep in mind. These are discussed in the detail in <span class="content_text"><!--a  -->Listener Gotchas<!--/a--></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION3" title="Registering a Listener"></a><h2 class="jump">Registering a Listener</h2><p>You can register a listener for an existing scope using <code>kauth_listen_scope</code>.</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE2" title="Listing 2kauth_listen_scope"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;kauth_listen_scope</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern kauth_listener_t kauth_listen_scope(     const char *           identifier,      kauth_scope_callback_t callback,      void *                 idata );<span></span></pre></td></tr></table></div><p>The parameters are as follows:</p><ul class="ul"><li class="li"><p><code>identifier</code> is the name of the scope. The routine does not make a copy of the string pointed to by this parameter. This is not a problem if you're passing a constant string; however, if you're calculating the string at runtime, you must make sure that the string persists until you dispose of the resulting <code>kauth_listener_t</code>.</p></li><li class="li"><p><code>callback</code> is the address of your listener callback function, with the prototype shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>.</p></li><li class="li"><p><code>idata</code> is the cookie (or refCon) for your listener callback.</p></li></ul><p>On error, the result is <code>NULL</code>. On success, the result is a reference to the listener; you can use this to deregister your listener.</p><p>It is not an error to register a listener before the corresponding scope is registered. The system will remember your listener and apply it once the scope appears.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION4" title="Deregistering a Listener"></a><h2 class="jump">Deregistering a Listener</h2><p>You can deregister a listener using <code>kauth_unlisten_scope</code>.</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE3" title="Listing 3kauth_unlisten_scope"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;kauth_unlisten_scope</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern void	kauth_unlisten_scope(kauth_listener_t listener);<span></span></pre></td></tr></table></div><p>The parameters are as follows:</p><ul class="ul"><li class="li"><p><code>listener</code> is a reference to the listener you got from <code>kauth_listen_scope</code>.</p></li></ul><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;The return of <code>kauth_unlisten_scope</code> does not guarantee that all threads executing your listener have returned from your listener. Once <code>kauth_unlisten_scope</code> returns, you must take steps to avoid destroying state that these threads rely on until they've completed executing your listener's code. See <span class="content_text"><!--a  -->KauthORama Sample Code<!--/a--></span> for an example of our recommended approach for this.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION5" title="Registering a New Scope"></a><h2 class="jump">Registering a New Scope</h2><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;You should only do this if you want to create your own custom scope. In most cases third party developers should register a listener for an existing scope.</p><p></p></aside></div><p>You can register a new scope using <code>kauth_register_scope</code>.</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE4" title="Listing 4kauth_register_scope"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;kauth_register_scope</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern kauth_scope_t kauth_register_scope(     const char *           identifier,      kauth_scope_callback_t callback,      void *                 idata );<span></span></pre></td></tr></table></div><p>The parameters are as follows:</p><ul class="ul"><li class="li"><p><code>identifier</code> is the name of the scope. It is an error to register a scope that already exists. The routine does not make a copy of the string pointed to by this parameter. This is not a problem if you're passing a constant string; however, if you're calculating the string at runtime, you must make sure that the string persists at least until you dispose of the resulting <code>kauth_scope_t</code>.</p></li><li class="li"><p><code>callback</code> is the address of the listener callback function for this scope; this becomes the scope's default listener. This parameter may be <code>NULL</code>, in which case a callback that always returns <code>KAUTH_RESULT_DEFER</code> is assumed.</p></li><li class="li"><p><code>idata</code> is the cookie (or refCon) for the listener callback.</p></li></ul><p>On error, the result is <code>NULL</code>. On success, the result is a reference to the scope; you can use this to deregister your scope. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION6" title="Deregistering a Scope"></a><h2 class="jump">Deregistering a Scope</h2><p>You can deregister a scope using <code>kauth_deregister_scope</code>:</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE5" title="Listing 5kauth_deregister_scope"></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;kauth_deregister_scope</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern void	kauth_deregister_scope(kauth_scope_t scope);<span></span></pre></td></tr></table></div><p>The parameters are as follows:</p><ul class="ul"><li class="li"><p><code>scope</code> is a reference to the scope you got from <code>kauth_register_scope</code>.</p></li></ul><p>Any other (non-default) listeners registered on the scope will go dormant; they'll be reactivated if the scope is reregistered.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_6" title="Important"></a><p><strong>Important:</strong>&nbsp;The return of <code>kauth_deregister_scope</code> does not guarantee that all threads executing your listener have returned from your listener. See the discussion associated with <code>kauth_unlisten_scope</code> (in <span class="content_text"><!--a  -->Deregistering a Listener<!--/a--></span>) for details.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION7" title="Authorizing an Action"></a><h2 class="jump">Authorizing an Action</h2><p>You can make an authorization request using <code>kauth_authorize_action</code>.</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE6" title="Listing 6kauth_authorize_action"></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;kauth_authorize_action</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern int kauth_authorize_action(
+    kauth_scope_t  scope, 
+    kauth_cred_t   credential, 
+    kauth_action_t action,
+    uintptr_t      arg0, 
+    uintptr_t      arg1, 
+    uintptr_t      arg2, 
+    uintptr_t      arg3
+);<span></span></pre></td></tr></table></div><p>The parameters are as follows:</p><ul class="ul"><li class="li"><p><code>scope</code> is a reference to the scope in which the action is defined. You get this value from the result of <code>kauth_register_scope</code>.</p></li><li class="li"><p><code>credential</code> is a reference to the actor's credentials. Normally you would either already have this information, or you'd call <code>kauth_cred_get</code> to get the credentials for the current thread.</p></li><li class="li"><p><code>action</code> is the requested action.</p></li><li class="li"><p><code>arg0</code> through <code>arg3</code> are passed unmodified to the listener callbacks.</p></li></ul><p>If your kernel extension supports plug-ins and those plug-ins call <code>kauth_authorize_action</code>, you must have a way for your plug-ins to discover the scope reference (<code>kauth_scope_t</code>). The easiest way to do this is to export a wrapper function that's tailored to your specific requirements.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_7" title="Important"></a><p><strong>Important:</strong>&nbsp;The kernel already provides <code>kauth_authorize_action</code> wrappers for all of the scopes that it defines. If you're authorizing within a kernel-defined scope you should call these wrappers rather than calling <code>kauth_authorize_action</code> directly. These wrappers are described below, along with corresponding scopes.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION8" title="Built-In Scopes"></a><h2 class="jump">Built-In Scopes</h2><p>This section lists all of the scopes built in to the Mac OS X kernel.</p><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION8" title="Process Scope"></a><h3 class="jump">Process Scope</h3><p>The process scope (<code>KAUTH_SCOPE_PROCESS</code>, which is <code>"com.apple.kauth.process"</code>) is the easiest to understand. It defines just two actions.</p><ul class="ul"><li class="li"><p><code>KAUTH_PROCESS_CANTRACE</code> — Authorizes whether the current process can trace the target process. <code>arg0</code> (of type <code>proc_t</code>) is the process being traced. <code>arg1</code> (of type <code>(int *)</code>) is a pointer to an an errno-style error code; if the listener denies the request, it must set this value to a non-zero value.</p></li><li class="li"><p><code>KAUTH_PROCESS_CANSIGNAL</code> — Authorizes whether the current process can signal the target process. <code>arg0</code> (of type <code>proc_t</code>) is the process to be signalled. <code>arg1</code> (of type <code>int</code>) is the signal that's being sent.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_8" title="Important"></a><p><strong>Important:</strong>&nbsp;<code>KAUTH_PROCESS_CANSIGNAL</code> is currently not implemented by any version of Mac OS X (r. <span class="content_text"><a href="rdar://problem/3931697" class="urlLink" rel="external">3931697</a></span>).</p><p></p></aside></div></li></ul><p>The kernel also exports a <code>kauth_authorize_action</code> wrapper for this scope, namely <code>kauth_authorize_process</code>.</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE7" title="Listing 7kauth_authorize_process"></a><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;kauth_authorize_process</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern int kauth_authorize_process(
+    kauth_cred_t   credential, 
+    kauth_action_t action,
+    proc_t         process, 
+    uintptr_t      arg1, 
+    uintptr_t      arg2, 
+    uintptr_t      arg3
+);<span></span></pre></td></tr></table></div><p>This wrapper around <code>kauth_authorize_action</code> does two useful things:</p><ol class="ol"><li class="li"><p>It supplies the appropriate scope parameter.</p></li><li class="li"><p>It eliminates the need to cast <code>process</code> (of type <code>proc_t</code>) to <code>arg0</code> (of type <code>uintptr_t</code>).</p></li></ol><p>Typically this is not useful for third party developers.</p></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION9" title="Generic Scope"></a><h3 class="jump">Generic Scope</h3><p>The generic scope (<code>KAUTH_SCOPE_GENERIC</code>, which is <code>"com.apple.kauth.generic"</code>) has a single action, <code>KAUTH_GENERIC_ISSUSER</code>, which the kernel requests to test whether an actor has superuser privileges. None of the generic arguments (<code>arg0</code> through <code>arg3</code>) are significant.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_9" title="Important"></a><p><strong>Important:</strong>&nbsp;The kernel does not currently use this request for all superuser tests; in many cases the kernel continues to directly compare the credential's effective user ID to 0.</p><p></p></aside></div><p>The kernel also exports a <code>kauth_authorize_action</code> wrapper for this scope, namely <code>kauth_authorize_generic</code>.</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE8" title="Listing 8kauth_authorize_generic"></a><p class="codesample clear"><strong class="caption_number">Listing 8</strong>&nbsp;&nbsp;kauth_authorize_generic</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern int kauth_authorize_generic(     kauth_cred_t   credential,      kauth_action_t action );<span></span></pre></td></tr></table></div><p>Typically this is not useful for third party developers.</p></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION10" title="File Operation Scope"></a><h3 class="jump">File Operation Scope</h3><p>The file operation scope (<code>KAUTH_SCOPE_FILEOP</code>, which is <code>"com.apple.kauth.fileop"</code>) is different from other scopes in that it's not used to actually authorize an operation; rather, the system uses this scope to notify listeners of significant file system operations. This can be used to implement an anti-virus scanning program, as described in <span class="content_text"><!--a  -->Anti-Virus Scanner<!--/a--></span>.</p><p><code>KAUTH_SCOPE_FILEOP</code> defines the following actions.</p><ul class="ul"><li class="li"><p><code>KAUTH_FILEOP_OPEN</code> — Notifies that a file system object (a file or directory) has been opened. <code>arg0</code> (of type <code>vnode_t</code>) is a vnode reference. <code>arg1</code> (of type <code>(const char *)</code>) is a pointer to the object's full path.</p></li><li class="li"><p><code>KAUTH_FILEOP_CLOSE</code> — Notifies that a file system object is about to be closed. <code>arg0</code> (of type <code>vnode_t</code>) is a vnode reference. <code>arg1</code> (of type <code>(const char *)</code>) is a pointer to the object's full path. <code>arg2</code> (of type <code>int</code>) is a set of bit flags; the only flag currently defined is <code>KAUTH_FILEOP_CLOSE_MODIFIED</code>, which is set if a modified file is being closed.</p></li><li class="li"><p><code>KAUTH_FILEOP_RENAME</code> — Notifies that a file system object has been renamed. <code>arg0</code> (of type <code>(const char *)</code>) is a pointer to the object's previous full path. <code>arg1</code> (of type <code>(const char *)</code>) is a pointer to the object's new full path.</p></li><li class="li"><p><code>KAUTH_FILEOP_EXCHANGE</code> — Notifies that two files have been exchanged (via <span class="content_text"><a href="x-man-page://2/exchangedata" class="urlLink" rel="external">exchangedata</a></span>). <code>arg0</code> (of type <code>(const char *)</code>) is a pointer to the first file's full path. <code>arg1</code> (of type <code>(const char *)</code>) is a pointer to the second file's full path.</p></li><li class="li"><p><code>KAUTH_FILEOP_LINK</code> — Notifies that a new hard link has been added to a file (via the <span class="content_text"><a href="x-man-page://2/link" class="urlLink" rel="external">link</a></span> system call). <code>arg0</code> (of type <code>(const char *)</code>) is a pointer to the full path of the original file. <code>arg1</code> (of type <code>(const char *)</code>) is a pointer to the full path of the newly created link.</p></li><li class="li"><p><code>KAUTH_FILEOP_EXEC</code> — Notifies that a program has been executed (via the <span class="content_text"><a href="x-man-page://2/execve" class="urlLink" rel="external">execve</a></span> system call). <code>arg0</code> (of type <code>vnode_t</code>) is a vnode reference of the program being executed (for Mach-O executables, this is the actual executable; for CFM applications, this will always reference <code>LaunchCFMApp</code>; for interpreted scripts, such as shell or perl scripts, this is the script, not the interpreter). <code>arg1</code> (of type <code>(const char *)</code>) is a pointer to the program file's full path.</p></li></ul><p>If you install a listener in this scope, it will be called to notify you of these events. The kernel ignores the return value of your listener, although we recommend that you always return <code>KAUTH_RESULT_DEFER</code>.</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_10" title="Warning"></a><p><strong>Warning:</strong>&nbsp;Prior to Mac OS X 10.5 the file operation scope had a nasty gotcha 
+			(r. <span class="content_text"><a href="rdar://problem/4605516" class="urlLink" rel="external">4605516</a></span>)
+		. If you install a listener in the this scope and handle the <code>KAUTH_FILEOP_RENAME</code>, <code>KAUTH_FILEOP_LINK</code>, or <code>KAUTH_FILEOP_EXEC</code> actions, you must test whether <code>arg0</code> and <code>arg1</code> are <code>NULL</code> before accessing them as strings. Under certain circumstances (most notably, very early in the boot sequence and very late in the shutdown sequence), the kernel might pass you <code>NULL</code> for these arguments. If you access such a pointer as a string, you will kernel panic.</p><p></p><div class="clear"></div></aside></div><p>This problem was fixed in Mac OS X 10.5.</p><p>The kernel also exports a <code>kauth_authorize_action</code> wrapper for this scope, namely <code>kauth_authorize_fileop</code>.</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE9" title="Listing 9kauth_authorize_fileop"></a><p class="codesample clear"><strong class="caption_number">Listing 9</strong>&nbsp;&nbsp;kauth_authorize_fileop</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern int kauth_authorize_fileop(     kauth_cred_t   credential,      kauth_action_t action,     uintptr_t      arg0,      uintptr_t      arg1 );<span></span></pre></td></tr></table></div><p>Typically <code>kauth_authorize_fileop</code> is not useful for third party developers. However, if you do call it, take note of the following non-obvious behaviour. The <code>arg0</code> parameter of <code>kauth_authorize_fileop</code> is a <code>vnode_t</code>. <code>kauth_authorize_fileop</code> passes that <code>vnode_t</code> to the <code>arg0</code> parameter of the listener. It also gets the path to that vnode and passes that to the <code>arg1</code> parameter of the listener. Finally, for the <code>KAUTH_FILEOP_CLOSE</code> action, <code>kauth_authorize_fileop</code> passes its <code>arg1</code> parameter to the <code>arg2</code> parameter of the listener.</p></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION11" title="Vnode Scope"></a><h3 class="jump">Vnode Scope</h3><p>The vnode scope (<code>KAUTH_SCOPE_VNODE</code>, which is <code>"com.apple.kauth.vnode"</code>) is the most complex scope currently defined. The first thing to note is that, within the vnode scope, actions are not enumerations but rather bitfields. Thus, it's perfectly reasonable to combine actions by ORing them together. For example, an action of <code>KAUTH_VNODE_READ_DATA</code> | <code>KAUTH_VNODE_EXECUTE</code> indicates that actor wishes to both read and execute the file.</p><p>To authorize an action within the vnode scope, you would call <code>vnode_authorize</code>.</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE10" title="Listing 10vnode_authorize"></a><p class="codesample clear"><strong class="caption_number">Listing 10</strong>&nbsp;&nbsp;vnode_authorize</p><div class="codesample clear"><table><tr><td scope="row"><pre>extern int vnode_authorize(     vnode_t        vp,      vnode_t        dvp,      kauth_action_t action,      vfs_context_t  context );<span></span></pre></td></tr></table></div><p>The parameters are as follows:</p><ul class="ul"><li class="li"><p><code>vp</code> is the vnode on which the action is being performed.</p></li><li class="li"><p><code>dvp</code> is the parent directory's vnode. In many cases this is <code>NULL</code>, indicating that the parent is unknown or irrelevant.</p></li><li class="li"><p><code>action</code> is the operation being performed; this is discussed in detail below.</p></li><li class="li"><p><code>context</code> is the VFS context associated with the actor. This is an opaque data structure that's intimately tied to the VFS implementation. Most VFS entry points are passed this context. In addition, there are numerous VFS context routines defined in &lt;sys/vnode.h&gt;.</p></li></ul><p><code>vnode_authorize</code> is a fairly simple wrapper around <code>kauth_authorize_action</code>. It performs two useful functions:</p><ol class="ol"><li class="li"><p>It assembles the correct scope listener arguments (<code>arg0</code> through <code>arg3</code>). These are discussed below.</p></li><li class="li"><p>It ensures that the error code is correct. Specifically, it translates the <code>EPERM</code> error returned by <code>kauth_authorize_action</code> into <code>EACCES</code> (which is the appropriate error for file system functions). Also, if the listener denies a request and provides a specific error code (via <code>arg3</code>, see below), it returns that error.</p></li></ol><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_11" title="Important"></a><p><strong>Important:</strong>&nbsp;It is relatively unusual for a VFS plug-in to call <code>vnode_authorize</code>. In most cases the VFS layer has authorized all actions before calling your plug-in. However, there are some circumstances where a VFS plug-in should call <code>vnode_authorize</code>. For example, HFS [Plus]'s implementation of <span class="content_text"><a href="x-man-page://2/searchfs" class="urlLink" rel="external">searchfs</a></span> uses <code>vnode_authorize</code> to ensure that the caller has access to the file system objects that it's returning.</p><p></p></aside></div><p>The scope listener arguments for the vnode scope are as follows:</p><ul class="ul"><li class="li"><p><code>arg0</code>, of type <code>vfs_context_t</code>, is <code>context</code> — The VFS context, described above.</p></li><li class="li"><p><code>arg1</code>, of type <code>vnode_t</code>, is <code>vp</code> — The vnode itself.</p></li><li class="li"><p><code>arg2</code>, of type <code>vnode_t</code>, is <code>dvp</code> — The parent vnode, if available. This may be <code>NULL</code>.</p></li><li class="li"><p><code>arg3</code>, of type <code>(int *)</code>, is <code>errPtr</code> — A pointer to an errno-style error. If your callback denies the request, it can set this value to indicate the error to return to the client. If you don't set this, the client gets <code>EACCES</code>.</p></li></ul><p>Within the vnode scope, the following standard actions are defined.</p><ul class="ul"><li class="li"><p><code>KAUTH_VNODE_READ_DATA</code> (also <code>KAUTH_VNODE_LIST_DIRECTORY</code>) — If the vnode is a directory, authorizes the actor to enumerate the contents of that directory. Otherwise, authorizes the actor to read the contents of a file.</p></li><li class="li"><p><code>KAUTH_VNODE_WRITE_DATA</code> (also <code>KAUTH_VNODE_ADD_FILE</code>) — If the vnode is a directory, authorizes the actor to add a file to that directory. <code>vp</code> is the directory to which the file is being added; <code>dvp</code> is <code>NULL</code>. Otherwise, authorizes the actor to write the contents of a file.</p></li><li class="li"><p><code>KAUTH_VNODE_EXECUTE</code> (also <code>KAUTH_VNODE_SEARCH</code>) — If the vnode is a directory, authorizes the actor to probe for the existence of an item within the directory as part of a path lookup. Otherwise, authorizes the actor to execute the contents of a file.</p></li><li class="li"><p><code>KAUTH_VNODE_DELETE</code> — Authorizes the actor to delete an item from a directory. <code>vp</code> is the item to be deleted and <code>dvp</code> is the directory it's being deleted from.</p></li><li class="li"><p><code>KAUTH_VNODE_APPEND_DATA</code> (also <code>KAUTH_VNODE_ADD_SUBDIRECTORY</code>) — If the vnode is a directory, authorizes the actor to add a directory to it. Otherwise, this action is intended to authorize the actor to append data to the contents of a file; however, this aspect is not currently implemented.</p></li><li class="li"><p><code>KAUTH_VNODE_DELETE_CHILD</code> — When used in a directory's ACL, this permission controls whether the actor can delete an item from the directory. That is, for the actor to be able to delete the item, they must have <code>KAUTH_VNODE_DELETE</code> permission on the item and <code>KAUTH_VNODE_DELETE_CHILD</code> permission on the item's parent directory.</p><p>A Kauth listener, however, rarely sees this action. When an actor deletes an item, the kernel just authorizes the <code>KAUTH_VNODE_DELETE</code> action on the item itself; it does not authorize a separate <code>KAUTH_VNODE_DELETE_CHILD</code> action on the parent directory. Rather, the default listener for the vnode scope will check the <code>KAUTH_VNODE_DELETE_CHILD</code> permission on the parent directory directly, without another pass through Kauth. This improves performance and avoids a potential race condition.</p><p>On the other hand, a <code>KAUTH_VNODE_DELETE_CHILD</code> action is generated in response to an <span class="content_text"><a href="x-man-page://2/access" class="urlLink" rel="external">access</a></span> system call with the <code>_RMFILE_OK</code> flag.</p></li><li class="li"><p><code>KAUTH_VNODE_READ_ATTRIBUTES</code> — Authorizes the actor to read standard attributes of the vnode (such as the time stamps).</p></li><li class="li"><p><code>KAUTH_VNODE_WRITE_ATTRIBUTES</code> — Authorizes the actor to change standard attributes of the vnode (such as the time stamps).</p></li><li class="li"><p><code>KAUTH_VNODE_READ_EXTATTRIBUTES</code> — Authorizes the actor to read extended attributes of the vnode (those accessed via <code>getxattr</code>, including the resource fork).</p></li><li class="li"><p><code>KAUTH_VNODE_WRITE_EXTATTRIBUTES</code> — Authorizes the actor to change (or add) extended attributes of the vnode (those accessed via <code>getxattr</code>, including the resource fork).</p></li><li class="li"><p><code>KAUTH_VNODE_READ_SECURITY</code> — Authorizes the actor to read the vnode's ACL.</p></li><li class="li"><p><code>KAUTH_VNODE_WRITE_SECURITY</code> — Authorizes the actor to change the vnode's ACL.</p></li><li class="li"><p><code>KAUTH_VNODE_TAKE_OWNERSHIP</code> — Authorizes the actor to change ownership of the vnode.</p></li><li class="li"><p><code>KAUTH_VNODE_SYNCHRONIZE</code> — This represents an ACL permission that is defined for compatibility with other platforms. It is preserved but not tested by Mac OS X. Hence, it is never used as a Kauth action.</p></li><li class="li"><p><code>KAUTH_VNODE_LINKTARGET</code> — Authorizes the actor to make a new hard link to the vnode.</p></li><li class="li"><p><code>KAUTH_VNODE_CHECKIMMUTABLE</code> — Authorizes the actor to modify the file (in the <code>SF_IMMUTABLE</code> sense; see <span class="content_text"><a href="x-man-page://2/chflags" class="urlLink" rel="external">chflags</a></span>). This flag is set if other checks have already been made to check that the file can by modified, but the modification should still fail for immutable files.</p></li><li class="li"><p><code>KAUTH_VNODE_ACCESS</code> — This is a special flag. If this flag is set the authorization request is advisory (for example, to satisfy an <span class="content_text"><a href="x-man-page://2/access" class="urlLink" rel="external">access</a></span> system call) rather than authoritative. A listener can use this to avoid doing extra work in the advisory case.</p></li><li class="li"><p><code>KAUTH_VNODE_NOIMMUTABLE</code> — This is a special flag. It is passed to the listener along with the <code>KAUTH_VNODE_WRITE_SECURITY</code> bit (and no others) to indicate that the actor wishes to change one or more of the immutable flags, and that the state of these flags should not be considered when authorizing the request.</p></li></ul><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSUBSECTION11" title="Vnode Scope Gotchas"></a><h4 class="jump">Vnode Scope Gotchas</h4><p>Remember that actions within the vnode scope are a bitfield. Thus a vnode scope listener can be called to authorize multiple actions simultaneously.</p><p>The vnode scope is <strong>extremely hot</strong>. If your vnode scope listener is slow, it will significantly slow down all file system operations. If you install a vnode scope listener, you should work to make it as efficient as possible.</p><p>When writing a vnode scope listener, be aware that not every file system operation will trigger an authorization request. For example, if an actor successfully requests <code>KAUTH_VNODE_SEARCH</code> on a directory, the system may cache that result and grant future requests without invoking your listener for each one.</p><p>For more information about the pitfalls of writing a listener, see <span class="content_text"><!--a  -->Listener Gotchas<!--/a--></span>.</p></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION14" title="Listener Gotchas"></a><h2 class="jump">Listener Gotchas</h2><p>When writing a listener, there are a number of important points that you need to keep in mind. These are discussed in the following sections.</p><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION14" title="Context"></a><h3 class="jump">Context</h3><p>In most cases your listener will be called by the user's thread. That is, a user thread has made a system call, which caused it to enter the kernel to do the work, which has triggered a Kauth request. So, it's possible to get information about the actor based on the current thread or process. For example, you can call <code>proc_self</code> to get a reference to the current process and then extract useful information from that.</p><p>However, you should try to avoid doing this. Rather, your listener should make its decision based on the actor's credentials (as passed to it in the <code>credentials</code> parameter) and, if you're listening in the <span class="content_text"><!--a  -->vnode scope<!--/a--></span>, the VFS context.</p><p>There are two reasons for this recommendation.</p><ul class="ul"><li class="li"><p>As far as the overall kernel design is concerned, it is cleaner for your listener to make decisions based on its input parameters, rather than on implicit parameters like the current thread. </p></li><li class="li"><p>In some cases, it's possible for a kernel operation to be executed by another thread on behalf of the user. This sort of thing already happens for asynchronous I/O, where the kernel maintains a pool of async I/O threads that perform asynchronous file system requests. Currently these threads don't actually make authorization requests, but the long-term direction is clear.</p></li></ul><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSUBSECTION14" title="Deadlock Avoidance"></a><h4 class="jump">Deadlock Avoidance</h4><p>Your listener is called by the thread that's performing the operation, so it's possible to block the thread while you process the request. However, this is a two-edged sword. It allows your listener to pass the request to an external agent (a user space daemon, for example) and block waiting for the results. However, doing so entails significant risk of deadlocking the system.</p><p>This problem most commonly crops up when writing a listener for the <span class="content_text"><!--a  -->vnode<!--/a--></span> or <span class="content_text"><!--a  -->file operation<!--/a--></span> scopes. A typical example is:</p><ol class="ol"><li class="li"><p>You install a listener for the <span class="content_text"><!--a  -->file operation<!--/a--></span> scope.</p></li><li class="li"><p>A normal process opens a file.</p></li><li class="li"><p>Your listener is called with <code>KAUTH_FILEOP_OPEN</code>. It passes the request to a user space daemon and waits for the result.</p></li><li class="li"><p>The user space daemon calls some system routine that RPCs to a system daemon. For example, it might call <span class="content_text"><a href="x-man-page://3/getpwuid" class="urlLink" rel="external">getpwuid</a></span>, which is actually implemented inside <span class="content_text"><a href="x-man-page://8/lookupd" class="urlLink" rel="external">lookupd</a></span>.</p></li><li class="li"><p>The system daemon opens a file.</p></li><li class="li"><p>This causes the kernel to call your listener, and the cycle starts over again.</p></li></ol><p>This problem is much worse than it seems. Specifically:</p><ul class="ul"><li class="li"><p>System daemons call other system daemons. For example, <code>lookupd</code> is dependent on <span class="content_text"><a href="x-man-page://8/DirectoryService" class="urlLink" rel="external">DirectoryService</a></span>, which may in turn be dependent on other daemons.</p></li><li class="li"><p>You can't just hard-code a list of possible system daemons because the dependency tree varies of from release-to-release; Apple can add new dependencies at any time.</p></li><li class="li"><p>It's impossible for your daemon to not depend on any system daemons. Every time you touch pageable memory, you might trigger the allocation of a paging file, which depends on the <span class="content_text"><a href="x-man-page://8/dynamic_pager" class="urlLink" rel="external">dynamic_pager</a></span>.</p></li></ul><p>There are a variety of ways to avoid this deadlock. The best is for your listener to avoid do any processing if the request comes from a thread running as root (that is, where <code>kauth_cred_getuid</code> for the actor's credentials returns 0). As all critical system daemons will necessarily run as root, you break the deadlock at step 6 above.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_12" title="Note"></a><p><strong>Note:</strong>&nbsp;The group resolution membership daemon, <span class="content_text"><a href="x-man-page://8/memberd" class="urlLink" rel="external">memberd</a></span>, faces a similar problem, and it avoids this problem in exactly this fashion; the system never invokes <code>memberd</code> if the thread is running as root.</p><p></p></aside></div><p>However, this technique may not be appropriate in all cases. For example, an <span class="content_text"><!--a  -->anti-virus scanner<!--/a--></span> would particularly want to scan files being opened by a thread running with elevated privileges. In this case the only correct solution is for the scanner to operate entirely within the kernel.</p></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSUBSECTION15" title="Performance"></a><h4 class="jump">Performance</h4><p>Some Kauth scopes are very hot. That is, a typical system will make authorization requests in that scope frequently. For example, a system copying files might make thousands of <span class="content_text"><!--a  -->vnode scope<!--/a--></span> authorization requests per second. If you register a listener for a scope, it can be called for every request. If your listener is slow, it will significantly degrade system performance.</p><p>The two hot scopes on Mac OS X are the <span class="content_text"><!--a  -->vnode scope<!--/a--></span> and the <span class="content_text"><!--a  -->file operation scope<!--/a--></span>. If you install a listener for either of these scopes, be sure to measure the effect your listener has on overall system performance, and optimize your listener accordingly.</p></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION18" title="Kauth Cookbook"></a><h2 class="jump">Kauth Cookbook</h2><p>This section describes how to use Kauth to implement some commonly requested features.</p><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION18" title="Denying the Debugger"></a><h3 class="jump">Denying the Debugger</h3><p>You can use Kauth to implement a kernel extension that prevents users attaching to processes with the debugger. All you need to do is register a listener for the <code>KAUTH_SCOPE_PROCESS</code> scope and look for the <code>KAUTH_PROCESS_CANTRACE</code> action. <span class="content_text"><!--a  -->Listing 11<!--/a--></span> shows an example listener that denies debugging for everyone except root. You can use a similar technique to prevent the debugger attaching to specific processes.</p><a name="//apple_ref/doc/uid/DTS10003591-CH1-SOURCECODE11" title="Listing 11Denying the debugger"></a><p class="codesample clear"><strong class="caption_number">Listing 11</strong>&nbsp;&nbsp;Denying the debugger</p><div class="codesample clear"><table><tr><td scope="row"><pre>static int KauthDenyDebugListener(
+    kauth_cred_t    credential,
+    void *          idata,
+    kauth_action_t  action,
+    uintptr_t       arg0,
+    uintptr_t       arg1,
+    uintptr_t       arg2,
+    uintptr_t       arg3
+)
+    // We register this listener for the KAUTH_SCOPE_PROCESS scope. 
+    // The system calls this listener whenever it needs to authorize 
+    // an action within that scope. We look for 
+    // KAUTH_PROCESS_CANTRACE action and deny it if the requesting 
+    // user is not root.
+{
+    int     result;
+
+    result = KAUTH_RESULT_DEFER;
+
+    switch (action) {
+        case KAUTH_PROCESS_CANTRACE:
+            {
+                proc_t  targetProc;
+                int *   errPtr;
+
+                targetProc = (proc_t) arg0;
+                errPtr     = (int *) arg1;
+
+                if (kauth_cred_getuid(credential) != 0) {
+                    printf(
+                        "Denied P_TRACE from %d to %d by %d.\n", 
+                        proc_selfpid(),
+                        proc_pid(targetProc),
+                        kauth_cred_getuid(credential)
+                    );
+                    *errPtr = EPERM;
+                    result = KAUTH_RESULT_DENY;
+                }
+            }
+            break;
+        default:
+            // do nothing
+            break;
+    }
+
+    return result;
+}<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_13" title="Note"></a><p><strong>Note:</strong>&nbsp;Kauth is not invoked when a program is started by the debugger. You can detect this case using the technique shown in <span class="content_text"><a href="/qa/qa2004/qa1361.html" class="urlLink" rel="external">Technical Q&amp;A QA1361, 'Detecting the Debugger'</a></span>.</p><p></p></aside></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION19" title="Anti-Virus Scanner"></a><h3 class="jump">Anti-Virus Scanner</h3><p>Kauth allows you to implement an anti-virus program that supports both "on access" and "post modification" file scanning. The latter is easy: all you need to do is register a listener for the <code>KAUTH_SCOPE_FILEOP</code> scope and watch for the <code>KAUTH_FILEOP_CLOSE</code> action. If you see a modified file being closed, you can pass that file to your user space daemon for scanning. As the scanning proceeds asynchronously in the background, there should be no problems with deadlock.</p><p>Implementing "on access" scanning is more challenging. Your approach depends on whether you can always fix a file. If that's the case, you can listen for <code>KAUTH_FILEOP_OPEN</code> (in the <code>KAUTH_SCOPE_FILEOP</code>) and scan the file immediately after it's been opened. However, the result of your listener is always ignored, so there is no way to deny the actor access to that file.</p><p>If you can't always fix a file, and thus you may want to deny the actor access to the file, you must listen for the appropriate actions in the <code>KAUTH_SCOPE_VNODE</code> scope. If you scan a file, detect that it's infected, and can't fix it, you should return <code>KAUTH_RESULT_DENY</code> to prevent the actor from using it.</p><p>The difficulty with both of these "on access" approaches is avoiding deadlock. See <span class="content_text"><!--a  -->Implementing a Listener<!--/a--></span> for a detailed discussion of this problem.</p></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SUBSECTION20" title="New Kernel Subsystem"></a><h3 class="jump">New Kernel Subsystem</h3><p>If you're implementing an entirely new kernel subsystem (for example, a sophisticated protocol stack), you may decide to implement your authorization using Kauth. There are seven steps to this:</p><ol class="ol"><li class="li"><p>Decide on a scope name. You should use a reverse DNS-style name, as illustrated by the built-in scopes <span class="content_text"><!--a  -->described in this document<!--/a--></span>.</p></li><li class="li"><p>Decide on a set of actions. You can choose to use either an enumeration (as done by the <span class="content_text"><!--a  -->file operations scope<!--/a--></span>) or a bitmask (as used by the <span class="content_text"><!--a  -->vnode scope<!--/a--></span>).</p></li><li class="li"><p>For each action, you must decide what request-specific arguments (of type <code>arg0</code> through <code>arg3</code>) are appropriate for that action. It's easiest if the arguments are the same for all of the actions within your scope, but that's not required.</p></li><li class="li"><p><span class="content_text"><!--a  -->Write a default listener<!--/a--></span> for your scope. This listener should be able to make authorization decisions based on:</p><ul class="ul"><li class="li"><p>the identity of the actor (as represented by the listener's <code>credentials</code> parameter)</p></li><li class="li"><p>the requested action</p></li><li class="li"><p>the request-specific arguments</p></li></ul><p>Your listener can extract information from the credentials using the accessor functions defined in &lt;sys/kauth.h&gt;.</p></li><li class="li"><p>Create your scope, and register your listener as the default listener, using <code>kauth_register_scope</code>.</p></li><li class="li"><p>Create a scope-specific wrapper function for <code>kauth_authorize_action</code> that:</p><ul class="ul"><li class="li"><p>supplies a reference to the scope created in the previous step</p></li><li class="li"><p>casts your scope-specific arguments to the generic arguments (<code>arg0</code> through <code>arg3</code>) used by <code>kauth_authorize_action</code></p></li></ul></li><li class="li"><p>Call your scope-specific wrapper function to authorize specific actions at appropriate places in your kernel subsystem.</p></li></ol></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003591-CH1-SECTION22" title="KauthORama Sample Code"></a><h2 class="jump">KauthORama Sample Code</h2><p><span class="content_text"><a href="/samplecode/KauthORama/index.html" class="urlLink" rel="external">Sample Code 'KauthORama'</a></span> is a great tool for exploring Kauth. It allows you to register a dummy listener for any scope. The listener always returns <code>KAUTH_RESULT_DEFER</code>, and so has no effect on authorization decisions, but it prints a record of the authorization request. Using this you can see how Kauth interacts with high-level operations, like listing directories or copying files. The sample's read me file has instructions for doing this.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003591-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003591-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-03-23</td><td><p>A minor update to address some points of confusion.  Firstly, KAUTH_PROCESS_CANSIGNAL is not implemented on any version of Mac OS X, not just Mac OS X 10.4 (r. 7724502).  Secondly, the behaviour of kauth_authorize_fileop is non-obvious and this update clarifies its behavior (r. 5777071).  Finally, there were some minor changes to account for the very small differences in Kauth since Mac OS X 10.4.</p></td></tr><tr><td scope="row">2007-01-16</td><td><p>Document a kernel bug that causes certain arguments to be NULL.</p></td></tr><tr><td scope="row">2006-03-21</td><td><p>Corrected problems with non-ASCII characters.</p></td></tr><tr><td scope="row">2005-06-03</td><td><p>New document that 
+					describes the kernel authorization (kauth) subsystem and its associated KPI.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-03-23</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

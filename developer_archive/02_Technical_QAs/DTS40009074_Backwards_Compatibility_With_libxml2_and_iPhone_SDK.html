@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1659: Backwards Compatibility With libxml2 and iPhone SDK</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009074">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009074-CH1">
+    <meta id="date" name="date" content="2009-08-05">
+    <meta id="description" name="description" content="QA1659: describes how to work around the "Incompatible library version" link error when using libxml2.">
+    <meta id="book-title" name="book-title" content="Backwards Compatibility With libxml2 and iPhone SDK">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Xcode/IDEs}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1659">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Backwards Compatibility With libxml2 and iPhone SDK" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009074" title="Technical Q&amp;A QA1659"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Backwards Compatibility With libxml2 and iPhone SDK</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009074-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1659"></a><div class="dtsDocNumber">Technical Q&amp;A QA1659</div><h1 id="pageTitle">Backwards Compatibility With libxml2 and iPhone SDK</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+Why does my application crash with an "Incompatible library version" error message?
+</h2><p><span>A: </span>Why does my application crash with an "Incompatible library version" error message?</p><p>If the following conditions are met:</p><ul class="ul"><li class="li"><p>your application links directly to libxml2, and</p></li><li class="li"><p>is built using the iPhone SDK 3.0 or later, and</p></li><li class="li"><p>has iPhone OS 2.x as a deployment target</p></li></ul><p>then the application will crash when run on 2.x devices. This is due to a compatibility version change in libxml2 between iPhone OS 2.2.1 and iPhone OS 3.0 and later. You can work around this issue by linking directly to the older version of libxml2.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009074-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;This workaround requires a pre-3.0 SDK installed with your developer tools.</p><p></p></aside></div><section><a name="//apple_ref/doc/uid/DTS40009074-CH1-SECTION1" title="Fixing the compatibility version"></a><h2 class="jump">Fixing the compatibility version</h2><p>You can link directly to a library by modifying the "Other Linker Flags" entry for your Xcode project. To do so, open the project's Build settings and search for "Other Linker Flags". Then find the full path to libxml2 in the appropriate 2.x SDK and add that to the flags. For example, if you have the 2.2.1 SDK installed, you can use the following:</p><p><code>$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS2.2.1.sdk/usr/lib/libxml2.dylib</code>. </p><p>Xcode will replace the <code>$(DEVELOPER_DIR)</code> variable with the directory where your developer tools are installed, which makes this more portable in case the project is later opened on a machine with the tools installed in a non-default directory.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40009074-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;Make sure you have "All Configurations" selected so that you are adding the flag for Debug, Release, Distribution, and other configurations all at one time.</p><p></p></aside></div><figure class="figure"><a name="//apple_ref/doc/uid/DTS40009074-CH1-FIGURE1" title="Figure 1Linking directly to the iPhone OS 2.2.1 SDK version of libxml2."></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Linking directly to the iPhone OS 2.2.1 SDK version of libxml2.</figcaption><img src="Art/qa1659_other_linker_flags.png" class="wide-image" alt="" width="875" height="673"><img src="Art/qa1659_other_linker_flags.png" class="ipad-scaled-image" alt="" width="670" height="515"></figure><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009074-CH1-SECTION2" title="Making it work on the Simulator"></a><h2 class="jump">Making it work on the Simulator</h2><p>The setting described above will solve the problem when building the application for the Device, but because the library path is fully specified, Xcode cannot switch to the appropriate version when building for the Simulator. It is necessary to add a "Build Setting Condition" to the "Other Linker Flags" entry. One condition will specify the "Other Linker Flags" when building for the Device, the other condition will do so when building for the Simulator. You can add build setting conditions by selecting the setting, and then clicking the menu in the bottom left of the window.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40009074-CH1-FIGURE2" title="Figure 2Adding a build setting condition."></a><figcaption><strong class="caption_number">Figure 2</strong>&nbsp;&nbsp;Adding a build setting condition.</figcaption><img src="Art/qa1659_add_build_setting_condition.png" alt="" width="264" height="126"></figure><p>This will create a child entry for linker flags that is only enabled when the rules specified in the build setting condition are true. You will need to add two conditions - one for the Device and one for the Simulator. Set the linker flag for the device as described above. For the Simulator, you should use the Base SDK version by specifying <code>-lxml2</code>. If you had previously set the linker flag without a build condition, you should remove that flag.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS40009074-CH1-FIGURE3" title="Figure 3Separate linker flags for Device and Simulator."></a><figcaption><strong class="caption_number">Figure 3</strong>&nbsp;&nbsp;Separate linker flags for Device and Simulator.</figcaption><img src="Art/qa1659_other_linker_flags_with_build_conditions.png" class="wide-image" alt="" width="1024" height="673"><img src="Art/qa1659_other_linker_flags_with_build_conditions.png" class="ipad-scaled-image" alt="" width="670" height="440"></figure><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40009074-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009074-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2009-08-05</td><td><p>New document that 
+					describes how to work around the "Incompatible library version" link error when using libxml2.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-08-05</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

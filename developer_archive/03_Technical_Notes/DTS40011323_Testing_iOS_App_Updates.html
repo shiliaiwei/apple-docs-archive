@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2285: Testing iOS App Updates</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40011323">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40011323-CH1">
+    <meta id="date" name="date" content="2014-10-07">
+    <meta id="description" name="description" content="TN2285: discusses some best practices for testing an update to an iOS app that has already been deployed through the App Store.">
+    <meta id="book-title" name="book-title" content="Testing iOS App Updates">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/General}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2285">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Testing iOS App Updates" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40011323" title="Technical Note TN2285"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Testing iOS App Updates</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40011323-CH1-DontLinkElementID_2" title="Technical Note TN2285"></a><div class="dtsDocNumber">Technical Note TN2285</div><h1 id="pageTitle">Testing iOS App Updates</h1><p>This technote discusses how to test an update to an iOS app that has already been deployed through the App Store. General testing methodology is beyond the scope of this document. For information on optimizing update delivery, see "<span class="content_text"><a href="http://developer.apple.com/library/ios/qa/qa1779/" class="browserLink" >Reducing Download Size for iOS App Updates</a></span>" and "<span class="content_text"><a href="https://developer.apple.com/library/ios/qa/qa1795/" class="urlLink" rel="external">Reducing the Size of my App</a></span>".</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011323-CH1-HOWITSDONE" data-renderer-version="1">Recommended Testing Procedure</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011323-CH1-BUILDIT" data-renderer-version="1">To create an Archived build that you can both test and submit:</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011323-CH1-FILES" data-renderer-version="1">Managing Data Across Updates</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40011323-CH1-FILES-NEW_HARDWARE" data-renderer-version="1">New Hardware</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011323-CH1-DEBUGGING" data-renderer-version="1">Debugging Ad Hoc Builds</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011323-CH1-NEXTSTEPS" data-renderer-version="1">Next Steps</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40011323-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40011323-CH1-HOWITSDONE" title="Recommended Testing Procedure"></a><h2 class="jump">Recommended Testing Procedure</h2><p>Install an ad hoc distribution of an archived build of the update using iTunes on a device that already has the old version of the app installed.</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40011323-CH1-DontLinkElementID_3" title="Warning"></a><p><strong>Warning:</strong>&nbsp;Install your app with iTunes and launch it <strong>without</strong> Xcode for quality assurance testing.</p><p></p><div class="clear"></div></aside></div><p>Xcode's app install process is optimized for development, but is slightly different than how iTunes and the App Store install apps. This is good during development because it's faster, but using Xcode to install an app over an older old build may create a "frankenbuild" with legacy files inside the <code>.app</code> bundle that won't exist after an App Store update.</p><p>When an app is updated, the old <code>.app</code> bundle is completely replaced, and all data in the old app container <strong>may</strong> be preserved as well.</p><p>Additionally, running with Xcode's debugger attached will mask "<span class="content_text"><a href="http://developer.apple.com/library/ios/qa/qa1592/" class="browserLink" >watchdog crashes</a></span>"  that can happen if an upgrade takes too long to launch.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011323-CH1-BUILDIT" title="To create an Archived build that you can both test and submit:"></a><h2 class="jump">To create an Archived build that you can both test and submit:</h2><p><strong>1)</strong> In Xcode choose "Archive" from the "Product" menu to archive a build of your app. You can find the archive in the Archives tab in the Organizer window.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40011323-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;If you have problems with this step, see <span class="content_text"><a href="https://developer.apple.com/library/ios/technotes/tn2215/" class="urlLink" rel="external">Troubleshooting application archiving in Xcode</a></span>.</p><p></p></aside></div><p><strong>2)</strong> Package the build as an "Ad Hoc" <code>.ipa</code> file by selecting it in the Organizer window and pressing "Distribute…"; then select "Save for Enterprise or Ad-Hoc Deployment". Choose any "Code Signing Identity:" that will let you install on your test device.</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40011323-CH1-DontLinkElementID_5" title="Warning"></a><p><strong>Warning:</strong>&nbsp;Do <strong>not</strong> choose your App Store Distribution profile for this step. It will sign the <code>.ipa</code> file so it can only be used by the App Store, preventing you from installing it yourself and testing.</p><p></p><div class="clear"></div></aside></div><p><strong>3)</strong> Test updating to that build by opening the <code>.ipa</code> file with iTunes and syncing to install it on a device that has the previous version of your app installed. Be sure you've used the previous version of the app enough that it's saved any data it might save during use. The most common problem updates have is not properly dealing with data created by the previous version of the app.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40011323-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;If you have trouble installing the <code>.ipa</code> file, refer to <span class="content_text"><a href="https://developer.apple.com/library/ios/technotes/tn2319/" class="urlLink" rel="external">Installation Failure Troubleshooting for iOS</a></span>.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011323-CH1-FILES" title="Managing Data Across Updates"></a><h2 class="jump">Managing Data Across Updates</h2><p>The most common cause of bugs after an update is the new version of the app not handling data created by a previous version of the app.</p><p>When an app is updated, the very latest version available in the App Store for the target device is installed. Intermediate updates are <strong>not</strong> run. Your app needs to handle data created by <strong>any</strong> previous versions of the app.</p><p>When an app is updated, the <code>.app</code> bundle is completely replaced by the latest version of the app. Also, the absolute path to the app's container ("<code>Application_Home</code>") and thus all files inside it, will change. For this reason, you must only save paths to files relative to your application container. </p><p><code>NSSearchPathForDirectoriesInDomains</code>() or <code>-[NSFileManager</code> <code>URLsForDirectory:inDomains:]</code> will always give you a valid path to the current &lt;<code>Application_Home</code>&gt; or a standard subdirectory inside it.</p><a name="//apple_ref/doc/uid/DTS40011323-CH1-SOURCECODE1" title="Listing 1A method that returns a URL to the current Application_Home/Documents directory "></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;A method that returns a URL to the current <code>Application_Home/Documents</code> directory </p><div class="codesample clear"><table><tr><td scope="row"><pre>- (NSURL *)applicationDocumentsDirectory {<span></span></pre></td></tr><tr><td scope="row"><pre>    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>Any data inside the app container <strong>may</strong> be preserved when the app is updated. From a practical standpoints, this means your app needs to gracefully handle (or ignore) old caches and temporary files.</p><p><code>&lt;Application_Home&gt;/Documents/</code> and <code>&lt;Application_Home&gt;/Library</code> (excluding the <code>&lt;Application_Home&gt;/Library/Caches</code> subdirectory) are the only directories that are <strong>guaranteed</strong> to be preserved across updates. Although other &lt;<code>Application_Home</code>&gt; subdirectories may be moved over, you should not rely on this as an API contract.</p><section><a name="//apple_ref/doc/uid/DTS40011323-CH1-FILES-NEW_HARDWARE" title="New Hardware"></a><h3 class="jump">New Hardware</h3><p>When a user migrates to a new device for the first time, backed up data from their older device is installed on the new device, along with the latest version of any apps that were installed on the old device. This scenario is the same as a regular update, except for two considerations. Temporary data will absolutely not be installed, because it was never backed up. Also, any files that were marked as "<span class="content_text"><a href="https://developer.apple.com/library/IOS/qa/qa1719/" class="urlLink" rel="external">do not backup</a></span>" will not be installed.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011323-CH1-DEBUGGING" title="Debugging Ad Hoc Builds"></a><h2 class="jump">Debugging Ad Hoc Builds</h2><p>If a problem only reproduces in an Ad Hoc build, you'll need to analyze Crash Logs and Console output from the device to debug it. <span class="content_text"><a href="https://developer.apple.com/library/ios/qa/qa1747/" class="urlLink" rel="external">Debugging Deployed iOS Apps</a></span> explains how to gather this information. See <span class="content_text"><a href="https://developer.apple.com/library/ios/#technotes/tn2151/_index.html" class="urlLink" rel="external">Understanding and Analyzing iOS Application Crash Reports</a></span> and the <span class="content_text"><a href="https://developer.apple.com/videos/wwdc/2010/?id=317" class="urlLink" rel="external">Understanding Crash Reports on iOS</a></span> WWDC Session for tips.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40011323-CH1-NEXTSTEPS" title="Next Steps"></a><h2 class="jump">Next Steps</h2><p>After testing an archived build to your satisfaction, you can submit it to the App Store, <span class="content_text"><a href="https://developer.apple.com/library/etc/redirect/DTS/iOSAppDistGuide" class="urlLink" rel="external">by following these steps</a></span>. It is important to submit the <strong>exact same build</strong> you have tested.</p><p>For information on making sure your app and update are small enough to be downloaded without a Wi-Fi connection, see "<span class="content_text"><a href="https://developer.apple.com/library/ios/qa/qa1795/" class="urlLink" rel="external">Reducing the Size of my App</a></span>" and "<span class="content_text"><a href="http://developer.apple.com/library/ios/qa/qa1779/" class="browserLink" >Reducing Download Size for iOS App Updates</a></span>".</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40011323-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40011323-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-10-07</td><td><p>Added more details on the update process and what files are preserved.</p></td></tr><tr><td scope="row">2014-05-14</td><td><p>Removed list of overly-specific possible issues.</p></td></tr><tr><td scope="row">2013-02-13</td><td><p>Editorial changes.</p></td></tr><tr><td scope="row">2011-10-27</td><td><p>New document that 
+					discusses some best practices for testing an update to an iOS app that has already been deployed through the App Store.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-10-07</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

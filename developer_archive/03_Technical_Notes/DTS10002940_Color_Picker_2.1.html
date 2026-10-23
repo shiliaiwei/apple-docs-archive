@@ -1,0 +1,989 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Color Picker 2.1">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002940">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1100.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+   <title>Technical Note TN1100: Color Picker 2.1</title>
+ 
+    <meta name="keywords" content="Mac OS 8 Color Picker 2.1 API Component Manager">
+    <meta name="Description" content="Technical Note TN1100: This Technical Note outlines the changes
+to Color Picker and the Color Picker APIs. The CMYK, Crayon,
+HSV and HTML color pickers are discussed. Also included is
+the Gestalt selector to determine if a Color Picker is installed.">
+
+
+<meta name="categories" content="QuickDraw, Color and System Releases">
+
+
+<meta name="week-posted" content="Jun 30, 1997 - Jul 4, 1997">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY bgcolor="#ffffff" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002940" title="Color Picker 2.1"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Color Picker 2.1</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxMacOS9Earlier-date.html">Mac OS 9 & Earlier</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/index.html" target="_blank">Reference Library</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1100</div>
+<div id="pageheadsub">Color Picker 2.1</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+         
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+<!-- begin_toc -->
+<p id="menutext">
+<a HREF = "#Section1">Color Picker 2.1 Overview </a><BR><BR>     
+<a HREF = "#Section2">New Color Pickers</a></p>  
+<p id="menutext2"><a HREF = "#CMYK">CMYK</a><BR><BR>
+<a HREF = "#Crayon">Crayon</a><BR><BR>
+<a HREF = "#HSV">HSV</a><BR><BR>
+<a HREF = "#HTML">HTML</a><BR><BR>
+<a HREF = "#PickerInstall">Determining If a Picker is Installed</a></p>
+<p id="menutext"><a HREF = "#Section3">Color Picker 2.1 APIs</a></p>
+<p id="menutext2"><a HREF = "#NewAPIs">New API</a><BR><BR>
+<a HREF = "#MaintAPIs">Maintained APIs</a><BR><BR>
+<a HREF = "#ObsAPIs">Obsolete APIs</a></p>
+<p id="menutext"><a HREF = "#Section4">Eye Dropper Tool</a></p>
+<p id="menutext2"><a HREF = "#Overview">Overview</a><BR><BR>
+<a HREF = "#Instructions&amp;Warnings">Instructions and Warnings</a></p>
+<p id="menutext"><a HREF = "#Section5">New Component Manager Messages</a><BR><BR>
+<a HREF = "#References">References</a><BR><BR>
+<a href="#Downloads">Downloadables</a></p>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+			<!-- begin_intro_text -->
+<p id="introtext">With the release
+         of Mac OS 8.0, Apple has redesigned and expanded the Color
+         Picker. In doing so, we have changed the Color Picker APIs
+         for developers and expanded on the number and kind of
+         pickers that are available to the end user. This Technote
+         outlines these changes in detail.</P>
+         
+<p id="introtext">This Note is primarily intended for developers who use or
+         are interested in using the Color Picker Manager APIs.</P>
+         
+<CENTER><table BORDER=0 CELLPADDING=4> <TR><td bgcolor="#e6e6e6" align=left>
+<p id="introtext"><B>Note:</B><BR>
+         
+         This Technote is to be used in conjunction with the
+         "Color Picker Manager" chapter in Apple's technical
+         reference book: 
+         <a href="http://developer.apple.com/documentation/Carbon/graphics/ColorSyncManager/colorsyncmanager.html">
+         <I>Advanced Color Imaging on the MacOS</I></a>.</P>
+    </TD></TR></table></CENTER>
+         
+<p id="introtext">You should also be familiar with the "Dialog Manager"
+         chapter of <a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-2.html">
+         <I>Inside Macintosh:Macintosh Toolbox Essentials</I></a>
+         and the "Component Manager" chapter of
+         <a href="http://developer.apple.com/documentation/mac/MoreToolbox/MoreToolbox-2.html">
+         <I>Inside Macintosh:More Macintosh Toolbox</I></a>.</p>
+            <!-- end_intro_text -->
+			<!-- begin_date -->
+<h3>&nbsp;Updated: [Feb 09 1998]</h3>
+<!-- end_date -->
+        </td>
+    </tr>
+</table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+          <!-- begin_content --><a NAME="Section1"></a>
+  <center><table width="600" cellpadding="0" cellspacing="0" border="0">
+  <TR>
+  <td align="left">       
+         <H2>Color Picker 2.1 Overview</H2>
+         
+         <P>The Color Picker Manager supplies
+         your application with functions and a standard user
+         interface for asking the user for color choices. Your
+         application can use these APIs to interact with the Color
+         Picker Extension and also to create your own custom color
+         picker.</P>
+         
+         <H3>System Requirements</H3>
+         
+         <UL>
+            <li>Color Picker 2.1 will run on
+            System 7.5 through MacOS 8.0.</li>
+         </ul>
+         
+         <H3>Dependencies</H3>
+         
+         <UL>
+            <li>QuickTime Component Manager:
+            Color Picker 2.1 uses the QuickTime Component Manager,
+            however, if QuickTime is not installed, the Color Picker
+            Manager loads its own Component Manager code.</li>
+            
+            <li>ColorSync: the Color Picker
+            Manager uses ColorSync if installed (not required). Color
+            Picker 2.1 adds support for ColorSync 2.x
+            profiles.</li>
+         </ul>
+         
+         <H3>Licensing</H3>
+         
+         <UL>
+            <li>Color Picker 2.1 is available
+            for licensing from Apple's Software Licensing group as
+            part of the ColorSync addendum. You need to license the
+            Color Picker to ship it with your product. For more
+            information on licensing, please contact Software
+            Licensing at 512-919-2645 or <a HREF = "mailto:sw.license@apple.com">sw.license@apple.com</a>.</li>
+         
+         </ul>
+         
+         <H3>Download</H3>
+         
+         <UL>
+            <li>Color Picker 2.1 is available
+            for download from 
+            <a href="http://developer.apple.com/sdk/index.html">Apple's SDK site</a>.</li>
+         </ul>
+         
+         <H3>Gestalt</H3>
+         
+         <UL>
+            <li>By checking <CODE>Gestalt()</CODE> you can
+            determine if Color Picker 2.1 is present by using the
+            <CODE>gestaltColorPickerVersion</CODE> selector. If <CODE>Gestalt()</CODE> returns an 
+            error, then only the 1.0 ROM-based Color Picker is there. If it
+            returns 0x00000100 then you have Color Picker 2.0 (weird,
+            but true). If it returns 0x00000210 then you have 2.1</li>
+            available.
+         </ul>
+         
+         <H3>New Features</H3>
+         
+         <UL>
+            <li>New system pickers: 
+            
+            CMYK Picker,
+            Crayon Picker,
+            HSV Picker,
+            HTML Picker,
+
+            See the "New Color Pickers" section for more
+            details.</li>
+            
+            <li>Color Sync 2.x profile
+            support.</li>
+            
+            <li>Eye Dropper Tool. See the "Eye
+            Dropper Tool" section for more information.</li>
+            
+            <li>Smaller API. See the "Color
+            Picker 2.1 APIs" section for an overview.</li>
+            
+            <li>Native pickers on Power
+            PC.</li>
+    
+        </ul>
+          <BR><P><a href="#top">Back to top</a></P>
+<a NAME="Section2"></a>
+         
+         <H2>New Color Pickers</H2>
+         
+         <P>There are many new pickers with the
+         2.1 release: CMYK Picker, Crayon Picker, HSV Picker and an
+         HTML Picker. This section overviews these new pickers and
+         shows you what they look like.</P>
+     <BR><P><a href="#top">Back to top</a></P>
+        
+<a NAME="CMYK"></a>
+         
+         <H3>CMYK</H3>
+         
+         <P>This is a slider-based picker for
+         selecting a color in CMYK color space. This picker is mainly
+         intended for use in the color pre-press industry since a
+         majority of printing devices out there use this color
+         space.</P>
+      </td></tr></table></center>   
+<BR><BR>
+<center><table BORDER=0 CELLPADDING=4 width=600> <TR> <td align="left">
+<img src="images/tn1100_001.gif" align=bottom alt="CMYK" width=385 height=241>
+    </TD></TR></table></CENTER><BR>
+    
+         
+<a NAME="Crayon"></a>
+ <center><table width="600" cellpadding="0" cellspacing="0" border="0">
+  <TR>
+  <td align="left"> <BR><P><a href="#top">Back to top</a></P>         
+         <H3>Crayon</H3>
+         
+         <P>The Crayon picker is targeted at
+         the home and school market. It presents a box of 60 crayon
+         colors from which the user can select.</P></td></tr></table></center>
+         <BR><BR>
+
+<table BORDER=0 CELLPADDING=4 width=600> <TR> <td align="left">
+<CENTER><img src="images/tn1100_002.gif" align=bottom alt="Crayon" width=385 height=241>
+</CENTER></TD></TR></table><BR><BR>
+   
+         
+<a NAME="HSV"></a>
+<center>
+<table width="600">
+  <TR>
+  <td align="left"> <BR><P><a href="#top">Back to top</a></P>
+  <H3>HSV</H3>
+       
+         <P>The original Color Picker 1.0 (the
+         dartboard as it's affectionately called at Apple) was an HSV
+         picker (although it called itself a Hue, Saturation, and
+         "Brightness" picker ). This picker was removed with the 2.0
+         release, however many users liked it and asked for its
+         return. Therefore, for users who became comfortable working
+         in that color space, we have added it back into Color Picker
+         2.1. It has the "wheel and slider" interface much like the
+         original 1.0 picker.</P></td></tr></table></center>
+         
+         <BR><BR>
+<table BORDER=0 CELLPADDING=4 width=600> <TR> <td align="left">
+    <CENTER><img src="images/tn1100_003.gif" align=bottom alt="HSV" width=385 height=241>
+    </CENTER>
+    </TD></TR></table><br><BR>
+         
+<a NAME="HTML"></a>
+<center><table width="600" cellpadding="0" cellspacing="0" border="0">
+  <TR>
+  <td align="left">  <BR><P><a href="#top">Back to top</a></P>       
+         <H3>HTML</H3>
+         
+         <P>This is basically another RGB
+         slider-based color picker. The units though are in
+         hexadecimal bytes and a combined HTML tag is maintained as a
+         fourth text-edit field (so if the sliders read 99 for red,
+         66 for green and CC for blue, the combined HTML tag text
+         field will contain #9966CC). Many HTML commands take this
+         kind of composite "hash-mark-with-RGB-hex" format.
+         </P></td></tr></table></center>
+         
+         <BR><BR>
+<table BORDER=0 CELLPADDING=4 width=600> <TR> <td align="left">
+    <CENTER><img src="images/tn1100_004.gif" alt="HTML" align="Bottom" width=390 height=242>
+    </CENTER>
+    </TD></TR></table>
+    <BR><BR>
+<center>
+<table width="600">
+  <TR>
+  <td align="left">
+      <BR><P><a href="#top">Back to top</a></P>
+         <P><a NAME="PickerInstall"></a></P>
+         
+         <H2>Determining If a Picker Is
+         Installed</H2>
+         
+         <P>As a developer, you may wish to
+         know whether a particular picker is installed on your user's
+         machine. To accomplish this you need to complete two
+         steps:</P>
+         
+         <P>1. Check the Gestalt selector
+         <CODE>gestaltColorPickerVersion</CODE>.</P>
+         
+         <P><CODE>theErr = Gestalt</CODE>(<CODE>gestaltColorPickerVersion, &amp;value</CODE>);</P>
+         
+         <P>2. Then use the Component Manager
+         to query for a specific type of picker. All Apple color
+         pickers use a manufacturer type of 'appl', a type of 'cpkr'
+         and a sub-type that reflects the color space of the picker
+         (as defined in ColorSync's <CODE>CMApplication.h</CODE> header file).
+         </P>
+         
+         <P>The subtypes for the various color pickers are:</P>
+         
+         <P>CMYK Picker = <CODE>cmCMYKData</CODE> =
+         'CMYK'<BR>
+         
+         Crayon Picker =<I>none</I> =
+         'name' (for "named color space" like Pantone
+<img src="images/tn1100_005.gif" align=bottom alt="Crayon Picker" width=11 height=12> is a
+         named color space).
+         
+         HLS Picker = <CODE>cmHLSData</CODE> = 'HLS'<BR>
+         
+         HSV Picker = <CODE>cmHSVData</CODE> = 'HSV'<BR>
+         
+         HTML Picker = <I>none</I> =
+         'HTML'<BR>
+         
+         RGB Picker = <CODE>cmRGBData</CODE> = 'RGB '
+         <BR>
+         
+         As an example, to see if Apple's
+         CMYK picker exists on your user's system, you would set up
+         your <CODE>ComponentDescription</CODE> structure like this:</P>
+         
+         <P><CODE>theComponentDesc.componentType</CODE> =
+         'cpkr';<BR>
+         
+         <CODE>theComponentDesc.componentSubType</CODE> =
+         <CODE>cmCMYKData;</CODE><BR>
+         
+         <CODE>theComponentDesc.componentManufacturer</CODE> =
+         'appl';</P></td></tr></table></CENTER><BR>
+         
+         <CENTER><table BORDER=0 CELLPADDING=4 width=500> <TR><td bgcolor="#e6e6e6" align=left>
+<p><B>Note:</B><BR>Third-party pickers and future color pickers may
+         use some of the same subtypes or new ones. Therefore, you
+         could potentially get back more than one picker during your
+         Component Manager query. See the "Component Manager" chapter
+         of <I>Inside Macintosh: More Macintosh Toolbox</I> for further
+         details.</P></td></tr></table></center>
+      </TD></TR>
+</table></center>
+
+<center>
+<table width="600">
+  <TR>
+  <td align="left">    <BR><P><a href="#top">Back to top</a></P>
+
+<a NAME="Section3"></a>
+         
+         <H2>Color Picker 2.1 APIs 
+         </H2>
+         
+         <P>To download new header files click <a href="http://developer.apple.com/sdk/index.html">here</a>.
+         </P>
+         
+         <P>In Apple's studies, we realized
+         that a majority of the Color Picker APIs were not being used
+         by developers. Therefore, with the Color Picker 2.1 release,
+         a lot of the APIs have become obsolete. This section covers
+         new, old, supported and unsupported/removed APIs. If you
+         have a need for one of the obsolete APIs, please let
+         Developer Support know at <a href="http://developer.apple.com/contact/index.html">feedback</a> and we will
+         attempt to get the API reinstated or give you another way to
+         implement the same functionality.</P>
+        <BR><P><a href="#top">Back to top</a></P>
+     
+         <P><a NAME="NewAPIs"></a></P>
+         
+         <H3>New API</H3>
+         
+         <P>Here is the one new Color Picker 2.1 call (ColorSync 2
+         savvy):</P>
+         
+         <P><CODE>pascal OSErr
+         NPickColor</CODE>(<CODE>NColorPickerInfo *theColorInfo</CODE>);</P>
+         
+         <P><CODE>theColorInfo</CODE>:</P>
+         
+         <P>A color picker parameter block, which is described on
+         page 2-21 of the <I>Advanced Color Imaging Reference</I>. With
+         Color Picker 2.1, however, where profile handles were used
+         with Color Picker 2.0, profile references are nowused for
+         this API.</P>
+         
+         <P>DESCRIPTION</P>
+         
+         <P>This call is identical to <CODE>PickColor()</CODE>, but it replaces the older
+         ColorSync 1.0 data types with new ColorSync 2.x profile
+         references. The color picker parameter block is described on
+         page 2-21 of the <I>Advanced Color Imaging Reference</I>.
+         When filling out the parameter block for a call to <CODE>NPickColor</CODE>, replace all profile
+         handles with profile references. The optional color-changed
+         proc you has also changed; a new data structure <CODE>NCMColor</CODE> replaces the 
+         <CODE>CMColor</CODE> data type and uses profile
+         references. See the "New Component Manager Messages" section
+         for more information on the color-changed proc.</P>
+     <BR><P><a href="#top">Back to top</a></P>
+        
+         <P><a NAME="MaintAPIs"></a></P>
+         
+         <H3>Maintained APIs</H3>
+         
+         <P>Here are the original Color Picker 1.0 calls that we are
+         keeping and maintaining:</P>
+         
+         <BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>pascal SmallFract Fix2SmallFract(Fixed f);
+
+pascal Fixed SmallFract2Fix(SmallFract s);
+
+pascal void CMY2RGB(const CMYColor *cColor, RGBColor *rColor);
+
+pascal void RGB2CMY(const RGBColor *rColor, CMYColor *cColor);
+
+pascal void HSL2RGB(const HSLColor *hColor, RGBColor *rColor);
+
+pascal void RGB2HSL(const RGBColor *rColor, HSLColor *hColor);
+
+pascal void HSV2RGB(const HSVColor *hColor, RGBColor *rColor);
+
+pascal void RGB2HSV(const RGBColor *rColor, HSVColor *hColor);
+
+pascal Boolean GetColor(Point where, ConstStr255Param prompt, const RGBColor *inColor,
+     RGBColor *outColor);</pre>
+</TD></TR></table></CENTER><BR>
+         
+         <P>Here is the one Color Picker 2.0 call we are keeping and
+         maintaining:</P>
+         
+         <P><CODE>pascal OSErr
+         PickColor</CODE>(<CODE>ColorPickerInfo *theColorInfo</CODE>);</P>
+         
+         <P>NOTE: Please see the "<I>Advanced Color Imaging</I>" book for
+         complete details on these APIs.</P>
+    <BR><P><a href="#top">Back to top</a></P>
+         
+         <P><a NAME="ObsAPIs"></a></P>
+         
+         <H3>Obsolete APIs</H3>
+         
+         <P>Here are the Color Picker 2.0 and 2.1 calls we have
+         removed:</P>
+         
+         <BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>AddPickerToDialog
+CreateColorDialog
+CreatePickerDialog
+DisposeColorPicker
+GetPickerVisibility
+SetPickerVisibility
+SetPickerPrompt
+DoPickerEvent
+DoPickerEdit
+DoPickerDraw
+GetPickerColor
+SetPickerColor
+GetPickerOrigin
+SetPickerOrigin
+GetPickerProfile
+SetPickerProfile
+GetPickerEditMenuState
+SetPickerColorChangedProc
+NCreateColorDialog
+NGetPickerColor
+NSetPickerColor
+NGetPickerProfile
+NSetPickerProfile
+NSetPickerColorChangedProc
+ExtractPickerHelpItem</pre>
+</TD></TR></table></CENTER><BR>
+         <P>If you have a need for one of these APIs, please contact
+         <a href="http://developer.apple.com/contact/index.html">feedback</a>.</P>
+    <BR><P><a href="#top">Back to top</a></P>
+      
+<a NAME="Section4"></a>
+         
+         <H2>Eye Dropper Tool</H2>
+         
+         <P>For a picker developer, the eye dropper tool is probably
+         the single-most significant addition to Color Picker 2.1. If
+         the user holds down the Option key, the cursor will change
+         to an eyedropper and the user will "pick up" the color under
+         the cursor. This section describes how this feature is
+         implemented and how your application can take advantage of
+         it.</P>
+      <BR><P><a href="#top">Back to top</a></P>
+       
+         <P><a NAME="Overview"></a></P>
+         
+         <H3>Overview</H3>
+         
+         <P>The way this tool was created is rather straightforward,
+         but is a little tedious to explain. Recall that beginning
+         with Color Picker 2.0, color pickers have been component
+         based (that is, using the Component Manager). Individual
+         color pickers are loaded and instantiated as the user
+         browses through them in the Color Picker dialog. The way the
+         Color Picker Manager interacts with the individual color
+         picker components is through Component Manager-based
+         messages. The Color Picker has defined many messages for
+         things such as passing events to the picker, telling the
+         color picker to redraw itself, telling the color picker to
+         set the "new" color, etc. In terms of the eyedropper tool,
+         two messages are particularly important: the <CODE>PickerEvent</CODE> message and the 
+         <CODE>PickerSetColor</CODE> message.</P>
+         
+         <P>In Color Picker 2.0, the individual pickers were sent
+         only two <CODE>PickerSetColor</CODE> messages
+         after instantiating the picker. These were to tell the
+         picker how to set both the original color and new color
+         boxes. The original color was the color originally passed in
+         when the application first called upon the color picker, the
+         new (or user) color was the current color the user had
+         selected. After a color picker had received these messages
+         (and others as well) and displayed itself, the <CODE>PickerEvent</CODE>message came to the
+         forefront. In fact, until the user clicked on another color
+         picker or hit the okay or cancel button, a color picker
+         basically remained in an event loop, receiving events from
+         the Color Picker Manager via the <CODE>PickerEvent</CODE> message. Even null events
+         were passed along to the color pickers ( this was an ideal
+         time for a color picker to update the cursor, etc.).</P>
+         
+         <P>In Color Picker 2.1, things have changed a bit. First of
+         all, you can no longer be assured that your picker will
+         receive only the initial two <CODE>PickerSetColor</CODE> messages. When a user
+         holds down the option key (invoking the eye-dropper tool)
+         and clicks, the Color Picker Manager now suppresses that
+         click from the current color picker and instead sends it a
+         <CODE>PickerSetColor</CODE> message. The
+         color picker sends this message with the user color flag set
+         thus, the original color will never change. For a
+         color picker to be savvy with 2.1, it needs to be able to
+         handle the odd <CODE>PickerSetColor</CODE>
+         message and handle the new color passed it. This includes
+         updating the user color box in the upper right corner of the
+         picker to display the new color, updating whatever sliders
+         and text edit fields the color picker has, etc. Try it out,
+         all the Apple color pickers do this correctly.</P>
+    <BR><P><a href="#top">Back to top</a></P>
+
+<a NAME="Instructions&amp;Warnings"></a>
+         
+         <H3>Instructions and Warnings
+         </H3>
+         
+         <P>1. The Color Picker Manager may change the cursor on you
+         (to the eyedropper cursor). It is the picker's
+         responsibility to change it back. If your color picker is
+         handling cursor updates during null events, you need do
+         nothing more. One third-party picker was doing no cursor
+         updating at all this would leave the cursor as an
+         eyedropper even though the user had let up on the option
+         key. A well-written color picker will always handle cursor
+         updating for example, when the user moves the
+         cursor over a text edit field the cursor should turn into an
+         I-beam cursor, etc.</P>
+         
+         <P>2. Since color pickers should be handling cursor updating
+         during null events, all null events are suspended while the
+         option key is held down. If this were not the case, there
+         would be a sort of tug-of-war between the Color Picker
+         Manager and the individual color pickers the
+         Color Picker Manager would be fighting to set the cursor to
+         an eyedropper while the picker was trying to set it to an
+         arrow or whatever.</P>
+         
+         <P>3. Finally, recall also that the Color Picker can be
+         called moveable modal (using the more mid-level API calls
+         like <CODE>PickColor()</CODE>) as well as
+         standard modal (using the higher-level API call <CODE>GetColor()</CODE>). 
+         There is an interesting
+         side-effect then for these two cases. If the picker is
+         called moveable-modal (think fast now) what would be the
+         effect of option-clicking, say, in the Desktop while the
+         picker is up? Well, the Event Manager snuffs the
+         Option-Click and instead switches the user out of the
+         current application, hides the current application, and
+         switches the user into the Finder. In fact, Option-Clicking
+         in any other process's windows will cause a similar behavior.
+         Rather than breaking that "user experience", we preserve it.
+         So, the only time that the user actually gets an eyedropper
+         cursor is when 1) the option key is down and 2) the cursor
+         is over one of the current process's windows! By and large,
+         this is as you would want it. If you were writing a paint
+         program and wanted the user to be able to pick up a color
+         using the Color Picker from their document, this document
+         window would of course be a window owned by your
+         application. Also, if the Color Picker were called
+         moveable-modal, the user would of course be able to move the
+         Color Picker's dialog around on the screen so as to get at
+         that specific color that they want from their document.</P>
+         
+         <P>The strictly modal case is quite another situation. Since
+         it is a non-moveable modal dialog, there never was any
+         context switching behavior to preserve. In fact, the only
+         thing the user would expect from clicking in the Desktop
+         from a modal dialog is a <CODE>SysBeep()</CODE> sound (indicating, "Don't
+         do that!". Well, Color Picker 2.1 preserves the <CODE>SysBeep()</CODE>
+         scenario except when the option key is down. When the option
+         key is down, the user can click anywhere (except the menu
+         bar) and pick up a color even from the Desktop or
+         another process' window. The down side of course, is that the
+         dialog is not moveable. So if the color the user wanted to
+         pick up was underneath the Color Picker's dialog
+         too bad.</P>
+         
+         <P>By the way, the Color Picker handles
+         all the hit-testing etc. by building the hit-test region
+         so that when the cursor is within
+         this region and the option key is down, they get an
+         eyedropper; otherwise they don't. For the moveable-modal
+         case, we walk the current layers window list accumulating
+         window regions. In the strictly modal case, we use <CODE>GetGrayRgn()</CODE>.</P>
+         
+         <P>Finally, make sure you update the cursor during null
+         events passed your picker and also be able to handle <CODE>PickerSetColor</CODE> 
+         messages at any time.
+         The eyedropper tool is otherwise free working
+         across all color pickers and requires no additional work on
+         your part; (most third-party color pickers work
+         perfectly without modification).</P>
+    <BR><P><a href="#top">Back to top</a></P>
+         
+         <a NAME="Section5"></a>
+         
+         <H2>New Component Manager
+         Messages</H2>
+         
+         <P>For new header files click <a href="http://developer.apple.com/sdk/index.html">here</a>.
+         </P>
+         
+         <P>If you wish to write a Color Picker component or if you
+         wish to revise a Color Picker component you have already
+         written, there are some new Color Picker messages you may
+         want to implement.</P>
+         
+         <H4><CODE>PickerSetColorChangedProc</CODE></H4>
+         
+         <P><CODE>pascal ComponentResult
+         PickerSetColorChangedProc</CODE>(<CODE>long storage, ColorChangedUPP
+         colorProc, long colorProcData</CODE>)</P>
+         
+         <P>This message is sent once to your picker, after you are
+         called to initialize yourself. It contains a procPtr to the
+         calling applications <CODE>colorChangedProc</CODE>. This allows you, the
+         picker, to call the applications <CODE>colorChangedProc</CODE> directly.
+         This was found useful during times when the picker is
+         stealing all events - for example, during a drag of a slider
+         when the user has the mouse button continuously down. When
+         the user releases the mouse button, control returns to the
+         Color Picker Manager and the <CODE>colorChangedProc</CODE> is called at
+         that time. But you may, in your picker, want to call the
+         <CODE>colorChangedProc</CODE> yourself while the user is "live dragging".
+         </P>
+         
+         <P>Continually calling the <CODE>colorChangedProc</CODE> can slow you way
+         down however, depending on how processor intensive the
+         <CODE>colorChangedProc</CODE> is. Therefore, the new Color Picker defines
+         a new flag in the flags field passed in by the calling
+         application: <CODE>kColorPickerCallColorProcLive</CODE>. Your picker is
+         passed a copy of the flags when the Color Picker Manager
+         sends your picker a PickerInit message. Therefore, it is
+         recommended that if you support the
+         <CODE>PickerSetColorChangedProc</CODE> message you should:</P>
+         
+         <P>1) Call it only during mouse drags when the Color Picker
+         Manager is unable to get processor time to call the
+         <CODE>colorChangedProc</CODE>.</P>
+         
+         <P>2) Call it only if the <CODE>kColorPickerCallColorProcLive</CODE> flag
+         is set.</P>
+         
+         <H4><CODE>NPickerGetColor</CODE>,<BR>
+         
+         <CODE>NPickerSetColor</CODE>,<BR>
+         
+         <CODE>NPickerGetProfile</CODE>,<BR>
+         
+         <CODE>NPickerSetProfile</CODE>,<BR>
+         
+         and <CODE>NPickerSetColorChangedProc</CODE></H4>
+         
+         <P><CODE>pascal ComponentResult
+         NPickerGetColor</CODE><CODE><SAMP>(long storage, ColorType whichColor, NPMColor
+         *color</SAMP></CODE><BR>
+         
+         <CODE>pascal ComponentResult NPickerSetColor(long storage,
+         ColorType whichColor, NPMColor *color)</CODE><BR>
+         
+         <CODE>pascal ComponentResult NPickerGetProfile(long storage,
+         CMProfileRef *profile)</CODE><BR>
+         
+         <CODE>pascal ComponentResult NPickerSetProfile(long storage,
+         CMProfileRef profile)</CODE><BR>
+         
+         <CODE>pascal ComponentResult NPickerSetColorChangedProc(long
+         storage, NColorChangedUPP colorProc, long
+         colorProcData)</CODE></P>
+         
+         <P>These messages are simply parallel to the original Color
+         Picker 2.0 messages. They however pass profile references
+         where their original Color Picker 2.0 counterparts passed in
+         profile handles. This reflects the ColorSync 2.x support.
+         Please see the "<I>Advanced Color Imaging</I>" book for more
+         information on the 2.0 messages.</P>
+         
+         <H3>Color Picker Component Manager
+         Message Warnings</H3>
+         
+         <P>Recall that a component has only a single "main" entry
+         point and that the Component Manger sends your component
+         messages via this entry point. Typically, you would have
+         something like a big case statement in your "main" function.
+         Based upon the message, you would either call out to your function or 
+         return badComponentSelector (0x80008002) if you receive a message value 
+         that you don't understand. Please see <I>Inside Macintosh: More Macintosh Toolbox</I> 
+         for more information on the Component Manager and badComponentSelector.</P>
+         
+         <P>If you choose not to implement all the new Color Picker messages, you 
+         must return badComponentSelector for all the messages that you do not 
+         support. This allows the Color Picker Manager to handle the message in 
+         some other fashion.</P>
+         
+         <P>Also, please note that there is a standard Component
+         Manager message "<CODE>kComponentCanDoSelect</CODE>". This also is an
+         important place to respond to the Color Picker Manager that,
+         "Yes, I know what how to handle that message," or "No, I
+         don't.". It is important to do this so that the Color Picker
+         does not try to work around your application.</P>
+    <BR><P><a href="#top">Back to top</a></P>
+
+<P>&nbsp;<a NAME=References></a></P>
+
+<H2>References</H2>
+<P><a href="http://developer.apple.com/documentation/Carbon/graphics/ColorSyncManager/colorsyncmanager.html">
+             <I>Advanced Color Imaging on the MacOS</I></a></p>
+            
+<P><a href="http://developer.apple.com/documentation/mac/Toolbox/Toolbox-2.html">
+            <I>Inside Macintosh:Macintosh Toolbox Essentials</I></a></p>
+            
+<P><a href="http://developer.apple.com/documentation/mac/MoreToolbox/MoreToolbox-2.html">
+            <I>Inside Macintosh:More Macintosh Toolbox</I></a></p>
+            
+<P>To download the Color Picker 2.1 SDK and Sample code click <a href="http://developer.apple.com/sdk/index.html">here</a>.</p>
+            
+
+    <BR><P><a href="#top">Back to top</a></P>
+
+        <a NAME="Downloads"></a> 
+        <br><h2>Downloadables</h2>
+
+        <table BORDER=0 CELLPADDING=3 WIDTH="600">
+          <TR> 
+            <td width=50 align=left> 
+              <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" width=22 height=23></P>
+            </TD>
+            <td align="left"> 
+              <p>Acrobat version of this Note (XXX K).</P>
+            </TD>
+            <td width=60 align=left> 
+              <p><a href="pdf/tn1100.pdf">Download</a></P>
+            </TD>
+          </TR>
+        </table><BR>
+   <BR><P><a href="#top">Back to top</a></P>
+        </td></tr></table></center>
+<!-- end_content -->
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

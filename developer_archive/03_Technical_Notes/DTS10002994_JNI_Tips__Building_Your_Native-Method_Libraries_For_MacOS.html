@@ -1,0 +1,607 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="JNI Tips: Building Your Native-Method Libraries For MacOS">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002994">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1155.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+   <title>Technical Note TN1155: JNI Tips: Building Your Native-Method Libraries For MacOS</title>
+
+    <meta name="keywords" content="Mac OS 8 Java JNI MRJ libraries export native-method">
+    <meta name="Description" content="Technical Note TN1155: This Technical Note describes techniques
+developers can use to get their JDK 1.1.x  JNI libraries to work correctly
+on MacOS Classic. Included is a discussion on how to set
+up exports for linking, how to name and position the libraries,
+and how to debug the loading process.">
+
+
+<meta name="categories" content="Java">
+
+
+<meta name="week-posted" content="Feb 1, 1999 - Feb 5, 1999">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002994" title="JNI Tips: Building Your Native-Method Libraries For MacOS"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>JNI Tips: Building Your Native-Method Libraries For MacOS</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxJava-date.html">Java</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Java/idxPorting-date.html" target="_blank">Java > Porting</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1155</div>
+<div id="pageheadsub">JNI Tips: Building Your Native-Method Libraries For MacOS</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+   
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+     <tr>
+<td width=300 valign="top" align=left scope="row">
+    <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+<td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+ <span id="menutitle">
+CONTENTS 
+  <br>
+  <br>
+ </span>
+   </td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+ <!-- begin_toc -->
+<P id = "menutext"><a HREF = "#Section1">I'm Superunsatisfied!</a><BR>
+         <BR>
+         <a HREF = "#Section2">Exporting the Right Stuff</a><BR>
+         <BR>
+         <a HREF = "#Section3">Naming the Library</a><BR>
+         <BR>
+         <a HREF = "#Section4">Positioning the Library</a><BR>
+         <BR>
+         <a HREF = "#Section5">Debugging The Loading Process</a><BR><BR>
+         <a HREF = "#References">References</a><BR><BR>
+         <a href="#Downloads">Downloadables</a></p>
+       <!-- end_toc -->
+</td>
+  </tr>
+
+  <tr>
+   <td width=300 align=left scope="row">
+ <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+   </td>
+  </tr>
+    </table>
+</td>
+  <td width=300 valign="top" align=left>
+            
+<!-- begin_intro_text -->
+<P id = "introtext">J NI (Java Native
+         Interface) is a cross-platform standard for implementing
+         Java methods in native code. MRJ 2.0 and 2.1 support JNI;
+         however, some developers run into trouble getting their JNI
+         libraries to work correctly on Mac OS. For the most part
+         these are build- and installation-related issues. This
+         Technote is designed to put you at ease.</P>
+         <!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Mar 1 1999]</h3>
+<!-- end_date -->
+</TD>
+ </TR>
+    </table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>      
+<!-- begin_content -->      
+         <H2><a NAME=Section1></a></H2>
+         
+         <H2>I'm Superunsatisfied!</H2>
+         
+         <P>You just got your JNI-based code to compile and link ...
+         but MRJ still throws an <CODE>UnsatisfiedLinkError</CODE> when
+         you try to use it. If you're porting code that runs on other
+         platforms, this can be pretty frustrating. Fortunately the
+         problem and the fix are usually pretty simple. The most
+         common problems are:</P>
+         
+         <UL>
+            <li>You're not exporting the method implementations</li>
+            
+            <li>Your library's code-fragment name is wrong</li>
+            
+            <li>Your library file isn't located where MRJ can find
+            it</li>
+         </UL>
+         
+         <P>Let's look at each of these in detail.</P>
+
+
+<p>
+<a HREF = "#top">Back to top</a>
+</p>
+
+<a NAME=Section2></a>
+         
+         <H2>Exporting The Right
+         Stuff</H2>
+         
+         <P>For MRJ to find the right functions to call in your
+         library, they need to be <I>exported</I>. The linker needs
+         to know which functions to export when it links the library.
+         The documentation for your development system (probably
+         either MPW or CodeWarrior) will describe in detail how to
+         set up exports. There are basically two ways to do it:</P>
+         
+         <P><B>Use a .exp file. </B>One way to set up exports is via
+         a separate ".exp" file, which is a text file that contains
+         the names of the exported functions, one per line. If using
+         CodeWarrior, you add the .exp file to your project, then go
+         to the "PPC PEF" panel of the Project Settings dialog and
+         set the "Export" pop-up to "Use '.exp' File." If using MPW's
+         <CODE>ppclink</CODE> tool, you use the "<CODE>-@export</CODE>"
+         flag.</P>
+         
+         <P>If you use a .exp file, make sure that you spell all the
+         function names correctly (pasting them in from your source files
+         is the best bet) and be sure to keep the file in sync when
+         you add, remove, or rename native methods -- <I>or if any
+         parameters change</I>.</P>
+         
+         <P><B>Use #pragma export. </B>The other method -- which I prefer -- is to use a C/C++ "<CODE>pragma</CODE>" to mark functions for export. The line "<CODE>#pragma export on</CODE>" tells the compiler to mark any function declarations it sees for export; the line "<CODE>#pragma export reset</CODE>" turns off this mode. One convenient way to use this is to turn on export mode while including the JNI-generated header file that
+         declares all of your methods:</P>
+         
+
+                  <BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>// MyNativeClass.c
+#pragma export on
+#include "MyNativeClass.h"  // this is the header that java.h generated
+#pragma export reset
+
+...function bodies follow...</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+         <P>Another equivalent way to mark the functions for export
+         is to use the standard <CODE>JNIEXPORT</CODE> and
+         <CODE>JNICALL</CODE> macros defined in <CODE>&lt;jni.h&gt;;
+         JNIEXPORT</CODE> has the same functionality as turning on
+         "<CODE>#pragma export</CODE>." It looks like this:</P>
+         
+
+                  <BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>// MyNativeClass.c
+#include "MyNativeClass.h"  // this is the header that java.h generated
+
+JNIEXPORT jint JNICALL Java_com_foo_MyNativeClass_myMethod(JNIEnv* e) {
+    ...
+}</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+         
+         <P>You then need to tell the linker to export marked
+         functions. If using CodeWarrior, go to the "PPC PEF" panel of the Project Settings dialog and set the "Export" pop-up to "Use #pragma." If using MPW's <CODE>ppclink</CODE> tool, export-marked functions will automatically be exported.</P>
+         
+         <P>The advantage of using the second technique is that it
+         always exports the correct functions, even if the set of
+         native methods change. All you have to do is re-run java.h
+         (or recompile your Java classes, if you're using
+         CodeWarrior's option to emit JNI headers) and the list of
+         exported functions will automatically be updated next time
+         you build your native library.</P>
+
+
+<p>
+<a HREF = "#top">Back to top</a>
+</p>
+
+
+         <H2><a NAME=Section3></a>Naming The
+         Library</H2>
+         
+         <P>The second major mistake developers make is incorrectly naming the library . The name of the library should be
+         exactly the same as the name you pass to
+         <CODE>System.loadLibrary</CODE>. (Metrowerks' Java VM required
+         prepending "<CODE>java_</CODE>" to the library name; MRJ does
+         not.)</P>
+         
+         <P>Moreover, the library name is <I>not</I> the same thing
+         as the library's filename. The filename is ignored; it's the
+         library name (or "fragment name") that counts. In
+         CodeWarrior, you set it in the "PPC PEF" project settings
+         panel. In MPW's <CODE>ppclink</CODE>, use the
+         "<CODE>-fragname</CODE>" flag.</P>
+         
+
+                  <P><B>Note:</B><BR>
+                  MRJ 2.0 and some of the early-access releases of
+                  MRJ 2.1 had problems handling non-ASCII characters
+                  (such as &aacute;c&ccedil;&euml;&ntilde;t&egrave;d
+                  letters or Symbols&reg;) in library names, and
+                  would map them to the wrong character. This problem
+                  has been fixed in MRJ 2.1.</P>
+
+
+<p>
+<a HREF = "#top">Back to top</a>
+</p>
+
+         <H2><a NAME=Section4></a>Positioning
+         The Library</H2>
+         
+         <P>Finally, even if your library is built perfectly, it
+         won't do much good if MRJ can't find it. The library file
+         needs to be on the <I>CFM search path</I>. Basically, this
+         means that it needs to be:</P>
+         
+         <OL>
+            <li>Inside the application itself</li>
+            
+            <li>In the same folder as the application</li>
+            
+            <li>In the Extensions folder</li>
+            
+            <li>In a folder directly contained in the Extensions
+            folder, <I>e.g.,</I> the MRJ Libraries folder. <I>This is
+            not recursive</I> -- sub-folders of MRJ Libraries will
+            not be searched. A common mistake is to put the library
+            in the MRJClasses folder.</li>
+         </OL>
+         
+         <P>"The application", of course, can mean a JBindery-generated
+         application, a browser like Microsoft Internet Explorer, or
+         Apple Applet Runner. (Note that if you're running your code
+         directly from JBindery without saving the settings as an
+         app, then "the application" means JBindery itself).</P>
+         
+         <P>If your native code is being used by a specific
+         application, then the usual place to put the library is into
+         the same folder as the app. If your native code is part of a
+         shared Java library that's installed in the MRJClasses
+         folder, then the native library should go into the MRJ
+         Libraries folder (not the MRJClasses folder, for reasons
+         described above).</P>
+         
+         <P>Embedding the code fragment within the application itself
+         is tempting, especially since -- if combined with a Virtual
+         File System -- you can boil your whole app down to a single
+         file. Since the data fork is already in use by the VFS, the
+         best place to put the code fragment is into a resource.
+         You'll have to tell the linker to generate a code resource,
+         then copy the resource into the app and add a new entry to
+         the app's <CODE>'cfrg'</CODE> resource to point to your code
+         fragment.</P>
+
+
+<p>
+<a HREF = "#top">Back to top</a>
+</p>
+
+
+         <H2><a NAME=Section5></a>Debugging The
+         Loading Process</H2>
+         
+         <P>If you have a pesky native library that just flat-out
+         refuses to load even after you've used all the previous
+         information to troubleshoot it, here's a way to debug some
+         of the loading process. (You must have MacsBug installed to
+         do this. <a HREF = "tn1154.html">Technote 1154, <I>Debugging Java Code With MacsBug,</I></a> has an introduction to MacsBug for Java
+         developers.)</P>
+         
+         <OL>
+            <li>Before your app tries to load the native
+            library, break into MacsBug by holding down the Command
+            (cloverleaf) key and pressing the Power key.</li>
+            
+            <li>Enter the command:<BR>
+            <CODE>tvb GetSharedLibrary ';dm r3 pstring'<BR>
+            </CODE>then enter "<CODE>g</CODE>" to continue.</li>
+            
+            <li>At the next point where MRJ tries to load a native
+            library, you will hit the breakpoint and drop into
+            MacsBug. There should be a line reading "<CODE>PowerPC
+            TVector Break At GetSharedLibrary</CODE>" in the MacsBug
+            console, followed on the next line by the name of the
+            library being loaded. MRJ loads a lot of libraries when
+            it starts up, so this may not be the library you're
+            looking for. If not, enter "<CODE>g</CODE>" to continue and
+            go back to step 3.</li>
+            
+            <li>If it <I>is</I> your library, double-check that the
+            spelling of the library name is exactly as you specified
+            it to the IDE or linker. If not, you need to make them
+            match. Do the last step, below, then rebuild and try
+            again...</li>
+            
+            <li>Enter "<CODE>r8</CODE>" to display the value of this
+            register -- you'll need it later.</li>
+            
+            <li>Enter "<CODE>gtp lr</CODE>" to step over the
+            <CODE>GetSharedLibrary</CODE> call.</li>
+            
+            <li>Enter "<CODE>error r3</CODE>" to see the status returned.
+            If this is zero (<CODE>noErr</CODE>), the library
+            successfully loaded and initialized. This would imply
+            that your problems are due to missing exports.</li>
+            
+            <li>If the error is nonzero, it's probably in the CFM
+            error range, <CODE>-28xx</CODE>. The error command gives you a brief
+            description, and you can get more info by consulting
+            <I>Inside Macintosh: PowerPC System Software</I>. In
+            particular, the most common error is <CODE>-2804</CODE>
+            (<CODE>fragLibNotFound</CODE>): your library or some library
+            it imports could not be found.</li>
+            
+            <li>The error may refer to your shared library or to
+            another library that it imports. Remember the
+            "<CODE>r8</CODE>" command you entered in step 5? Enter
+            "<CODE>dm <i>XXXX</i> pstring</CODE>" now, where
+            "<CODE><i>XXXX</i></CODE>" is the hex register value returned
+            by the "<CODE>r8</CODE>" command. The string displayed is the
+            name of the library that caused the error.</li>
+            
+            <li>Finally, enter "<CODE>tvc</CODE>" to clear the breakpoint
+            and then "<CODE>g</CODE>" to continue.</li>
+         </OL>
+     
+<p>
+<a HREF = "#top">Back to top</a>
+</p>
+
+
+<H2><a NAME=References></a>References</H2>
+         
+
+             <p>Sun Microsystems. <a HREF = "http://java.sun.com/docs/books/tutorial/book.html#cont"><I>The
+                Java Tutorial Continued</I></a>. Addison-Wesley,
+                1998.Includes a good <a HREF = "http://java.sun.com/docs/books/tutorial/native1.1/index.html">JNI
+                tutorial</a> that's also available online.</p>
+           
+               <p>Gordon, Rob. <a HREF = "http://www.phptr.com/ptrbooks/ptr_0136798950.html"><I>Essential
+                JNI</I></a>. Prentice-Hall PTR, 1998. Excellent description of JNI, with lots of examples
+                and a handy reference section at the end. Unfortunately,
+                the platform-specific details cover only Windows and
+                Unix, but this Technote should help you over the few
+                trouble spots.</p>
+            
+                <p>Apple Computer. <a href="http://developer.apple.com/documentation/mac/PPCSoftware/PPCSoftware-2.html"><I>Inside
+                Macintosh: PowerPC System Software</I></a>.
+                Addison-Wesley, 1994. Contains a detailed description of the Code Fragment
+                Manager (CFM) and how it loads shared libraries. (The
+                entire book is <a href="http://developer.apple.com/documentation/mac/PPCSoftware/PPCSoftware-2.html">available
+                online</a> in PDF form.)</p>
+            
+                <p>Apple Computer. <a href="http://developer.apple.com/tools/mpw-tools/"><I>Building
+                and Managing Programs in MPW</I></a>. Documents MPW tools, including <CODE>ppclink</CODE>, and
+                build processes.
+</p>
+        
+    
+
+
+<BR><p><a HREF = "#top">Back to top</a></p>
+
+<a NAME="Downloads"></a> 
+<h2>Downloadables</h2>
+
+<center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+ <TR> 
+<td width=50 align=left> 
+  <P ALIGN=center><img src="images/acrobatsmall.gif" align=middle alt="Acrobat" width=22 height=23></P>
+</TD>
+<td align="left"> 
+  <p>Acrobat version of this Note (60K).</P>
+</TD>
+<td width=60 align=left> 
+  <p><a href="pdf/tn1155.pdf">Download</a></P>
+</TD>
+  </TR> 
+</table></center>
+
+
+
+<BR><p><a href="#top">Back to top</a></p>
+
+
+</TD></TR></table></CENTER>
+
+<!-- end_content -->
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

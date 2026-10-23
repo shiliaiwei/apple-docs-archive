@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+  <title>Workaround for Core Data store migration in applications built on 10.6 but that must also run on 10.5</title>
+
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/release-notes-1.6.3.css" />
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback-1.6.3.css" />
+  <meta charset='utf-8'> 
+<meta id="j-version" name="j-version" content="" />
+<meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+<meta id="document-version" name="document-version" content="2.0.0" />
+<meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Technologies/Core Services Layer/CoreData}, {Topic/Data Management}" />
+<meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40009077" />
+<meta id="chapterId" name="chapterId" content="TP40009077-CH1">
+<meta id="book-title" name="book-title" content="Workaround for Core Data store migration in applications built on 10.6 but that must also run on 10.5" />
+<meta id="book-resource-type" name="book-resource-type" content="Release Note" />
+<meta id="book-root" name="book-root" content="./" />
+<meta id="book-json" name="book-json" content="book.json">
+<meta id="date" name="date" content="2012-07-23" />
+<meta id="description" name="description" content="Describes a workaround for a Core Data store migration issue in applications that must run on OS X v10.5" />
+<meta id="IndexTitle" name="IndexTitle" content="" />
+<meta id="resources-uri" name="resources-uri" content="../../../Resources/1282">
+<link id="book-index-page" rel="Start" title="" type="text/html" href="./index.html">
+<!-- , next_chapter: next_chapter, previous_chapter: previous_chapter -->
+<link id="next-page" rel="Next" type="text/html" href="">
+<link id="previous-page" rel="Prev" type="text/html" href="">
+<meta id="devcenter" name="devcenter" content="<!-- DEVCENTER_NAME -->" />
+<meta id="devcenter-url" name="devcenter-url" content="<!-- DEVCENTER_URL -->" />
+<meta id="reflib" name="reflib" content="<!-- REFLIB_NAME -->" />
+
+<meta id="xcode-display" name="xcode-display" content="render" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta id="platforms" name="platforms" content="OS X">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta id="platforms" name="platforms" content="OS X">
+</head>
+
+  <body class="release-notes">
+    <a name="//apple_ref/doc/uid/TP40009077" title="Workaround for Core Data store migration in applications built on 10.6 but that must also run on 10.5"></a>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+    <div id='ssi_Header' class="hideInXcode <!-- library -->">
+        <a id="ssi_LibraryTitle" href="../../../navigation/">Documentation Archive
+      </a>
+        <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+        <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+    </div>
+    <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+        <label for='adcsearch'>Search Documentation Archive</label>
+        <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+    </form>
+</div>
+ 
+<header id="header">
+    <div id="title" role="banner">
+        <h1>Workaround for Core Data store migration in applications built on 10.6 but that must also run on 10.5</h1>
+        <span id="file_links">
+            <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+            <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+        </span>
+    </div>
+    <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+        <li id="toc_button" style="display:none">
+            <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+        </li>
+        <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top"><<Jump To&#133;>></option></select></li>
+        <li id="downloadSample_button" style="display:none">
+            <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+        </li>
+    </ul>
+</header>
+<nav id="tocContainer" tabindex="7">
+    <ul id="toc" role="tree"></ul>
+</nav>
+<article id="contents" class="chapter" role="main">
+  <a name="//apple_ref/doc/uid/TP40009077-CH1"></a><a name="//apple_ref/doc/uid/TP40009077-CH1-DontLinkElementID_3"></a>
+  <h1>Workaround for Core Data store migration in applications built on 10.6 but that must also run on 10.5</h1>
+
+	<div id="legacyOuterWrapper" role="alert">
+	<div align="center" id="watermark">
+		<div class="legacybox">
+			<div class="important legacy_info clear">
+			  <a name="//apple_ref/doc/uid/TP40009077-CH1-DontLinkElementID_4"></a>
+			  <aside class="aside">
+			  	<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1>
+			    <p class="aside-title">Important
+			    </p>
+			    <p class="para">
+  This document may not represent best practices for current development. Links to downloads and other resources may no longer be valid.
+</p>
+			  </aside>
+			</div>
+		</div>
+	</div>
+</div>
+  <section class="table-of-contents">
+  <h4>Contents:</h4>
+  <ul>
+      <li><a href="#//apple_ref/doc/uid/TP40009077-CH1-DontLinkElementID_1">Problem Description</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40009077-CH1-DontLinkElementID_2">Workaround</a></li>
+  </ul>
+</section>
+
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40009077-CH1-DontLinkElementID_1"></a>
+  <h3 class="section-name" tabindex="0">Problem Description</h3>
+  <p class="para">
+  A change to the auto-generated value expression in property mappings for relationships with a destination that has subentities was made on 10.6. The new value expression assumes the existence of a method (<code class="code-voice">destinationInstancesForSourceRelationshipNamed:sourceInstances:</code>) that does not exist on <code class="code-voice u-api"><a href="https://developer.apple.com/documentation/coredata/nsmigrationmanager" class="urlLink">NSMigrationManager</a></code> in Mac OS X v10.5. Building a mapping model that auto-generates such a value expression on Mac OS X v10.6; performing Core Data store migration with that compiled mapping model on Mac OS X v10.5 results in an unexpected termination with a message logged to the console similar to the following:
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>*** Terminating app due to uncaught exception &#39;NSInvalidArgumentException&#39;, reason:</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>&#39;*** -[NSMigrationManager destinationInstancesForSourceRelationshipNamed:sourceInstances:]:</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>unrecognized selector sent to instance 0xNNNNNNN&#39;</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40009077-CH1-DontLinkElementID_2"></a>
+  <h3 class="section-name" tabindex="0">Workaround</h3>
+  <p class="para">
+  The original value expression auto-generated by building on Mac OS X v10.5 silently failed to preserve the destination instances from the relationship, so the preferred workaround is to add the new <code class="code-voice">NSMigrationManager</code> method if it isn&#39;t already present in the runtime (that is, when running on Mac OS X v10.5). Add the <code class="code-voice">NSMigrationManager</code> category by copying the source code in <span class="x-name"><a href="#//apple_ref/doc/uid/TP40009077-CH1-SW1" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40009077-CH1-SW1">Listing 1-1</a></span> into your project, and invoke 
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>[NSMigrationManager addRelationshipMigrationMethodIfMissing]</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  in a method that is guaranteed to be invoked before migration could be attempted—for example, if you have an application delegate, this could be in its <code class="code-voice">init</code> method; if you’re writing a framework, this could be the initializer of an object guaranteed to be created before migration could be attempted.
+</p><div class="note">
+  <a name="//apple_ref/doc/uid/TP40009077-CH1-DontLinkElementID_5"></a>
+  <aside>
+    <p>
+      <strong>Note:</strong>
+      Building the mapping model on Mac OS X v10.6 with a <code class="code-voice">DEPLOYMENT_TARGET</code> of Mac OS X v10.5 will result in a compiler warning if there are auto-generated value expressions referencing the new method. To suppress this warning (after applying the workaround), set the following user default for the mapping compiler by entering the following command into a Terminal window:
+    </p>
+    <section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>defaults write com.apple.CoreData.mapc SuppressUnsupportedRelationshipExpressionWarning -bool YES</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section>
+  </aside>
+</div><section class="code-listing">
+  <a name="//apple_ref/doc/uid/TP40009077-CH1-SW1"></a>
+  <span class="caption"><strong class="caption-number">Listing 1-1</strong>Category of NSMigrationManager to work around the problem</span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>#import &lt;objc/runtime.h&gt;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>#import &lt;CoreData/CoreData.h&gt;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>@implementation NSMigrationManager (Workaround)</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>+ (void)addRelationshipMigrationMethodIfMissing {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    SEL correctMethodSignature = @selector(destinationInstancesForSourceRelationshipNamed:sourceInstances:);</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    Class migrationManagerClass = [NSMigrationManager class];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    if (NULL == class_getInstanceMethod(migrationManagerClass, correctMethodSignature)) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        Method m = class_getInstanceMethod(migrationManagerClass, @selector(workaround_destinationInstancesForSourceRelationshipNamed:sourceInstances:));</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        class_addMethod(migrationManagerClass, correctMethodSignature,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                       method_getImplementation(m), method_getTypeEncoding(m));</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>}</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>- (NSArray *)workaround_destinationInstancesForSourceRelationshipNamed:(NSString *)srcRelationshipName sourceInstances:(id)source {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSEntityMapping *eMapping = [self currentEntityMapping];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSEntityDescription* srcEntityInSrcModel = [self sourceEntityForEntityMapping:eMapping];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSEntityDescription* srcEntityInDstModel = [self destinationEntityForEntityMapping:eMapping];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    /* Source will be an NSManagedObject for a to-one relationship */</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSArray *sourceInstances = ([source isKindOfClass:</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                    [NSManagedObject class]]) ? [NSArray arrayWithObject: source] : source;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    /* Validate source relationship name */</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSRelationshipDescription *relationshipInSrcModel = nil;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    if (nil != srcRelationshipName) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        relationshipInSrcModel = [[srcEntityInSrcModel relationshipsByName] objectForKey:srcRelationshipName];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    } else {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        NSString *reason = [[NSString alloc] initWithFormat:</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            @&quot;Property mapping in %@ missing required source relationship name argument to destinationInstancesForSourceRelationshipNamed:sourceInstances:&quot;,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>           [eMapping name]];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        [pool drain];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        @throw [NSException exceptionWithName:NSInvalidArgumentException</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                            reason:[reason autorelease] userInfo: nil];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    if (!relationshipInSrcModel) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        NSString *reason = [[NSString alloc] initWithFormat:</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>             @&quot;Can&#39;t find relationship for name (%@) for entity (%@) in source model.&quot;,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>             srcRelationshipName, [srcEntityInSrcModel name]];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        [pool drain];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        @throw [NSException exceptionWithName:NSInvalidArgumentException</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                            reason:[reason autorelease] userInfo: nil];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    /* Try to determine the destination relationship name by looking up the property mapping */</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSString *dstRelationshipName = nil;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    for (NSPropertyMapping *pMapping in [eMapping relationshipMappings]) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        NSExpression *expression = [pMapping valueExpression];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        if (([expression expressionType]==NSFunctionExpressionType) &amp;&amp;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>             [[expression function] isEqualToString:@&quot;destinationInstancesForSourceRelationshipNamed:sourceInstances:&quot;]) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            NSArray *arguments = [expression arguments];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            if ([arguments count] == 2) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                id arg = [arguments objectAtIndex:0];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                if ([arg isKindOfClass:[NSExpression class]] &amp;&amp;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                    ([arg expressionType] == NSConstantValueExpressionType) &amp;&amp;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                    [[(NSExpression *)arg constantValue] isEqual:srcRelationshipName]) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                    if (dstRelationshipName) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                        NSString *reason = [[NSString alloc] initWithFormat:</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                            @&quot;More than one property mapping (%@, %@) in %@ calls destinationInstancesForSourceRelationshipNamed:sourceInstances: with the same source relationship name %@, can&#39;t determine the correct destination relationship&quot;,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                           dstRelationshipName, [pMapping name], [eMapping name], srcRelationshipName];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                        [pool drain];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[reason autorelease] userInfo: nil];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                    }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                    dstRelationshipName = [pMapping name];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    /* Lookup the destination relationship */</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSRelationshipDescription *relationshipInDstModel = nil;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    if (nil != dstRelationshipName) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        relationshipInDstModel = [[srcEntityInDstModel relationshipsByName] objectForKey:dstRelationshipName];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    } else {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        [pool drain];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        return nil;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    if (!relationshipInDstModel) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        NSString *reason = [[NSString alloc] initWithFormat: @&quot;Can&#39;t find relationship for name (%@) for entity (%@) in destination model.&quot;, dstRelationshipName, [srcEntityInDstModel name]];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        [pool drain];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[reason autorelease] userInfo: nil];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSEntityDescription* dstEntityInSrcModel = [relationshipInSrcModel destinationEntity];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSEntityDescription* dstEntityInDstModel = [relationshipInDstModel destinationEntity];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    /* Lookup entity mappings for relationship destination subentities */</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSMutableArray* mappings = [NSMutableArray array];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    for (NSEntityMapping* m in [[self mappingModel] entityMappings]) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        if (([[self sourceEntityForEntityMapping:m] isKindOfEntity:dstEntityInSrcModel]) &amp;&amp;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            ([[self destinationEntityForEntityMapping:m] isKindOfEntity:dstEntityInDstModel])) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            [mappings addObject:m];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    /* Find the destination instance for each source instance */</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    NSMutableArray* results = [[NSMutableArray alloc] initWithCapacity:[sourceInstances count]];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    for (NSManagedObject* mo in sourceInstances) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        NSManagedObject* peer = nil;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        for (NSEntityMapping* m in mappings) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            // for each dest find peer in destination context by iterating through all relevant entity mappings</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            NSArray* si = [[NSArray alloc] initWithObjects:mo,nil];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            NSArray* dests = [self destinationInstancesForEntityMappingNamed:[m name] sourceInstances:si];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            [si release];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            if (([dests count] &gt; 1) || (([dests count] == 1) &amp;&amp; (nil != peer))) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                NSString *reason = [[NSString alloc] initWithFormat:</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                    @&quot;More than one destination instance found for source instance of type (%@) for relationship mapping (%@).&quot;,</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                    [[mo entity] name], dstRelationshipName];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                [results release];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                [pool drain];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[reason autorelease] userInfo: nil];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            if ([dests count] == 1) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                peer = [dests objectAtIndex:0];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>                [results addObject:peer];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>            }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    [pool drain];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    return [results autorelease];</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>}</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>@end</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section>
+  
+</section>
+
+  <div id="copyright" class='copyright'>
+    <br><hr><div align="center"><p class="content_text" lang="en" dir="ltr">Copyright &#x00a9; 2018 Apple Inc. All rights reserved. <a class="link" href="http://www.apple.com/legal/terms/site.html" target="_blank">Terms of Use</a>   |  <a class="link" href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |   Updated: 2012-07-23
+</div>
+  <div id="pediaWindow">
+    <div id="pediaHeader"></div>
+    <div id="pediaBody"></div>
+  </div>
+</article>
+
+
+
+    <footer id="footer">
+  <script src="../../../Resources/1282/JavaScript/lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/release-notes-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/feedback-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+</footer>
+
+  	<div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+  </body>
+</html>

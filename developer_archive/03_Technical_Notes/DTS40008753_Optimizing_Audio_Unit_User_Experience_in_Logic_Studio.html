@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2207: Optimizing Audio Unit User Experience in Logic Studio</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40008753">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40008753-CH1">
+    <meta id="date" name="date" content="2009-09-30">
+    <meta id="description" name="description" content="TN2207: How to provide the best user experience with your audio unit in Logic Studio">
+    <meta id="book-title" name="book-title" content="Optimizing Audio Unit User Experience in Logic Studio">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2207">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Optimizing Audio Unit User Experience in Logic Studio" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40008753" title="Technical Note TN2207"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Optimizing Audio Unit User Experience in Logic Studio</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40008753-CH1-DontLinkElementID_2" title="Technical Note TN2207"></a><div class="dtsDocNumber">Technical Note TN2207</div><h1 id="pageTitle">Optimizing Audio Unit User Experience in Logic Studio</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Logic Studio is a powerful application suite which handles key aspects of music production ranging from composing, arranging, mixing, post production, and even on-stage performance. This document highlights a few key features of the audio unit standard that developers should pay particular attention on to ensure best user experience for their products across the entire palette of audio unit host applications in Logic Studio: Logic Pro 8, Soundtrack Pro 2, MainStage and WaveBurner.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008753-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008753-CH1-SECTION2" data-renderer-version="1">Using auval</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008753-CH1-SECTION3" data-renderer-version="1">Property Caching</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008753-CH1-SECTION4" data-renderer-version="1">Audio Unit Views</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008753-CH1-SECTION5" data-renderer-version="1">Surround Sound</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008753-CH1-SECTION6" data-renderer-version="1">External Control Surfaces</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008753-CH1-SECTION7" data-renderer-version="1">Logic Studio's Audio Unit Property Reference</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008753-CH1-SECTION8" data-renderer-version="1">Resources</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40008753-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40008753-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>While code and behavior are widely shared among the applications in Logic Studio, each still specializes in certain tasks and therefore naturally provides a slightly different context in which your audio unit will live. This may make it worthwhile to thoroughly test your plug-ins across the various applications to ensure proper operation. Before turning to the Logic Studio applications though, we recommend to test your audio unit with AU Lab. Designed as the reference host for audio unit development, its Leopard version supports the majority of audio unit features described in this document.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008753-CH1-SECTION2" title="Using auval"></a><h2 class="jump">Using auval</h2><p>To ensure proper operation of each audio unit on a particular user system, the Logic Studio applications rely on the <code>auval</code>  command line tool provided in Mac OS X, see <span class="content_text"><a href="/technotes/tn2007/tn2204.html" class="urlLink" rel="external">Technical Note TN2204, 'Audio Unit Validation Using the <codeVoice>auval</codeVoice> Tool'</a></span> for more information about this tool.</p><p>Each audio unit that is installed or updated will be validated and failures will be reported to the user.</p><p>Since Mac OS X 10.4, <code>auval</code> supports the <code>kAudioUnitErr_Unauthorized</code> error. When you develop a copy-protected audio unit, you use this error to distinguish an authorization failure from a validation error. The caller can then display an appropriate error message and allow for a validation retry after authorizing this copy of the plug-in.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008753-CH1-SECTION3" title="Property Caching"></a><h2 class="jump">Property Caching</h2><p>Logic, Soundtrack Pro 2, MainStage, and WaveBurner cache certain information about the audio unit plug-ins installed in the system to speed up the launch process. This includes:</p><ul class="ul"><li class="li"><p>name, version, and ID triplet of the AU</p></li><li class="li"><p>status of validation with <code>auval</code></p></li><li class="li"><p>I/O configuration capability information including <code>kAudioUnitProperty_SupportedNumChannels</code>, writability of <code>kAudioUnitProperty_ElementCount</code>, and default count &amp; configuration of the elements, <code>kAudioUnitProperty_SupportedChannelLayoutTags</code></p></li><li class="li"><p>The value of the <code>kAudioUnitMigrateProperty_FromPlugin</code> property</p></li><li class="li"><p>number of Carbon and Cocoa views (as determined by the size of the <code>kAudioUnitProperty_GetUIComponentList</code> and <code>kAudioUnitProperty_CocoaUI</code> properties)</p></li></ul><p>If you are modifying code without increasing the version number of your audio unit, you'll need to rescan the audio unit manually in the Audio Unit Manager to make the applications recognize the changes. Alternatively, you can set an audio unit's version number to zero to force an automatic rescan at every application launch. You can use this technique while developing an audio unit, but must set an appropriate version number in the deployment build.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008753-CH1-SECTION4" title="Audio Unit Views"></a><h2 class="jump">Audio Unit Views</h2><p>All four audio unit host applications in Logic Studio use Cocoa to implement their interface. This means that custom Audio Unit Views implemented in Cocoa are directly embedded in the host window, whereas custom Audio Unit Views implemented in Carbon are displayed using frameless overlay windows similar to the technique described in <span class="content_text"><a href="/technotes/tn2007/tn2213.html" class="urlLink" rel="external">Technical Note TN2213, 'Audio Units: Embedding a Carbon View in a Cocoa Window'</a></span>.</p><p>Directly embedded views provide better user experience through better UI integration. Therefore, Cocoa is the recommended technology.</p><p>For even better user interface integration, custom Audio Unit Views should refrain from using overlay windows and from opening sheets or auxiliary windows other than for file browsing. All user interface elements should be presented inside the root Audio Unit View by laying out its content dynamically and resizing as necessary. The host window listens to size change notifications and will adapt automatically.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008753-CH1-SECTION5" title="Surround Sound"></a><h2 class="jump">Surround Sound</h2><p>Logic Studio provides dedicated support for surround sound. If the audio processing implemented by your audio unit lends itself towards a surround-specific implementation, you should be looking into providing it in the future to enhance overall user experience.</p><p>If your audio processing doesn't use spatialization information or if it handles all channels independently, we recommend that you:</p><ol class="ol"><li class="li"><p>Support any channel count, provided that the channel count is the same for input and output</p></li><li class="li"><p>Do not support the channel layout (<code>kAudioUnitProperty_AudioChannelLayout</code>) property, because the audio unit does not do any semantic processing based on channel definition</p></li></ol><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008753-CH1-SECTION6" title="External Control Surfaces"></a><h2 class="jump">External Control Surfaces</h2><p>Logic and MainStage feature support for external control surfaces such as the Mackie Universal Pro and Euphonix MC Control/Mix and so on.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40008753-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;While Soundtrack Pro 2 also supports control surfaces for mixing, you cannot currently edit effect parameters with a control surface.</p><p></p></aside></div><p>MainStage allows for designing user-specific views for plug-ins with a limited number of parameters for easy access on stage. Both features depend on the parameters being exposed to the host via the <code>kAudioUnitProperty_ParameterList</code> property, so you should decide carefully which parameters to export.</p><p>When describing your exported parameters via <code>kAudioUnitProperty_ParameterInfo</code>, utilize the flags field of the <code>AudioUnitParameterInfo</code> struct to provide additional information about your parameters, such as <code>kAudioUnitParameterFlag_NonRealTime</code> to prevent a parameter from being automated, or <code>kAudioUnitParameterFlag_ExpertMode</code> to distinguish between the more important parameters and those that allow fora mere fine-tuning by advanced user. Also use <code>kAudioUnitParameterFlag_HasClump</code> together with <code>kAudioUnitProperty_ParameterClumpName</code> to group your parameters into meaningful sections.</p><p>Another important issue here is to make sure that if a parameter sets <code>kAudioUnitParameterFlag_ValuesHaveStrings</code>, not only should you support <code>kAudioUnitProperty_ParameterStringFromValue</code> (formerly known as <code>kAudioUnitProperty_ParameterValueName</code>) for that parameter, but also implement the reverse transformation via <code>kAudioUnitProperty_ParameterValueFromString</code> to allow the host application to translate user-entered text into a parameter value.</p><p>Many audio units still struggle to send proper notification whenever a parameter is changed due to user interaction in its custom UI. Please refer to <span class="content_text"><a href="/technotes/tn2002/tn2104.html" class="urlLink" rel="external">Technical Note TN2104, 'Audio Unit Development - Handling Audio Unit Events'</a></span> to learn when and how the change notifications shall be posted according to the AU specifications.</p><p>Failure to send proper notifications will cause the automation system to not work properly (particularly when using touch mode to edit existing automation), and it can also break the settings compare button in Logic which allows to compare a modified setting against its original state.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008753-CH1-SECTION7" title="Logic Studio's Audio Unit Property Reference"></a><h2 class="jump">Logic Studio's Audio Unit Property Reference</h2><p>For your reference, here's a list of all properties used by the Logic Studio applications. Please check that you are supporting these properties as appropriate for your product.</p><ul class="ul"><li class="li"><p>I/O configuration</p><a name="//apple_ref/doc/uid/DTS40008753-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>kAudioUnitProperty_SupportedNumChannels kAudioUnitProperty_ElementCount kAudioUnitProperty_StreamFormat kAudioUnitProperty_SupportedChannelLayoutTags kAudioUnitProperty_AudioChannelLayout<span></span></pre></td></tr></table></div></li><li class="li"><p>Rendering</p><a name="//apple_ref/doc/uid/DTS40008753-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>kAudioUnitProperty_MaximumFramesPerSlice
+kAudioUnitProperty_InPlaceProcessing
+kAudioUnitProperty_OfflineRender
+kAudioUnitProperty_SetRenderCallback
+kAudioUnitProperty_HostCallbacks
+kAudioUnitProperty_Latency
+kAudioUnitProperty_TailTime<span></span></pre></td></tr></table></div></li><li class="li"><p>Persistence</p><a name="//apple_ref/doc/uid/DTS40008753-CH1-SOURCECODE3"></a><div class="codesample clear"><table><tr><td scope="row"><pre>kAudioUnitProperty_FactoryPresets kAudioUnitProperty_PresentPreset kAudioUnitProperty_ClassInfo<span></span></pre></td></tr></table></div></li><li class="li"><p>Parameters</p><a name="//apple_ref/doc/uid/DTS40008753-CH1-SOURCECODE4"></a><div class="codesample clear"><table><tr><td scope="row"><pre>kAudioUnitProperty_ParameterList
+kAudioUnitProperty_ParameterInfo
+kAudioUnitProperty_ParameterValueStrings
+kAudioUnitProperty_ParameterClumpName
+kAudioUnitProperty_ParameterStringFromValue
+kAudioUnitProperty_ParameterValueFromString<span></span></pre></td></tr></table></div></li><li class="li"><p>User Interface</p><a name="//apple_ref/doc/uid/DTS40008753-CH1-SOURCECODE5"></a><div class="codesample clear"><table><tr><td scope="row"><pre>kAudioUnitProperty_GetUIComponentList kAudioUnitProperty_CocoaUI<span></span></pre></td></tr></table></div></li><li class="li"><p>Plug-in Migration (song import from Windows/OS 9 VST)</p><a name="//apple_ref/doc/uid/DTS40008753-CH1-SOURCECODE6"></a><div class="codesample clear"><table><tr><td scope="row"><pre>kAudioUnitMigrateProperty_FromPlugin kAudioUnitMigrateProperty_OldAutomation<span></span></pre></td></tr></table></div></li><li class="li"><p>New in Mac OS X 10.5</p><a name="//apple_ref/doc/uid/DTS40008753-CH1-SOURCECODE7"></a><div class="codesample clear"><table><tr><td scope="row"><pre>kAudioUnitProperty_AUHostIdentifier kAudioUnitProperty_ClassInfoFromDocument kMusicDeviceProperty_DualSchedulingMode<span></span></pre></td></tr></table></div></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40008753-CH1-SECTION8" title="Resources"></a><h2 class="jump">Resources</h2><ul class="ul"><li class="li"><p><span class="content_text"><a href="../../navigation/redirect.html#//apple_ref/doc/uid/TP30000943-TP30000428" data-renderer-version="1" target="_self">Audio Reference Library</a></span></p></li><li class="li"><p><span class="content_text"><a href="../../documentation/MusicAudio/Conceptual/AudioUnitProgrammingGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40003278-CH1" data-renderer-version="1" target="_self">Audio Unit Programming Guide</a></span></p></li><li class="li"><p><code>LogicAUProperties.h</code> located in the AudioUnit Framework &lt;AudioUnit/LogicAUProperties.h&gt;</p></li><li class="li"><p><span class="content_text"><a href="http://lists.apple.com/mailman/listinfo/coreaudio-api" class="urlLink" rel="external">CoreAudio Mailing List</a></span> - Audio Unit development and Core Audio related issues.</p></li><li class="li"><p>Logic AudioUnit host support (<strong>logic-au@group.apple.com</strong>) - for questions related to Logic as the AudioUnit host.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40008753-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40008753-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2009-09-30</td><td><p>Updated Audio Unit Views discussion</p></td></tr><tr><td scope="row">2009-04-23</td><td><p>New document that 
+					how to provide the best user experience with your audio unit in Logic Studio</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-09-30</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

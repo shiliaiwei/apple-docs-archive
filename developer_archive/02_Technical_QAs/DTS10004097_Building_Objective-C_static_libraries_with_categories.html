@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1490: Building Objective-C static libraries with categories</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10004097">
+    <meta id="document-version" name="document-version" content="3.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10004097-CH1">
+    <meta id="date" name="date" content="2014-08-05">
+    <meta id="description" name="description" content="QA1490: describes how to properly build Objective-C static libraries that contain categories on existing classes.">
+    <meta id="book-title" name="book-title" content="Building Objective-C static libraries with categories">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Topic/Xcode/Compiler Tools}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1490">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Building Objective-C static libraries with categories" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10004097" title="Technical Q&amp;A QA1490"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Building Objective-C static libraries with categories</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10004097-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1490"></a><div class="dtsDocNumber">Technical Q&amp;A QA1490</div><h1 id="pageTitle">Building Objective-C static libraries with categories</h1><h2>Q:&nbsp;
+How do I fix "selector not recognized" runtime exceptions when trying to use category methods from a static library?
+</h2><p><span>A: </span>If you're seeing a "selector not recognized" runtime exception when calling a <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Category.html" class="urlLink" rel="external">category method</a></span> that is implemented in a static library, you are hitting the <span class="content_text"><!--a  -->link-time build issue described here<!--/a--></span>, and need to add the <span class="content_text"><!--a  -->-ObjC linker flag<!--/a--></span> to your project, by following these steps:</p><ol class="ol"><li class="li"><p>In Xcode, choose <strong>View</strong> &gt; <strong>Navigators</strong> &gt; <strong>Show Project Navigator</strong>, or press <code>⌘1</code>.</p></li><li class="li"><p>Select your project under the <strong>PROJECT</strong> heading in the Project Navigator, then select the <strong>Build Settings</strong> tab.</p></li><li class="li"><p>Scroll down to the <strong>Other Linker Flags</strong> build setting under the <strong>Linking</strong> collection, or type "Other Linker Flags" into the search bar.</p></li><li class="li"><p>Set the value of the <strong>Other Linker Flags</strong> build setting to <code>$(OTHER_LDFLAGS) -ObjC</code>.</p></li></ol><figure class="figure"><a name="//apple_ref/doc/uid/DTS10004097-CH1-FIGURE1" title="Figure 1Modifying the Other Linker Flags build setting"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;Modifying the Other Linker Flags build setting</figcaption><img src="Art/qa1490_other_linker_flags_xcode_5.png" class="wide-image" alt="" width="1090" height="622"><img src="Art/qa1490_other_linker_flags_xcode_5.png" class="ipad-scaled-image" alt="" width="670" height="382"></figure><section><a name="//apple_ref/doc/uid/DTS10004097-CH1-TROUBLESHOOTING" title="Troubleshooting"></a><h2 class="jump">Troubleshooting</h2><p>If adding the <code>-ObjC</code> flag isn't fixing the problem, double check that a conflicting Target build setting is not overriding it, by following the above steps, but selecting the current target under "TARGETS" in step 2, instead of the project.</p><section><a name="//apple_ref/doc/uid/DTS10004097-CH1-RELATED_PROBLEMS" title="Other Causes of selector not recognized Exceptions"></a><h3 class="jump">Other Causes of selector not recognized Exceptions</h3><p>The most common causes of a "selector not recognized" exception are:</p><section><a name="//apple_ref/doc/uid/DTS10004097-CH1-RELATED_PROBLEMS-NO_SUCH_METHOD" title="No Such Method"></a><h4 class="jump">No Such Method</h4><p>The method really does not exist. Check your spelling. Check documentation to verify that the method exists on the version of the operating system your app is using.</p></section><section><a name="//apple_ref/doc/uid/DTS10004097-CH1-RELATED_PROBLEMS-MEMORY_MANAGEMENT" title="Memory Management"></a><h4 class="jump">Memory Management</h4><p>Your app is trying to use an object after it has been deallocated, use the Zombies instrument to debug this kind of problem. You are seeing "selector not recognized" because the memory has been re-allocated as a different kind of object.</p></section></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10004097-CH1-EXPLANATION" title="What causes those exceptions?"></a><h2 class="jump">What causes those exceptions?</h2><p>An impedance mismatch between UNIX static libraries and the dynamic nature of Objective-C can cause category methods in static libraries to not be linked into an app, resulting in "selector not recognized" exceptions when the methods aren't found at runtime.</p><section><a name="//apple_ref/doc/uid/DTS10004097-CH1-LINKER" title="The Linker"></a><h3 class="jump">The Linker</h3><p>When a C program is compiled, each "<span class="content_text"><a href="http://en.wikipedia.org/wiki/Translation_unit_(programming)" class="urlLink" rel="external">source file</a></span>" is turned into an "object file" that contains executable functions and static data. The <span class="content_text"><a href="https://en.wikipedia.org/wiki/Linker_(computing)" class="urlLink" rel="external">linker</a></span> glues these object files together into a final executable. That executable is eventually bundled into an app by Xcode.</p><p>When a source file uses something (like a function) defined in another file, then an <strong>undefined symbol</strong> is written into the object file, to "stand in" for the missing thing. The linker resolves these symbols by pulling in the object files that include definitions of undefined symbols when building the final executable.</p><p>For example, if <code>main.c</code> uses the function <code>foo()</code>, where <code>foo</code> is defined in another file, <code>B.c</code>, then the object file <code>main.o</code> will have an unresolved symbol for <code>foo()</code>, and <code>B.o</code> will include an implementation of <code>foo()</code>. At link time, <code>B.o</code> will be brought into the final executable, so that the code in <code>main.o</code> now references the implementation of <code>foo()</code> defined in <code>B.o</code>.</p><p>A UNIX static library is just a collection of object files. Normally the linker only pulls in an object file from a static library if doing so would resolve some undefined symbol. Not pulling in all object files reduces the size of the final executable.</p></section><section><a name="//apple_ref/doc/uid/DTS10004097-CH1-OBJCMETHODS" title="Objective-C"></a><h3 class="jump">Objective-C</h3><p>The dynamic nature of Objective-C complicates things slightly. Because the code that implements a method is not determined until the method is actually called, Objective-C does not define linker symbols for methods. Linker symbols are only defined for classes.</p><p>For example, if main.m includes the code <code>[[FooClass alloc] initWithBar:nil];</code> then <code>main.o</code> will contain an undefined symbol for <code>FooClass</code>, but no linker symbols for the <code>-initWithBar:</code> method will be in <code>main.o</code>.</p><p>Since categories are a collection of methods, using a category's method does not generate an undefined symbol. This means the linker does not know to load an object file defining the category, if the class itself is already defined. This causes the same "selector not recognized" runtime exception you would see for any unimplemented method.</p></section><section><a name="//apple_ref/doc/uid/DTS10004097-CH1-OBJC_LINKER_FLAG" title="The -ObjC Linker Flag"></a><h3 class="jump">The -ObjC Linker Flag</h3><p>Passing the <code>-ObjC</code> option to the linker causes it to load <strong>all</strong> members of static libraries that implement any Objective-C class or category. This will pickup any category method implementations. But it can make the resulting executable larger, and may pickup unnecessary objects. For this reason it is not on by default.</p></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10004097-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10004097-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-08-05</td><td><p>Removed discussion of workarounds that are unnecessary in Xcode 4 and later. Added pointers to more common causes of 'selector not recognized' errors.</p></td></tr><tr><td scope="row">2010-04-30</td><td><p>Describes how to pass the "-ObjC" option to the linker. Updated for Mac OS X v10.6 and later. </p></td></tr><tr><td scope="row">2006-10-03</td><td><p>Changed "and" to "an" in order to make the content correct.</p></td></tr><tr><td scope="row">2006-09-25</td><td><p>New document that 
+					describes how to properly build Objective-C static libraries that contain categories on existing classes.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-08-05</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1611: Creating textures in the PVRTC compression format</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40008044">
+    <meta id="document-version" name="document-version" content="3.1.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40008044-CH1">
+    <meta id="date" name="date" content="2009-07-14">
+    <meta id="description" name="description" content="QA1611: Describes how to create textures in the PVRTC compression format.">
+    <meta id="book-title" name="book-title" content="Creating textures in the PVRTC compression format">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/OpenGLES}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1611">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Creating textures in the PVRTC compression format" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40008044" title="Technical Q&amp;A QA1611"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Creating textures in the PVRTC compression format</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40008044-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1611"></a><div class="dtsDocNumber">Technical Q&amp;A QA1611</div><h1 id="pageTitle">Creating textures in the PVRTC compression format</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+How do I create textures in the PVRTC compression format?
+</h2><p><span>A: </span>How do I create textures in the PVRTC compression format?</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40008044-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;This document has been superseded by the corresponding chapter <span class="content_text"><a href="http://developer.apple.com/iphone/library/documentation/3DDrawing/Conceptual/OpenGLES_ProgrammingGuide/TextureTool/TextureTool.html#//apple_ref/doc/uid/TP40008793-CH108-SW1" class="browserLink" >Using Texturetool to Compress Textures</a></span> in the <span class="content_text"><a href="http://developer.apple.com/iphone/library/documentation/3DDrawing/Conceptual/OpenGLES_ProgrammingGuide/Introduction/Introduction.html" class="browserLink" >OpenGL ES Programming Guide for iPhone</a></span>. For updates and further information, please refer to that document.</p><p></p></aside></div><p>The iPhone SDK includes a tool that allows you to create textures in the PVRTC compression format, aptly named <code>texturetool</code>. If you have Xcode installed with the iPhone OS 2.2 SDK in the default location (<code>/Developer/Platforms/</code>), then <code>texturetool</code> is located at: <code> /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/texturetool</code>.</p><p><code>texturetool</code> allows you to create four variants of PVRTC data, the primary difference being tradeoffs between quality and size. You will have to experiment with these variants to determine which setting is the best compromise for each individual texture image.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40008044-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;If you are using PVRTexTool, then you must create textures that are square and a power of two in length. The results of using non-square or non-power-of-two PVRTC texture data on iPhone OS are undefined.</p><p></p></aside></div><p>The parameters that may be passed to <code>texturetool</code> and their function is presented in the rest of this document.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40008044-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;The encoders, formats and options available with <code>texturetool</code> are subject to change. This document describes those options available as of iPhone OS 2.2. Options not compatible with previous versions of iPhone OS are noted.</p><p></p></aside></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40008044-CH1-DontLinkElementID_6" title="Note"></a><p><strong>Note:</strong>&nbsp;The -p option indicates that it requires the -e option. It also requires the -o option.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40008044-CH1-SOURCECODE1" title="Listing 1Encoding Options."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Encoding Options.</p><div class="codesample clear"><table><tr><td scope="row"><pre>user$ texturetool -l  Encoders:  PVRTC  --channel-weighting-linear  --channel-weighting-perceptual  --bits-per-pixel-2  --bits-per-pixel-4  Formats:  Raw PVR<span></span></pre></td></tr></table></div><p>The <code>texturetool</code> will default to <code>--bits-per-pixel-4</code>, <code>--channel-weighting-linear</code>, and <code>-f</code> Raw if no other options are provided.</p><p>The <code>--bits-per-pixel-2</code> and <code>--bits-per-pixel-4</code> options create PVRTC data that encodes source pixels into 2 or 4 bits per pixel. These options represent a fixed 16:1 and 8:1 compression ratio over the uncompressed 32-bit RGBA image data. There is a minimum data size of 32 bytes; the compressor will never produce files smaller than this, and at least that many bytes are expected when uploading compressed texture data.</p><p>When compressing specifying <code>--channel-weighting-linear</code> will spread compression error equally across all channels. By contrast specifying <code>--channel-weighting-perceptual</code> attempts to reduce error in the green channel compared to the linear option. In general, PVRTC compression does better with photographic images than with line art.</p><p>The <code>-m</code> option allows you to automatically generate mipmap levels for the source image. This levels are provided as additional image data in the archive created. If you use the Raw image format, then each level of image data will be appended one after another to the archive. If you use the PVR archive format, then each mipmap image will be provided as a separate image in the archive.</p><div class="warningbox clear"><aside><a name="//apple_ref/doc/uid/DTS40008044-CH1-DontLinkElementID_7" title="Warning"></a><p><strong>Warning:</strong>&nbsp;Valid PVRTC data is at least 32 bytes in size. This means that images that are 8x8 or smaller will be padded to 32 bytes total before being written to the archive. For example, compressing a 4x4 image consumes 32 bytes, even though it only requires 8 bytes of storage. If you are using the mipmap option with Raw data files, ensure that you take this into consideration as you are reading them.</p><p></p><div class="clear"></div></aside></div><p>With iPhone OS 2.2, the <code>texturetool</code> now additional supports a format (<code>-f</code>) parameter that allows you to control the format of its output file. While this parameter is not available with iPhone OS 2.1 or earlier, the data files produced are compatible with those versions if iPhone OS.</p><p>The default format is Raw, which is equivalent to the format that <code>texturetool</code> produced under iPhone SDK 2.0 and 2.1. This format is raw compressed texture data, either for a single texture level (without the <code>-m</code> option) or for each texture level concatenated together (with the <code>-m</code> option). Each texture level stored in the file will be at least 32 bytes in size, and must be uploaded to the GPU in its entirety.</p><p>The PVR format is the same format that the PVRTexTool from the Imagination Technologies PowerVR SDK produces, and requires parsing to obtain the actual texture data. See the <span class="content_text"><a href="http://developer.apple.com/iphone/library/samplecode/PVRTextureLoader/index.html" class="browserLink" >PVRTextureLoader</a></span> sample for an example of working with texture data in this format.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40008044-CH1-DontLinkElementID_8" title="Important"></a><p><strong>Important:</strong>&nbsp;Source images for the encoder must satisfy these requirements:</p><p></p></aside></div><ul class="ul"><li class="li"><p>Height and Width must be a power of 2.</p></li><li class="li"><p>Must be square (height==width).</p></li><li class="li"><p>Source images must be in a format that Image IO accepts. This includes PNG, JPG, TIFF and others.</p></li></ul><a name="//apple_ref/doc/uid/DTS40008044-CH1-SOURCECODE2" title="Listing 2Encoding images into the PVRTC compression format."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Encoding images into the PVRTC compression format.</p><div class="codesample clear"><table><tr><td scope="row"><pre>Encode Image.png into PVRTC using linear weights and 4 bpp, and saving as ImageL4.pvrtc
+user$ texturetool -e PVRTC --channel-weighting-linear --bits-per-pixel-4 -o ImageL4.pvrtc Image.png
+
+Encode Image.png into PVRTC using perceptual weights and 4 bpp, and saving as ImageP4.pvrtc
+user$ texturetool -e PVRTC --channel-weighting-perceptual --bits-per-pixel-4 -o ImageP4.pvrtc Image.png
+
+Encode Image.png into PVRTC using linear weights and 2 bpp, and saving as ImageL2.pvrtc
+user$ texturetool -e PVRTC --channel-weighting-linear --bits-per-pixel-2 -o ImageL2.pvrtc Image.png
+
+Encode Image.png into PVRTC using perceptual weights and 2 bpp, and saving as ImageP2.pvrtc
+user$ texturetool -e PVRTC --channel-weighting-perceptual --bits-per-pixel-2 -o ImageP2.pvrtc Image.png<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40008044-CH1-SOURCECODE3" title="Listing 3Encoding images into the PVRTC compression format while creating a preview."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Encoding images into the PVRTC compression format while creating a preview.</p><div class="codesample clear"><table><tr><td scope="row"><pre>Encode Image.png into PVRTC using linear weights and 4 bpp, and saving the output as ImageL4.pvrtc and a PNG preview as ImageL4.png
+user$ texturetool -e PVRTC --channel-weighting-linear --bits-per-pixel-4 -o ImageL4.pvrtc -p ImageL4.png Image.png
+
+Encode Image.png into PVRTC using perceptual weights and 4 bpp, and saving the output as ImageP4.pvrtc and a PNG preview as ImageP4.png
+user$ texturetool -e PVRTC --channel-weighting-perceptual --bits-per-pixel-4 -o ImageP4.pvrtc -p ImageP4.png Image.png
+
+Encode Image.png into PVRTC using linear weights and 2 bpp, and saving the output as ImageL2.pvrtc and a PNG preview as ImageL2.png
+user$ texturetool -e PVRTC --channel-weighting-linear --bits-per-pixel-2 -o ImageL2.pvrtc -p ImageL2.png Image.png
+
+Encode Image.png into PVRTC using perceptual weights and 2 bpp, and saving the output as ImageP2.pvrtc and a PNG preview as ImageP2.png
+user$ texturetool -e PVRTC --channel-weighting-perceptual --bits-per-pixel-2 -o ImageP2.pvrtc -p ImageP2.png Image.png<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40008044-CH1-DontLinkElementID_9" title="Note"></a><p><strong>Note:</strong>&nbsp;It is not possible to create a preview without also specifying the -o parameter and a valid output file. Preview images are always in PNG format.</p><p></p></aside></div><p>The sample images produced by these settings are shown below.</p><a name="//apple_ref/doc/uid/DTS40008044-CH1-TABLE1" title="Table 1Sample Images."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Sample Images.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+4bpp, Linear
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Original
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+4bpp, Perceptual
+</p></th></tr><tr><td  scope="row"><p>
+
+</p></td><td ><p>
+
+</p></td><td ><p>
+
+</p></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40008044-CH1-TABLE2" title="Table 2Sample Images."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;Sample Images.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+2bpp, Linear
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Original
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+2bpp, Perceptual
+</p></th></tr><tr><td  scope="row"><p>
+
+</p></td><td ><p>
+
+</p></td><td ><p>
+
+</p></td></tr></table></div><p><span class="content_text"><!--a  -->Listing 4<!--/a--></span> demonstrates how you can upload Raw PVRTC data to the GPU via the <code>texImage2DPVRTC</code> sample function. Typically on iPhone OS you would use NSBundle and NSData methods to load data from a file. For a complete example demonstrating how to upload texture data from a PVR formatted data file, see the <span class="content_text"><a href="http://developer.apple.com/iphone/library/samplecode/PVRTextureLoader/index.html" class="browserLink" >PVRTextureLoader</a></span> sample.</p><a name="//apple_ref/doc/uid/DTS40008044-CH1-SOURCECODE4" title="Listing 4Example of uploading PVRTC data to the graphics chip."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Example of uploading PVRTC data to the graphics chip.</p><div class="codesample clear"><table><tr><td scope="row"><pre>void texImage2DPVRTC(GLint level, GLsizei bpp, GLboolean hasAlpha, GLsizei width, GLsizei height, void *pvrtcData)
+{
+    GLenum format;
+    GLsizei size = width * height * bpp / 8;
+    if(hasAlpha) {
+        format = (bpp == 4) ? GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG : GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG;
+    } else {
+        format = (bpp == 4) ? GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG : GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG;
+    }
+    if(size &lt; 32) {
+        size = 32;
+    }
+    glCompressedTexImage2D(GL_TEXTURE_2D, level, format, width, height, 0, size, data);
+}<span></span></pre></td></tr></table></div><p>For sample code see the <span class="content_text"><a href="http://developer.apple.com/iphone/library/samplecode/PVRTextureLoader/index.html" class="browserLink" >PVRTextureLoader</a></span> sample.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS40008044-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40008044-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2009-07-14</td><td><p>Revised to point to the OpenGL ES Programming Guide. Please refer to that documentation for further updates.</p></td></tr><tr><td scope="row">2009-01-27</td><td><p>Clarified non-square texture support (it isn't supported). Linked to the PVRTextureLoader sample.</p></td></tr><tr><td scope="row">2008-11-24</td><td><p>Changes for iPhone SDK 2.2, which include the new location for the texturetool and new options for its use.</p></td></tr><tr><td scope="row">2008-10-13</td><td><p>New document that 
+					describes how to create textures in the PVRTC compression format.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-07-14</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

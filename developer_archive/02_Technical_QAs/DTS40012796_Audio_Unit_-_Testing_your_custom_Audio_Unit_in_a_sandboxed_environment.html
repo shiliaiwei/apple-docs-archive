@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Q&amp;A QA1483: Audio Unit - Testing your custom Audio Unit in a sandboxed environment</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40012796">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40012796-CH1">
+    <meta id="date" name="date" content="2012-09-10">
+    <meta id="description" name="description" content="QA1483: Discusses how to sandbox AULab so Audio Unit developers can test AU functionality in a fully sandboxed environment.">
+    <meta id="book-title" name="book-title" content="Audio Unit - Testing your custom Audio Unit in a sandboxed environment">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/CoreAudio}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1483">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Unit - Testing your custom Audio Unit in a sandboxed environment" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40012796" title="Technical Q&amp;A QA1483"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Unit - Testing your custom Audio Unit in a sandboxed environment</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40012796-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1483"></a><div class="dtsDocNumber">Technical Q&amp;A QA1483</div><h1 id="pageTitle">Audio Unit - Testing your custom Audio Unit in a sandboxed environment</h1><h2>Q:&nbsp;
+I want to test my custom Audio Unit in a host that is sandboxed to check its behavior. Where can I get a sandboxed host like AU Lab to test with?
+</h2><p><span>A: </span>You can sandbox AU Lab (or any other other application) yourself from the command line using the <span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/Darwin/Reference/ManPages/man1/codesign.1.html#//apple_ref/doc/man/1/codesign" class="browserLink" >codesign</a></span> tool.</p><section><a name="//apple_ref/doc/uid/DTS40012796-CH1-ENTITLEMENTS_AND_IDENTITY" title="Entitlements and Identity"></a><h2 class="jump">Entitlements and Identity</h2><p>There are a few steps you need to perform prior to signing the application:</p><p><strong>1)</strong> Create an entitlements Property List file to specify the entitlements.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40012796-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;A naming convention used for this property list file is to call it "Foo.entitlements" where "Foo" represents your Application or Project name.</p><p></p></aside></div><p>The following set of suggested entitlements for AU Lab will place the application in the most restrictive sandbox while still allowing it to function. You may add or remove entitlements as needed to test your Audio Unit in a variety of sandbox conditions.</p><a name="//apple_ref/doc/uid/DTS40012796-CH1-SOURCECODE1"></a><div class="codesample clear"><table><tr><td scope="row"><pre>&lt;dict&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;com.apple.security.app-sandbox&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;true/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;com.apple.security.device.microphone&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;true/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;com.apple.security.files.user-selected.read-write&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;true/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;com.apple.security.temporary-exception.mach-lookup.global-name&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;com.apple.midiserver&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;string&gt;com.apple.midiserver.io&lt;/string&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/array&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;key&gt;com.apple.security.temporary-exception.audio-unit-host&lt;/key&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;true/&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>&lt;/dict&gt;<span></span></pre></td></tr></table></div><ul class="ul"><li class="li"><p><code>com.apple.security.app-sandbox</code> :- this key turns on the application sandbox.</p></li><li class="li"><p><code>com.apple.security.device.microphone</code> :- this key allows the application to use audio input devices.</p></li><li class="li"><p><code>com.apple.security.files.user-selected.read-write</code> :- this key allows the application to read and write files selected by the user via an Open/Save dialog.</p></li><li class="li"><p><code>com.apple.security.temporary-exception.mach-lookup.global-name</code> :- in this case, this key/array value pair is used to enable communication with the MIDI server.</p></li><li class="li"><p><code>com.apple.security.temporary-exception.audio-unit-host</code> :- this key allows the application to open Audio Components that are <strong>NOT</strong> sandbox safe thereby dropping the host application's sandbox, provided the user approves this action. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40012796-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;Using the <code>com.apple.security.temporary-exception.audio-unit-host</code> key can cause the system to disable the host application's sandbox completely. It is therefore important to understand the ramifications of using this key in a sandbox compatibility testing scenario. See <span class="content_text"><a href="http://developer.apple.com/library/mac/#technotes/tn2247/_index.html#//apple_ref/doc/uid/DTS40012567" class="browserLink" >Audio Components and the Application Sandbox</a></span> for more information.</p><p></p></aside></div></li></ul><p><strong>2)</strong> Obtain a code signing identity by using the Certificate Assistant in the Keychain Access application.</p><p>You can also create a self-signed signing identity for testing purposes, or use the single character "-" (hyphen) for the identity for adhoc-signing. See the <span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html#//apple_ref/doc/uid/TP40005929-CH4-SW2" class="browserLink" >Code Signing Tasks</a></span> section of the Code Signing Guide for more information.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40012796-CH1-SIGNING_THE_APPLICATION" title="Signing the Application"></a><h2 class="jump">Signing the Application</h2><p>With the above tasks completed, you may now sign the application by using the command-line <span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/Darwin/Reference/ManPages/man1/codesign.1.html#//apple_ref/doc/man/1/codesign" class="browserLink" >codesign</a></span> tool:</p><a name="//apple_ref/doc/uid/DTS40012796-CH1-SOURCECODE2"></a><div class="codesample clear"><table><tr><td scope="row"><pre>codesign --entitlements /path/to/Foo.entitlements -f -s &lt;identity&gt; /path/to/AU\ Lab.app<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40012796-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;The -f option is <strong>required</strong> to overwrite the existing signature. If you don't specify this, you will get a message that the application is already signed.</p><p></p></aside></div><p>For more information, see the <span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/Security/Conceptual/CodeSigningGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40005929-CH1-SW1" class="browserLink" >Code Signing Guide</a></span> and <span class="content_text"><a href="http://developer.apple.com/library/mac/#technotes/tn2247/_index.html#//apple_ref/doc/uid/DTS40012567" class="browserLink" >Audio Components and the Application Sandbox</a></span>.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40012796-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40012796-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2012-09-10</td><td><p>New document that 
+					discusses how to sandbox AULab so Audio Unit developers can test AU functionality in a fully sandboxed environment.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2012 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2012-09-10</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

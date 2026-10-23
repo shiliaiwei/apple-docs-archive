@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1695: Audio panning with the 3D Mixer audio unit</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009995">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009995-CH1">
+    <meta id="date" name="date" content="2010-05-22">
+    <meta id="description" name="description" content="QA1695: Discusses how to implement stereo panning using the 3D Mixer audio unit.">
+    <meta id="book-title" name="book-title" content="Audio panning with the 3D Mixer audio unit">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1695">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio panning with the 3D Mixer audio unit" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009995" title="Technical Q&amp;A QA1695"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio panning with the 3D Mixer audio unit</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009995-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1695"></a><div class="dtsDocNumber">Technical Q&amp;A QA1695</div><h1 id="pageTitle">Audio panning with the 3D Mixer audio unit</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+How do I implement audio panning with the 3D Mixer on iPhone OS devices?
+</h2><p><span>A: </span>How do I implement audio panning with the 3D Mixer on iPhone OS devices?</p><p>The 3D Mixer audio unit, of subtype <code>kAudioUnitSubType_AU3DMixerEmbedded</code>, allows you to mix multiple mono audio streams and specify stereo output panning. You can change the spatial location of each input source by varying its azimuth (angle) and distance relative to the listener, using the <code>k3DMixerParam_Azimuth</code> and <code>k3DMixerParam_Distance</code> audio unit parameters.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009995-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;The <code>k3DMixerParam_Elevation</code> parameter for elevation (height) adjustment is not yet implemented for the iPhone version of the 3D Mixer audio unit.</p><p></p></aside></div><p>The 3D Mixer audio unit only supports mono LPCM input streams. In other words, it can only accept single-channel input streams. To use a stereo source, you may treat its left and right channels as two independent single-channel sources, and then feed each side of the stereo stream to its own input bus. You should setup a mono stream format for each input bus of the 3D Mixer audio unit.</p><p>Make sure you set a non-zero positive distance value, for example 1.0, so that changes to azimuth of the audio unit take effect. The following describes in detail how to do this using the <code>k3DMixerParam_Distance</code> and <code>k3DMixerParam_Azimuth</code> parameters.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40009995-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;The default value of the <code>k3DMixerParam_Distance</code> parameter is 0.0. This means that, by default, the source is at the center of your head, so you will always hear the same thing no matter what value you apply to the <code>k3DMixerParam_Azimuth</code> parameter.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40009995-CH1-SOURCECODE1" title="Listing 1Setting a non-zero positive distance"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Setting a non-zero positive distance</p><div class="codesample clear"><table><tr><td scope="row"><pre>Float32 distance = 1.0;  for (int i = 0; i &lt; numbuses; i++) {     AudioUnitSetParameter(mMixer, k3DMixerParam_Distance, kAudioUnitScope_Input, i, distance, 0); }<span></span></pre></td></tr></table></div><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009995-CH1-DontLinkElementID_5" title="Note"></a><p><strong>Note:</strong>&nbsp;The extreme values of the <code>k3DMixerParam_Azimuth</code> parameter, -180 and +180 degrees, mean the same thing that the source is directly behind the listener's head. Use a value of -90 for full left and +90 for full right.</p><p></p></aside></div><a name="//apple_ref/doc/uid/DTS40009995-CH1-SOURCECODE2" title="Listing 2Panning from left to right by adjusting azimuth"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Panning from left to right by adjusting azimuth</p><div class="codesample clear"><table><tr><td scope="row"><pre>// pan ranges from -1 to +1 Float32 azimuth = 90.0 * pan;  for (int i = 0; i &lt; numbuses; i++) {     AudioUnitSetParameter(mMixer, k3DMixerParam_Azimuth, kAudioUnitScope_Input, i, azimuth, 0); }<span></span></pre></td></tr></table></div><p>For more information on how to use the 3D Mixer audio unit, see <span class="content_text"><a href="http://developer.apple.com/mac/library/technotes/tn2004/tn2112.html" class="browserLink" >Using the 3D Mixer audio unit</a></span>. While this document discusses the non-embedded version of this audio unit, they are very similar especially in general setup.</p><p>For reference information on the <code>k3DMixerParam_Distance</code> and <code>k3DMixerParam_Azimuth</code> audio unit parameters, see <span class="content_text"><a href="http://developer.apple.com/mac/library/documentation/AudioUnit/Reference/AudioUnitParametersReference/Reference/reference.html" class="browserLink" >Audio Unit Parameters Reference</a></span>.</p><br/><hr/><a name="//apple_ref/doc/uid/DTS40009995-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009995-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-05-22</td><td><p>New document that 
+					discusses how to implement stereo panning using the 3D Mixer audio unit.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-05-22</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

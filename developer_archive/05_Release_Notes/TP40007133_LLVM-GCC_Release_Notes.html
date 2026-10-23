@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+  <title>LLVM-GCC Release Notes</title>
+
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/release-notes-1.6.3.css" />
+  <link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback-1.6.3.css" />
+  <meta charset='utf-8'> 
+<meta id="j-version" name="j-version" content="" />
+<meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+<meta id="document-version" name="document-version" content="2.0.0" />
+<meta id="book-assignments" name="book-assignments" content="{Type/Release Note}" />
+<meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40007133" />
+<meta id="chapterId" name="chapterId" content="TP40007133-CH1">
+<meta id="book-title" name="book-title" content="LLVM-GCC Release Notes" />
+<meta id="book-resource-type" name="book-resource-type" content="Release Note" />
+<meta id="book-root" name="book-root" content="./" />
+<meta id="book-json" name="book-json" content="book.json">
+<meta id="date" name="date" content="2012-07-23" />
+<meta id="description" name="description" content="Lists changes to LLVM-GCC technology." />
+<meta id="IndexTitle" name="IndexTitle" content="" />
+<meta id="resources-uri" name="resources-uri" content="../../../Resources/1282">
+<link id="book-index-page" rel="Start" title="" type="text/html" href="./index.html">
+<!-- , next_chapter: next_chapter, previous_chapter: previous_chapter -->
+<link id="next-page" rel="Next" type="text/html" href="">
+<link id="previous-page" rel="Prev" type="text/html" href="">
+<meta id="devcenter" name="devcenter" content="<!-- DEVCENTER_NAME -->" />
+<meta id="devcenter-url" name="devcenter-url" content="<!-- DEVCENTER_URL -->" />
+<meta id="reflib" name="reflib" content="<!-- REFLIB_NAME -->" />
+
+<meta id="xcode-display" name="xcode-display" content="render" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta id="platforms" name="platforms" content="Xcode Developer Tools">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta id="platforms" name="platforms" content="Xcode Developer Tools">
+</head>
+
+  <body class="release-notes">
+    <a name="//apple_ref/doc/uid/TP40007133" title="LLVM-GCC Release Notes"></a>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+    <div id='ssi_Header' class="hideInXcode <!-- library -->">
+        <a id="ssi_LibraryTitle" href="../../../navigation/">Documentation Archive
+      </a>
+        <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+        <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+    </div>
+    <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+        <label for='adcsearch'>Search Documentation Archive</label>
+        <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+    </form>
+</div>
+ 
+<header id="header">
+    <div id="title" role="banner">
+        <h1>LLVM-GCC Release Notes</h1>
+        <span id="file_links">
+            <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+            <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+        </span>
+    </div>
+    <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+        <li id="toc_button" style="display:none">
+            <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+        </li>
+        <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top"><<Jump To&#133;>></option></select></li>
+        <li id="downloadSample_button" style="display:none">
+            <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+        </li>
+    </ul>
+</header>
+<nav id="tocContainer" tabindex="7">
+    <ul id="toc" role="tree"></ul>
+</nav>
+<article id="contents" class="chapter" role="main">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1"></a><a name="//apple_ref/doc/uid/TP40007133-CH1-SW9"></a>
+  <h1>LLVM-GCC 4.2 Release Notes</h1>
+
+	<section class="intro section">
+  <div id="legacyOuterWrapper" role="alert">
+	<div align="center" id="watermark">
+		<div class="legacybox">
+			<div class="important legacy_info clear">
+			  <a name="//apple_ref/doc/uid/TP40007133-CH1-DontLinkElementID_1"></a>
+			  <aside class="aside">
+			  	<h1>Retired Document<span id="LegacyNoticeCloseBox" class="closebutton"></span></h1>
+			    <p class="aside-title">Important
+			    </p>
+			    <p class="para">
+  Current information on this Developer Library topic can be found here:
+</p><ul class="list-bullet">
+  <li class="item"><a href="http://developer.apple.com/referencelibrary/DeveloperTools/idxCompilersDebuggers-date.html">Tools &gt; Compiling &amp; Debugging</a>
+
+</li>
+</ul>
+			  </aside>
+			</div>
+		</div>
+	</div>
+</div><p class="para">
+  LLVM-GCC is a new compiler optimization technology based on the LLVM (Low-Level Virtual Machine) open source project. In Xcode 3.1.x, LLVM-GCC is manifested in the LLVM-GCC 4.2 compiler.
+</p><p class="para">
+  In LLVM-GCC, LLVM is used to provide an optimizer and code generator plug-in to GCC. This technology is used in the OpenGL software stack in Mac OS X v.10.5. You can take advantage of it in your projects.
+</p><p class="para">
+  You can learn more about LLVM at <a href="http://llvm.org/">http://llvm.org</a>.
+</p><p class="para">
+  To learn about the changes made to LLVM-GCC 4.2 in Xcode 3.1.1, see <span class="x-name"><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW18" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40007133-CH1-SW18">Xcode 3.1.1 Additions</a></span>.
+</p>
+</section>
+
+  <section class="table-of-contents">
+  <h4>Contents:</h4>
+  <ul>
+      <li><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW10">LLVM-GCC 4.2 Overview</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW11">LLVM-GCC 4.2 Installation</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW12">Using LLVM-GCC 4.2 in Xcode Projects</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW13">Using LLVM-GCC 4.2 in UNIX-Based Development Environments</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW14">Link-Time Optimization</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW7">GCC-4.2 Features Not Available in LLVM-GCC-4.2</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW16">LLVM Open-Source Community Information</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW19">Submitting Feedback to Apple</a></li>
+      <li><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW18">Xcode 3.1.1 Additions</a></li>
+  </ul>
+</section>
+
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW10"></a>
+  <h3 class="section-name" tabindex="0">LLVM-GCC 4.2 Overview</h3>
+  <p class="para">
+  LLVM-GCC 4.2 is a standalone compiler that combines the industry standard GCC 4.2 front end with the innovative LLVM optimizer and code generator. Therefore, you can use LLVM-GCC 4.2 as a replacement for GCC 4.2. The two compilers are largely compatible, supporting the same languages and using the same command-line option and architectures. Like GCC 4.2, LLVM-GCC 4.2 supports compilation of C, C++, Objective-C, and Objective-C++ on x86, x86-64, PowerPC, and PowerPC-64. See <span class="x-name"><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW7" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40007133-CH1-SW7">GCC-4.2 Features Not Available in LLVM-GCC-4.2</a></span> for a list of GCC 4.2 features that LLVM-GCC 4.2 does not support.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW11"></a>
+  <h3 class="section-name" tabindex="0">LLVM-GCC 4.2 Installation</h3>
+  <p class="para">
+  The Xcode 3.1 installer places LLVM-GCC 4.2 in <code class="code-voice">&lt;Xcode&gt;/usr/bin</code> (<code class="code-voice">&lt;Xcode&gt;</code> is the directory into which you installed Xcode, which the installer sets as <code class="code-voice">/Developer</code> by default).
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW12"></a>
+  <h3 class="section-name" tabindex="0">Using LLVM-GCC 4.2 in Xcode Projects</h3>
+  <p class="para">
+  In Xcode projects, you use build rules to specify the compiler to use for particular source files. To use LLVM-GCC 4.2 instead of GCC 4.2 in an Xcode project:
+</p><ol class="list-number">
+  <li class="item"><p class="para">
+  Open the target editor by double-clicking the appropriate target.
+</p>
+</li><li class="item"><p class="para">
+  In the Rules pane choose Rules Specific to Target from the pop-up menu.
+</p>
+</li><li class="item"><p class="para">
+  Click the Add (+) button.
+</p>
+</li><li class="item"><p class="para">
+  Configure the new rule:
+</p>
+<ol class="list-number">
+  <li class="item"><p class="para">
+  Chose the appropriate language form the Process pop-up menu.
+</p>
+</li><li class="item"><p class="para">
+  Choose “llvmgcc42” from the “using” pop-up menu.
+</p>
+</li>
+</ol>
+</li>
+</ol>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW13"></a>
+  <h3 class="section-name" tabindex="0">Using LLVM-GCC 4.2 in UNIX-Based Development Environments</h3>
+  <p class="para">
+  You use LLVM-GCC 4.2 in UNIX-based development environments just as you use GCC 4.2. The majority of such environments respect the <code class="code-voice">CC</code> and <code class="code-voice">CXX</code> environment variables. For example, the following listing shows one way to set LLVM-GCC 4.2 as the compiler for C source files.
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>CC=&lt;Xcode&gt;/usr/bin/llvm-gcc-4.2 make</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  Here, <code class="code-voice">&lt;Xcode&gt;</code> is the directory into which you installed Xcode.
+</p><p class="para">
+  If you have several copies of Xcode installed on your computer, may also use <code class="code-voice">`xcode-select -print-path`</code> in <code class="code-voice">CC</code>, <code class="code-voice">CXX</code>, or shell scripts to get the path to the Xcode release you have selected as the one to use for UNIX-based development.
+</p><section class="code-listing">
+  
+  <span class="caption"></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>CC=`xcode-select -print-path`/usr/bin/llvm-gcc-4.2 make</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  See <code class="code-voice u-api"><!-- a href="" -->xcode-select<!-- /a --></code> for more information on this facility, but keep in mind that you cannot use all the features of <code class="code-voice">xcode-select</code> to locate Xcode directories on your file system. Only <code class="code-voice">xcode-select -print-path</code> is supported with LLVM-GCC 4.2.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW14"></a>
+  <h3 class="section-name" tabindex="0">Link-Time Optimization</h3>
+  <p class="para">
+  Traditionally, compilers optimize individual source files while building a project. However, this model does not allow compilers to take advantage of symbol information available in separate source files, but the linker collects this information during the link stage. Link-Time Optimization allows the optimizer to look across object files in your program and optimize across file boundaries. For example, one possible optimization is the inlining of a function defined in one file into a function defined in another file. See <span class="x-name-no-link">Listing 1-1</span> and <span class="x-name-no-link">Listing 1-2</span>.
+</p><section class="code-listing">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW1"></a>
+  <span class="caption"><strong class="caption-number">Listing 1-1</strong><code class="code-voice">sourcefile1.c</code>: <code class="code-voice">getNumber()</code></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>int getNumber() {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    return 42;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>}</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><section class="code-listing">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW2"></a>
+  <span class="caption"><strong class="caption-number">Listing 1-2</strong><code class="code-voice">sourcefile2.c</code>: <code class="code-voice">processNo(int)</code></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>extern int getNumber();</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>int processNo(int i) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    return i * getNumber();</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>}</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  During the link-time optimization stage, the function <code class="code-voice">getNumber()</code> (defined in <code class="code-voice">sourcefile1.c</code>) is inlined inside the function <code class="code-voice">processNo(int)</code> (defined in <code class="code-voice">sourcefile2.c</code>).
+</p><p class="para">
+  To turn on Link-Time Optimization use <code class="code-voice">-O4</code> command-line option or set the Optimization Level build setting to <code class="code-voice">4</code> in the build settings editor for the appropriate target.
+</p><p class="para">
+  LLVM-GCC 4.2 supports a wide range of interprocedural optimizations, including global variable optimization, inter modular inlining, interprocedural constant propagation and dead argument elimination.
+</p>
+  <section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW6"></a>
+  <h3 class="section-name" tabindex="0">Mixing LLVM Bitcode Files with Mach-O Files</h3>
+  <p class="para">
+  When Link-Time Optimization is turned on, the object files LLVM-GCC 4.2 generates are not Mach-O object files. Instead they are object files that use the LLVM bitcode file format (<a href="http://llvm.org/docs/BitCodeFormat.html">http://llvm.org/docs/BitCodeFormat.html</a>). These files contain LLVM bitcode that the linker optimizes using the LLVM optimizer. Specifically, the Xcode linker links LLVM files together. But it can also link LLVM bitcode files with Mach-O object files to generate an optimized Mach-O binary.
+</p><p class="para">
+  Let’s look at an example that illustrates how the linker links one LLVM bitcode file with a Mach-O object file. In this example, the source files <span class="x-name-no-link">Listing 1-3</span>, <span class="x-name-no-link">Listing 1-4</span>, and <span class="x-name-no-link">Listing 1-5</span> are compiled and linked with <span class="x-name"><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW8" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40007133-CH1-SW8">Listing 1-6</a></span>.
+</p><section class="code-listing">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW3"></a>
+  <span class="caption"><strong class="caption-number">Listing 1-3</strong><code class="code-voice">header.h</code></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>extern int fn1(void);</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>extern void fn2(void);</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>extern void fn4(void);</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><section class="code-listing">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW5"></a>
+  <span class="caption"><strong class="caption-number">Listing 1-4</strong><code class="code-voice">sourcefile3.c</code></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>#include &quot;header.h&quot;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>static signed int flag = 0;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>void fn2(void) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    flag = -1;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>}</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>static int fn3() {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    fn4();</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    return 10;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>}</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>int fn1(void) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    int data = 0;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    if (flag &lt; 0) {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>        data = fn3();</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    }</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    data = data + 42;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    return data;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>}</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><section class="code-listing">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW4"></a>
+  <span class="caption"><strong class="caption-number">Listing 1-5</strong><code class="code-voice">main.c</code></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>#include &lt;stdio.h&gt;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>#include &quot;header.h&quot;</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>void fn4() {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    printf(&quot;Hi\n&quot;);</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>}</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre> </pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>int main() {</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>    return fn1();</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>}</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><section class="code-listing">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW8"></a>
+  <span class="caption"><strong class="caption-number">Listing 1-6</strong>Compiling and linking <code class="code-voice">sourcefile3.c</code> and <code class="code-voice">main.c</code></span>
+    <div class="codesample clear">
+    <table>
+      <tbody>
+            <tr>
+              <td scope="row">
+                <pre>$ llvm-gcc-4.2 -O4 -c sourcefile3.c -o sourcefile3.o</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>$ llvm-gcc-4.2 -c main.c -o main.o</pre>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">
+                <pre>$ llvm-gcc-4.2 sourcefile3.o main.o -o main</pre>
+              </td>
+            </tr>
+      </tbody>
+    </table>  
+  </div>
+</section><p class="para">
+  The linker recognizes that <code class="code-voice">fn2()</code> is an externally visible symbol defined in LLVM bitcode but unused. This information helps the LLVM optimizer remove <code class="code-voice">fn2()</code>, which, in turn, allows the optimizer to prove that <code class="code-voice">flag</code> is always <code class="code-voice">0</code>. As a result, the optimizer removes the branch in <code class="code-voice">fn1()</code>, which results in the removal of <code class="code-voice">fn3()</code> because it’s now unused. With the removal of <code class="code-voice">fn3()</code>, the linker concludes that <code class="code-voice">fn4()</code> is also unused, which it then removes.
+</p><p class="para">
+  Note that <code class="code-voice">sourcefile3.o</code> is an LLVM bitcode file and <code class="code-voice">main.o</code> is a Mach-O object file. No additional linker command-line options are required to link them together and generate the optimized <code class="code-voice">main</code> executable.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW15"></a>
+  <h3 class="section-name" tabindex="0">Link-Time Optimization and Symbol Visibility</h3>
+  <p class="para">
+  Link-Time Optimization respects symbol visibility. The link-time optimizer does not remove a symbol that is marked as externally visible while building a dynamic library, even if the optimizer determines that the symbol is unused. If a function is not marked as externally visible, the optimizer is free to change its signature by removing dead arguments or removing the function entirely, for example.
+</p><p class="para">
+  In a dynamic library, symbols are considered externally visible by default, but in a standalone executable, symbols other than <code class="code-voice">main()</code> are internal by default. This behavior allows the optimizer to remove <code class="code-voice">fn2()</code> in the example in <span class="x-name"><a href="#//apple_ref/doc/uid/TP40007133-CH1-SW6" data-renderer-version="2" data-id="//apple_ref/doc/uid/TP40007133-CH1-SW6">Mixing LLVM Bitcode Files with Mach-O Files</a></span>. For more information on symbol visibility, see <a href="../../../documentation/DeveloperTools/Conceptual/CppRuntimeEnv/Articles/SymbolVisibility.html#//apple_ref/doc/uid/TP40001670" data-renderer-version="1" target="_self">Controlling Symbol Visibility</a>.
+</p>
+  
+</section>
+
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW7"></a>
+  <h3 class="section-name" tabindex="0">GCC-4.2 Features Not Available in LLVM-GCC-4.2</h3>
+  <p class="para">
+  These are GCC 4.2 features that are not available in LLVM-GCC 4.2:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  Profile-guided optimization
+</p>
+</li><li class="item"><p class="para">
+  Auto vectorization
+</p>
+</li><li class="item"><p class="para">
+  Stack canaries
+</p>
+</li><li class="item"><p class="para">
+  Inline assembly that uses x87 registers
+</p>
+</li><li class="item"><p class="para">
+  Generating debug information for optimized code
+</p>
+</li>
+</ul>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW16"></a>
+  <h3 class="section-name" tabindex="0">LLVM Open-Source Community Information</h3>
+  <p class="para">
+  LLVM is supported by an active open-source community, whose home is located at <a href="http://llvm.org/">http://llvm.org</a>. You can interact directly with LLVM developers through the mailing lists available at this website.
+</p><div class="note">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW17"></a>
+  <aside>
+    <p>
+      <strong>Reminder:</strong>
+      Please do not discuss Xcode information covered under your NDA with Apple in these mailing lists.
+    </p>
+    
+  </aside>
+</div>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW19"></a>
+  <h3 class="section-name" tabindex="0">Submitting Feedback to Apple</h3>
+  <p class="para">
+  Apple Developer Connection members can submit bug reports and technical-support inquiries:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  To submit bug reports, visit <a href="https://bugreport.apple.com">https://bugreport.apple.com</a>.
+</p>
+</li><li class="item"><p class="para">
+  Send technical-support inquiries to <code class="code-voice">dts@apple.com</code>.
+</p>
+</li>
+</ul><p class="para">
+  If you’re not an ADC member, vist <a href="http://developer.apple.com">http://developer.apple.com</a> to sign up.
+</p><p class="para">
+  For a list of Apple mailing lists, visit <a href="http://lists.apple.com">http://lists.apple.com</a>.
+</p>
+  
+</section>
+<section class="section">
+  <a name="//apple_ref/doc/uid/TP40007133-CH1-SW18"></a>
+  <h3 class="section-name" tabindex="0">Xcode 3.1.1 Additions</h3>
+  <p class="para">
+  These are the improvements made to LLVM-GCC 4.2 in Xcode 3.1.1:
+</p><ul class="list-bullet">
+  <li class="item"><p class="para">
+  OpenMP support (with the inclusion of atomic built-in functions)
+</p>
+</li><li class="item"><p class="para">
+  Object-size checking; for example, <code class="code-voice">-D_FORTIFY_SOURCE=2</code>
+</p>
+</li><li class="item"><p class="para">
+  LLVM bitcode format change to align files to 16 bytes and to contain the CPU type to fix a problem with link-time optimization (LTO)
+</p>
+</li><li class="item"><p class="para">
+  Several ABI fixes:
+</p>
+<ul class="list-bullet">
+  <li class="item"><p class="para">
+  In the 64-bit ABI, nonfragile Objective-C instance-variable sizes are calculated at runtime instead of compile time.
+</p>
+</li><li class="item"><p class="para">
+  Fixed problem in which some Objective-C metadata is incorrectly generated for nonoptimized code.
+</p>
+</li><li class="item"><p class="para">
+  Fixed minor vector-related ABI mismatches between GCC 4.2 and LLVM-GCC 4.2 on the x86-64 architecture.
+</p>
+</li><li class="item"><p class="para">
+  Fixed a problem in which the alignment of a structure of a field assumes the alignment of the base of the structure.
+</p>
+</li><li class="item"><p class="para">
+  Fixed a problem in which explicit trailing padding bytes of a structure with a trailing union didn’t fill out the structure completely.
+</p>
+</li>
+</ul>
+</li><li class="item"><p class="para">
+  Debugging improvements and bug fixes:
+</p>
+<ul class="list-bullet">
+  <li class="item"><p class="para">
+  Improved compilation time when the <code class="code-voice">-O0</code> and <code class="code-voice">-g</code> flags are used:
+</p>
+<ul class="list-bullet">
+  <li class="item"><p class="para">
+  Unreferenced static functions are no longer emitted
+</p>
+</li><li class="item"><p class="para">
+  Explicit names for variables in LLVM bitcode files are not used
+</p>
+</li><li class="item"><p class="para">
+  DWARF output improvements to prevent unnecessary information duplication
+</p>
+</li><li class="item"><p class="para">
+  Reduction of the amount of unnecessary work the compiler does when compiling for debugging
+</p>
+</li><li class="item"><p class="para">
+  Improvement of the compiler’s memory management
+</p>
+</li>
+</ul>
+</li><li class="item"><p class="para">
+  Debug information is emitted for data-only files
+</p>
+</li><li class="item"><p class="para">
+  The linker accepts some command-line options (such as <code class="code-voice">-mllvm</code>) to turn on LTO debugging, statistics dumping, and so on
+</p>
+</li><li class="item"><p class="para">
+  Fixed memory corruption problem with precompiled headers (PCH)
+</p>
+</li>
+</ul>
+</li>
+</ul>
+  
+</section>
+
+  <div id="copyright" class='copyright'>
+    <br><hr><div align="center"><p class="content_text" lang="en" dir="ltr">Copyright &#x00a9; 2018 Apple Inc. All rights reserved. <a class="link" href="http://www.apple.com/legal/terms/site.html" target="_blank">Terms of Use</a>   |  <a class="link" href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |   Updated: 2012-07-23
+</div>
+  <div id="pediaWindow">
+    <div id="pediaHeader"></div>
+    <div id="pediaBody"></div>
+  </div>
+</article>
+
+
+
+    <footer id="footer">
+  <script src="../../../Resources/1282/JavaScript/lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/release-notes-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../../Resources/1282/JavaScript/feedback-1.6.3.js" type="text/javascript" charset="utf-8"></script>
+</footer>
+
+  	<div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+  </body>
+</html>

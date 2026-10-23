@@ -1,0 +1,635 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!-- Template 01-05-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="The Enhanced Print Apple Event">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/Carbon}, {Topic/Graphics & Animation/Printing}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003113">
+            <meta id="document-version" name="document-version" content="2.0.0">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN2082: Describes an enhancement to the print Apple event that gives developers more control over scripted printing.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html;CHARSET=iso-8859-1">
+
+<meta name="keywords" content="AppleScript print copies fax apple event script">
+<meta name="Description" content="This technote describes Mac OS X 10.3 (Panther) enhancements to the print Apple Event that give developers more control over scripted printing.">
+    <title>Technical Note TN2082: The Enhanced Print Apple Event</title>
+
+
+<meta name="categories" content="AppleScript and Printing">
+
+
+<meta name="week-posted" content="xxx xx, 2003">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10003113" title="The Enhanced Print Apple Event"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>The Enhanced Print Apple Event</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/ScriptingAutomation/index.html">Scripting & Automation</a> &gt; <a href="../../technicalnotes/ScriptingAutomation/idxCarbon-date.html">Carbon</a> &gt; </p><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN2082</div>
+<div id="pageheadsub">The Enhanced Print Apple Event</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+   
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+     <tr>
+<td width=300 valign="top" align=left scope="row">
+    <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+<td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+ <span id="menutitle">
+CONTENTS 
+  <br>
+  <br>
+ </span>
+   </td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+   <td background="images/tnmenubody.gif" width=300 align=left>
+ <!-- begin_toc -->
+         <P id = "menutext"><a HREF = "#TheNewPrintEvent">The Enhanced Print Apple event</a><BR><BR>
+    <a HREF = "#ApplicationChangesRequired">Application Changes Required</a><BR><BR>
+       <a HREF = "#Summary">Summary</a><br><br>
+
+         <a HREF = "#References">References</a><br><br>
+         <a HREF = "#Downloads">Downloadables</a></p>
+ <!-- end_toc -->
+</td>
+  </tr>
+
+  <tr>
+   <td width=300 align=left scope="row">
+ <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+   </td>
+  </tr>
+    </table>
+</td>
+  <td width=300 valign="top" align=left>
+            
+<!-- begin_intro_text -->
+<P id = "introtext">The printing system in the initial versions of Mac OS X
+	supported a limited print Apple event but there was no way to specify any options
+	or settings to the printing application.  As of Mac OS X 10.3 (Panther), the printing
+	system supports an enhanced print Apple event
+	that provides scripters with control over settings such as number of copies,
+	collation, page range, etc.
+	
+	This document describes the enhanced print event and the changes applications
+	must make to support the new scriptable printing features.  Printer Modules and
+	CUPS filters will not need to change.</p>
+<!-- end_intro_text -->
+
+
+<!-- begin_date --><H4 ALIGN=center>[Dec 09, 2003]</H4><!-- end_date -->
+</TD>
+ </TR>
+    </table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+<!-- begin_content -->
+
+
+<a name="TheNewPrintEvent"></a><h2>The Enhanced Print Apple event</h2>
+
+<P>
+As of Mac OS X 10.3, the print Apple event has been extended to include an optional 
+<code>print settings</code> parameter that defines the settings for the print job or jobs, 
+and an optional <code>print dialog</code> parameter that specifies whether the application 
+should display the Print dialog. By default, the application should not show the 
+Print dialog if the caller doesn't specify a <code>print dialog</code> parameter.
+</P>
+
+<H3><U><B>print:</B> Print the specified object(s)</U></H3>
+
+<BLOCKQUOTE><P>
+<B>print</B> reference  -- Objects to print. Can be a list of files or an object specifier.</p>
+
+    <BLOCKQUOTE><p>
+[<B>with properties</B> print settings]  -- The print settings<BR>
+    
+    [<B>print dialog</B> boolean]  -- Should the application show the Print dialog?</p>
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<P>
+The <CODE>print settings</CODE> parameter allows a scripter to specify the following information.
+</P>
+
+
+<H3><B><U>Class print settings:</U></B></H3>
+<P>Properties:</P>
+<blockquote><P>
+<B>copies </B> integer  [r/o]  -- The number of copies of a document to be printed<br>
+<B>collating </B> boolean  [r/o]  -- Should printed copies be collated?<br>
+<B>starting page</B>  integer  [r/o]  -- The first page of the document to be printed<br>
+<B>ending page</B>  integer  [r/o]  -- The last page of the document to be printed<br>
+<B>pages across</B>  integer  [r/o]  -- Number of logical pages laid across a physical page<br>
+<B>pages down</B>  integer  [r/o]  -- Number of logical pages laid out down a physical page<br>
+<B>requested print time</B>  date  [r/o]  -- The time at which the desktop printer should print the document<br>
+<B>error handling</B>  standard/summarized/detailed  [r/o]  -- How errors are handled<br>
+<B>fax number</B>  text  [r/o]  -- The number to which to fax the document<br>
+<B>target printer</B>  text  [r/o]  -- The name of the destination print queue<br>
+</p>
+</blockquote>
+
+
+<BR>
+
+<P>For example, the following script prints three copies of the second page of a document to the printer "Prints Charming" after showing the Print dialog.</p>
+       
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>set theDoc to alias "Macintosh HD:ReadMe"
+set printConfig to {copies:3, starting page:2, ending page:2,
+    target printer:"Prints Charming"}
+print theDoc with properties printConfig with print dialog</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+<P>
+These optional parameters to the print event provide much finer control than was previously possible.
+</P>
+<p><a HREF = "#top">Back to top</a></p><BR>
+
+
+<a NAME="ApplicationChangesRequired"></a><H2>Application Changes Required</H2>
+
+<P>
+Applications will need to be revised to support the optional <code>print settings</code> parameter for the 
+print event. While every effort has been made to minimize the number of changes you will need 
+to make to your application, the actual amount of work is dependent upon the current state of 
+the application's printing code. This section describes the changes needed to support the 
+extended print event. In addition, there is sample code accompanying this Technote which shows
+how to add scriptable printing support to an application.
+</P>
+
+<P>
+<a HREF = "ftp://ftp.apple.com/developer/Sample_Code/Printing/">Download Sample code</a>
+</P>
+
+<P>
+There are 4 steps required to update your application to support scriptable printing and the optional parameters.
+</P>
+
+ 
+<OL>
+    <li>Update your application's <CODE>'aete'</CODE> resource to indicate support for the 
+    new, optional print parameter and for the <code>print settings</code> class. An example <CODE>'aete'</CODE> 
+    is included with the sample code for this Technote in the file "AESupport.r"</li>
+
+
+	<li>Revise the application's print event handler to respond to the optional <code>print settings</code> parameter.  The optional
+	<code>print settings</code> parameter for the print event uses the key <CODE>keyAEPropData</CODE>. An application's print handler
+	retrieves the <CODE>keyAEPropData</CODE> parameter and coerces it into a <CODE>PMPrintSettings</CODE> object in one step using
+	<CODE>AEGetParamPtr</CODE>. If the optional parameter was successfully coerced into a <CODE>PMPrintSettings</CODE> object, 
+    use those print settings for the current print job. The <code>PMPageFormat</code> information 
+    for the document to be printed comes from the page format stored with the document or from a newly
+    defaulted page format.</li>
+    
+    <li>Check to see if the optional <code>print settings</code> parameter also contains a <code>target printer</code> object by calling
+    <code>AEGetParamPtr</code> with a key of <CODE>keyAEPropData</CODE> and a type of <code>kPMPrinterAEType</code>.  If the resulting
+    <code>PMPrinter</code> is non-NULL, then it should be used as the target printer for the print session by calling
+    <code>PMSessionSetCurrentPrinter</code>.
+
+    <li>Finally, check for the presence of the optional <code>print dialog</code> parameter that specifies whether or not your 
+    application should display the Print dialog to the user. If this parameter is missing, you should 
+    not display the Print dialog.  In the case of multiple documents being printed with the same print event,
+    the Print dialog should only be shown once and those settings should be used for each document.</li>
+</OL>
+               
+
+
+
+
+<P>
+The following code shows how to retrieve, coerce, and apply the <CODE>PMPrintSettings</CODE> object 
+found in the optional print settings parameter.
+</p>
+
+
+        
+<BR><BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<pre>OSErr AEPrintDocument ( const AppleEvent *inputEvent,
+                             AppleEvent *outputEvent,
+                             SInt32 handlerRefCon )
+{
+#pragma unused (outputEvent,handlerRefCon)
+
+    assert( inputEvent != NULL );
+
+    OSStatus        status = noErr;
+    PMPrintSettings printSettings = kPMNoPrintSettings;
+    PMPrinter       printer = NULL;
+    Boolean         showPrintDialog = false;
+    PMPrintSession  session = NULL;
+    PMPageFormat    pageFormat = kPMNoPageFormat;
+    Boolean         printIt = true;
+
+    #define kDontCare NULL
+    
+    //  In this next section, grab the parameters from the incoming
+    //  Apple event. Note that since everything is optional, we're
+    //  ignoring status - if the data isn't present then move on.
+
+    //  Grab the print settings
+    //  They may not have requested any specific print settings.
+    //  Later on, we'll use the default print settings in this case.
+    status = AEGetParamPtr( inputEvent,
+                            keyAEPropData, kPMPrintSettingsAEType,
+                            kDontCare, &printSettings,
+                            sizeof( void* ), kDontCare );
+    
+    //  Grab the requested printer, if any
+    //  They may not have requested a target printer.
+    status = AEGetParamPtr( inputEvent,
+                            keyAEPropData, kPMPrinterAEType,
+                            kDontCare, &printer, sizeof( void* ),
+                            kDontCare );
+
+    //  See if we need to show the print dialog - default is no.
+    status = AEGetParamPtr( inputEvent,
+                            kPMShowPrintDialogAEType, typeBoolean,
+                            kDontCare, &showPrintDialog,
+                            sizeof( Boolean ), kDontCare );
+
+    //  Now that we've retrieved the PMPrintSettings, PMPrinter,
+    //  and showPrintDialog items from the event, print the files.
+
+    // Create the session we'll use to print.
+    status = PMCreateSession( &session );
+    
+    if ( status == noErr )
+    {
+        // Set the output to the target printer.
+        if ( printer != NULL )
+        {
+            status = PMSessionSetCurrentPMPrinter( session, printer);
+        }
+    
+        //  If the scripter didn't request any specific print
+        //  settings, load up the default set
+        if ( printSettings == kPMNoPrintSettings )
+        {
+            status = PMCreatePrintSettings( &printSettings );
+            if ( status == noErr )
+            {
+               status = PMSessionDefaultPrintSettings(session,
+                                                      printSettings);
+            }
+        }
+    
+        //  Create a default PMPageFormat
+        //  In a real application, unflatten the page format stored
+        //  with the document and use that
+        status = PMCreatePageFormat(&pageFormat);
+        
+        if ( (status == noErr) && (pageFormat != kPMNoPageFormat) )
+        {
+            PMSessionDefaultPageFormat(session, pageFormat);
+        }
+    
+        //  Show the print dialog?
+        //  Only show the print dialog once for a given pdoc event.
+        //  Use the resulting settings for all files in the event.
+        if ( showPrintDialog )
+        {
+            status = PMSessionPrintDialog( session, printSettings,
+                                           pageFormat, &printIt );
+        }
+
+        if ( printIt )
+        {
+            AEDescList      docList;
+            long            index, itemsInList;
+            
+            // Get the file list.
+            status = AEGetParamDesc( inputEvent, keyDirectObject,
+                                     typeAEList, &docList );
+    
+            if ( status == noErr )
+            {
+                //  How many files are we supposed to print?
+                status = AECountItems( &docList, &itemsInList );
+    
+                //  Walk the list of files.
+                for ( index = 1; index &lt;= itemsInList; index++ )
+                {
+                    AEKeyword       keywd;
+                    DescType        returnedType;
+                    Size            actualSize;
+                    HFSUniStr255    fileName;
+                    CFStringRef     fileNameRef=NULL;
+                    WindowRef       windowRef = NULL;
+                    char            buffer[ kFileBufferSize ];
+                    long            count = sizeof( buffer );
+                    FSRef           fileRef;
+    
+                    // Get the file ref.
+                    status = AEGetNthPtr( &docList, index, typeFSRef,
+                                          &keywd, &returnedType,
+                                          (Ptr)(&fileRef), 
+                                          sizeof( fileRef ), 
+                                          &actualSize );
+    
+                    // Get the file name to use in the window's title.
+                    if ( status == noErr )
+                    {
+                        status = FSGetCatalogInfo( &fileRef, 0, NULL,
+                                                   &fileName,
+                                                   NULL, NULL );
+                    }
+                    
+                    if ( status == noErr )
+                    {
+                        fileNameRef = CFStringCreateWithCharacters(
+                                        kCFAllocatorDefault,
+                                        &fileName.unicode[0], 
+                                        fileName.length );
+                    }
+    
+                    // Open the file for reading.
+                    if ( status == noErr )
+                    {
+                        status = ReadFileData( fileRef, &count,
+                                               &buffer[0] );
+                        if ( status == noErr )
+                        {
+                            //  Show a sample document window
+                            windowRef = ShowDocumentWindow(
+                                          fileNameRef,buffer,count);
+    
+                            status = PrintDocument( session,
+                                       printSettings, pageFormat,
+                                       fileNameRef, buffer );
+    
+                            //  We're done with the filename string
+                            CFRelease( fileNameRef );
+    
+                            //  We're done with the window
+                            DisposeWindow( windowRef );
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Clean up.
+        PMRelease( pageFormat );
+        PMRelease( session );
+    }
+
+    // We're done so get rid of everything.
+    PMRelease( printSettings );
+    PMRelease( printer );
+
+    return status;
+}   //  AEPrintDocument
+</pre>
+</TD></TR></table></CENTER><BR><BR>
+
+
+
+
+
+<p><a HREF = "#top">Back to top</a></p><BR>
+
+
+<a NAME="Summary"></a>
+<H2 ALIGN=LEFT>Summary</H2>
+<P>
+The introduction of the enhanced print Apple event with Mac OS X 10.3 allows users to script the 
+printing process with much finer control than before. Supporting this scriptability requires 
+that applications change their print loops to make use of the optional parameters. 
+The rewards for AppleScript users will be significant, since these changes will provide much more
+flexibility in printing.
+</P>
+<p><a HREF = "#top">Back to top</a></p><BR>
+
+
+<a name="References"></a>
+<H2>References</H2>
+
+    <p><a href="http://developer.apple.com/printing">Mac OS X Printing developer page</a>
+    <p><a href="http://developer.apple.com/documentation/Printing/printing.html">Mac OS X Printing Technical Documentation</a>
+    <p><a href="http://developer.apple.com/qa/indexes/qd-a.html">Mac OS X Printing Q&As</a>
+    <p><a href="http://developer.apple.com/technotes/indexes/pr-a.html">Mac OS X Printing Technotes</a>
+    <p><a href="http://www.apple.com/applescript/developers/">AppleScript developer page</a>
+
+    <p><a href="http://developer.apple.com/documentation/AppleScript/Conceptual/AppleScriptX/index.html">AppleScript on Mac OS X</a>
+    <p><a href="http://developer.apple.com/documentation/AppleScript/AppleScript-date.html#//apple_ref/doc/uid/TP30000419">AppleScript documentation</a>
+</p>
+       
+
+
+<p><a HREF = "#top">Back to top</a></p><BR>
+
+
+<a NAME="Downloads"></a> 
+<h2>Downloadables</h2>
+
+<center><table BORDER=0 CELLPADDING=3 WIDTH="600">
+  <TR> 
+<td width=50 align=left> 
+  <P ALIGN=center><img src="images/bluebook.gif" width=22 height=23 align=bottom alt="Binhexed"></P>
+</TD>
+<td align="left"> 
+  <p>Sample Code.</P>
+</TD>
+<td width=60 align=left> 
+  <p><a HREF = "http://technotes.apple.com/technotes/review/downloads/ScriptablePrintLoop.hqx">Download</a></P>
+</TD>
+  </TR> 
+</table></center>
+
+   
+
+<BR><P><a href="#top">Back to top</a></P>
+</TD></TR></table></CENTER>
+
+<!-- end_content -->
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

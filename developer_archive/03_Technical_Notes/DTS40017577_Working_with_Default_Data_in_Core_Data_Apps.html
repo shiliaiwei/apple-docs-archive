@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2350: Working with Default Data in Core Data Apps</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017577">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017577-CH1">
+    <meta id="date" name="date" content="2016-11-16">
+    <meta id="description" name="description" content="TN2350: discusses how to work with default data in Core Data apps in a way that complies with iOS Data Storage Guidelines.">
+    <meta id="book-title" name="book-title" content="Working with Default Data in Core Data Apps">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Core Services Layer/CoreData}, {Topic/Data Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2350">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Working with Default Data in Core Data Apps" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017577" title="Technical Note TN2350"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Working with Default Data in Core Data Apps</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017577-CH1-DontLinkElementID_2" title="Technical Note TN2350"></a><div class="dtsDocNumber">Technical Note TN2350</div><h1 id="pageTitle">Working with Default Data in Core Data Apps</h1><p>This technical note discusses how to work with default data in Core Data apps in a way that complies with iOS Data Storage Guidelines.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017577-CH1-HEADING1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017577-CH1-HEADING2" data-renderer-version="1">Working with a Large Default Data Set</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017577-CH1-HEADING3" data-renderer-version="1">Working with a Small Default Data Set</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017577-CH1-HEADING4" data-renderer-version="1">Creating a Default Data Store</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017577-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40017577-CH1-HEADING1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Some apps may benefit from shipping with default data. For example, it is almost indispensable for a cooking app to ship with some attractive recipes so that users can begin to cook immediately after downloading it, or for a traveling app to preload some airport information so that users can arrange their trips. </p><p>When you ship default data with your apps, it is important to know that apps have to comply with <span class="content_text"><a href="https://developer.apple.com/icloud/documentation/data-storage/index.html" class="urlLink" rel="external">iOS Data Storage Guidelines</a></span>, which requires that only user-generated data or the data that can't be re-created should be put into a folder that will be automatically backed up to iCloud or iTunes. (See <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/PerformanceTips/PerformanceTips.html#//apple_ref/doc/uid/TP40007072-CH7-SW16" class="urlLink" rel="external">Make App Backups More Efficient</a></span> section of App Programming Guide for iOS for the folders that will be included or excluded from backup.)</p><p>Default data is deemed re-creatable but not user-generated data, thus should not be backed up. However, for a Core Data app whose store file normally contains user data and so has to be backed up, separating default data from user-generated data may not be trivial. Depending on the data size, the way to work with default data can be very different.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017577-CH1-HEADING2" title="Working with a Large Default Data Set"></a><h2 class="jump">Working with a Large Default Data Set</h2><p>Default data can be put into a Core Data store (covered in <span class="content_text"><!--a  -->Creating a Default Data Store<!--/a--></span> section) and shipped with your app. Yet working with the default data store may not be as straightforward, because the store will finally reside in your app bundle, thus is separated from your editable user data store and can only be accessed in readonly mode. Copying the store to a writable location may not be a choice because:</p><ul class="ul"><li class="li"><p>If the location is under a backup folder, the default data can soon be backed up to iCloud or iTunes, thus breaks iOS Data Storage Guidelines. This is especially true for a large default data set.</p></li><li class="li"><p>If the location is under an non-backup folder, the changes on the store will be lost if the folder is purged.</p></li></ul><p>You can choose to manage your default and user data store independently, or choose to load the stores into one Core Data stack which gives you the following capabilities:</p><ul class="ul"><li class="li"><p>Creating fetched properties between two stores (covered in <span class="content_text"><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreData/HowManagedObjectsarerelated.html#//apple_ref/doc/uid/TP40001075-CH17-SW13" class="urlLink" rel="external">Weak Relationships (Fetched Properties)</a></span> section of Core Data Programming Guide), which provides you a convenient way for cross-store data access. When you need a relationship crossing your default and user data store, a fetched property is probably the best-suited choice (since Core Data does not let you create cross-store relationships). Be aware though that due to a limit of the current predicate system, cross-store fetched properties can't be used in a predicate for <code>NSFetchRequest</code>. </p></li><li class="li"><p>Fetching data from both stores into one managed object context (<code>NSManagedObjectContext</code>). When you save the context, the changes you made automatically go to the user data store because the default data store is readonly.</p></li></ul><p>To add multiple stores into one Core Data stack, you simply call the <code>NSPersistentStoreCoordinator</code>'s <code>addPersistentStore(ofType:configurationName:at:options:)</code> method multiple times with different store URLs, configurations, and options. </p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017577-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;The stores managed by the same coordinator have to share the same Core Data model (<code>NSManagedObjectModel</code>), so you might want to use configurations to organize the entities for different stores. To do that, group the default and user data entities with different configurations in your model, then pass the configuration names to the above method when adding the stores.</p><p></p></aside></div><p>Since the default data store has to be readonly, it is worth thinking twice about your model design and try to make the store only contain data that is logically readonly for users. As an example, if your app ships with some content which users can annotate, the contents and annotations should be modeled into different entities and configurations which are used on your default data store and user data store respectively. With that, the default data store only contains the contents that users perceive to be readonly, you therefore don't have to add extra logic to let users "change" the default data.</p><p>If your default data has to be open for changes by users – like the cooking app, the default recipes may mingle with the user-created recipes, thus are perceived to be changeable by users – you might consider converting the piece of default data to user data by creating an editable copy and put it into your user data store when users save their changes. If your app allows users to "delete" the default data ("delete" here means "hide" for you because default data is readonly), you might have to use your own data structure to prevent the user-deleted data from showing up in your app. </p><p>Considering that users may change any field of the editable copy, it is a good practice to add an user-invisible UUID (Universally Unique Identifiers) attribute when modeling your default data so that you can uniquely identify every record. The UUID will be very useful when you need to associate an editable copy with its original record in the default data store, or de-duplicate your default data coming from different devices when working with Core Data iCloud.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40017577-CH1-DontLinkElementID_4" title="Note"></a><p><strong>Note:</strong>&nbsp;Batch importing default data into the user data store may dramatically enlarge the user data store which will finally be backed up, thus breaking iOS Data Storage Guidelines.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017577-CH1-HEADING3" title="Working with a Small Default Data Set"></a><h2 class="jump">Working with a Small Default Data Set</h2><p>iOS Data Storage Guidelines is meant to ensure that backups are as efficient as possible. Ideally, no default data should be backed up. However, since a data set that is small enough doesn’t have a material impact on the efficiency, an app is currently allowed to have a small amount of default data in a backup folder. </p><p>In that case, the app doesn't have to manage two separated stores any more. Instead, it copies the default data store to the working folder on the first launch session, and use it as the user data store directly. Since the store doesn't contain any user data before the first edit, you can exclude it from backup when doing the copy – by putting the store into a folder and setting the <code>isExcludedFromBackupKey</code> (<code>URLResourceValues</code>) of the folder to <strong>true</strong>. Later on when the store is saved for the first time, you then set the key back to <strong>false</strong> so that the folder can be backed up.</p><p>Be aware that how small the data set should be is subject to change and has to be determined in the App Review process. You might only consider this path if your default data set is really small and moving it out from your user data store means a lot of hard work.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017577-CH1-HEADING4" title="Creating a Default Data Store"></a><h2 class="jump">Creating a Default Data Store</h2><p>A default data store should be created with Core Data APIs and exactly the same Core Data model file used in your app. You can write a tool to do that but your app can be the tool if it already has the capability to maintain its data store. You can use your app to create an empty store, then add the default data manually (if it has the UI) or write extra code for batch preloading. For an UUID attribute that is used to uniquely identify a default data record (as discussed in <span class="content_text"><!--a  -->Working with a large default data set<!--/a--></span> section), call <code>NSUUID().UUIDString</code> to retrieve an UUID and use it as the attribute value.</p><p>After populating all the data, you can grab the store file from your app's sandbox on your device or iOS Simulator, then add it into your project and use it as a default data store. </p><p>If you are using the iOS Simulator, go to ~/Library/Developer/CoreSimulator/Devices folder on your Mac to find the store file. Otherwise, you can download your app's sandbox container from your device using these steps: </p><ol class="ol"><li class="li"><p>Connect your device to Xcode.</p></li><li class="li"><p>Go to Xcode <code> Window &gt; Devices </code>menu and click it to show the Devices window.</p></li><li class="li"><p>Select your device from the devices list on the right, then select your app in the <code>Installed</code> <code>Apps</code> section. </p></li><li class="li"><p>Click the gear icon and run the <code>Download</code> <code>Container</code> menu. Your app's sandbox container should be downloaded to your Mac's Desktop. </p></li><li class="li"><p>Change the file extension to ".zip", then double click to uncompress it. You should see the container folder and can grab your store file from there.</p></li></ol><p>If you are working with a SQLite store and prefer your default data store to be one single file, remember to specify the rollback journaling mode in the store options (see <span class="content_text"><a href="https://developer.apple.com/library/ios/qa/qa1809/_index.html#//apple_ref/doc/uid/DTS40014115" class="urlLink" rel="external">QA1809</a></span> for details) when creating the store.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017577-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017577-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2016-11-16</td><td><p>New document that 
+					discusses how to work with default data in Core Data apps in a way that complies with iOS Data Storage Guidelines.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2016 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2016-11-16</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

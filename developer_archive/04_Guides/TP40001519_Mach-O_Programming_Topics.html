@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Introduction</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Guide">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40001519">
+    <meta id="document-version" name="document-version" content="3.3.1">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="TP40001827">
+    <meta id="date" name="date" content="2009-02-04">
+    <meta id="description" name="description" content="Explains the use of the OS X runtime architecture, including program types, loading and executing code, and using libraries and plug-ins.">
+    <meta id="book-title" name="book-title" content="Mach-O Programming Topics">
+    <meta id="book-root" name="book-root" content="../">
+    <meta id="book-json" name="book-json" content="../book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Guide}, {Topic/General}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Mach-O Programming Topics: Introduction">
+    <meta id="resources-uri" name="resources-uri" content="../../../../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Mach-O Programming Topics" type="text/html" href="../index.html">
+    <link id="next-page" rel="Next" type="text/html" href="../1-Articles/building_files.html">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../../../../Resources/1282/CSS/feedback.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta id="platforms" name="platforms" content="OS X">
+</head>    
+<body><a name="//apple_ref/doc/uid/TP40001827" title="Introduction"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../../../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../../../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Mach-O Programming Topics</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main">
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../1-Articles/building_files.html'>Next</a>
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="../index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/TP40001519" title="Introduction"></a><a name="//apple_ref/doc/uid/TP40001827-SW1" title="Introduction"></a><h1 id="pageTitle">Introduction</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><a name="//apple_ref/doc/uid/TP40001827-DontLinkElementID_1"></a><p>OS X supports a number of application environments, each with its own runtime rules, conventions, and file formats. In OS X, kernel extensions, command-line tools, applications, frameworks, and libraries (shared and static) are implemented using Mach-O (Mach object) files.</p><p>The OS X runtime architecture dictates how object files are laid out in the filesystem and how programs communicate with the kernel. The object file format used in OS X is Mach-O .</p><p>A Mach-O file has the following regions of data (the complete format is described in <em><!--a target="_self" -->OS X ABI Mach-O File Format Reference<!--/a--></em>):</p><ul class="ul"><li class="li"><p><strong>Header:</strong> Specifies the target architecture of the file, such as PPC, PPC64, IA-32, or x86-64.</p></li><li class="li"><p><strong>Load commands:</strong> Specify the logical structure of the file and the layout of the file in virtual memory.</p></li><li class="li"><p><strong>Raw segment data:</strong> Contains raw data for the segments defined in the load commands.</p></li></ul><p>The following list describes other runtime environments supported in OS X:</p><ul class="ul"><li class="li"><a name="//apple_ref/doc/uid/TP40001827-DontLinkElementID_3"></a><p><em class="newTerm">Classic</em> is a Mac app that runs Mac OS 9 within its address space and provides bridging services that allow OS X to interact with Mac OS 9 applications. Both classic 68K applications and PowerPC Code Fragment Manager (CFM) applications can run under Mac OS 9 in Classic. (Mac OS 9 does not support the 68K variant of Code Fragment Manager, so you cannot run CFM-68K applications in OS X.)</p></li><li class="li"><a name="//apple_ref/doc/uid/TP40001827-DontLinkElementID_4"></a><a name="//apple_ref/doc/uid/TP40001827-DontLinkElementID_5"></a><p><em class="newTerm">LaunchCFMApp</em> is a command-line tool that runs programs created for the PowerPC Code Fragment Manager. The file format used by such programs is called <em class="newTerm">Preferred Executable Format<a name="//apple_ref/doc/uid/TP40001827-DontLinkElementID_6"></a> (PEF)</em>. Carbon provides bridging for Code Fragment Manager applications that allows them to link to Mach-O–based code, but—for ease of debugging if for no other reason—it’s generally a good idea to use Mach-O for Carbon applications.</p></li><li class="li"><a name="//apple_ref/doc/uid/TP40001827-DontLinkElementID_7"></a><a name="//apple_ref/doc/uid/TP40001827-DontLinkElementID_8"></a><p>The HotSpot<em class="newTerm"> Java virtual machine</em> is a Mac app that executes Java bytecode applications and applets.</p></li><li class="li"><p>The <em class="newTerm">OS X kernel</em> supports kernel extensions (KEXTs), which are static Mach-O executable files that are loaded directly into the address space of the kernel. Because errant code can write directly to memory used by the kernel, kernel extensions have the potential to crash the operating system. You should generally avoid implementing functionality as kernel extensions if possible.</p></li></ul><p>The Code Fragment Manager<a name="//apple_ref/doc/uid/TP40001827-DontLinkElementID_9"></a> is documented in <em>Mac OS Runtime Architectures</em>, available from the Apple Developer Connection website.</p><p>This document discusses how you use the Mach-O file format. It describes what types of programs you can build, how programs are loaded and executed, how you can change the way programs are loaded and executed, how to load code at runtime, and how to load and link code at runtime. If you create or load bundles, shared libraries, or frameworks, you’ll probably want to read and understand everything in this document.</p><a name="//apple_ref/doc/uid/TP40001827-97254" title="Who Should Read This Document"></a><h2 class="jump">Who Should Read This Document</h2><p>If you write development tools for OS X, you need to understand the information presented in this document.</p><p>This document is also useful for developers of shared libraries and frameworks, and for developers of applications that need to load code at runtime.</p><a name="//apple_ref/doc/uid/TP40001827-DontLinkElementID_2" title="Organization of This Document"></a><h2 class="jump">Organization of This Document</h2><p>This document contains the following articles:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="../1-Articles/building_files.html#//apple_ref/doc/uid/TP40001828-SW1" data-renderer-version="1">Building Mach-O Files</a></span> describes how Mac apps are built and describes the types of programs you can develop.</p></li><li class="li"><p><span class="content_text"><a href="../1-Articles/executing_files.html#//apple_ref/doc/uid/TP40001829-SW1" data-renderer-version="1">Executing Mach-O Files</a></span> provides an overview of the OS X dynamic loading process.</p></li><li class="li"><p><span class="content_text"><a href="../1-Articles/loading_code.html#//apple_ref/doc/uid/TP40001830-SW1" data-renderer-version="1">Loading Code at Runtime</a></span> describes how to use shared libraries and frameworks and how to load plug-ins at runtime.</p></li><li class="li"><p><span class="content_text"><a href="../1-Articles/indirect_addressing.html#//apple_ref/doc/uid/TP40004919-SW1" data-renderer-version="1">Indirect Addressing</a></span> explains how a Mach-O file refers to symbols defined in another Mach-O file.</p></li><li class="li"><p><span class="content_text"><a href="../1-Articles/dynamic_code.html#//apple_ref/doc/uid/TP40002528-SW1" data-renderer-version="1">Position-Independent Code</a></span> discusses the method by which the dynamic linker loads a region of code at a non-fixed virtual memory address.</p></li><li class="li"><p><span class="content_text"><a href="../1-Articles/x86_64_code.html#//apple_ref/doc/uid/TP40005044-SW1" data-renderer-version="1">x86-64 Code Model</a></span> describes differences in the OS X x86-64 user-space code model from the System V x86-64 code model.</p></li></ul><p>This document also contains a revision history and an index.</p><section><a name="//apple_ref/doc/uid/TP40001827-97032" title="See Also"></a><a name="//apple_ref/doc/uid/TP40001827-97032-TPXREF103" title="See Also"></a><h2 class="jump">See Also</h2><p>You can access full reference documentation for the standard command-line development tools using the <code>man</code> tool on the command line, or by choosing Open Man Page from the Xcode Help menu.</p><p>This document provides information on the Mach-O runtime architecture. It does not address the following:</p><ul class="ul"><li class="li"><p>Descriptions of the data structures that make up a Mach-O file. You can find this information in <em><!--a target="_self" -->OS X ABI Mach-O File Format Reference<!--/a--></em>.</p></li><li class="li"><p>If you are loading code at runtime but cannot or do not wish to use the <code>CFBundle</code> opaque type or the <code>NSBundle</code> class, you should refer to <em><!--a target="_self" -->OS X ABI Dynamic Loader Reference<!--/a--></em>.</p></li><li class="li"><p>The GCC C++ application binary interface—the specification of C++ class member layout, function/method name mangling, and related C++ issues. This information is documented for GCC 3.0 and later at <span class="content_text"><a href="http://www.codesourcery.com/cxx-abi/abi.html" class="urlLink" rel="external">http://www.codesourcery.com/cxx-abi/abi.html</a></span>.</p></li><li class="li"><p>The GCC Objective-C data structures and dynamic runtime functions. For this information, see <em><a href="../../../../Cocoa/Conceptual/ObjectiveC/Introduction/introObjectiveC.html#//apple_ref/doc/uid/TP30001163" data-renderer-version="1" target="_self">The Objective-C Programming Language</a></em>.</p></li><li class="li"><p>The runtime environment of the OS X kernel, Darwin. See <em><a href="../../../../MacOSX/Conceptual/OSX_Technology_Overview/About/About.html#//apple_ref/doc/uid/TP40001067" data-renderer-version="1" target="_self">Mac Technology Overview</a></em> for more information.</p></li></ul><p>Source code from the Darwin project can be downloaded from <span class="content_text"><a href="http://developer.apple.com/darwin/" class="browserLink" >http://developer.apple.com/darwin/</a></span>.</p><p>You might also find the following books useful in conjunction with this document:</p><ul class="ul"><li class="li"><p><em>Mac OS Runtime Architectures</em>, Apple Computer, Inc. Available at <span class="content_text"><a href="http://developer.apple.com/tools/mpw-tools/books.html" class="browserLink" >http://developer.apple.com/tools/mpw-tools/books.html</a></span>. Documents the classic 68K segment loader architecture, as well as the Code Fragment Manager Preferred Executable executable format used with classic PowerPC applications and with many Carbon applications.</p></li><li class="li"><p><em>Linkers and Loaders</em>, John R. Levine, Morgan Kaufmann, 2000, ISBN 1-55860-496-0. Describes the workings and operation of standard linkers from the earliest program loaders to the present dynamic link editors. Among the contents of this book are discussions of the classic BSD <code>a.out</code> format, the Executable and Linking Format (ELF) preferred by many current operating systems, the IBM System/360 linker output format, and the Microsoft Portable Executable (PE) format.</p></li><li class="li"><p><em>System V Application Binary Interface AMD64 Architecture Processor Supplement</em>. Found at <span class="content_text"><a href="http://www.x86-64.org/documentation" class="urlLink" rel="external">http://www.x86-64.org/documentation</a></span>, this document describes the System V x86-64 environment, on which the OS X x86-64 environment is based.</p></li></ul></section>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            <a class='nextLink' rel='next' href='../1-Articles/building_files.html'>Next</a>
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2003, 2009 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2009-02-04</p></div></div>
+
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    <div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+
+    
+    <script charset="utf-8" src="../../../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../../../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

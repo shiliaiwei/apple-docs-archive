@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2445: Handling Frame Drops with AVCaptureVideoDataOutput</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017661">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017661-CH1">
+    <meta id="date" name="date" content="2017-07-12">
+    <meta id="description" name="description" content="TN2445: Discusses how to handle dropped frames while using AVCaptureVideoDataOutput to process frames from video being captured.">
+    <meta id="book-title" name="book-title" content="Handling Frame Drops with AVCaptureVideoDataOutput">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AVFoundation}, {Topic/Audio, Video, & Visual Effects}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2445">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Handling Frame Drops with AVCaptureVideoDataOutput" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017661" title="Technical Note TN2445"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Handling Frame Drops with AVCaptureVideoDataOutput</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017661-CH1-DontLinkElementID_2" title="Technical Note TN2445"></a><div class="dtsDocNumber">Technical Note TN2445</div><h1 id="pageTitle">Handling Frame Drops with AVCaptureVideoDataOutput</h1><p>You may find you are dropping frames while using <code>AVCaptureVideoDataOutput</code> to process frames from video being captured. How do you determine whose fault it is? And once it occurs, what can you do about it? How can you recover? This technote discusses techniques for handling these frame drops.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017661-CH1-YOUR_CAPTURE___DIDOUTPUTSAMPLEBUFFER_FROM___METHOD_MUST_BE_EFFICIENT_TO_AVOID_FRAME_DROPS" data-renderer-version="1">Your capture(_:didOutputSampleBuffer:from:) method must be efficient to avoid frame drops</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017661-CH1-SET_ALWAYSDISCARDSLATEVIDEOFRAMES_TO_YES" data-renderer-version="1">Set alwaysDiscardsLateVideoFrames to YES</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017661-CH1-TNTAG3" data-renderer-version="1">AVCaptureVideoDataOutput can report frame drops</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017661-CH1-FRAME_DROPS_CAN_BE_MITIGATED_BY_LOWERING_THE_FRAME_RATE" data-renderer-version="1">Frame drops can be mitigated by lowering the frame rate</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017661-CH1-REFERENCES" data-renderer-version="1">References</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017661-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40017661-CH1-YOUR_CAPTURE___DIDOUTPUTSAMPLEBUFFER_FROM___METHOD_MUST_BE_EFFICIENT_TO_AVOID_FRAME_DROPS" title="Your capture(_:didOutputSampleBuffer:from:) method must be efficient to avoid frame drops"></a><h2 class="jump">Your capture(_:didOutputSampleBuffer:from:) method must be efficient to avoid frame drops</h2><p>Delegates of an <code>AVCaptureVideoDataOutput</code> object can use the video frame provided in the <code>capture(_:didOutputSampleBuffer:from:)</code> method in conjunction with other APIs for additional processing. This method is called periodically, so it must be able to process a sample buffer within the amount of time allotted to a frame. If it takes too long and you hold onto the video frames, AV Foundation may stop delivering frames not only to your delegate but also to other outputs such as a preview layer.</p><p>If your application is causing samples to be dropped by retaining the provided <code>CMSampleBuffer</code> objects for too long, but it needs access to the sample data for a long period of time, consider copying the data into a new buffer and then calling <code>CFRelease</code> on the sample buffer if it was previously retained so the memory it references can be reused.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017661-CH1-SET_ALWAYSDISCARDSLATEVIDEOFRAMES_TO_YES" title="Set alwaysDiscardsLateVideoFrames to YES"></a><h2 class="jump">Set alwaysDiscardsLateVideoFrames to YES</h2><p>Always set the <code>alwaysDiscardsLateVideoFrames</code> property to <code><!--a  -->YES<!--/a--></code>.</p><p>The one exception to this is if you are recording, and you are very likely to be faster than real time. </p><p>When you set <code>alwaysDiscardsLateVideoFrames</code> to <code><!--a  -->YES<!--/a--></code>, it enforces a buffer queue size of 1 at the end of the video processing pipeline. This means if you don't pull a frame on time because you were late, it will never get further behind than the current frame — it will throw out the current frame, and append the new one. In effect, it is always giving you the latest frame. This keeps you from building up latency if you have a process that is taking too much time, and is doing so chronically. It saves you from periodically slow processing if you have a momentary glitch. You are still going to get all the frames, but you might miss a few when the glitch occurs. </p><p>It does not save you from chronically slow processing. If you are always slower than real time you are still going to drop a lot of frames, and as a result, provide a bad user experience. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017661-CH1-TNTAG3" title="AVCaptureVideoDataOutput can report frame drops"></a><h2 class="jump">AVCaptureVideoDataOutput can report frame drops</h2><p>You can use the <code>captureOutput(_:didDrop:from:)</code> delegate to determine when you are dropping frames as shown in <span class="content_text"><!--a  -->Listing 1<!--/a--></span>:</p><a name="//apple_ref/doc/uid/DTS40017661-CH1-SOURCECODE1" title="Listing 1The captureOutput(_:didDrop:from:) delegate for determining when frames are dropped."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;The <code>captureOutput(_:didDrop:from:)</code> delegate for determining when frames are dropped.</p><div class="codesample clear"><table><tr><td scope="row"><pre>func captureOutput(_ captureOutput: AVCaptureOutput!, didDrop sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {<span></span></pre></td></tr><tr><td scope="row"><pre>    // You just dropped a frame!<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>Delegates receive this message whenever a late video frame is dropped. This method is called once for each dropped frame.</p><p>This method provides a sample buffer for each frame dropped, but the sample buffer contains no image data because the image data is no longer available (it has been recycled). Instead, the sample buffer contains timing information, a format description, and attachments such as the dropped frame reason attachment <code>kCMSampleBufferAttachmentKey_DroppedFrameReason</code> which identifies the specific reason why the frame was dropped. The value for this key is one of the following:</p><ul class="ul"><li class="li"><p><code>kCMSampleBufferDroppedFrameReason_FrameWasLate</code></p><p>The video capture client has indicated that late video frames should be dropped (<code>alwaysDiscardsLateVideoFrames</code> is set to <code><!--a  -->YES<!--/a--></code>) and the current frame is late. This condition is typically caused by the client's video processing taking too long (the client is operating slower than real-time).</p></li><li class="li"><p><code>kCMSampleBufferDroppedFrameReason_OutOfBuffers</code></p><p>The client has indicated that late video frames should not be dropped (<code>alwaysDiscardsLateVideoFrames</code> is set to <code><!--a  -->NO<!--/a--></code>), and the video processing pipeline providing sample buffers has run out of source buffers. This condition is typically caused by the client holding onto buffers for too long, and can be alleviated by returning buffers to the provider. </p></li><li class="li"><p><code>kCMSampleBufferDroppedFrameReason_Discontinuity</code></p><p>The module providing sample buffers has experienced a discontinuity, and an unknown number of frames have been lost. This condition can occur for a number of reasons: the system is too busy, something unexpected happened, the capture system had to reset itself, something crashed, and so on. The result is some number of frames were lost, and the next video frame that arrives will have a much later timestamp than the one you are currently on.</p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017661-CH1-FRAME_DROPS_CAN_BE_MITIGATED_BY_LOWERING_THE_FRAME_RATE" title="Frame drops can be mitigated by lowering the frame rate"></a><h2 class="jump">Frame drops can be mitigated by lowering the frame rate</h2><p>As discussed in <span class="content_text"><a href="#//apple_ref/doc/uid/DTS40017661-CH1-TNTAG3" data-renderer-version="1">AVCaptureVideoDataOutput can report frame drops</a></span>, the <code>captureOutput(_:didDrop:from:)</code> delegate lets you know when you are dropping frames and take an appropriate action. It is a great tool for this purpose. The action you take might be while you are developing your app you pay attention to frame drops, and notice on which devices you are dropping frames, so when you ship your app you've tuned it to know which frame rate to use on which devices. </p><p>You can also use it as a stop-gap measure. For example, if in the field in real-time you find you are still dropping frames, you can mitigate these by lowering the frame rate dynamically. The <code>AVCaptureVideoDataOutput</code> frame rate can be altered dynamically without stopping the session. It will gradually throttle down to the new frame rate you've set. There will be no glitches in the capture preview or output. By lowering the minimum and maximum frame rate you don't have to drop a lot of frames to catch back up. You can do it gradually, perhaps over a second, and get up to a reasonable quality of service where you can keep up.</p><p>You set the minimum and maximum frame rate by setting an <code>AVCaptureDevice</code>’s <code>activeVideoMinFrameDuration</code> and <code>activeVideoMaxFrameDuration</code> properties. Duration equals 1/(frame rate). An <code>AVCaptureDevice</code>'s <code>activeVideoMinFrameDuration</code> property is the reciprocal of its active maximum frame rate. To limit the maximum frame rate of the capture device, set this property to a value supported by one of the device's active formats (see the <code>AVCaptureDevice</code>'s <code>formats</code> property, an array of <code>AVCaptureDeviceFormat</code> objects supported by the device, each of which has a <code>videoSupportedFrameRateRanges</code> property indicating the format’s supported frame rate ranges). Similarly, an <code>AVCaptureDevice</code>'s <code>activeVideoMaxFrameDuration</code> property is the reciprocal of its active minimum frame rate. To limit the minimum frame rate of the capture device, set this property to a value supported by one of the device's active formats. See <span class="content_text"><!--a  -->Listing 2<!--/a--></span>:</p><a name="//apple_ref/doc/uid/DTS40017661-CH1-SOURCECODE2" title="Listing 2Lowering the frame rate for the capture device to recover from slow processing."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Lowering the frame rate for the capture device to recover from slow processing.</p><div class="codesample clear"><table><tr><td scope="row"><pre>/*<span></span></pre></td></tr><tr><td scope="row"><pre>    Lower the frame rate for the capture device to recover from slow processing.<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    Note: the new rate must be a value supported by one of the device's active formats.<span></span></pre></td></tr><tr><td scope="row"><pre>*/<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>let session = &lt;#An AVCaptureSession#&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>let videoDevice = &lt;#An AVCaptureDevice#&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>do {<span></span></pre></td></tr><tr><td scope="row"><pre>    session.beginConfiguration()<span></span></pre></td></tr><tr><td scope="row"><pre>    try videoDevice.lockForConfiguration()<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Minimum duration is 1 / (max frame rate).<span></span></pre></td></tr><tr><td scope="row"><pre>    let currentFrameRate:Int32 = &lt;#The current frame rate#&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Lower the min and max frame rate to recover from slow processing.<span></span></pre></td></tr><tr><td scope="row"><pre>    let newFrameRate:Int32 = currentFrameRate - 1<span></span></pre></td></tr><tr><td scope="row"><pre>    videoDevice.activeVideoMinFrameDuration = CMTimeMake(1, newFrameRate)<span></span></pre></td></tr><tr><td scope="row"><pre>    videoDevice.activeVideoMaxFrameDuration = CMTimeMake(1, newFrameRate)<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    videoDevice.unlockForConfiguration()<span></span></pre></td></tr><tr><td scope="row"><pre>    session.commitConfiguration()<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre>catch {<span></span></pre></td></tr><tr><td scope="row"><pre>    print("Failed to lock the device for configuration: \(error)")<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40017661-CH1-REFERENCES" title="References"></a><h2 class="jump">References</h2><ul class="ul"><li class="li"><p><em><a href="../../documentation/AudioVideo/Conceptual/AVFoundationPG/Articles/00_Introduction.html#//apple_ref/doc/uid/TP40010188" data-renderer-version="1" target="_self">AVFoundation Programming Guide</a></em></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avcapturevideodataoutput" class="urlLink" rel="external"><codeVoice>AVCaptureVideoDataOutput</codeVoice></a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avcapturefileoutputdelegate/1390096-capture" class="urlLink" rel="external"><codeVoice>capture(_:didOutputSampleBuffer:from:)</codeVoice></a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avcapturevideodataoutput/1385780-alwaysdiscardslatevideoframes" class="urlLink" rel="external"><codeVoice>alwaysDiscardsLateVideoFrames</codeVoice></a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avcapturevideodataoutputsamplebufferdelegate/1388468-captureoutput" class="urlLink" rel="external"><codeVoice>captureOutput(_:didDrop:from:)</codeVoice></a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avcapturedevice/1389290-activevideominframeduration" class="urlLink" rel="external"><codeVoice>activeVideoMinFrameDuration</codeVoice></a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/reference/avfoundation/avcapturedevice/1387816-activevideomaxframeduration" class="urlLink" rel="external"><codeVoice>activeVideoMaxFrameDuration</codeVoice></a></span></p></li></ul><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017661-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017661-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-07-12</td><td><p>New document that 
+					discusses how to handle dropped frames while using AVCaptureVideoDataOutput to process frames from video being captured.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-07-12</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

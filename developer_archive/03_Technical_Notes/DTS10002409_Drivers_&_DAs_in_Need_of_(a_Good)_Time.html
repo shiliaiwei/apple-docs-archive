@@ -1,0 +1,525 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<!-- Template 03-24-01 -->
+<!--Includes revisions to code listings-->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Drivers &amp; DAs in Need of (a Good) Time">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002409">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="DV19.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+
+<title>Technical Note DV19: Drivers &amp; DAs in Need of (a Good) Time</title>
+
+
+
+<meta name="keywords" content="Mac OS 8 Desk Accesory DA accRun _BitClr _BitSet reentrancy">
+<meta name="Description" content="Technical Note DV19: This Technical Note describes a few
+complications which appear when a desk accessory or driver
+needs periodic time. It also presents a few solutions to
+work around these problems and make life easier. Complications
+include a DA trying to allocate memory or create a window
+during accRun time and reentrancy problems when a DA displays
+a modal dialog.">                                       
+
+
+
+
+<meta name="categories" content="Devices">
+
+
+<meta name="week-posted" content="Jul 31, 1989 - Aug 4, 1989">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002409" title="Drivers & DAs in Need of (a Good) Time"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Drivers & DAs in Need of (a Good) Time</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxMacOS9Earlier-date.html">Mac OS 9 & Earlier</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/HardwareDrivers/idxAccessibility-date.html" target="_blank">Hardware & Drivers > Accessibility</a></li>
+		<li><a href="http://developer.apple.com/referencelibrary/HardwareDrivers/idxAppleHardware-date.html" target="_blank">Hardware & Drivers > Apple Hardware</a></li>
+		<li><a href="http://developer.apple.com/referencelibrary/HardwareDrivers/idxATA-date.html" target="_blank">Hardware & Drivers > ATA</a></li>
+		<li><a href="http://developer.apple.com/referencelibrary/HardwareDrivers/idxPCIandPCCard-date.html" target="_blank">Hardware & Drivers > PCI and PC Card</a></li>
+		<li><a href="http://developer.apple.com/referencelibrary/HardwareDrivers/idxSCSI-date.html" target="_blank">Hardware & Drivers > SCSI</a></li>
+		<li><a href="http://developer.apple.com/referencelibrary/HardwareDrivers/idxMassStorageDevices-date.html" target="_blank">Hardware & Drivers > Storage</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+
+
+
+
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note DV19</div>
+<div id="pageheadsub">Drivers &amp; DAs in Need of (a Good) Time</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                   <td background="images/tnmenubody.gif" width=300 align=left>
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+					<!-- begin_toc -->
+					
+<p id="menutext">
+ <a href="#Section1">See Jane's Heap, See accRun...</a><BR><BR>
+ <a href="#Section2">"Houston, We've Got a Re-Entry Problem"</a><BR><BR>
+ <a href="#Section3">One More Thing...</a><BR><BR>
+ <a href="#references">References</a><BR><BR>
+<a href="#downloads">Downloadables</a></P>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+		<td width=300 valign="top" align=left>	
+<!-- begin_intro_text -->
+<P id = "introtext">This Technical Note describes a few complications which rear their rather ugly
+little heads when a desk accessory or driver needs periodic time.  It also
+presents a few solutions to work around these problems and make life easier, at
+least periodically.</p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>Updated: [Aug 01 1989]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+ <!-- end_header_box -->
+<BR><BR>
+<hr width=500 align=center>
+<BR><BR>
+<!-- begin_content -->
+<a name="Section1"></a>
+<h2>See Jane's Heap, See accRun...</h2>
+
+<p>MultiFinder is our friend.  Our friend, that is, until a driver or desk
+accessory is called when in an unknown heap.  Then things get complicated.
+When a driver is called at <code>accRun</code> time under MultiFinder, one can
+never be exactly sure of the heap in which it will find itself.  When a DA
+receives an open call, or any other messages besides accRun, under MultiFinder,
+the system heap is switched in as the current heap.* (*NOTE: This is true
+unless a user "force" switched the DA into an application heap by holding down
+the Option key when opening the DA. In this particular case, the application's
+heap will be switched in.)</p>
+
+<p>During the <code>accRun</code> cycle, whatever heap is currently switched in will
+be the driver's heap as well, and surprise, surprise, that heap may not be the
+system heap.</p>
+
+<p>This situation could be a real problem if your DA allocates memory or creates a
+window during that <code>accRun</code> period.  Why?  What if the application whose
+heap the DA is in suddenly slips a bit and decides to call it quits before the
+DA?  You'd be stuck with allocated blocks in a zone that suddenly doesn't
+exist.  Eventually, your DA would go belly up, and whoever bought your DA or
+driver would be on the phone to a local dealer demanding retribution.</p>
+
+<p>So what's the solution?  The easiest way out of this situation is to simply not
+do any memory allocation or display any newly created windows or dialog boxes
+during <code>accRun</code>.  So what if it's a cop out, it's easy to implement.</p>
+
+<p>Being the good souls that we are in DTS, we're not going to leave you hanging
+there with nowhere to go.  We prefer you heed the previous solution, but we
+realize that there may be rare times when you might need a window during
+<code>accRun</code>.  We've devised a solution, albeit a bit strange, but one
+that's easy enough to use.</p>
+
+<p>The basic problem is that the DA needs to know in which heap it should be
+allocating it's new storage.  It would be nice if the DA knew in which heap it
+was opened and could allocate the new stuff there, and it's easy enough to do,
+so here is what you need to know to do it.</p>
+
+<p>Switching from the current heap to the "preferred" heap is fairly simple.  When
+you feel the need to allocate memory or create a window during <code>accRun</code>,
+first save the current heap zone with <code>_GetZone</code>.  Now, get the handle
+to the actual driver for the DA.  You can do this by looking at the
+<code>dCtlDriver</code> offset of the DAs device control entry (DCE).  The DCE is
+always in register <code>A1</code> when a control call to the DA is made.  Use
+<code>_HandleZone</code> on the handle to the DAs driver to give you a pointer to
+the heap in which the driver resides.  Pass that value to <code>_SetZone</code>.
+Once you have switched in the correct heap, do whatever memory allocation or
+window creation you need, and then make sure to set the current zone back to
+the saved zone with <code>_SetZone</code>.</p>
+
+<p>The following short routine, borrowed, in part, from an MPW sample DA, shows
+one way to set up the correct zone.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>pascal short DRVRControl(CntrlParam *ctlPB, DCtlPtr dCtl)
+{
+    extern    void    doCtlEvent();
+    extern    void    doPeriodic();
+
+    THz     driverZone;
+    THz    savedZone;
+
+    /*
+     * The current grafPort is saved &amp; restored by the Desk Manager
+     */
+    switch (ctlPB-&gt;csCode) {
+        case ACCEVENT:            /* accEvent */
+            HLock(dCtl-&gt;dCtlStorage);    /* Lock handle since it will
+                               be dereferenced */
+            doCtlEvent( *((EventRecord **) &amp;ctlPB-&gt;csParam[0]),
+                    (Globals *)(*dCtl-&gt;dCtlStorage));
+            HUnlock(dCtl-&gt;dCtlStorage);
+            break;
+
+        /*
+         * Hey!  Look here!
+         */
+        case ACCRUN:                /* periodicEvent */
+            savedZone = GetZone();    /* save a pointer to current heap     */
+            driverZone = HandleZone(dCtl-&gt;dCtlDriver); /* get the heap our
+                                       driver resides in */
+            SetZone(driverZone);        /* use that as the current heap */
+            doPeriodic(dCtl);        /* go do your periodic stuff */
+            SetZone(savedZone);        /* restore the old heap */
+            break;
+
+        default:
+            break;
+    }
+    return 0;
+}
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<p>One note of caution:  Watch out for changes in the resource chain when in
+<code>accRun</code>, as it may not be what you expect when MultiFinder is active.</p>
+<P><a href="#top">Back to top</a></P>
+<a name="Section2"></a>
+<h2>"Houston, We've Got a Re-Entry Problem"</h2>
+
+<p>Displaying an alert or other modal dialog box is a common occurrence in
+Macintosh programming, even in DAs.  But since DAs are not applications, modal
+dialog boxes pose other problems when displayed under MultiFinder.  This
+problem is reentrancy.  If your DA or driver asks for periodic time, it
+continues to receive it when it display a modal dialog box<i>.</i>  Bummer.
+Your modal dialog routine might even be called again, and again, and again, and
+again, and you get the idea.  This problem occurs because <code>_ModalDialog</code>
+calls the <code>_SystemTask</code> trap, which in turn calls drivers which asked
+for time, including yours.  There is no internal check by the System for this
+possible problem, so it's up to you and your driver to be prepared.</p>
+
+<p>We realize that some DAs and drivers expect, and depend upon, this
+functionality.  We're just  taking this opportunity to inform the rest of you
+that this is a situation about which you should be aware.</p>
+
+<p>An easy way to avoid this issue is to simply tell the Device Manager not to
+call your DA when you display an alert or other modal dialog box.  Remember
+that <code>dNeedTime</code> bit you set when you opened your DA so you'd get time?
+Just clear it before your call to <code>_Alert</code> or <code>_ModalDialog</code>.  As
+long as the bit is clear, your DA does not receive any periodic time.  Remember
+to reset it once you are done with your <code>_Alert</code> or <code>_ModalDialog</code> 
+trap call.</p>
+
+<p>The <code>_BitClr</code> and <code>_BitSet</code> Toolbox utilities are a mite on the
+brain-damaged side, and the bits are the reverse of conventional 680x0 numbering 
+(numbering starts from the high-order bit instead of the low-order bit). This difference 
+necessitates a calculation for figuring out the correct bit as shown in the following example:  
+(I think whoever wrote these Toolbox utilities did this just to see if anyone was paying attention.)</p>
+
+<p><b>Pascal</b></p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>BitClr(@dce^.dCtlFlags, 2);        { clear bit 5/dNeedTime bit. IM I-471 }
+BitSet(@dce^.dCtlFlags, 2);        { set bit 5/dNeedTime bit.  IM I-471 }
+
+or the kind of more efficient, but less efficient than C:
+
+CONST
+dNeedTime = $2000;            { Bit 5 of high-order byte of word }
+
+dce^.dCtlFlags := BAND(dce^.dCtlFlags, BNOT(dNeedTime));    { clear bit 5/dNeedTime bit. }
+dce^.dCtlFlags := BOR(dce^.dCtlFlags, dNeedTime);        { set bit 5/dNeedTime bit. }
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<p><b>C</b></p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>BitClr(&amp;dce-&gt;dCtlFlags, 2);        /* clear bit 5/dNeedTime bit. IM I-471 */
+BitSet(&amp;dce-&gt;dCtlFlags, 2);        /* set bit 5/dNeedTime bit.  IM I-471 */
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<p>or the somewhat more efficient:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>#define dNeedTime 0x2000        /* Bit 5 of high-order byte of word */
+
+dce-&gt;dCtlFlags &amp;= ~dNeedTime;    /* clear bit 5/dNeedTime bit. */
+dce-&gt;dCtlFlags |= dNeedTime;    /* set bit 5/dNeedTime bit.  */
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+
+<P><a href="#top">Back to top</a></P>
+<a name="Section3"></a>
+<h2>One More Thing...</h2>
+
+<p>We cannot overemphasize our viewpoint that if you are writing a DA and the
+result looks and acts more like an application, then <b>write an application</b> 
+instead and save us all a lot of headaches.</p>
+<P><a href="#top">Back to top</a></P>
+
+<a name="references"></a><h2>References</h2>
+
+<P><i>Inside Macintosh</i>, Volume II, The Memory Manager</p>
+<P>Technical Note M.TB.MultifinderMisc -- <u><a HREF = "../tb/tb_35.html">MultiFinder Miscellanea</a></u></p>
+
+
+<P><a href="#top">Back to top</a></P>
+
+         <a name="downloads"></a>
+         <H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center>
+                  
+                  <img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (44K)</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/dv_19.pdf">Download</a></P>
+               </TD>
+            </TR>
+
+         </table>
+         <BR>
+         
+         <P><a href="#top">Back to top</a></P>
+</TD></TR></table></CENTER>
+<!-- end_content -->
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+
+<hr width=500 align=center>
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>
+

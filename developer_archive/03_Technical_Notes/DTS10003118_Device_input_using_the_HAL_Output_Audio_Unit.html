@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2091: Device input using the HAL Output Audio Unit</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10003118">
+    <meta id="document-version" name="document-version" content="3.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS10003118-CH1">
+    <meta id="date" name="date" content="2014-01-21">
+    <meta id="description" name="description" content="TN2091: How to get input from an audio device by using the HAL's Output Audio Unit.">
+    <meta id="book-title" name="book-title" content="Device input using the HAL Output Audio Unit">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AudioUnit}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2091">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Device input using the HAL Output Audio Unit" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS10003118" title="Technical Note TN2091"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Device input using the HAL Output Audio Unit</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS10003118-CH1-DontLinkElementID_2" title="Technical Note TN2091"></a><div class="dtsDocNumber">Technical Note TN2091</div><h1 id="pageTitle">Device input using the HAL Output Audio Unit</h1><p>This technical note illustrates how to obtain input from an audio device by using the Hardware Abstraction Layer's AudioOutputUnit (AUHAL). The AUHAL can be used to simplify input and output operations commonly done with audio devices. </p><p>An application can use the Hardware Abstraction Layer's (HAL) AudioOutputUnit to interface to a single audio device. The AudioOutputUnit (AUHAL) unit sits on top of an <code>AudioDevice</code> object as defined in &lt;CoreAudio/AudioHardware.h&gt;. The AUHAL can be used for input and output to an audio device.</p><p>The AUHAL can be used to capture input from an audio device by following these steps:</p><p>1.Open an AUHAL</p><p>2.Enable the AUHAL for input.</p><p>3.Set the default input device as the current input device of the AUHAL.</p><p>4.Obtain the device format and specify the audio format you desire.</p><p>5.Create the input callback and register it with the AUHAL.</p><p>6.Allocate necessary buffers.</p><p>7.Initialize &amp; start the AUHAL.</p><p>These steps are illustrated in depth throughout this technote.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-PARTONE" data-renderer-version="1">Creating an AudioOutputUnit</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-SCOPES" data-renderer-version="1">A quick word on Audio Unit connections</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-PARTTWO" data-renderer-version="1">Enabling IO</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-CURRENTDEVICE" data-renderer-version="1">Setting the current device of the AudioOutputUnit</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-FORMATS" data-renderer-version="1">What about the audio data format?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-CHANNELMAPPING" data-renderer-version="1">Channel Mapping</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-INPUTPROC" data-renderer-version="1">Creating an Input proc for an AudioOutputUnit</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-STARTING" data-renderer-version="1">Initializing and Starting the AudioOutputUnit</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-ACQUIRING" data-renderer-version="1">Acquiring data from the AudioOutputUnit</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-CONCLUSION" data-renderer-version="1">Conclusion</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-CH1-REFERENCES" data-renderer-version="1">Sample Code and References</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS10003118-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS10003118-CH1-PARTONE" title="Creating an AudioOutputUnit"></a><h2 class="jump">Creating an AudioOutputUnit</h2><p>You must first obtain an AudioOutputUnit by using a Component Description, as you would when attempting to obtain any other Audio Unit.</p><a name="//apple_ref/doc/uid/DTS10003118-CH1-SOURCECODE1" title="Listing 1How to open an AudioOutputUnit 10.6 and later"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;How to open an AudioOutputUnit 10.6 and later</p><div class="codesample clear"><table><tr><td scope="row"><pre> AudioComponent comp;<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioComponentDescription desc;<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioComponentInstance auHAL;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    //There are several different types of Audio Units.<span></span></pre></td></tr><tr><td scope="row"><pre>    //Some audio units serve as Outputs, Mixers, or DSP<span></span></pre></td></tr><tr><td scope="row"><pre>    //units. See AUComponent.h for listing<span></span></pre></td></tr><tr><td scope="row"><pre>    desc.componentType = kAudioUnitType_Output;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    //Every Component has a subType, which will give a clearer picture<span></span></pre></td></tr><tr><td scope="row"><pre>    //of what this components function will be.<span></span></pre></td></tr><tr><td scope="row"><pre>    desc.componentSubType = kAudioUnitSubType_HALOutput;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>     //all Audio Units in AUComponent.h must use<span></span></pre></td></tr><tr><td scope="row"><pre>     //"kAudioUnitManufacturer_Apple" as the Manufacturer<span></span></pre></td></tr><tr><td scope="row"><pre>    desc.componentManufacturer = kAudioUnitManufacturer_Apple;<span></span></pre></td></tr><tr><td scope="row"><pre>    desc.componentFlags = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>    desc.componentFlagsMask = 0;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    //Finds a component that meets the desc spec's<span></span></pre></td></tr><tr><td scope="row"><pre>    comp = AudioComponentFindNext(NULL, &amp;desc);<span></span></pre></td></tr><tr><td scope="row"><pre>    if (comp == NULL) exit (-1);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>     //gains access to the services provided by the component<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioComponentInstanceNew(comp, &amp;auHAL);<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003118-CH1-SOURCECODE2" title="Listing 2How to open an AudioOutputUnit 10.5.x and earlier"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;How to open an AudioOutputUnit 10.5.x and earlier</p><div class="codesample clear"><table><tr><td scope="row"><pre> Component comp;<span></span></pre></td></tr><tr><td scope="row"><pre>    ComponentDescription desc;<span></span></pre></td></tr><tr><td scope="row"><pre>    ComponentInstance audioOutputUnit;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    //There are several different types of Audio Units.<span></span></pre></td></tr><tr><td scope="row"><pre>    //Some audio units serve as Outputs, Mixers, or DSP<span></span></pre></td></tr><tr><td scope="row"><pre>    //units. See AUComponent.h for listing<span></span></pre></td></tr><tr><td scope="row"><pre>    desc.componentType = kAudioUnitType_Output;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    //Every Component has a subType, which will give a clearer picture<span></span></pre></td></tr><tr><td scope="row"><pre>    //of what this components function will be.<span></span></pre></td></tr><tr><td scope="row"><pre>    desc.componentSubType = kAudioUnitSubType_HALOutput;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>     //all Audio Units in AUComponent.h must use<span></span></pre></td></tr><tr><td scope="row"><pre>     //"kAudioUnitManufacturer_Apple" as the Manufacturer<span></span></pre></td></tr><tr><td scope="row"><pre>    desc.componentManufacturer = kAudioUnitManufacturer_Apple;<span></span></pre></td></tr><tr><td scope="row"><pre>    desc.componentFlags = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>    desc.componentFlagsMask = 0;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    //Finds a component that meets the desc spec's<span></span></pre></td></tr><tr><td scope="row"><pre>    comp = FindNextComponent(NULL, &amp;desc);<span></span></pre></td></tr><tr><td scope="row"><pre>    if (comp == NULL) exit (-1);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>     //gains access to the services provided by the component<span></span></pre></td></tr><tr><td scope="row"><pre>    OpenAComponent(comp, &amp;audioOutputUnit);<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003118-CH1-SCOPES" title="A quick word on Audio Unit connections"></a><h2 class="jump">A quick word on Audio Unit connections</h2><p>When an audio unit is asked to provide audio data, it does one of two  things, depending on how you connect it.</p><ul class="ul"><li class="li"><p>If the audio unit gets its audio data from your application, it invokes a callback function in your application.</p></li><li class="li"><p>If the audio unit gets its audio data from another audi unit, it invokes the render method of that audio unit.</p></li></ul><p>In this second case, two audio units are directly connected to each other. For example, say that audio unit A1 feeds audio unit A2. When A2 is asked to provide data, it "pulls" it from A1. This highlights the requirement that connections between audio units must share a common audio stream format. To read more about audio unit connections, refer to the <span class="content_text"><a href="../../documentation/MusicAudio/Conceptual/AudioUnitProgrammingGuide/AudioUnitDevelopmentFundamentals/AudioUnitDevelopmentFundamentals.html#//apple_ref/doc/uid/TP40003278-CH7-SW12" data-renderer-version="1" target="_self">Audio Processing Graphs and the Pull Model</a></span> section of the Audio Unit Programming Guide.</p><figure class="figure"><a name="//apple_ref/doc/uid/DTS10003118-CH1-FIGURE1" title="Figure 1The signal flow of the AUHAL"></a><figcaption><strong class="caption_number">Figure 1</strong>&nbsp;&nbsp;The signal flow of the AUHAL</figcaption><img src="Art/tn2091_AUHALDiagram.gif" alt="" width="464" height="133"></figure><p>Figure 1 illustrates the flow of audio data from audio devices to and from your application. Your application may connect an audio unit to either element (bus) of the AUHAL to simplify operations. Thus, in the case when you are using an audio unit as a source to output audio to a device, use the following connection:</p><a name="//apple_ref/doc/uid/DTS10003118-CH1-TABLE1" title="Table 1Output audio to a device"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 1</strong>&nbsp;&nbsp;Output audio to a device</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Source
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Destination
+</p></th></tr><tr><td  scope="row"><p>
+Source Unit (output scope, output element)
+</p></td><td ><p>
+AUHAL (input scope, element 0)
+</p></td></tr></table></div><p>When you want to get the audio device's input data, the connection should be:</p><a name="//apple_ref/doc/uid/DTS10003118-CH1-TABLE2" title="Table 2Capture audio into a device"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 2</strong>&nbsp;&nbsp;Capture audio into a device</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Source
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Destination
+</p></th></tr><tr><td  scope="row"><p>
+AUHAL (output scope, element 1)
+</p></td><td ><p>
+Destination Unit (input scope, input element )
+</p></td></tr></table></div><p>Of course, for a device like the Built-in Audio device that provides both input and output, a software playthrough mechanism can be established simply by creating the following connection:</p><a name="//apple_ref/doc/uid/DTS10003118-CH1-TABLE3" title="Table 3Simple Software playthrough"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 3</strong>&nbsp;&nbsp;Simple Software playthrough</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Source
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Destination
+</p></th></tr><tr><td  scope="row"><p>
+AUHAL (output scope, element 1)
+</p></td><td ><p>
+AUHAL (input scope, element 0)
+</p></td></tr></table></div><p>One could also do any number of arbitrary processing operations to the audio from input to output by inserting one or more audio units between the input and output. So, lets take an example where you want to process the Built-in Audio input with a multiband compressor Audio Unit. You can do this by creating the following connections:</p><a name="//apple_ref/doc/uid/DTS10003118-CH1-TABLE4" title="Table 4Processing the Built-in Audio's input with a multiband compressor Audio Unit."></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 4</strong>&nbsp;&nbsp;Processing the Built-in Audio's input with a multiband compressor Audio Unit.</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Source
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Destination
+</p></th></tr><tr><td  scope="row"><p>
+AUHAL (output scope, element 1)
+</p></td><td ><p>
+Multiband Compressor (input scope, element 0 )
+</p></td></tr><tr><td  scope="row"><p>
+Multiband Compressor (output scope, element 0)
+</p></td><td ><p>
+AUHAL (input scope, element 0)
+</p></td></tr></table></div><p>The AUGraph APIs (in AudioToolbox.framework) can manage these connections for you. An <code>AUGraph</code> is a high level representation of a set of Audio Units and connections between them. See the <span class="content_text"><!--a target="_self" -->Audio Unit Processing Graph Services Reference<!--/a--></span> for more information.</p><p>If you have two separate audio devices, two AUHALs will be required. However, because each AUHAL is going to run on its own separate I/O proc, you cannot make a direct connection between the two AUHALs. You must use a notification mechanism to notify the output device that data has arrived then pass the data through.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS10003118-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;Please note only one AudioOutputUnit can be used per AUGraph.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003118-CH1-PARTTWO" title="Enabling IO"></a><h2 class="jump">Enabling IO</h2><p>After creating the AUHAL object, you must enable IO on the input scope of the Audio Unit to obtain device input. Input must be explicitly enabled with the <code>kAudioOutputUnitProperty_EnableIO</code> property on element 1 of the AUHAL. Because the AUHAL can be used for both input and output, for this example we must also disable IO on the output scope.</p><a name="//apple_ref/doc/uid/DTS10003118-CH1-SOURCECODE3" title="Listing 3Enabling input and disabling output for an AudioOutputUnit"></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Enabling input and disabling output for an AudioOutputUnit</p><div class="codesample clear"><table><tr><td scope="row"><pre> UInt32 enableIO;<span></span></pre></td></tr><tr><td scope="row"><pre>     UInt32 size=0;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>     //When using AudioUnitSetProperty the 4th parameter in the method<span></span></pre></td></tr><tr><td scope="row"><pre>     //refer to an AudioUnitElement. When using an AudioOutputUnit<span></span></pre></td></tr><tr><td scope="row"><pre>     //the input element will be '1' and the output element will be '0'.<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>      enableIO = 1;<span></span></pre></td></tr><tr><td scope="row"><pre>      AudioUnitSetProperty(InputUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                kAudioOutputUnitProperty_EnableIO,<span></span></pre></td></tr><tr><td scope="row"><pre>                kAudioUnitScope_Input,<span></span></pre></td></tr><tr><td scope="row"><pre>                1, // input element<span></span></pre></td></tr><tr><td scope="row"><pre>                &amp;enableIO,<span></span></pre></td></tr><tr><td scope="row"><pre>                sizeof(enableIO));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>      enableIO = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>      AudioUnitSetProperty(InputUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                kAudioOutputUnitProperty_EnableIO,<span></span></pre></td></tr><tr><td scope="row"><pre>                kAudioUnitScope_Output,<span></span></pre></td></tr><tr><td scope="row"><pre>                0,   //output element<span></span></pre></td></tr><tr><td scope="row"><pre>                &amp;enableIO,<span></span></pre></td></tr><tr><td scope="row"><pre>                sizeof(enableIO));<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003118-CH1-CURRENTDEVICE" title="Setting the current device of the AudioOutputUnit  "></a><h2 class="jump">Setting the current device of the AudioOutputUnit  </h2><p>The AUHAL must have a device it will interface with. In this example, we will select the system's default input device for our current device. <code>AudioHardwareGetProperty</code> used with the parameter <code>kAudioHardwarePropertyDefaultInputDevice</code> will obtain the current input device selected by the user. After obtaining the <code>AudioDeviceID</code>, you can set the audio device to be the Audio Unit's current device with <code>AudioUnitSetProperty</code> and the parameter <code>kAudioOutputUnitProperty_CurrentDevice</code>. Please keep in mind that devices can only be set to the AUHAL after enabling IO.</p><a name="//apple_ref/doc/uid/DTS10003118-CH1-SOURCECODE4" title="Listing 4How to set the current device of the AudioOutputUnit to the default input device"></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;How to set the current device of the AudioOutputUnit to the default input device</p><div class="codesample clear"><table><tr><td scope="row"><pre>OSStatus SetDefaultInputDeviceAsCurrent(){<span></span></pre></td></tr><tr><td scope="row"><pre>    UInt32 size;<span></span></pre></td></tr><tr><td scope="row"><pre>    OSStatus err =noErr;<span></span></pre></td></tr><tr><td scope="row"><pre>    size = sizeof(AudioDeviceID);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    AudioDeviceID inputDevice;<span></span></pre></td></tr><tr><td scope="row"><pre>    err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultInputDevice,<span></span></pre></td></tr><tr><td scope="row"><pre>                                                  &amp;size,<span></span></pre></td></tr><tr><td scope="row"><pre>                                                  &amp;inputDevice);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    if (err)<span></span></pre></td></tr><tr><td scope="row"><pre>        return err;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    err =AudioUnitSetProperty(InputUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                         kAudioOutputUnitProperty_CurrentDevice,<span></span></pre></td></tr><tr><td scope="row"><pre>                         kAudioUnitScope_Global,<span></span></pre></td></tr><tr><td scope="row"><pre>                         0,<span></span></pre></td></tr><tr><td scope="row"><pre>                         &amp;inputDevice,<span></span></pre></td></tr><tr><td scope="row"><pre>                         sizeof(inputDevice));<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   return err;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003118-CH1-FORMATS" title="What about the audio data format?"></a><h2 class="jump">What about the audio data format?</h2><p>The AUHAL flattens audio data streams of a device into a single de-interleaved stream for both input and output. AUHALs have a built-in <code>AudioConverter</code> to do this transformation for you. The AUHAL determines what kind of <code>AudioConverter</code> is required by comparing the flattened device format with the client's desired format. Resetting either a device format or a client format will generally be a disruptive event, requiring the AUHAL to establish a new <code>AudioConverter</code>. If the channels of the device format and the desired format do not have a 1:1 ratio, the AUHAL unit can use channel maps to determine which channels to present to the user. Lastly, the device sample rate must match the desired sample rate. </p><p>For outputting data to an audio device the format is always expressed on the output scope of the AUHAL's Element 0. The audio device format can be obtained by using <code>AudioUnitGetProperty</code> with the constant <code>kAudioUnitProperty_StreamFormat</code>. Although this information can be obtained, it is NEVER writeable. The user must explicitly change these settings themselves. </p><p>For obtaining input from a device, the device format is always expressed on the input scope of the AUHAL's Element 1. Therefore, you must set your desired format to the output scope of the AUHAL's Element 1. The internal <code>AudioConverter</code> can handle any *simple* conversion. Typically, this means that a client can specify ANY variant of the PCM formats. Consequently, the device's sample rate should match the desired sample rate. If sample rate conversion is needed, it can be accomplished by buffering the input and converting the data on a separate thread with another <code>AudioConverter</code>. </p><a name="//apple_ref/doc/uid/DTS10003118-CH1-SOURCECODE5" title="Listing 5Setting up the desired 'input' format"></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Setting up the desired 'input' format</p><div class="codesample clear"><table><tr><td scope="row"><pre> CAStreamBasicDescription DeviceFormat;<span></span></pre></td></tr><tr><td scope="row"><pre>    CAStreamBasicDescription DesiredFormat;<span></span></pre></td></tr><tr><td scope="row"><pre>   //Use CAStreamBasicDescriptions instead of 'naked'<span></span></pre></td></tr><tr><td scope="row"><pre>   //AudioStreamBasicDescriptions to minimize errors.<span></span></pre></td></tr><tr><td scope="row"><pre>   //CAStreamBasicDescription.h can be found in the CoreAudio SDK.<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    UInt32 size = sizeof(CAStreamBasicDescription);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>     //Get the input device format<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioUnitGetProperty (InputUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                                   kAudioUnitProperty_StreamFormat,<span></span></pre></td></tr><tr><td scope="row"><pre>                                   kAudioUnitScope_Input,<span></span></pre></td></tr><tr><td scope="row"><pre>                                   1,<span></span></pre></td></tr><tr><td scope="row"><pre>                                   &amp;DeviceFormat,<span></span></pre></td></tr><tr><td scope="row"><pre>                                   &amp;size);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    //set the desired format to the device's sample rate<span></span></pre></td></tr><tr><td scope="row"><pre>    DesiredFormat.mSampleRate =  DeviceFormat.mSampleRate;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>     //set format to output scope<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioUnitSetProperty(<span></span></pre></td></tr><tr><td scope="row"><pre>                            InputUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                            kAudioUnitProperty_StreamFormat,<span></span></pre></td></tr><tr><td scope="row"><pre>                            kAudioUnitScope_Output,<span></span></pre></td></tr><tr><td scope="row"><pre>                            1,<span></span></pre></td></tr><tr><td scope="row"><pre>                            &amp;DesiredFormat,<span></span></pre></td></tr><tr><td scope="row"><pre>                            sizeof(CAStreamBasicDescription));<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003118-CH1-CHANNELMAPPING" title="Channel Mapping"></a><h2 class="jump">Channel Mapping</h2><p>If the data format between the audio device's channels and the desired format's channels do not correspond to a 1:1 ratio, channel mapping is needed. Channel mapping will specify what channels of the device your audio unit will interact with. This only needs to be set if you intend to use any setting other than the default mapping. </p><a name="//apple_ref/doc/uid/DTS10003118-CH1-TABLE5" title="Table 5Default Channel Map (channel mapping not needed)"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 5</strong>&nbsp;&nbsp;Default Channel Map (channel mapping not needed)</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Device Channel
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Your Channel
+</p></th></tr><tr><td  scope="row"><p>
+0
+</p></td><td ><p>
+0
+</p></td></tr><tr><td  scope="row"><p>
+1
+</p></td><td ><p>
+1
+</p></td></tr><tr><td  scope="row"><p>
+2
+</p></td><td ><p>
+2
+</p></td></tr><tr><td  scope="row"><p>
+...
+</p></td><td ><p>
+...
+</p></td></tr></table></div><p>For example, we have a 4-channel device that we are using for input, but we only desire channels 2 and 3 of the device for stereo input. We must assign (map) the channels that we want from the device to the channels of the AUHAL. To create a channel map for our AUHAL, you must make an array of SInt32 for every *destination* of the map. Each element in the array of Sint32 will either refer to the index of the source's channels to be routed to the destination, or -1 meaning "no source". In this example, we would create an array of 2 elements and initialize the values to -1. For the channels that we would like to map, we set the value of the element in the channel map array to 2 &amp; 3. As a result, our channel map is [2,3].</p><a name="//apple_ref/doc/uid/DTS10003118-CH1-TABLE6" title="Table 64 -&gt; 2  Channel Map"></a><div class="tableholder"><table class="graybox" border = "0" cellspacing="0" cellpadding="5"><caption class="tablecaption"><strong class="caption_number">Table 6</strong>&nbsp;&nbsp;4 -&gt; 2  Channel Map</caption><tr><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Device Channel
+</p></th><th scope="col" class="TableHeading_TableRow_TableCell"><p>
+Your Channel
+</p></th></tr><tr><td  scope="row"><p>
+2
+</p></td><td ><p>
+0
+</p></td></tr><tr><td  scope="row"><p>
+3
+</p></td><td ><p>
+1
+</p></td></tr></table></div><a name="//apple_ref/doc/uid/DTS10003118-CH1-SOURCECODE6" title="Listing 6An example of 4 -&gt; 2 channel mapping for input"></a><p class="codesample clear"><strong class="caption_number">Listing 6</strong>&nbsp;&nbsp;An example of 4 -&gt; 2 channel mapping for input</p><div class="codesample clear"><table><tr><td scope="row"><pre> SInt32 *channelMap =NULL;<span></span></pre></td></tr><tr><td scope="row"><pre>    UInt32 numOfChannels = DesiredFormat.mChannelsPerFrame; //2 channels<span></span></pre></td></tr><tr><td scope="row"><pre>    UInt32 mapSize = numOfChannels *sizeof(SInt32);<span></span></pre></td></tr><tr><td scope="row"><pre>    channelMap = (SInt32 *)malloc(mapSize);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    //for each channel of desired input, map the channel from<span></span></pre></td></tr><tr><td scope="row"><pre>    //the device's output channel.<span></span></pre></td></tr><tr><td scope="row"><pre>    for(UInt32 i=0;i&lt;numOfChannels;i++)<span></span></pre></td></tr><tr><td scope="row"><pre>    {<span></span></pre></td></tr><tr><td scope="row"><pre>               channelMap[i]=-1;<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>     //channelMap[desiredInputChannel] = deviceOutputChannel;<span></span></pre></td></tr><tr><td scope="row"><pre>    channelMap[0] = 2;<span></span></pre></td></tr><tr><td scope="row"><pre>    channelMap[1] = 3;<span></span></pre></td></tr><tr><td scope="row"><pre>    AudioUnitSetProperty(InputUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                                        kAudioOutputUnitProperty_ChannelMap,<span></span></pre></td></tr><tr><td scope="row"><pre>                                        kAudioUnitScope_Output,<span></span></pre></td></tr><tr><td scope="row"><pre>                                        1,<span></span></pre></td></tr><tr><td scope="row"><pre>                                        channelMap,<span></span></pre></td></tr><tr><td scope="row"><pre>                                        size);<span></span></pre></td></tr><tr><td scope="row"><pre>    free(channelMap);<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003118-CH1-INPUTPROC" title="Creating an Input proc for an AudioOutputUnit"></a><h2 class="jump">Creating an Input proc for an AudioOutputUnit</h2><p>Next, you must register the input procedure for the AUHAL. This procedure will be called when the AUHAL has received new data from your input device.</p><a name="//apple_ref/doc/uid/DTS10003118-CH1-SOURCECODE7" title="Listing 7Creating an Input proc for an AudioOutputUnit"></a><p class="codesample clear"><strong class="caption_number">Listing 7</strong>&nbsp;&nbsp;Creating an Input proc for an AudioOutputUnit</p><div class="codesample clear"><table><tr><td scope="row"><pre>void MyInputCallbackSetup()<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    AURenderCallbackStruct input;<span></span></pre></td></tr><tr><td scope="row"><pre>    input.inputProc = InputProc;<span></span></pre></td></tr><tr><td scope="row"><pre>    input.inputProcRefCon = 0;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    AudioUnitSetProperty(<span></span></pre></td></tr><tr><td scope="row"><pre>            InputUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>            kAudioOutputUnitProperty_SetInputCallback,<span></span></pre></td></tr><tr><td scope="row"><pre>            kAudioUnitScope_Global,<span></span></pre></td></tr><tr><td scope="row"><pre>            0,<span></span></pre></td></tr><tr><td scope="row"><pre>            &amp;input,<span></span></pre></td></tr><tr><td scope="row"><pre>            sizeof(input));<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003118-CH1-STARTING" title="Initializing and Starting the AudioOutputUnit"></a><h2 class="jump">Initializing and Starting the AudioOutputUnit</h2><p>The AUHAL is now set up to receive input from a device. You must initialize and start the Audio Unit to begin acquiring  data.</p><a name="//apple_ref/doc/uid/DTS10003118-CH1-SOURCECODE8" title="Listing 8Starting the AUHAL"></a><p class="codesample clear"><strong class="caption_number">Listing 8</strong>&nbsp;&nbsp;Starting the AUHAL</p><div class="codesample clear"><table><tr><td scope="row"><pre>OSStatus InitAndStartAUHAL()<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>   OSStatus err= noErr;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   err = AudioUnitInitialize(InputUnit);<span></span></pre></td></tr><tr><td scope="row"><pre>   if(err)<span></span></pre></td></tr><tr><td scope="row"><pre>       return err;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   err = AudioOutputUnitStart(InputUnit);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>   return err;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003118-CH1-ACQUIRING" title="Acquiring data from the AudioOutputUnit"></a><h2 class="jump">Acquiring data from the AudioOutputUnit</h2><p>The AUHAL is an Audio Unit that can receive and send audio data to an audio device. To receive audio from the AUHAL, you must get it from the output scope of the Audio Unit. In practice, this is done by a client calling <code>AudioUnitRender</code>. To give audio to the AUHAL, you must give it data on the input scope. This is done by providing an input callback to the Audio Unit.</p><p>In our example, we will call <code>AudioUnitRender</code> from within the input proc. The input proc's render action flags, time stamp, bus number and number of frames requested should be propagated down to the <code>AudioUnitRender</code> call. The <code>AudioBufferList</code>, ioData will be NULL, therefore you must provide your own allocated <code>AudioBufferList</code>. </p><a name="//apple_ref/doc/uid/DTS10003118-CH1-SOURCECODE9" title="Listing 9Using AudioUnitRender to obtain data"></a><p class="codesample clear"><strong class="caption_number">Listing 9</strong>&nbsp;&nbsp;Using AudioUnitRender to obtain data</p><div class="codesample clear"><table><tr><td scope="row"><pre>AudioBufferList * theBufferList;<span></span></pre></td></tr><tr><td scope="row"><pre>/* allocated to hold buffer data  */<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>OSStatus InputProc(<span></span></pre></td></tr><tr><td scope="row"><pre>                    void *inRefCon,<span></span></pre></td></tr><tr><td scope="row"><pre>                    AudioUnitRenderActionFlags *ioActionFlags,<span></span></pre></td></tr><tr><td scope="row"><pre>                    const AudioTimeStamp *inTimeStamp,<span></span></pre></td></tr><tr><td scope="row"><pre>                    UInt32 inBusNumber,<span></span></pre></td></tr><tr><td scope="row"><pre>                    UInt32 inNumberFrames,<span></span></pre></td></tr><tr><td scope="row"><pre>                    AudioBufferList * ioData)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    OSStatus err =noErr;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    err= AudioUnitRender(InputUnit,<span></span></pre></td></tr><tr><td scope="row"><pre>                    ioActionFlags,<span></span></pre></td></tr><tr><td scope="row"><pre>                    inTimeStamp,<span></span></pre></td></tr><tr><td scope="row"><pre>                    inBusNumber,     //will be '1' for input data<span></span></pre></td></tr><tr><td scope="row"><pre>                    inNumberFrames, //# of frames requested<span></span></pre></td></tr><tr><td scope="row"><pre>                    theBufferList);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    return err;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003118-CH1-CONCLUSION" title="Conclusion"></a><h2 class="jump">Conclusion</h2><p>Using the AUHAL to interface to an audio device greatly simplifies the interaction between applications and audio devices. This Audio Unit can assist audio developers in getting audio device information, as well as transporting and acquiring audio data. </p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS10003118-CH1-REFERENCES" title="Sample Code and References"></a><h2 class="jump">Sample Code and References</h2><p><span class="content_text"><a href="https://developer.apple.com/library/mac/samplecode/CAPlayThrough/Introduction/Intro.html" class="urlLink" rel="external">CAPlayThrough</a></span></p><p><span class="content_text"><a href="https://developer.apple.com/library/mac/documentation/MusicAudio/Conceptual/CoreAudioOverview/Introduction/Introduction.html#//apple_ref/doc/uid/TP40003577-CH1-SW1" class="urlLink" rel="external">Core Audio Overview</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS10003118-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS10003118-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2014-01-21</td><td><p>Updated sample code and reference URLs</p></td></tr><tr><td scope="row">2009-09-23</td><td><p>Editorial</p></td></tr><tr><td scope="row">2006-07-25</td><td><p>added RecordAudioToFile sample code link</p></td></tr><tr><td scope="row">2006-07-18</td><td><p>fixed incorrect display of unicode characters, updated links</p></td></tr><tr><td scope="row">2004-08-23</td><td><p>Added links to AUHAL Sample Code projects.  Several minor changes, including a correction to the enable IO process.</p></td></tr><tr><td scope="row">2004-07-06</td><td><p>minor corrections in source listings</p></td></tr><tr><td scope="row">2004-03-22</td><td><p>Unspecified content revisions.</p></td></tr><tr><td scope="row">2004-03-04</td><td><p>New document that 
+					how to get input from an audio device by using the HAL's Output Audio Unit.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2014 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2014-01-21</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Technical Note TN2436: Debugging HTTP Live Streaming</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40017666">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40017666-CH1">
+    <meta id="date" name="date" content="2017-08-25">
+    <meta id="description" name="description" content="TN2436: How to debug issues related to HTTP Live Streaming.">
+    <meta id="book-title" name="book-title" content="Debugging HTTP Live Streaming">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Technologies/Media Layer/AVFoundation}, {Topic/Audio, Video, & Visual Effects/Video}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2436">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Debugging HTTP Live Streaming" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40017666" title="Technical Note TN2436"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Debugging HTTP Live Streaming</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40017666-CH1-DontLinkElementID_2" title="Technical Note TN2436"></a><div class="dtsDocNumber">Technical Note TN2436</div><h1 id="pageTitle">Debugging HTTP Live Streaming</h1><p>This document is intended for AVFoundation clients and content owners that are debugging issues when playing HTTP live streaming (HLS) content. For AVFoundation clients, this document provides an overview of the various types of errors that can be encountered during the playback of HLS content as well as an overview of the various facilities for applications to be notified of errors that occur during the playback process from the AVPlayer. For contents owners, this document provides useful information about verifying HLS content against the HTTP Live Streaming Authoring Specification for Apple Devices. This document also provides links to helpful resources and tools available for AVFoundation clients and content owners to use during debugging as well as best practices that lead to better playback experience.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING" data-renderer-version="1">Debugging HTTP Live Streaming</a>
+                
+                
+                
+                    <div class="nestedMiniTOC">
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING-TYPES_OF_ERRORS_ENCOUNTERED_DURING_PLAYBACK" data-renderer-version="1">Types of Errors Encountered During Playback</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING-DISCOVERING_ERRORS" data-renderer-version="1">Discovering Errors</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING-VERIFYING_CONTENT" data-renderer-version="1">Verifying Content</a>
+                            
+                        </div>
+                        
+                    
+                        
+                        <div>
+                            <a href="#//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING-HELPFUL_RESOURCES" data-renderer-version="1">Helpful Resources</a>
+                            
+                        </div>
+                        
+                    
+                    </div>
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40017666-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING" title="Debugging HTTP Live Streaming"></a><h2 class="jump">Debugging HTTP Live Streaming</h2><p>HTTP Live Streaming (HLS) reliably delivers media content across a variety of network and bandwidth conditions. This document discusses best practices for handling errors during playback of HLS content with AVFoundation.</p><section><a name="//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING-TYPES_OF_ERRORS_ENCOUNTERED_DURING_PLAYBACK" title="Types of Errors Encountered During Playback"></a><h3 class="jump">Types of Errors Encountered During Playback</h3><p>When an <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayer" class="urlLink" rel="external">AVPlayer</a></span> encounters an error during playback, the type of error typically falls into one of the following categories:</p><ul class="ul"><li class="li"><p>Network Errors:</p><p>All the 4XX and 5XX errors that are sent from the server as well as TCP/IP and DNS errors. </p><p>With regards to 4XX and 5XX errors, it is important to make sure that when your server encounters these errors that it sends an error that AVFoundation expects. This ensures that AVFoundation handles these errors in such a way that alternate playback options such as backup sources or lower bitrate variants are used if they are available and playback can continue smoothly.</p><p>For more information about how your server should be handling and returning errors see the following video:</p><ul class="nested"><li class="nested li"><p><span class="content_text"><a href="https://developer.apple.com/videos/play/wwdc2017/514/" class="urlLink" rel="external">WWDC 2017 - Session 514: Error Handling Best Practices for HTTP Live Streaming</a></span></p></li></ul></li><li class="li"><p>Timeout Errors:</p><p>When resources such as the master playlist, media playlists, media files and content keys are requested there are timeouts defined. A failure to get a response within this timeout will cause timeout errors.</p></li><li class="li"><p>Format Errors:</p><p>Format errors occur when an incorrect format is used for the playlist, key or session data. If you are encountering this class of error, see the "Verifying Content" section below.</p></li><li class="li"><p>Live Playlist Update Errors:</p><p>In the case of a live stream, playlists need to be updated according to the published target duration and failure to update in time will result in a live playlist update error.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING-DISCOVERING_ERRORS" title="Discovering Errors"></a><h3 class="jump">Discovering Errors</h3><p>The AVFoundation framework provide several facilities for applications to be notified of errors that occur during the playback process from the <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayer" class="urlLink" rel="external">AVPlayer</a></span>.</p><section><a name="//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING_DISCOVERING_ERRORS-GETTING_NOTIFIED_WHEN_ERRORS_OCCUR" title="Getting Notified When Errors Occur"></a><h4 class="jump">Getting Notified When Errors Occur</h4><p>To be notified of when an error occurs, the AVFoundation client or app should register for Key-Value Observing (KVO) on the <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayer/1388096-status" class="urlLink" rel="external">AVPlayer.status</a></span> and <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritem/1389493-status" class="urlLink" rel="external">AVPlayer.currentItem.status</a></span> properties. If an error occurs at any point during the playback process, the values of these properties will change to <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayerstatus" class="urlLink" rel="external">AVPlayerStatus.failed</a></span> and <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritemstatus" class="urlLink" rel="external">AVPlayerItemStatus.failed</a></span> respectively. For the exact error that caused the status to change to <code>.failed</code>, look at <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritem/1389185-error" class="urlLink" rel="external">AVPlayerItem.error</a></span>.</p><a name="//apple_ref/doc/uid/DTS40017666-CH1-SOURCECODE1" title="Listing 1Getting notified when errors occur."></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Getting notified when errors occur.</p><div class="codesample clear"><table><tr><td scope="row"><pre>func beginPlayback () {<span></span></pre></td></tr><tr><td scope="row"><pre>    let hlsAsset = AVURLAsset(url: assetURL)<span></span></pre></td></tr><tr><td scope="row"><pre>    let playerItem = AVPlayerItem(asset: hlsAsset)<span></span></pre></td></tr><tr><td scope="row"><pre>    player = AVPlayer(playerItem: playerItem)<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    let playerObserver = player.observe(\AVPlayer.status, options: [.new, .initial]) { (player, _) in<span></span></pre></td></tr><tr><td scope="row"><pre>                if player.status == .failed {<span></span></pre></td></tr><tr><td scope="row"><pre>                    guard let error = player.currentItem?.error else { return }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>                    // Handle error accordingly.<span></span></pre></td></tr><tr><td scope="row"><pre>                }<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    let playerItemObserver = playerItem.observe(\AVPlayerItem.status, options: [.new, .initial]) { (item, _) in<span></span></pre></td></tr><tr><td scope="row"><pre>                if item.status == .failed {<span></span></pre></td></tr><tr><td scope="row"><pre>                    guard let error = item.error else { return }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>                    // Handle error accordingly.<span></span></pre></td></tr><tr><td scope="row"><pre>                }<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017666-CH1-DontLinkElementID_3" title="Important"></a><p><strong>Important:</strong>&nbsp;The User-info dictionary of <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritem/1389185-error" class="urlLink" rel="external">AVPlayerItem.error</a></span> contains the underlying error, this can be nested if more than one error is causing the failure.</p><p></p></aside></div><p>It is important to note that the <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritem/1389493-status" class="urlLink" rel="external">AVPlayerItem.status</a></span> property will only change to <code>.failed</code> after:</p><ul class="ul"><li class="li"><p>There are no viable alternate variants to use to continue playback.</p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayer" class="urlLink" rel="external">AVPlayer</a></span> has played out its current buffer.</p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING_DISCOVERING_ERRORS-GETTING_NOTIFIED_WHEN_AVPLAYERITEM_FAILED_TO_PLAY_TO_COMPLETION" title="Getting Notified When AVPlayerItem Failed To Play To Completion"></a><h4 class="jump">Getting Notified When AVPlayerItem Failed To Play To Completion</h4><p>Your application can also observe the <span class="content_text"><a href="https://developer.apple.com/documentation/foundation/nsnotification.name/1388007-avplayeritemfailedtoplaytoendtim" class="urlLink" rel="external">AVPlayerItemFailedToPlayToEndTimeNotification</a></span> to be notified if the <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritem" class="urlLink" rel="external">AVPlayerItem</a></span> did not play to completion. The <code>userInfo</code> dictionary of this notification contains the error that describes the problem that was encountered and can be retrieved using the <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritemfailedtoplaytoendtimeerrorkey" class="urlLink" rel="external">AVPlayerItemFailedToPlayToEndTimeErrorKey</a></span> key.</p><a name="//apple_ref/doc/uid/DTS40017666-CH1-SOURCECODE2" title="Listing 2Getting notified when AVPlayerItem failed to play to completion."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Getting notified when AVPlayerItem failed to play to completion.</p><div class="codesample clear"><table><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre>// Listen to notification<span></span></pre></td></tr><tr><td scope="row"><pre>NotificationCenter.default.addObserver(self,<span></span></pre></td></tr><tr><td scope="row"><pre>                                        selector:#selector(failedToPlayToEndTime:),<span></span></pre></td></tr><tr><td scope="row"><pre>                                        name: .AVPlayerItemFailedToPlayToEndTimeNotification,<span></span></pre></td></tr><tr><td scope="row"><pre>                                        object: player.currentItem)<span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017666-CH1-SOURCECODE3" title="Listing 3Responding to AVPlayerItemFailedToPlayToEndTimeNotification."></a><p class="codesample clear"><strong class="caption_number">Listing 3</strong>&nbsp;&nbsp;Responding to AVPlayerItemFailedToPlayToEndTimeNotification.</p><div class="codesample clear"><table><tr><td scope="row"><pre>func failedToPlayToEndTime(notification: Notification) {<span></span></pre></td></tr><tr><td scope="row"><pre>    guard let userInfo = notification.userInfo, let error = userInfo[AVPlayerItemFailedToPlayToEndTimeErrorKey] as? Error else {<span></span></pre></td></tr><tr><td scope="row"><pre>        return<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    // Handle Error accordingly.<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div></section><section><a name="//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING_DISCOVERING_ERRORS-GETTING_DETAILED_ERROR_LOGS" title="Getting Detailed Error Logs"></a><h4 class="jump">Getting Detailed Error Logs</h4><p>If your application needs to know all the error events that happened during the playback session for analytics or debugging then it should call <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritem/1387573-errorlog" class="urlLink" rel="external">AVPlayerItem.errorLog()</a></span> which will return an instance of <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlog" class="urlLink" rel="external">AVPlayerItemErrorLog</a></span> if errors were encountered during playback. </p><p><span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlog" class="urlLink" rel="external">AVPlayerItemErrorLog</a></span> includes an array containing <span class="content_text"><a href="https://developer.apple.com/documentation/avfoundation/avplayeritemerrorlogevent" class="urlLink" rel="external">AVPlayerItemErrorLogEvent</a></span> objects that represent the chronological sequence of events contained in the error log. </p><p>To be notified when a new entry has been added to the error log, add an observer for the <span class="content_text"><a href="https://developer.apple.com/documentation/foundation/nsnotification.name/1388450-avplayeritemnewerrorlogentry" class="urlLink" rel="external">AVPlayerItemNewErrorLogEntryNotification</a></span>.</p><a name="//apple_ref/doc/uid/DTS40017666-CH1-SOURCECODE4" title="Listing 4Getting detailed error logs."></a><p class="codesample clear"><strong class="caption_number">Listing 4</strong>&nbsp;&nbsp;Getting detailed error logs.</p><div class="codesample clear"><table><tr><td scope="row"><pre>...<span></span></pre></td></tr><tr><td scope="row"><pre>// Listen to notification<span></span></pre></td></tr><tr><td scope="row"><pre>NotificationCenter.default.addObserver(self,<span></span></pre></td></tr><tr><td scope="row"><pre>                                        selector:#selector(newErrorLogEntry),<span></span></pre></td></tr><tr><td scope="row"><pre>                                        name: .AVPlayerItemNewErrorLogEntry,<span></span></pre></td></tr><tr><td scope="row"><pre>                                        object: player.currentItem)<span></span></pre></td></tr><tr><td scope="row"><pre>...<span></span></pre></td></tr></table></div><a name="//apple_ref/doc/uid/DTS40017666-CH1-SOURCECODE5" title="Listing 5Responding to new error log entries."></a><p class="codesample clear"><strong class="caption_number">Listing 5</strong>&nbsp;&nbsp;Responding to new error log entries.</p><div class="codesample clear"><table><tr><td scope="row"><pre>func newErrorLogEntry() {<span></span></pre></td></tr><tr><td scope="row"><pre>    guard let errorLog = player.currentItem.errorLog() else {<span></span></pre></td></tr><tr><td scope="row"><pre>        return<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    for event in errorLog.events {<span></span></pre></td></tr><tr><td scope="row"><pre>        // Handle error events accordingly.<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div></section></section><section><a name="//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING-VERIFYING_CONTENT" title="Verifying Content"></a><h3 class="jump">Verifying Content</h3><p>If you are encountering format errors during playback, it is important to test the validity of any playlist streams using the Media Stream Validator tool, <code>mediastreamvalidator</code>. This tool verifies that the index file and media segments conform to the <span class="content_text"><a href="https://developer.apple.com/library/content/documentation/General/Reference/HLSAuthoringSpec/Requirements.html#//apple_ref/doc/uid/TP40016596-CH2-SW1" class="urlLink" rel="external">HTTP Live Streaming Authoring Specification for Apple Devices</a></span>. It performs several checks to ensure reliable streaming. If any errors or problems are found, a detailed diagnostic report is displayed. It is important to address the issues that the <code>mediastreamvalidator</code> finds to ensure that the AVFoundation framework handles your content in an expected way.</p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017666-CH1-DontLinkElementID_4" title="Important"></a><p><strong>Important:</strong>&nbsp;The validator does not do low-level bitstream checks, you should be using third-party tools if you think you may have issues with your encoders.</p><p></p></aside></div><p>The Authoring Specification is Apple's advice for authoring HLS content. This is different from the HTTP Live Streaming Internet-Draft which includes only absolutely necessary requirements. The Authoring Specification, on the other hand, includes requirements that are specific to Apple's players, as well as things that, while not absolutely required, are part of best practice. </p><p>iOS or Mac Developer Program members can download the latest version of the Media Stream Validator from the Apple Developer Connection website. To download, go to <span class="content_text"><a href="https://developer.apple.com/download/more/" class="urlLink" rel="external">Apple Developer Downloads</a></span>, in the search field type "HTTP Live Streaming Tools", download and install the 'HTTP Live Streaming Tools'.</p><p>Instructions for using the tools can be found in the man pages for each tool. For example, launch the Terminal app and type <code>man mediastreamvalidator</code> to see these.</p><p>Once you run the <code>mediastreamvalidator</code> against your stream, you can run the <code>hlsreport.py</code> tool which is included as part of the 'HTTP Live Streaming Tools' package. What this tool does is take the JSON output of <code>mediastreamvalidator</code> and generates an HTML page with the contents of the report. </p><div class="importantbox clear"><aside><a name="//apple_ref/doc/uid/DTS40017666-CH1-DontLinkElementID_5" title="Important"></a><p><strong>Important:</strong>&nbsp;When running the <code>mediastreamvalidator</code>, you should always run the <code>hlsreport.py</code> tool as it can surface information from the JSON that is not immediately apparent in the raw JSON output of the <code>mediastreamvalidator</code> tool.</p><p></p></aside></div><p>The document <span class="content_text"><a href="https://developer.apple.com/library/content/technotes/tn2235/_index.html" class="urlLink" rel="external">Media Stream Validator Tool Results Explained</a></span> discusses any error message that may be returned from the Media Stream Validator tool.</p><p>You may also find the following resources useful in verifying that your HLS content is authored in a way that is supported by Apple devices:</p><ul class="ul"><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/videos/play/wwdc2016/510/" class="urlLink" rel="external">WWDC 2016 - Session 510: Validating HTTP Live Streams</a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/library/content/documentation/General/Reference/HLSAuthoringSpec/Requirements.html#//apple_ref/doc/uid/TP40016596-CH2-SW1" class="urlLink" rel="external">HLS Authoring Specification for Apple Devices</a></span></p></li></ul></section><section><a name="//apple_ref/doc/uid/DTS40017666-CH1-DEBUGGING_HTTP_LIVE_STREAMING-HELPFUL_RESOURCES" title="Helpful Resources"></a><h3 class="jump">Helpful Resources</h3><ul class="ul"><li class="li"><p>General information regarding HLS on supported Apple devices and platforms:</p></li><li class="li"><p><ul class="ul"><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/streaming/" class="urlLink" rel="external">HTTP Live Streaming (HLS) - Apple Developer</a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/av-foundation/" class="urlLink" rel="external">AV Foundation - Apple Developer</a></span></p></li></ul></p></li><li class="li"><p>Information regarding authoring HLS content for devices and platforms:</p></li><li class="li"><p><ul class="ul"><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/library/content/documentation/General/Reference/HLSAuthoringSpec/index.html#//apple_ref/doc/uid/TP40016596-CH4-SW1" class="urlLink" rel="external">HLS Authoring Specification for Apple Devices</a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/videos/play/wwdc2016/510/" class="urlLink" rel="external">WWDC 2016 - Session 510: Validating HTTP Live Streams</a></span></p></li><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/videos/play/wwdc2017/515/" class="urlLink" rel="external">WWDC 2017 - Session 515: HLS Authoring Update</a></span></p></li></ul></p></li><li class="li"><p>Information regarding error handling on the server side and with AVFoundation on supported Apple devices and platforms:</p></li><li class="li"><p><ul class="ul"><li class="li"><p><span class="content_text"><a href="https://developer.apple.com/videos/play/wwdc2017/514/" class="urlLink" rel="external">WWDC 2017 - Session 514: Error Handling Best Practices for HTTP Live Streaming</a></span></p></li></ul></p></li></ul></section><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40017666-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40017666-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2017-08-25</td><td><p>Fixed URLs referenced in this document.</p></td></tr><tr><td scope="row">2017-08-04</td><td><p>New document that 
+					how to debug issues related to HTTP Live Streaming.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2017 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2017-08-25</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

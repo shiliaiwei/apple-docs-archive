@@ -1,0 +1,388 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<!-- Template 03-24-01 -->
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Mixing QuickDraw &amp; Post-Script Printing from Your App: Some Gotchas">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002874">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="TN1032.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+
+<title>Technical Note TN1032: Mixing QuickDraw &amp; Post-Script Printing from Your App: Some Gotchas</title>
+
+    <meta name="keywords" content="Mac OS 8 generating Postscript Quickdraw printing PostScriptHandle PicComment">
+    <meta name="Description" content="Technical Note TN1032: This Technical Note details techniques
+for building an application that generates PostScript directly
+and lists caveats a developer should be aware of when doing
+this. This Note is aimed at application developers who want
+to mix the PostScript and QuickDraw imaging models.">
+
+
+
+
+<meta name="categories" content="Printing and QuickDraw">
+
+
+<meta name="week-posted" content="Jan 29, 1996 - Feb 2, 1996">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002874" title="Mixing QuickDraw & Post-Script Printing from Your App: Some Gotchas"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Mixing QuickDraw & Post-Script Printing from Your App: Some Gotchas</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a NAME="top"></a>
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/index.html">Legacy Documents</a> &gt; <a href="../../technicalnotes/LegacyTechnologies/idxPrinting-date.html">Printing</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Legacy Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>This document is part of the Legacy section of the ADC Reference Library. This information should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Printing/index.html" target="_blank">Reference Library > Printing</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note TN1032</div>
+<div id="pageheadsub">Mixing QuickDraw &amp; Post-Script Printing from Your App: Some Gotchas</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+ <!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+<td width=300 valign="top" align=left scope="row">
+    <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>    
+    <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+    <td background="images/tnmenubody.gif" width=300 align=left>
+<span id="menutitle">
+    CONTENTS 
+    <BR>
+    <BR>
+</span>
+    </td>
+</tr>
+<tr bgcolor="#e6e6e6">
+    <td background="images/tnmenubody.gif" width=300 align=left>
+<!-- begin_toc -->
+<P id = "menutext">
+<a HREF = "#RTFToC1">Using the PostScriptHandle PicComment, a Friend Indeed</a><br><br>
+<a HREF = "#RTFToC2">Printing PostScript Files</a><br><br>
+<a HREF = "#RTFToC3">Summary</a><br><br>
+<a HREF = "#References">References</a><br><br>
+<a href="#Downloads">Downloadables</a></P>
+   <!-- end_toc --> 
+ </td>
+</tr>
+<tr>
+    <td width=300 align=left scope="row">
+<img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+    </td>
+</tr>
+    </table>
+</td>
+<td width=300 valign="top" align=left>
+<!-- begin_intro_text -->  
+<p id = "introtext">
+If your application generates PostScript directly, or you're considering writing an app that does, there are some techniques that will help your development efforts. This Technote explains these techniques, as well as gotchas that are either inadequately documented, or scattered across multiple documentation sources.</p>
+
+<P id = "introtext">This Note is aimed at application developers who want to mix the PostScript and QuickDraw imaging models.</p>
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3>&nbsp;Updated: [Feb 1 1996]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+ <!-- begin_content -->
+<a name="RTFToC1"></a>
+<h2>Using the PostScriptHandle PicComment, a Friend Indeed</h2>
+
+
+<P>Think of the PostScriptHandle PicComment as your friend. Use it, but be aware of its limitations. Because this PicComment lets you send huge chunks of PostScript directly to a printer, it's your obvious choice. However, there are a few gotchas that you need to consider.</p>
+
+<h3>Gotcha #1</h3>
+
+<p>
+The LaserWriter driver has control of your coordinate system.
+</p>
+
+ <P>
+This means that the normal PostScript coordinate system you know and love has been transformed, i.e., coordinates now match the QuickDraw orientation. This actually makes things easier for you. When you include the QuickDraw representation of the PostScript you're sending, the coordinate system will be the same as the one you used for the PostScript. You don't have to think about converting the coordinates. If you do
+ include a QuickDraw PICT so you can print to QuickDraw printers, you should bracket this QuickDraw representation with the <code>PostScriptBegin</code> and <code>PostScriptEnd PicComments</code>.</p>
+
+<P>Also, if the user selects 2-up or a similar option in the print driver, all the coordinates get transformed behind your back by the driver. The consequence of your app "thinking" it knows the coordinate system is that your app may end up coloring outside the lines. That's another good reason to keep things simple so you don't outsmart yourself.</p>
+
+<h3>Gotcha #2</h3>
+
+<p>
+The QuickDraw side of the imaging engine in the print driver isn't aware of any changes you make to the PostScript imaging state.
+</p>
+
+ <P>
+The LaserWriter driver attempts to save and restore the graphics state around Postscript that you're sending to the printer, but there are cases when you can confuse it. In one case, for example, your app generates PostScript which prints to multiple pages without telling the driver. Another example would be changing the PostScript pen size directly rather than via QuickDraw. In general, if you are changing the state, you need to restore it.</p>
+
+<h3>Gotcha #3</h3>
+
+<P>QuickDraw, and the Printing manager only know about pages when you signal page boundaries by calling <code>PrOpenPage</code> and <code>PrClosePage</code>.</p>
+
+<P>
+What this means to you is that any PostScript you send using the <code>PostScriptHandle PicComment</code> should be a single image. More specifically, it should meet the criteria established for an EPS image, as described in Adobe's <cite>PostScript Language Reference Manual, 2nd Edition, Appendix H</cite>.</p>
+
+<P>Following these guidelines will also help you avoid Gotcha #2.</p>
+
+<h3>Gotcha #4</h3>
+
+ <p>
+Use the right method for sending an application-specific PostScript dictionary (a.k.a. prep).
+</p>
+
+ <P>
+The <code>'PREC'</code> 103 resource has been defined as the proper place for an application to store its application-specific PostScript which needs to be sent to the printer with each job.</p>
+<P>
+  Applications which do not use this resource not only keep the
+  LaserWriter driver from optimizing the PostScript it generates, but also create compatibility problems for future versions of the
+  LaserWriter driver.</p>
+<P><a href="#top">Back to top</a></P>
+<a name="RTFToC2"></a>
+<h2>Printing PostScript Files </h2>
+
+
+<P>If you want to print complete PostScript files to a PostScript printer, you should 
+be using the PAP.WrkStation.o library, which is provided on the MacOS SDK CD. Sample code for using that library is in the works, and will appear on a future Developer CD.</p>
+
+<BR><CENTER><table BORDER=0 WIDTH=550>
+<TR><td bgcolor="#E6E6E6" align=left>
+<P><B>Note:</B><BR>
+Be sure that you're using the latest version of the library in order to avoid compatibility problems and to get the latest bug fixes from Apple. </P>
+</TD></TR></table></CENTER><BR>
+<P><a href="#top">Back to top</a></P>
+<a name="RTFToC3"></a>
+<h2>Summary</h2>
+
+
+<P>The PostScriptHandle PicComment is your friend, but even as your friend, you need to be aware of its limitations.</p>
+<P><a href="#top">Back to top</a></P>
+<a name="#Reference"></a>
+<h2>References</h2>
+<P><a href="http://developer.apple.com/documentation/mac/QuickDraw/QuickDraw-465.html">
+Inside Macintosh: Imaging with QuickDraw</a>
+, Appendix B</P>
+
+<p>PostScript Language Reference Manual, 2nd Edition
+, Appendix H</P>
+
+
+
+<BR><P><a href="#top">Back to top</a></P>
+ 
+         <a NAME=Downloads></a>
+         
+         <H2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (56K).</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/tn1032.pdf">Download</a></P>
+               </TD>
+            </TR>
+         </table>
+         <BR><BR>
+<P><a href="#top">Back to top</a></P>
+
+
+</TD></TR></table></CENTER>
+		
+<!-- end_content -->
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>

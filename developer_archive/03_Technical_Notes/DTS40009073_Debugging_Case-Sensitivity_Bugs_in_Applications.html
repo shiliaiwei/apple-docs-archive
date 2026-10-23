@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2096: Debugging Case-Sensitivity Bugs in Applications</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40009073">
+    <meta id="document-version" name="document-version" content="2.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40009073-CH1">
+    <meta id="date" name="date" content="2010-05-19">
+    <meta id="description" name="description" content="TN2096: Explains how to fix bugs that case-sensitive HFS Plus reveals in applications.">
+    <meta id="book-title" name="book-title" content="Debugging Case-Sensitivity Bugs in Applications">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Data Management/File Management}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2096">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Debugging Case-Sensitivity Bugs in Applications" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40009073" title="Technical Note TN2096"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Debugging Case-Sensitivity Bugs in Applications</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40009073-CH1-DontLinkElementID_2" title="Technical Note TN2096"></a><div class="dtsDocNumber">Technical Note TN2096</div><h1 id="pageTitle">Debugging Case-Sensitivity Bugs in Applications</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>Case-sensitive boot volumes are becoming more prevalent with the advent of case-sensitive HFS Plus, and the file system in iPhone OS is also case sensitive. Unfortunately, many applications do not work correctly on case-sensitive volumes. This technote describes techniques for tracking down case-sensitivity bugs and fixing them. It also provides suggestions for testing techniques to prevent new case sensitivity bugs from appearing in the future. This technote is intended for both Mac OS X and iPhone developers.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009073-CH1-SECTION1" data-renderer-version="1">Introduction</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009073-CH1-SECTION2" data-renderer-version="1">Tracking Down Case-Sensitivity Bugs</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009073-CH1-SECTION3" data-renderer-version="1">Avoiding Case Sensitivity Problems in the Future</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40009073-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40009073-CH1-SECTION1" title="Introduction"></a><h2 class="jump">Introduction</h2><p>Beginning in Mac OS X version 10.5, (or 10.4 Server), Mac OS X supports the case-sensitive HFS Plus volume format. Because case-sensitive HFS Plus performance is comparable to that of standard HFS Plus, case-sensitive boot volumes are becoming much more common. Time Machine and iPhone OS also use case-sensitive volumes, adding further momentum to this trend. With this rise in popularity, it no longer makes sense to assume that only a handful of your application's users will use case-sensitive volumes.</p><p>Case sensitivity brings to light many latent bugs in existing software caused by developers using capital letters to access files whose names contain lower-case letters and vice-versa. Case sensitivity also brings with it a number of challenges for application developers, who must now make certain that their applications work correctly in two environments—case-sensitive HFS Plus and case-insensitive HFS Plus. This technote shows you how to fix these problems and tackle these new challenges.</p><p>For example, the scripts in this technote can be used to detect if your application would fail (on case-sensitive HFS Plus) to load resources, find its preferences, or correctly read and write preferences shared among a suite of applications.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009073-CH1-SECTION2" title="Tracking Down Case-Sensitivity Bugs"></a><h2 class="jump">Tracking Down Case-Sensitivity Bugs</h2><p>With a few shell commands, you can make tracking down case sensitivity bugs relatively straightforward. Before you begin, you will need both a case-insensitive boot volume and a case-sensitive volume or disk image. Install your application in both places before continuing.</p><p>The process is very simple. First, boot from the case-insensitive HFS Plus volume, then save the following code as a script:</p><a name="//apple_ref/doc/uid/DTS40009073-CH1-SOURCECODE1" title="Listing 1Checking paths accessed by an application"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;Checking paths accessed by an application</p><div class="codesample clear"><table><tr><td scope="row"><pre>#!/bin/sh
+
+# Change this to be the volume name of your case-sensitive volume.
+CSVOLUMENAME="HFSPlusCS"
+
+# Change this to be the doubly quoted path to your application (see note below)
+APPLICATIONPATH="/Applications/My\ Application/My\ Application.app/Contents/MacOS/My\ Application"
+
+# This command runs your application and records all system calls into the file "fileaccess.log" in the current directory.
+sudo dtruss "$APPLICATIONPATH" &gt;&amp; fileaccess.log
+
+# The following commands pull out any file accesses from the dtruss
+# results, then strip off everything but the path itself (which appears
+# in the dtruss output as a double-quoted string terminated with a
+# backslash and a zero).
+
+grep 'open(' fileaccess.log | grep -v 'shm_open(' | sed 's/.*open("//g' | sed 's/\\0".*//g' &gt; fileaccesslist
+grep 'open_nocancel(' fileaccess.log | sed 's/.*open_nocancel("//g' | sed 's/\\0".*//g' &gt;&gt; fileaccesslist
+grep 'stat(' fileaccess.log |  grep -v 'fstat(' | grep -v 'getfsstat(' | sed 's/.*stat("//g' | sed 's/\\0".*//g' &gt;&gt; fileaccesslist
+grep 'stat64(' fileaccess.log | grep -v 'fstat64(' | sed 's/.*stat64("//g' | sed 's/\\0".*//g' &gt;&gt; fileaccesslist
+grep 'getattrlist(' fileaccess.log | sed 's/.*getattrlist("//g' | sed 's/\\0".*//g' &gt;&gt; fileaccesslist
+
+
+# This checks to see if the file exists in the current boot volume
+# (case-insensitive), then checks to see if the same file exists on
+# the case-sensitive volume.
+for i in $(cat fileaccesslist) ; do
+    if [ -f "$i" -a ! -f "$CSVOLUMENAME/$i" ] ; then
+        echo "$i"
+    fi
+done<span></span></pre></td></tr></table></div><p>Now, fix the following:</p><ul class="ul"><li class="li"><p>Adjust the path to your application and the name of the volume (if it is not called <code>HFSPlusCS</code>). For example, if you are developing an iPhone application, you would set the <code>APPLICATIONPATH</code> variable to <code>"/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app/Contents/MacOS/iPhone\ Simulator"</code> (including the double quotes).</p></li><li class="li"><p>Quote the application name (in)correctly. The path of the application passed to <code>dtruss</code> must be doubly quoted, with backslashes before spaces, single quotes, or double quotes, and with an extra set of double quotes around the outside. This is because <code>dtruss</code> is a shell script that does not correctly quote these paths internally. If this bug in <code>dtruss</code> is fixed in the future, simply remove either the backslashes or the double quotes.</p></li></ul><p>Be certain that you have a newline character (use UNIX line endings) between quotes in the <code>IFS</code> assignment statement (and <strong>only</strong> a newline). Read <span class="content_text"><a href="../../documentation/OpenSource/Conceptual/ShellScripting/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004268-TP40003516" data-renderer-version="1" target="_self">Shell Scripting Primer</a></span> to learn about the internal field separator (<code>IFS</code>) variable.</p><p>Next, type <code>chmod a+x testscript.sh</code> (or whatever you named your copy of the test script) to make it executable. Be sure that the case-sensitive volume or disk image is mounted, then  type <code>./testscript.sh</code> to run the script.</p><p>Test your application as you normally would. When you are done, quit the application. As soon as you quit the application, you should get a list of every single file in your application bundle that was accessed with incorrect case. Now search for each of these in Xcode (with the "Ignore case" option <strong>unchecked</strong>), find the erroneous strings, and fix them. It's that simple.</p><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40009073-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;This script will likely produce a few false positives. Specifically, any files that your application creates from scratch (temporary files, preferences files, files opened or saved by the user, and so on) obviously do not exist on the case-sensitive volume, and thus will be reported as missing files unless you copy them to the case-sensitive volume manually. It should be relatively easy to ignore these, assuming you have a standard naming convention for such files, but the details are specific to your application. To learn how to customize this script, read <span class="content_text"><a href="../../documentation/OpenSource/Conceptual/ShellScripting/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004268-TP40003516" data-renderer-version="1" target="_self">Shell Scripting Primer</a></span>.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40009073-CH1-SECTION3" title="Avoiding Case Sensitivity Problems in the Future"></a><h2 class="jump">Avoiding Case Sensitivity Problems in the Future</h2><p>You should always build and test iPhone applications using a case-sensitive volume. Using a case-insensitive file system can lead to new bugs showing up when you move from the simulator to an actual iPhone. And because iPhone OS uses a case-sensitive file system exclusively, there is no benefit to testing iPhone applications on case-insensitive volumes at all.</p><p>When developing applications for Mac OS X, the easiest way to avoid case sensitivity problems is simple: do most of your testing on case-sensitive HFS Plus. If you always test on case-sensitive HFS Plus, unless you go out of your way to break things (intentionally creating temporary files that have the same name as open documents, but with different case, for example), the only problem you are likely to encounter is having two different files in your project with the same name and different case. You can trivially check for that as follows:</p><a name="//apple_ref/doc/uid/DTS40009073-CH1-SOURCECODE2" title="Listing 2Checking for case collisions"></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;Checking for case collisions</p><div class="codesample clear"><table><tr><td scope="row"><pre># List all the files in your application bundle and store the results in the file "filelist" in your home directory.
+cd "/Applications/My Application.app"
+find . &gt; ~/filelist
+
+# Change back to your home directory
+cd ~
+
+# Sort the files, folding uppercase and lowercase versions together.
+# The result is stored in the file "filelist2" in your home directory.
+sort -f filelist &gt; filelist2
+# Sort the files, folding uppercase and lowercase versions together and removing duplicates (insensitively)
+# The result is stored in the file "filelist3" in your home directory.
+sort -f -u filelist &gt; filelist3
+
+# Compare the two lists.
+diff -u filelist2 filelist3<span></span></pre></td></tr></table></div><p>By performing a case-insensitive (folding) sort and eliminating duplicates, any files that differ only by case will not be in the second copy of the list. Thus, comparing the two lists shows you any files that would collide on a case-insensitive volume. You can also use this technique on other folders to help find the sorts of strange bugs that occur if you open a preferences file or temporary file for writing with the wrong case and later read back an older (stale) copy using the right case.</p><p>Alternatively, you can use a case-insensitive volume as the target volume for your builds. If two files have the same name but different case, the files will collide at the build stage instead of during installation. This allows you to focus most of your testing on case-sensitive volumes.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40009073-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40009073-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-05-19</td><td><p>Fixed minor bugs in the scripts.</p></td></tr><tr><td scope="row">2009-08-04</td><td><p>New document that 
+					explains how to fix bugs that case-sensitive HFS Plus reveals in applications.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-05-19</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

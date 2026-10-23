@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Q&amp;A QA1718: Audio Queue playback sample time and buffer sample time explained</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Q&A">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40010356">
+    <meta id="document-version" name="document-version" content="1.1.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40010356-CH1">
+    <meta id="date" name="date" content="2010-09-20">
+    <meta id="description" name="description" content="QA1718: Describes how the audio queue playback sample time relates to an enqueued buffers sample time and discusses AudioQueueEnqueueBufferWithParameters.">
+    <meta id="book-title" name="book-title" content="Audio Queue playback sample time and buffer sample time explained">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Q&A}, {Technologies/Media Layer/AudioToolbox}, {Topic/Audio, Video, & Visual Effects/Audio}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Q&A QA1718">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="Audio Queue playback sample time and buffer sample time explained" type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40010356" title="Technical Q&amp;A QA1718"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>Audio Queue playback sample time and buffer sample time explained</h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40010356-CH1-DontLinkElementID_2" title="Technical Q&amp;A QA1718"></a><div class="dtsDocNumber">Technical Q&amp;A QA1718</div><h1 id="pageTitle">Audio Queue playback sample time and buffer sample time explained</h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><h2>Q:&nbsp;
+Can you explain how the timeline an audio queue object is using relates to a buffer being queued for playback at a given time?
+</h2><p><span>A: </span>Can you explain how the timeline an audio queue object is using relates to a buffer being queued for playback at a given time?</p><p>An audio queue object uses what is referred to as the playback timeline, this is <strong>the number of samples that have elapsed since the audio queue was started</strong>. When an audio queue object is first started, the playback timeline value is always 0.</p><p>To understand how the audio queue timeline relates to the buffers being queued, let's imagine a simple scenario using a single audio buffer containing 10,000 samples. An application enqueues this buffer and starts an audio queue. As the queue plays the buffer a first time, the audio queue timeline value directly reflects where the audio queue object is in relation  to the audio buffer being played. For example, if the queue is halfway though the buffer, the audio queue timeline value is 5,000 because the queue would be at sample 5,000 in the buffer. </p><p>As the queue continues to play, the application enqueues the buffer a second time via the <code>AudioQueueOutputCallback</code> callback. The audio queue timeline continues to increment. The timeline for example, may now have a value of 15,000, indicating it is halfway though the second enqueued buffer of 10,000 samples and therefore is at sample 5,000 in the second audio buffer.</p><p>Let's now assume the <code>AudioQueueOutputCallback</code> is invoked again but this time the application would like to wait 100,000 samples before having the audio buffer play again, creating a gap in the playback. To do so you must use the <code>AudioQueueEnqueueBufferWithParameters</code> function with a <code>AudioTimeStamp</code> value of 120,000 provided for the <code>inStartTime</code> parameter.</p><p>Where does the sample time of 120,000 come from?</p><ul class="ul"><li class="li"><p>10,000 - Duration of the first buffer.</p></li><li class="li"><p>+ 10,000 - Duration of the second buffer.</p></li><li class="li"><p>+ 100,000 - Gap the application wanted.</p></li><li class="li"><p>= 120,000 - Audio queue timeline value at this moment in the queue.</p></li></ul><p>This works because the audio queue is still playing and still incrementing the playback timeline, but won't actually play the enqueued buffer until the "playback head" gets to the sample time that was provided when enqueuing the buffer (120,000). When the audio queue reaches this sample time, it plays the first sample (0) of the new 10,000 sample audio buffer. When the audio queue playback timeline value reaches 125,000 it is once again halfway (5,000 samples) through the audio buffer.</p><section><a name="//apple_ref/doc/uid/DTS40010356-CH1-SECTION1" title="Trimming Samples"></a><h2 class="jump">Trimming Samples</h2><p>Applications may also pass  trimming parameters such as <code>inTrimFramesAtStart</code> to the <code>AudioQueueEnqueueBufferWithParameters</code> function, further controlling playback. The <code>inTrimFramesAtStart</code> parameter tells the audio queue to trim a specific amount of samples off the beginning of the audio buffer that is being enqueued. To trim samples off the end of a buffer, use the <code>inTrimFramesAtEnd</code> parameter instead. Both parameters may also be used together.</p><p>Let's assume that the next time the <code>AudioQueueOutputCallback</code> callback is invoked the applications wants to skip over the first 5,000 samples in the audio buffer. It would use the <code>AudioQueueEnqueueBufferWithParameters</code> function with the <code>inStartTime</code> parameter set to <code>NULL</code>. This tell the audio queue object to play back the buffer immediately after the previous buffer finishes. The application would also provide the value of 5,000 for the <code>inTrimFramesAtStart</code> parameter, informing the audio queue to not play the first 5,000 samples in  the buffer.</p><p>This invocation of the <code>AudioQueueEnqueueBufferWithParameters</code> function changes the buffer sample duration for the enqueuing operation. The 10,000 sample audio buffer is now effectively trimmed to 5,000 samples. The buffer plays back immediately from the trimmed offset from the start of the audio buffer as soon as the audio queue finishes playing the previously enqueued buffer. There is no gap.</p><p>What will the audio  queue's timeline value be after this trimmed buffer is played?</p><ul class="ul"><li class="li"><p>120,000 - Our previous queue timeline value.</p></li><li class="li"><p>+ 10,000 - Previous queued buffer with the gap before it.</p></li><li class="li"><p>+ 5,000 - Duration of the trimmed buffer.</p></li><li class="li"><p>= 135,000 - Sample time at this moment in the queue.</p></li></ul><div class="notebox"><aside><a name="//apple_ref/doc/uid/DTS40010356-CH1-DontLinkElementID_3" title="Note"></a><p><strong>Note:</strong>&nbsp;While a single audio buffer was used in this discussion to clearly demonstrate the difference between the audio queue playback sample timeline and an audio buffer's "sample time", the example would work just as well with multiple audio buffers.</p><p></p></aside></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40010356-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40010356-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2010-09-20</td><td><p>New document that 
+					describes how the audio queue playback sample time relates to an enqueued buffers sample time and discusses AudioQueueEnqueueBufferWithParameters.</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2010 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2010-09-20</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

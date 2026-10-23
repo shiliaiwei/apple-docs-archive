@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <title>Technical Note TN2169: High Precision Timers in iOS / OS X </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta charset="utf-8">
+    <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS40013172">
+    <meta id="document-version" name="document-version" content="1.0.0">
+    <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+    <meta id="chapterId" name="chapterId" content="DTS40013172-CH1">
+    <meta id="date" name="date" content="2013-03-05">
+    <meta id="description" name="description" content="TN2169: The note will cover the do's and dont's of using high precision timers on iOS and OS X.">
+    <meta id="book-title" name="book-title" content="High Precision Timers in iOS / OS X ">
+    <meta id="book-root" name="book-root" content="./">
+    <meta id="book-json" name="book-json" content="book.json">
+    <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+    <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+    <meta id="reflib" name="reflib" content="Documentation Archive">
+    <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}, {Topic/Performance}">
+    
+    
+    <meta id="copyright" name="copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+    <meta id="xcode-display" name="xcode-display" content="render">
+    <meta id="IndexTitle" name="IndexTitle" content="Technical Note TN2169">
+    <meta id="resources-uri" name="resources-uri" content="../../Resources/1282">
+    <link id="book-index-page" rel="Start" title="High Precision Timers in iOS / OS X " type="text/html" href="index.html">
+    <link id="next-page" rel="Next" type="text/html" href="">
+    <link id="previous-page" rel="Prev" type="text/html" href="">
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css">
+    
+    <!-- xcode_css -->
+    <link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta id="platforms" name="platforms" content="">
+</head>    
+<body><a name="//apple_ref/doc/uid/DTS40013172" title="Technical Note TN2169"></a>
+    <div id="_omniture_top">
+    <!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+    <script type="text/javascript">
+    /* RSID: */
+    var s_account="awdappledeveloper"
+    </script>
+
+    <script type="text/javascript" src="https://developer.apple.com/assets/metrics/scripts/analytics.js"></script>
+    <script type="text/javascript">
+    s.channel="www.documentationarchive.developer"
+
+    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    var s_code=s.t();if(s_code)document.write(s_code)</script>
+    <!-- End SiteCatalyst code version: H.8. -->
+    </div>
+    <div id="adcHeader" class="hideOnPrint hideInXcode">
+        <div id='ssi_Header' class="hideInXcode unified">
+            <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+            <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+            <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+        </div>
+        <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+            <label for='adcsearch'>Search Documentation Archive</label>
+            
+            
+    
+            <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+        </form>
+    </div>
+
+    <header id="header">
+        <div id="title" role="banner">
+            <h1>High Precision Timers in iOS / OS X </h1>
+            <span id="file_links">
+                <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+            </span>
+        </div>
+        <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+            <li id="toc_button" style="display:none">
+                <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents"><span class="disclosure"></span>Table of Contents</button>
+            </li>
+            <li id="jumpto_button" style="display:none" role="navigation"><select tabindex="6" id="jumpTo"><option value="top">Jump To&#133;</option></select></li>
+            <li id="downloadSample_button" style="display:none">
+                <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+            </li>
+        </ul>
+    </header>
+    <nav id="tocContainer" tabindex="7">
+        <ul id="toc" role="tree"></ul>
+    </nav>
+
+    <article id="contents" tabindex="0" role="main" class="dts_doc">
+        <!-- CONTENTS -->
+        <div id="pageNavigationLinks_top" class="pageNavigationLinks">
+            
+        </div>
+        <a id="top" name="top"></a>
+        <a id="INDEX" href="index.html" style="display:none;"></a>
+        
+        <a name="//apple_ref/doc/uid/DTS40013172-CH1-DontLinkElementID_2" title="Technical Note TN2169"></a><div class="dtsDocNumber">Technical Note TN2169</div><h1 id="pageTitle">High Precision Timers in iOS / OS X </h1><div class="importantbox clear"><aside><p><strong>Important:</strong>&nbsp;This document is no longer being updated. For the latest information about Apple SDKs, visit the <span class="content_text"><a href="https://developer.apple.com/documentation" class="urlLink" rel="external">documentation website</a></span>.</p><p></p></aside></div><p>The note will cover the do's and dont's of using high precision timers on iOS and OS X.</p>
+
+   
+    <div class="outerMiniTOC">
+
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013172-CH1-TNTAG1000" data-renderer-version="1">High Precision Timers in iOS / OS X</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013172-CH1-TNTAG2000" data-renderer-version="1">Do I need a high precision timer?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013172-CH1-TNTAG3000" data-renderer-version="1">A suggestion for synchronizing with display updates</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013172-CH1-TNTAG4000" data-renderer-version="1">How do timers work?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013172-CH1-TNTAG5000" data-renderer-version="1">How do high precision timers work?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013172-CH1-TNTAG6000" data-renderer-version="1">How do I get put into the real time scheduling class?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013172-CH1-TNTAG8000" data-renderer-version="1">Which timing API(s) should I use?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013172-CH1-TNTAG10000" data-renderer-version="1">How accurate should high precision timers be?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013172-CH1-TNTAG11000" data-renderer-version="1">What are the do's and dont's of code running with high precision timers?</a>
+                
+                
+                
+            </div>
+            
+        
+			
+            <div>
+                <a href="#//apple_ref/doc/uid/DTS40013172-RevisionHistory-DontLinkElementID_1" data-renderer-version="1">Document Revision History</a>
+                
+                
+                
+            </div>
+            
+        
+    </div>
+
+<section><a name="//apple_ref/doc/uid/DTS40013172-CH1-TNTAG1000" title="High Precision Timers in iOS / OS X"></a><h2 class="jump">High Precision Timers in iOS / OS X</h2><p>The note will cover the do's and dont's of using high precision timers on iOS and OS X.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013172-CH1-TNTAG2000" title="Do I need a high precision timer?"></a><h2 class="jump">Do I need a high precision timer?</h2><p>Don't use a high precision timer unless you really need it. They consume compute cycles and battery. There can only be a limited number of high precsion timers active at once. A high precision timer is "first in line", and not every timer can be first. When too many try, all the timers lose accuracy.</p><p>Example applications that are candidates for high precision timers are games that need to provide precise frame rates, or daemons that are streaming data to hardware with limited buffering, such as audio or video data.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013172-CH1-TNTAG3000" title="A suggestion for synchronizing with display updates"></a><h2 class="jump">A suggestion for synchronizing with display updates</h2><p>If you're writing code that needs to synchronize with frame buffer or display updates, Apple has already done much of the hard work for you. If you are developing for iOS, please see the CADisplayLink class, found in the QuartzCore.framework. If you are targeting OS X, see CVDisplayLink, also found in QuartzCore.framework.</p><p><span class="content_text"><a href="https://developer.apple.com/library/ios/#documentation/QuartzCore/Reference/CADisplayLink_ClassRef/Reference/Reference.html#//apple_ref/doc/uid/TP40009031" class="urlLink" rel="external">iOS: CADisplayLink Class Reference</a></span></p><p><span class="content_text"><a href="http://developer.apple.com/library/mac/#documentation/QuartzCore/Reference/CVDisplayLinkRef/Reference/reference.html" class="browserLink" >OS X: CVDisplayLink Reference</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013172-CH1-TNTAG4000" title="How do timers work?"></a><h2 class="jump">How do timers work?</h2><p>There are many API's in iOS and OS X that allow waiting for a specified period of time. They may be Objective C or C, and they take different kinds of arguments, but they all end up using the same code inside the kernel. Each timer api tells the kernel it needs to wait until a certain time, for example 10 seconds from now. The kernel keeps track of every thread, and when a timer request comes in, that thread is marked as "I'd like to run in 10 seconds".</p><p>The kernel tries to be as frugal as possible with cpu cycles, so if there is no other work to do, it will put the cpu's to sleep for 10 seconds, then wake up and run your thread.</p><p>Of course, that is an optimum situation, and in the real world, things never seem to work that easily! In a real situation, there are many threads that want to run, and many threads making timer requests, and the kernel has to manage them all. With thousands of threads and only a few cpu's, its easy to see how timers might be inaccurate.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013172-CH1-TNTAG5000" title="How do high precision timers work?"></a><h2 class="jump">How do high precision timers work?</h2><p>The only difference between a regular timer and a high precision timer is the scheduling class of the thread making the timer request. Threads that are in the real time scheduling class get first class treatment. They go to the front of the line whenever they need to run. If there is a conflict with multiple threads wanting to run in 10 seconds, a real time thread always goes first.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013172-CH1-TNTAG6000" title="How do I get put into the real time scheduling class?"></a><h2 class="jump">How do I get put into the real time scheduling class?</h2><a name="//apple_ref/doc/uid/DTS40013172-CH1-SOURCECODE1" title="Listing 1The following code will move a pthread to the real time scheduling class"></a><p class="codesample clear"><strong class="caption_number">Listing 1</strong>&nbsp;&nbsp;The following code will move a pthread to the real time scheduling class</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;mach/mach.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>#include &lt;mach/mach_time.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>#include &lt;pthread.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>void move_pthread_to_realtime_scheduling_class(pthread_t pthread)<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    mach_timebase_info_data_t timebase_info;<span></span></pre></td></tr><tr><td scope="row"><pre>    mach_timebase_info(&amp;timebase_info);<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    const uint64_t NANOS_PER_MSEC = 1000000ULL;<span></span></pre></td></tr><tr><td scope="row"><pre>    double clock2abs = ((double)timebase_info.denom / (double)timebase_info.numer) * NANOS_PER_MSEC;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    thread_time_constraint_policy_data_t policy;<span></span></pre></td></tr><tr><td scope="row"><pre>    policy.period      = 0;<span></span></pre></td></tr><tr><td scope="row"><pre>    policy.computation = (uint32_t)(5 * clock2abs); // 5 ms of work<span></span></pre></td></tr><tr><td scope="row"><pre>    policy.constraint  = (uint32_t)(10 * clock2abs);<span></span></pre></td></tr><tr><td scope="row"><pre>    policy.preemptible = FALSE;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>    int kr = thread_policy_set(pthread_mach_thread_np(pthread_self()),<span></span></pre></td></tr><tr><td scope="row"><pre>                   THREAD_TIME_CONSTRAINT_POLICY,<span></span></pre></td></tr><tr><td scope="row"><pre>                   (thread_policy_t)&amp;policy,<span></span></pre></td></tr><tr><td scope="row"><pre>                   THREAD_TIME_CONSTRAINT_POLICY_COUNT);<span></span></pre></td></tr><tr><td scope="row"><pre>    if (kr != KERN_SUCCESS) {<span></span></pre></td></tr><tr><td scope="row"><pre>        mach_error("thread_policy_set:", kr);<span></span></pre></td></tr><tr><td scope="row"><pre>        exit(1);<span></span></pre></td></tr><tr><td scope="row"><pre>    }<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><p>The period, computation, constraint, and preemptible fields do have an effect, and more can be learned about them at:</p><p><span class="content_text"><a href="https://developer.apple.com/library/mac/documentation/Darwin/Conceptual/KernelProgramming/scheduler/scheduler.html#//apple_ref/doc/uid/TP30000905-CH211-BABHGEFA" class="urlLink" rel="external">Using the Mach Thread API to Influence Scheduling</a></span></p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013172-CH1-TNTAG8000" title="Which timing API(s) should I use?"></a><h2 class="jump">Which timing API(s) should I use?</h2><p>As mentioned above, all the timer methods end up in the same place inside the kernel. However, some of them are more efficient than the others. At the time this note was written, mach_wait_until() is the api we would recommend using. It has the lowest overhead of all the timing API that we measured. However, if you have specific needs that aren't met by mach_wait_until(), for example you need to wait on a condvar, then feel free to use the appropriate timer API.</p><a name="//apple_ref/doc/uid/DTS40013172-CH1-SOURCECODE2" title="Listing 2This example code demonstrates using mach_wait_until() to wait exactly 10 seconds."></a><p class="codesample clear"><strong class="caption_number">Listing 2</strong>&nbsp;&nbsp;This example code demonstrates using mach_wait_until() to wait exactly 10 seconds.</p><div class="codesample clear"><table><tr><td scope="row"><pre>#include &lt;mach/mach.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre>#include &lt;mach/mach_time.h&gt;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>static const uint64_t NANOS_PER_USEC = 1000ULL;<span></span></pre></td></tr><tr><td scope="row"><pre>static const uint64_t NANOS_PER_MILLISEC = 1000ULL * NANOS_PER_USEC;<span></span></pre></td></tr><tr><td scope="row"><pre>static const uint64_t NANOS_PER_SEC = 1000ULL * NANOS_PER_MILLISEC;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>static mach_timebase_info_data_t timebase_info;<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>static uint64_t abs_to_nanos(uint64_t abs) {<span></span></pre></td></tr><tr><td scope="row"><pre>    return abs * timebase_info.numer  / timebase_info.denom;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>static uint64_t nanos_to_abs(uint64_t nanos) {<span></span></pre></td></tr><tr><td scope="row"><pre>    return nanos * timebase_info.denom / timebase_info.numer;<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr><tr><td scope="row"><pre> <span></span></pre></td></tr><tr><td scope="row"><pre>void example_mach_wait_until(int argc, const char * argv[])<span></span></pre></td></tr><tr><td scope="row"><pre>{<span></span></pre></td></tr><tr><td scope="row"><pre>    mach_timebase_info(&amp;timebase_info);<span></span></pre></td></tr><tr><td scope="row"><pre>    uint64_t time_to_wait = nanos_to_abs(10ULL * NANOS_PER_SEC);<span></span></pre></td></tr><tr><td scope="row"><pre>    uint64_t now = mach_absolute_time();<span></span></pre></td></tr><tr><td scope="row"><pre>    mach_wait_until(now + time_to_wait);<span></span></pre></td></tr><tr><td scope="row"><pre>}<span></span></pre></td></tr></table></div><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013172-CH1-TNTAG10000" title="How accurate should high precision timers be?"></a><h2 class="jump">How accurate should high precision timers be?</h2><p>Timer accuracy depends on many factors, including the type of hardware being run on, the load on that hardware, and the power available (battery vs plugged in). However, if an otherwise unloaded machine or device is consistently missing your scheduled time by more than 500 microseconds,  that should be considered an error, please file a bug with Apple. Often times we can do much better than that, but its best to measure for yourself.</p><p>Timers are not accurate across a sleep and wake cycle of the hardware.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><section><a name="//apple_ref/doc/uid/DTS40013172-CH1-TNTAG11000" title="What are the do's and dont's of code running with high precision timers?"></a><h2 class="jump">What are the do's and dont's of code running with high precision timers?</h2><p>Do use as little cpu as possible during your timer loop. Remember that your thread now has special privileges, and when you're running, no one else can. Do try to stretch out your timer requests as much as you safely can. This allows the kernel to use less battery by sleeping more often and longer.</p><p>Don't spin loop! This burns cpu and battery at very high rates, and when newer faster hardware is released you'll burn cpu and battery even faster!</p><p>Don't create large numbers of real time threads. Real time scheduling isn't magic, it works by making your thread higher priority than other threads on the system. If everyone tries to crowd to the front of the line, all the real time threads will fail.</p><div class="back_to_top"><a href="#top">Back to Top</a></div></section><br/><hr/><a name="//apple_ref/doc/uid/DTS40013172-CH1-DontLinkElementID_1" title="Document Revision History"></a><a name="//apple_ref/doc/uid/DTS40013172-RevisionHistory-DontLinkElementID_1" title="Document Revision History"></a><h4>Document Revision History</h4><br/><table class="graybox revision-history" border="0" cellspacing="0" cellpadding="5"><colgroup span="1"><col width="145" /></colgroup><tr><th scope="col" align="left"><strong>Date</strong></th><th scope="col" align="left"><strong>Notes</strong></th></tr><tr><td scope="row">2013-03-05</td><td><p>New document that 
+					the note will cover the do's and dont's of using high precision timers on iOS and OS X.
+</p></td></tr></table><br/>
+        <div id="pageNavigationLinks_bottom" class="pageNavigationLinks">
+            
+        </div><br/>
+        <div class="copyright"><br/><hr /><div align="center"><p class="content_text" lang="en" dir="ltr"> Copyright &#x00a9; 2013 Apple Inc. All Rights Reserved.  <a href="http://www.apple.com/legal/internet-services/terms/site.html" target="_blank">Terms of Use</a>   |  <a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a>  |  Updated: 2013-03-05</p></div></div>
+
+        <!-- /CONTENTS -->
+        <div id="pediaWindow">
+            <div id="pediaHeader"></div>
+            <div id="pediaBody"></div>
+        </div>
+    </article>
+
+    
+    <script charset="utf-8" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+    <script src="../../Resources/1282/JavaScript/library.js"></script>
+</body>
+</html>

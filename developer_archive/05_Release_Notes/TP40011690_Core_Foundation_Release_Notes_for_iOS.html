@@ -1,0 +1,209 @@
+<HTML>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Release Note">
+            <meta id="book-title" name="book-title" content="Core Foundation Release Notes for iOS">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Release Note}, {Technologies/Core Services Layer/CoreFoundation}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40011690">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="Describes new features, notes, and known issues for the Core Foundation framework in iOS 5.">
+            <meta id="resources-uri" name="resources-uri" content="../../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="iOS,watchOS">
+<link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../../Resources/1282/CSS/feedback.css" />
+
+<TITLE>iOS Developer Release Note</TITLE>
+
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/TP40011690" title="Core Foundation Release Notes for iOS"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Core Foundation Release Notes for iOS</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              
+iOS Release Notes Copyright &copy; 2011 Apple Inc.  All Rights Reserved.<BR>
+<BR><BR><BR>
+<H1>
+iOS 5 Release Notes
+<BR>
+CoreFoundation Framework
+</H1>
+<BR><BR>
+CoreFoundation (aka CF) is a framework which provides C APIs for strings, collections, user preferences, property lists, plug-ins, bundles, notifications, runloop, etc. These APIs are designed with portability, performance, and consistency in mind, and are available to Cocoa Touch applications.
+<BR><BR>
+CoreFoundation is accessible directly as a public framework.
+<BR>
+<BR><BR>
+<HR>
+<BR><BR>
+
+<H4>
+CFXMLParser
+</H4>
+CFXMLParser and CFXMLNode are deprecated. CFXMLParser has some deficiencies in terms of standards compliance and performance, and clients should migrate their uses of the CFXMLParser classes over to NSXMLParser, NSXMLDocument, or other XML parsing technologies on iOS 5.
+<BR><BR><BR>
+
+<H4>
+CFPreferences and Threading
+</H4>
+In earlier releases of iOS, CFPreferences (and NSUserDefaults) serialized all access; if you've been avoiding using the preferences system in heavily threaded apps due to contention, this should be greatly improved.
+<BR><BR><BR>
+
+<H4>
+CFPreferencesAppSynchronize() and automatic synchronization
+</H4>
+CFPreferences now uses the automatic synchronization system for the current application's domain that NSUserDefaults has always used. Additionally, automatic synchronization is now non-blocking in most cases. You should consider any calls to CFPreferencesAppSynchronize() carefully to see if they're really necessary, as you can avoid blocking IO by removing them.
+<BR><BR><BR>
+
+<H4>
+CFPreferences euid/uid handling
+</H4>
+Prior to iOS 5, CFPreferences (and therefore NSUserDefaults) would change the owner of the plist files it wrote to the uid/gid of the application writing to preferences. In iOS 5, for apps linked against iOS 5 or later, the file will be owned by the euid/egid instead. You can temporarily revert to the old behavior for testing purposes by setting __CFPREFERENCES_USE_OLD_UID_BEHAVIOR to a non-null value in your environment. This will primarily impact applications with privileged helper tools that write to the preferences of non-privileged apps such as the Dock or the parent process.
+<BR><BR><BR>
+
+<H4>
+CFString Hyphenation
+</H4>
+CFString now includes a facility for locating potential hyphenation points within a word.  This is intended for the use of text layout engines such as NSTypesetter, when automatic hyphenation is enabled.  Hyphenation depends heavily on the language of the text to be hyphenated, and the CFStringGetHyphenationLocationBeforeIndex() requires that this be specified as a CFLocale.  Hyphenation data is available only for certain languages, currently English (US and GB), French, German, Italian, Spanish, Dutch, and Russian, although this list may be expanded in the future.  A runtime determination of whether hyphenation data is available for a given language may be made using CFStringIsHyphenationAvailableForLocale().
+<BR><BR>
+The functions associated with the hyphenation facility are as follows:
+<BR>
+<PRE><TT>CFIndex CFStringGetHyphenationLocationBeforeIndex(CFStringRef string, CFIndex location, CFRange limitRange,<BR>                                      CFOptionFlags options, CFLocaleRef locale, UTF32Char *character);</TT></PRE>
+<PRE><TT>Boolean CFStringIsHyphenationAvailableForLocale(CFLocaleRef locale);</TT></PRE>
+<BR>
+To use CFStringGetHyphenationLocationBeforeIndex(), a client should pass in a string containing the text intended to be hyphenated, a location before which a hyphenation point is to be found, a range limiting the portion of the text to be examined, and the locale.  The return value will be an index within the string where it is appropriate to insert a hyphen, or CFNotFound if none is found that is both before the specified location and within the limiting range.  There may be cases in certain languages in which a character other than the standard hyphen is used to indicate hyphenation, and the character argument is intended to return a suggested character by reference; clients may pass NULL for this argument if they are not interested in this information.
+<BR><BR><BR>
+
+<H4>
+CFStringGetFileSystemRepresentation</H4>
+CFStringGetFileSystemRepresentation() will now return false for any input string which contains embedded null characters, rather than returning a what is effectively a truncated (and outright wrong) string.<BR>
+<BR><BR>
+
+<H4>
+CFStringCapitalize
+</H4>
+The capitalization logic is enhanced to support the digraph, &quot;IJ&quot;, with Dutch locale.<BR>
+<BR><BR>
+
+<H4>
+CoreFoundation Unicode Database
+</H4>
+The CoreFoundation Unicode Database is updated to version 6.0.
+<BR><BR><BR>
+
+<H4>
+kCFCompareForcedOrdering and kCFCompareNumerically with CFStringCompareWithOptionsAndLocale()
+</H4>
+We were not able to force ordering for differences in numeric characters when the two numeric values are equal.  Also, in some cases, we were not producing ideal results (i.e. 001 &lt; 01).  We're evaluating the ordering based on the number of digits involved in the numeric value.
+<BR><BR><BR>
+
+
+<H4>
+Distributed notification delivery
+</H4>
+If you want a posted distributed notification to be received immediately, be sure you are passing the CFNotificationSuspensionBehaviorDeliverImmediately suspension behavior flag when registering for the notification, or using the kCFNotificationDeliverImmediately flag when posting.  Bugs in iOS releases prior to 5.0 meant that sometimes a distributed notification would get delivered through to suspended observers, and not be properly queued, even when those flags weren't used.
+<BR><BR><BR>
+
+<H4>
+CFCalendar
+</H4>
+The CFCalendar algorithms have several differences depending on which OS SDK version you build your app against.  CFCalendarGetRangeOfUnit() can produce materially different results for iOS 2, 3, 4/5.  CFCalendarGetOrdinalityOfUnit() can produce materially different results for iOS 2/3 and iOS 4/5.  CFCalendarComposeAbsoluteTime() can produce different results on iOS 5 than previous releases when working with Week units.
+<BR><BR>
+But of course, most of the algorithms can produce different results between OS releases, as bugs are fixed or changes made, either in Foundation or CoreFoundation or in libraries beneath them.  The differences noted in the previous paragraph are the significant ones.
+<BR><BR>
+There are 3 new Week-related unit/component constants in CFCalendar:
+<BR>
+<PRE><TT>kCFCalendarUnitWeekOfMonth, kCFCalendarUnitWeekOfYear, kCFCalendarUnitYearForWeekOfYear</TT></PRE>
+and the values of these quantities are week numbers or amounts relating to the month or the year that the week is in, and the year number for week-based interpretations of a calendar, such as the ISO 8601 calendar.
+<BR><BR>
+For many operations, there is no difference in meaning between kCFCalendarUnitWeekOfMonth and kCFCalendarUnitWeekOfYear, but for some there is a difference.  Obviously getting the ordinality of a week with the month will usually give a different answer than the ordinality of the week within the year.  The kCFCalendarUnitWeek constant is not yet officially deprecated, but its use in new code is discouraged.  It has a behavior like either kCFCalendarUnitWeekOfMonth or kCFCalendarUnitWeekOfYear, as the case may be, to give it behavior like it had prior to iOS 5.
+<BR><BR><BR>
+
+<H4>
+CFURL
+</H4>
+We've added lots of new resource property keys.<BR>
+
+The functions CFURLCreateBookmarkDataFromFile() and CFURLWriteBookmarkDataToFile() have been introduced to iOS 5.0.  They were previously introduced to Mac OS X 10.6.
+<BR>
+<BR><BR>
+
+<H4>
+CFURLEnumerator
+</H4>
+CFURLEnumeratorGetSourceDidChange() is now deprecated.
+<BR>
+<BR>The kCFURLEnumeratorIncludeDirectoriesPreOrder and kCFURLEnumeratorIncludeDirectoriesPostOrder options for recursive directory enumerators were added.<BR>
+<BR><BR>
+
+<H4>
+CFError
+</H4>
+We've added the kCFErrorURLKey and kCFErrorFilePathKey userInfo dictionary keys.
+<BR><BR><BR>
+
+<H4>
+New CFRunLoop API
+</H4>
+There are two new functions to create CFRunLoopObservers and CFRunLoopTimers, respectively, which take a Block to execute, rather than function pointer and context arguments:
+
+<PRE><TT>CFRunLoopObserverRef CFRunLoopObserverCreateWithHandler(CFAllocatorRef allocator, CFOptionFlags activities, Boolean repeats,<BR>                                CFIndex order, void (^block)(CFRunLoopObserverRef observer, CFRunLoopActivity activity))</TT></PRE>
+<PRE><TT>CFRunLoopTimerRef CFRunLoopTimerCreateWithHandler(CFAllocatorRef allocator, CFAbsoluteTime fireDate, CFTimeInterval interval,<BR>                                CFOptionFlags flags, CFIndex order, void (^block)(CFRunLoopTimerRef timer))</TT></PRE>
+
+<BR><BR><BR>
+
+
+            </article>
+</body>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>
+

@@ -1,0 +1,868 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+			"http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+            <meta id="book-resource-type" name="book-resource-type" content="Technical Note">
+            <meta id="book-title" name="book-title" content="Pascal to C:  PROCEDURE Parameters">
+            <meta id="book-root" name="book-root" content="./">
+            <meta id="devcenter" name="devcenter" content="Mac Dev Center">
+            <meta id="devcenter-url" name="devcenter-url" content="http://developer.apple.com/devcenter/mac">
+            <meta id="reflib" name="reflib" content="Documentation Archive">
+            <meta id="book-assignments" name="book-assignments" content="{Type/Technical Note}">
+            <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/DTS10002685">
+            <meta id="document-version" name="document-version" content="1.0.1">
+            <meta id="build" name="build" content="c1e4c7a89af8f899a21cfa81fc33ba42" />
+            <meta id="description" name="description" content="PT31: Nested procedures and PROCEDURE parameters in Pascal when converting them into C or C++.">
+            <meta id="resources-uri" name="resources-uri" content="../../Resources/1282/">
+            <meta id="Generator" name="Generator" content="Gutenberg Static e43202ea08">
+            <meta id="Copyright" name="Copyright" content="Copyright 2018 Apple Inc. All Rights Reserved.">
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <meta id="platforms" name="platforms" content="OS X">
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/screen.css" />
+<link rel="stylesheet" type="text/css" href="../../Resources/1282/CSS/feedback.css" />
+
+
+
+<LINK REL="stylesheet" HREF="../../adcstyle.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+
+<title>Technical Note PT31: Pascal to C:  PROCEDURE Parameters</title>
+                                      
+
+
+<meta name="categories" content="Platforms and Tools">
+
+
+<meta name="week-posted" content="Jan 29, 1990 - Feb 2, 1990">
+
+<LINK REL="stylesheet" HREF="../../css/adcstyle.css" TYPE="text/css"><script language="JavaScript" type="text/javascript" src="../../Resources/1282/JavaScript/adc.js"></script>
+</head>
+
+
+<BODY BGCOLOR="#FFFFFF" id="StaticPage"><a name="//apple_ref/doc/uid/DTS10002685" title="Pascal to C:  PROCEDURE Parameters"></a>
+
+            <div id="adcHeader" class="hideOnPrint hideInXcodeSC">
+                <div id='ssi_Header' class="hideInXcodeSC unified">
+                    <a id="ssi_LibraryTitle" href='../../navigation/'>Documentation Archive</a>
+                    <a id="ssi_AppleDeveloperConnection" href='https://developer.apple.com/'>Developer</a>
+                    <div id='ssi_SearchButton' role="button" title="Search">Search</div>
+                </div>
+                <form id='ssi_SearchMenu' method='get' action='../../search/' accept-charset='utf-8'>
+                    <label for='adcsearch'>Search Documentation Archive</label>
+                    <input type='search' id='ssi_SearchField' name='q' accesskey='s' results='5' />
+                </form>
+            </div>
+            <header id="header">
+                <div id="title" role="banner">
+                    <h1>Pascal to C:  PROCEDURE Parameters</h1>
+                    <span id="file_links">
+                        <a id="PDF_link" role="button" tabindex='4' rel="alternate" title="Download PDF"><span id="pdf_icon"></span>PDF</a>
+                        <a id="Companion_link" role="button" tabindex='3' title="Download Companion File"><span id="companion_icon"></span>Companion File</a>
+                    </span>
+                </div>
+                <ul id="headerButtons" class="hideOnPrint" role="toolbar">
+                    <li id="toc_button" style="display:none">
+                        <button tabindex="5" id="table_of_contents" class="open" role="checkbox" aria-label="Show Table of Contents">
+                        <span class="disclosure"></span>Table of Contents</button>
+                    </li>
+                    <li id="jumpto_button" style="display:none" role="navigation">
+                        <select tabindex="6" id="jumpTo">
+                            <option value="top"><<Jump To&#133;>></option>
+                        </select>
+                    </li>
+                    <li id="downloadSample_button" style="display:none">
+                        <a id="Sample_link"><button id="Sample_button">Download Sample Code</button></a>
+                    </li>
+                </ul>
+            </header>
+            <nav id="tocContainer" class="" tabindex="7">
+                <ul id="toc" role="tree"></ul>
+            </nav>
+            <article id="contents">
+              <div id="technical">
+<a name="top"></a>
+<!-- top_of_header_marker_comment -->
+<!-- begin_header_information --><p><a href="http://developer.apple.com/">ADC Home</a> &gt; <a href="../../referencelibrary/index.html">Reference Library</a> &gt; <a href="../../technicalnotes/index.html">Technical Notes</a> &gt; <a href="../../technicalnotes/Carbon/index.html">Carbon</a> &gt; <a href="../../technicalnotes/Carbon/idxPorting-date.html">Porting</a> &gt; </p><div style="width:100%; position:fixed;"><div align="center" id="watermark" style="position: relative; margin-left:auto; margin-right:auto; z-index:20; width:500px;"><div class="legacybox"><h1>Not Recommended Document<span class=closebutton><a href="javascript:closeWatermark()"><img src="../../Resources/1282/Images/closebutton.png" width="14" height="14" border="0"  alt="close button"></a></span></h1>
+
+<p><strong>Important: </strong>The information in this document is <strong>Not Recommended</strong> and should not be used for new development.</p>
+
+<div class="reflibtopic">
+	<p>Current information on this Reference Library topic can be found here:</p>
+	<ul>
+				<li><a href="http://developer.apple.com/referencelibrary/Carbon/idxPorting-date.html" target="_blank">Carbon > Porting</a></li>
+	</ul>
+</div>
+
+
+
+
+</div></div></div><!-- end_header_information -->
+<!-- bottom_of_header_marker_comment -->
+<!-- top_of_titles_marker_comment --><CENTER><table width="600" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="left" scope="row">
+<h1>
+<div id="pagehead">Technical Note PT31</div>
+<div id="pageheadsub">Pascal to C:  PROCEDURE Parameters</div>
+</h1>
+</td></tr></table></CENTER><!-- bottom_of_titles_marker_comment -->
+
+<CENTER><table BORDER=0 CELLSPACING=1 WIDTH=600><TR><td align="left">
+<!-- begin_header_box -->
+<table width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td width=300 valign="top" align=left scope="row">
+            <table border="0" width="300" cellpadding="0" cellspacing="0">
+			<tr>            
+            <td width=300 align=left> <img src="images/tnmenutop.gif" alt="" align="bottom" width=300 height=7></td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+                 
+                        <span id="menutitle">
+                            CONTENTS 
+                            <br>
+                            <br>
+                        </span>
+                    </td>
+                </tr>
+                <tr bgcolor="#e6e6e6">
+                    <td background="images/tnmenubody.gif" width=300 align=left>
+					<!-- begin_toc -->
+					
+					<p id="menutext">
+<a href="#Section1">Introduction</a><BR><BR>
+<a href="#Section2">How Pascal Implements Nested Procedures</a><BR><BR>
+<a href="#Section3">How Pascal Implements PROCEDURE Parameters</a><BR><BR>
+<a href="#Section4">Pascal to C++ to Pascal</a><BR><BR>
+<a href="#Section5">C++ to Pascal to C++</a><BR><BR>
+
+<a href="#References">References</a><BR><BR>
+<a href="#Downloads">Downloadables</a></P>
+                   <!-- end_toc --> 
+                 </td>
+                </tr>
+                <tr>
+                    <td width=300 align=left scope="row">
+                        <img src="images/tnmenubottom.gif" alt="" width=300 height=16>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width=300 valign="top" align=left>
+<!-- begin_intro_text -->
+<p id="introtext">This Technical Note talks about nested procedures and <code>PROCEDURE</code>
+parameters in Pascal and what to do when converting them into C or C++.</p>
+
+<!-- end_intro_text -->
+<!-- begin_date -->
+<h3 align=center>[Feb 01 1990]</h3>
+<!-- end_date -->
+                </TD>
+             </TR>
+          </table>
+          <!-- end_table_box -->
+ <BR><BR>
+          <hr width=500 align=center>
+          <BR><BR>
+
+          <!-- begin_content -->
+<a name=Section1></a>
+ <h2>Introduction</h2>
+
+
+<p>
+Pascal and C offer many of the same features, but there are some differences.
+These differences make converting between languages or calling libraries
+written in one language from the other difficult sometimes.  Two closely
+associated features of Pascal that C does not offer are nested procedures and
+<code>PROCEDURE</code> parameters.  Since these two features are commonly used when
+programming with MacApp, the problem of implementing them in C++ is a common
+one.</p>
+
+<a name="Section2"></a><P><a href="#top">Back to top</a></p><h2>
+How Pascal Implements Nested Procedures</h2>
+<p>
+Pascal lets programmers nest procedures within each other.  Doing so allows one
+to limit the scope of local variables, as well as allow multiple procedures
+access to the same set of dynamically created variables.</p>
+<p>
+Let's take a look at the following bit o' code:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+  PROCEDURE CallBack;
+    { Outer level procedure }
+
+    BEGIN
+    END;
+
+  PROCEDURE CallingProcedure;
+    { Outer level procedure }
+
+    VAR
+      aVar: integer;
+
+    PROCEDURE NestedCallBack;
+        { Nested procedure - can access &quot;aVar&quot; }
+
+      VAR
+        anotherVar: integer;
+
+      BEGIN {NestedCallBack }
+        aVar := 1;
+        anotherVar := 2;
+      END; {NestedCallBack }
+
+    BEGIN {CallingProcedure }
+      CallBack;
+      NestedCallBack;
+</pre>
+	</TD>
+</TR>
+</table></CENTER><p>
+This code shows three Pascal procedures:  <code>CallingProcedure</code>,
+<code>CallBack</code>, and <code>NestedCallBack</code>.  <code>NestedCallBack</code> is the
+nested procedure, which means that it can access the local variables of the
+procedure it is nested within, namely, <code>CallingProcedure</code>.</p>
+<p>
+The method used to allow <code>NestedCallBack</code> to access its host procedure's
+local variables is not so obvious and involves a little hack.  As you may know,
+local variables are created on the stack when a procedure is entered, and the
+680x0 register <code>A6</code> is initialized to point to them.  Fine, but this
+leads to a little conflict within <code>NestedCallBack</code>.  It needs to use
+<code>A6</code> to point to its own local variables (e.g., <code>anotherVar</code>), so
+how does it access its host procedure's local variables?</p>
+<p>
+The answer, logically enough, is that it uses another register for this
+purpose.  When <code>NestedCallBack</code> is called from its host procedure, the
+host's <code>A6</code> is pushed onto the stack after any and all formal parameters
+have been pushed on, but before the <code>JSR</code> is performed (this extra
+parameter is often referred to as the "static link").  As
+<code>NestedCallBack</code> is being entered, you have a stack similar to that in
+Figure 1.  By comparison, Figure 2 shows what the stack would look like if you
+made a normal call to a procedure on the outer level, such as the procedure
+shown above named <code>CallBack</code>.</p>
+
+<P align=center><img src="images/pt_31_001.gif" alt="Figure 1. Call to NestedCallBack &amp; Figure 2-Call to CallBack." width=384 height=138></P>
+
+<P align=center><b>Figure 1</b>.  Call to NestedCallBack</p>
+
+<P align=center><b>Figure 2</b>.Call to CallBack</p>
+<p>
+Each procedure knows at compile time whether it is nested or not and adjusts
+itself accordingly.  If it turns out that a procedure is nested, then it is
+compiled as if you had declared an extra parameter at the end of the formal
+parameter list, one that held the value of the host's <code>A6</code>.  Pascal then
+uses this parameter for fetching the local variables of the nested procedure's
+host.  It pulls this parameter off of the stack just like any other parameter,
+sticks it into a handy register, and uses it as a base address to the host's
+local variables, just as it uses <code>A6</code> as the base address to its own
+locals.</p>
+
+<a name="Section3"></a>
+ <P><a href="#top">Back to top</a></p><h2>
+How Pascal Implements PROCEDURE Parameters</h2>
+<p>
+As seen in the previous section, nested procedures require a little help to get
+themselves up and running.  Specifically, they need an extra parameter called a
+static link.  You've seen one way in which Pascal provides support for this
+parameter.  In this section, you see another important case.</p>
+<p>
+There are many Toolbox routines that require a pointer to a procedure being
+passed to them as a parameter.  These procedures are called "callback"
+procedures, because the Toolbox makes a call back to those procedures to
+perform some application-specific function.  An example of this type of routine
+would be the Control Manager routine <code>_TrackControl</code>, which requires a
+callback procedure called <code>actionProc</code>.</p>
+<p>
+By now, you should see why you cannot pass the address of a nested procedure to
+such a Toolbox routine.  Nested procedures require that they be passed the
+static link parameter so that they can access their host variables.  The
+Toolbox doesn't support this convention, so it cannot pass the required static
+link to the nested routine.</p>
+<p>
+While the Toolbox doesn't support the nested procedure convention, Pascal
+itself does support a method whereby you can pass around all the information
+necessary to implement a callback procedure as a nested procedure.
+Syntactically, this is done by including a full procedure heading in the list
+of formal parameters a procedure takes.  An example of such could look like the
+following:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>  PROCEDURE SomeProcedure(
+        PROCEDURE CallBackProc(i:integer);
+        iterForward: BOOLEAN);
+    BEGIN
+      ...
+      CallBackProc(5);
+      ...
+</pre>
+	</TD>
+</TR>
+</table></CENTER><p><code>
+SomeProcedure</code> takes two parameters.  The first is a <code>PROCEDURE</code>
+parameter that refers to a routine that takes a parameter itself, namely, a
+single integer.  In addition, <code>SomeProcedure</code> takes a <code>BOOLEAN</code>
+called <code>iterForward</code> as a second parameter.  You would call
+<code>SomeProcedure</code> with something like the following:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>  PROCEDURE MyCallingProcedure;
+
+    PROCEDURE MyCallBackProcedure(i: integer);
+
+      BEGIN { of MyCallBackProcedure }
+        &lt; mumble &gt;;
+      END;
+
+    BEGIN { of MyCallingProcedure }
+      SomeProcedure(MyCallBackProcedure, TRUE);
+</pre>
+	</TD>
+</TR>
+</table></CENTER><p>
+Through the use of the <code>PROCEDURE</code> parameter, you can invoke the
+callback procedure using a natural Pascal syntax.  In the
+<code>SomeProcedure</code> example, the statement <code>CallBackProc(5)</code> causes
+<code>MyCallBackProcedure</code> to be called with a value of five.  Not only can
+you just invoke the procedure by entering the name of the <code>PROCEDURE</code>
+variable, but you can pass parameters to it with full Pascal typechecking
+invoked.  In this case, Pascal ensures that when you call
+<code>CallBackProc</code>, you also pass a single integer to it.</p>
+<p><code>
+PROCEDURE</code> parameters also give the support for nested procedures for which
+you are looking.  When a <code>PROCEDURE</code> parameter is passed on the stack,
+two components are used to represent it.  The first is a pointer to the actual
+procedure.  The second is the static link.  Therefore, you can think of a
+<code>PROCEDURE</code> parameter as being represented by the following record:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>  TYPE
+    ProcedureParameter = RECORD
+      procPtr: Ptr;
+      staticLink: Ptr;
+</pre>
+	</TD>
+</TR>
+</table></CENTER><p>
+When you pass a <code>PROCEDURE</code> parameter to a destination procedure, both
+of these components are pushed onto the stack as <code>LONG</code> values (four
+bytes each).  When it comes time for the destination procedure to invoke the
+callback, any necessary parameters for the callback are placed onto the stack,
+followed by the <code>staticLink</code> value.  Then the routine specified by
+<code>procPtr</code> is called.</p>
+<p>
+The step where the destination procedure pushes the static link onto the stack
+is important and should be examined more closely.  Specifically, how do you
+know that a static link parameter is necessary at this point?  After all,
+<code>SomeProcedure</code> simply declares that it takes a <code>PROCEDURE</code> as a
+parameter; it doesn't differentiate between nested and non-nested procedures.
+But, as you saw in the first section, these two kinds of procedures are called
+differently.  How do you know if the the static link passed to you needs to be
+pushed onto the stack for the callback procedure?</p>
+<p>
+The answer is that <code>SomeProcedure</code> receives a special value for the
+static link parameter for non-nested procedures.  If the callback procedure is
+at the outer level, <code>SomeProcedure</code> receives <code>NIL</code> for the value
+of the static link.  When Pascal compiles the commands that invoke
+<code>PROCEDURE</code> parameters, it generates code that checks the static link.
+If it is <code>NIL</code>, it doesn't push it onto the stack.  If it is not
+<code>NIL</code>, then you are calling a nested procedure, and must push the static
+link onto the stack.</p>
+<p>
+So, how do you utilize nested procedures and <code>PROCEDURE</code> parameters in C
+or C++?  Obviously, you cannot--at least not directly.  C and C++ don't support
+them.  At this point, you might as well just give up and use Pascal; you always
+said C++ was highly overrated anyway.</p>
+<p>
+There are two scenarios to examine:</p>
+
+<ul type="disc">
+	<li>A Pascal routine calls your C++ routine, passing a <code>PROCEDURE</code> parameter to another Pascal routine you have to call.</li>
+
+	<li>Your C++ routine calls a Pascal routine expecting a <code>PROCEDURE</code> parameter, which you have implemented in C++.</li>
+</ul>
+
+
+<p>
+The rest of the Note looks at both of these cases.</p>
+
+ <P><a href="#top">Back to top</a></p>
+ <a name="Section4"></a><h2>
+Pascal to C++ to Pascal</h2>
+<p>
+MacApp supports an object inspector, which it implements by calling a
+<code>Fields</code> method common to all descendants of <code>TObject</code>.  Each
+class you define should override this method so that MacApp can find out about
+your class's fields.  Such a method definition would look like the following:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+  PROCEDURE TJustCommand.Fields(
+        PROCEDURE DoToField(fieldName: Str255;
+                            fieldAddr: Ptr;
+                            fieldType: INTEGER)); OVERRIDE;
+
+  BEGIN
+    DoToField('TJustCommand', NIL, bClass);
+    DoToField('fTEView', @fTEView, bObject);
+    DoToField('fOldJust', @fOldJust, bInteger);
+    DoToField('fNewJust', @fNewJust, bInteger);
+    INHERITED Fields(DoToField);
+</pre>
+	</TD>
+</TR>
+</table></CENTER><p>
+You tell it the name of your class so that whatever routine is calling you
+(usually MacApp's inspector or debugger) can identify the class it is
+inspecting.  Then, for each field in your class, you call the procedure passed
+to you, giving it the three parameters it needs.  Finally, you call your
+superclass' <code>Fields</code> method so that it can identify its name and
+fields.</p>
+<p>
+When your <code>Fields</code> method is called, the <code>DoToField</code> parameter
+appears on the stack as a pointer to the procedure you are supposed to call, as
+well as the static link value it needs.  When you actually call
+<code>DoToField</code>, the necessary parameters are first pushed onto the stack
+(i.e., <code>fieldName</code>, <code>fieldAddr</code>, and <code>fieldType</code>).  Pascal
+then adds some code that makes a determination based on the value of the static
+link parameter.  If it is non-zero, then you are calling a nested procedure and
+need to pass back the static link back on the stack.  If static link is zero,
+then you are not calling a nested procedure and don't need to pass that static
+link back.</p>
+<p>
+Pascal handles all of this for you transparently.  This ease in Pascal makes
+the process of writing a similar routine in C or C++ that much more difficult,
+as that process has been hidden from us.</p>
+<p>
+There is no way in C or C++ to pass a variable number of parameters in one
+statement.  In other words, you <b>cannot</b> do something like the
+following:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+DoToField(&quot;\pTJustCommand&quot;, nil, bClass,
+        StaticLink ? StaticLink : void); /* No Workie */
+</pre>
+	</TD>
+</TR>
+</table></CENTER><p>
+That would be too easy.  Instead, you must use some inline glue that prepares
+the stack for you.  This inline procedure accepts the three parameters you see
+in the Pascal version, as well as both components of the <code>PROCEDURE</code>
+parameter (i.e., the procedure pointer and static link).  The glue looks at the
+static link value and removes it from the stack if it is zero and, thus, not
+needed.</p>
+<p>
+One solution is as follows:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+typedef pascal void (*FieldProcPtr) (
+        StringPtr fieldName, Ptr fieldAddr,
+        short fieldType, void *DoToField_StaticLink);
+
+pascal void CallDoToField(StringPtr, Ptr, short, void *, FieldProcPtr)
+  = {
+    0x205F,    // MOVEA.L    (A7)+,A0    ; get the DoToField pointer
+    0x4A97,    // TST.L      (A7)        ; check the StaticLink
+    0x6602,    // BNE.S      *+$0004     ; if non-zero, keep it in
+    0x588F,    // ADDQ.L     #$4,A7      ; if zero, pull it off
+    0x4E90     // JSR        (A0)        ; Call DoToField
+    };
+
+pascal void TJustCommand::Fields(
+        FieldProcPtr DoToField,
+        void *DoToField_StaticLink) {
+  CallDoToField(&quot;\pTJustCommand&quot;, NULL, bClass,
+                DoToField_StaticLink, DoToField);
+  CallDoToField(&quot;\pfTEView&quot;, (Ptr) &amp;fTEView, bObject,
+                DoToField_StaticLink, DoToField);
+  CallDoToField(&quot;\pfOldJust&quot;, (Ptr) &amp;fOldJust, bInteger,
+                DoToField_StaticLink, DoToField);
+  CallDoToField(&quot;\pfNewJust&quot;, (Ptr) &amp;fNewJust, bInteger,
+                DoToField_StaticLink, DoToField);
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+ <P><a href="#top">Back to top</a></p>
+ <a name="Section5"></a><h2>
+C++ to Pascal to C++</h2>
+<p>
+Now look at another case that occurs often in MacApp.  This is where your C++
+routine calls a MacApp procedure that needs a <code>PROCEDURE</code> reference back
+to one of your own routines.  For instance, MacApp has a class called
+<code>TList</code> that allows you to maintain a list of objects.  This class has a
+method called <code>Each</code> that allows you to perform some operation on each
+object in the list.  MacApp takes care of iterating over all of the objects and
+calls a routine you pass to it for each one.</p>
+<p>
+For this example, you have a list of objects stored in a <code>TList</code> and you
+want to pass the <code>Graze</code> message to all of them.  At the same time, you
+want to keep track of how many grazed so much that they fell off a cliff during
+the process.  If the number of objects grazing off a cliff is greater than some
+threshold, then you call <code>_SysBeep</code>.  You could use the following
+procedures to accomplish this in Object Pascal:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>  VAR
+    myList: TList;
+
+  PROCEDURE TMyApplication.GrazeAll;
+
+    VAR
+      offTheCliff: integer;
+
+    PROCEDURE DoGraze(theObject: TObject);
+
+      BEGIN
+        TGrazer(theObject).Graze;
+        IF TGrazer(theObject).GrazedOffTheCliff THEN
+          offTheCliff := offThecliff + 1;
+        IF offTheCliff &gt; SELF.fCliffThreshhold THEN
+          ApplicationBeep;
+      END;
+
+    BEGIN
+      offTheCliff := 0;
+      myGrazerList.Each(DoGraze);
+</pre>
+	</TD>
+</TR>
+</table></CENTER><p>
+You use a nested procedure so that <code>DoGraze</code> can access the local
+variable <code>offTheCliff</code>.  This allows you to use a variable that has
+limited scope and that is created dynamically so that you don't have to
+allocate a global variable.  Also, since <code>DoGraze</code> is embedded within a
+<code>TMyApplication</code> method, you have access to the <code>this</code> symbol
+(<code>this</code> is the equivalent to <code>SELF</code> in Object Pascal).</p>
+<p>
+Therefore, the problem for C++ programmers here is that there is no implicit
+support for getting access to local variables, such as <code>offTheCliff</code>, as
+well as the reference to the correct object through <code>this</code>.  So what's
+the alternative for C++ programmers in a case like this?</p>
+<p>
+First, let's take a quick look at how the <code>Each</code> method is declared:</p>
+
+<h3>Object Pascal</h3>
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>
+TList = OBJECT (TDynamicArray)
+  ...
+  PROCEDURE TList.Each(PROCEDURE DoToItem(item: TObject));
+  ...
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<h3>C++</h3>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>class TList : public TDynamicArray {
+  public:
+  ...
+  virtual pascal void Each(pascal void (*DoToItem)(
+                TObject *item,
+                void *DoToItem_StaticLink),
+                void *DoToItem_StaticLink);
+  ...
+</pre>
+	</TD>
+</TR>
+</table></CENTER><p>
+As you can see, the two components of the <code>PROCEDURE</code> parameter have to
+be declared explicitly in C++.  Because of this, you can come up with four
+different solutions to the problem, and all of them hinge on being creative
+with what you pass for the static link parameter.</p>
+
+<ol type="1" start="1">
+	<li>Case:  You need access to <code>this</code>, but don't need to access any local variables.  Pass <code>this</code> in <code>DoToItem_StaticLink</code> directly.</li>
+
+	<li>Case:  You need access to a single local variable, but not <code>SELF</code>. Pass the reference to that local variable in <code>DoToItem_StaticLink</code>.</li>
+
+	<li>Case:  You need access to multiple amounts of information, including more than one local variable and <code>this</code>.  Pass a pointer to a <code>struct</code> that contains this information.</li>
+
+	<li>Case:  You don't need access to anything from the host procedure (including local variables and <code>this</code>).  Pass a <code>NIL</code> for the static link.</li>
+</ol>
+
+
+<p>
+Now to look at each of these in more depth.</p>
+
+<h3>Pass <code>this</code> in DoToItem_StaticLink Directly</h3>
+<p>
+This is the approach where you would pass <code>this</code> as the
+<code>DoToItem_StaticLink</code> value.  You would want to do this if you needed to
+access your object, but didn't need to access any local variables.  Here's what
+some C++ code would look like using this method.  You pass <code>this</code> as the
+static link parameter and convert it back into an object reference in your
+callback procedure.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>pascal void DoGraze(TObject* item, void* staticLink) {
+    TMyApplication *self;
+
+    self = (TMyApplication *) staticLink;
+    self-&gt;DoSomethingElse();
+    ((TGrazer *)item)-&gt;Graze();
+}
+
+pascal void TMyApplication::GrazeAll() {
+
+    myGrazerList-&gt;Each(DoGraze, this);
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<h3>Pass the Reference to a Single Local Variable in DoToItem_StaticLink</h3>
+<p>
+You would use this method if all you had to do was access a local variable of
+your host procedure.  Getting to your local variable is now just a matter of
+dereferencing the <code>staticLink</code> parameter.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>pascal void CountGrazers(TObject* item, void* staticLink) {
+    int *grazerCountPtr = (int *) staticLink;
+
+    ++(*grazerCountPtr);
+}
+
+pascal void TMyApplication::GrazeAll() {
+    int grazerCount = 0;
+
+    myGrazerList-&gt;Each(CountGrazers, &amp;grazerCount);
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<h3>Pass a Pointer to a struct in DoToItem_StaticLink</h3>
+<p>
+If you need to pass multiple amounts of information, such as more than one
+local variable, possibly including a reference to <code>this</code>, you can do so
+with a <code>struct</code>.  This <code>struct</code> would hold all the local
+variables you need to pass to the callback routine.  You would declare an
+instance of this <code>struct</code> in your local parameter list and pass a
+pointer to it as the static link.  In your callback procedure, you would coerce
+the <code>staticLink</code> variable back into a <code>Pointer</code> to this
+<code>struct</code>, and then get all the information you need.</p>
+<p>
+An example of this could look as follows:</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>typedef struct {
+    int offTheCliff;
+    TMyApplication *self;
+} localVars;
+
+pascal void DoGraze(TObject* item, void* staticLink) {
+    localVars *hostLocals = (localVars *) staticLink;
+
+    ((TGrazer *)item)-&gt;Graze();
+    if ((TGrazer *)item-&gt;GrazedOffTheCliff()) {
+        ++(hostLocals-&gt;offTheCliff);
+    }
+    if (hostLocals-&gt;offTheCliff &gt;
+            hostLocals-&gt;self-&gt;fCliffThreshhold) {
+        ApplicationBeep();
+    }
+}
+
+pascal void TMyApplication::GrazeAll() {
+    localVars myLocals;
+
+    myLocals.self = this;
+    myLocals.offTheCliff = 0;
+    myGrazerList-&gt;Each(DoGraze, &amp;myLocals);
+</pre>
+	</TD>
+</TR>
+</table></CENTER>
+<h3>Pass a Zero for the Static Link</h3>
+<p>
+You would do this in situations where you can get by with the formal parameters
+that are given to you and don't need to access any of your host's local
+variables or the object reference.  Since passing a zero means "don't push a
+static link onto the stack" in this convention, you have to adjust the
+parameter list of your callback <code>DoGraze</code> accordingly.</p>
+
+<CENTER><table BORDER=0 CELLPADDING=5 WIDTH=550>
+<TR>
+	<td bgcolor="#E6E6E6" align=left>
+<pre>typedef pascal void (* EachProcType)(TObject *, void *);
+
+pascal void DoGraze(TObject* item) {
+    ((TGrazer *)item)-&gt;Graze();
+}
+
+pascal void TMyApplication::GrazeAll() {
+    myGrazerList-&gt;Each((EachProcType)DoGraze, nil);
+</pre>
+	</TD>
+</TR>
+</table></CENTER><p>
+Which of these methods you use is up to you.</p>
+<a name="References"></a> <P><a href="#top">Back to top</a></p><h2>References</h2>
+
+<P>   <i>MPW 3.0 Pascal Reference</i>, Chapter 8, pp. 145-147</p>
+<P>   Your dentist, twice a year</p>
+
+
+
+         <a name=Downloads></a>
+         
+         <P><a href="#top">Back to top</a></p> <h2>Downloadables</H2>
+         
+         <table BORDER=0 CELLPADDING=3 WIDTH="100%">
+            <TR>
+               <td width=50 align=left>
+                  <P ALIGN=center><img src="images/acrobatsmall.gif" width=22 height=23 align=middle alt="Acrobat gif"></P>
+               </TD>
+               <td align="left">
+                  <P>Acrobat version of this Note (K).</P>
+               </TD>
+               <td width=60 align=left>
+                  <P><a href="pdf/pt_31.pdf">Download</a></P>
+               </TD>
+            </TR>
+           
+         </table>
+         <BR>
+</TD></TR></table></center>
+
+<!-- begin_footer_information --><div id="blackout">
+    <div id="preload"></div>
+</div>
+<div id="modal" aria-hidden="true">
+    <div id="closebox" tabindex="0" aria-label="Close feedback form" role="button"></div>
+    <div id="sending" class="hidden">
+        <h2 tabindex="0">Sending feedback&hellip;</h2>
+        <div id="sending_img"></div>
+    </div>
+    <div id="error" class="hidden">
+        <h2 tabindex="0">We&rsquo;re sorry, an error has occurred.</h2>
+        <p>Please try submitting your feedback later.</p>
+        <div id="error_icon"></div>
+    </div>
+    <div id="success" class="hidden">
+        <h2 tabindex="0">Thank you for providing feedback!</h2>
+        <p>Your input helps improve our developer documentation.</p>
+        <div id="thank_you_icon"></div>
+    </div>
+    
+    <form id="feedback" action="#" method="post">
+        <div class="left-leaf">
+            <h2 id="helpful_title" data-asterisk="a1" tabindex="0">How helpful is this document?</h2>     
+            <sup id="a1" class="asterisk" aria-hidden="true">*</sup>
+
+            <div id="star_group" role="radiogroup" aria-required="true">
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="1" /> 
+                    Very helpful
+                </label>
+                <label> 
+                    <input class="radio" type="radio" name="helped" value="2" /> 
+                    Somewhat helpful
+                </label>
+                <label>
+                    <input class="radio" type="radio" name="helped" value="3" /> 
+                    Not helpful
+                </label>
+            </div>
+        </div>
+        <div class="right-leaf">
+            <h2>How can we improve this document?</h2>
+            <div id="improve" class="checkboxes">
+                <label>
+                    <input type="checkbox" name="typo" /> 
+                    Fix typos or links
+                </label>
+                <label>
+                    <input type="checkbox" name="infoIncorrect" /> 
+                    Fix incorrect information
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_examples" /> 
+                    Add or update code samples
+                </label>
+                <label>
+                    <input type="checkbox" name="needs_art" /> 
+                    Add or update illustrations
+                </label>
+                <label>
+                    <input type="checkbox" name="missingInfo" /> 
+                    Add information about...
+                </label>
+            </div>
+        </div>
+
+        <textarea id="comment" name="problem" cols="70" rows="8" placeholder="Please tell us more about your experience with this document" data-asterisk="a2" required></textarea>
+        <sup id="a2" class="asterisk" aria-hidden="true">*</sup>
+
+        <p class="fineprint">
+            <em aria-hidden="true"><span>*</span> Required information</em>
+        </p> 
+
+        <input id="submit" type="button" value="Send" />
+
+        <section id="legal">
+            <p>
+                To submit a product bug or enhancement request, please visit the 
+                <a href="https://developer.apple.com/bugreporter/" target="_blank">Bug Reporter</a> 
+                page.
+            </p>
+            <p>
+                Please read <a href="http://www.apple.com/legal/policies/ideas.html" target="_blank">Apple's Unsolicited Idea Submission Policy</a> 
+                before you send us your feedback.
+            </p> 
+        </section>
+    </form>
+</div>
+<div id="globalfooter" class="hideInXcode hideOnPrint">
+	<div class="gf-sosumi">
+	    <p>Copyright &copy; 2016 Apple Inc. All rights reserved.</p>
+	    <ul class="piped">
+		    <li><a href="http://www.apple.com/legal/internet-services/terms/site.html" class="first" target="_blank">Terms of Use</a></li>
+		    <li><a href="http://www.apple.com/privacy/" target="_blank">Privacy Policy</a></li>
+	    </ul>
+	</div>
+</div><!--/globalfooter-->
+<!-- end_footer_information -->
+
+
+</div>
+            </article>
+</body>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/lib/prototype.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/library.js"></script>
+<script type="text/javascript" src="../../Resources/1282/JavaScript/feedback.js"></script>
+
+
+</HTML>
